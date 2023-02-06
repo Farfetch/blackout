@@ -1,7 +1,12 @@
 import type { BlackoutError, Order } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { Nullable, StateWithoutResult } from '../../types';
-import type { OrderEntity, OrdersNormalized } from '../../entities';
+import type { HashedFetchUserOrdersQuery } from '../actions/factories/helpers/generateUserOrdersRequestHash';
+import type {
+  Nullable,
+  StateWithoutResult,
+  StateWithResultArray,
+} from '../../types';
+import type { OrderSummariesNormalized } from '../../entities';
 
 export type OrderDetailsState = {
   error: Record<Order['id'], BlackoutError | null>;
@@ -9,14 +14,17 @@ export type OrderDetailsState = {
 };
 
 export type OrdersState = CombinedState<{
-  error: BlackoutError | null;
-  isLoading: boolean;
-  result: Nullable<OrdersNormalized | Array<OrderEntity['id']>>;
-  orderDetails: OrderDetailsState;
-  orderReturns: OrderDetailsState;
-  orderReturnOptions: OrderDetailsState;
-  trackings: StateWithoutResult;
   documents: StateWithoutResult;
+  error: Record<HashedFetchUserOrdersQuery, Nullable<BlackoutError>>;
+  guestOrders: StateWithResultArray<Order['id']>;
+  isLoading: Record<HashedFetchUserOrdersQuery, boolean>;
   orderAvailableItemsActivities: StateWithoutResult;
+  orderDetails: OrderDetailsState;
   orderItemAvailableActivities: StateWithoutResult;
+  orderReturnOptions: OrderDetailsState;
+  orderReturns: OrderDetailsState;
+  result: Nullable<
+    Record<HashedFetchUserOrdersQuery, OrderSummariesNormalized>
+  >;
+  trackings: StateWithoutResult;
 }>;

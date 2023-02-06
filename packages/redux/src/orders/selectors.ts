@@ -4,6 +4,7 @@ import { getCategories } from '../categories';
 import {
   getDocuments,
   getError,
+  getGuestOrders,
   getIsLoading,
   getOrderAvailableItemsActivities,
   getOrderDetails,
@@ -15,22 +16,26 @@ import {
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors';
 import { getMerchants } from '../products';
-import { getReturnsEntities } from '../returns';
+import { getUser } from '../users/selectors';
+import generateUserOrdersRequestHash from './actions/factories/helpers/generateUserOrdersRequestHash';
 import get from 'lodash/get';
-import type { Brand, Order, OrderItem } from '@farfetch/blackout-client';
+import type {
+  Brand,
+  GetUserOrdersQuery,
+  Order,
+  OrderItem,
+} from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
   CourierEntity,
   MerchantEntity,
-  MerchantOrderDenormalized,
   OrderEntity,
   OrderEntityDenormalized,
   OrderItemEntity,
   OrderItemEntityDenormalized,
-  OrdersDenormalized,
-  ReturnEntity,
-  ReturnOptionEntity,
-  ReturnOptionEntityDenormalized,
+  OrderSummariesDenormalized,
+  OrderSummaryDenormalized,
+  OrderSummaryEntity,
 } from '../entities/types';
 import type { OrdersState } from './types';
 import type { StoreState } from '../types';
@@ -42,27 +47,144 @@ import type { StoreState } from '../types';
  *
  * @returns Loading.
  */
-export const areOrdersLoading = (state: StoreState) =>
-  getIsLoading(state.orders as OrdersState);
+export const areUserOrdersLoading = (
+  state: StoreState,
+  query?: GetUserOrdersQuery,
+) => {
+  const userId = getUser(state)?.id;
+
+  if (!userId) {
+    return;
+  }
+
+  const hashedQuery = generateUserOrdersRequestHash(userId, query);
+  const loaders = getIsLoading(state.orders as OrdersState);
+
+  return loaders[hashedQuery];
+};
 
 /**
- * Returns the error for the orders area actions.
+ * Returns the error for the user orders area.
  *
  * @param state - Application state.
  *
  * @returns Orders error.
  */
-export const getOrdersError = (state: StoreState) =>
-  getError(state.orders as OrdersState);
+export const getUserOrdersError = (
+  state: StoreState,
+  query?: GetUserOrdersQuery,
+) => {
+  const userId = getUser(state)?.id;
+
+  if (!userId) {
+    return;
+  }
+
+  const hashedQuery = generateUserOrdersRequestHash(userId, query);
+  const errors = getError(state.orders as OrdersState);
+
+  return errors[hashedQuery];
+};
 
 /**
- * Returns all the order entities in the application state.
+ * Returns all the order items in the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns Object with all order items with its orderItemId as the key.
+ */
+export const getOrderItems = (state: StoreState) =>
+  getEntities(state, 'orderItems');
+
+/**
+ * Returns all the order entities in the application state denormalized.
  *
  * @param state - Application state.
  *
  * @returns Object with orders with its orderId as the key.
  */
-export const getOrders = (state: StoreState) => getEntities(state, 'orders');
+export const getAllOrders: (
+  state: StoreState,
+) => Record<OrderEntityDenormalized['id'], OrderEntityDenormalized> =
+  createSelector(
+    [
+      (state: StoreState) => getEntities(state, 'orders'),
+      getOrderItems,
+      getMerchants,
+      getCategories,
+      getBrands,
+    ],
+    (ordersEntities, orderItems, merchants, categories, brands) => {
+      const result: Record<
+        OrderEntityDenormalized['id'],
+        OrderEntityDenormalized
+      > = {};
+
+      for (const orderId in ordersEntities) {
+        const denormalizedOrder = denormalizeOrder(
+          orderId,
+          ordersEntities,
+          orderItems,
+          merchants,
+          categories,
+          brands,
+        );
+
+        if (!!denormalizedOrder) {
+          result[orderId] = denormalizedOrder;
+        }
+      }
+
+      return result;
+    },
+  );
+
+/**
+ * Returns all the user order summaries entities in the application state.
+ *
+ * @param state - Application state.
+ *
+ * @returns Object with order summaries with its merchantOrderCode as the key.
+ */
+export const getAllUserOrders: (
+  state: StoreState,
+) => Record<OrderSummaryEntity['merchantOrderCode'], OrderSummaryDenormalized> =
+  createSelector(
+    [(state: StoreState) => getEntities(state, 'orderSummaries'), getMerchants],
+    (orderSummariesEntities, merchants) => {
+      const result: Record<
+        OrderSummaryEntity['merchantOrderCode'],
+        OrderSummaryDenormalized
+      > = {};
+
+      for (const merchantOrderCode in orderSummariesEntities) {
+        const denormalizedOrderSummary = denormalizeOrderSummary(
+          merchantOrderCode,
+          orderSummariesEntities,
+          merchants,
+        );
+
+        if (!!denormalizedOrderSummary) {
+          result[merchantOrderCode] = denormalizedOrderSummary;
+        }
+      }
+
+      return result;
+    },
+  );
+
+/**
+ * Returns a specific user order summary identified by its merchant order code.
+ *
+ * @param state       - Application state.
+ * @param merchantOrderCode - Merchant order code.
+ *
+ * @returns Order item object.
+ */
+export const getUserOrder = (
+  state: StoreState,
+  merchantOrderCode: OrderSummaryEntity['merchantOrderCode'],
+) => getEntityById(state, 'orderSummaries', merchantOrderCode);
 
 /**
  * Returns if the orders are fetched, i.e., there was a request
@@ -74,14 +196,27 @@ export const getOrders = (state: StoreState) => getEntities(state, 'orders');
  * @returns True if there is either an error or order
  *          result and it is not loading, false otherwise.
  */
-export const areOrdersFetched = (state: StoreState) => {
-  return (
-    // We use the getResult here instead of the getOrdersResult selector
-    // because we do not need the denormalized order here that that selector
-    // would return.
-    (!!getResult(state.orders as OrdersState) || !!getOrdersError(state)) &&
-    !areOrdersLoading(state)
-  );
+export const areUserOrdersFetched = (
+  state: StoreState,
+  query?: GetUserOrdersQuery,
+) => {
+  const userId = getUser(state)?.id;
+
+  if (!userId) {
+    return;
+  }
+
+  const hashedQuery = generateUserOrdersRequestHash(userId, query);
+
+  // We use the getResult here instead of the getOrdersResult selector
+  // because we do not need the denormalized order here that that selector
+  // would return.
+  const result =
+    (!!getResult(state.orders as OrdersState)?.[hashedQuery] ||
+      !!getUserOrdersError(state, query)) &&
+    !areUserOrdersLoading(state, query);
+
+  return result;
 };
 
 /**
@@ -98,66 +233,6 @@ export const getShipmentTrackingLabel = (
 ) => getEntityById(state, 'labelTracking', trackingNumber);
 
 /**
- * Retrieves pagination information of the user orders.
- *
- * @example
- * ```
- * import { getOrdersPagination } from '@farfetch/blackout-client';
- *
- * const mapStateToProps = (state: StoreState) => ({
- *     pagination: getOrdersPagination(state)
- * });
- *
- * ```
- * @example
- * ```
- * // Object returned for the orders
- * {
- *     number: 1, // Current page
- *     totalItems: 89, // Total of orders
- *     totalPages: 5 // Total of pages
- * };
- *
- * ```
- *
- * @param state - Application state.
- *
- * @returns Pagination object.
- */
-export const getOrdersPagination: (state: StoreState) =>
-  | {
-      number: number;
-      totalItems: number;
-      totalPages: number;
-    }
-  | undefined = createSelector(
-  [(state: StoreState) => getResult(state.orders as OrdersState)],
-  result => {
-    if (!result) {
-      return;
-    }
-
-    // In case result is the response from the fetch guest orders
-    // which does not provide a paginated response yet instead returning
-    // all orders, we return a pagination wrapper of the result containing
-    // only one 1 page with all returned items.
-    if (Array.isArray(result)) {
-      return {
-        number: 1,
-        totalItems: result.length,
-        totalPages: 1,
-      };
-    }
-
-    return {
-      number: get(result, 'number'),
-      totalItems: get(result, 'totalItems'),
-      totalPages: get(result, 'totalPages'),
-    };
-  },
-);
-
-/**
  * Returns a courier with its name and id.
  *
  * @param state     - Application state.
@@ -167,16 +242,6 @@ export const getOrdersPagination: (state: StoreState) =>
  */
 export const getCourier = (state: StoreState, courierId: CourierEntity['id']) =>
   getEntityById(state, 'courier', courierId);
-
-/**
- * Returns all the order items in the application state.
- *
- * @param state - Application state.
- *
- * @returns Object with all order items with its orderItemId as the key.
- */
-export const getOrderItems = (state: StoreState) =>
-  getEntities(state, 'orderItems');
 
 /**
  * Returns a specific order item identified by its id.
@@ -226,24 +291,13 @@ export const getOrder: (
 ) => OrderEntityDenormalized | undefined = createSelector(
   [
     (_, orderId) => orderId,
-    getOrders,
+    (state: StoreState) => getEntities(state, 'orders'),
     getOrderItems,
     getMerchants,
     getCategories,
     getBrands,
-    getReturnOptions,
-    getReturnsEntities,
   ],
-  (
-    orderId,
-    orders,
-    orderItems,
-    merchants,
-    categories,
-    brands,
-    returnoptions,
-    returns,
-  ) => {
+  (orderId, orders, orderItems, merchants, categories, brands) => {
     return denormalizeOrder(
       orderId,
       orders,
@@ -251,8 +305,6 @@ export const getOrder: (
       merchants,
       categories,
       brands,
-      returnoptions,
-      returns,
     );
   },
 );
@@ -266,34 +318,34 @@ export const getOrder: (
  *
  * @returns List of return options objects.
  */
-export const getOrderReturnOptions: (
-  state: StoreState,
-  orderId: Order['id'],
-  merchantId?: MerchantEntity['id'],
-) => ReturnOptionEntityDenormalized[] | null | undefined = createSelector(
-  [
-    (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
-    (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
-      orderId,
-      merchantId,
-    }),
-  ],
-  (order, { merchantId }) => {
-    if (!order) {
-      return undefined;
-    }
+// export const getOrderReturnOptions: (
+//   state: StoreState,
+//   orderId: Order['id'],
+//   merchantId?: MerchantEntity['id'],
+// ) => ReturnOptionEntityDenormalized[] | null | undefined = createSelector(
+//   [
+//     (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
+//     (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
+//       orderId,
+//       merchantId,
+//     }),
+//   ],
+//   (order, { merchantId }) => {
+//     if (!order) {
+//       return undefined;
+//     }
 
-    if (
-      !order.returnOptions ||
-      order.returnOptions.length === 0 ||
-      !merchantId
-    ) {
-      return order.returnOptions;
-    }
+//     if (
+//       !order.returnOptions ||
+//       order.returnOptions.length === 0 ||
+//       !merchantId
+//     ) {
+//       return order.returnOptions;
+//     }
 
-    return order.byMerchant[merchantId]?.returnOptions;
-  },
-);
+//     return order.byMerchant[merchantId]?.returnOptions;
+//   },
+// );
 
 /**
  * Returns all return from a specific order and merchant.
@@ -304,30 +356,30 @@ export const getOrderReturnOptions: (
  *
  * @returns List of return objects.
  */
-export const getOrderReturns: (
-  state: StoreState,
-  orderId: Order['id'],
-  merchantId?: MerchantEntity['id'],
-) => ReturnEntity[] | null | undefined = createSelector(
-  [
-    (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
-    (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
-      orderId,
-      merchantId,
-    }),
-  ],
-  (order, { merchantId }) => {
-    if (!order) {
-      return undefined;
-    }
+// export const getOrderReturns: (
+//   state: StoreState,
+//   orderId: Order['id'],
+//   merchantId?: MerchantEntity['id'],
+// ) => ReturnEntity[] | null | undefined = createSelector(
+//   [
+//     (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
+//     (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
+//       orderId,
+//       merchantId,
+//     }),
+//   ],
+//   (order, { merchantId }) => {
+//     if (!order) {
+//       return undefined;
+//     }
 
-    if (!order.returns || order.returns.length === 0 || !merchantId) {
-      return order.returns;
-    }
+//     if (!order.returns || order.returns.length === 0 || !merchantId) {
+//       return order.returns;
+//     }
 
-    return order.byMerchant[merchantId]?.returns;
-  },
-);
+//     return order.byMerchant[merchantId]?.returns;
+//   },
+// );
 
 /**
  * Returns all the merchants from a specific order.
@@ -341,20 +393,20 @@ export const getOrderMerchants: (
   state: StoreState,
   orderId: Order['id'],
 ) => MerchantEntity[] | undefined = createSelector(
-  [(state, orderId) => getOrder(state, orderId), getMerchants],
-  (order, merchants) => {
-    const ordersByMerchant = get(order, 'byMerchant');
+  [(state, orderId) => getOrder(state, orderId)],
+  order => {
+    const orderItems = get(order, 'items');
 
-    if (!ordersByMerchant) {
+    if (!orderItems) {
       return undefined;
     }
 
     return (
-      Object.keys(ordersByMerchant)
+      orderItems
         // This cast is necessary because Object.keys returns a string[]
         // but the strings are numbers as the ordersByMerchant variable is
         // a Record<number, MerchantOrderNormalized>
-        .map(merchantId => merchants?.[merchantId as unknown as number])
+        .map(({ merchant }) => merchant)
         .filter(Boolean) as MerchantEntity[]
     );
   },
@@ -386,29 +438,39 @@ export const getOrderItemsByOrder: (
  *
  * @returns Order items objects.
  */
-export const getOrderItemsByMerchant: (
+export const getOrderItemsByMerchantOrderCode: (
   state: StoreState,
   orderId: Order['id'],
-) => Record<number, OrderItemEntityDenormalized[]> | undefined = createSelector(
+) =>
+  | Record<
+      OrderItemEntityDenormalized['merchantOrderCode'],
+      OrderItemEntityDenormalized[]
+    >
+  | undefined = createSelector(
   [(state, orderId) => getOrder(state, orderId)],
   order => {
-    const orderDetailsByMerchant = get(order, 'byMerchant');
+    const orderDetailsItems = get(order, 'items');
 
-    if (!orderDetailsByMerchant) {
+    if (!orderDetailsItems) {
       return;
     }
 
-    const result: Record<number, Array<OrderItemEntityDenormalized>> = {};
+    const result: Record<
+      OrderItemEntityDenormalized['merchantOrderCode'],
+      Array<OrderItemEntityDenormalized>
+    > = {};
 
-    for (const merchantId in orderDetailsByMerchant) {
-      const orderItemsFromDetailsByMerchant = get(
-        orderDetailsByMerchant,
-        `${merchantId}.orderItems`,
-      );
+    for (const orderItem of orderDetailsItems) {
+      const {
+        merchantOrderCode,
+      }: {
+        merchantOrderCode: OrderItemEntityDenormalized['merchantOrderCode'];
+      } = orderItem;
 
-      if (orderItemsFromDetailsByMerchant) {
-        result[merchantId as unknown as number] =
-          orderItemsFromDetailsByMerchant;
+      if (Array.isArray(result[merchantOrderCode])) {
+        result[merchantOrderCode]?.push(orderItem);
+      } else {
+        result[merchantOrderCode] = [orderItem];
       }
     }
 
@@ -519,13 +581,13 @@ export const areOrderReturnsLoading = (
  *
  * @returns Order returns isFetched status.
  */
-export const areOrderReturnsFetched = (
-  state: StoreState,
-  orderId: Order['id'],
-) =>
-  (!!getOrderReturns(state, orderId) ||
-    !!getOrderReturnsError(state, orderId)) &&
-  !areOrderReturnsLoading(state, orderId);
+// export const areOrderReturnsFetched = (
+//   state: StoreState,
+//   orderId: Order['id'],
+// ) =>
+//   (!!getOrderReturns(state, orderId) ||
+//     !!getOrderReturnsError(state, orderId)) &&
+//   !areOrderReturnsLoading(state, orderId);
 
 /**
  * Returns the error for the order returns operation.
@@ -576,13 +638,13 @@ export const getOrderReturnOptionsError = (
  *
  * @returns Order return options fetched status.
  */
-export const areOrderReturnOptionsFetched = (
-  state: StoreState,
-  orderId: Order['id'],
-) =>
-  (!!getOrderReturnOptions(state, orderId) ||
-    !!getOrderReturnOptionsError(state, orderId)) &&
-  !areOrderReturnOptionsLoading(state, orderId);
+// export const areOrderReturnOptionsFetched = (
+//   state: StoreState,
+//   orderId: Order['id'],
+// ) =>
+//   (!!getOrderReturnOptions(state, orderId) ||
+//     !!getOrderReturnOptionsError(state, orderId)) &&
+//   !areOrderReturnOptionsLoading(state, orderId);
 
 /**
  * Returns the loading status for the tracking operation.
@@ -719,112 +781,52 @@ const denormalizeOrderItem = (
  *
  * @returns Return option denormalized.
  */
-const denormalizeReturnOption = (
-  returnOptionId: ReturnOptionEntity['id'],
-  returnOptions: Record<string, ReturnOptionEntity> | undefined,
-  merchants: Record<number, MerchantEntity> | undefined,
-) => {
-  if (!returnOptionId) {
-    return undefined;
-  }
+// const denormalizeReturnOption = (
+//   returnOptionId: ReturnOptionEntity['id'],
+//   returnOptions: Record<string, ReturnOptionEntity> | undefined,
+//   merchants: Record<number, MerchantEntity> | undefined,
+// ) => {
+//   if (!returnOptionId) {
+//     return undefined;
+//   }
 
-  const returnOptionEntity = returnOptions?.[returnOptionId];
+//   const returnOptionEntity = returnOptions?.[returnOptionId];
 
-  if (!returnOptionEntity) {
-    return undefined;
-  }
+//   if (!returnOptionEntity) {
+//     return undefined;
+//   }
 
-  return {
-    ...returnOptionEntity,
-    merchant: merchants?.[returnOptionEntity.merchant],
-  };
-};
+//   return {
+//     ...returnOptionEntity,
+//     merchant: merchants?.[returnOptionEntity.merchant],
+//   };
+// };
 
 /**
- * Denormalizes a return.
+ * Denormalizes a order summary.
  *
  * @param returnId - Return id.
  * @param returns - Returns entities.
  *
- * @returns Return denormalized.
+ * @returns Order summary denormalized.
  */
-const denormalizeReturn = (
-  returnId: ReturnEntity['id'],
-  returns: Record<string, ReturnEntity> | undefined,
+const denormalizeOrderSummary = (
+  orderSummaryMerchantOrderCode: OrderSummaryEntity['merchantOrderCode'],
+  orderSummaries: Record<string, OrderSummaryEntity> | undefined,
+  merchants: Record<number, MerchantEntity> | undefined,
 ) => {
-  const returnEntity = returns?.[returnId];
+  const orderSummaryEntity = orderSummaries?.[orderSummaryMerchantOrderCode];
 
-  if (!returnEntity) {
+  if (!orderSummaryEntity) {
     return undefined;
   }
 
-  return returnEntity;
-};
+  const { merchantId } = orderSummaryEntity;
 
-/**
- * Denormalizes order by merchant structure.
- *
- * @param byMerchant - Orders by merchant structure to denormalize.
- * @param orderItems - Order items entities.
- * @param merchants - Merchants entities.
- * @param categories - Categories entities.
- * @param brands - Brands entities.
- * @param returnOptions - Return options entities.
- * @param returns - Returns entities.
- *
- * @returns Order by merchant structure denormalized.
- */
-const denormalizeOrdersByMerchant = (
-  byMerchant: OrderEntity['byMerchant'],
-  orderItems: Record<number, OrderItemEntity> | undefined,
-  merchants: Record<number, MerchantEntity> | undefined,
-  categories: Record<number, CategoryEntity> | undefined,
-  brands: Record<number, Brand> | undefined,
-  returnOptions: Record<string, ReturnOptionEntity> | undefined,
-  returns: Record<number, ReturnEntity> | undefined,
-) => {
-  return Object.entries(byMerchant).reduce(
-    (acc, [merchantId, orderMerchantData]) => {
-      const orderItemsDenormalized = orderMerchantData.orderItems
-        ? (orderMerchantData.orderItems
-            .map(orderItemId =>
-              denormalizeOrderItem(
-                orderItemId,
-                orderItems,
-                merchants,
-                categories,
-                brands,
-              ),
-            )
-            .filter(Boolean) as OrderItemEntityDenormalized[])
-        : undefined;
-
-      const returnOptionsDenormalized = orderMerchantData.returnOptions
-        ? (orderMerchantData.returnOptions
-            .map(returnOptionId =>
-              denormalizeReturnOption(returnOptionId, returnOptions, merchants),
-            )
-            .filter(Boolean) as ReturnOptionEntityDenormalized[])
-        : undefined;
-
-      const returnsDenormalized = orderMerchantData.returns
-        ? (orderMerchantData.returns
-            .map(returnId => denormalizeReturn(returnId, returns))
-            .filter(Boolean) as ReturnEntity[])
-        : undefined;
-
-      acc[merchantId] = {
-        ...orderMerchantData,
-        orderItems: orderItemsDenormalized,
-        merchant: merchants?.[merchantId as unknown as number],
-        returnOptions: returnOptionsDenormalized,
-        returns: returnsDenormalized,
-      };
-
-      return acc;
-    },
-    {} as Record<string, MerchantOrderDenormalized>,
-  );
+  return {
+    ...orderSummaryEntity,
+    merchant: merchants && merchantId ? merchants[merchantId] : undefined,
+  };
 };
 
 /**
@@ -848,8 +850,6 @@ const denormalizeOrder = (
   merchants: Record<number, MerchantEntity> | undefined,
   categories: Record<number, CategoryEntity> | undefined,
   brands: Record<number, Brand> | undefined,
-  returnOptions: Record<string, ReturnOptionEntity> | undefined,
-  returns: Record<number, ReturnEntity> | undefined,
 ): OrderEntityDenormalized | undefined => {
   if (!orders) {
     return undefined;
@@ -863,15 +863,6 @@ const denormalizeOrder = (
 
   return {
     ...order,
-    byMerchant: denormalizeOrdersByMerchant(
-      order.byMerchant,
-      orderItems,
-      merchants,
-      categories,
-      brands,
-      returnOptions,
-      returns,
-    ),
     items: order.items
       ? (order.items
           .map(orderItemId =>
@@ -885,91 +876,164 @@ const denormalizeOrder = (
           )
           .filter(Boolean) as OrderItemEntityDenormalized[])
       : undefined,
-    returnOptions: order.returnOptions
-      ? (order.returnOptions
-          .map(returnOptionId =>
-            denormalizeReturnOption(returnOptionId, returnOptions, merchants),
-          )
-          .filter(Boolean) as ReturnOptionEntityDenormalized[])
-      : undefined,
-    returns: order.returns
-      ? (order.returns
-          .map(returnId => denormalizeReturn(returnId, returns))
-          .filter(Boolean) as ReturnEntity[])
-      : undefined,
   };
 };
 
 /**
- * Get orders result, denormalized.
+ * Get user orders result. This returns order summaries denormalized.
+ * Organized by order summary.
  */
-export const getOrdersResult: (
+export const getUserOrdersResult: (
   state: StoreState,
-) => OrderEntityDenormalized[] | OrdersDenormalized | undefined =
-  createSelector(
-    [
-      (state: StoreState) => getResult(state.orders as OrdersState),
-      getOrders,
-      getOrderItems,
-      getMerchants,
-      getCategories,
-      getBrands,
-      getReturnOptions,
-      getReturnsEntities,
-    ],
-    (
-      result,
-      orders,
-      orderItems,
-      merchants,
-      categories,
-      brands,
-      returnOptions,
-      returns,
-    ) => {
-      if (!result || !orders) {
-        return;
-      }
+  query?: GetUserOrdersQuery,
+) => OrderSummariesDenormalized | undefined = createSelector(
+  [
+    (state: StoreState) => getResult(state.orders as OrdersState),
+    (state: StoreState) => state,
+    (_, query?: GetUserOrdersQuery) => query,
+    getAllUserOrders,
+  ],
+  (result, state, query, orderSummaries) => {
+    if (!result) {
+      return;
+    }
 
-      // If result is an array, it means it contains the result
-      // of the fetchGuestOrders request, so we have the full
-      // order details available in entities.
-      if (Array.isArray(result)) {
-        return result
-          .map(orderId =>
-            denormalizeOrder(
-              orderId,
-              orders,
-              orderItems,
-              merchants,
-              categories,
-              brands,
-              returnOptions,
-              returns,
-            ),
-          )
-          .filter(Boolean) as OrderEntityDenormalized[];
-      }
+    const userId = getUser(state)?.id;
 
-      // If result is not an array and not undefined, it means
-      // it contains the result of the fetchUserOrders request, so
-      // we only have order summaries here.
-      return {
-        ...result,
-        entries: result.entries
-          .map(orderId =>
-            denormalizeOrder(
-              orderId,
-              orders,
-              orderItems,
-              merchants,
-              categories,
-              brands,
-              returnOptions,
-              returns,
-            ),
-          )
-          .filter(Boolean) as OrderEntityDenormalized[],
-      } as OrdersDenormalized;
-    },
-  );
+    if (!userId) {
+      return;
+    }
+
+    const hashedQuery = generateUserOrdersRequestHash(userId, query);
+    const orderSummariesResult = result[hashedQuery]?.entries;
+
+    if (!orderSummariesResult) {
+      return;
+    }
+
+    return {
+      ...result[hashedQuery],
+      entries: orderSummariesResult
+        .map(merchantOrderCode => orderSummaries?.[merchantOrderCode])
+        .filter(Boolean) as Array<OrderSummaryDenormalized>,
+    } as OrderSummariesDenormalized;
+  },
+);
+
+/**
+ * Get user orders result. This returns order summaries organized by order id.
+ */
+export const getUserOrdersResultByOrderId: (
+  state: StoreState,
+  query?: GetUserOrdersQuery,
+) =>
+  | Record<OrderSummaryEntity['id'], Array<OrderSummaryDenormalized>>
+  | undefined = createSelector(
+  [
+    (state: StoreState) => getResult(state.orders as OrdersState),
+    (_, query?: GetUserOrdersQuery) => query,
+    getUser,
+    (state: StoreState) => getEntities(state, 'orderSummaries'),
+    getMerchants,
+  ],
+  (result, query, user, orderSummaries, merchants) => {
+    if (!result) {
+      return;
+    }
+
+    const userId = user?.id;
+
+    if (!userId) {
+      return;
+    }
+
+    const hashedQuery = generateUserOrdersRequestHash(userId, query);
+    const orderSummariesResult = result[hashedQuery]?.entries;
+
+    if (!orderSummariesResult) {
+      return;
+    }
+
+    const resultByOrderId: Record<
+      OrderSummaryEntity['id'],
+      Array<OrderSummaryDenormalized>
+    > = {};
+
+    for (const merchantOrderCode of orderSummariesResult) {
+      const orderSummary = orderSummaries?.[merchantOrderCode];
+      const orderId = orderSummary?.id;
+      const denormalizedOrderSummary = denormalizeOrderSummary(
+        merchantOrderCode,
+        orderSummaries,
+        merchants,
+      );
+
+      if (orderId && denormalizedOrderSummary) {
+        if (resultByOrderId[orderId]) {
+          resultByOrderId[orderId]?.push(denormalizedOrderSummary);
+        } else {
+          resultByOrderId[orderId] = [denormalizedOrderSummary];
+        }
+      }
+    }
+
+    return resultByOrderId;
+  },
+);
+
+/**
+ * Get guest orders result, denormalized.
+ */
+export const getGuestOrdersResult: (
+  state: StoreState,
+) => OrderEntityDenormalized[] | undefined = createSelector(
+  [
+    (state: StoreState) => getGuestOrders(state.orders as OrdersState)?.result,
+    (state: StoreState) => getEntities(state, 'orders'),
+    getOrderItems,
+    getMerchants,
+    getCategories,
+    getBrands,
+  ],
+  (result, orders, orderItems, merchants, categories, brands) => {
+    if (!result || !orders) {
+      return;
+    }
+
+    // If result is an array, it means it contains the result
+    // of the fetchGuestOrders request, so we have the full
+    // order details available in entities.
+    return result
+      .map(orderId =>
+        denormalizeOrder(
+          orderId,
+          orders,
+          orderItems,
+          merchants,
+          categories,
+          brands,
+        ),
+      )
+      .filter(Boolean) as OrderEntityDenormalized[];
+  },
+);
+
+/**
+ * Returns the loading status for the guest orders operation.
+ *
+ * @param state   - Application state.
+ *
+ * @returns Guest orders loading status.
+ */
+export const areGuestOrdersLoading = (state: StoreState) =>
+  getGuestOrders(state.orders as OrdersState).isLoading;
+
+/**
+ * Returns the error for the guest orders operation.
+ *
+ * @param state   - Application state.
+ *
+ * @returns Guest orders operation error.
+ */
+export const getGuestOrdersError = (state: StoreState) =>
+  getGuestOrders(state.orders as OrdersState).error;

@@ -3,12 +3,19 @@ import {
   Config,
   GetUserOrders,
   GetUserOrdersQuery,
-  Orders,
+  OrderSummaries,
   toBlackoutError,
+  User,
 } from '@farfetch/blackout-client';
-import normalizeFetchOrdersResponse from './helpers/normalizeFetchOrdersResponse';
+import { normalize } from 'normalizr';
+import generateUserOrdersRequestHash from './helpers/generateUserOrdersRequestHash';
+import orderSummary from '../../../entities/schemas/orderSummary';
 import type { Dispatch } from 'redux';
 import type { FetchOrdersAction } from '../../types/actions.types';
+import type {
+  OrderSummariesNormalized,
+  OrderSummaryEntity,
+} from '../../../entities';
 
 /**
  * Fetches orders.
@@ -19,18 +26,31 @@ import type { FetchOrdersAction } from '../../types/actions.types';
  */
 const fetchUserOrdersFactory =
   (getUserOrders: GetUserOrders) =>
-  (userId: number, query?: GetUserOrdersQuery, config?: Config) =>
-  async (dispatch: Dispatch<FetchOrdersAction>): Promise<Orders> => {
+  (userId: User['id'], query?: GetUserOrdersQuery, config?: Config) =>
+  async (dispatch: Dispatch<FetchOrdersAction>): Promise<OrderSummaries> => {
+    const hashedQuery = generateUserOrdersRequestHash(userId, query);
+
     try {
       dispatch({
         type: actionTypes.FETCH_USER_ORDERS_REQUEST,
+        meta: { hash: hashedQuery },
       });
 
       const result = await getUserOrders(userId, query, config);
-      const normalizedResult = normalizeFetchOrdersResponse(result);
+      const normalizedResult = normalize<
+        OrderSummaryEntity,
+        {
+          orderSummaries: Record<
+            OrderSummaryEntity['merchantOrderCode'],
+            OrderSummaryEntity
+          >;
+        },
+        OrderSummariesNormalized
+      >(result, { entries: [orderSummary] });
 
       dispatch({
         payload: normalizedResult,
+        meta: { hash: hashedQuery },
         type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
       });
 
@@ -40,6 +60,7 @@ const fetchUserOrdersFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
+        meta: { hash: hashedQuery },
         type: actionTypes.FETCH_USER_ORDERS_FAILURE,
       });
 

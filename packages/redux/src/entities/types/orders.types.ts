@@ -1,80 +1,62 @@
-import type { MerchantEntity } from './merchant.types';
+import type { MerchantEntity } from '..';
 import type {
   Order,
   OrderLegacy,
-  Orders,
+  OrderSummaries,
   OrderSummary,
 } from '@farfetch/blackout-client';
 import type {
   OrderItemEntity,
   OrderItemEntityDenormalized,
 } from './orderItems.types';
-import type { ReturnEntity } from './returns.types';
-import type {
-  ReturnOptionEntity,
-  ReturnOptionEntityDenormalized,
-} from './returnOptions.types';
 
-export type OrderNormalized = Omit<
+export type OrderEntity = Omit<
   Order | OrderLegacy,
   'items' | 'createdDate' | 'updatedDate'
 > & {
   items: Array<OrderItemEntity['id']>;
   createdDate: number | null;
   updatedDate: number | null;
-} & OrderSummaryNormalized;
-
-export type OrderSummaryNormalized = {
-  id: OrderSummary['id'];
-  createdDate: number | null;
-  totalItems: OrderSummary['totalQuantity'];
-  byMerchant: Record<
-    MerchantOrderNormalized['merchant'],
-    MerchantOrderNormalized
-  >;
-  returnOptions?: Array<ReturnOptionEntity['id']> | null;
-  returns?: Array<ReturnEntity['id']> | null;
 };
 
-export type OrderEntity = OrderSummaryNormalized & Partial<OrderNormalized>;
+export type OrderSummaryEntity = Omit<OrderSummary, 'createdDate'> & {
+  createdDate: number | null;
+};
 
 export type MerchantOrderNormalized = Omit<
   Partial<OrderSummary>,
   'id' | 'merchantId' | 'createdDate' | 'merchantName'
 > & {
-  merchant: OrderSummary['merchantId'];
   orderItems?: OrderItemEntity['id'][];
-  returnOptions?: ReturnOptionEntity['id'][];
-  returns?: ReturnEntity['id'][];
 };
 
 export type MerchantOrderDenormalized = Omit<
   MerchantOrderNormalized,
   'merchant' | 'orderItems' | 'returnOptions' | 'returns'
 > & {
-  merchant?: MerchantEntity;
   orderItems?: OrderItemEntityDenormalized[];
-  returnOptions?: ReturnOptionEntityDenormalized[];
-  returns?: ReturnEntity[];
 };
 
-export type OrdersNormalized = Omit<Orders, 'entries'> & {
-  entries: Array<OrderSummaryNormalized['id']>;
+export type OrdersNormalized = Omit<Order, 'entries'> & {
+  entries: Array<OrderSummary['merchantOrderCode']>;
 };
 
 export type OrdersDenormalized = Omit<OrdersNormalized, 'entries'> & {
   entries: OrderEntityDenormalized[];
 };
 
-export type OrderEntityDenormalized = Omit<
-  OrderEntity,
-  'byMerchant' | 'items' | 'returns' | 'returnOptions'
-> & {
-  byMerchant: Record<
-    MerchantOrderNormalized['merchant'],
-    MerchantOrderDenormalized
-  >;
+export type OrderSummariesNormalized = Omit<OrderSummaries, 'entries'> & {
+  entries: Array<OrderSummary['merchantOrderCode']>;
+};
+
+export type OrderSummaryDenormalized = OrderSummaryEntity & {
+  merchant: MerchantEntity | undefined;
+};
+
+export type OrderSummariesDenormalized = Omit<OrderSummaries, 'entries'> & {
+  entries: Array<OrderSummaryDenormalized>;
+};
+
+export type OrderEntityDenormalized = Omit<OrderEntity, 'items'> & {
   items?: OrderItemEntityDenormalized[];
-  returns?: ReturnEntity[] | null;
-  returnOptions?: ReturnOptionEntityDenormalized[] | null;
 };

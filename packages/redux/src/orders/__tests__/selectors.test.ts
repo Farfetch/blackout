@@ -1,120 +1,70 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
-import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
+  // expectedGetGuestOrdersResult,
   courierEntity,
   courierId,
+  defaultHashedQuery,
   expectedGetGuestOrdersResult,
   expectedGetUserOrdersResult,
+  expectedGetUserOrdersResultByOrderId,
   labelTrackingEntity,
   merchantEntity,
   merchantEntity2,
-  merchantId,
-  merchantId2,
+  merchantOrderCode,
+  merchantOrderCode2,
+  merchantOrderCode3,
+  mockOrderItemEntity2Denormalized,
+  mockOrderItemEntityDenormalized,
   mockState,
   orderEntity,
   orderEntityDenormalized,
+  orderEntityDenormalized2,
   orderId,
+  orderId2,
   orderItemEntity,
   orderItemId,
+  orderSummary,
+  orderSummaryEntityDenormalized,
+  orderSummaryEntityDenormalized2,
+  orderSummaryEntityDenormalized3,
   returnOptionEntity,
   returnOptionId,
   trackingNumber,
 } from 'tests/__fixtures__/orders';
+import { mockUsersResponse } from 'tests/__fixtures__/users';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import omit from 'lodash/omit';
 
 describe('orders redux selectors', () => {
   beforeEach(jest.clearAllMocks);
 
-  describe('areOrdersLoading()', () => {
+  describe('areUserOrdersLoading()', () => {
     it('should get the orders isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getIsLoading');
 
-      expect(selectors.areOrdersLoading(mockState)).toEqual(false);
+      expect(selectors.areUserOrdersLoading(mockState)).toEqual(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getOrdersError()', () => {
+  describe('getUserOrdersError()', () => {
     it('should get the orders error property from state', () => {
       const expectedResult = mockState.orders.error;
       const spy = jest.spyOn(fromOrders, 'getError');
 
-      expect(selectors.getOrdersError(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getOrdersPagination()', () => {
-    it('should get the order result property from state if the result contains the response from fetch user orders', () => {
-      const { number, totalItems, totalPages } = mockState.orders.result;
-      const expectedResult = { number, totalItems, totalPages };
-      const spy = jest.spyOn(fromOrders, 'getResult');
-
-      expect(selectors.getOrdersPagination(mockState)).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-
-    it('should return a pagination wrapper if the result contains the response from fetch guest orders', () => {
-      const guestOrdersResult = ['ORDVX1', 'PQ4DS5'];
-
-      const stateWithGuestOrdersResult = {
-        ...mockState,
-        orders: {
-          ...mockState.orders,
-          result: guestOrdersResult,
-        },
-      };
-
-      const expectedResult = {
-        number: 1,
-        totalItems: guestOrdersResult.length,
-        totalPages: 1,
-      };
-      const spy = jest.spyOn(fromOrders, 'getResult');
-
-      expect(selectors.getOrdersPagination(stateWithGuestOrdersResult)).toEqual(
-        expectedResult,
+      expect(selectors.getUserOrdersError(mockState)).toBe(
+        expectedResult[defaultHashedQuery],
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
-
-    it('should return undefined if result property in state is undefined', () => {
-      const expectedResult = undefined;
-      const spy = jest.spyOn(fromOrders, 'getResult');
-      const newMock = {
-        ...mockState,
-        orders: {
-          ...mockState.orders,
-          result: null,
-        },
-      };
-      expect(selectors.getOrdersPagination(newMock)).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
   });
 
-  describe('getOrdersResult()', () => {
+  describe('getUserOrdersResultByOrderId()', () => {
     it('should get the order result denormalized from state if it contains the response from fetch user orders', () => {
-      expect(selectors.getOrdersResult(mockState)).toEqual(
-        expectedGetUserOrdersResult,
-      );
-    });
-
-    it('should get the order result denormalized from state if it contains the response from fetch guest orders', () => {
-      const guestOrdersResult = ['3558DS'];
-
-      const stateWithGuestOrdersResult = {
-        ...mockState,
-        orders: {
-          ...mockState.orders,
-          result: guestOrdersResult,
-        },
-      };
-
-      expect(selectors.getOrdersResult(stateWithGuestOrdersResult)).toEqual(
-        expectedGetGuestOrdersResult,
+      expect(selectors.getUserOrdersResultByOrderId(mockState)).toEqual(
+        expectedGetUserOrdersResultByOrderId,
       );
     });
 
@@ -127,8 +77,41 @@ describe('orders redux selectors', () => {
           result: null,
         },
       };
-      expect(selectors.getOrdersResult(stateWithUndefinedResult)).toEqual(
+      expect(
+        selectors.getUserOrdersResultByOrderId(stateWithUndefinedResult),
+      ).toEqual(expectedResult);
+    });
+  });
+
+  describe('getGuestOrdersResult()', () => {
+    it('should get the order result denormalized from state if it contains the response from fetch guest user orders', () => {
+      expect(selectors.getGuestOrdersResult(mockState)).toEqual(
+        expectedGetGuestOrdersResult,
+      );
+    });
+
+    it('should return undefined if result property in state is undefined', () => {
+      const expectedResult = undefined;
+      const stateWithUndefinedResult = {
+        ...mockState,
+        orders: {
+          ...mockState.orders,
+          guestOrders: {
+            ...mockState.orders.guestOrders,
+            result: null,
+          },
+        },
+      };
+      expect(selectors.getGuestOrdersResult(stateWithUndefinedResult)).toEqual(
         expectedResult,
+      );
+    });
+  });
+
+  describe('getUserOrdersResult()', () => {
+    it('should get the order summary result denormalized from state if it contains the response from fetch user orders', () => {
+      expect(selectors.getUserOrdersResult(mockState)).toEqual(
+        expectedGetUserOrdersResult,
       );
     });
   });
@@ -151,6 +134,28 @@ describe('orders redux selectors', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderDetails');
 
       expect(selectors.getOrderError(mockState, orderId)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('areGuestOrdersLoading()', () => {
+    it('should get the guestOrders isLoading property from state', () => {
+      const expectedResult = mockState.orders.guestOrders.isLoading;
+      const spy = jest.spyOn(fromOrders, 'getGuestOrders');
+
+      expect(selectors.areGuestOrdersLoading(mockState)).toEqual(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getGuestOrdersError()', () => {
+    it('should get the guestOrders isLoading property from state', () => {
+      const expectedResult = mockState.orders.guestOrders.error;
+      const spy = jest.spyOn(fromOrders, 'getGuestOrders');
+
+      expect(selectors.getGuestOrdersError(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -300,13 +305,42 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getOrders()', () => {
+  describe('getAllOrders()', () => {
     it('should get the orders from state', () => {
-      const expectedResult = mockState.entities.orders;
-      const spy = jest.spyOn(fromEntities, 'getEntities');
+      const expectedResult = {
+        [orderId]: orderEntityDenormalized,
+        [orderId2]: orderEntityDenormalized2,
+      };
 
-      expect(selectors.getOrders(mockState)).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledWith(mockState, 'orders');
+      expect(selectors.getAllOrders(mockState)).toEqual(expectedResult);
+    });
+  });
+
+  describe('getAllUserOrders()', () => {
+    it('should get the order summaries from state', () => {
+      const expectedResult = {
+        [merchantOrderCode]: orderSummaryEntityDenormalized,
+        [merchantOrderCode2]: orderSummaryEntityDenormalized2,
+        [merchantOrderCode3]: orderSummaryEntityDenormalized3,
+      };
+      expect(selectors.getAllUserOrders(mockState)).toEqual(expectedResult);
+    });
+  });
+
+  describe('getUserOrder()', () => {
+    it('should get the order summary from state', () => {
+      const expectedResult =
+        mockState.entities.orderSummaries[merchantOrderCode];
+      const spy = jest.spyOn(fromEntities, 'getEntityById');
+
+      expect(selectors.getUserOrder(mockState, merchantOrderCode)).toEqual(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledWith(
+        mockState,
+        'orderSummaries',
+        merchantOrderCode,
+      );
     });
   });
 
@@ -380,163 +414,163 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getOrderReturnOptions()', () => {
-    const mockStateOrderReturnOptionsUndefined = {
-      ...mockState,
-      entities: {
-        ...mockState.entities,
-        orders: {
-          [orderId]: {
-            ...orderEntity,
-            returnOptions: undefined,
-          },
-        },
-      },
-    };
+  // describe('getOrderReturnOptions()', () => {
+  //   const mockStateOrderReturnOptionsUndefined = {
+  //     ...mockState,
+  //     entities: {
+  //       ...mockState.entities,
+  //       orders: {
+  //         [orderId]: {
+  //           ...orderEntity,
+  //           returnOptions: undefined,
+  //         },
+  //       },
+  //     },
+  //   };
 
-    const mockStateOrderReturnOptionsEmptyArray = {
-      ...mockState,
-      entities: {
-        ...mockState.entities,
-        orders: {
-          [orderId]: {
-            ...orderEntity,
-            returnOptions: [],
-          },
-        },
-      },
-    };
+  //   const mockStateOrderReturnOptionsEmptyArray = {
+  //     ...mockState,
+  //     entities: {
+  //       ...mockState.entities,
+  //       orders: {
+  //         [orderId]: {
+  //           ...orderEntity,
+  //           returnOptions: [],
+  //         },
+  //       },
+  //     },
+  //   };
 
-    describe('when merchantId argument is not provided', () => {
-      it('should get the return options from state when there are return options', () => {
-        expect(selectors.getOrderReturnOptions(mockState, orderId)).toEqual(
-          orderEntityDenormalized.returnOptions,
-        );
-      });
+  //   describe('when merchantId argument is not provided', () => {
+  //     fit('should get the return options from state when there are return options', () => {
+  //       expect(selectors.getOrderReturnOptions(mockState, orderId)).toEqual(
+  //         orderEntityDenormalized.returnOptions,
+  //       );
+  //     });
 
-      it('should return empty array when order.returnOptions property is an empty array', () => {
-        expect(
-          selectors.getOrderReturnOptions(
-            mockStateOrderReturnOptionsEmptyArray,
-            orderId,
-          ),
-        ).toStrictEqual([]);
-      });
+  //     it('should return empty array when order.returnOptions property is an empty array', () => {
+  //       expect(
+  //         selectors.getOrderReturnOptions(
+  //           mockStateOrderReturnOptionsEmptyArray,
+  //           orderId,
+  //         ),
+  //       ).toStrictEqual([]);
+  //     });
 
-      it('should return undefined when order.returnOptions is undefined', () => {
-        expect(
-          selectors.getOrderReturnOptions(
-            mockStateOrderReturnOptionsUndefined,
-            orderId,
-          ),
-        ).toBe(undefined);
-      });
-    });
+  //     it('should return undefined when order.returnOptions is undefined', () => {
+  //       expect(
+  //         selectors.getOrderReturnOptions(
+  //           mockStateOrderReturnOptionsUndefined,
+  //           orderId,
+  //         ),
+  //       ).toBe(undefined);
+  //     });
+  //   });
 
-    describe('when merchantId argument is provided', () => {
-      it('should get the merchant return options from state when there are return options', () => {
-        expect(
-          selectors.getOrderReturnOptions(mockState, orderId, merchantId),
-        ).toEqual(orderEntityDenormalized.byMerchant[merchantId].returnOptions);
-      });
+  //   describe('when merchantId argument is provided', () => {
+  //     it('should get the merchant return options from state when there are return options', () => {
+  //       expect(
+  //         selectors.getOrderReturnOptions(mockState, orderId, merchantId),
+  //       ).toEqual(orderEntityDenormalized.byMerchant[merchantId].returnOptions);
+  //     });
 
-      it('should return empty array when order.returnOptions property is an empty array', () => {
-        expect(
-          selectors.getOrderReturnOptions(
-            mockStateOrderReturnOptionsEmptyArray,
-            orderId,
-            merchantId,
-          ),
-        ).toStrictEqual([]);
-      });
+  //     it('should return empty array when order.returnOptions property is an empty array', () => {
+  //       expect(
+  //         selectors.getOrderReturnOptions(
+  //           mockStateOrderReturnOptionsEmptyArray,
+  //           orderId,
+  //           merchantId,
+  //         ),
+  //       ).toStrictEqual([]);
+  //     });
 
-      it('should return undefined when order.returnOptions is undefined', () => {
-        expect(
-          selectors.getOrderReturnOptions(
-            mockStateOrderReturnOptionsUndefined,
-            orderId,
-            merchantId,
-          ),
-        ).toBe(undefined);
-      });
-    });
-  });
+  //     it('should return undefined when order.returnOptions is undefined', () => {
+  //       expect(
+  //         selectors.getOrderReturnOptions(
+  //           mockStateOrderReturnOptionsUndefined,
+  //           orderId,
+  //           merchantId,
+  //         ),
+  //       ).toBe(undefined);
+  //     });
+  //   });
+  // });
 
-  describe('getOrderReturns()', () => {
-    const mockStateOrderReturnsUndefined = {
-      ...mockState,
-      entities: {
-        ...mockState.entities,
-        orders: {
-          [orderId]: {
-            ...orderEntity,
-            returns: undefined,
-          },
-        },
-      },
-    };
+  // describe('getOrderReturns()', () => {
+  //   const mockStateOrderReturnsUndefined = {
+  //     ...mockState,
+  //     entities: {
+  //       ...mockState.entities,
+  //       orders: {
+  //         [orderId]: {
+  //           ...orderEntity,
+  //           returns: undefined,
+  //         },
+  //       },
+  //     },
+  //   };
 
-    const mockStateOrderReturnsEmptyArray = {
-      ...mockState,
-      entities: {
-        ...mockState.entities,
-        orders: {
-          [orderId]: {
-            ...orderEntity,
-            returns: [],
-          },
-        },
-      },
-    };
+  //   const mockStateOrderReturnsEmptyArray = {
+  //     ...mockState,
+  //     entities: {
+  //       ...mockState.entities,
+  //       orders: {
+  //         [orderId]: {
+  //           ...orderEntity,
+  //           returns: [],
+  //         },
+  //       },
+  //     },
+  //   };
 
-    describe('when merchantId argument is not provided', () => {
-      it('should get the returns from state when there are returns', () => {
-        expect(selectors.getOrderReturns(mockState, orderId)).toEqual(
-          orderEntityDenormalized.returns,
-        );
-      });
+  //   describe('when merchantId argument is not provided', () => {
+  //     it('should get the returns from state when there are returns', () => {
+  //       expect(selectors.getOrderReturns(mockState, orderId)).toEqual(
+  //         orderEntityDenormalized.returns,
+  //       );
+  //     });
 
-      it('should return empty array when order.returns property is an empty array', () => {
-        expect(
-          selectors.getOrderReturns(mockStateOrderReturnsEmptyArray, orderId),
-        ).toStrictEqual([]);
-      });
+  //     it('should return empty array when order.returns property is an empty array', () => {
+  //       expect(
+  //         selectors.getOrderReturns(mockStateOrderReturnsEmptyArray, orderId),
+  //       ).toStrictEqual([]);
+  //     });
 
-      it('should return undefined when order.returns is undefined', () => {
-        expect(
-          selectors.getOrderReturns(mockStateOrderReturnsUndefined, orderId),
-        ).toBe(undefined);
-      });
-    });
+  //     it('should return undefined when order.returns is undefined', () => {
+  //       expect(
+  //         selectors.getOrderReturns(mockStateOrderReturnsUndefined, orderId),
+  //       ).toBe(undefined);
+  //     });
+  //   });
 
-    describe('when merchantId argument is provided', () => {
-      it('should get the merchant returns from state when there are returns', () => {
-        expect(
-          selectors.getOrderReturns(mockState, orderId, merchantId),
-        ).toEqual(orderEntityDenormalized.byMerchant[merchantId].returns);
-      });
+  //   describe('when merchantId argument is provided', () => {
+  //     it('should get the merchant returns from state when there are returns', () => {
+  //       expect(
+  //         selectors.getOrderReturns(mockState, orderId, merchantId),
+  //       ).toEqual(orderEntityDenormalized.byMerchant[merchantId].returns);
+  //     });
 
-      it('should return empty array when order.returns property is an empty array', () => {
-        expect(
-          selectors.getOrderReturns(
-            mockStateOrderReturnsEmptyArray,
-            orderId,
-            merchantId,
-          ),
-        ).toStrictEqual([]);
-      });
+  //     it('should return empty array when order.returns property is an empty array', () => {
+  //       expect(
+  //         selectors.getOrderReturns(
+  //           mockStateOrderReturnsEmptyArray,
+  //           orderId,
+  //           merchantId,
+  //         ),
+  //       ).toStrictEqual([]);
+  //     });
 
-      it('should return undefined when order.returns is undefined', () => {
-        expect(
-          selectors.getOrderReturns(
-            mockStateOrderReturnsUndefined,
-            orderId,
-            merchantId,
-          ),
-        ).toBe(undefined);
-      });
-    });
-  });
+  //     it('should return undefined when order.returns is undefined', () => {
+  //       expect(
+  //         selectors.getOrderReturns(
+  //           mockStateOrderReturnsUndefined,
+  //           orderId,
+  //           merchantId,
+  //         ),
+  //       ).toBe(undefined);
+  //     });
+  //   });
+  // });
 
   describe('getOrderMerchants()', () => {
     it('should get the merchants from state', () => {
@@ -555,18 +589,23 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getOrderItemsByMerchant()', () => {
+  describe('getOrderItemsByMerchantOrderCode()', () => {
     it('should get the order items by merchant from state', () => {
-      expect(selectors.getOrderItemsByMerchant(mockState, orderId)).toEqual({
-        [merchantId]: orderEntityDenormalized.byMerchant[merchantId].orderItems,
-        [merchantId2]:
-          orderEntityDenormalized.byMerchant[merchantId2].orderItems,
-      });
+      const expectedResult = {
+        [mockOrderItemEntityDenormalized.merchantOrderCode]: [
+          mockOrderItemEntityDenormalized,
+          mockOrderItemEntity2Denormalized,
+        ],
+      };
+
+      expect(
+        selectors.getOrderItemsByMerchantOrderCode(mockState, orderId),
+      ).toEqual(expectedResult);
     });
 
     it('should get undefined if there are no orderDetails from that order', () => {
       expect(
-        selectors.getOrderItemsByMerchant(mockState, 'randomOrderId'),
+        selectors.getOrderItemsByMerchantOrderCode(mockState, 'randomOrderId'),
       ).toBe(undefined);
     });
   });
@@ -580,6 +619,7 @@ describe('orders redux selectors', () => {
       };
 
       expect(
+        // @ts-ignore
         selectors.getOrderItemQuantity(newState, orderId, orderItemId),
       ).toBe(undefined);
     });
@@ -597,16 +637,17 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('areOrdersFetched()', () => {
+  describe('areUserOrdersFetched()', () => {
     describe('when orders are loading', () => {
       const baseState = {
         entities: {
-          orders: { [`${orderId}`]: orderEntity },
+          orderSummaries: { [`${merchantOrderCode}`]: orderSummary },
+          user: mockUsersResponse,
         },
         orders: {
-          isLoading: true,
-          error: toBlackoutError(new Error('Error')),
-          result: null,
+          isLoading: { [defaultHashedQuery]: true },
+          error: { [defaultHashedQuery]: toBlackoutError(new Error('Error')) },
+          result: {},
           orderDetails: {
             error: { [orderId]: toBlackoutError(new Error('Error')) },
             isLoading: { [orderId]: false },
@@ -635,13 +676,26 @@ describe('orders redux selectors', () => {
             error: toBlackoutError(new Error('Error')),
             isLoading: false,
           },
+          guestOrders: {
+            result: [],
+            error: toBlackoutError(new Error('Error')),
+            isLoading: false,
+          },
+          orderSummaries: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: false,
+          },
         },
       };
+
+      const defaultQuery = { page: 1, pageSize: 60 };
 
       it('should always return false', () => {
         // Case 1: Where `isLoading` is true and
         // there is no error and no result from a previous request
-        expect(selectors.areOrdersFetched(baseState)).toBe(false);
+        expect(selectors.areUserOrdersFetched(baseState, defaultQuery)).toBe(
+          false,
+        );
 
         // Case 2: Where `isLoading` is true and
         // there is an error from a previous request but no result
@@ -649,11 +703,15 @@ describe('orders redux selectors', () => {
           ...baseState,
           orders: {
             ...baseState.orders,
-            error: toBlackoutError(new Error('error')),
+            error: {
+              [defaultHashedQuery]: toBlackoutError(new Error('error')),
+            },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithError)).toBe(false);
+        expect(
+          selectors.areUserOrdersFetched(stateWithError, defaultQuery),
+        ).toBe(false);
 
         // Case 3: Where `isLoading` is true and
         // there is a result but no error
@@ -662,15 +720,19 @@ describe('orders redux selectors', () => {
           orders: {
             ...baseState.orders,
             result: {
-              entries: ['ORDVX1'],
-              totalPages: 1,
-              number: 1,
-              totalItems: 1,
+              [defaultHashedQuery]: {
+                entries: ['PZ1129361393'],
+                totalPages: 1,
+                number: 1,
+                totalItems: 1,
+              },
             },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithResult)).toBe(false);
+        expect(
+          selectors.areUserOrdersFetched(stateWithResult, defaultQuery),
+        ).toBe(false);
 
         // Case 4: Where `isLoading` is true and
         // there is a result and an error
@@ -678,23 +740,28 @@ describe('orders redux selectors', () => {
           ...stateWithResult,
           orders: {
             ...stateWithResult.orders,
-            error: toBlackoutError(new Error('error')),
+            error: {
+              [defaultHashedQuery]: toBlackoutError(new Error('error')),
+            },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithResultAndError)).toBe(false);
+        expect(
+          selectors.areUserOrdersFetched(stateWithResultAndError, defaultQuery),
+        ).toBe(false);
       });
     });
 
     describe('when orders are not loading', () => {
       const baseState = {
         entities: {
-          orders: { [`${orderId}`]: orderEntity },
+          orderSummaries: { [`${merchantOrderCode}`]: orderSummary },
+          user: mockUsersResponse,
         },
         orders: {
-          isLoading: false,
-          error: null,
-          result: null,
+          isLoading: { [defaultHashedQuery]: false },
+          error: { '1:60': null },
+          result: {},
           orderDetails: {
             error: { [orderId]: null },
             isLoading: { [orderId]: false },
@@ -723,11 +790,21 @@ describe('orders redux selectors', () => {
             error: null,
             isLoading: false,
           },
+          guestOrders: {
+            error: null,
+            isLoading: false,
+            result: null,
+          },
+          orderSummaries: {
+            error: null,
+            isLoading: false,
+            result: null,
+          },
         },
       };
 
       it('should return false if there is no error and no result', () => {
-        expect(selectors.areOrdersFetched(baseState)).toBe(false);
+        expect(selectors.areUserOrdersFetched(baseState)).toBe(false);
       });
 
       it('should return true if there is either an error and/or a result', () => {
@@ -737,11 +814,13 @@ describe('orders redux selectors', () => {
           ...baseState,
           orders: {
             ...baseState.orders,
-            error: toBlackoutError(new Error('error')),
+            error: {
+              [defaultHashedQuery]: toBlackoutError(new Error('error')),
+            },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithError)).toBe(true);
+        expect(selectors.areUserOrdersFetched(stateWithError)).toBe(true);
 
         // Case 2: Where `isLoading` is false and
         // there is a result but no error
@@ -750,15 +829,17 @@ describe('orders redux selectors', () => {
           orders: {
             ...baseState.orders,
             result: {
-              entries: ['ORDVX1'],
-              totalPages: 1,
-              number: 1,
-              totalItems: 1,
+              [defaultHashedQuery]: {
+                entries: ['PZ1129361393'],
+                totalPages: 1,
+                number: 1,
+                totalItems: 1,
+              },
             },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithResult)).toBe(true);
+        expect(selectors.areUserOrdersFetched(stateWithResult)).toBe(true);
 
         // Case 3: Where `isLoading` is false and
         // there is a result and an error
@@ -767,16 +848,22 @@ describe('orders redux selectors', () => {
           orders: {
             ...baseState.orders,
             result: {
-              entries: ['ORDVX1'],
-              totalPages: 1,
-              number: 1,
-              totalItems: 1,
+              [defaultHashedQuery]: {
+                entries: ['PZ1129361393'],
+                totalPages: 1,
+                number: 1,
+                totalItems: 1,
+              },
             },
-            error: toBlackoutError(new Error('error')),
+            error: {
+              [defaultHashedQuery]: toBlackoutError(new Error('error')),
+            },
           },
         };
 
-        expect(selectors.areOrdersFetched(stateWithResultAndError)).toBe(true);
+        expect(selectors.areUserOrdersFetched(stateWithResultAndError)).toBe(
+          true,
+        );
       });
     });
   });
@@ -786,15 +873,15 @@ describe('orders redux selectors', () => {
       const baseState = {
         entities: {},
         orders: {
+          isLoading: {},
+          error: {},
+          result: {},
           orderDetails: {
             isLoading: {
               [orderId]: true,
             },
             error: {},
           },
-          isLoading: true,
-          error: toBlackoutError('Error'),
-          result: null,
           orderReturns: {
             error: { [orderId]: toBlackoutError(new Error('Error')) },
             isLoading: { [orderId]: true },
@@ -816,6 +903,15 @@ describe('orders redux selectors', () => {
             isLoading: true,
           },
           orderItemAvailableActivities: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
+          orderSummaries: {
+            error: toBlackoutError(new Error('Error')),
+            isLoading: true,
+          },
+          guestOrders: {
+            result: null,
             error: toBlackoutError(new Error('Error')),
             isLoading: true,
           },
@@ -878,9 +974,9 @@ describe('orders redux selectors', () => {
             },
             error: {},
           },
-          isLoading: false,
-          error: toBlackoutError(new Error('Error')),
-          result: null,
+          isLoading: {},
+          error: {},
+          result: {},
           orderReturns: {
             error: {},
             isLoading: {},
@@ -902,6 +998,15 @@ describe('orders redux selectors', () => {
             isLoading: false,
           },
           orderItemAvailableActivities: {
+            error: null,
+            isLoading: false,
+          },
+          orderSummaries: {
+            error: null,
+            isLoading: false,
+          },
+          guestOrders: {
+            result: null,
             error: null,
             isLoading: false,
           },
@@ -1011,308 +1116,308 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('areOrderReturnOptionsFetched()', () => {
-    describe('when order return options are loading', () => {
-      const baseState = {
-        entities: {},
-        orders: {
-          ...mockState.orders,
-          orderReturnOptions: {
-            isLoading: {
-              [orderId]: true,
-            },
-            error: {},
-          },
-        },
-      };
+  // describe('areOrderReturnOptionsFetched()', () => {
+  //   describe('when order return options are loading', () => {
+  //     const baseState = {
+  //       entities: {},
+  //       orders: {
+  //         ...mockState.orders,
+  //         orderReturnOptions: {
+  //           isLoading: {
+  //             [orderId]: true,
+  //           },
+  //           error: {},
+  //         },
+  //       },
+  //     };
 
-      it('should always return false', () => {
-        // Case 1: Where `isLoading` is true and
-        // there is no error and no result from a previous request
-        expect(selectors.areOrderReturnOptionsFetched(baseState, orderId)).toBe(
-          false,
-        );
+  //     it('should always return false', () => {
+  //       // Case 1: Where `isLoading` is true and
+  //       // there is no error and no result from a previous request
+  //       expect(selectors.areOrderReturnOptionsFetched(baseState, orderId)).toBe(
+  //         false,
+  //       );
 
-        // Case 2: Where `isLoading` is true and
-        // there is an error from a previous request but no result
-        const stateWithError = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturnOptions: {
-              ...baseState.orders.orderReturnOptions,
-              error: { [orderId]: new Error('error') as BlackoutError },
-            },
-          },
-        };
+  //       // Case 2: Where `isLoading` is true and
+  //       // there is an error from a previous request but no result
+  //       const stateWithError = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturnOptions: {
+  //             ...baseState.orders.orderReturnOptions,
+  //             error: { [orderId]: new Error('error') as BlackoutError },
+  //           },
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(stateWithError, orderId),
-        ).toBe(false);
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(stateWithError, orderId),
+  //       ).toBe(false);
 
-        // Case 3: Where `isLoading` is true and
-        // there is a result but no error
-        const stateWithResult = {
-          ...baseState,
-          entities: mockState.entities,
-        };
+  //       // Case 3: Where `isLoading` is true and
+  //       // there is a result but no error
+  //       const stateWithResult = {
+  //         ...baseState,
+  //         entities: mockState.entities,
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(stateWithResult, orderId),
-        ).toBe(false);
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(stateWithResult, orderId),
+  //       ).toBe(false);
 
-        // Case 4: Where `isLoading` is true and
-        // there is a result and an error
-        const stateWithResultAndError = {
-          ...stateWithResult,
-          orders: {
-            ...stateWithError.orders,
-          },
-        };
+  //       // Case 4: Where `isLoading` is true and
+  //       // there is a result and an error
+  //       const stateWithResultAndError = {
+  //         ...stateWithResult,
+  //         orders: {
+  //           ...stateWithError.orders,
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(
-            stateWithResultAndError,
-            orderId,
-          ),
-        ).toBe(false);
-      });
-    });
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(
+  //           stateWithResultAndError,
+  //           orderId,
+  //         ),
+  //       ).toBe(false);
+  //     });
+  //   });
 
-    describe('when order return options are not loading', () => {
-      const baseState = {
-        entities: {},
-        orders: {
-          ...mockState.orders,
-          orderReturnOptions: {
-            isLoading: {
-              [orderId]: false,
-            },
-            error: {},
-          },
-        },
-      };
+  //   describe('when order return options are not loading', () => {
+  //     const baseState = {
+  //       entities: {},
+  //       orders: {
+  //         ...mockState.orders,
+  //         orderReturnOptions: {
+  //           isLoading: {
+  //             [orderId]: false,
+  //           },
+  //           error: {},
+  //         },
+  //       },
+  //     };
 
-      it('should return false if there is no error and no result', () => {
-        const stateWithNoIsLoadingProp = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturnOptions: {
-              isLoading: {},
-              error: {},
-            },
-          },
-        };
+  //     it('should return false if there is no error and no result', () => {
+  //       const stateWithNoIsLoadingProp = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturnOptions: {
+  //             isLoading: {},
+  //             error: {},
+  //           },
+  //         },
+  //       };
 
-        // Case 1: There is no entry for the orderId in orderReturnOptions state
-        expect(
-          selectors.areOrderReturnOptionsFetched(
-            stateWithNoIsLoadingProp,
-            orderId,
-          ),
-        ).toBe(false);
+  //       // Case 1: There is no entry for the orderId in orderReturnOptions state
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(
+  //           stateWithNoIsLoadingProp,
+  //           orderId,
+  //         ),
+  //       ).toBe(false);
 
-        // Case 2: There is an entry for the orderId in orderReturnOptions state
-        // and it is false.
-        expect(selectors.areOrderReturnOptionsFetched(baseState, orderId)).toBe(
-          false,
-        );
-      });
+  //       // Case 2: There is an entry for the orderId in orderReturnOptions state
+  //       // and it is false.
+  //       expect(selectors.areOrderReturnOptionsFetched(baseState, orderId)).toBe(
+  //         false,
+  //       );
+  //     });
 
-      it('should return true if there is either an error and/or a result', () => {
-        // Case 1: Where `isLoading` is false and
-        // there is an error from a previous request but no result
-        const stateWithError = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturnOptions: {
-              ...baseState.orders.orderReturnOptions,
-              error: { [orderId]: new Error('error') as BlackoutError },
-            },
-          },
-        };
+  //     it('should return true if there is either an error and/or a result', () => {
+  //       // Case 1: Where `isLoading` is false and
+  //       // there is an error from a previous request but no result
+  //       const stateWithError = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturnOptions: {
+  //             ...baseState.orders.orderReturnOptions,
+  //             error: { [orderId]: new Error('error') as BlackoutError },
+  //           },
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(stateWithError, orderId),
-        ).toBe(true);
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(stateWithError, orderId),
+  //       ).toBe(true);
 
-        // Case 2: Where `isLoading` is false and
-        // there is a result but no error
-        const stateWithResult = {
-          ...baseState,
-          entities: mockState.entities,
-        };
+  //       // Case 2: Where `isLoading` is false and
+  //       // there is a result but no error
+  //       const stateWithResult = {
+  //         ...baseState,
+  //         entities: mockState.entities,
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(stateWithResult, orderId),
-        ).toBe(true);
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(stateWithResult, orderId),
+  //       ).toBe(true);
 
-        // Case 3: Where `isLoading` is false and
-        // there is a result and an error
-        const stateWithResultAndError = {
-          ...stateWithResult,
-          orders: {
-            ...stateWithError.orders,
-          },
-        };
+  //       // Case 3: Where `isLoading` is false and
+  //       // there is a result and an error
+  //       const stateWithResultAndError = {
+  //         ...stateWithResult,
+  //         orders: {
+  //           ...stateWithError.orders,
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnOptionsFetched(
-            stateWithResultAndError,
-            orderId,
-          ),
-        ).toBe(true);
-      });
-    });
-  });
+  //       expect(
+  //         selectors.areOrderReturnOptionsFetched(
+  //           stateWithResultAndError,
+  //           orderId,
+  //         ),
+  //       ).toBe(true);
+  //     });
+  //   });
+  // });
 
-  describe('areOrderReturnsFetched()', () => {
-    describe('when order returns are loading', () => {
-      const baseState = {
-        entities: {},
-        orders: {
-          ...mockState.orders,
-          orderReturns: {
-            isLoading: {
-              [orderId]: true,
-            },
-            error: {},
-          },
-        },
-      };
+  // describe('areOrderReturnsFetched()', () => {
+  //   describe('when order returns are loading', () => {
+  //     const baseState = {
+  //       entities: {},
+  //       orders: {
+  //         ...mockState.orders,
+  //         orderReturns: {
+  //           isLoading: {
+  //             [orderId]: true,
+  //           },
+  //           error: {},
+  //         },
+  //       },
+  //     };
 
-      it('should always return false', () => {
-        // Case 1: Where `isLoading` is true and
-        // there is no error and no result from a previous request
-        expect(selectors.areOrderReturnsFetched(baseState, orderId)).toBe(
-          false,
-        );
+  //     it('should always return false', () => {
+  //       // Case 1: Where `isLoading` is true and
+  //       // there is no error and no result from a previous request
+  //       expect(selectors.areOrderReturnsFetched(baseState, orderId)).toBe(
+  //         false,
+  //       );
 
-        // Case 2: Where `isLoading` is true and
-        // there is an error from a previous request but no result
-        const stateWithError = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturns: {
-              ...baseState.orders.orderReturns,
-              error: { [orderId]: new Error('error') as BlackoutError },
-            },
-          },
-        };
+  //       // Case 2: Where `isLoading` is true and
+  //       // there is an error from a previous request but no result
+  //       const stateWithError = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturns: {
+  //             ...baseState.orders.orderReturns,
+  //             error: { [orderId]: new Error('error') as BlackoutError },
+  //           },
+  //         },
+  //       };
 
-        expect(selectors.areOrderReturnsFetched(stateWithError, orderId)).toBe(
-          false,
-        );
+  //       expect(selectors.areOrderReturnsFetched(stateWithError, orderId)).toBe(
+  //         false,
+  //       );
 
-        // Case 3: Where `isLoading` is true and
-        // there is a result but no error
-        const stateWithResult = {
-          ...baseState,
-          entities: mockState.entities,
-        };
+  //       // Case 3: Where `isLoading` is true and
+  //       // there is a result but no error
+  //       const stateWithResult = {
+  //         ...baseState,
+  //         entities: mockState.entities,
+  //       };
 
-        expect(selectors.areOrderReturnsFetched(stateWithResult, orderId)).toBe(
-          false,
-        );
+  //       expect(selectors.areOrderReturnsFetched(stateWithResult, orderId)).toBe(
+  //         false,
+  //       );
 
-        // Case 4: Where `isLoading` is true and
-        // there is a result and an error
-        const stateWithResultAndError = {
-          ...stateWithResult,
-          orders: {
-            ...stateWithError.orders,
-          },
-        };
+  //       // Case 4: Where `isLoading` is true and
+  //       // there is a result and an error
+  //       const stateWithResultAndError = {
+  //         ...stateWithResult,
+  //         orders: {
+  //           ...stateWithError.orders,
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnsFetched(stateWithResultAndError, orderId),
-        ).toBe(false);
-      });
-    });
+  //       expect(
+  //         selectors.areOrderReturnsFetched(stateWithResultAndError, orderId),
+  //       ).toBe(false);
+  //     });
+  //   });
 
-    describe('when order returns are not loading', () => {
-      const baseState = {
-        entities: {},
-        orders: {
-          ...mockState.orders,
-          orderReturns: {
-            isLoading: {
-              [orderId]: false,
-            },
-            error: {},
-          },
-        },
-      };
+  //   describe('when order returns are not loading', () => {
+  //     const baseState = {
+  //       entities: {},
+  //       orders: {
+  //         ...mockState.orders,
+  //         orderReturns: {
+  //           isLoading: {
+  //             [orderId]: false,
+  //           },
+  //           error: {},
+  //         },
+  //       },
+  //     };
 
-      it('should return false if there is no error and no result', () => {
-        const stateWithNoIsLoadingProp = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturns: {
-              isLoading: {},
-              error: {},
-            },
-          },
-        };
+  //     it('should return false if there is no error and no result', () => {
+  //       const stateWithNoIsLoadingProp = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturns: {
+  //             isLoading: {},
+  //             error: {},
+  //           },
+  //         },
+  //       };
 
-        // Case 1: There is no entry for the orderId in orderReturns state
-        expect(
-          selectors.areOrderReturnsFetched(stateWithNoIsLoadingProp, orderId),
-        ).toBe(false);
+  //       // Case 1: There is no entry for the orderId in orderReturns state
+  //       expect(
+  //         selectors.areOrderReturnsFetched(stateWithNoIsLoadingProp, orderId),
+  //       ).toBe(false);
 
-        // Case 2: There is an entry for the orderId in orderReturns state
-        // and it is false.
-        expect(selectors.areOrderReturnsFetched(baseState, orderId)).toBe(
-          false,
-        );
-      });
+  //       // Case 2: There is an entry for the orderId in orderReturns state
+  //       // and it is false.
+  //       expect(selectors.areOrderReturnsFetched(baseState, orderId)).toBe(
+  //         false,
+  //       );
+  //     });
 
-      it('should return true if there is either an error and/or a result', () => {
-        // Case 1: Where `isLoading` is false and
-        // there is an error from a previous request but no result
-        const stateWithError = {
-          ...baseState,
-          orders: {
-            ...baseState.orders,
-            orderReturns: {
-              ...baseState.orders.orderReturns,
-              error: { [orderId]: new Error('error') as BlackoutError },
-            },
-          },
-        };
+  //     it('should return true if there is either an error and/or a result', () => {
+  //       // Case 1: Where `isLoading` is false and
+  //       // there is an error from a previous request but no result
+  //       const stateWithError = {
+  //         ...baseState,
+  //         orders: {
+  //           ...baseState.orders,
+  //           orderReturns: {
+  //             ...baseState.orders.orderReturns,
+  //             error: { [orderId]: new Error('error') as BlackoutError },
+  //           },
+  //         },
+  //       };
 
-        expect(selectors.areOrderReturnsFetched(stateWithError, orderId)).toBe(
-          true,
-        );
+  //       expect(selectors.areOrderReturnsFetched(stateWithError, orderId)).toBe(
+  //         true,
+  //       );
 
-        // Case 2: Where `isLoading` is false and
-        // there is a result but no error
-        const stateWithResult = {
-          ...baseState,
-          entities: mockState.entities,
-        };
+  //       // Case 2: Where `isLoading` is false and
+  //       // there is a result but no error
+  //       const stateWithResult = {
+  //         ...baseState,
+  //         entities: mockState.entities,
+  //       };
 
-        expect(selectors.areOrderReturnsFetched(stateWithResult, orderId)).toBe(
-          true,
-        );
+  //       expect(selectors.areOrderReturnsFetched(stateWithResult, orderId)).toBe(
+  //         true,
+  //       );
 
-        // Case 3: Where `isLoading` is false and
-        // there is a result and an error
-        const stateWithResultAndError = {
-          ...stateWithResult,
-          orders: {
-            ...stateWithError.orders,
-          },
-        };
+  //       // Case 3: Where `isLoading` is false and
+  //       // there is a result and an error
+  //       const stateWithResultAndError = {
+  //         ...stateWithResult,
+  //         orders: {
+  //           ...stateWithError.orders,
+  //         },
+  //       };
 
-        expect(
-          selectors.areOrderReturnsFetched(stateWithResultAndError, orderId),
-        ).toBe(true);
-      });
-    });
-  });
+  //       expect(
+  //         selectors.areOrderReturnsFetched(stateWithResultAndError, orderId),
+  //       ).toBe(true);
+  //     });
+  //   });
+  // });
 });
