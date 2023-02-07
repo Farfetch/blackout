@@ -11,7 +11,7 @@ import EventTypes from '../../types/EventTypes';
 import InteractionTypes from '../../types/InteractionTypes';
 import isNil from 'lodash/isNil';
 import PageTypes from '../../types/PageTypes';
-import type { EventData, TrackTypesValues } from '../..';
+import type { EventData, EventProperties, TrackTypesValues } from '../..';
 import type {
   OmnitrackingPageEventsMapper,
   OmnitrackingTrackEventParameters,
@@ -373,6 +373,19 @@ export const pageViewEventTypes = {
 } as const;
 
 /**
+ * Returns the filter properties from an event.
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Object containing the filter properties.
+ */
+const getFilterParametersFromEvent = (eventProperties: EventProperties) => ({
+  filters: eventProperties.filters
+    ? JSON.stringify(eventProperties.filters)
+    : undefined,
+});
+
+/**
  * Events mapper with possible keywords for each event type. This keywords can
  * match both with `window.location.href` or the page name passed via
  * `analytics.page(name, properties)`.
@@ -547,11 +560,11 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   },
   [EventTypes.FILTERS_APPLIED]: (data: EventData<TrackTypesValues>) => ({
     tid: 2921,
-    filtersApplied: data.properties?.filters,
+    filtersApplied: getFilterParametersFromEvent(data.properties),
   }),
   [EventTypes.FILTERS_CLEARED]: (data: EventData<TrackTypesValues>) => ({
     tid: 2917,
-    filtersApplied: data.properties?.filters,
+    filtersApplied: getFilterParametersFromEvent(data.properties),
   }),
   [EventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
     if (data.properties?.interactionType === InteractionTypes.SCROLL) {

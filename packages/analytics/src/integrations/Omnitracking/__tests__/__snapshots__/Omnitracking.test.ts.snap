@@ -34,29 +34,7 @@ Object {
 exports[`Omnitracking track events definitions \`Filters Applied\` return should match the snapshot 1`] = `
 Object {
   "filtersApplied": Object {
-    "brands": Array [
-      2765,
-      4062,
-    ],
-    "categories": Array [
-      135973,
-    ],
-    "colors": Array [
-      1,
-    ],
-    "discount": Array [
-      0,
-    ],
-    "gender": Array [
-      0,
-    ],
-    "price": Array [
-      0,
-      1950,
-    ],
-    "sizes": Array [
-      16,
-    ],
+    "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
   },
   "tid": 2921,
 }
@@ -65,29 +43,7 @@ Object {
 exports[`Omnitracking track events definitions \`Filters Cleared\` return should match the snapshot 1`] = `
 Object {
   "filtersApplied": Object {
-    "brands": Array [
-      2765,
-      4062,
-    ],
-    "categories": Array [
-      135973,
-    ],
-    "colors": Array [
-      1,
-    ],
-    "discount": Array [
-      0,
-    ],
-    "gender": Array [
-      0,
-    ],
-    "price": Array [
-      0,
-      1950,
-    ],
-    "sizes": Array [
-      16,
-    ],
+    "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
   },
   "tid": 2917,
 }
