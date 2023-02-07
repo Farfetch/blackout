@@ -47,8 +47,8 @@ class Riskified extends integrations.Integration {
     super(options, loadData);
 
     this.isReady = false;
-    this.siteId = options.siteId || 'farfetch.com';
-    this.baseUrl = `https://beacon.riskified.com?shop=${this.siteId}&sid=`;
+    this.shop = options.shop || 'farfetch.com';
+    this.baseUrl = `https://beacon.riskified.com?shop=${this.shop}&sid=`;
 
     this.setupScript(loadData);
   }
@@ -66,13 +66,12 @@ class Riskified extends integrations.Integration {
     const script = document.createElement('script');
     const url = `${this.baseUrl}${correlationId}`;
 
-    document.body.appendChild(script);
-
     script.onload = this.onLoad;
 
     script.setAttribute('data-test', 'riskified');
     script.async = true;
     script.src = url;
+    document.body.appendChild(script);
 
     return this;
   }

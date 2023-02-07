@@ -1,9 +1,5 @@
 import { AnalyticsConstants } from '../shared/constants';
-import {
-  ForterProductionSiteId,
-  ForterSandboxSiteId,
-  ForterTokenTid,
-} from '../Forter/constants';
+import { ForterProductionSiteId, ForterTokenTid } from '../Forter/constants';
 import { postTrackings } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/client';
 import { utils } from '@farfetch/blackout-core/analytics';
 import Forter from '../Forter/Forter';
@@ -55,10 +51,12 @@ describe('Forter', () => {
     ).toBeInstanceOf(Forter);
   });
 
-  it('should return default `siteId` if empty value are passed on options', () => {
-    const forter = Forter.createInstance({}, {}, {});
+  it('should warn when `siteId` is empty and `environment` is different from production.', () => {
+    Forter.createInstance({}, {}, {});
 
-    expect(forter.options.siteId).toEqual(ForterSandboxSiteId);
+    expect(utils.logger.warn).toHaveBeenCalledWith(
+      "[Forter] - `siteId` parameter was not provided in options. It's mandatory on the development environment for the Forter integration to be loaded.",
+    );
   });
 
   it('should return default `siteId` (for production) if empty value are passed on options', () => {
