@@ -55,7 +55,7 @@ export default class ForterTokenLoadedEventDetector {
     if (typeof window['jQuery'] === 'function') {
       window['jQuery'](document).on(
         ForterTokenReadyEvent,
-        function (event, forterToken) {
+        function (_event, forterToken) {
           callback(forterToken);
         },
       );

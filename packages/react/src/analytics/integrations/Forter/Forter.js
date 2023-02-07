@@ -18,9 +18,13 @@
  * @subcategory Integrations
  */
 
+import { AnalyticsConstants } from '..';
 import { formatTrackEvent } from '@farfetch/blackout-core/analytics/integrations/Omnitracking/omnitracking-helper';
-import { ForterTokenLoadedAnalyticsEvent, ForterTokenTid } from './constants';
-import { getDefaultSiteId } from './forterHelper';
+import {
+  ForterProductionSiteId,
+  ForterTokenLoadedAnalyticsEvent,
+  ForterTokenTid,
+} from './constants';
 import {
   integrations,
   trackTypes,
@@ -57,10 +61,18 @@ class Forter extends integrations.Integration {
    */
   constructor(options, loadData, analytics) {
     const safeOptions = defaultTo({ ...options }, {});
-    safeOptions.siteId ??= getDefaultSiteId(safeOptions);
     super(safeOptions, loadData, analytics);
 
-    this.analytics = analytics;
+    if (safeOptions.environment === AnalyticsConstants.ENVIRONMENT_TYPES.prod) {
+      safeOptions.siteId ??= ForterProductionSiteId;
+    }
+
+    if (!safeOptions.siteId) {
+      utils.logger.warn(
+        "[Forter] - `siteId` parameter was not provided in options. It's mandatory on the development environment for the Forter integration to be loaded.",
+      );
+      return;
+    }
 
     this.initialize();
   }
@@ -111,7 +123,7 @@ class Forter extends integrations.Integration {
    * @returns {Promise} Promise that will be resolved when analytics creates an event.
    */
   async createSyntheticForterTokenLoadedEvent() {
-    const syntheticEventData = await this.analytics.createEvent(
+    const syntheticEventData = await this.strippedDownAnalytics.createEvent(
       trackTypes.TRACK,
       ForterTokenLoadedAnalyticsEvent,
     );
