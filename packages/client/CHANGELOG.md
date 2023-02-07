@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.235](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.234...@farfetch/blackout-client@2.0.0-next.235) (2023-02-07)
+
+
+### Features
+
+* **client:** add product outfits endpoints ([20efbdd](https://github.com/Farfetch/blackout/commit/20efbdd976eba31a8533065d6291c4d432b70a4f))
+
+
+
+
+
 # [2.0.0-next.234](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.233...@farfetch/blackout-client@2.0.0-next.234) (2023-02-02)
 
 
