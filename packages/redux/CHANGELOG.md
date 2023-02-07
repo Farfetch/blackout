@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.364](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.363...@farfetch/blackout-redux@1.0.0-next.364) (2023-02-07)
+
+
+### Features
+
+* **redux:** add redux product outfits ([1df1612](https://github.com/Farfetch/blackout/commit/1df1612a02a0d9bd0723cc36fca93ccf476082fc))
+
+
+
+
+
 # [1.0.0-next.363](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.362...@farfetch/blackout-redux@1.0.0-next.363) (2023-02-03)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
