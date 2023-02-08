@@ -1,5 +1,4 @@
 export * from './getGuestOrderLegacy.types.js';
-export * from './getGuestOrders.types.js';
 export * from './getOrder.types.js';
 export * from './getOrderAvailableItemsActivities.types.js';
 export * from './getOrderDocument.types.js';

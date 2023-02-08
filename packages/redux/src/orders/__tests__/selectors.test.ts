@@ -2,11 +2,9 @@ import * as fromEntities from '../../entities/selectors/entity.js';
 import * as fromOrders from '../reducer.js';
 import * as selectors from '../selectors.js';
 import {
-  // expectedGetGuestOrdersResult,
   courierEntity,
   courierId,
   defaultHashedQuery,
-  expectedGetGuestOrdersResult,
   expectedGetUserOrdersResult,
   expectedGetUserOrdersResultByOrderId,
   labelTrackingEntity,
@@ -84,32 +82,6 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getGuestOrdersResult()', () => {
-    it('should get the order result denormalized from state if it contains the response from fetch guest user orders', () => {
-      expect(selectors.getGuestOrdersResult(mockState)).toEqual(
-        expectedGetGuestOrdersResult,
-      );
-    });
-
-    it('should return undefined if result property in state is undefined', () => {
-      const expectedResult = undefined;
-      const stateWithUndefinedResult = {
-        ...mockState,
-        orders: {
-          ...mockState.orders,
-          guestOrders: {
-            ...mockState.orders.guestOrders,
-            result: null,
-          },
-        },
-      };
-
-      expect(selectors.getGuestOrdersResult(stateWithUndefinedResult)).toEqual(
-        expectedResult,
-      );
-    });
-  });
-
   describe('getUserOrdersResult()', () => {
     it('should get the order summary result denormalized from state if it contains the response from fetch user orders', () => {
       expect(selectors.getUserOrdersResult(mockState)).toEqual(
@@ -136,28 +108,6 @@ describe('orders redux selectors', () => {
       const spy = jest.spyOn(fromOrders, 'getOrderDetails');
 
       expect(selectors.getOrderError(mockState, orderId)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('areGuestOrdersLoading()', () => {
-    it('should get the guestOrders isLoading property from state', () => {
-      const expectedResult = mockState.orders.guestOrders.isLoading;
-      const spy = jest.spyOn(fromOrders, 'getGuestOrders');
-
-      expect(selectors.areGuestOrdersLoading(mockState)).toEqual(
-        expectedResult,
-      );
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getGuestOrdersError()', () => {
-    it('should get the guestOrders isLoading property from state', () => {
-      const expectedResult = mockState.orders.guestOrders.error;
-      const spy = jest.spyOn(fromOrders, 'getGuestOrders');
-
-      expect(selectors.getGuestOrdersError(mockState)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

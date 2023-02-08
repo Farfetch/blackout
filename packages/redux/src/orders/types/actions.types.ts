@@ -5,7 +5,6 @@ import type {
   CategoryEntity,
   CourierEntity,
   LabelTrackingEntity,
-  MerchantEntity,
   MerchantOrderReturnOptionsNormalized,
   OrderEntity,
   OrderItemEntity,
@@ -22,14 +21,12 @@ type OrderPayload = NormalizedSchema<
   {
     orders: Record<OrderEntity['id'], OrderEntity>;
     orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
     brands: Record<Brand['id'], Brand>;
     categories: Record<CategoryEntity['id'], CategoryEntity>;
   },
   OrderEntity['id']
 >;
 
-// ///////////
 type UserOrdersPayload = NormalizedSchema<
   {
     orderSummaries: Record<
@@ -38,17 +35,6 @@ type UserOrdersPayload = NormalizedSchema<
     >;
   },
   OrderSummariesNormalized
->;
-
-type GuestOrdersPayload = NormalizedSchema<
-  {
-    orders: Record<OrderEntity['id'], OrderEntity>;
-    orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
-    merchants: Record<MerchantEntity['id'], MerchantEntity>;
-    brands: Record<Brand['id'], Brand>;
-    categories: Record<CategoryEntity['id'], CategoryEntity>;
-  },
-  Array<OrderEntity['id']>
 >;
 
 type ReturnsPayload = NormalizedSchema<
@@ -165,26 +151,6 @@ export type FetchOrdersAction =
   | FetchUserOrdersRequestAction
   | FetchUserOrdersSuccessAction
   | FetchUserOrdersFailureAction;
-
-export interface FetchGuestOrdersRequestAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_REQUEST;
-}
-export interface FetchGuestOrdersSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_SUCCESS;
-  payload: GuestOrdersPayload;
-}
-export interface FetchGuestOrdersFailureAction extends Action {
-  type: typeof actionTypes.FETCH_GUEST_ORDERS_FAILURE;
-  payload: { error: BlackoutError };
-}
-
-/**
- * Actions dispatched when the fetch guest orders request is made.
- */
-export type FetchGuestOrdersAction =
-  | FetchGuestOrdersRequestAction
-  | FetchGuestOrdersSuccessAction
-  | FetchGuestOrdersFailureAction;
 
 export interface FetchShipmentTrackingsRequestAction extends Action {
   type: typeof actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST;

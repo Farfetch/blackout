@@ -2,7 +2,6 @@
  * Orders clients.
  */
 export { default as getGuestOrderLegacy } from './getGuestOrderLegacy.js';
-export { default as getGuestOrders } from './getGuestOrders.js';
 export { default as getOrder } from './getOrder.js';
 export { default as getOrderAvailableItemsActivities } from './getOrderAvailableItemsActivities.js';
 export { default as getOrderDocument } from './getOrderDocument.js';

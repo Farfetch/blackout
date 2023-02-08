@@ -929,7 +929,6 @@ Object {
   "getFormSchema": [Function],
   "getGiftCardBalance": [Function],
   "getGuestOrderLegacy": [Function],
-  "getGuestOrders": [Function],
   "getGuestUser": [Function],
   "getMerchantsLocations": [Function],
   "getOrder": [Function],

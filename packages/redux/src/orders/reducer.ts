@@ -9,9 +9,7 @@ import {
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import produce from 'immer';
-import reducerFactory, {
-  createReducerWithResult,
-} from '../helpers/reducerFactory.js';
+import reducerFactory from '../helpers/reducerFactory.js';
 import type * as T from './types/index.js';
 import type {
   // FetchOrderReturnOptionsSuccessAction,
@@ -59,11 +57,6 @@ export const INITIAL_STATE: T.OrdersState = {
   orderItemAvailableActivities: {
     error: null,
     isLoading: false,
-  },
-  guestOrders: {
-    result: null,
-    isLoading: false,
-    error: null,
   },
 };
 
@@ -541,12 +534,6 @@ export const orderItemAvailableActivities = reducerFactory(
   actionTypes,
 );
 
-export const guestOrders = createReducerWithResult(
-  'FETCH_GUEST_ORDERS',
-  INITIAL_STATE.guestOrders,
-  actionTypes,
-);
-
 export const getError = (state: T.OrdersState): T.OrdersState['error'] =>
   state.error;
 export const getIsLoading = (
@@ -577,14 +564,10 @@ export const getOrderItemAvailableActivities = (
   state: T.OrdersState,
 ): T.OrdersState['orderItemAvailableActivities'] =>
   state.orderItemAvailableActivities;
-export const getGuestOrders = (
-  state: T.OrdersState,
-): T.OrdersState['guestOrders'] => state.guestOrders;
 
 const reducer = combineReducers({
   documents,
   error,
-  guestOrders,
   isLoading,
   orderAvailableItemsActivities,
   orderDetails,
