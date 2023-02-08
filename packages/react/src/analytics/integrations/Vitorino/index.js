@@ -1,2 +1,2 @@
 export { default } from './Vitorino';
-export * from './Vitorino';
+export { VITORINO_PROVIDERS } from './constants';
