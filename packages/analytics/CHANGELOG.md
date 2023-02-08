@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.116](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.115...@farfetch/blackout-analytics@1.0.0-next.116) (2023-02-08)
+
+
+### Bug Fixes
+
+* filters validation analytics ([6f0a1c4](https://github.com/Farfetch/blackout/commit/6f0a1c44afaf8f3ef13ff838d3253b47a549601a))
+
+
+
+
+
 # [1.0.0-next.115](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.114...@farfetch/blackout-analytics@1.0.0-next.115) (2023-02-07)
 
 
