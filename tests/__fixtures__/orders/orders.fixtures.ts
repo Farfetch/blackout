@@ -1698,10 +1698,7 @@ export const mockOrderDetailsResponse2 = {
   promotionOffers: [],
 };
 
-export const mockGuestOrdersResponse = [
-  mockOrderDetailsResponse,
-  mockOrderDetailsResponse2,
-];
+export const mockGuestOrderResponse = mockOrderDetailsResponse;
 
 export const mockOrderReturnOptionsResponse = [
   {
@@ -2079,7 +2076,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           parentId: 136383,
         },
       },
-      merchants: { 10537: { id: 10537 }, 10538: { id: 10538 } },
       orderItems: {
         [orderItemId]: {
           attributes: mockOrderItem.attributes,
@@ -2135,7 +2131,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId,
+          merchantId,
           merchantOrderId: merchantOrderId,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
@@ -2256,7 +2252,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId2,
+          merchantId: merchantId2,
           merchantOrderId: merchantOrderId2,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
@@ -2361,7 +2357,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           isCustomizable: false,
           isExclusive: false,
           isPreOrder: false,
-          merchant: merchantId,
+          merchantId,
           merchantOrderId: merchantOrderId2,
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
@@ -2471,26 +2467,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             vatNumber: '123456789',
             zipCode: '1234-567',
           },
-          byMerchant: {
-            [merchantId]: {
-              merchant: merchantId,
-              orderItems: [orderItemId, orderItemId3],
-              returnAvailable: false,
-              checkoutOrderId: 15338048,
-              merchantOrderCode: 'PZ1132281368',
-              totalQuantity: 2,
-              userId,
-            },
-            [merchantId2]: {
-              merchant: merchantId2,
-              orderItems: [orderItemId2],
-              returnAvailable: false,
-              checkoutOrderId: 15338048,
-              merchantOrderCode: 'PZ1132281368',
-              totalQuantity: 1,
-              userId,
-            },
-          },
           checkoutOrderId: 15338048,
           createdDate: 1539688029817,
           credit: 0,
@@ -2557,7 +2533,6 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           totalTaxes: 423.57,
           updatedDate: 1539688029817,
           userId,
-          totalItems: 3,
         },
       },
     },
@@ -2725,11 +2700,6 @@ export const expectedGuestOrdersNormalizedPayload = {
         gender: Gender.Man,
       },
     },
-    merchants: {
-      '10537': { id: 10537 },
-      '10538': { id: 10538 },
-      '11554': { id: 11554 },
-    },
     orderItems: {
       [orderItemId]: {
         customAttributes: null,
@@ -2781,7 +2751,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId,
+        merchantId,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 256.49,
@@ -2908,7 +2878,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId2,
+        merchantId: merchantId2,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 433.68,
@@ -3017,7 +2987,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: merchantId,
+        merchantId,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 111.26,
@@ -3344,7 +3314,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             },
           },
         ],
-        merchant: 11554,
+        merchantId: 11554,
         price: {
           discount: { excludingTaxes: 0, includingTaxes: 0, rate: 0 },
           excludingTaxes: 0.81,
@@ -4008,11 +3978,6 @@ export const mockState = {
       error: null,
       isLoading: false,
     },
-    guestOrders: {
-      error: null,
-      isLoading: false,
-      result: [orderId, orderId2],
-    },
   },
   entities: {
     brands: {
@@ -4252,11 +4217,6 @@ export const expectedGetUserOrdersResult = {
     orderSummaryEntityDenormalized3,
   ],
 };
-
-export const expectedGetGuestOrdersResult = [
-  orderEntityDenormalized,
-  orderEntityDenormalized2,
-];
 
 export const expectedOrderReturnsNormalizedPayload = {
   entities: {

@@ -3,7 +3,6 @@ import {
   areUserOrdersLoading,
   buildQueryStringFromObject,
   fetchGuestOrderLegacy as fetchGuestOrderLegacyAction,
-  fetchGuestOrders as fetchGuestOrdersAction,
   fetchOrder as fetchOrderAction,
   fetchUserOrders as fetchUserOrdersAction,
   getUserOrdersError,
@@ -34,7 +33,6 @@ import type { UseOrdersOptions } from './types';
 function useOrders(options: UseOrdersOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
   const fetchUserOrders = useAction(fetchUserOrdersAction);
-  const fetchGuestOrders = useAction(fetchGuestOrdersAction);
   const fetchOrder = useAction(fetchOrderAction);
   const fetchGuestOrderLegacy = useAction(fetchGuestOrderLegacyAction);
   const reset = useAction(resetOrders);
@@ -69,19 +67,8 @@ function useOrders(options: UseOrdersOptions = {}) {
       return fetchUserOrders(userId as User['id'], fetchQuery, fetchConfig);
     }
 
-    // By default if the user is not authenticated, it is assumed that it can
-    // request for the guest orders. However, that request might not be available
-    // yet for the tenant, so the tenant must control via the `enableAutoFetch` option
-    // if he wants to skip fetching orders for guest users.
-    return fetchGuestOrders(fetchConfig);
-  }, [
-    fetchConfig,
-    fetchGuestOrders,
-    fetchQuery,
-    fetchUserOrders,
-    isAuthenticated,
-    userId,
-  ]);
+    return Promise.reject(new Error('User is not authenticated'));
+  }, [fetchConfig, fetchQuery, fetchUserOrders, isAuthenticated, userId]);
 
   const fetchOrderDetails = useCallback(
     (orderId: Order['id'], guestUserEmail?: string | null, config?: Config) => {

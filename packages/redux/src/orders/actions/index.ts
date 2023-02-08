@@ -5,7 +5,6 @@
 export { default as addOrderDocument } from './addOrderDocument';
 export { default as addOrderItemActivity } from './addOrderItemActivity';
 export { default as fetchGuestOrderLegacy } from './fetchGuestOrderLegacy';
-export { default as fetchGuestOrders } from './fetchGuestOrders';
 export { default as fetchOrder } from './fetchOrder';
 export { default as fetchOrderDocument } from './fetchOrderDocument';
 export { default as fetchOrderDocuments } from './fetchOrderDocuments';

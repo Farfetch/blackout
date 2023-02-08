@@ -878,7 +878,6 @@ describe('orders reducer', () => {
     };
 
     const subAreas = {
-      guestOrders: { ...subAreaResult, result: null },
       orderDetails: { ...subAreaResult },
       orderReturns: { ...subAreaResult },
       orderReturnOptions: { ...subAreaResult },
@@ -897,16 +896,6 @@ describe('orders reducer', () => {
       'OrderAvailableItemsActivities',
       'OrderItemAvailableActivities',
     ];
-
-    it('return the `GuestOrders` property from a given state', () => {
-      const { getGuestOrders } = fromReducer;
-
-      expect(getGuestOrders(initialState)).toEqual({
-        error: null,
-        isLoading: false,
-        result: null,
-      });
-    });
 
     it.each(subAreaNames)(
       'return the `%s` property from a given state',

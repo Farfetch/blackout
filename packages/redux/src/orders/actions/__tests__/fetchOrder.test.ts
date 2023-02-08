@@ -73,7 +73,6 @@ describe('fetchOrder() action creator', () => {
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload(
       mockProductImgQueryParam,
     );
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     expect.assertions(5);
 
@@ -106,7 +105,6 @@ describe('fetchOrder() action creator', () => {
     (getOrder as jest.Mock).mockResolvedValueOnce(mockOrderDetailsResponse);
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     expect.assertions(5);
 
