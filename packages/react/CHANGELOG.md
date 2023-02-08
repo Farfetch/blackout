@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.51.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.50.0...@farfetch/blackout-react@0.51.0) (2023-02-08)
+
+
+### Bug Fixes
+
+* **react:** add missing export on vitorino ([10ba46a](https://github.com/Farfetch/blackout/commit/10ba46a4174512c70ba92c354de5995822adedbf))
+* **react:** remove sandbox forter shop ([1c87c5a](https://github.com/Farfetch/blackout/commit/1c87c5ac757e7742a3ddec4fc2fb2d6c8cacc79a))
+
+
+### Features
+
+* **core|react:** allow analytics to work with any consent categories ([18ee8f3](https://github.com/Farfetch/blackout/commit/18ee8f322ca176760ef77d5185567f85ed235547))
+
+
+
+
+
 # [0.50.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.49.0...@farfetch/blackout-react@0.50.0) (2023-01-24)
 
 

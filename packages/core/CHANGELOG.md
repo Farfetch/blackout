@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.79.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.78.0...@farfetch/blackout-core@1.79.0) (2023-02-08)
+
+
+### Features
+
+* **core|react:** allow analytics to work with any consent categories ([18ee8f3](https://github.com/Farfetch/blackout/commit/18ee8f322ca176760ef77d5185567f85ed235547))
+
+
+
+
+
 # [1.78.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.77.0...@farfetch/blackout-core@1.78.0) (2023-01-24)
 
 
