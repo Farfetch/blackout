@@ -17,14 +17,12 @@ import { schema } from 'normalizr';
 import brand from './brand';
 import category from './category';
 import defaultTo from 'lodash/defaultTo';
-import merchant from './merchant';
 
 export default new schema.Entity(
   'orderItems',
   {
     brand,
     categories: [category],
-    merchant,
   },
   {
     processStrategy: (value, parent) => {
@@ -32,7 +30,6 @@ export default new schema.Entity(
         customAttributes,
         images,
         images: { images: orderProductImages },
-        merchantId,
         price,
         productAggregator,
         productImgQueryParam,
@@ -57,9 +54,6 @@ export default new schema.Entity(
         images: adaptProductImages(imagesToAdapt, {
           productImgQueryParam: finalProductImgQueryParam,
         }),
-        merchant: {
-          id: merchantId,
-        },
         price: adaptPrice(price),
         ...item,
       };

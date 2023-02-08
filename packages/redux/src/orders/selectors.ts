@@ -4,7 +4,6 @@ import { getCategories } from '../categories';
 import {
   getDocuments,
   getError,
-  getGuestOrders,
   getIsLoading,
   getOrderAvailableItemsActivities,
   getOrderDetails,
@@ -278,7 +277,8 @@ export const getReturnOption = (state: StoreState, returnOptionId: string) =>
   getEntityById(state, 'returnOptions', returnOptionId);
 
 /**
- * Returns a specific order identified by its id.
+ * Returns a specific order identified by its id, for an authenticated user
+ * or a guest user.
  *
  * @param state   - Application state.
  * @param orderId - Order id.
@@ -516,7 +516,8 @@ export const getOrderItemQuantity: (
 );
 
 /**
- * Returns the loading status for the order operation.
+ * Returns the loading status for the order operation for an authenticated user
+ * or a guest user.
  *
  * @param state   - Application state.
  * @param orderId - Order identifier.
@@ -527,7 +528,8 @@ export const isOrderLoading = (state: StoreState, orderId: Order['id']) =>
   !!getOrderDetails(state.orders as OrdersState).isLoading[orderId];
 
 /**
- * Returns the error for the order operation.
+ * Returns the error for the order operation for an authenticated user
+ * or a guest user.
  *
  * @param state   - Application state.
  * @param orderId - Order identifier.
@@ -757,8 +759,8 @@ const denormalizeOrderItem = (
   const orderItemDenormalized = {
     ...orderItem,
     merchant:
-      merchants && orderItem.merchant
-        ? merchants[orderItem.merchant]
+      merchants && orderItem.merchantId
+        ? merchants[orderItem.merchantId]
         : undefined,
     categories:
       categories && orderItem.categories
@@ -980,60 +982,3 @@ export const getUserOrdersResultByOrderId: (
     return resultByOrderId;
   },
 );
-
-/**
- * Get guest orders result, denormalized.
- */
-export const getGuestOrdersResult: (
-  state: StoreState,
-) => OrderEntityDenormalized[] | undefined = createSelector(
-  [
-    (state: StoreState) => getGuestOrders(state.orders as OrdersState)?.result,
-    (state: StoreState) => getEntities(state, 'orders'),
-    getOrderItems,
-    getMerchants,
-    getCategories,
-    getBrands,
-  ],
-  (result, orders, orderItems, merchants, categories, brands) => {
-    if (!result || !orders) {
-      return;
-    }
-
-    // If result is an array, it means it contains the result
-    // of the fetchGuestOrders request, so we have the full
-    // order details available in entities.
-    return result
-      .map(orderId =>
-        denormalizeOrder(
-          orderId,
-          orders,
-          orderItems,
-          merchants,
-          categories,
-          brands,
-        ),
-      )
-      .filter(Boolean) as OrderEntityDenormalized[];
-  },
-);
-
-/**
- * Returns the loading status for the guest orders operation.
- *
- * @param state   - Application state.
- *
- * @returns Guest orders loading status.
- */
-export const areGuestOrdersLoading = (state: StoreState) =>
-  getGuestOrders(state.orders as OrdersState).isLoading;
-
-/**
- * Returns the error for the guest orders operation.
- *
- * @param state   - Application state.
- *
- * @returns Guest orders operation error.
- */
-export const getGuestOrdersError = (state: StoreState) =>
-  getGuestOrders(state.orders as OrdersState).error;

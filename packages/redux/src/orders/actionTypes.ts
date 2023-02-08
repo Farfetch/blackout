@@ -214,19 +214,3 @@ export const ADD_ORDER_ITEM_ACTIVITY_REQUEST =
  */
 export const ADD_ORDER_ITEM_ACTIVITY_SUCCESS =
   '@farfetch/blackout-redux/ADD_ORDER_ITEM_ACTIVITY_SUCCESS';
-
-/**
- * Action type dispatched when the fetch orders request fails.
- */
-export const FETCH_GUEST_ORDERS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_FAILURE';
-/**
- * Action type dispatched when the fetch orders request starts.
- */
-export const FETCH_GUEST_ORDERS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_REQUEST';
-/**
- * Action type dispatched when the fetch orders request succeeds.
- */
-export const FETCH_GUEST_ORDERS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_GUEST_ORDERS_SUCCESS';

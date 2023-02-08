@@ -1,5 +1,4 @@
 export * from './getGuestOrderLegacy.types';
-export * from './getGuestOrders.types';
 export * from './getOrder.types';
 export * from './getOrderAvailableItemsActivities.types';
 export * from './getOrderDocument.types';

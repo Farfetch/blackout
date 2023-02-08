@@ -17,7 +17,6 @@ export type OrderItemEntity = Omit<
   OrderItem | OrderItemLegacy,
   | 'customAttributes'
   | 'images'
-  | 'merchantId'
   | 'price'
   | 'productAggregator'
   | 'brand'
@@ -28,7 +27,6 @@ export type OrderItemEntity = Omit<
   categories: Array<Category['id']>;
   customAttributes: CustomAttributesAdapted;
   images: ProductImagesAdapted;
-  merchant: MerchantEntity['id'];
   price: PriceAdapted | undefined;
   productAggregator: Omit<OrderItem['productAggregator'], 'images'> & {
     images: ProductImagesAdapted;

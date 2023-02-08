@@ -1,11 +1,18 @@
 import * as actionTypes from '../../actionTypes';
 import {
+  Brand,
   Config,
   GetGuestOrderLegacy,
   OrderLegacy,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse';
+import { normalize } from 'normalizr';
+import orderSchema from '../../../entities/schemas/order';
+import type {
+  CategoryEntity,
+  OrderEntity,
+  OrderItemEntity,
+} from '../../../entities';
 import type { Dispatch } from 'redux';
 import type { FetchOrderAction } from '../../types/actions.types';
 import type { GetOptionsArgument, StoreState } from '../../../types';
@@ -35,10 +42,31 @@ const fetchGuestOrderLegacyFactory =
 
       const { productImgQueryParam } = getOptions(getState);
       const result = await getGuestOrderLegacy(orderId, guestUserEmail, config);
-      const normalizedResult = normalizeFetchOrderResponse(
-        result,
-        productImgQueryParam,
+
+      const normalizedResult = normalize<
+        OrderEntity,
+        {
+          orders: Record<OrderEntity['id'], OrderEntity>;
+          orderItems: Record<OrderItemEntity['id'], OrderItemEntity>;
+          brands: Record<Brand['id'], Brand>;
+          categories: Record<CategoryEntity['id'], CategoryEntity>;
+        },
+        OrderEntity['id']
+      >(
+        {
+          // Send productImgQueryParam so order items entity can use it in `adaptProductImages`
+          productImgQueryParam,
+          ...result,
+        },
+        orderSchema,
       );
+
+      const normalizedOrder = normalizedResult.entities.orders?.[orderId];
+
+      if (normalizedOrder) {
+        delete (normalizedOrder as Record<string, unknown>)
+          .productImgQueryParam;
+      }
 
       dispatch({
         meta: { orderId },

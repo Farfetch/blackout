@@ -4,7 +4,6 @@
 
 export { default as addOrderDocumentFactory } from './addOrderDocumentFactory';
 export { default as addOrderItemActivityFactory } from './addOrderItemActivityFactory';
-export { default as fetchGuestOrdersFactory } from './fetchGuestOrdersFactory';
 export { default as fetchGuestOrderLegacyFactory } from './fetchGuestOrderLegacyFactory';
 export { default as fetchOrderAvailableItemsActivitiesFactory } from './fetchOrderAvailableItemsActivitiesFactory';
 export { default as fetchOrderDocumentFactory } from './fetchOrderDocumentFactory';
