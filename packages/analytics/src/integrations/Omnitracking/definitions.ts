@@ -379,11 +379,8 @@ export const pageViewEventTypes = {
  *
  * @returns Object containing the filter properties.
  */
-const getFilterParametersFromEvent = (eventProperties: EventProperties) => ({
-  filters: eventProperties.filters
-    ? JSON.stringify(eventProperties.filters)
-    : undefined,
-});
+const getFilterParametersFromEvent = (eventProperties: EventProperties) =>
+  eventProperties.filters ? JSON.stringify(eventProperties.filters) : undefined;
 
 /**
  * Events mapper with possible keywords for each event type. This keywords can
