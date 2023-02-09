@@ -9,6 +9,17 @@ import { mockPromotionEvaluationId } from '../promotionEvaluations';
 
 export const mockBagId = '7894746';
 export const mockError = 'Unexpected Error';
+export const mockBagPromocodesData = {
+  promocodes: ['code-1'],
+};
+export const mockBagPromocodesResponse = {
+  promoCodesInformation: [
+    {
+      promoCode: 'code-1',
+      isValid: true,
+    },
+  ],
+};
 
 export const mockData = {
   merchant: { id: 1 },
@@ -42,6 +53,10 @@ export const mockInitialState = {
       error: {},
       isLoading: {},
     },
+    bagPromocodes: {
+      error: null,
+      isLoading: false,
+    },
   },
   entities: {
     bag: {},
@@ -64,6 +79,10 @@ export const mockLoadingState = {
       isLoading: {
         [mockBagOperationId]: true,
       },
+    },
+    bagPromocodes: {
+      error: null,
+      isLoading: true,
     },
   },
   entities: {
@@ -92,6 +111,10 @@ export const mockErrorState = {
         [mockBagOperationId]: false,
       },
     },
+    bagPromocodes: {
+      error: { message: 'An unexpected error occurred' },
+      isLoading: false,
+    },
   },
   entities: {
     bag: {},
@@ -114,6 +137,10 @@ export const mockState = {
     bagOperations: {
       isLoading: {},
       error: {},
+    },
+    bagPromocodes: {
+      isLoading: false,
+      error: null,
     },
   },
   entities: {
@@ -183,6 +210,9 @@ export const mockState = {
         ...mockBagOperation,
         id: '101',
       },
+    },
+    bagPromocodesInformation: {
+      [mockBagId]: mockBagPromocodesResponse.promoCodesInformation,
     },
   },
 };
