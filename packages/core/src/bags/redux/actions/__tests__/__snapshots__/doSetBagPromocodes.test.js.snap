@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doSetBagPromocodes() action creator should create the correct actions for when the set bag item procedure is successful: set bag promocodes success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "bagPromocodesInformation": Object {
+        "7894746": Array [
+          Object {
+            "isValid": true,
+            "promoCode": "code-1",
+          },
+        ],
+      },
+    },
+    "result": "7894746",
+  },
+  "type": "@farfetch/blackout-core/SET_BAG_PROMOCODES_SUCCESS",
+}
+`;

@@ -19,3 +19,4 @@ export { default as getBagOperations } from './getBagOperations';
 export { default as deleteBagItem } from './deleteBagItem';
 export { default as patchBagItem } from './patchBagItem';
 export { default as postBagItem } from './postBagItem';
+export { default as putBagPromocodes } from './putBagPromocodes';

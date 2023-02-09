@@ -5,7 +5,7 @@
  */
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
-import { createMergedObject } from '../../helpers/redux';
+import { createMergedObject, reducerFactory } from '../../helpers/redux';
 
 const INITIAL_STATE = {
   error: null,
@@ -18,6 +18,10 @@ const INITIAL_STATE = {
   bagOperations: {
     error: {},
     isLoading: {},
+  },
+  bagPromocodes: {
+    error: null,
+    isLoading: false,
   },
 };
 
@@ -153,6 +157,12 @@ const bagOperations = (
   }
 };
 
+const bagPromocodes = reducerFactory(
+  'SET_BAG_PROMOCODES',
+  INITIAL_STATE.bagPromocodes,
+  actionTypes,
+);
+
 export const entitiesMapper = {
   [actionTypes.DELETE_BAG_ITEM_SUCCESS]: (
     state,
@@ -167,7 +177,8 @@ export const entitiesMapper = {
     return newState;
   },
   [actionTypes.RESET_BAG_ENTITIES]: state => {
-    const { bag, bagItems, bagOperations, ...rest } = state;
+    const { bag, bagItems, bagOperations, bagPromocodesInformation, ...rest } =
+      state;
 
     return rest;
   },
@@ -185,6 +196,9 @@ export const getIsBagItemLoading = state => state.bagItems.isLoading;
 export const getItemError = state => state.bagItems.error;
 export const getIsBagOperationLoading = state => state.bagOperations.isLoading;
 export const getBagOperationError = state => state.bagOperations.error;
+export const getAreBagPromocodesLoading = state =>
+  state.bagPromocodes.isLoading;
+export const getBagPromocodesError = state => state.bagPromocodes.error;
 
 const reducer = combineReducers({
   error,
@@ -192,6 +206,7 @@ const reducer = combineReducers({
   isLoading,
   bagItems,
   bagOperations,
+  bagPromocodes,
 });
 
 /**

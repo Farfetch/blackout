@@ -60,6 +60,7 @@ describe('bags redux reducer', () => {
       const expectedState = {
         ...mockState.bag,
         bagOperations: initialState.bagOperations,
+        bagPromocodes: initialState.bagPromocodes,
       };
 
       expect(
@@ -475,6 +476,28 @@ describe('bags redux reducer', () => {
 
       expect(fromReducer.getBagOperationError({ bagOperations })).toEqual(
         bagOperations.error,
+      );
+    });
+  });
+
+  describe('getAreBagPromocodesLoading() selector', () => {
+    it('should return the `bagPromocodes.isLoading` property from a given state', () => {
+      const bagPromocodes = { isLoading: true };
+
+      expect(
+        fromReducer.getAreBagPromocodesLoading({
+          bagPromocodes,
+        }),
+      ).toEqual(bagPromocodes.isLoading);
+    });
+  });
+
+  describe('getBagPromocodesError() selector', () => {
+    it('should return the `bagPromocodes.error` property from a given state', () => {
+      const bagPromocodes = { error: 'Error' };
+
+      expect(fromReducer.getBagPromocodesError({ bagPromocodes })).toEqual(
+        bagPromocodes.error,
       );
     });
   });

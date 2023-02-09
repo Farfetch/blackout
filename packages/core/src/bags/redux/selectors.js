@@ -5,8 +5,8 @@
  */
 import { areBagItemsIdentical, buildBagItem, createBagItemHash } from './utils';
 import { createSelector } from 'reselect';
-import { getEntity, getProduct } from '../../entities/redux/selectors';
 import {
+  getAreBagPromocodesLoading,
   getError,
   getId,
   getIsBagItemLoading,
@@ -14,7 +14,9 @@ import {
   getIsLoading,
   getItemError,
   getBagOperationError as getOperationError,
+  getBagPromocodesError as getPromocodesError,
 } from './reducer';
+import { getEntity, getProduct } from '../../entities/redux/selectors';
 
 /**
  * Retrieves the universal identifier of the current user's bag.
@@ -538,11 +540,74 @@ export const getBagOperations = state =>
  * @returns {boolean} - Whether the given bag operation is loading.
  *
  * @example
- * import { isBagItemLoading } from '@farfetch/blackout-core/bags/redux';
+ * import { isBagOperationLoading } from '@farfetch/blackout-core/bags/redux';
  *
- * const mapStateToProps = (state, { bagItem: { id } }) => ({
- *     isLoading: isBagItemLoading(state, id)
+ * const mapStateToProps = (state, { bagOperation: { bagOperation: { id } } }) => ({
+ *     isLoading: isBagOperationLoading(state, id)
  * });
  */
 export const isBagOperationLoading = (state, bagOperationId) =>
   getIsBagOperationLoading(state.bag)[bagOperationId];
+
+/**
+ * Retrieves the error state of the bag promocodes.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns - Error information, `undefined` if there are no errors.
+ *
+ * @example
+ * ```
+ * import { getBagPromocodesError } from '@farfetch/blackout-core/bags/redux';
+ *
+ * const mapStateToProps = (state) => ({
+ *     error: getBagPromocodesError(state)
+ * });
+ * ```
+ */
+export const getBagPromocodesError = state => getPromocodesError(state.bag);
+
+/**
+ * Retrieves the loading status of bag promocodes.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns - Whether the set bag promocodes is loading.
+ *
+ * @example
+ * ```
+ * import { areBagPromocodesLoading } from '@farfetch/blackout-core/bags/redux';
+ *
+ * const mapStateToProps = (state) => ({
+ *     areLoading: areBagPromocodesLoading(state)
+ * });
+ * ```
+ */
+export const areBagPromocodesLoading = state =>
+  getAreBagPromocodesLoading(state.bag);
+
+/**
+ * Retrieves current promocodes information in bag.
+ *
+ * @function
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} - Bag PromoCodes Information.
+ *
+ * @example
+ * import { getBagPromocodesInformation } from '@farfetch/blackout-core/bags/redux';
+ *
+ * const mapStateToProps = state => ({
+ *     bagPromocodesInformation: getBagPromocodesInformation(state)
+ * });
+ */
+export const getBagPromocodesInformation = state => {
+  const bagId = getBagId(state);
+
+  return getEntity(state, 'bagPromocodesInformation', bagId);
+};
