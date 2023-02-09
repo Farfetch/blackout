@@ -2,6 +2,25 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
+  "AuthenticationContext": Object {
+    "$$typeof": Symbol(react.context),
+    "Consumer": Object {
+      "$$typeof": Symbol(react.context),
+      "_context": [Circular],
+    },
+    "Provider": Object {
+      "$$typeof": Symbol(react.provider),
+      "_context": [Circular],
+    },
+    "_currentRenderer": null,
+    "_currentRenderer2": null,
+    "_currentValue": Object {},
+    "_currentValue2": Object {},
+    "_defaultValue": null,
+    "_globalName": null,
+    "_threadCount": 0,
+  },
+  "AuthenticationProvider": [Function],
   "Component": [Function],
   "EventTypes": Object {
     "ADDRESS_INFO_ADDED": "Address Info Added",
@@ -70,6 +89,8 @@ Object {
     "TENANT": "Tenant",
     "TWITTER": "Twitter",
   },
+  "LoginWithoutDataError": [Function],
+  "NotLoggedInError": [Function],
   "PageTypes": Object {
     "ABOUT": "about",
     "ACCOUNT": "account",
@@ -116,6 +137,7 @@ Object {
     "PasswordWithNoSpecialCharacterError": 1201003,
     "PasswordWithNoUpperCaseError": 1201002,
   },
+  "PendingUserOperationError": [Function],
   "PlatformTypes": Object {
     "Mobile": "mobile",
     "Web": "web",
@@ -124,10 +146,30 @@ Object {
     "Listing": "Listing",
     "Set": "Set",
   },
+  "ProfileChangedError": [Function],
   "SortContentOption": Object {
     "EventDate": "EventDate",
     "PublishDate": "PublishDate",
   },
+  "UserProfileContext": Object {
+    "$$typeof": Symbol(react.context),
+    "Consumer": Object {
+      "$$typeof": Symbol(react.context),
+      "_context": [Circular],
+    },
+    "Provider": Object {
+      "$$typeof": Symbol(react.provider),
+      "_context": [Circular],
+    },
+    "_currentRenderer": null,
+    "_currentRenderer2": null,
+    "_currentValue": Object {},
+    "_currentValue2": Object {},
+    "_defaultValue": null,
+    "_globalName": null,
+    "_threadCount": 0,
+  },
+  "UserProfileProvider": [Function],
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
     "consentInstance": null,
@@ -201,6 +243,7 @@ Object {
   "structuredProductListing": [Function],
   "structuredVideoObject": [Function],
   "structuredWebsiteSearch": [Function],
+  "useAuthentication": [Function],
   "useBag": [Function],
   "useBagItem": [Function],
   "useBrand": [Function],
@@ -249,6 +292,7 @@ Object {
   "useUser": [Function],
   "useUserAddress": [Function],
   "useUserAddresses": [Function],
+  "useUserProfile": [Function],
   "useUserSubscriptions": [Function],
   "useWishlist": [Function],
   "useWishlistItem": [Function],
