@@ -24,6 +24,16 @@ export const DELETE_BAG_ITEM_REQUEST =
 export const DELETE_BAG_ITEM_SUCCESS =
   '@farfetch/blackout-core/DELETE_BAG_ITEM_SUCCESS';
 
+/** Action type dispatched when the set promocodes from bag request fails. */
+export const SET_BAG_PROMOCODES_FAILURE =
+  '@farfetch/blackout-core/SET_BAG_PROMOCODES_FAILURE';
+/** Action type dispatched when the set promocodes from bag request starts. */
+export const SET_BAG_PROMOCODES_REQUEST =
+  '@farfetch/blackout-core/SET_BAG_PROMOCODES_REQUEST';
+/** Action type dispatched when the set promocodes from bag request succeeds. */
+export const SET_BAG_PROMOCODES_SUCCESS =
+  '@farfetch/blackout-core/SET_BAG_PROMOCODES_SUCCESS';
+
 /** Action type dispatched when the get bag request fails. */
 export const GET_BAG_FAILURE = '@farfetch/blackout-core/GET_BAG_FAILURE';
 /** Action type dispatched when the get bag request starts. */
