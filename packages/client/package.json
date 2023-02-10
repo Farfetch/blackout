@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-client",
-  "version": "2.0.0-next.236",
+  "version": "2.0.0-next.237",
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
   "main": "src/index.ts",
@@ -22,8 +22,8 @@
   "dependencies": {
     "@types/json-schema": "^7.0.11",
     "@types/proper-url-join": "2.1.1",
-    "proper-url-join": "^2.1.1",
-    "crypto-js": "3.1.9-1"
+    "crypto-js": "3.1.9-1",
+    "proper-url-join": "^2.1.1"
   },
   "devDependencies": {
     "axios": "^0.21.4",
