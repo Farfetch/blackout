@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.237](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.236...@farfetch/blackout-client@2.0.0-next.237) (2023-02-10)
+
+
+### Bug Fixes
+
+* **client:** add crypto-js to client's dependencies ([bc7e27e](https://github.com/Farfetch/blackout/commit/bc7e27e1d568c5335730fe5cb801e77533bb91fe))
+
+
+
+
+
 # [2.0.0-next.236](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.235...@farfetch/blackout-client@2.0.0-next.236) (2023-02-09)
 
 **Note:** Version bump only for package @farfetch/blackout-client
