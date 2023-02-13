@@ -363,7 +363,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_ADDRESS_SCHEMA_SUCCESS action type', () => {
       expect(
-        localeEntitiesMapper[actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS](
+        localeEntitiesMapper[actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS](
           state,
           {
             payload: {
@@ -374,7 +374,7 @@ describe('locale redux reducer', () => {
                 },
               },
             },
-            type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS,
+            type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS,
           },
         ),
       ).toEqual(expectedResult);
