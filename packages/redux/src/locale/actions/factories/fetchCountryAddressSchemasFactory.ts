@@ -6,10 +6,10 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchCountryAddressSchemaAction } from '../../types/index.js';
+import type { FetchCountryAddressSchemasAction } from '../../types/index.js';
 
 /**
- * Obtains the address schema for a country specified with 'id'.
+ * Obtains the address schemas for a country specified with 'id'.
  *
  * @param getCountryAddressSchemas - Get country address schemas client.
  *
@@ -19,12 +19,12 @@ const fetchCountryAddressSchemasFactory =
   (getCountryAddressSchemas: GetCountryAddressSchemas) =>
   (isoCode: string, config?: Config) =>
   async (
-    dispatch: Dispatch<FetchCountryAddressSchemaAction>,
+    dispatch: Dispatch<FetchCountryAddressSchemasAction>,
   ): Promise<CountryAddressSchema[]> => {
     try {
       dispatch({
         meta: { isoCode },
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST,
       });
 
       const result = await getCountryAddressSchemas(isoCode, config);
@@ -40,7 +40,7 @@ const fetchCountryAddressSchemasFactory =
 
       dispatch({
         payload: schemaEntity,
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS,
       });
 
       return result;
@@ -49,7 +49,7 @@ const fetchCountryAddressSchemasFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_FAILURE,
       });
 
       throw errorAsBlackoutError;
