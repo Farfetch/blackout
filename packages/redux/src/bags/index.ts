@@ -2,7 +2,7 @@ export * as bagsActionTypes from './actionTypes';
 
 export * from './actions';
 export * from './actions/factories';
-export * from './middlewares';
+export * as bagMiddlewares from './middlewares';
 export * from './selectors';
 export * from './utils';
 

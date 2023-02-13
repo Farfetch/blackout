@@ -194,6 +194,10 @@ export const mockProductsState = {
       error: {},
       isLoading: {},
     },
+    bagPromocodes: {
+      error: null,
+      isLoading: false,
+    },
   },
   entities: {
     ...mockProductsListNormalizedPayload.entities,
