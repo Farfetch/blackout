@@ -132,6 +132,18 @@ Object {
     "UNSUBSCRIBE": "unsubscribe",
     "WISHLIST": "wishlist",
   },
+  "PasswordValidationErrors": Object {
+    "1201000": "MinSizeError",
+    "1201001": "NoLowerCaseLetterError",
+    "1201002": "NoUpperCaseLetterError",
+    "1201003": "NoSpecialCharacterError",
+    "1201004": "NoNumberError",
+    "MinSizeError": 1201000,
+    "NoLowerCaseLetterError": 1201001,
+    "NoNumberError": 1201004,
+    "NoSpecialCharacterError": 1201003,
+    "NoUpperCaseLetterError": 1201002,
+  },
   "PendingUserOperationError": [Function],
   "PlatformTypes": Object {
     "Mobile": "mobile",

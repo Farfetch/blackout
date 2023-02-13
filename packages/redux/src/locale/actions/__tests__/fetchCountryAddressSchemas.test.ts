@@ -47,10 +47,10 @@ describe('fetchCountryAddressSchema() action creator', () => {
       expect.arrayContaining([
         {
           meta: { isoCode },
-          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
+          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST,
         },
         {
-          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE,
+          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_FAILURE,
           payload: { error: expectedError },
         },
       ]),
@@ -78,16 +78,16 @@ describe('fetchCountryAddressSchema() action creator', () => {
     expect(actionResults).toMatchObject([
       {
         meta: { isoCode },
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST,
       },
       {
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS,
         payload: expectedGetAddressSchemaNormalizedPayload,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS,
+        type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS,
       }),
     ).toMatchSnapshot('get address schema success payload');
   });

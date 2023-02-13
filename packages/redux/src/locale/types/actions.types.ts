@@ -104,24 +104,24 @@ export interface FetchCountryStatesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_STATES_SUCCESS;
 }
 
-export interface FetchCountryAddressSchemaFailureAction extends Action {
+export interface FetchCountryAddressSchemasFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE;
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_FAILURE;
 }
 
-export interface FetchCountryAddressSchemaRequestAction extends Action {
+export interface FetchCountryAddressSchemasRequestAction extends Action {
   meta: { isoCode: string };
-  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST;
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST;
 }
 
-export interface FetchCountryAddressSchemaSuccessAction extends Action {
+export interface FetchCountryAddressSchemasSuccessAction extends Action {
   payload: {
     entities: {
       countriesAddressSchemas: Record<string, CountryAddressSchema[]>;
     };
     result: string;
   };
-  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS;
+  type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS;
 }
 
 export type FetchCountryAction =
@@ -149,7 +149,7 @@ export type FetchCountryStatesAction =
   | FetchCountryStatesRequestAction
   | FetchCountryStatesSuccessAction;
 
-export type FetchCountryAddressSchemaAction =
-  | FetchCountryAddressSchemaFailureAction
-  | FetchCountryAddressSchemaRequestAction
-  | FetchCountryAddressSchemaSuccessAction;
+export type FetchCountryAddressSchemasAction =
+  | FetchCountryAddressSchemasFailureAction
+  | FetchCountryAddressSchemasRequestAction
+  | FetchCountryAddressSchemasSuccessAction;

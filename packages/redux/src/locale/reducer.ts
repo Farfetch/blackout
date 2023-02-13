@@ -218,7 +218,7 @@ const reducers = combineReducers({
 });
 
 export const entitiesMapper = {
-  [actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS]: (
+  [actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS]: (
     state: StoreState['entities'],
     action: AnyAction,
   ): StoreState['entities'] => {

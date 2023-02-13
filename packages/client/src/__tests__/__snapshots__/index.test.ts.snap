@@ -35,7 +35,7 @@ Object {
   },
   "AuthenticationManagerBaseError": [Function],
   "AuthenticationTokenManager": [Function],
-  "BagChangeReason": Object {
+  "BagOperationChangeReason": Object {
     "BetterPromotionApplied": "BetterPromotionApplied",
     "ExternalCallTimedOut": "ExternalCallTimedOut",
     "InvalidPromocode": "InvalidPromocode",
@@ -48,19 +48,7 @@ Object {
     "Unknown": "Unknown",
     "UserNotQualifiedForPromotion": "UserNotQualifiedForPromotion",
   },
-  "BagViolationFixSuggestionAction": Object {
-    "DecreaseQuantity": "DecreaseQuantity",
-    "DecreaseValue": "DecreaseValue",
-    "IncreaseValue": "IncreaseValue",
-  },
-  "BrandFamilyType": Object {
-    "Beauty": "Beauty",
-    "Collaboration": "Collaboration",
-    "MainBrand": "MainBrand",
-    "PreOwned": "PreOwned",
-    "SubBrand": "SubBrand",
-  },
-  "ChangeType": Object {
+  "BagOperationChangeType": Object {
     "ItemDiscountChanged": "ItemDiscountChanged",
     "ItemIsNowAvailable": "ItemIsNowAvailable",
     "ItemIsUnavailable": "ItemIsUnavailable",
@@ -76,6 +64,18 @@ Object {
     "ShippingFlatRateEligibilityChanged": "ShippingFlatRateEligibilityChanged",
     "TotalDiscountChanged": "TotalDiscountChanged",
   },
+  "BagViolationFixSuggestionType": Object {
+    "DecreaseQuantity": "DecreaseQuantity",
+    "DecreaseValue": "DecreaseValue",
+    "IncreaseValue": "IncreaseValue",
+  },
+  "BrandFamilyType": Object {
+    "Beauty": "Beauty",
+    "Collaboration": "Collaboration",
+    "MainBrand": "MainBrand",
+    "PreOwned": "PreOwned",
+    "SubBrand": "SubBrand",
+  },
   "ChargeStatus": Object {
     "Completed": "Completed",
     "Error": "Error",
@@ -89,6 +89,35 @@ Object {
     "NoStock": 1,
     "NotEnoughStock": 2,
   },
+  "CheckoutOrderOperationChangeReason": Object {
+    "BetterPromotionApplied": "BetterPromotionApplied",
+    "ExternalCallTimedOut": "ExternalCallTimedOut",
+    "InvalidPromocode": "InvalidPromocode",
+    "LackOfBenefits": "LackOfBenefits",
+    "NotActivePromotion": "NotActivePromotion",
+    "OnlyForFirstPurchase": "OnlyForFirstPurchase",
+    "OrderNotQualifiedForPromotion": "OrderNotQualifiedForPromotion",
+    "PromocodeAlreadyUsedByOtherCustomer": "PromocodeAlreadyUsedByOtherCustomer",
+    "PromocodeNoLongerAvailable": "PromocodeNoLongerAvailable",
+    "Unknown": "Unknown",
+    "UserNotQualifiedForPromotion": "UserNotQualifiedForPromotion",
+  },
+  "CheckoutOrderOperationChangeType": Object {
+    "ItemDiscountChanged": "ItemDiscountChanged",
+    "ItemIsNowAvailable": "ItemIsNowAvailable",
+    "ItemIsUnavailable": "ItemIsUnavailable",
+    "ItemMerged": "ItemMerged",
+    "ItemOriginChanged": "ItemOriginChanged",
+    "ItemPriceChanged": "ItemPriceChanged",
+    "ItemQuantityChanged": "ItemQuantityChanged",
+    "NotEnoughStock": "NotEnoughStock",
+    "PromoCodeEligibilityChanged": "PromoCodeEligibilityChanged",
+    "PromotionNotApplied": "PromotionNotApplied",
+    "SelectedSaleIntentChanged": "SelectedSaleIntentChanged",
+    "ShippingCostChanged": "ShippingCostChanged",
+    "ShippingFlatRateEligibilityChanged": "ShippingFlatRateEligibilityChanged",
+    "TotalDiscountChanged": "TotalDiscountChanged",
+  },
   "CheckoutOrderStatus": Object {
     "0": "Opened",
     "1": "Freezed",
@@ -100,6 +129,11 @@ Object {
     "Opened": 0,
     "OrderCreated": 3,
     "Paid": 2,
+  },
+  "CheckoutViolationFixSuggestionType": Object {
+    "DecreaseQuantity": "DecreaseQuantity",
+    "DecreaseValue": "DecreaseValue",
+    "IncreaseValue": "IncreaseValue",
   },
   "Classification": Object {
     "0": "Standard",

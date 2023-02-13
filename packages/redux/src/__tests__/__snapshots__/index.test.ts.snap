@@ -1248,9 +1248,9 @@ Object {
     "FETCH_COUNTRIES_FAILURE": "@farfetch/blackout-redux/FETCH_COUNTRIES_FAILURE",
     "FETCH_COUNTRIES_REQUEST": "@farfetch/blackout-redux/FETCH_COUNTRIES_REQUEST",
     "FETCH_COUNTRIES_SUCCESS": "@farfetch/blackout-redux/FETCH_COUNTRIES_SUCCESS",
-    "FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE",
-    "FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST",
-    "FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS",
+    "FETCH_COUNTRY_ADDRESS_SCHEMAS_FAILURE": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMAS_FAILURE",
+    "FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMAS_REQUEST",
+    "FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS": "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS",
     "FETCH_COUNTRY_CURRENCIES_FAILURE": "@farfetch/blackout-redux/FETCH_COUNTRY_CURRENCIES_FAILURE",
     "FETCH_COUNTRY_CURRENCIES_REQUEST": "@farfetch/blackout-redux/FETCH_COUNTRY_CURRENCIES_REQUEST",
     "FETCH_COUNTRY_CURRENCIES_SUCCESS": "@farfetch/blackout-redux/FETCH_COUNTRY_CURRENCIES_SUCCESS",
@@ -1267,7 +1267,7 @@ Object {
     "SET_COUNTRY_CODE": "@farfetch/blackout-redux/SET_COUNTRY_CODE",
   },
   "localeEntitiesMapper": Object {
-    "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS": [Function],
+    "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMAS_SUCCESS": [Function],
   },
   "localeMiddlewares": Object {
     "setCountryCodeMiddleware": [Function],
