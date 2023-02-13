@@ -1,6 +1,7 @@
 export * from './addresses.types';
 export * from './bagItem.types';
 export * from './bagOperation.types';
+export * from './bagPromocodesInformation.types';
 export * from './benefit.types';
 export * from './brand.types';
 export * from './category.types';

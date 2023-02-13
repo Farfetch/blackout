@@ -9,3 +9,4 @@ export * from './bagOperation.types';
 export * from './getBagOperation.types';
 export * from './getBagOperations.types';
 export * from './hypermediaLink.types';
+export * from './putBagPromocodes.types';

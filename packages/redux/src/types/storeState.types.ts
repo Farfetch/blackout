@@ -2,6 +2,7 @@ import type {
   AddressEntity,
   BagItemEntity,
   BagOperationEntity,
+  BagPromocodesInformationEntity,
   CategoryEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
@@ -44,8 +45,8 @@ import type {
   WishlistSetEntity,
 } from '../entities/types';
 import type { AddressesState } from '../addresses/types';
-import type { BagsState } from '../bags/types';
 import type {
+  Bag,
   Brand,
   CheckoutOrder,
   Country,
@@ -56,6 +57,7 @@ import type {
   ProgramMembership,
   SizeScale,
 } from '@farfetch/blackout-client';
+import type { BagsState } from '../bags/types';
 import type { BrandsState } from '../brands/types';
 import type { CategoriesState } from '../categories/types';
 import type { CheckoutState } from '../checkout/types';
@@ -86,6 +88,7 @@ export type StoreState = Partial<{
     addresses: Record<AddressEntity['id'], AddressEntity>;
     bagItems: Record<BagItemEntity['id'], BagItemEntity>;
     bagOperations: Record<BagOperationEntity['id'], BagOperationEntity>;
+    bagPromocodesInformation: Record<Bag['id'], BagPromocodesInformationEntity>;
     benefits: Record<UserBenefitEntity['id'], UserBenefitEntity>;
     brands: Record<Brand['id'], Brand>;
     categories: Record<CategoryEntity['id'], CategoryEntity>;

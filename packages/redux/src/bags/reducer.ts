@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import reducerFactory from '../helpers/reducerFactory';
 import type { BagItem } from '@farfetch/blackout-client';
 import type { BagItemsState, BagsState } from './types';
 import type { StoreState } from '../types';
@@ -20,6 +21,10 @@ export const INITIAL_STATE: BagsState = {
   bagOperations: {
     error: {},
     isLoading: {},
+  },
+  bagPromocodes: {
+    error: null,
+    isLoading: false,
   },
 };
 
@@ -190,18 +195,24 @@ const bagOperations = (
   }
 };
 
+const bagPromocodes = reducerFactory(
+  'SET_BAG_PROMOCODES',
+  INITIAL_STATE.bagPromocodes,
+  actionTypes,
+);
+
+const resetBagEntities = (state: NonNullable<StoreState['entities']>) => {
+  if (!state) {
+    return state;
+  }
+
+  const { bagItems, bagOperations, bagPromocodesInformation, ...rest } = state;
+
+  return rest;
+};
+
 export const entitiesMapper = {
-  [actionTypes.RESET_BAG_ENTITIES]: (
-    state: NonNullable<StoreState['entities']>,
-  ) => {
-    if (!state) {
-      return state;
-    }
-
-    const { bagItems, bagOperations, ...rest } = state;
-
-    return rest;
-  },
+  [actionTypes.RESET_BAG_ENTITIES]: resetBagEntities,
   [actionTypes.RESET_BAG_OPERATIONS_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
   ) => {
@@ -209,15 +220,7 @@ export const entitiesMapper = {
 
     return rest;
   },
-  [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
-    if (!state) {
-      return state;
-    }
-
-    const { bagItems, ...rest } = state;
-
-    return rest;
-  },
+  [LOGOUT_SUCCESS]: resetBagEntities,
 };
 
 export const getError = (state: BagsState): BagsState['error'] => state.error;
@@ -238,8 +241,13 @@ export const getIsBagOperationLoading = (state: BagsState) =>
   state.bagOperations.isLoading;
 export const getBagOperationError = (state: BagsState) =>
   state.bagOperations.error;
+export const getAreBagPromocodesLoading = (state: BagsState) =>
+  state.bagPromocodes.isLoading;
+export const getBagPromocodesError = (state: BagsState) =>
+  state.bagPromocodes.error;
 
 const reducer = combineReducers({
+  bagPromocodes,
   bagOperations,
   error,
   id,
