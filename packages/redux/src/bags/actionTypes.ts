@@ -15,6 +15,22 @@ export const ADD_BAG_ITEM_SUCCESS =
   '@farfetch/blackout-redux/ADD_BAG_ITEM_SUCCESS';
 
 /**
+ * Action type dispatched when the set bag promocodes request fails.
+ */
+export const SET_BAG_PROMOCODES_FAILURE =
+  '@farfetch/blackout-redux/SET_BAG_PROMOCODES_FAILURE';
+/**
+ * Action type dispatched when the set bag promocodes request starts.
+ */
+export const SET_BAG_PROMOCODES_REQUEST =
+  '@farfetch/blackout-redux/SET_BAG_PROMOCODES_REQUEST';
+/**
+ * Action type dispatched when the set bag promocodes request succeeds.
+ */
+export const SET_BAG_PROMOCODES_SUCCESS =
+  '@farfetch/blackout-redux/SET_BAG_PROMOCODES_SUCCESS';
+
+/**
  * Action type dispatched when the remove item from bag request fails.
  */
 export const REMOVE_BAG_ITEM_FAILURE =

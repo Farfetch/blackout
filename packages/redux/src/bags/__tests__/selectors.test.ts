@@ -7,6 +7,7 @@ import {
   mockBagItemId,
   mockBagOperation,
   mockBagOperationId,
+  mockBagPromocodesResponse,
   mockState,
 } from 'tests/__fixtures__/bags';
 import {
@@ -628,6 +629,38 @@ describe('bags redux selectors', () => {
       expect(
         selectors.getBagOperationError(mockState, mockBagOperationId),
       ).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getBagPromocodesError()', () => {
+    it('should get the bag promocodes error property from state', () => {
+      const expectedResult = mockState.bag.bagPromocodes.error;
+      const spy = jest.spyOn(fromBag, 'getBagPromocodesError');
+
+      expect(selectors.getBagPromocodesError(mockState)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('areBagPromocodesLoading()', () => {
+    it('should get the bag promocodes loading status from state', () => {
+      const expectedResult = mockState.bag.bagPromocodes.isLoading;
+      const spy = jest.spyOn(fromBag, 'getAreBagPromocodesLoading');
+
+      expect(selectors.areBagPromocodesLoading(mockState)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getBagPromocodesInformation()', () => {
+    it('should return all bag promocodes information', () => {
+      const spy = jest.spyOn(fromBag, 'getId');
+      const expectedResult = mockBagPromocodesResponse.promoCodesInformation;
+
+      expect(selectors.getBagPromocodesInformation(mockState)).toEqual(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

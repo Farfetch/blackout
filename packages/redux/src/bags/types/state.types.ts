@@ -21,6 +21,11 @@ export type BagOperationsState = CombinedState<{
   isLoading: Record<BagOperation['id'], boolean>;
 }>;
 
+export type BagPromocodesState = {
+  error: BlackoutError | null;
+  isLoading: boolean;
+};
+
 export type BagsState = CombinedState<{
   error: BlackoutError | null;
   id: BagNormalized['id'] | null;
@@ -28,5 +33,6 @@ export type BagsState = CombinedState<{
   result: BagNormalized | null;
   items: BagItemsState;
   bagOperations: BagOperationsState;
+  bagPromocodes: BagPromocodesState;
   [k: string]: unknown;
 }>;

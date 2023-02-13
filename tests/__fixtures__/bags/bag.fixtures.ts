@@ -47,6 +47,19 @@ export const mockBagItemData = {
   quantity: 99,
 };
 
+export const mockBagPromocodesResponse = {
+  promoCodesInformation: [
+    {
+      promoCode: 'code-1',
+      isValid: true,
+    },
+  ],
+};
+
+export const mockBagPromocodesData = {
+  promocodes: ['code-1'],
+};
+
 export const mockInitialState = {
   bag: {
     error: null,
@@ -62,6 +75,10 @@ export const mockInitialState = {
     bagOperations: {
       error: {},
       isLoading: {},
+    },
+    bagPromocodes: {
+      error: null,
+      isLoading: false,
     },
   },
 };
@@ -176,6 +193,10 @@ export const mockState = {
         [mockBagOperationId]: toBlackoutError(new Error('unexpected error')),
       },
     },
+    bagPromocodes: {
+      error: toBlackoutError(new Error('unexpected error')),
+      isLoading: false,
+    },
   },
   entities: {
     bagItems: {
@@ -243,6 +264,9 @@ export const mockState = {
         ...mockBagOperation,
         id: '101',
       },
+    },
+    bagPromocodesInformation: {
+      [mockBagId]: mockBagPromocodesResponse.promoCodesInformation,
     },
   },
 };

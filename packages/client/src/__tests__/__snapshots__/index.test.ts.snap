@@ -1034,6 +1034,7 @@ Object {
   "postValidateEmail": [Function],
   "postWishlistItem": [Function],
   "postWishlistSet": [Function],
+  "putBagPromocodes": [Function],
   "putCheckoutOrderItemTags": [Function],
   "putCheckoutOrderPromocode": [Function],
   "putCheckoutOrderTags": [Function],
