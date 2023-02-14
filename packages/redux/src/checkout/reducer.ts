@@ -1,11 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AnyAction, combineReducers, Reducer } from 'redux';
-import {
-  FETCH_USER_SUCCESS,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-} from '../users/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import createMergedObject from '../helpers/createMergedObject';
 import get from 'lodash/get';
@@ -330,9 +325,6 @@ export const entitiesMapper = {
   [actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS]: convertCheckoutOrder,
   [actionTypes.RESET_CHECKOUT]: resetEntitiesStateReducer,
   [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
-  [LOGIN_SUCCESS]: resetEntitiesStateReducer,
-  [FETCH_USER_SUCCESS]: resetEntitiesStateReducer,
-  [REGISTER_SUCCESS]: resetEntitiesStateReducer,
   [actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS]:
     handleRemoveCheckoutOrderItemSuccess,
   [actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS]:
@@ -594,9 +586,6 @@ const reducer: Reducer<CheckoutState> = combineReducers({
 const checkoutReducer: Reducer<CheckoutState> = (state, action) => {
   if (
     action.type === LOGOUT_SUCCESS ||
-    action.type === LOGIN_SUCCESS ||
-    action.type === FETCH_USER_SUCCESS ||
-    action.type === REGISTER_SUCCESS ||
     action.type === actionTypes.RESET_CHECKOUT
   ) {
     return INITIAL_STATE;
