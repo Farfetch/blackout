@@ -10,7 +10,6 @@ export { default as fetchOrderDocumentFactory } from './fetchOrderDocumentFactor
 export { default as fetchOrderDocumentsFactory } from './fetchOrderDocumentsFactory';
 export { default as fetchOrderFactory } from './fetchOrderFactory';
 export { default as fetchOrderItemAvailableActivitiesFactory } from './fetchOrderItemAvailableActivitiesFactory';
-export { default as fetchOrderReturnsFactory } from './fetchOrderReturnsFactory';
 export { default as fetchOrderReturnOptionsFactory } from './fetchOrderReturnOptionsFactory';
 export { default as fetchUserOrdersFactory } from './fetchUserOrdersFactory';
 export { default as fetchShipmentTrackingsFactory } from './fetchShipmentTrackingsFactory';

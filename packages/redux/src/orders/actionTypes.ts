@@ -15,22 +15,6 @@ export const FETCH_ORDER_SUCCESS =
   '@farfetch/blackout-redux/FETCH_ORDER_SUCCESS';
 
 /**
- * Action type dispatched when the get order returns request fails.
- */
-export const FETCH_ORDER_RETURNS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_ORDER_RETURNS_FAILURE';
-/**
- * Action type dispatched when the get order returns request starts.
- */
-export const FETCH_ORDER_RETURNS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_ORDER_RETURNS_REQUEST';
-/**
- * Action type dispatched when the get order returns request succeeds.
- */
-export const FETCH_ORDER_RETURNS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_ORDER_RETURNS_SUCCESS';
-
-/**
  * Action type dispatched when the fetch order return options request fails.
  */
 export const FETCH_ORDER_RETURN_OPTIONS_FAILURE =
@@ -88,18 +72,6 @@ export const RESET_ORDERS = '@farfetch/blackout-redux/RESET_ORDERS';
  */
 export const RESET_ORDER_DETAILS_STATE =
   '@farfetch/blackout-redux/RESET_ORDER_DETAILS_STATE';
-
-/**
- * Action type dispatched when resetting the orders returns slice state.
- */
-export const RESET_ORDER_RETURNS_STATE =
-  '@farfetch/blackout-redux/RESET_ORDER_RETURNS_STATE';
-
-/**
- * Action type dispatched when resetting the orders returns entities.
- */
-export const RESET_ORDER_RETURNS_ENTITIES =
-  '@farfetch/blackout-redux/RESET_ORDER_RETURNS_ENTITIES';
 
 /**
  * Action type dispatched when resetting the orders return options slice state.

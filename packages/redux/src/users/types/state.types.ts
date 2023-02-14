@@ -16,6 +16,7 @@ import type {
 import type { TitlesState } from '../titles/types';
 import type { UserAddressesState } from '../addresses/types';
 import type { UserPersonalIdsState } from '../personalIds/types';
+import type { UserReturnsState } from '../returns/types';
 
 export type UsersState = CombinedState<{
   error: Nullable<BlackoutError>;
@@ -30,6 +31,7 @@ export type UsersState = CombinedState<{
   credits: CreditsState;
   personalIds: UserPersonalIdsState;
   preferences: PreferencesState;
+  returns: UserReturnsState;
   titles: TitlesState;
   updatePreferences: UpdatePreferencesState;
 }>;

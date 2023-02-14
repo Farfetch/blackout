@@ -7,6 +7,7 @@ import {
   expectedNormalizedUserPayload,
   expectedPreferencesNormalizedPayload,
   expectedTitlesNormalizedPayload,
+  expectedUserReturnsNormalizedPayload,
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../reducer';
 import type { StoreState } from '../../types';
@@ -23,5 +24,6 @@ export const mockBaseState: NonNullable<StoreState> = {
     ...expectedCreditMovementsNormalizedPayload,
     ...expectedGetContactsNormalized.entities,
     ...expectedGetAddressesNormalizedPayload.entities,
+    ...expectedUserReturnsNormalizedPayload.entities,
   },
 };

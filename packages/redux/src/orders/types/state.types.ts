@@ -17,7 +17,6 @@ export type OrdersState = CombinedState<{
   orderDetails: OrderDetailsState;
   orderItemAvailableActivities: StateWithoutResult;
   orderReturnOptions: OrderDetailsState;
-  orderReturns: OrderDetailsState;
   result: Nullable<
     Record<HashedFetchUserOrdersQuery, OrderSummariesNormalized>
   >;

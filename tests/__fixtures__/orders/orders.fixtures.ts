@@ -3954,10 +3954,6 @@ export const mockState = {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
     },
-    orderReturns: {
-      error: { [orderId]: null },
-      isLoading: { [orderId]: false },
-    },
     orderReturnOptions: {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
@@ -4216,20 +4212,6 @@ export const expectedGetUserOrdersResult = {
     orderSummaryEntityDenormalized2,
     orderSummaryEntityDenormalized3,
   ],
-};
-
-export const expectedOrderReturnsNormalizedPayload = {
-  entities: {
-    returns: {
-      [returnId]: returnEntity,
-      [returnId2]: returnEntity2,
-    },
-    returnItems: {
-      [returnItemId]: returnItemEntity,
-      [returnItemId2]: returnItemEntity2,
-    },
-  },
-  result: [returnId, returnId2],
 };
 
 export const mockOrderAvailableItemsActivities = [

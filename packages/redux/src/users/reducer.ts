@@ -33,6 +33,9 @@ import preferencesReducers, {
 import titlesReducer, {
   INITIAL_STATE as INITIAL_TITLES_STATE,
 } from './titles/reducer';
+import userReturnsReducer, {
+  INITIAL_STATE as INITIAL_USER_RETURNS_STATE,
+} from './returns/reducer';
 import type { StoreState } from '../types';
 import type { UsersState } from './types';
 
@@ -49,6 +52,7 @@ export const INITIAL_STATE: UsersState = {
   credits: INITIAL_CREDITS_STATE.credits,
   personalIds: INITIAL_PERSONAL_IDS_STATE,
   preferences: INITIAL_PREFERENCES_STATE.preferences,
+  returns: INITIAL_USER_RETURNS_STATE,
   titles: INITIAL_TITLES_STATE,
   updatePreferences: INITIAL_PREFERENCES_STATE.updatePreferences,
 };
@@ -201,6 +205,8 @@ export const getUserContacts = (state: UsersState): UsersState['contacts'] =>
 export const getUserAttributes = (
   state: UsersState,
 ): UsersState['attributes'] => state.attributes;
+export const getUserReturns = (state: UsersState): UsersState['returns'] =>
+  state.returns;
 export const getAddresses = (state: UsersState): UsersState['addresses'] =>
   state.addresses;
 export const getAuthentication = (
@@ -222,6 +228,7 @@ const reducer = combineReducers({
   credits: creditsReducers.credits,
   personalIds: personalIdsReducer,
   preferences: preferencesReducers.preferences,
+  returns: userReturnsReducer,
   titles: titlesReducer,
   updatePreferences: preferencesReducers.updatePreferences,
 });
