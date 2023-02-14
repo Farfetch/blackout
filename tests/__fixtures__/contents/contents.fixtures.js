@@ -3,7 +3,7 @@ import { buildContentGroupHash } from '@farfetch/blackout-core/contents/utils';
 export const contentQuery = {
   spaceCode: 'website',
   environmentCode: 'live',
-  codes: ['cttpage,boutiques'],
+  codes: 'cttpage',
   contentTypeCode: 'pages',
 };
 
@@ -21,16 +21,10 @@ export const navbarsQuery = {
   contentTypeCode: 'navbars',
 };
 
-export const contentTypeQuery = {
-  spaceCode: 'website',
-  environmentCode: 'live',
-  contentTypeCode: 'careers',
-};
-
 export const contentTypeQueryWithCodes = {
   spaceCode: 'website',
   environmentCode: 'live',
-  codes: 'test-career',
+  codes: 'career-test',
   contentTypeCode: 'careers',
 };
 
@@ -42,7 +36,6 @@ export const params = {
 export const contentHash = buildContentGroupHash(contentQuery);
 export const widgetHash = buildContentGroupHash(widgetQuery);
 export const navbarsHash = buildContentGroupHash(navbarsQuery);
-export const contentTypeHash = buildContentGroupHash(contentTypeQuery);
 export const contentTypeHashWithCodes = buildContentGroupHash(
   contentTypeQueryWithCodes,
 );
@@ -53,33 +46,13 @@ export const mockContents = {
   totalItems: 2,
   entries: [
     {
-      publicationId: '1fa65fb0-49bf-43b3-902e-78d104f160a3',
-      versionId: '914480a1-21a3-4bb4-8670-40ab113b1a3a',
-      spaceCode: 'website',
-      contentTypeCode: 'pages',
-      environmentCode: 'live',
-      id: undefined,
-      code: 'cttpage',
-      target: {
-        contentzone: '10674',
-      },
-      components: [
-        {
-          type: 'html',
-          content: '',
-          name: 'QA HTML Template',
-          displayOptions: {},
-        },
-      ],
-    },
-    {
       publicationId: '01b7783c-1b9d-4d5d-915b-17a30c85082d',
       versionId: '8402918c-b859-4b5b-8192-d83809bae1d0',
       spaceCode: 'website',
       contentTypeCode: 'pages',
       environmentCode: 'live',
       id: undefined,
-      code: 'boutiques',
+      code: 'cttpage',
       target: {
         contentzone: '10674',
       },
@@ -285,7 +258,7 @@ export const mockModel = {
     {
       filters: {
         spaceCode: 'website',
-        codes: ['cttpage', 'boutiques'],
+        codes: 'cttpage',
         contentTypeCode: 'pages',
         environmentCode: 'live',
         sort: 'publicationDate:desc',
@@ -321,18 +294,7 @@ export const mockModel = {
       },
       searchResponse: mockNavbars,
     },
-    {
-      filters: {
-        spaceCode: 'website',
-        contentTypeCode: 'careers',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockContentType,
-    },
+
     {
       filters: {
         spaceCode: 'website',
@@ -348,7 +310,7 @@ export const mockModel = {
         number: 1,
         totalItems: 1,
         totalPages: 1,
-        entries: [mockContentType.entries[1]],
+        entries: [mockContentType.entries[0]],
       },
     },
   ],
@@ -367,10 +329,7 @@ export const expectedNormalizedPayload = {
         number: 1,
         totalPages: 1,
         totalItems: 2,
-        entries: [
-          mockContents.entries[0].publicationId,
-          mockContents.entries[1].publicationId,
-        ],
+        entries: [mockContents.entries[0].publicationId],
       },
       [widgetHash]: {
         hash: widgetHash,
@@ -386,30 +345,17 @@ export const expectedNormalizedPayload = {
         totalItems: 1,
         entries: [mockNavbars.entries[0].publicationId],
       },
-      [contentTypeHash]: {
-        hash: contentTypeHash,
-        number: 1,
-        totalPages: 1,
-        totalItems: 2,
-        entries: [
-          mockContentType.entries[0].publicationId,
-          mockContentType.entries[1].publicationId,
-        ],
-      },
       [contentTypeHashWithCodes]: {
         hash: contentTypeHashWithCodes,
         number: 1,
         totalPages: 1,
         totalItems: 1,
-        entries: [mockContentType.entries[1].publicationId],
+        entries: [mockContentType.entries[0].publicationId],
       },
     },
     contents: {
       [mockContents.entries[0].publicationId]: {
         ...mockContents.entries[0],
-      },
-      [mockContents.entries[1].publicationId]: {
-        ...mockContents.entries[1],
       },
       [mockWidget.entries[0].publicationId]: {
         ...mockWidget.entries[0],
@@ -420,17 +366,13 @@ export const expectedNormalizedPayload = {
       [mockContentType.entries[0].publicationId]: {
         ...mockContentType.entries[0],
       },
-      [mockContentType.entries[1].publicationId]: {
-        ...mockContentType.entries[1],
-      },
     },
   },
   contents: {
     isLoading: {
-      'careers!all!1': false,
-      'careers!test-career!1': false,
+      'careers!career-test!1': false,
       'navbars!footer!1': false,
-      'pages!cttpage,boutiques!1': false,
+      'pages!cttpage!1': false,
       'widgets!newsletter-terms-and-conditions-widget!1': false,
     },
     error: {},
@@ -460,9 +402,9 @@ export const mockContentsLoadingState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all!1': true,
+      'careers!career-test!1': true,
       'navbars!footer!1': true,
-      'pages!cttpage,boutiques!1': true,
+      'pages!cttpage!1': true,
       'widgets!newsletter-terms-and-conditions-widget!1': true,
     },
     error: {},
@@ -473,19 +415,19 @@ export const mockContentsErrorState = {
   entities: {},
   contents: {
     isLoading: {
-      'careers!all!1': false,
+      'careers!career-test!1': false,
       'navbars!footer!1': false,
-      'pages!cttpage,boutiques!1': false,
+      'pages!cttpage!1': false,
       'widgets!newsletter-terms-and-conditions-widget!1': false,
     },
     error: {
-      'careers!all!1': {
+      'careers!career-test!1': {
         message: 'Error',
       },
       'navbars!footer!1': {
         message: 'Error',
       },
-      'pages!cttpage,boutiques!1': {
+      'pages!cttpage!1': {
         message: 'Error',
       },
       'widgets!newsletter-terms-and-conditions-widget!1': {
