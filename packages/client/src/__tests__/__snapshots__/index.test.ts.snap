@@ -867,7 +867,6 @@ Object {
   "getOrderDocuments": [Function],
   "getOrderItemAvailableActivities": [Function],
   "getOrderReturnOptions": [Function],
-  "getOrderReturns": [Function],
   "getPaymentIntent": [Function],
   "getPaymentIntentCharge": [Function],
   "getPaymentIntentInstrument": [Function],

@@ -5,7 +5,7 @@ import {
   getReturnPickupCapabilities as getReturnPickupCapabilitiesFromReducer,
 } from './reducer';
 import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash';
-import type { Return, ReturnItem } from '@farfetch/blackout-client';
+import type { Order, Return, ReturnItem } from '@farfetch/blackout-client';
 import type { ReturnEntityDenormalized, ReturnItemEntity } from '../entities';
 import type { ReturnsState } from './types';
 import type { StoreState } from '../types';
@@ -182,3 +182,24 @@ export const isReturnPickupCapabilityFetched = (
   (!!getReturnPickupCapability(state, returnId, pickupDay) ||
     !!getReturnPickupCapabilityError(state, returnId, pickupDay)) &&
   !isReturnPickupCapabilityLoading(state, returnId, pickupDay);
+
+export const getReturnsFromOrder = (
+  state: StoreState,
+  orderId: Order['id'],
+) => {
+  const returnEntities = getReturnsEntities(state);
+
+  if (!returnEntities) {
+    return;
+  }
+
+  const result = [];
+
+  for (const returnId in returnEntities) {
+    const returnEntity = returnEntities[returnId];
+    if (returnEntity?.orderId === orderId) {
+      result.push(returnEntity);
+    }
+  }
+  return result;
+};

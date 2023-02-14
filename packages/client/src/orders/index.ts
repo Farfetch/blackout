@@ -8,7 +8,6 @@ export { default as getOrderDocument } from './getOrderDocument';
 export { default as getOrderDocuments } from './getOrderDocuments';
 export { default as getOrderItemAvailableActivities } from './getOrderItemAvailableActivities';
 export { default as getOrderReturnOptions } from './getOrderReturnOptions';
-export { default as getOrderReturns } from './getOrderReturns';
 export { default as getShipmentTrackings } from './getShipmentTrackings';
 export { default as getUserOrders } from './getUserOrders';
 export { default as postOrderDocument } from './postOrderDocument';

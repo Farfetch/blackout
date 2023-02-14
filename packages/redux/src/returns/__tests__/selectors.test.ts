@@ -3,6 +3,7 @@ import * as selectors from '../selectors';
 import {
   mockState,
   pickupDay,
+  returnEntity,
   returnEntityDenormalized,
   returnId,
   returnItem,
@@ -546,6 +547,30 @@ describe('returns redux selectors', () => {
       ).toEqual(
         mockState.entities.returnPickupCapabilities[returnPickupCapabilityId],
       );
+    });
+  });
+
+  describe('getReturnsFromOrder()', () => {
+    it('should get the returns from an order', () => {
+      expect(
+        selectors.getReturnsFromOrder(mockState, returnEntity.orderId),
+      ).toEqual([mockState.entities.returns[returnId]]);
+    });
+
+    it('should return undefined if there are no return entities', () => {
+      const mockState2 = {
+        ...mockState,
+        entities: { ...mockState.entities, returns: undefined },
+      };
+      expect(
+        selectors.getReturnsFromOrder(mockState2, returnEntity.orderId),
+      ).toBeUndefined();
+    });
+
+    it('should return an empty array if a non existant orderId is passed', () => {
+      expect(
+        selectors.getReturnsFromOrder(mockState, 'non existant orderId'),
+      ).toEqual([]);
     });
   });
 });
