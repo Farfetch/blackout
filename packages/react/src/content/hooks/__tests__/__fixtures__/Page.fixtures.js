@@ -2,14 +2,14 @@ import { contentQuery, params } from 'tests/__fixtures__/contents';
 import React from 'react';
 import usePage from '../../usePage';
 
-const slug = ['cttpage,boutiques'];
+const slug = 'cttpage';
 
 export const Page = () => {
   const { page, isLoading, error, resetContent, fetchContent } = usePage(
     slug,
     params,
   );
-  const pageTitle = page?.[1]?.components?.[0]?.components?.[0]?.fields?.title;
+  const pageTitle = page?.[0]?.components?.[0]?.components?.[0]?.fields?.title;
 
   if (isLoading) {
     return <span data-test="page-loading">Loading...</span>;

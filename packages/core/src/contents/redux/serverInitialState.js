@@ -30,13 +30,18 @@ export default ({ model }) => {
   const slugNormalized = stripSlugSubfolderJsonTrue(url.pathname, subfolder);
 
   const contents = searchContentRequests.reduce((acc, item) => {
-    const {
-      filters: { codes, contentTypeCode },
-      searchResponse,
-    } = item;
+    const { searchResponse } = item;
 
+    if (searchResponse.entries.length === 0) return acc;
+
+    const contentTypeCode = searchResponse.entries[0].contentTypeCode;
+    const codes = searchResponse.entries[0].code;
     const code = contentTypeCode === 'commerce_pages' ? slugNormalized : codes;
-    const hash = buildContentGroupHash({ codes: code, contentTypeCode });
+    const hash = buildContentGroupHash({
+      codes: code,
+      contentTypeCode,
+    });
+
     const { entities } = {
       ...normalize({ hash, ...searchResponse }, contentGroup),
     };

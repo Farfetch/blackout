@@ -27,12 +27,12 @@ exports[`useContentType should render with the state and selected content type a
     <h1
       data-test="contentType-title"
     >
-      Career
+      Career Page Title
     </h1>
     <div
       data-test="contentType-description"
     >
-      &lt;p&gt;Career test&lt;/p&gt;
+      &lt;p&gt;Here you can add some text to explain the Career&lt;/p&gt;
     </div>
   </div>
 </div>

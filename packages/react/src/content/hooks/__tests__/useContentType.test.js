@@ -23,7 +23,7 @@ describe('useContentType', () => {
   afterEach(cleanup);
 
   it('should render with the state and selected content type', () => {
-    const { container, getByTestId } = wrap(<ContentType codes={null} />)
+    const { container, getByTestId } = wrap(<ContentType codes="career-test" />)
       .withStore(expectedNormalizedPayload)
       .render();
 
@@ -37,19 +37,21 @@ describe('useContentType', () => {
   });
 
   it('should render with the state and selected content type and code', () => {
-    const { container, getByTestId } = wrap(<ContentType codes="test-career" />)
+    const { container, getByTestId } = wrap(<ContentType codes="career-test" />)
       .withStore(expectedNormalizedPayload)
       .render();
 
-    expect(getByTestId('contentType-title').textContent).toBe('Career');
+    expect(getByTestId('contentType-title').textContent).toBe(
+      'Career Page Title',
+    );
     expect(getByTestId('contentType-description').textContent).toBe(
-      '<p>Career test</p>',
+      '<p>Here you can add some text to explain the Career</p>',
     );
     expect(container).toMatchSnapshot();
   });
 
   it('should call `fetchContentType` to dispatch a custom content type request', () => {
-    const { queryByTestId } = wrap(<ContentType codes={null} />)
+    const { queryByTestId } = wrap(<ContentType codes="career-test" />)
       .withStore(mockContentsInitialState)
       .render();
 
@@ -58,7 +60,7 @@ describe('useContentType', () => {
   });
 
   it('should render loading content for a custom content type', () => {
-    const { getByTestId } = wrap(<ContentType />)
+    const { getByTestId } = wrap(<ContentType codes="career-test" />)
       .withStore(mockContentsLoadingState)
       .render();
 
@@ -66,7 +68,7 @@ describe('useContentType', () => {
   });
 
   it('should render error content for a custom content type', () => {
-    const { getByTestId } = wrap(<ContentType />)
+    const { getByTestId } = wrap(<ContentType codes="career-test" />)
       .withStore(mockContentsErrorState)
       .render();
 
