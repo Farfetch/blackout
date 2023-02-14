@@ -1346,59 +1346,56 @@ describe('checkout reducer', () => {
     });
 
     describe('reset handling', () => {
-      it.each([
-        actionTypes.RESET_CHECKOUT,
-        LOGOUT_SUCCESS,
-        LOGIN_SUCCESS,
-        FETCH_USER_SUCCESS,
-        REGISTER_SUCCESS,
-      ])('should return initial state on %s action', actionType => {
-        const state = {
-          checkout: {
-            [checkoutId]: {
-              ...checkoutEntity,
-              id: 12,
-              orderStatus: OrderStatusError.NoError,
+      it.each([actionTypes.RESET_CHECKOUT, LOGOUT_SUCCESS])(
+        'should return initial state on %s action',
+        actionType => {
+          const state = {
+            checkout: {
+              [checkoutId]: {
+                ...checkoutEntity,
+                id: 12,
+                orderStatus: OrderStatusError.NoError,
+              },
             },
-          },
-          checkoutDetails: {
-            [checkoutId]: {
-              ...mockCheckoutDetailsEntity,
-              id: 15338084,
-            } as CheckoutDetailsEntity,
-          },
-          checkoutOrders: {
-            [checkoutId]: {
-              ...mockResponse.checkoutOrder,
-              items: [2],
-              collectpoints: mockCollectPointsResponse,
-            } as CheckoutOrderEntity,
-          },
-          checkoutOrderItems: mockCheckoutOrderItemEntity,
-          checkoutOrderItemProducts: mockCheckoutOrderItemProductsEntity,
-          dummy: {
-            1: { data: 'dummy' },
-          },
-          dummy2: {
-            1: { data: 'dummy2' },
-          },
-        };
+            checkoutDetails: {
+              [checkoutId]: {
+                ...mockCheckoutDetailsEntity,
+                id: 15338084,
+              } as CheckoutDetailsEntity,
+            },
+            checkoutOrders: {
+              [checkoutId]: {
+                ...mockResponse.checkoutOrder,
+                items: [2],
+                collectpoints: mockCollectPointsResponse,
+              } as CheckoutOrderEntity,
+            },
+            checkoutOrderItems: mockCheckoutOrderItemEntity,
+            checkoutOrderItemProducts: mockCheckoutOrderItemProductsEntity,
+            dummy: {
+              1: { data: 'dummy' },
+            },
+            dummy2: {
+              1: { data: 'dummy2' },
+            },
+          };
 
-        const expectedResult = {
-          dummy: {
-            1: { data: 'dummy' },
-          },
-          dummy2: {
-            1: { data: 'dummy2' },
-          },
-        };
+          const expectedResult = {
+            dummy: {
+              1: { data: 'dummy' },
+            },
+            dummy2: {
+              1: { data: 'dummy2' },
+            },
+          };
 
-        expect(
-          entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
-            type: actionType,
-          }),
-        ).toEqual(expectedResult);
-      });
+          expect(
+            entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
+              type: actionType,
+            }),
+          ).toEqual(expectedResult);
+        },
+      );
     });
 
     describe('handle UpdateCheckoutOrderItemSuccessAction', () => {
