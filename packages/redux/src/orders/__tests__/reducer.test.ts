@@ -300,100 +300,6 @@ describe('orders reducer', () => {
     });
   });
 
-  describe('orderReturns() reducer', () => {
-    it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).orderReturns;
-
-      expect(state).toEqual(initialState.orderReturns);
-      expect(state).toEqual({ error: {}, isLoading: {} });
-    });
-
-    it('should handle FETCH_ORDER_RETURNS_REQUEST action type', () => {
-      expect(
-        reducer(undefined, {
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_RETURNS_REQUEST,
-        }).orderReturns,
-      ).toEqual({
-        error: { [orderId]: null },
-        isLoading: { [orderId]: true },
-      });
-    });
-
-    it('should handle FETCH_ORDER_RETURNS_FAILURE action type', () => {
-      expect(
-        reducer(undefined, {
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_RETURNS_FAILURE,
-          payload: { error: '' },
-        }).orderReturns,
-      ).toEqual({
-        error: { [orderId]: '' },
-        isLoading: { [orderId]: false },
-      });
-    });
-
-    it('should handle FETCH_ORDER_RETURNS_SUCCESS action type', () => {
-      expect(
-        reducer(undefined, {
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_RETURNS_SUCCESS,
-        }).orderReturns,
-      ).toEqual({ error: {}, isLoading: { [orderId]: false } });
-    });
-
-    describe('should handle RESET_ORDER_RETURNS_STATE action type', () => {
-      const state = {
-        ...mockState.orders,
-        orderReturns: {
-          error: {
-            [orderId]: toBlackoutError(new Error('dummy_error')),
-            [orderId2]: toBlackoutError(new Error('dummy_error_2')),
-          },
-          isLoading: { [orderId]: true, [orderId2]: true },
-        },
-      };
-
-      it('should reset the state of all entries when payload is empty', () => {
-        expect(
-          reducer(state, {
-            type: actionTypes.RESET_ORDER_RETURNS_STATE,
-            payload: [],
-          }).orderReturns,
-        ).toEqual(initialState.orderReturns);
-      });
-
-      it('should reset the state of the selected entries in payload only', () => {
-        const expectedResult = {
-          error: {
-            [orderId2]: expect.any(Error),
-          },
-          isLoading: {
-            [orderId2]: true,
-          },
-        };
-
-        expect(
-          reducer(state, {
-            type: actionTypes.RESET_ORDER_RETURNS_STATE,
-            payload: [orderId],
-          }).orderReturns,
-        ).toEqual(expectedResult);
-      });
-    });
-
-    it('should handle other actions by returning the previous state', () => {
-      const state = {
-        ...initialState,
-        orderReturns: { error: {}, isLoading: { [orderId]: false } },
-      };
-
-      expect(reducer(state, randomAction).orderReturns).toEqual(
-        state.orderReturns,
-      );
-    });
-  });
-
   describe('orderReturnOptions() reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).orderReturnOptions;
@@ -883,7 +789,6 @@ describe('orders reducer', () => {
 
     const subAreas = {
       orderDetails: { ...subAreaResult },
-      orderReturns: { ...subAreaResult },
       orderReturnOptions: { ...subAreaResult },
       trackings: { ...subAreaResult },
       documents: { ...subAreaResult },
@@ -893,7 +798,6 @@ describe('orders reducer', () => {
 
     const subAreaNames = [
       'OrderDetails',
-      'OrderReturns',
       'OrderReturnOptions',
       'ShipmentTrackings',
       'Documents',

@@ -10,8 +10,6 @@ import type {
   OrderItemEntity,
   OrderSummariesNormalized,
   OrderSummaryEntity,
-  ReturnEntity,
-  ReturnItemEntity,
   ReturnOptionEntity,
   ShipmentTrackingsNormalized,
 } from '../../entities/types/index.js';
@@ -35,14 +33,6 @@ type UserOrdersPayload = NormalizedSchema<
     >;
   },
   OrderSummariesNormalized
->;
-
-type ReturnsPayload = NormalizedSchema<
-  {
-    returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
-    returns: Record<ReturnEntity['id'], ReturnEntity>;
-  },
-  Array<ReturnEntity['id']>
 >;
 
 type ReturnOptionsPayload = NormalizedSchema<
@@ -85,29 +75,6 @@ export type FetchOrderAction =
   | FetchOrderRequestAction
   | FetchOrderSuccessAction
   | FetchOrderFailureAction;
-
-export interface FetchOrderReturnsRequestAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_REQUEST;
-  meta: { orderId: Order['id'] };
-}
-export interface FetchOrderReturnsSuccessAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_SUCCESS;
-  payload: ReturnsPayload;
-  meta: { orderId: Order['id'] };
-}
-export interface FetchOrderReturnsFailureAction extends Action {
-  type: typeof actionTypes.FETCH_ORDER_RETURNS_FAILURE;
-  payload: { error: BlackoutError };
-  meta: { orderId: Order['id'] };
-}
-
-/**
- * Actions dispatched when the order returns request is made.
- */
-export type FetchOrderReturnsAction =
-  | FetchOrderReturnsRequestAction
-  | FetchOrderReturnsSuccessAction
-  | FetchOrderReturnsFailureAction;
 
 export interface FetchOrderReturnOptionsRequestAction extends Action {
   type: typeof actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST;
@@ -241,22 +208,6 @@ export interface ResetOrdersAction extends Action {
  */
 export interface ResetOrderDetailsStateAction extends Action {
   type: typeof actionTypes.RESET_ORDER_DETAILS_STATE;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
- * Actions dispatched when the reset order returns state request is made.
- */
-export interface ResetOrderReturnsStateAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURNS_STATE;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
- * Actions dispatched when the reset order returns request is made.
- */
-export interface ResetOrderReturnsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURNS_ENTITIES;
   payload: Array<Order['id']> | undefined;
 }
 

@@ -170,6 +170,11 @@ export const mockUserInitialState: UsersState = {
     error: null,
     isLoading: false,
   },
+  returns: {
+    result: null,
+    error: null,
+    isLoading: false,
+  },
   titles: {
     error: null,
     isLoading: false,

@@ -10,7 +10,6 @@ import {
   getOrderDetails,
   getOrderItemAvailableActivities,
   getOrderReturnOptions as getOrderReturnOptionsFromReducer,
-  getOrderReturns as getOrderReturnsFromReducer,
   getResult,
   getShipmentTrackings,
 } from './reducer.js';
@@ -348,40 +347,6 @@ export const getOrder: (
 // );
 
 /**
- * Returns all return from a specific order and merchant.
- *
- * @param state      - Application state.
- * @param orderId    - Order id.
- * @param merchantId - Merchant id.
- *
- * @returns List of return objects.
- */
-// export const getOrderReturns: (
-//   state: StoreState,
-//   orderId: Order['id'],
-//   merchantId?: MerchantEntity['id'],
-// ) => ReturnEntity[] | null | undefined = createSelector(
-//   [
-//     (state: StoreState, orderId: Order['id']) => getOrder(state, orderId),
-//     (_, orderId: Order['id'], merchantId?: MerchantEntity['id']) => ({
-//       orderId,
-//       merchantId,
-//     }),
-//   ],
-//   (order, { merchantId }) => {
-//     if (!order) {
-//       return undefined;
-//     }
-
-//     if (!order.returns || order.returns.length === 0 || !merchantId) {
-//       return order.returns;
-//     }
-
-//     return order.byMerchant[merchantId]?.returns;
-//   },
-// );
-
-/**
  * Returns all the merchants from a specific order.
  *
  * @param state   - Application state.
@@ -561,46 +526,6 @@ export const isOrderFetched = (state: StoreState, orderId: Order['id']) => {
     !isOrderLoading(state, orderId)
   );
 };
-
-/**
- * Returns the loading status for the order returns operation.
- *
- * @param state   - Application state.
- * @param orderId - Order identifier.
- *
- * @returns Order returns Loading status.
- */
-export const areOrderReturnsLoading = (
-  state: StoreState,
-  orderId: Order['id'],
-) => getOrderReturnsFromReducer(state.orders as OrdersState).isLoading[orderId];
-
-/**
- * Returns the isFetched status for the order returns operation.
- *
- * @param state   - Application state.
- * @param orderId - Order identifier.
- *
- * @returns Order returns isFetched status.
- */
-// export const areOrderReturnsFetched = (
-//   state: StoreState,
-//   orderId: Order['id'],
-// ) =>
-//   (!!getOrderReturns(state, orderId) ||
-//     !!getOrderReturnsError(state, orderId)) &&
-//   !areOrderReturnsLoading(state, orderId);
-
-/**
- * Returns the error for the order returns operation.
- *
- * @param state   - Application state.
- * @param orderId - Order identifier.
- *
- * @returns Order returns operation error.
- */
-export const getOrderReturnsError = (state: StoreState, orderId: Order['id']) =>
-  getOrderReturnsFromReducer(state.orders as OrdersState).error[orderId];
 
 /**
  * Returns the loading status for the order return options operation.

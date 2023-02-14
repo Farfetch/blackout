@@ -1252,6 +1252,11 @@ export const mockInitialState = {
       error: null,
       isLoading: false,
     },
+    returns: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
     titles: {
       error: null,
       isLoading: false,

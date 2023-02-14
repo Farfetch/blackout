@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserReturns action creator should create the correct actions for when the fetch user returns procedure is successful: fetch user returns success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "returnItems": Object {
+        "2195153": Object {
+          "description": "Fits too big",
+          "id": 1323,
+          "itemStatus": Object {
+            "code": "Open",
+          },
+          "orderItemId": 2195153,
+          "reason": "Item doesn't fit",
+          "status": "Created",
+        },
+      },
+      "returns": Object {
+        "50057759": Object {
+          "availableDates": Array [
+            1654357074213,
+            1654443474213,
+            1654529874213,
+          ],
+          "awbUrl": "/v1/returns/50057759/AWB",
+          "createdDate": 1654184274213,
+          "id": 50057759,
+          "invoiceUrl": "/v1/returns/50057759/Invoice",
+          "items": Array [
+            2195153,
+          ],
+          "maximumDateForPickup": 1656111598000,
+          "merchantId": 9134,
+          "merchantLocationId": "",
+          "numberOfBoxes": 1,
+          "numberOfItems": 1,
+          "orderId": "YGG2Y8BK2",
+          "pickupSchedule": Object {
+            "end": 1654531200443,
+            "start": 1654520400443,
+          },
+          "references": Array [
+            Object {
+              "name": "ReturnCustomerRequestedAWB",
+              "url": "/v1/returns/50057759/ReturnCustomerRequestedAWB",
+            },
+            Object {
+              "name": "ReturnNote",
+              "url": "/v1/returns/50057759/ReturnNote",
+            },
+          ],
+          "refundPreference": Object {
+            "paymentType": 0,
+          },
+          "returnStatus": Object {
+            "code": "InTransit",
+          },
+          "status": "InTransit",
+          "type": "CourierDropOff",
+          "userId": 30446182,
+          "userPickupAddress": Object {
+            "addressLine1": "Rua Luciano da Silva Barros 213",
+            "addressLine2": "",
+            "addressLine3": "",
+            "city": Object {
+              "countryId": 165,
+              "id": 0,
+              "name": "Porto",
+              "stateId": 123,
+            },
+            "continent": null,
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": null,
+              "continentId": 0,
+              "culture": null,
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": null,
+              "region": null,
+              "subRegion": null,
+            },
+            "ddd": null,
+            "firstName": "Fabricio Baia",
+            "lastName": "",
+            "neighbourhood": null,
+            "phone": "123456789.",
+            "vatNumber": "",
+            "zipCode": "4470-193",
+          },
+        },
+      },
+    },
+    "result": Object {
+      "entries": Array [
+        50057759,
+      ],
+      "number": 1,
+      "totalItems": 1,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_RETURNS_SUCCESS",
+}
+`;
