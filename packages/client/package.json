@@ -20,6 +20,7 @@
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
+    "@types/json-patch": "^0.0.30",
     "@types/json-schema": "^7.0.11",
     "@types/proper-url-join": "2.1.1",
     "crypto-js": "3.1.9-1",

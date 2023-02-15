@@ -15,6 +15,7 @@ import {
   DeliveryWindowType,
   GenderCode,
   OrderStatusError,
+  PatchCheckoutOrderItemsData,
   ShippingCostType,
   ShippingMode,
   UserAddress,
@@ -843,42 +844,41 @@ export const expectedDetailsNormalizedPayload = {
   result: checkoutId,
 };
 
-export const mockResponsePatchOrderItemsGiftMessage = [
-  {
-    checkoutOrderItemId: 1,
-    checkoutItemPatchDocument: {
-      operations: [
-        {
-          value: {
-            from: 'string',
-            to: 'string',
-            message: 'string',
+export const mockResponsePatchOrderItemsGiftMessage: PatchCheckoutOrderItemsData =
+  [
+    {
+      checkoutOrderItemId: 1,
+      checkoutItemPatchDocument: {
+        operations: [
+          {
+            value: {
+              from: 'string',
+              to: 'string',
+              message: 'string',
+            },
+            path: 'string',
+            op: 'replace',
           },
-          path: 'string',
-          op: 'string',
-          from: 'string',
-        },
-      ],
+        ],
+      },
     },
-  },
-  {
-    checkoutOrderItemId: 2,
-    checkoutItemPatchDocument: {
-      operations: [
-        {
-          value: {
-            from: 'string',
-            to: 'string',
-            message: 'string',
+    {
+      checkoutOrderItemId: 2,
+      checkoutItemPatchDocument: {
+        operations: [
+          {
+            value: {
+              from: 'string',
+              to: 'string',
+              message: 'string',
+            },
+            path: 'string',
+            op: 'add',
           },
-          path: 'string',
-          op: 'string',
-          from: 'string',
-        },
-      ],
+        ],
+      },
     },
-  },
-];
+  ];
 
 export const mockUpdateCheckoutResponse = {
   checkout: {

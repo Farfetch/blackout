@@ -3,13 +3,14 @@ import { attributeId, userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserAttribute.fixtures';
 import mswServer from '../../../../tests/mswServer';
+import type { PatchUserAttributeData } from '..';
 
 describe('patchUserAttribute', () => {
   const expectedConfig = undefined;
-  const data = [
+  const data: PatchUserAttributeData[] = [
     {
       path: 'string',
-      op: 'string',
+      op: 'replace',
       value: 'string',
     },
   ];

@@ -1,23 +1,30 @@
+import type { AddPatch, RemovePatch, ReplacePatch } from 'json-patch';
 import type { CheckoutOrder } from './checkoutOrder.types';
 import type { Config } from '../../types';
 
-type GiftMessage = {
+export type GiftMessage = {
   from: string;
   to: string;
   message?: string;
 };
 
-type Operation = {
+export type AddPatchGiftMessage = Omit<AddPatch, 'value'> & {
   value: GiftMessage;
-  path: string;
-  op: string;
-  from: string;
 };
+
+export type ReplacePatchGiftMessage = Omit<ReplacePatch, 'value'> & {
+  value: GiftMessage;
+};
+
+export type PatchCheckoutOrderItemsOperation =
+  | AddPatchGiftMessage
+  | ReplacePatchGiftMessage
+  | RemovePatch;
 
 export type PatchCheckoutOrderItemsData = {
   checkoutOrderItemId: number;
   checkoutItemPatchDocument: {
-    operations: Operation[];
+    operations: PatchCheckoutOrderItemsOperation[];
   };
 }[];
 

@@ -5,7 +5,10 @@ import {
 } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchCheckoutOrderDeliveryBundleUpgrades } from '@farfetch/blackout-client';
+import {
+  patchCheckoutOrderDeliveryBundleUpgrades,
+  PatchCheckoutOrderDeliveryBundleUpgradesData,
+} from '@farfetch/blackout-client';
 import { updateCheckoutOrderDeliveryBundleUpgrades } from '..';
 import find from 'lodash/find';
 
@@ -18,7 +21,7 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const deliveryBundleId = mockDeliveryBundlesResponse[0]?.id as string;
-  const data = [
+  const data: PatchCheckoutOrderDeliveryBundleUpgradesData[] = [
     {
       op: 'replace',
       path: '0/isSelected',

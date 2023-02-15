@@ -2,7 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { contactId, userId } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
-import { patchUserContact } from '@farfetch/blackout-client';
+import {
+  patchUserContact,
+  PatchUserContactOperation,
+} from '@farfetch/blackout-client';
 import { updateUserContact } from '..';
 import find from 'lodash/find';
 
@@ -17,12 +20,11 @@ const expectedConfig = undefined;
 let store = usersMockStore();
 
 describe('updateUserContact() action creator', () => {
-  const data = [
+  const data: PatchUserContactOperation[] = [
     {
       value: '',
       path: '',
-      op: '',
-      from: '',
+      op: 'add',
     },
   ];
 
