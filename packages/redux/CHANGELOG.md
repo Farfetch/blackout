@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.369](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.368...@farfetch/blackout-redux@1.0.0-next.369) (2023-02-15)
+
+
+### Bug Fixes
+
+* **redux:** fix checkout reducer ([48fe940](https://github.com/Farfetch/blackout/commit/48fe940ae7b70e1d7b6d216f99d89d194cf33113))
+
+
+### BREAKING CHANGES
+
+* **redux:** Now when the default login, register and fetch user
+actions are dispatched to the store, no cleanup of any checkout
+order state is performed.
+
+
+
+
+
 # [1.0.0-next.368](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.367...@farfetch/blackout-redux@1.0.0-next.368) (2023-02-10)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
