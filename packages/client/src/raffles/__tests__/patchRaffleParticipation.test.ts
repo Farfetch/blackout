@@ -1,17 +1,19 @@
 import { participationId, raffleId } from 'tests/__fixtures__/raffles';
-import { RaffleParticipationStatus } from '../types';
+import {
+  PatchRaffleParticipationOperation,
+  RaffleParticipationStatus,
+} from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/patchRaffleParticipation.fixtures';
 import mswServer from '../../../tests/mswServer';
 import patchRaffleParticipation from '../patchRaffleParticipation';
 
 describe('patchRaffleParticipation', () => {
-  const data = [
+  const data: PatchRaffleParticipationOperation[] = [
     {
       value: RaffleParticipationStatus.Cancelled,
       path: '/status',
       op: 'replace',
-      from: '',
     },
   ];
   const expectedConfig = undefined;

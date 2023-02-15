@@ -4,6 +4,7 @@ import { mockStore } from '../../../../tests';
 import { participationId, raffleId } from 'tests/__fixtures__/raffles';
 import {
   patchRaffleParticipation,
+  PatchRaffleParticipationOperation,
   RaffleParticipationStatus,
 } from '@farfetch/blackout-client';
 import updateRaffleParticipation from '../updateRaffleParticipation';
@@ -25,12 +26,11 @@ describe('updateRaffleParticipation() action creator', () => {
     store = buildRaffleParticipationsMockStore();
   });
 
-  const data = [
+  const data: PatchRaffleParticipationOperation[] = [
     {
       value: RaffleParticipationStatus.Cancelled,
       path: '/status',
       op: 'replace',
-      from: '',
     },
   ];
 

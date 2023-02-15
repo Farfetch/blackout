@@ -1,6 +1,8 @@
+import type { PatchWishlistSetData } from '@farfetch/blackout-client';
+
 export type WishlistProductUpdateSetActionMetadata = Partial<
   {
-    data: Array<WishlistProductUpdateSetDataActionMetadata>;
+    data: PatchWishlistSetData;
     isAddOperation: boolean;
     isDeleteOperation: boolean;
     from: string;
@@ -9,12 +11,6 @@ export type WishlistProductUpdateSetActionMetadata = Partial<
     position: number;
   } & Record<string, unknown>
 >;
-
-export type WishlistProductUpdateSetDataActionMetadata = {
-  op: 'add' | 'remove';
-  path: string;
-  value?: unknown;
-};
 
 export type WishlistActionProcessedOptions = {
   ADD_WISHLIST_ITEM_SUCCESS: string;
