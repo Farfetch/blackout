@@ -1,4 +1,5 @@
 import { mockWishlistItemId } from './wishlists.fixtures';
+import type { PatchWishlistSetData } from '@farfetch/blackout-client';
 
 export const mockWishlistSetId = '77fae745-7608-4b7d-8e7d-4f6923e032ef';
 
@@ -17,12 +18,11 @@ export const mockWishlistsSetResponse = {
   ],
 };
 
-export const mockWishlistSetPatchData = [
+export const mockWishlistSetPatchData: PatchWishlistSetData = [
   {
     value: {},
     path: 'string',
-    op: 'string',
-    from: 'string',
+    op: 'replace',
   },
 ];
 

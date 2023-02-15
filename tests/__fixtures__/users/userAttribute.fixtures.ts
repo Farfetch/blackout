@@ -1,4 +1,7 @@
-import { UserAttributeType } from '@farfetch/blackout-client';
+import {
+  PatchUserAttributeData,
+  UserAttributeType,
+} from '@farfetch/blackout-client';
 
 export const mockGetUserAttributeResponse = {};
 
@@ -8,7 +11,7 @@ export const mockPatchUserAttributeResponse = {};
 
 export const mockDeleteUserAttributeResponse = {};
 
-export const mockUpdateUserAttributeData = [
+export const mockUpdateUserAttributeData: PatchUserAttributeData[] = [
   {
     op: 'replace',
     path: 'details/items/key2',

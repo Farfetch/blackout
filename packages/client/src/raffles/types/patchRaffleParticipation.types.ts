@@ -1,12 +1,8 @@
 import type { Config } from '../..';
+import type { OpPatch } from 'json-patch';
 import type { Raffle, RaffleParticipation } from './raffles.types';
 
-export type PatchRaffleParticipationOperation = {
-  value: unknown;
-  path: string;
-  op: string;
-  from: string;
-};
+export type PatchRaffleParticipationOperation = OpPatch;
 
 export type PatchRaffleParticipation = (
   raffleId: Raffle['id'],

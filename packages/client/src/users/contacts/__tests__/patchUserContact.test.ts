@@ -3,19 +3,18 @@ import {
   mockGetContactResponse,
   userId,
 } from 'tests/__fixtures__/users';
-import { patchUserContact } from '..';
+import { patchUserContact, PatchUserContactOperation } from '..';
 import client from '../../../helpers/client';
 import fixtures from '../__fixtures__/patchUserContact.fixtures';
 import mswServer from '../../../../tests/mswServer';
 
 describe('patchUserContact', () => {
   const expectedConfig = undefined;
-  const data = [
+  const data: PatchUserContactOperation[] = [
     {
       value: '',
       path: '',
-      op: '',
-      from: '',
+      op: 'replace',
     },
   ];
   const spy = jest.spyOn(client, 'patch');

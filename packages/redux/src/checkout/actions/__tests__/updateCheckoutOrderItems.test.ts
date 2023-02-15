@@ -2,7 +2,10 @@ import * as actionTypes from '../../actionTypes';
 import { checkoutId } from 'tests/__fixtures__/checkout';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
-import { patchCheckoutOrderItems } from '@farfetch/blackout-client';
+import {
+  patchCheckoutOrderItems,
+  PatchCheckoutOrderItemsData,
+} from '@farfetch/blackout-client';
 import { updateCheckoutOrderItems } from '..';
 import find from 'lodash/find';
 
@@ -15,7 +18,7 @@ describe('updateCheckoutOrderItems() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state);
   const expectedConfig = undefined;
-  const data = [
+  const data: PatchCheckoutOrderItemsData = [
     {
       checkoutOrderItemId: 1,
       checkoutItemPatchDocument: {
@@ -27,8 +30,7 @@ describe('updateCheckoutOrderItems() action creator', () => {
               message: 'string',
             },
             path: 'string',
-            op: 'string',
-            from: 'string',
+            op: 'replace',
           },
         ],
       },
@@ -43,8 +45,7 @@ describe('updateCheckoutOrderItems() action creator', () => {
               to: 'string',
             },
             path: 'string',
-            op: 'string',
-            from: 'string',
+            op: 'add',
           },
         ],
       },
