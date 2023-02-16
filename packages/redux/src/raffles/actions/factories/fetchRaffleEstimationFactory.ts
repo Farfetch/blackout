@@ -7,6 +7,8 @@ import {
   RaffleEstimationQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import { normalize } from 'normalizr';
+import raffleEstimationsSchema from '../../../entities/schemas/raffleEstimations';
 import type { Dispatch } from 'redux';
 
 /**
@@ -28,14 +30,10 @@ const fetchRaffleEstimationFactory =
 
       const result = await getRaffleEstimation(raffleId, query, config);
 
+      // As raffle estimation doesn't have an id, it will be normalized by raffleId
       dispatch({
         meta: { raffleId },
-        payload: {
-          entities: {
-            raffleEstimations: { [raffleId]: result },
-          },
-          result: raffleId,
-        },
+        payload: normalize({ raffleId, ...result }, raffleEstimationsSchema),
         type: actionTypes.FETCH_RAFFLE_ESTIMATION_SUCCESS,
       });
 
