@@ -9,7 +9,9 @@ import { combineReducers } from 'redux';
 import { createMergedObject, reducerFactory } from '../../helpers/redux';
 import assignWith from 'lodash/assignWith';
 import get from 'lodash/get';
+import isEqual from 'lodash/isEqual';
 import mergeWith from 'lodash/mergeWith';
+import produce from 'immer';
 
 const INITIAL_STATE = {
   error: null,
@@ -145,23 +147,72 @@ const convertCheckoutOrder = (state, action) => {
   const entitiesMerged = mergeWith({}, entities, customizer);
   const mergedState = createMergedObject(tempMergedState, entitiesMerged);
 
-  const shouldResetClickAndCollect =
-    !!get(mergedState, `checkoutOrders[${result}].clickAndCollect`) &&
-    !get(entities, `checkoutOrders[${result}].clickAndCollect`);
+  const mergedClickAndCollectState = get(
+    mergedState,
+    `checkoutOrders[${result}].clickAndCollect`,
+  );
+  const receivedClickAndCollectState = get(
+    entities,
+    `checkoutOrders[${result}].clickAndCollect`,
+  );
+  const shouldReplaceClickAndCollect = !isEqual(
+    mergedClickAndCollectState,
+    receivedClickAndCollectState,
+  );
 
-  if (!shouldResetClickAndCollect) {
-    return mergedState;
-  }
+  const mergedShippingAddressState = get(
+    mergedState,
+    `checkoutOrders[${result}].shippingAddress.state`,
+  );
+  const receivedShippingAddressState = get(
+    entities,
+    `checkoutOrders[${result}].shippingAddress.state`,
+  );
+  const shouldReplaceShippingState = !isEqual(
+    mergedShippingAddressState,
+    receivedShippingAddressState,
+  );
 
-  return {
-    ...mergedState,
-    checkoutOrders: {
-      [result]: {
-        collectpoints: mergedState.checkoutOrders[result].collectpoints,
-        ...entities.checkoutOrders[result],
-      },
-    },
-  };
+  const mergedBillingAddressState = get(
+    mergedState,
+    `checkoutOrders[${result}].billingAddress.state`,
+  );
+  const receivedBillingAddressState = get(
+    entities,
+    `checkoutOrders[${result}].billingAddress.state`,
+  );
+  const shouldReplaceBillingState = !isEqual(
+    mergedBillingAddressState,
+    receivedBillingAddressState,
+  );
+
+  return produce(mergedState, draftState => {
+    const checkoutOrder = draftState?.checkoutOrders?.[result];
+
+    if (
+      !checkoutOrder ||
+      (!shouldReplaceClickAndCollect &&
+        !shouldReplaceBillingState &&
+        !shouldReplaceShippingState)
+    ) {
+      return;
+    }
+
+    if (shouldReplaceClickAndCollect) {
+      checkoutOrder.clickAndCollect =
+        entities.checkoutOrders[result]?.clickAndCollect;
+    }
+
+    if (shouldReplaceShippingState) {
+      checkoutOrder.shippingAddress.state =
+        entities.checkoutOrders[result]?.shippingAddress?.state;
+    }
+
+    if (shouldReplaceBillingState) {
+      checkoutOrder.billingAddress.state =
+        entities.checkoutOrders[result]?.billingAddress?.state;
+    }
+  });
 };
 
 const mergeCheckoutOrder = (state, action) => {
