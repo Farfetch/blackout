@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.119](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.118...@farfetch/blackout-analytics@1.0.0-next.119) (2023-02-16)
+
+
+### Features
+
+* **analytics|react:** add forter and riskified integrations ([5fcf9bb](https://github.com/Farfetch/blackout/commit/5fcf9bb5d97affbfd92303e4df5934e4df188462))
+
+
+### BREAKING CHANGES
+
+* **analytics|react:** Vitorino was removed from the list of available
+integrations and now there are separate Riskified and Forter integrations
+that will need to be added separately to have the same behaviour
+provided by Vitorino.
+
+
+
+
+
 # [1.0.0-next.118](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.117...@farfetch/blackout-analytics@1.0.0-next.118) (2023-02-10)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
