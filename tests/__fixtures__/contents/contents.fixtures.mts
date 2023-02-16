@@ -31,23 +31,16 @@ export const navbarsQuery = {
   contentTypeCode: 'navbars',
 };
 
-export const contentTypeQuery = {
-  spaceCode: 'website',
-  environmentCode: 'live',
-  contentTypeCode: 'careers',
-};
-
 export const contentTypeQueryWithCodes = {
   spaceCode: 'website',
   environmentCode: 'live',
-  codes: 'test-career',
+  codes: 'career-test',
   contentTypeCode: 'careers',
 };
 
 export const contentHash = generateContentHash(contentQuery);
 export const widgetHash = generateContentHash(widgetQuery);
 export const navbarsHash = generateContentHash(navbarsQuery);
-export const contentTypeHash = generateContentHash(contentTypeQuery);
 export const contentTypeHashWithCodes = generateContentHash(
   contentTypeQueryWithCodes,
 );
@@ -326,19 +319,7 @@ export const mockModel = {
     {
       filters: {
         spaceCode: 'website',
-        contentTypeCode: 'careers',
-        environmentCode: 'live',
-        sort: 'publicationDate:desc',
-        target: {},
-        searchTags: [],
-        metadataCustom: {},
-      },
-      searchResponse: mockContentType,
-    },
-    {
-      filters: {
-        spaceCode: 'website',
-        codes: 'test-career',
+        codes: 'career-test',
         contentTypeCode: 'careers',
         environmentCode: 'live',
         sort: 'publicationDate:desc',
@@ -350,7 +331,7 @@ export const mockModel = {
         number: 1,
         totalItems: 1,
         totalPages: 1,
-        entries: [mockContentType.entries[1]],
+        entries: [mockContentType.entries[0]],
       },
     },
   ],
@@ -436,26 +417,11 @@ export const expectedNormalizedPayload = {
           totalPages: 1,
         },
       },
-      [contentTypeHash]: {
-        error: null,
-        isLoading: false,
-        result: {
-          // We will need to fix this duplication when the codes is 'all'
-          entries: [
-            '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f',
-            '7255bc1f-517f-4c7d-bfdb-6e10fe037c68',
-          ],
-          hash: contentTypeHash,
-          number: 1,
-          totalItems: 2,
-          totalPages: 1,
-        },
-      },
       [contentTypeHashWithCodes]: {
         error: null,
         isLoading: false,
         result: {
-          entries: ['7255bc1f-517f-4c7d-bfdb-6e10fe037c68'],
+          entries: ['6fc6f3c1-ae2b-44d3-abec-54f0b679b19f'],
           hash: contentTypeHashWithCodes,
           number: 1,
           totalItems: 1,
@@ -492,10 +458,6 @@ export const expectedNormalizedPayload = {
       '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': {
         ...(mockContentType.entries[0] as ContentEntry),
         publicationDate: 1589466373692,
-      } as ContentsEntity,
-      '7255bc1f-517f-4c7d-bfdb-6e10fe037c68': {
-        ...(mockContentType.entries[1] as ContentEntry),
-        publicationDate: 1589217764375,
       } as ContentsEntity,
     },
   },
