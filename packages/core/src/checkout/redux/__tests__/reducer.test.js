@@ -750,6 +750,89 @@ describe('checkout reducer', () => {
         ).toEqual(result);
       });
 
+      it('should reset address state code and name if they are not filled', () => {
+        const result = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+              shippingAddress: {
+                state: {},
+              },
+              billingAddress: {
+                state: {},
+              },
+            },
+          },
+        };
+        const state = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['GIFT'],
+              shippingAddress: {
+                state: {
+                  code: 'code',
+                  name: 'name',
+                },
+              },
+              billingAddress: {
+                state: {},
+              },
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_SUCCESS](state, {
+            payload: { entities: result, result: 1 },
+            type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
+          }),
+        ).toEqual(result);
+      });
+
+      it('should reset click and collect if it is not filled', () => {
+        const result = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+            },
+          },
+        };
+
+        const expectedResult = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+              collectPoints: [{ collectPointId: 123 }],
+            },
+          },
+        };
+
+        const state = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['GIFT'],
+              clickAndCollect: {
+                collectPointId: 123,
+              },
+              collectPoints: [{ collectPointId: 123 }],
+            },
+          },
+        };
+
+        expect(
+          // @ts-expect-error Simplified state for testing purposes
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_SUCCESS](state, {
+            payload: { entities: result, result: 1 },
+            type: actionTypes.UPDATE_CHECKOUT_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+
       it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_SUCCESS}`, () => {
         const state = {
           checkout: {
