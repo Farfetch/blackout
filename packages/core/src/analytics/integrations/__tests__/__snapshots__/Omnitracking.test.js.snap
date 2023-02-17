@@ -192,6 +192,8 @@ exports[`Omnitracking definitions \`Promocode Applied\` return should match the 
 Object {
   "errorMessage": "No promocode available.",
   "hasError": true,
+  "orderCode": "ABC12",
+  "orderId": 12345678,
   "promoCode": "PROMO_ABC",
   "tid": 311,
 }
