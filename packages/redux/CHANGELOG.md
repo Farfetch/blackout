@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.373](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.372...@farfetch/blackout-redux@1.0.0-next.373) (2023-02-17)
+
+
+### Features
+
+* added raffles endpoints ([d28e48e](https://github.com/Farfetch/blackout/commit/d28e48ec90f17dfe3f04efff79fa0c7c9dd49c78))
+
+
+
+
+
 # [1.0.0-next.372](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.371...@farfetch/blackout-redux@1.0.0-next.372) (2023-02-17)
 
 
