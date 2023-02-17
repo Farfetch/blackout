@@ -337,6 +337,22 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
 };
 
 /**
+ * Returns the promocode applied event properties formatted for the GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Properties formatted for the GA4's promocode applied event.
+ */
+const getPromocodeAppliedParametersFromEvent = eventProperties => {
+  return {
+    currency: eventProperties.currency,
+    coupon: eventProperties.coupon,
+    value: eventProperties.total,
+    transaction_id: eventProperties.orderId,
+  };
+};
+
+/**
  * Returns the shipping info added event parameters for the GA4 ecommerce event.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce?client_type=gtag#add_shipping_info}
@@ -682,8 +698,10 @@ export function getEventProperties(event, data) {
 
     case eventTypes.ADDRESS_INFO_ADDED:
     case eventTypes.SHIPPING_METHOD_ADDED:
-    case eventTypes.PROMOCODE_APPLIED:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
+
+    case eventTypes.PROMOCODE_APPLIED:
+      return getPromocodeAppliedParametersFromEvent(eventProperties);
 
     case eventTypes.INTERACT_CONTENT:
       return getInteractContentParametersFromEvent(eventProperties);
