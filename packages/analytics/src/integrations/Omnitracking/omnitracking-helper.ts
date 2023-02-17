@@ -498,33 +498,25 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
  * Obtain checkout generic omnitracking's properties.
  *
  * @param data - The event's data.
- * @param addOrderId - If this property is true then add orderId to return.
  * @returns The checkout omnitracking order data.
  */
 export const getCheckoutEventGenericProperties = (
   data: EventData<TrackTypesValues>,
-  addOrderId = false,
 ) => {
   const validOrderCode = isNaN(Number(data.properties?.orderId));
 
   if (!validOrderCode) {
-    logger.warn(
-      `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
-                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB)
+    logger.error(
+      `[Omnitracking] - Event ${data.event} property "orderId" should be an alphanumeric value.
+                        If you send the internal "orderId", please use "orderId" (e.g.: 5H5QYB)
                         and 'checkoutOrderId' (e.g.:123123123)`,
     );
   }
 
-  const orderCode = validOrderCode ? data.properties?.orderId : undefined;
-
-  return addOrderId
-    ? {
-        orderCode,
-        orderId: !validOrderCode
-          ? Number(data.properties?.orderId)
-          : data.properties?.checkoutOrderId,
-      }
-    : { orderCode };
+  return {
+    orderCode: data.properties?.orderId,
+    checkoutOrderId: data.properties?.checkoutOrderId,
+  };
 };
 
 /**

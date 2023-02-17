@@ -1,3 +1,4 @@
+import { EventTypes, SignupNewsletterGenderTypes } from '../../../types';
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
@@ -10,7 +11,6 @@ import {
   getValParameterForEvent,
 } from '../omnitracking-helper';
 import { logger } from '../../../utils';
-import { SignupNewsletterGenderTypes } from '../../../types';
 import PlatformTypes from '../../../types/PlatformTypes';
 import TrackTypes from '../../../types/TrackTypes';
 import type {
@@ -18,8 +18,7 @@ import type {
   TrackTypesValues,
 } from '../../../types/analytics.types';
 
-logger.warn = jest.fn();
-const mockLoggerWarn = logger.warn;
+logger.error = jest.fn();
 
 describe('getPageEventFromLocation', () => {
   it('should return null when location is not provided', () => {
@@ -65,44 +64,32 @@ describe('getPlatformSpecificParameters', () => {
 });
 
 describe('getCheckoutEventGenericProperties', () => {
-  it('should display some warn', () => {
+  it('should display an error if an invalid orderId value is passed', () => {
     const eventData = {
       type: TrackTypes.TRACK,
+      event: EventTypes.PROMOCODE_APPLIED,
       properties: { orderId: '123' } as Record<string, unknown>,
     } as EventData<TrackTypesValues>;
 
     getCheckoutEventGenericProperties(eventData);
-    expect(mockLoggerWarn).toHaveBeenCalledWith(
+    expect(logger.error).toHaveBeenCalledWith(
       expect.stringContaining(
-        'property orderId should be an alphanumeric value',
+        'property "orderId" should be an alphanumeric value',
       ),
     );
   });
 
-  it('should get orderCode without warn and without property orderId', () => {
+  it('should get orderCode and checkoutOrderId correctly', () => {
     const eventData = {
       properties: {
         orderId: '5H5QYB',
-        checkoutOrderId: '123',
+        checkoutOrderId: 123,
       } as Record<string, unknown>,
     } as EventData<TrackTypesValues>;
 
     expect(getCheckoutEventGenericProperties(eventData)).toEqual({
       orderCode: '5H5QYB',
-    });
-  });
-
-  it('should get orderCode without warn and with property orderId', () => {
-    const eventData = {
-      properties: {
-        orderId: '5H5QYB',
-        checkoutOrderId: '123',
-      } as Record<string, unknown>,
-    } as EventData<TrackTypesValues>;
-
-    expect(getCheckoutEventGenericProperties(eventData, true)).toEqual({
-      orderCode: '5H5QYB',
-      orderId: '123',
+      checkoutOrderId: 123,
     });
   });
 });
