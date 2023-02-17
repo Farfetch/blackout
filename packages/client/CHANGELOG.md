@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.238](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.237...@farfetch/blackout-client@2.0.0-next.238) (2023-02-17)
+
+
+### Bug Fixes
+
+* remove deprecated params from translations ([447a989](https://github.com/Farfetch/blackout/commit/447a98993b0e9ae5183d25101907b175fbfbee2b))
+
+
+### BREAKING CHANGES
+
+* 'client_id' and 'tenant_id' parameters were removed from 'Translation' type.
+They are now inferred from the token.
+
+
+
+
+
 # [2.0.0-next.237](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.236...@farfetch/blackout-client@2.0.0-next.237) (2023-02-10)
 
 
