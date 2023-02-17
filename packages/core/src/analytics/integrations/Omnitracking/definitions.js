@@ -468,6 +468,7 @@ export const trackEventsMapper = {
   }),
   [eventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
+    ...getCheckoutEventGenericProperties(data, true),
     promoCode: data.properties.coupon,
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
