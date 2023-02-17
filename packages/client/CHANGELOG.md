@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.239](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.238...@farfetch/blackout-client@2.0.0-next.239) (2023-02-17)
+
+
+### Features
+
+* add set bag promocodes in bag ([ecd490d](https://github.com/Farfetch/blackout/commit/ecd490db9c77da939546f574b52e32c61b7a18d9))
+
+
+### BREAKING CHANGES
+
+* Bag middleware `fetchBagOperationsOnBagRequestSuccess`
+must now be imported from `bagMiddlewares` export instead of directly
+from the root of the package.
+
+
+
+
+
 # [2.0.0-next.238](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.237...@farfetch/blackout-client@2.0.0-next.238) (2023-02-17)
 
 
