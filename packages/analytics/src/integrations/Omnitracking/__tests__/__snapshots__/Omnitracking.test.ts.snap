@@ -70,6 +70,7 @@ Object {
 
 exports[`Omnitracking track events definitions \`Order Completed\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 21312312,
   "orderCode": "ABC12",
   "tid": 2831,
 }
@@ -87,6 +88,7 @@ Object {
 
 exports[`Omnitracking track events definitions \`Place Order Started\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 15338048,
   "orderCode": "50314b8e9bcf000000000000",
   "promocode": "ACME2019",
   "shippingTotalValue": 3.6,
@@ -174,8 +176,10 @@ Array [
 
 exports[`Omnitracking track events definitions \`Promocode Applied\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 15338048,
   "errorMessage": "No promocode available.",
   "hasError": true,
+  "orderCode": "50314b8e9bcf000000000000",
   "promoCode": "ACME2019",
   "tid": 311,
 }
@@ -245,6 +249,7 @@ Object {
 
 exports[`Omnitracking track events definitions \`checkout\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 12345678,
   "orderCode": "ASH12",
   "orderValue": 100,
   "shippingTotalValue": 10,

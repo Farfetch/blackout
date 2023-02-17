@@ -497,6 +497,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [EventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,
+    ...getCheckoutEventGenericProperties(data),
     promoCode: data.properties?.coupon,
     hasError: !!data.properties?.errorMessage,
     errorMessage: data.properties?.errorMessage,
