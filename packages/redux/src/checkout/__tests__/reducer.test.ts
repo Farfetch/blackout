@@ -11,6 +11,8 @@ import {
   mockCheckoutDetailsEntity,
   mockCheckoutOrderItemEntity,
   mockCheckoutOrderItemProductsEntity,
+  mockCheckoutState,
+  mockCollectPoint,
   mockCollectPointsResponse,
   mockDeliveryBundlesResponse,
   mockGetOperationActionPayload,
@@ -1352,6 +1354,7 @@ describe('checkout reducer', () => {
       const result = {
         checkoutOrders: {
           1: {
+            ...mockCheckoutState.entities.checkoutOrders[checkoutOrderId],
             checkout: 123,
             tags: ['NEW_GIFT'],
           },
@@ -1360,13 +1363,14 @@ describe('checkout reducer', () => {
       const state = {
         checkoutOrders: {
           1: {
+            ...mockCheckoutState.entities.checkoutOrders[checkoutOrderId],
             checkout: 123,
             tags: ['GIFT'],
           },
         },
       };
 
-      it.each([
+      it.each<keyof typeof entitiesMapper>([
         actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS,
         actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
         actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
@@ -1375,13 +1379,96 @@ describe('checkout reducer', () => {
         actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS,
       ])('should handle %s action type', actionType => {
         expect(
-          // @ts-expect-error
           entitiesMapper[actionType](state, {
             meta: { id: 1 },
             payload: { entities: result },
             type: actionType,
           }),
         ).toEqual(result);
+      });
+
+      it('should reset address state code and name if they are not filled', () => {
+        const result = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+              shippingAddress: {
+                state: {},
+              },
+              billingAddress: {
+                state: {},
+              },
+            },
+          },
+        };
+        const state = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['GIFT'],
+              shippingAddress: {
+                state: {
+                  code: 'code',
+                  name: 'name',
+                },
+              },
+              billingAddress: {
+                state: {},
+              },
+            },
+          },
+        };
+
+        expect(
+          // @ts-expect-error Simplified state for testing purposes
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS](state, {
+            payload: { entities: result, result: 1 },
+            type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
+          }),
+        ).toEqual(result);
+      });
+
+      it('should reset click and collect if it is not filled', () => {
+        const result = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+            },
+          },
+        };
+
+        const expectedResult = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['NEW_GIFT'],
+              collectPoints: [mockCollectPoint],
+            },
+          },
+        };
+
+        const state = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              tags: ['GIFT'],
+              clickAndCollect: {
+                collectPointId: 123,
+              },
+              collectPoints: [mockCollectPoint],
+            },
+          },
+        };
+
+        expect(
+          // @ts-expect-error Simplified state for testing purposes
+          entitiesMapper[actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS](state, {
+            payload: { entities: result, result: 1 },
+            type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
       });
 
       it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS}`, () => {
