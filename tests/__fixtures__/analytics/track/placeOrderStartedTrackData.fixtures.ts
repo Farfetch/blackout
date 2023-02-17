@@ -5,6 +5,7 @@ const fixtures = {
   ...baseTrackData,
   event: EventTypes.PLACE_ORDER_STARTED,
   properties: {
+    checkoutOrderId: 15338048,
     orderId: '50314b8e9bcf000000000000',
     total: 24.64,
     shipping: 3.6,
