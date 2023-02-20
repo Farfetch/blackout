@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.123](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.122...@farfetch/blackout-analytics@1.0.0-next.123) (2023-02-20)
+
+
+### Features
+
+* **analytics|react:** setup promocode applied event next ([c88b08f](https://github.com/Farfetch/blackout/commit/c88b08f108d562c99e633a7a11e17eb0ad14607d))
+
+
+### BREAKING CHANGES
+
+* **analytics|react:** - The omnitracking integration will no longer remap the
+"orderId" parameter on checkout events in case its value is not a valid
+order code and will log an error instead of a warning, in
+case it is invalid.
+
+
+
+
+
 # [1.0.0-next.122](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.121...@farfetch/blackout-analytics@1.0.0-next.122) (2023-02-17)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
