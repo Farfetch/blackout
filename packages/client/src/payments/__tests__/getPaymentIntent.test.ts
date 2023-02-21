@@ -14,7 +14,6 @@ describe('getPaymentIntent', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockFetchIntentResponse));
 
-    expect.assertions(2);
     await expect(getPaymentIntent(id)).resolves.toStrictEqual(
       mockFetchIntentResponse,
     );
@@ -24,8 +23,6 @@ describe('getPaymentIntent', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getPaymentIntent(id)).rejects.toMatchSnapshot();
 

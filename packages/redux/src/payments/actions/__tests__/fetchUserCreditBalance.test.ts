@@ -31,22 +31,22 @@ describe('fetchUserCreditBalance() action creator', () => {
     const expectedError = new Error('fetch user credit balance error');
 
     (getUserCreditBalance as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCreditBalance(data)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserCreditBalance).toHaveBeenCalledTimes(1);
-      expect(getUserCreditBalance).toHaveBeenCalledWith(data, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_CREDIT_BALANCE_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_CREDIT_BALANCE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchCreditBalance(data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserCreditBalance).toHaveBeenCalledTimes(1);
+    expect(getUserCreditBalance).toHaveBeenCalledWith(data, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_CREDIT_BALANCE_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_CREDIT_BALANCE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch user credit balance procedure is successful', async () => {

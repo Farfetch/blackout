@@ -23,7 +23,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `contacts` slice', () => {
-      expect(selectors.getUserContactsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserContactsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserContactsError(mockErrorState)).toBe(dummyError);
     });

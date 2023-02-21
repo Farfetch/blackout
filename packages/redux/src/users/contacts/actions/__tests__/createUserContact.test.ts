@@ -31,29 +31,27 @@ describe('createUserContact() action creator', () => {
     const expectedError = new Error('post user contact error');
 
     (postUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createUserContact(
+    await expect(
+      async () =>
+        await createUserContact(userId, mockGetContactResponse)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postUserContact).toHaveBeenCalledTimes(1);
+    expect(postUserContact).toHaveBeenCalledWith(
       userId,
       mockGetContactResponse,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postUserContact).toHaveBeenCalledTimes(1);
-      expect(postUserContact).toHaveBeenCalledWith(
-        userId,
-        mockGetContactResponse,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_USER_CONTACT_REQUEST },
-          {
-            type: actionTypes.CREATE_USER_CONTACT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_USER_CONTACT_REQUEST },
+        {
+          type: actionTypes.CREATE_USER_CONTACT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create user contact procedure is successful', async () => {

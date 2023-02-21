@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostPasswordRecover,
-  PostPasswordRecoverData,
+  type Config,
+  type PostPasswordRecover,
+  type PostPasswordRecoverData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -22,6 +22,7 @@ const recoverPasswordFactory =
       dispatch({
         type: actionTypes.PASSWORD_RECOVER_REQUEST,
       });
+
       const result = await postPasswordRecover(data, config);
 
       dispatch({

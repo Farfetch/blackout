@@ -15,7 +15,6 @@ describe('getWishlist', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockWishlistsResponse));
-    expect.assertions(2);
 
     await expect(getWishlist(mockWishlistId)).resolves.toEqual(
       mockWishlistsResponse,
@@ -29,7 +28,6 @@ describe('getWishlist', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getWishlist(mockWishlistId)).rejects.toMatchSnapshot();
 

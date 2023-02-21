@@ -29,6 +29,7 @@ describe('Payments redux selectors', () => {
     describe('getPaymentTokens()', () => {
       it('should get the payment tokens from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntities');
+
         expect(selectors.getPaymentTokens(mockState)).toEqual(
           expectedPaymentTokensNormalizedPayload.entities.paymentTokens,
         );
@@ -39,6 +40,7 @@ describe('Payments redux selectors', () => {
     describe('getPaymentToken()', () => {
       it('should get the return item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntityById');
+
         expect(selectors.getPaymentToken(mockState, paymentTokenId)).toEqual(
           expectedPaymentTokensNormalizedPayload.entities.paymentTokens[
             paymentTokenId
@@ -56,6 +58,7 @@ describe('Payments redux selectors', () => {
       it('should get the payment tokens error property', () => {
         const spy = jest.spyOn(fromReducer, 'getPaymentTokens');
         const expectedResult = mockState.payments.paymentTokens.error;
+
         expect(selectors.getPaymentTokensError(mockState)).toEqual(
           expectedResult,
         );
@@ -148,6 +151,7 @@ describe('Payments redux selectors', () => {
     describe('getPaymentIntentInstrument()', () => {
       it('should get the payment instrument item from state', () => {
         const spy = jest.spyOn(fromEntities, 'getEntityById');
+
         expect(
           selectors.getPaymentIntentInstrument(mockState, instrumentId),
         ).toEqual(

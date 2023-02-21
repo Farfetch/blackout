@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetStaffMember,
-  StaffMember,
+  type Config,
+  type GetStaffMember,
+  type StaffMember,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

@@ -1,5 +1,5 @@
 import DOMPurify from 'dompurify';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import type { HTMLComponent } from '../../../types';
 
 const Html = ({ data: { value } }: HTMLComponent): ReactElement => (

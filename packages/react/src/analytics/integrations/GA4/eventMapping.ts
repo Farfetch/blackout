@@ -1,10 +1,10 @@
 import {
-  AnalyticsProduct,
-  EventProperties,
+  type AnalyticsProduct,
+  type EventProperties,
   EventTypes,
   PageTypes,
   SignupNewsletterGenderTypes,
-  TrackEventData,
+  type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
 import { MAX_PRODUCT_CATEGORIES } from './constants';
@@ -107,6 +107,7 @@ const getProductCategories = (
   return productCategories.reduce(
     (acc: Record<string, unknown>, category: string, index: number) => {
       const itemCategoryId = `item_category${index === 0 ? '' : index + 1}`;
+
       acc[itemCategoryId] = category;
 
       return acc;

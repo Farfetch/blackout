@@ -16,8 +16,6 @@ describe('deleteRecentlyViewedProduct', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(deleteRecentlyViewedProduct(id)).resolves.toStrictEqual(
       response,
     );
@@ -30,8 +28,6 @@ describe('deleteRecentlyViewedProduct', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(deleteRecentlyViewedProduct(id)).rejects.toMatchSnapshot();
 

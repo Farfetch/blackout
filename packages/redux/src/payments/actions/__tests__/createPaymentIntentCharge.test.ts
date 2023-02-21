@@ -33,29 +33,27 @@ describe('createPaymentIntentCharge() action creator', () => {
     const expectedError = new Error('charge error');
 
     (postPaymentIntentCharge as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createPaymentIntentCharge(
+    await expect(
+      async () =>
+        await createPaymentIntentCharge(intentId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPaymentIntentCharge).toHaveBeenCalledTimes(1);
+    expect(postPaymentIntentCharge).toHaveBeenCalledWith(
       intentId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postPaymentIntentCharge).toHaveBeenCalledTimes(1);
-      expect(postPaymentIntentCharge).toHaveBeenCalledWith(
-        intentId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST },
-          {
-            type: actionTypes.CREATE_PAYMENT_INTENT_CHARGE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_PAYMENT_INTENT_CHARGE_REQUEST },
+        {
+          type: actionTypes.CREATE_PAYMENT_INTENT_CHARGE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create payment intent charge procedure is successful', async () => {

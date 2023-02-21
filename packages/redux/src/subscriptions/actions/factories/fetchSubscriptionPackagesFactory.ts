@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  GetSubscriptionPackages,
+  type GetSubscriptionPackages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -33,6 +33,7 @@ const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
       payload: normalize(result, subscriptionSchema),
       type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_SUCCESS,
     });
+
     return result;
   } catch (error) {
     const errorAsBlackoutError = toBlackoutError(error);

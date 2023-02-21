@@ -19,7 +19,7 @@ describe('sizeGuides redux selectors', () => {
     it('should get the loading status of the sizeGuides', () => {
       const spy = jest.spyOn(fromReducer, 'getIsLoading');
 
-      expect(selectors.areSizeGuidesLoading(mockState)).toEqual(false);
+      expect(selectors.areSizeGuidesLoading(mockState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

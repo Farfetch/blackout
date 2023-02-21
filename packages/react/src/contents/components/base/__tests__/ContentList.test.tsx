@@ -41,6 +41,7 @@ describe('<ContentList />', () => {
       isLoading: false,
     }));
     (sortContentType as jest.Mock).mockImplementation(() => customContentType);
+
     const { getByText } = render(
       <ContentList
         data={contentListData}
@@ -58,6 +59,7 @@ describe('<ContentList />', () => {
       isLoading: false,
     }));
     (sortContentType as jest.Mock).mockImplementation(() => []);
+
     const { container } = render(
       <ContentList
         data={contentListData}
@@ -75,6 +77,7 @@ describe('<ContentList />', () => {
       isLoading: true,
     }));
     (sortContentType as jest.Mock).mockImplementation(() => []);
+
     const { container } = render(
       <ContentList
         data={contentListData}

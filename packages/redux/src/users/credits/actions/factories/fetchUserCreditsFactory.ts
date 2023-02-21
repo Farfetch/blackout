@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserCredits,
+  type Config,
+  type GetUserCredits,
   toBlackoutError,
-  User,
+  type User,
 } from '@farfetch/blackout-client';
 import isEmpty from 'lodash/isEmpty';
 import type { Dispatch } from 'redux';

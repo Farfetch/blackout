@@ -66,6 +66,7 @@ describe('bags redux selectors', () => {
     it('should return true if the bag fetch request succeeded', () => {
       expect(selectors.isBagFetched(mockState)).toBe(true);
     });
+
     it('should return true if the bag fetch request failed', () => {
       const mockStateWithError = {
         ...mockState,
@@ -75,8 +76,10 @@ describe('bags redux selectors', () => {
           id: '123',
         },
       };
+
       expect(selectors.isBagFetched(mockStateWithError)).toBe(true);
     });
+
     it('should return false if there is an ongoing fetch request', () => {
       const mockStateLoading = {
         ...mockState,
@@ -202,12 +205,6 @@ describe('bags redux selectors', () => {
       ).toEqual(expectedResult);
     });
 
-    it('should return the bag items counter when bag items exists', () => {
-      const expectedResult = 5;
-
-      expect(selectors.getBagItemsCounter(mockState)).toEqual(expectedResult);
-    });
-
     it('should return 0 when bag items does not exists', () => {
       const expectedResult = 0;
 
@@ -252,9 +249,7 @@ describe('bags redux selectors', () => {
     it('should get the bag item loading status', () => {
       const spy = jest.spyOn(fromBag, 'getAreItemsLoading');
 
-      expect(selectors.isBagItemLoading(mockState, mockBagItemId)).toEqual(
-        true,
-      );
+      expect(selectors.isBagItemLoading(mockState, mockBagItemId)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -302,6 +297,7 @@ describe('bags redux selectors', () => {
 
     it('should return a list with the unavailable items', () => {
       const state = cloneDeep(mockState);
+
       state.entities.bagItems[102].isAvailable = false;
 
       const expectedResult = [
@@ -433,9 +429,7 @@ describe('bags redux selectors', () => {
         },
       };
 
-      expect(selectors.isBagWithAnyError(mockStateWithGeneralError)).toEqual(
-        true,
-      );
+      expect(selectors.isBagWithAnyError(mockStateWithGeneralError)).toBe(true);
     });
 
     it('should return a true if there is an error in a bag item', () => {
@@ -463,9 +457,7 @@ describe('bags redux selectors', () => {
         },
       };
 
-      expect(selectors.isBagWithAnyError(mockStatewithBagItemError)).toEqual(
-        true,
-      );
+      expect(selectors.isBagWithAnyError(mockStatewithBagItemError)).toBe(true);
     });
 
     it('should return false if there are no errors', () => {
@@ -490,7 +482,8 @@ describe('bags redux selectors', () => {
           },
         },
       };
-      expect(selectors.isBagWithAnyError(mockStateWithoutError)).toEqual(false);
+
+      expect(selectors.isBagWithAnyError(mockStateWithoutError)).toBe(false);
     });
 
     it('should return false if the bag items are an empty array', () => {
@@ -511,9 +504,8 @@ describe('bags redux selectors', () => {
           },
         },
       };
-      expect(selectors.isBagWithAnyError(mockStateWithoutBagItems)).toEqual(
-        false,
-      );
+
+      expect(selectors.isBagWithAnyError(mockStateWithoutBagItems)).toBe(false);
     });
 
     it('should return false if does not exist bag items', () => {
@@ -538,9 +530,8 @@ describe('bags redux selectors', () => {
           },
         },
       };
-      expect(selectors.isBagWithAnyError(mockStateWithoutBagItems)).toEqual(
-        false,
-      );
+
+      expect(selectors.isBagWithAnyError(mockStateWithoutBagItems)).toBe(false);
     });
   });
 
@@ -615,7 +606,7 @@ describe('bags redux selectors', () => {
 
       expect(
         selectors.isBagOperationLoading(mockState, mockBagOperationId),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

@@ -16,8 +16,6 @@ describe('getReturnPickupRescheduleRequests', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getReturnPickupRescheduleRequests(id)).resolves.toStrictEqual(
       response,
     );
@@ -30,8 +28,6 @@ describe('getReturnPickupRescheduleRequests', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getReturnPickupRescheduleRequests(id),

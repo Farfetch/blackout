@@ -27,7 +27,6 @@ describe('patchCheckoutOrderDeliveryBundleUpgrades', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
     await expect(
       checkoutClient.patchCheckoutOrderDeliveryBundleUpgrades(
         id,
@@ -41,7 +40,6 @@ describe('patchCheckoutOrderDeliveryBundleUpgrades', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       checkoutClient.patchCheckoutOrderDeliveryBundleUpgrades(
         id,

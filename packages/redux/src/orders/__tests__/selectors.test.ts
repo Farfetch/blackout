@@ -1,7 +1,7 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromOrders from '../reducer';
 import * as selectors from '../selectors';
-import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
+import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   courierEntity,
   courierId,
@@ -31,7 +31,7 @@ describe('orders redux selectors', () => {
     it('should get the orders isLoading property from state', () => {
       const spy = jest.spyOn(fromOrders, 'getIsLoading');
 
-      expect(selectors.areOrdersLoading(mockState)).toEqual(false);
+      expect(selectors.areOrdersLoading(mockState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -90,6 +90,7 @@ describe('orders redux selectors', () => {
           result: null,
         },
       };
+
       expect(selectors.getOrdersPagination(newMock)).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -127,6 +128,7 @@ describe('orders redux selectors', () => {
           result: null,
         },
       };
+
       expect(selectors.getOrdersResult(stateWithUndefinedResult)).toEqual(
         expectedResult,
       );
@@ -429,7 +431,7 @@ describe('orders redux selectors', () => {
             mockStateOrderReturnOptionsUndefined,
             orderId,
           ),
-        ).toBe(undefined);
+        ).toBeUndefined();
       });
     });
 
@@ -457,7 +459,7 @@ describe('orders redux selectors', () => {
             orderId,
             merchantId,
           ),
-        ).toBe(undefined);
+        ).toBeUndefined();
       });
     });
   });
@@ -505,7 +507,7 @@ describe('orders redux selectors', () => {
       it('should return undefined when order.returns is undefined', () => {
         expect(
           selectors.getOrderReturns(mockStateOrderReturnsUndefined, orderId),
-        ).toBe(undefined);
+        ).toBeUndefined();
       });
     });
 
@@ -533,7 +535,7 @@ describe('orders redux selectors', () => {
             orderId,
             merchantId,
           ),
-        ).toBe(undefined);
+        ).toBeUndefined();
       });
     });
   });
@@ -567,7 +569,7 @@ describe('orders redux selectors', () => {
     it('should get undefined if there are no orderDetails from that order', () => {
       expect(
         selectors.getOrderItemsByMerchant(mockState, 'randomOrderId'),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -581,7 +583,7 @@ describe('orders redux selectors', () => {
 
       expect(
         selectors.getOrderItemQuantity(newState, orderId, orderItemId),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
 
     it('should get the order item quantity from state', () => {
@@ -593,7 +595,7 @@ describe('orders redux selectors', () => {
     it('should get undefined if the order was not fetched', () => {
       expect(
         selectors.getOrderItemQuantity(mockState, 'randomOrderId', orderItemId),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 

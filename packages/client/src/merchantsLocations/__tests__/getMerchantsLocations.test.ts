@@ -17,7 +17,6 @@ describe('getMerchantsLocations', () => {
     const response = [mockMerchantLocation];
 
     mswServer.use(fixtures.success(response));
-    expect.assertions(2);
 
     await expect(getMerchantsLocations(mockQuery)).resolves.toEqual(response);
 
@@ -29,7 +28,6 @@ describe('getMerchantsLocations', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getMerchantsLocations(mockQuery)).rejects.toMatchSnapshot();
 

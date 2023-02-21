@@ -86,8 +86,6 @@ describe('contents client', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.get.success(response));
 
-      expect.assertions(2);
-
       await expect(getSearchContents(query)).resolves.toEqual(response);
 
       expect(spy).toHaveBeenCalledWith(
@@ -98,8 +96,6 @@ describe('contents client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.get.failure());
-
-      expect.assertions(2);
 
       await expect(getSearchContents(query)).rejects.toMatchSnapshot();
 

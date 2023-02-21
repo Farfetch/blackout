@@ -13,8 +13,6 @@ describe('postUserAddress', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(data));
 
-    expect.assertions(2);
-
     await expect(postUserAddress({ userId }, data)).resolves.toStrictEqual(
       data,
     );
@@ -27,8 +25,6 @@ describe('postUserAddress', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(postUserAddress({ userId }, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

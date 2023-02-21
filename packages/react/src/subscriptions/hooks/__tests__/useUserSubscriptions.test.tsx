@@ -30,6 +30,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useUserSubscriptions', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
@@ -109,7 +110,7 @@ describe('useUserSubscriptions', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(() => useUserSubscriptions(mockGetSubscriptions.query), {
         wrapper: withStore(mockInitialState),
       });
@@ -120,7 +121,7 @@ describe('useUserSubscriptions', () => {
       );
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
           useUserSubscriptions(mockGetSubscriptions.query, {

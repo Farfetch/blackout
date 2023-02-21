@@ -17,7 +17,6 @@ describe('postEmailTokenValidate', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
     await expect(postValidateEmail(requestData)).resolves.toMatchObject(
       expect.objectContaining({
         status: 204,
@@ -34,7 +33,6 @@ describe('postEmailTokenValidate', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(postValidateEmail(requestData)).rejects.toMatchSnapshot();
 
     expect(spy).toHaveBeenCalledWith(

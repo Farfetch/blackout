@@ -6,7 +6,7 @@ import {
   getBrandsError,
   getBrandsResult,
   resetBrandsState,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';

@@ -1,4 +1,4 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 import type { ContentPage } from '../types';
 
 const path = '/api/wl/v1/content/pages/LISTING';
@@ -9,11 +9,11 @@ const path = '/api/wl/v1/content/pages/LISTING';
 const fixtures = {
   get: {
     success: (response: ContentPage): RestHandler =>
-      rest.get(path, async (req, res, ctx) =>
+      rest.get(path, (req, res, ctx) =>
         res(ctx.status(200), ctx.json(response)),
       ),
     failure: (): RestHandler =>
-      rest.get(path, async (req, res, ctx) =>
+      rest.get(path, (req, res, ctx) =>
         res(ctx.status(404), ctx.json({ message: 'stub error' })),
       ),
   },

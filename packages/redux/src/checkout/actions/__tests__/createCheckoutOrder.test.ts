@@ -43,29 +43,30 @@ describe('createCheckoutOrder() action creator', () => {
     const expectedError = new Error('create checkout error');
 
     (postCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createCheckoutOrder({ bagId, guestUserEmail })(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
-      expect(postCheckoutOrder).toHaveBeenCalledWith(
-        { bagId, guestUserEmail },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_CHECKOUT_ORDER_REQUEST },
-          {
-            type: actionTypes.CREATE_CHECKOUT_ORDER_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await createCheckoutOrder({ bagId, guestUserEmail })(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(postCheckoutOrder).toHaveBeenCalledWith(
+      { bagId, guestUserEmail },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_CHECKOUT_ORDER_REQUEST },
+        {
+          type: actionTypes.CREATE_CHECKOUT_ORDER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
@@ -81,7 +82,6 @@ describe('createCheckoutOrder() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledWith(

@@ -1,4 +1,4 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 import type { CheckoutOrderOperation } from '../types';
 
 const URL = '/api/checkout/v1/orders/:orderId/operations/:operationId';

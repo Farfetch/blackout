@@ -30,33 +30,30 @@ describe('fetchMerchantsLocations() action creator', () => {
 
     (getMerchantsLocations as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchMerchantsLocations(mockQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchMerchantsLocations(mockQuery)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getMerchantsLocations).toHaveBeenCalledTimes(1);
-      expect(getMerchantsLocations).toHaveBeenCalledWith(
-        mockQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_MERCHANTS_LOCATIONS_REQUEST,
-        },
-        {
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE,
-        },
-      ]);
-    });
+    expect(getMerchantsLocations).toHaveBeenCalledTimes(1);
+    expect(getMerchantsLocations).toHaveBeenCalledWith(
+      mockQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_MERCHANTS_LOCATIONS_REQUEST,
+      },
+      {
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch merchants locations procedure is successful', async () => {
     (getMerchantsLocations as jest.Mock).mockResolvedValueOnce([
       mockMerchantLocation,
     ]);
-
-    expect.assertions(4);
 
     await fetchMerchantsLocations(mockQuery)(store.dispatch).then(
       clientResult => {

@@ -29,26 +29,25 @@ describe('recoverPassword() action creator', () => {
     const expectedError = new Error('post password recover error');
 
     (postPasswordRecover as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await recoverPassword(mockPasswordRecoverData)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(postPasswordRecover).toHaveBeenCalledTimes(1);
-        expect(postPasswordRecover).toHaveBeenCalledWith(
-          mockPasswordRecoverData,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.PASSWORD_RECOVER_REQUEST },
-            {
-              type: actionTypes.PASSWORD_RECOVER_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () =>
+        await recoverPassword(mockPasswordRecoverData)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPasswordRecover).toHaveBeenCalledTimes(1);
+    expect(postPasswordRecover).toHaveBeenCalledWith(
+      mockPasswordRecoverData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.PASSWORD_RECOVER_REQUEST },
+        {
+          type: actionTypes.PASSWORD_RECOVER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 

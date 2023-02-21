@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostReturn,
-  PostReturnData,
-  Return,
+  type Config,
+  type PostReturn,
+  type PostReturnData,
+  type Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSEOMetadata,
-  GetSEOMetadataQuery,
-  SEOMetadata,
+  type Config,
+  type GetSEOMetadata,
+  type GetSEOMetadataQuery,
+  type SEOMetadata,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateSEOPathname } from '../../utils';

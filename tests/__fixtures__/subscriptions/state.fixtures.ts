@@ -1,4 +1,5 @@
 import type { SubscriptionDeliveryChannel } from '@farfetch/blackout-client';
+
 export const mockSubscriptionId = 'a0147156-b875-4353-a77d-b92ee3bb4625';
 export const mockTopicId1 = '8a3899e1-93dd-44d5-97c3-84cd24d12174';
 export const mockRecipientId1TopicId1 = '5f8775c4-c7a0-4c91-b661-c8e70e0378fc';

@@ -20,8 +20,6 @@ describe('postReturnPickupRescheduleRequests()', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(
       postReturnPickupRescheduleRequest(id, mockPickupReschedulePostData),
     ).resolves.toBe(response);
@@ -35,8 +33,6 @@ describe('postReturnPickupRescheduleRequests()', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       postReturnPickupRescheduleRequest(id, mockPickupReschedulePostData),

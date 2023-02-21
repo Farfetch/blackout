@@ -40,8 +40,6 @@ describe('getConfiguration', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getConfiguration(code, query)).resolves.toStrictEqual(
       response,
     );
@@ -51,10 +49,9 @@ describe('getConfiguration', () => {
       expectedConfig,
     );
   });
+
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getConfiguration(code, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

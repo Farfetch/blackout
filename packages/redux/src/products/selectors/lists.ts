@@ -31,6 +31,7 @@ import type {
 import type { FacetGroup } from '@farfetch/blackout-client';
 import type { ProductsState } from '../types';
 import type { StoreState } from '../../types';
+
 /**
  * Checks if the type of the hash is a number or not. If it's a number, converts to
  * a final hash to make possible identify the products list entity.
@@ -247,6 +248,7 @@ export const getProductsListProductsFromAllPages: (
     const productsListPages = Object.keys(productsLists).reduce((acc, hash) => {
       const productsListPageIndex = productsLists[hash]?.config
         .pageIndex as number;
+
       // We can store a products list if it's hash without page index is equal to
       // the initial hash encountered and if it's page index is not stored
       // yet (removing the products list and products duplicated)
@@ -256,6 +258,7 @@ export const getProductsListProductsFromAllPages: (
       ) {
         acc.push({ hash, pageIndex: productsListPageIndex });
       }
+
       // Returns an array of objects, where the objects only have the hash and
       // the page index parameters
       return acc;
@@ -464,6 +467,7 @@ export const getProductsListSelectedFiltersCount = (
     if (facetGroups.find(({ type: facetType }) => facetType === type)) {
       return acc + 1;
     }
+
     return acc;
   }, 0);
 };
@@ -708,7 +712,9 @@ export const getHierarchicalFacetsWithChildren: (
       .map(id => {
         const facet = facets?.[id];
 
-        if (!facet) return null;
+        if (!facet) {
+          return null;
+        }
 
         // Prevent infinite loops if the parent id is the same as itself. This has
         // happened when we had wrong data from the API, namely a duplicate

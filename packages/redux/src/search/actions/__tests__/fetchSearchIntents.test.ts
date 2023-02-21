@@ -32,32 +32,29 @@ describe('fetchSearchIntents() action creator', () => {
 
     (getSearchIntents as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSearchIntents(query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSearchIntents(query)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSearchIntents).toHaveBeenCalledTimes(1);
-      expect(getSearchIntents).toHaveBeenCalledWith(query, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          meta: { query, hash },
-          type: actionTypes.FETCH_SEARCH_INTENTS_REQUEST,
-        },
-        {
-          meta: { query, hash },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_SEARCH_INTENTS_FAILURE,
-        },
-      ]);
-    });
+    expect(getSearchIntents).toHaveBeenCalledTimes(1);
+    expect(getSearchIntents).toHaveBeenCalledWith(query, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { query, hash },
+        type: actionTypes.FETCH_SEARCH_INTENTS_REQUEST,
+      },
+      {
+        meta: { query, hash },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_SEARCH_INTENTS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch search intents procedure is successful', async () => {
     (getSearchIntents as jest.Mock).mockResolvedValueOnce(
       mockSearchIntentsResponse,
     );
-
-    expect.assertions(4);
 
     await fetchSearchIntents(query)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSearchIntentsResponse);

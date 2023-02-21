@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostToken,
-  PostTokenData,
+  type Config,
+  type PostToken,
+  type PostTokenData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -22,6 +22,7 @@ const createUserTokenFactory =
       dispatch({
         type: actionTypes.CREATE_USER_TOKEN_REQUEST,
       });
+
       const result = await postTokens(
         { ...data, grantType: 'password' },
         config,

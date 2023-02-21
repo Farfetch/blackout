@@ -30,28 +30,29 @@ describe('fetchUserCredits() action creator', () => {
     const expectedError = new Error('get user credit error');
 
     (getUserCredits as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserCredits(id)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserCredits).toHaveBeenCalledTimes(1);
-      expect(getUserCredits).toHaveBeenCalledWith(id, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_CREDITS_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_CREDITS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserCredits(id)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserCredits).toHaveBeenCalledTimes(1);
+    expect(getUserCredits).toHaveBeenCalledWith(id, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_CREDITS_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_CREDITS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user credits procedure is successful', async () => {
     (getUserCredits as jest.Mock).mockResolvedValueOnce(mockGetCreditResponse);
 
     await fetchUserCredits(id)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(getUserCredits).toHaveBeenCalledTimes(1);
@@ -74,6 +75,7 @@ describe('fetchUserCredits() action creator', () => {
     (getUserCredits as jest.Mock).mockResolvedValueOnce([]);
 
     await fetchUserCredits(id)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(getUserCredits).toHaveBeenCalledTimes(1);

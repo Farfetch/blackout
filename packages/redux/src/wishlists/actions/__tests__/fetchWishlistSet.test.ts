@@ -37,40 +37,38 @@ describe('fetchWishlistSet()', () => {
 
     (getWishlistSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchWishlistSet(mockWishlistSetId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchWishlistSet(mockWishlistSetId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getWishlistSet).toHaveBeenCalledTimes(1);
-      expect(getWishlistSet).toHaveBeenCalledWith(
-        mockWishlistId,
-        mockWishlistSetId,
-        expectedConfig,
-      );
+    expect(getWishlistSet).toHaveBeenCalledTimes(1);
+    expect(getWishlistSet).toHaveBeenCalledWith(
+      mockWishlistId,
+      mockWishlistSetId,
+      expectedConfig,
+    );
 
-      expect(store.getActions()).toEqual([
-        {
-          meta: { wishlistSetId: mockWishlistSetId },
-          type: actionTypes.FETCH_WISHLIST_SET_REQUEST,
-        },
-        {
-          meta: { wishlistSetId: mockWishlistSetId },
-          type: actionTypes.FETCH_WISHLIST_SET_FAILURE,
-          payload: { error: expectedError },
-        },
-      ]);
-    });
+    expect(store.getActions()).toEqual([
+      {
+        meta: { wishlistSetId: mockWishlistSetId },
+        type: actionTypes.FETCH_WISHLIST_SET_REQUEST,
+      },
+      {
+        meta: { wishlistSetId: mockWishlistSetId },
+        type: actionTypes.FETCH_WISHLIST_SET_FAILURE,
+        payload: { error: expectedError },
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch wishlist set procedure is successful', async () => {
     (getWishlistSet as jest.Mock).mockResolvedValueOnce(
       mockWishlistsSetResponse,
     );
-
-    expect.assertions(5);
 
     await fetchWishlistSet(mockWishlistSetId)(
       store.dispatch,

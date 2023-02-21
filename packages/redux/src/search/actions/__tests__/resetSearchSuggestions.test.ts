@@ -9,6 +9,7 @@ describe('resetSearchSuggestions() action creator', () => {
   it('should dispatch the correct action type', () => {
     store = mockStore({ search: INITIAL_STATE }, {});
     resetSearchSuggestions()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

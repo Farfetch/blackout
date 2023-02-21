@@ -23,8 +23,6 @@ describe('putDefaultPersonalId', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockPutDefaultPersonalIdResponse));
 
-    expect.assertions(2);
-
     await expect(
       putUserDefaultPersonalId(userId, mockPutDefaultPersonalIdData, config),
     ).resolves.toStrictEqual(mockPutDefaultPersonalIdResponse);
@@ -39,7 +37,6 @@ describe('putDefaultPersonalId', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       putUserDefaultPersonalId(userId, mockPutDefaultPersonalIdData, config),
     ).rejects.toMatchSnapshot();

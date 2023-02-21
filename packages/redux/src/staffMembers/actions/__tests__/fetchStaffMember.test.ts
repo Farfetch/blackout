@@ -31,35 +31,30 @@ describe('fetchStaffMember() action creator', () => {
 
     (getStaffMember as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchStaffMember(mockStaffMemberId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchStaffMember(mockStaffMemberId)(store.dispatch).catch(
-      (error: Error) => {
-        expect(error).toBe(expectedError);
-        expect(getStaffMember).toHaveBeenCalledTimes(1);
-        expect(getStaffMember).toHaveBeenCalledWith(
-          mockStaffMemberId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
-            meta: { id: mockStaffMemberId },
-          },
-          {
-            type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
-            payload: { error: expectedError },
-            meta: { id: mockStaffMemberId },
-          },
-        ]);
-      },
+    expect(getStaffMember).toHaveBeenCalledTimes(1);
+    expect(getStaffMember).toHaveBeenCalledWith(
+      mockStaffMemberId,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_STAFF_MEMBER_REQUEST,
+        meta: { id: mockStaffMemberId },
+      },
+      {
+        type: actionTypes.FETCH_STAFF_MEMBER_FAILURE,
+        payload: { error: expectedError },
+        meta: { id: mockStaffMemberId },
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch staff member procedure is successful', async () => {
     (getStaffMember as jest.Mock).mockResolvedValueOnce(mockStaffMember);
-
-    expect.assertions(4);
 
     await fetchStaffMember(
       mockStaffMemberId,

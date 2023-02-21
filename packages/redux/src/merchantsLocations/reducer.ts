@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import type { MerchantsLocationsState } from './types';
 import type { StoreState } from '../types';
 
@@ -38,6 +38,7 @@ export const entitiesMapper = {
     const { merchantsLocations, ...rest } = state as NonNullable<
       StoreState['entities']
     >;
+
     return rest;
   },
 };

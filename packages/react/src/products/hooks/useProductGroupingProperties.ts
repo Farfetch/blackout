@@ -5,8 +5,8 @@ import {
   fetchProductGroupingProperties,
   getProductGroupingProperties,
   getProductGroupingPropertiesError,
-  ProductEntity,
-  StoreState,
+  type ProductEntity,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';

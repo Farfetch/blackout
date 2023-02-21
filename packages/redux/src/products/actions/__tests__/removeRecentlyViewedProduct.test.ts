@@ -38,17 +38,14 @@ describe('removeRecentlyViewedProduct() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () => await removeRecentlyViewedProduct(productId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await removeRecentlyViewedProduct(productId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(deleteRecentlyViewedProduct).toHaveBeenCalledTimes(1);
-        expect(deleteRecentlyViewedProduct).toHaveBeenCalledWith(
-          productId,
-          expectedConfig,
-        );
-      },
+    expect(deleteRecentlyViewedProduct).toHaveBeenCalledTimes(1);
+    expect(deleteRecentlyViewedProduct).toHaveBeenCalledWith(
+      productId,
+      expectedConfig,
     );
 
     expect(store.getActions()).toEqual(

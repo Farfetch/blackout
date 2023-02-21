@@ -14,6 +14,7 @@ describe('reset action', () => {
       {},
     );
     resetFormSchema()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

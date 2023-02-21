@@ -33,32 +33,30 @@ describe('setUserDefaultBillingAddress() action creator', () => {
     (putUserDefaultBillingAddress as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await setUserDefaultBillingAddress(
-      userId,
-      addressId2,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
-      expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
-        { userId, id: addressId2 },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { addressId: addressId2 },
-            type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
-          },
-          {
-            type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-            meta: { addressId: addressId2 },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await setUserDefaultBillingAddress(userId, addressId2)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
+    expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
+      { userId, id: addressId2 },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { addressId: addressId2 },
+          type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+          meta: { addressId: addressId2 },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set user deafult billing address procedure is successful', async () => {
@@ -69,7 +67,6 @@ describe('setUserDefaultBillingAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(putUserDefaultBillingAddress).toHaveBeenCalledTimes(1);
     expect(putUserDefaultBillingAddress).toHaveBeenCalledWith(
       { userId, id: addressId2 },

@@ -128,6 +128,7 @@ describe('shared wishlists reducer', () => {
         ...INITIAL_STATE,
         isLoading: false,
       };
+
       expect(
         reducer(state, {
           type: actionType,
@@ -145,6 +146,7 @@ describe('shared wishlists reducer', () => {
         ...INITIAL_STATE,
         isLoading: true,
       };
+
       expect(
         reducer(state, {
           payload: { error: '' },
@@ -164,6 +166,7 @@ describe('shared wishlists reducer', () => {
         isLoading: true,
       };
       const expectedResult = 'foo';
+
       expect(
         reducer(state, {
           payload: { result: expectedResult, isLoading: true },
@@ -193,6 +196,7 @@ describe('shared wishlists reducer', () => {
     const expectedResult = {
       products: mockProduct,
     };
+
     it('should map the RESET_WISHLIST_ENTITIES action to a new state', () => {
       expect(
         entitiesMapper[actionTypes.RESET_SHARED_WISHLIST_ENTITIES](state),
@@ -208,6 +212,7 @@ describe('shared wishlists reducer', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
         const error = toBlackoutError(new Error('foo'));
+
         expect(
           fromReducer.getError({
             ...INITIAL_STATE,

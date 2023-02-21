@@ -43,30 +43,31 @@ describe('updateCheckoutOrder() action creator', () => {
     const expectedError = new Error('update checkout order error');
 
     (patchCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateCheckoutOrder(checkoutId, data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
-      expect(patchCheckoutOrder).toHaveBeenCalledWith(
-        checkoutId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST },
-          {
-            type: actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await updateCheckoutOrder(checkoutId, data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrder).toHaveBeenCalledWith(
+      checkoutId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST },
+        {
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update checkout order procedure is successful', async () => {

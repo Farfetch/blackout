@@ -19,6 +19,7 @@ const saveRecentlyViewedProduct =
         lastVisitDate: new Date().toISOString(),
       },
     ];
+
     dispatch({
       type: actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT,
       payload,

@@ -31,31 +31,31 @@ describe('addOrderDocument() action creator', () => {
 
     (postOrderDocument as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await addOrderDocument(
+          orderId,
+          fileId,
+          mockOrderDocumentPayload,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await addOrderDocument(
+    expect(postOrderDocument).toHaveBeenCalledTimes(1);
+    expect(postOrderDocument).toHaveBeenCalledWith(
       orderId,
       fileId,
       mockOrderDocumentPayload,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postOrderDocument).toHaveBeenCalledTimes(1);
-      expect(postOrderDocument).toHaveBeenCalledWith(
-        orderId,
-        fileId,
-        mockOrderDocumentPayload,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.ADD_ORDER_DOCUMENT_REQUEST },
-          {
-            type: actionTypes.ADD_ORDER_DOCUMENT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.ADD_ORDER_DOCUMENT_REQUEST },
+        {
+          type: actionTypes.ADD_ORDER_DOCUMENT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the add order document procedure is successful', async () => {

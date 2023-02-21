@@ -34,31 +34,32 @@ describe('fetchCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
     (getCheckoutOrderDeliveryBundleUpgrades as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchCheckoutOrderDeliveryBundleUpgrades(
+    await expect(
+      async () =>
+        await fetchCheckoutOrderDeliveryBundleUpgrades(
+          checkoutId,
+          deliveryBundleId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
-      expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
-        checkoutId,
-        deliveryBundleId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch delivery bundle upgrades procedure is successful', async () => {
@@ -75,7 +76,6 @@ describe('fetchCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,

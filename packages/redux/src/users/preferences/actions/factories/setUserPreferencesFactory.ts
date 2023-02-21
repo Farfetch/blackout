@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PutUserPreferences,
-  PutUserPreferencesData,
+  type Config,
+  type PutUserPreferences,
+  type PutUserPreferencesData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

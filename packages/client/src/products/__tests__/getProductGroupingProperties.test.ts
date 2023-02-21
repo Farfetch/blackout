@@ -17,8 +17,6 @@ describe('getProductGroupingProperties', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockProductGroupingProperties));
 
-    expect.assertions(2);
-
     await expect(
       getProductGroupingProperties(mockProductId, query),
     ).resolves.toEqual(mockProductGroupingProperties);
@@ -30,8 +28,6 @@ describe('getProductGroupingProperties', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getProductGroupingProperties(mockProductId, query),

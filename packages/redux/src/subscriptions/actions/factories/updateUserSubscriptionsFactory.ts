@@ -1,5 +1,8 @@
 import * as actionTypes from '../../actionTypes';
-import { PutSubscriptions, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type PutSubscriptions,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { UpdateUserSubscriptionsFactory } from './types';
 
 /**

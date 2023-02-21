@@ -31,29 +31,26 @@ describe('fetchUserAttribute action creator', () => {
     const expectedError = new Error('fetch user attributes error');
 
     (getUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserAttribute(
+    await expect(
+      async () => await fetchUserAttribute(userId, attributeId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserAttribute).toHaveBeenCalledTimes(1);
+    expect(getUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserAttribute).toHaveBeenCalledTimes(1);
-      expect(getUserAttribute).toHaveBeenCalledWith(
-        userId,
-        attributeId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_ATTRIBUTE_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_ATTRIBUTE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_ATTRIBUTE_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_ATTRIBUTE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch user attribute procedure is successful', async () => {

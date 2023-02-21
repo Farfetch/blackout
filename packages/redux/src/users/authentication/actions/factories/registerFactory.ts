@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostUser,
-  PostUserData,
+  type Config,
+  type PostUser,
+  type PostUserData,
   toBlackoutError,
   UserStatus,
 } from '@farfetch/blackout-client';
@@ -24,6 +24,7 @@ const registerFactory =
       dispatch({
         type: actionTypes.REGISTER_REQUEST,
       });
+
       const result = await postUser(data, config);
       const isUnverifiedUser =
         result.status === UserStatus.PendingEmailConfirmation && !result.id;

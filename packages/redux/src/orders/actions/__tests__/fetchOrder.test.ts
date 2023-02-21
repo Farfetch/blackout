@@ -43,28 +43,28 @@ describe('fetchOrder() action creator', () => {
 
     (getOrder as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchOrder(orderId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchOrder(orderId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getOrder).toHaveBeenCalledTimes(1);
-      expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_ORDER_REQUEST,
-          meta: { orderId },
-        },
-        {
-          payload: { error: expectedError },
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_FAILURE,
-        },
-      ]);
-    });
+    expect(getOrder).toHaveBeenCalledTimes(1);
+    expect(getOrder).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_ORDER_REQUEST,
+        meta: { orderId },
+      },
+      {
+        payload: { error: expectedError },
+        meta: { orderId },
+        type: actionTypes.FETCH_ORDER_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch order details procedure is successful', async () => {
@@ -73,9 +73,8 @@ describe('fetchOrder() action creator', () => {
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload(
       mockProductImgQueryParam,
     );
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    expect.assertions(5);
+    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     await fetchOrder(orderId)(
       store.dispatch,
@@ -106,9 +105,8 @@ describe('fetchOrder() action creator', () => {
     (getOrder as jest.Mock).mockResolvedValueOnce(mockOrderDetailsResponse);
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    expect.assertions(5);
+    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     await fetchOrder(orderId)(
       store.dispatch,

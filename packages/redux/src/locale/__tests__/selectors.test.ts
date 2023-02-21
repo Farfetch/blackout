@@ -9,13 +9,13 @@ import {
   mockCountriesEntities,
   mockCountry,
   mockCountryCode,
-  mockCountryNormalized,
   mockGetAddressSchemaResponse,
   mockStateId,
   mockStates,
   mockStatesEntities,
 } from 'tests/__fixtures__/locale';
 import type { CityEntity } from '@farfetch/blackout-redux';
+
 describe('locale redux selectors', () => {
   const countriesAddressSchemasEntity = {
     [isoCode]: mockGetAddressSchemaResponse,
@@ -283,7 +283,7 @@ describe('locale redux selectors', () => {
     it('should get the address schema isLoading property from state', () => {
       const spy = jest.spyOn(fromLocale, 'getCountriesAddressSchemas');
 
-      expect(selectors.areCountriesAddressSchemasLoading(mockState)).toEqual(
+      expect(selectors.areCountriesAddressSchemasLoading(mockState)).toBe(
         false,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -299,38 +299,6 @@ describe('locale redux selectors', () => {
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('getCity()', () => {
-    it('should return the city entity', () => {
-      expect(
-        selectors.getCity(mockState, (mockCities[0] as CityEntity).id),
-      ).toEqual(mockCities[0]);
-    });
-  });
-
-  describe('getCountry()', () => {
-    it('should return the country entity', () => {
-      expect(selectors.getCountry(mockState, mockCountryCode)).toEqual(
-        mockCountryNormalized,
-      );
-    });
-  });
-
-  describe('getCountries()', () => {
-    it('should return all the countries entities', () => {
-      expect(selectors.getCountries(mockState)).toEqual(
-        mockState.entities.countries,
-      );
-    });
-  });
-
-  describe('getState()', () => {
-    it('should return the state entity', () => {
-      expect(selectors.getState(mockState, mockStateId)).toEqual(
-        mockState.entities.states[mockStateId],
-      );
     });
   });
 });

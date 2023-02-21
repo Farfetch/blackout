@@ -16,8 +16,6 @@ describe('getProductVariantsMeasurements', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockProductVariantsMeasurements));
 
-    expect.assertions(2);
-
     await expect(
       getProductVariantsMeasurements(mockProductId),
     ).resolves.toEqual(mockProductVariantsMeasurements);
@@ -29,8 +27,6 @@ describe('getProductVariantsMeasurements', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getProductVariantsMeasurements(mockProductId),

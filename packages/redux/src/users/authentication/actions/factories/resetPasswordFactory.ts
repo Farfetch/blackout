@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostPasswordReset,
-  PostPasswordResetData,
+  type Config,
+  type PostPasswordReset,
+  type PostPasswordResetData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -22,6 +22,7 @@ const resetPasswordFactory =
       dispatch({
         type: actionTypes.PASSWORD_RESET_REQUEST,
       });
+
       const result = await postPasswordReset(data, config);
 
       dispatch({

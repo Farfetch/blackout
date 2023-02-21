@@ -1,6 +1,6 @@
 import {
   AuthenticationTokenManager,
-  AxiosAuthenticationTokenManagerOptions,
+  type AxiosAuthenticationTokenManagerOptions,
   defaultAuthorizationHeaderFormatter,
   postGuestToken,
   postToken,

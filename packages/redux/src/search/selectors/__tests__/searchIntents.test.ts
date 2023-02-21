@@ -21,7 +21,7 @@ describe('search intents redux selectors', () => {
 
       expect(
         selectors.areSearchIntentsLoading(mockState, mockSearchIntentsHash),
-      ).toEqual(false);
+      ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -51,7 +51,7 @@ describe('search intents redux selectors', () => {
     it('should return true if fetched', () => {
       expect(
         selectors.areSearchIntentsFetched(mockState, mockSearchIntentsHash),
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should return true if a fetch error occured', () => {
@@ -60,7 +60,7 @@ describe('search intents redux selectors', () => {
           mockSearchIntentsErrorState,
           mockSearchIntentsHash,
         ),
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should return false if not fetched', () => {
@@ -69,7 +69,7 @@ describe('search intents redux selectors', () => {
           mockSearchIntentsInitialState,
           mockSearchIntentsHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should return false if is loading', () => {
@@ -78,7 +78,7 @@ describe('search intents redux selectors', () => {
           mockSearchIntentsLoadingState,
           mockSearchIntentsHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
     });
   });
 });

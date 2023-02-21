@@ -31,27 +31,25 @@ describe('removeSharedWishlist() action creator', () => {
 
     (deleteSharedWishlist as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await removeSharedWishlist(mockSharedWishlistId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await removeSharedWishlist(mockSharedWishlistId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(deleteSharedWishlist).toHaveBeenCalledTimes(1);
-        expect(deleteSharedWishlist).toHaveBeenCalledWith(
-          mockSharedWishlistId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            type: actionTypes.REMOVE_SHARED_WISHLIST_REQUEST,
-          },
-          {
-            payload: { error: expectedError },
-            type: actionTypes.REMOVE_SHARED_WISHLIST_FAILURE,
-          },
-        ]);
-      },
+    expect(deleteSharedWishlist).toHaveBeenCalledTimes(1);
+    expect(deleteSharedWishlist).toHaveBeenCalledWith(
+      mockSharedWishlistId,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.REMOVE_SHARED_WISHLIST_REQUEST,
+      },
+      {
+        payload: { error: expectedError },
+        type: actionTypes.REMOVE_SHARED_WISHLIST_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the remove shared wishlist procedure is successful', async () => {

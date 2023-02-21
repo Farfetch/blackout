@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import type {
   FetchProductGroupingPropertiesAction,
   FetchProductGroupingPropertiesFailureAction,

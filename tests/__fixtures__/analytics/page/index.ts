@@ -1,8 +1,8 @@
 import {
-  EventData,
+  type EventData,
   PageTypes,
-  PageviewEventData,
-  TrackTypes,
+  type PageviewEventData,
+  type TrackTypes,
 } from '@farfetch/blackout-analytics';
 import bagPageData from './bagPageData.fixtures';
 import checkoutPageData from './checkoutPageData.fixtures';

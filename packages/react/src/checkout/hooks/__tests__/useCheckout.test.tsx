@@ -163,6 +163,7 @@ const defaultReturn = {
 
 describe('useCheckout', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -663,7 +664,7 @@ describe('useCheckout', () => {
         );
       });
 
-      it('should throw an error when checkoutOrderId is not passed to the hook', async () => {
+      it('should throw an error when checkoutOrderId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -752,7 +753,7 @@ describe('useCheckout', () => {
         );
       });
 
-      it('should throw an error if no createData is passed to the hook or the function', async () => {
+      it('should throw an error if no createData is passed to the hook or the function', () => {
         const {
           result: {
             current: {
@@ -843,7 +844,7 @@ describe('useCheckout', () => {
         );
       });
 
-      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', async () => {
+      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', () => {
         const {
           result: {
             current: {
@@ -931,7 +932,7 @@ describe('useCheckout', () => {
         );
       });
 
-      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', async () => {
+      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', () => {
         const {
           result: {
             current: {
@@ -1019,7 +1020,7 @@ describe('useCheckout', () => {
         );
       });
 
-      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', async () => {
+      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', () => {
         const {
           result: {
             current: {

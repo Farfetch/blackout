@@ -30,37 +30,31 @@ describe('fetchOrderDocuments() action creator', () => {
 
     (getOrderDocuments as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchOrderDocuments(orderId, types)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchOrderDocuments(
+    expect(getOrderDocuments).toHaveBeenCalledTimes(1);
+    expect(getOrderDocuments).toHaveBeenCalledWith(
       orderId,
       types,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getOrderDocuments).toHaveBeenCalledTimes(1);
-      expect(getOrderDocuments).toHaveBeenCalledWith(
-        orderId,
-        types,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_ORDER_DOCUMENTS_REQUEST },
-          {
-            type: actionTypes.FETCH_ORDER_DOCUMENTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_ORDER_DOCUMENTS_REQUEST },
+        {
+          type: actionTypes.FETCH_ORDER_DOCUMENTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch order documents procedure is successful', async () => {
     (getOrderDocuments as jest.Mock).mockResolvedValueOnce(
       mockOrderDocumentsResponse,
     );
-
-    expect.assertions(4);
 
     await fetchOrderDocuments(
       orderId,

@@ -38,6 +38,7 @@ describe('generateBagItemHash()', () => {
 
     it('should throw error when scale id is missing', () => {
       const { size, ...item } = mockBagItemHydrated;
+
       expect(() =>
         generateBagItemHash({ scale: 'scale', ...item }),
       ).toThrowErrorMatchingInlineSnapshot(

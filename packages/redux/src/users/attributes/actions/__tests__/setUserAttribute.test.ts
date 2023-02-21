@@ -33,31 +33,32 @@ describe('setUserAttribute action creator', () => {
     const expectedError = new Error('set user attribute error');
 
     (putUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await setUserAttribute(
+    await expect(
+      async () =>
+        await setUserAttribute(
+          userId,
+          attributeId,
+          mockSetUSerAttributeData,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUserAttribute).toHaveBeenCalledTimes(1);
+    expect(putUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
       mockSetUSerAttributeData,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUserAttribute).toHaveBeenCalledTimes(1);
-      expect(putUserAttribute).toHaveBeenCalledWith(
-        userId,
-        attributeId,
-        mockSetUSerAttributeData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.SET_USER_ATTRIBUTE_REQUEST },
-          {
-            type: actionTypes.SET_USER_ATTRIBUTE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.SET_USER_ATTRIBUTE_REQUEST },
+        {
+          type: actionTypes.SET_USER_ATTRIBUTE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set user attribute procedure is successful', async () => {

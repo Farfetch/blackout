@@ -34,32 +34,34 @@ describe('fetchCheckoutOrderOperation() action creator', () => {
 
   it('should create the correct actions for when the fetch checkout order operation procedure fails', async () => {
     const expectedError = new Error('fetch checkout order operation error');
+
     (getCheckoutOrderOperation as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchCheckoutOrderOperation(
+    await expect(
+      async () =>
+        await fetchCheckoutOrderOperation(
+          params.orderId,
+          params.operationId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderOperation).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderOperation).toHaveBeenCalledWith(
       params.orderId,
       params.operationId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrderOperation).toHaveBeenCalledTimes(1);
-      expect(getCheckoutOrderOperation).toHaveBeenCalledWith(
-        params.orderId,
-        params.operationId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: FETCH_CHECKOUT_ORDER_OPERATION_REQUEST },
-          {
-            type: FETCH_CHECKOUT_ORDER_OPERATION_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: FETCH_CHECKOUT_ORDER_OPERATION_REQUEST },
+        {
+          type: FETCH_CHECKOUT_ORDER_OPERATION_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch checkout order operation procedure is successful', async () => {
@@ -74,7 +76,6 @@ describe('fetchCheckoutOrderOperation() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperation).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperation).toHaveBeenCalledWith(

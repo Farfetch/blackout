@@ -39,7 +39,7 @@ import {
   userGenderValuesMapper,
   viewGenderValuesMapper,
 } from './definitions';
-import { postTracking, User, UserGender } from '@farfetch/blackout-client';
+import { postTracking, type User, UserGender } from '@farfetch/blackout-client';
 import analyticsTrackTypes from '../../types/TrackTypes';
 import get from 'lodash/get';
 import Integration from '../Integration';
@@ -197,10 +197,12 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
       precalculatedPageViewParameters.previousUniqueViewId =
         this.previousUniqueViewId;
+
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
       // in order to reduce the complexity of passing the options to the function
       if (data.platform === PlatformTypes.Web) {
         const searchQuery = getSearchQuery(data, this.searchQueryParameters);
+
         if (searchQuery) {
           precalculatedPageViewParameters.searchQuery = searchQuery;
         }
@@ -266,6 +268,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    */
   override async track(data: EventData<TrackTypesValues>) {
     const event = data.event;
+
     switch (data.type) {
       // Screen is treated the same as a page in Omnitracking
       case analyticsTrackTypes.PAGE:
@@ -305,7 +308,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
       if (isArray(mappedEvents)) {
         await Promise.all(
-          mappedEvents.map(async mappedEventData => {
+          mappedEvents.map(mappedEventData => {
             return this.processTrackEvents(data, mappedEventData);
           }),
         );

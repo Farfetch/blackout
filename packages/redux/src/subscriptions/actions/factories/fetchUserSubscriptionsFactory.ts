@@ -1,5 +1,8 @@
 import * as actionTypes from '../../actionTypes';
-import { GetSubscriptions, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type GetSubscriptions,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { FetchUserSubscriptionsFactory } from './types';
 
 /**
@@ -23,6 +26,7 @@ const fetchUserSubscriptionsFactory: FetchUserSubscriptionsFactory<
       payload: result,
       type: actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS,
     });
+
     return result;
   } catch (error) {
     const errorAsBlackoutError = toBlackoutError(error);

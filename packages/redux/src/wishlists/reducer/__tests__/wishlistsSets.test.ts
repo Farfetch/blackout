@@ -463,6 +463,7 @@ describe('wishlistsSets reducer', () => {
         entitiesMapper[actionTypes.REMOVE_WISHLIST_SET_SUCCESS](state, action),
       ).toEqual(expectedResult);
     });
+
     it('should map the RESET_WISHLIST_SETS_ENTITIES action to a new state', () => {
       const state = {
         wishlistSets: mockWishlistSets,

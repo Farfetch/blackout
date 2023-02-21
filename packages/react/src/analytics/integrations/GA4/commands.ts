@@ -1,7 +1,7 @@
 import {
   EventTypes,
   InteractionTypes,
-  TrackEventData,
+  type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';

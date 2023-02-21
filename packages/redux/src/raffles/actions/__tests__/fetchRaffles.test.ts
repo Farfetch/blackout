@@ -24,6 +24,7 @@ describe('fetchRaffles() action creator', () => {
     jest.clearAllMocks();
     store = buildRafflesMockStore();
   });
+
   const hash = '';
 
   it('should create the correct actions in case the fetch raffles procedure fails', async () => {

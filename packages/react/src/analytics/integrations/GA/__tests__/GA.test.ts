@@ -6,14 +6,14 @@ import {
   MAX_PRODUCT_CATEGORIES,
 } from '../constants';
 import {
-  EventData,
+  type EventData,
   EventTypes,
   integrations,
-  LoadIntegrationEventData,
+  type LoadIntegrationEventData,
   PageTypes,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackTypesValues,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import {
@@ -170,9 +170,9 @@ describe('GA Integration', () => {
 
         const scriptTags = document.getElementsByTagName('script');
 
-        expect(scriptTags.length).toBe(1);
+        expect(scriptTags).toHaveLength(1);
 
-        expect(window.ga).not.toBeDefined();
+        expect(window.ga).toBeUndefined();
       });
 
       it('When no trackingId is specified in createFields option', () => {
@@ -185,9 +185,9 @@ describe('GA Integration', () => {
 
         const scriptTags = document.getElementsByTagName('script');
 
-        expect(scriptTags.length).toBe(1);
+        expect(scriptTags).toHaveLength(1);
 
-        expect(window.ga).not.toBeDefined();
+        expect(window.ga).toBeUndefined();
       });
     });
 
@@ -200,7 +200,7 @@ describe('GA Integration', () => {
       // As such, we create one in a beforeEach() command to allow
       // the GA script to load, so here we expect the number of
       // script tags to be 2 instead of just 1.
-      expect(scriptTags.length).toBe(2);
+      expect(scriptTags).toHaveLength(2);
 
       const script = scriptTags[0];
 
@@ -218,8 +218,8 @@ describe('GA Integration', () => {
 
         await gaInstance.track(mockedPageData);
 
-        expect(mockLoggerError).toBeCalled();
-        expect(gaSpy).not.toBeCalled();
+        expect(mockLoggerError).toHaveBeenCalled();
+        expect(gaSpy).not.toHaveBeenCalled();
       });
 
       it('Should not track events if window.ga.loaded is "false" nor loaded and log an error', async () => {
@@ -231,8 +231,8 @@ describe('GA Integration', () => {
           trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
         );
 
-        expect(mockLoggerError).toBeCalled();
-        expect(gaSpy).not.toBeCalled();
+        expect(mockLoggerError).toHaveBeenCalled();
+        expect(gaSpy).not.toHaveBeenCalled();
       });
 
       it('Should send page events', async () => {
@@ -260,6 +260,7 @@ describe('GA Integration', () => {
       (Object.keys(defaultEventCommands) as Array<keyof TrackFixtures>).forEach(
         event => {
           const eventData = trackEventsData[event];
+
           if (eventData) {
             it(`Should track event '${event}'`, async () => {
               gaInstance = await createGAInstanceAndLoad(validOptions);
@@ -380,6 +381,7 @@ describe('GA Integration', () => {
                       customDimensionsCommands = [
                         ['set', 'dimension1', get(data, 'properties.size')],
                       ];
+
                       return customDimensionsCommands;
                     },
                   },
@@ -495,7 +497,7 @@ describe('GA Integration', () => {
 
               await gaInstance.track(nonSupportedByDefaultTrackEvent);
 
-              expect(wildcardCommandMock.mock.calls.length).toBe(2);
+              expect(wildcardCommandMock.mock.calls).toHaveLength(2);
             });
 
             it('Should check if the main command builder specified for an event hit is a function', async () => {
@@ -577,7 +579,7 @@ describe('GA Integration', () => {
 
               expect(mockLoggerError).toHaveBeenCalled();
 
-              expect(gaSpy.mock.calls.length).toBe(0);
+              expect(gaSpy.mock.calls).toHaveLength(0);
             });
 
             it('Should allow to add extra commands to the default event hit handler', async () => {
@@ -593,6 +595,7 @@ describe('GA Integration', () => {
                         customDimensionsCommands = [
                           ['set', 'dimension1', get(data, 'properties.size')],
                         ];
+
                         return customDimensionsCommands;
                       },
                     },
@@ -966,10 +969,10 @@ describe('GA Integration', () => {
 
             expect(
               get(gaSpy, 'mock.calls[1][1]')[DEFAULT_OUT_OF_STOCK_METRIC],
-            ).toEqual(1);
+            ).toBe(1);
             expect(
               get(gaSpy, 'mock.calls[1][1]')[DEFAULT_IN_STOCK_METRIC],
-            ).toEqual(0);
+            ).toBe(0);
           });
 
           it('Should ignore the out of stock metric if is not defined', async () => {

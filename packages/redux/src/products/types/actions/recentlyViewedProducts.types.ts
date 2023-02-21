@@ -8,10 +8,12 @@ import type {
 interface FetchRecentlyViewedProductsRequestAction extends Action {
   type: typeof actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_REQUEST;
 }
+
 interface FetchRecentlyViewedProductsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS;
   payload: RecentlyViewedProducts;
 }
+
 interface FetchRecentlyViewedProductsFailureAction extends Action {
   type: typeof actionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_FAILURE;
   payload: { error: BlackoutError };
@@ -29,10 +31,12 @@ interface RemoveRecentlyViewedProductRequestAction extends Action {
   type: typeof actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_REQUEST;
   meta: { productId: number };
 }
+
 interface RemoveRecentlyViewedProductSuccessAction extends Action {
   type: typeof actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS;
   meta: { productId: number };
 }
+
 interface RemoveRecentlyViewedProductFailureAction extends Action {
   type: typeof actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_FAILURE;
   payload: { error: BlackoutError };

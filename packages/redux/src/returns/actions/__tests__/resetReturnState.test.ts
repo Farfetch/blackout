@@ -15,6 +15,7 @@ describe('resetReturnState() action creator', () => {
     const returnsToReset = [returnId];
 
     resetReturnState(returnsToReset)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

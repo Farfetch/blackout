@@ -1,11 +1,11 @@
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
 import {
-  AxiosAuthenticationTokenManagerOptions,
+  type AxiosAuthenticationTokenManagerOptions,
   defaultAuthorizationHeaderFormatter,
   getUser,
   postGuestToken,
   postToken,
-  UserToken,
+  type UserToken,
 } from '@farfetch/blackout-client';
 import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
 import { ProfileChangedError } from '../../errors';
@@ -152,19 +152,17 @@ describe('useUserProfile', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBeNull();
 
-    expect.assertions(8);
+    await expect(
+      async () =>
+        await act(async () => {
+          await result.current.loadProfile();
+        }),
+    ).rejects.toThrow(expectedError);
 
-    try {
-      await act(async () => {
-        await result.current.loadProfile();
-      });
-    } catch (e) {
-      await waitFor(() => {
-        expect(result.current.error).toBeTruthy();
-      });
-      await waitFor(() => expect(result.current.isLoading).toBe(false));
-      expect(e).toBe(expectedError);
-    }
+    await waitFor(() => {
+      expect(result.current.error).toBeTruthy();
+      expect(result.current.isLoading).toBe(false);
+    });
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(expectedError);
@@ -188,16 +186,14 @@ describe('useUserProfile', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBeNull();
 
-    expect.assertions(7);
+    await expect(
+      async () =>
+        await act(async () => {
+          await result.current.loadProfile();
+        }),
+    ).rejects.toThrow(ProfileChangedError);
 
-    try {
-      await act(async () => {
-        await result.current.loadProfile();
-      });
-    } catch (e) {
-      await waitFor(() => expect(result.current.error).toBeTruthy());
-      expect(e).toBeInstanceOf(ProfileChangedError);
-    }
+    await waitFor(() => expect(result.current.error).toBeTruthy());
 
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBeInstanceOf(ProfileChangedError);

@@ -32,30 +32,31 @@ describe('createUserPersonalIds() action creator', () => {
     const expectedError = new Error('create user personal ids error');
 
     (postUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createUserPersonalId(
+    await expect(
+      async () =>
+        await createUserPersonalId(
+          userId,
+          mockPostPersonalIdsData,
+          config,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postUserPersonalId).toHaveBeenCalledTimes(1);
+    expect(postUserPersonalId).toHaveBeenCalledWith(
       userId,
       mockPostPersonalIdsData,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postUserPersonalId).toHaveBeenCalledTimes(1);
-      expect(postUserPersonalId).toHaveBeenCalledWith(
-        userId,
-        mockPostPersonalIdsData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_USER_PERSONAL_ID_REQUEST },
-          {
-            type: actionTypes.CREATE_USER_PERSONAL_ID_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_USER_PERSONAL_ID_REQUEST },
+        {
+          type: actionTypes.CREATE_USER_PERSONAL_ID_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create user personal ids procedure is successful', async () => {

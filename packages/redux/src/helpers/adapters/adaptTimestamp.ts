@@ -7,6 +7,7 @@
  */
 const adaptTimestamp = (timestamp: unknown): string | null => {
   const sTimestamp = String(timestamp);
+
   if (sTimestamp && sTimestamp.includes('Date')) {
     return sTimestamp;
   }

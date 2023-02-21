@@ -74,7 +74,7 @@ describe('subscriptionPackages reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction)[hash]?.isLoading;
 
-      expect(state).toBe(undefined);
+      expect(state).toBeUndefined();
     });
 
     it(`should handle ${actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST} action type`, () => {

@@ -22,8 +22,6 @@ describe('getPersonalId', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockPersonalIdResponse));
 
-    expect.assertions(2);
-
     await expect(
       getUserPersonalId(userId, personalId, config),
     ).resolves.toStrictEqual(mockPersonalIdResponse);
@@ -36,8 +34,6 @@ describe('getPersonalId', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getUserPersonalId(userId, personalId, config),

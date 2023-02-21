@@ -34,22 +34,22 @@ describe('fetchBenefits() action creator', () => {
     const expectedError = new Error('get user benefits error');
 
     (getUserBenefits as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserBenefits(userId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserBenefits).toHaveBeenCalledTimes(1);
-      expect(getUserBenefits).toHaveBeenCalledWith(userId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_BENEFITS_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_BENEFITS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserBenefits(userId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserBenefits).toHaveBeenCalledTimes(1);
+    expect(getUserBenefits).toHaveBeenCalledWith(userId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_BENEFITS_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_BENEFITS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user benefits procedure is successful', async () => {

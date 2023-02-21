@@ -42,26 +42,25 @@ describe('fetchCheckoutOrderPaymentMethods() action creator', () => {
     (getCheckoutOrderPaymentMethods as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchCheckoutOrderPaymentMethods(orderId)(store.dispatch).catch(
-      (error: unknown) => {
-        expect(error).toBe(expectedError);
-        expect(getCheckoutOrderPaymentMethods).toHaveBeenCalledTimes(1);
-        expect(getCheckoutOrderPaymentMethods).toHaveBeenCalledWith(
-          orderId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST },
-            {
-              type: actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () =>
+        await fetchCheckoutOrderPaymentMethods(orderId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderPaymentMethods).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderPaymentMethods).toHaveBeenCalledWith(
+      orderId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 

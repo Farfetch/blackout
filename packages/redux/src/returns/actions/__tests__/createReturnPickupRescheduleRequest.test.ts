@@ -35,29 +35,27 @@ describe('createReturnPickupRescheduleRequest() action creator', () => {
     (postReturnPickupRescheduleRequest as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await createReturnPickupRescheduleRequest(
+    await expect(
+      async () =>
+        await createReturnPickupRescheduleRequest(id, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postReturnPickupRescheduleRequest).toHaveBeenCalledTimes(1);
+    expect(postReturnPickupRescheduleRequest).toHaveBeenCalledWith(
       id,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postReturnPickupRescheduleRequest).toHaveBeenCalledTimes(1);
-      expect(postReturnPickupRescheduleRequest).toHaveBeenCalledWith(
-        id,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST },
-          {
-            type: actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST },
+        {
+          type: actionTypes.CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create return pickup reschedule request procedure is successful', async () => {

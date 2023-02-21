@@ -31,29 +31,27 @@ describe('fetchUserCreditMovements() action creator', () => {
     const expectedError = new Error('get user credit movements error');
 
     (getUserCreditMovements as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserCreditMovements(
+    await expect(
+      async () =>
+        await fetchUserCreditMovements(creditId, query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
+    expect(getUserCreditMovements).toHaveBeenCalledWith(
       creditId,
       query,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserCreditMovements).toHaveBeenCalledTimes(1);
-      expect(getUserCreditMovements).toHaveBeenCalledWith(
-        creditId,
-        query,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_CREDIT_MOVEMENTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user credit movements procedure is successful', async () => {

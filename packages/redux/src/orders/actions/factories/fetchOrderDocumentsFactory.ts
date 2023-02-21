@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetOrderDocuments,
-  Order,
-  OrderDocument,
-  OrderDocumentType,
+  type Config,
+  type GetOrderDocuments,
+  type Order,
+  type OrderDocument,
+  type OrderDocumentType,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

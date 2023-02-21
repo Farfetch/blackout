@@ -38,34 +38,32 @@ describe('fetchGuestOrders() action creator', () => {
 
     (getGuestOrders as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchGuestOrders()(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchGuestOrders()(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getGuestOrders).toHaveBeenCalledTimes(1);
-      expect(getGuestOrders).toHaveBeenCalledWith(expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_GUEST_ORDERS_REQUEST },
-          {
-            type: actionTypes.FETCH_GUEST_ORDERS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    expect(getGuestOrders).toHaveBeenCalledTimes(1);
+    expect(getGuestOrders).toHaveBeenCalledWith(expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_GUEST_ORDERS_REQUEST },
+        {
+          type: actionTypes.FETCH_GUEST_ORDERS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch guest orders procedure is successful', async () => {
     (getGuestOrders as jest.Mock).mockResolvedValueOnce(
       mockGuestOrdersResponse,
     );
-
-    expect.assertions(4);
 
     await fetchGuestOrders()(
       store.dispatch,

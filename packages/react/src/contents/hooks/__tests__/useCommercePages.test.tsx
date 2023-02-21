@@ -77,7 +77,7 @@ describe('useCommercePages', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(() => useCommercePages(commercePageQuery), {
         wrapper: withStore(mockCommercePagesInitialState),
       });
@@ -95,7 +95,7 @@ describe('useCommercePages', () => {
       );
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
           useCommercePages({ ...commercePageQuery, enableAutoFetch: false }),

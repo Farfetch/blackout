@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetRaffles,
-  Raffles,
-  RafflesQuery,
+  type Config,
+  type GetRaffles,
+  type Raffles,
+  type RafflesQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { buildQueryStringFromObject as generateRafflesHash } from '../../../helpers';
@@ -57,4 +57,5 @@ const fetchRafflesFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default fetchRafflesFactory;

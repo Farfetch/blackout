@@ -40,31 +40,32 @@ describe('createSharedWishlist()', () => {
 
     store = sharedWishlistMockStore({ sharedWishlist: {} });
   });
+
   it('should create the correct actions for when create a shared wishlist procedure fails', async () => {
     const expectedError = new Error('post shared wishlist error');
 
     (postSharedWishlist as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await createSharedWishlist(data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    createSharedWishlist(data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postSharedWishlist).toHaveBeenCalledTimes(1);
-      expect(postSharedWishlist).toHaveBeenCalledWith(data, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.CREATE_SHARED_WISHLIST_REQUEST,
-        },
-        {
-          payload: { error: expectedError },
-          type: actionTypes.CREATE_SHARED_WISHLIST_FAILURE,
-        },
-      ]);
-    });
+    expect(postSharedWishlist).toHaveBeenCalledTimes(1);
+    expect(postSharedWishlist).toHaveBeenCalledWith(data, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.CREATE_SHARED_WISHLIST_REQUEST,
+      },
+      {
+        payload: { error: expectedError },
+        type: actionTypes.CREATE_SHARED_WISHLIST_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the create a shared wishlist procedure is successful', async () => {

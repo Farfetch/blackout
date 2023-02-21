@@ -22,11 +22,11 @@ logger.error = jest.fn();
 
 describe('getPageEventFromLocation', () => {
   it('should return null when location is not provided', () => {
-    expect(getPageEventFromLocation()).toBe(null);
+    expect(getPageEventFromLocation()).toBeNull();
   });
 
   it('should return null location.href is not set', () => {
-    expect(getPageEventFromLocation({} as Location)).toBe(null);
+    expect(getPageEventFromLocation({} as Location)).toBeNull();
   });
 });
 
@@ -115,8 +115,9 @@ describe('getProductLineItemsQuantity', () => {
 describe('getDeliveryInformationDetails', () => {
   it('should deal with empty information', () => {
     // @ts-expect-error
-    expect(getDeliveryInformationDetails({})).toEqual(undefined);
+    expect(getDeliveryInformationDetails({})).toBeUndefined();
   });
+
   it('should deal with delivery type', () => {
     expect(
       getDeliveryInformationDetails({
@@ -124,7 +125,7 @@ describe('getDeliveryInformationDetails', () => {
           deliveryType: 'sample',
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual('{"deliveryType":"sample"}');
+    ).toBe('{"deliveryType":"sample"}');
   });
 
   it('should deal with shipping tier', () => {
@@ -134,7 +135,7 @@ describe('getDeliveryInformationDetails', () => {
           shippingTier: 'sample',
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual('{"courierType":"sample"}');
+    ).toBe('{"courierType":"sample"}');
   });
 });
 
@@ -157,6 +158,7 @@ describe('getCommonCheckoutStepTrackingData', () => {
     });
   });
 });
+
 describe('getGenderValueFromProperties', () => {
   it(`should test all ways to return ${SignupNewsletterGenderTypes[0]} value`, () => {
     expect(
@@ -219,7 +221,7 @@ describe('getGenderValueFromProperties', () => {
           gender: { name: 'W' },
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual('W');
+    ).toBe('W');
 
     expect(
       getGenderValueFromProperties({
@@ -227,6 +229,6 @@ describe('getGenderValueFromProperties', () => {
           gender: [{ name: 'W' }, { name: 'M' }],
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
-    ).toEqual('W,M');
+    ).toBe('W,M');
   });
 });

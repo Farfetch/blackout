@@ -13,8 +13,6 @@ describe('getUserCredits', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockGetCreditResponse));
 
-    expect.assertions(2);
-
     await expect(getUserCredits(userId)).resolves.toStrictEqual(
       mockGetCreditResponse,
     );
@@ -26,8 +24,6 @@ describe('getUserCredits', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getUserCredits(userId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

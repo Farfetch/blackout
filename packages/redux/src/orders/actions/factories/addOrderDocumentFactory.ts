@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DocumentData,
-  PostOrderDocument,
+  type Config,
+  type DocumentData,
+  type PostOrderDocument,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { AddOrderDocumentAction } from '../../types/actions.types';

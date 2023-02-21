@@ -1,10 +1,13 @@
 import {
-  BlackoutError,
+  type BlackoutError,
   CommercePagesType,
-  ContentEntry,
+  type ContentEntry,
   GenderCode,
 } from '@farfetch/blackout-client';
-import { ContentsEntity, generateContentHash } from '@farfetch/blackout-redux';
+import {
+  type ContentsEntity,
+  generateContentHash,
+} from '@farfetch/blackout-redux';
 
 export const commercePagesQuery = {
   type: CommercePagesType.LISTING,

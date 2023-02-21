@@ -34,15 +34,15 @@ import {
   SET_USER_TYPE,
 } from './constants';
 import {
-  ConsentData,
+  type ConsentData,
   utils as coreUtils,
-  EventContext,
-  EventData,
+  type EventContext,
+  type EventData,
   integrations,
-  LoadIntegrationEventData,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackTypesValues,
+  type LoadIntegrationEventData,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import { getContextParameters, getUserParameters } from './utils';
 import eventSchemas from '../shared/validation/eventSchemas';

@@ -44,6 +44,7 @@ const mockFetchConfig = {
 
 describe('useReturns', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state and call all hook dependencies with the correct options', () => {

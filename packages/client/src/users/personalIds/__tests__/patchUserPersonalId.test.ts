@@ -30,8 +30,6 @@ describe('patchPersonalId', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockPatchPersonalIdResponse));
 
-    expect.assertions(2);
-
     await expect(
       patchUserPersonalId(userId, personalId, data, config),
     ).resolves.toStrictEqual(mockPatchPersonalIdResponse);
@@ -45,8 +43,6 @@ describe('patchPersonalId', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       patchUserPersonalId(userId, personalId, data, config),

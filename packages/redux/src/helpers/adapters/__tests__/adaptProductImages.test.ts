@@ -49,17 +49,14 @@ describe('adaptProductImages()', () => {
 
     // This is just in case result is not an array as
     // it is supposed to be in this case
-    expect.assertions(1);
 
-    if (Array.isArray(result) && result.length > 0) {
-      expect.assertions(result.length);
-
-      result.forEach(image => {
-        expect(image.sources['250']).toEqual(
-          expect.stringMatching(/.jpg\?c=0$/),
-        );
-      });
+    if (!Array.isArray(result) || result.length <= 0) {
+      return;
     }
+
+    result.forEach(image => {
+      expect(image.sources['250']).toEqual(expect.stringMatching(/.jpg\?c=0$/));
+    });
   });
 
   it('should adapt legacy product images with a query param with a question mark', () => {
@@ -70,16 +67,13 @@ describe('adaptProductImages()', () => {
 
     // This is just in case result is not an array as
     // it is supposed to be in this case
-    expect.assertions(1);
 
-    if (Array.isArray(result) && result.length > 0) {
-      expect.assertions(result.length);
-
-      result.forEach(image => {
-        expect(image.sources['250']).toEqual(
-          expect.stringMatching(/.jpg\?c=0$/),
-        );
-      });
+    if (!Array.isArray(result) || result.length <= 0) {
+      return;
     }
+
+    result.forEach(image => {
+      expect(image.sources['250']).toEqual(expect.stringMatching(/.jpg\?c=0$/));
+    });
   });
 });

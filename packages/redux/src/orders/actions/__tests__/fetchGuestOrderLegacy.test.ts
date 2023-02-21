@@ -44,32 +44,32 @@ describe('fetchGuestOrderLegacy() action creator', () => {
 
     (getGuestOrderLegacy as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getGuestOrderLegacy).toHaveBeenCalledTimes(1);
-      expect(getGuestOrderLegacy).toHaveBeenCalledWith(
-        orderId,
-        mockGuestUserEmail,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_ORDER_REQUEST,
-          meta: { orderId },
-        },
-        {
-          payload: { error: expectedError },
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_FAILURE,
-        },
-      ]);
-    });
+    expect(getGuestOrderLegacy).toHaveBeenCalledTimes(1);
+    expect(getGuestOrderLegacy).toHaveBeenCalledWith(
+      orderId,
+      mockGuestUserEmail,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_ORDER_REQUEST,
+        meta: { orderId },
+      },
+      {
+        payload: { error: expectedError },
+        meta: { orderId },
+        type: actionTypes.FETCH_ORDER_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch guest order details procedure is successful', async () => {
@@ -80,9 +80,8 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload(
       mockProductImgQueryParam,
     );
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    expect.assertions(5);
+    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
       store.dispatch,
@@ -119,9 +118,8 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     );
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    expect.assertions(5);
+    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
       store.dispatch,

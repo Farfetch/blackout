@@ -1,4 +1,4 @@
-import { AddressEntity, getEntities, getEntityById } from '../../entities';
+import { type AddressEntity, getEntities, getEntityById } from '../../entities';
 import {
   getAddresses as getAddressesFromReducer,
   getAddress as getAddressFromReducer,

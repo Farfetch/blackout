@@ -1,7 +1,7 @@
 import { mockStore } from './redux';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
-import React, { ReactElement, ReactNode } from 'react';
+import React, { type ReactElement, type ReactNode } from 'react';
 import type { StoreState } from '@farfetch/blackout-redux';
 
 /**

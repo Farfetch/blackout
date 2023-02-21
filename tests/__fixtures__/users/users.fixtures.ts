@@ -1,5 +1,5 @@
 import {
-  User,
+  type User,
   UserAttributeType,
   UserGender,
   UserStatus,

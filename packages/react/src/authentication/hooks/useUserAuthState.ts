@@ -1,11 +1,11 @@
 import {
   AuthenticationConfigOptions,
-  AuthenticationTokenManager,
+  type AuthenticationTokenManager,
   deleteToken,
-  LoginData,
+  type LoginData,
   postToken,
   TokenKinds,
-  UserToken,
+  type UserToken,
 } from '@farfetch/blackout-client';
 import {
   LoginWithoutDataError,
@@ -22,6 +22,7 @@ export const ActionTypes = {
   LogoutSucceeded: 'LOGOUT_SUCCEEDED',
   LogoutFailed: 'LOGOUT_FAILED',
 };
+
 interface State {
   isLoading: boolean;
   errorData: ErrorData | null;

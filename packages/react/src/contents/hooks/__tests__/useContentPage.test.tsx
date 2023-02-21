@@ -19,6 +19,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useContentPage', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
@@ -74,7 +75,7 @@ describe('useContentPage', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(() => useContentPage(ContentPageType.Listing, { slug }), {
         wrapper: withStore(mockContentPageInitialState),
       });
@@ -86,7 +87,7 @@ describe('useContentPage', () => {
       );
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
           useContentPage(

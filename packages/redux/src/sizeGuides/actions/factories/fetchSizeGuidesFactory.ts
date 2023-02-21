@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSizeGuides,
-  SizeGuide,
-  SizeGuidesQuery,
+  type Config,
+  type GetSizeGuides,
+  type SizeGuide,
+  type SizeGuidesQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

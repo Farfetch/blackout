@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Bag,
-  Config,
-  DeleteBagItem,
-  DeleteBagItemQuery,
+  type Bag,
+  type Config,
+  type DeleteBagItem,
+  type DeleteBagItemQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
@@ -40,6 +40,7 @@ const removeBagItemFactory =
 
     try {
       const state = getState();
+
       bagId = getBagId(state);
 
       dispatch({
@@ -50,6 +51,7 @@ const removeBagItemFactory =
         },
         type: actionTypes.REMOVE_BAG_ITEM_REQUEST,
       });
+
       const result = await deleteBagItem(bagId, bagItemId, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({

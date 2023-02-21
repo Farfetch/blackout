@@ -20,7 +20,7 @@ describe('promotionEvaluations redux reducer', () => {
       const state = reducer(fromReducer.INITIAL_STATE, mockAction).error;
 
       expect(state).toEqual(initialState.error);
-      expect(state).toEqual(null);
+      expect(state).toBeNull();
     });
 
     it('should handle FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST action type', () => {
@@ -52,7 +52,7 @@ describe('promotionEvaluations redux reducer', () => {
       const state = reducer(fromReducer.INITIAL_STATE, mockAction).isLoading;
 
       expect(state).toEqual(initialState.isLoading);
-      expect(state).toEqual(false);
+      expect(state).toBe(false);
     });
 
     it('should handle FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST action type', () => {
@@ -61,7 +61,7 @@ describe('promotionEvaluations redux reducer', () => {
           type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
           meta: { promotionEvaluationId: mockPromotionEvaluationId },
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_PROMOTION_EVALUATION_ITEMS_SUCCESS action type', () => {
@@ -73,7 +73,7 @@ describe('promotionEvaluations redux reducer', () => {
           },
           meta: { promotionEvaluationId: mockPromotionEvaluationId },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE action type', () => {
@@ -85,7 +85,7 @@ describe('promotionEvaluations redux reducer', () => {
           },
           meta: { promotionEvaluationId: mockPromotionEvaluationId },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle other actions by returning the previous state', () => {

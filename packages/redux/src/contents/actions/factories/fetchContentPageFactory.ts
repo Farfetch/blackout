@@ -1,14 +1,14 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  ContentPage,
-  ContentPageType,
-  GetContentPage,
-  QueryContentPage,
+  type Config,
+  type ContentPage,
+  type ContentPageType,
+  type GetContentPage,
+  type QueryContentPage,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
-import { ContentTypeCode, FetchContentPageAction } from '../../types';
+import { ContentTypeCode, type FetchContentPageAction } from '../../types';
 import { generateContentHash } from '../../utils';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';

@@ -15,8 +15,6 @@ describe('getPredictions', () => {
   it('should handle a client request successfully when receiving a query param', async () => {
     mswServer.use(fixtures.success(mockAddressPredictionsResponse));
 
-    expect.assertions(2);
-
     await expect(getAddressPredictions(text, query)).resolves.toStrictEqual(
       mockAddressPredictionsResponse,
     );
@@ -28,8 +26,6 @@ describe('getPredictions', () => {
 
   it('should handle a client request successfully when not receiving a query param', async () => {
     mswServer.use(fixtures.success(mockAddressPredictionsResponse));
-
-    expect.assertions(2);
 
     await expect(getAddressPredictions(text)).resolves.toStrictEqual(
       mockAddressPredictionsResponse,
@@ -43,8 +39,6 @@ describe('getPredictions', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getAddressPredictions(text, query)).rejects.toMatchSnapshot();
 

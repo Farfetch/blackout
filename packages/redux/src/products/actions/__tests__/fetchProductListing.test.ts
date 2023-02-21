@@ -67,8 +67,6 @@ describe('fetchListing() action creator', () => {
       entities: mockProductsListNormalizedPayload.entities,
     });
 
-    expect.assertions(2);
-
     await fetchProductListing(mockProductsListSlug, mockQuery, {
       useCache: mockUseCache,
       setProductsListHash: mockSetProductsListHash,
@@ -83,42 +81,40 @@ describe('fetchListing() action creator', () => {
 
     (getProductListing as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchProductListing(mockProductsListSlug, mockQuery)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductListing(mockProductsListSlug, mockQuery)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProductListing).toHaveBeenCalledTimes(1);
-      expect(getProductListing).toHaveBeenCalledWith(
-        mockProductsListSlug,
-        mockQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { hash: mockProductsListHash },
-          type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
-        },
-        {
-          meta: { hash: mockProductsListHash },
-          type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
-        },
-        {
-          meta: { hash: mockProductsListHash },
-          payload: { error: expectedError },
-          type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
-        },
-      ]);
-    });
+    expect(getProductListing).toHaveBeenCalledTimes(1);
+    expect(getProductListing).toHaveBeenCalledWith(
+      mockProductsListSlug,
+      mockQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { hash: mockProductsListHash },
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+      },
+      {
+        meta: { hash: mockProductsListHash },
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+      },
+      {
+        meta: { hash: mockProductsListHash },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch listing procedure is successful', async () => {
     (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
-
-    expect.assertions(5);
 
     await fetchProductListing(mockProductsListSlug, mockQuery)(
       store.dispatch,
@@ -155,8 +151,6 @@ describe('fetchListing() action creator', () => {
   it('should create the correct actions for when the fetch listing procedure is successful without receiving options', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
     (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
-
-    expect.assertions(5);
 
     await fetchProductListing(mockProductsListSlug, mockQuery)(
       store.dispatch,
@@ -205,8 +199,6 @@ describe('fetchListing() action creator', () => {
     });
 
     (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
-
-    expect.assertions(5);
 
     await fetchProductListing(mockProductsListSlug, mockQuery)(
       store.dispatch,
@@ -262,8 +254,6 @@ describe('fetchListing() action creator', () => {
       expect(clientResult).toBeUndefined();
     });
 
-    expect.assertions(4);
-
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductListing).not.toHaveBeenCalled();
     expect(store.getActions()).toEqual([
@@ -285,8 +275,6 @@ describe('fetchListing() action creator', () => {
       entities: { ...mockProductsListNormalizedPayload.entities },
     });
 
-    expect.assertions(4);
-
     await fetchProductListing(mockProductsListSlug, mockQuery, {
       useCache: true,
     })(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
@@ -307,8 +295,6 @@ describe('fetchListing() action creator', () => {
 
   it('should create the correct actions for a successful request without setting the hash', async () => {
     (getProductListing as jest.Mock).mockResolvedValueOnce(mockProductsList);
-
-    expect.assertions(5);
 
     await fetchProductListing(mockProductsListSlug, mockQuery, {
       setProductsListHash: false,

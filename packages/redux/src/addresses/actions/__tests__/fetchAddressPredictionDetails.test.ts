@@ -31,29 +31,30 @@ describe('fetchAddressPredictionDetails() action creator', () => {
     (getAddressPredictionDetails as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    fetchAddressPredictionDetails(
+    await expect(
+      async () =>
+        await fetchAddressPredictionDetails(
+          { predictionId },
+          { sessionToken },
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getAddressPredictionDetails).toHaveBeenCalledTimes(1);
+    expect(getAddressPredictionDetails).toHaveBeenCalledWith(
       { predictionId },
       { sessionToken },
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getAddressPredictionDetails).toHaveBeenCalledTimes(1);
-      expect(getAddressPredictionDetails).toHaveBeenCalledWith(
-        { predictionId },
-        { sessionToken },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST },
-          {
-            type: actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_REQUEST },
+        {
+          type: actionTypes.FETCH_ADDRESS_PREDICTION_DETAILS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get prediction details procedure is successful', async () => {

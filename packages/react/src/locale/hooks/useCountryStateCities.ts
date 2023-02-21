@@ -4,7 +4,7 @@ import {
   fetchCountryStateCities as fetchCountryStateCitiesAction,
   getCountryStateCities,
   getCountryStateCitiesError,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';

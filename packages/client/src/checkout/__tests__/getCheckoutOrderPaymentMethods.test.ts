@@ -17,8 +17,6 @@ describe('getCheckoutOrderPaymentMethods', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockFetchPaymentMethodsResponse));
 
-    expect.assertions(2);
-
     await expect(getCheckoutOrderPaymentMethods(id)).resolves.toStrictEqual(
       mockFetchPaymentMethodsResponse,
     );
@@ -27,8 +25,6 @@ describe('getCheckoutOrderPaymentMethods', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getCheckoutOrderPaymentMethods(id)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);

@@ -14,6 +14,7 @@ describe('reset user credit balance state action', () => {
 
   it('should dispatch the correct action type', () => {
     resetUserCreditBalanceState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

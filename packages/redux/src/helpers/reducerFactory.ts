@@ -61,6 +61,7 @@ export const createReducerWithResult =
           break;
       }
     }
+
     return state;
   };
 
@@ -118,6 +119,7 @@ const createReducer =
           break;
       }
     }
+
     return state;
   };
 

@@ -67,6 +67,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRY_STATE_CITIES_FAILURE action type', () => {
       const mockError = 'Get cities error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
@@ -127,6 +128,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRIES_FAILURE action type', () => {
       const mockError = 'Get countries error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_COUNTRIES_FAILURE,
@@ -140,6 +142,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRY_FAILURE action type', () => {
       const mockError = 'Get countries error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_COUNTRY_FAILURE,
@@ -200,6 +203,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRY_CURRENCIES_FAILURE action type', () => {
       const mockError = 'Get currencies error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE,
@@ -251,6 +255,7 @@ describe('locale redux reducer', () => {
 
     it('should handle FETCH_COUNTRY_STATES_FAILURE action type', () => {
       const mockError = 'Get states error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_COUNTRY_STATES_FAILURE,

@@ -1,5 +1,6 @@
-import { AddressType, City } from '@farfetch/blackout-client';
+import { AddressType, type City } from '@farfetch/blackout-client';
 import type { CityEntity, StateEntity } from '@farfetch/blackout-redux';
+
 export const mockCountryCode = 'US';
 export const mockStateId = 3;
 export const isoCode = 'PT';

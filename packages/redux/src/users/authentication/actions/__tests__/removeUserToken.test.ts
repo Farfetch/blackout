@@ -27,22 +27,22 @@ describe('removeUserToken() action creator', () => {
 
   it('should create the correct actions for when the delete user token procedure fails', async () => {
     (deleteToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await removeUserToken(userTokenId)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(deleteToken).toHaveBeenCalledTimes(1);
-      expect(deleteToken).toHaveBeenCalledWith(userTokenId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
-          {
-            type: actionTypes.DELETE_USER_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await removeUserToken(userTokenId)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(deleteToken).toHaveBeenCalledTimes(1);
+    expect(deleteToken).toHaveBeenCalledWith(userTokenId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
+        {
+          type: actionTypes.DELETE_USER_TOKEN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the delete user token procedure is successful', async () => {

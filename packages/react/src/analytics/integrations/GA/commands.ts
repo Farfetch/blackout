@@ -12,10 +12,10 @@ import {
   SET_ACTION_COMMAND,
 } from './constants';
 import {
-  AnalyticsProduct,
-  EventData,
+  type AnalyticsProduct,
+  type EventData,
   EventTypes,
-  TrackTypesValues,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
@@ -271,7 +271,9 @@ const addImpressionsCommand = (
 ) => {
   return map(products, (product: AnalyticsProduct) => {
     const productMapped = getProductMapped(product, productMappings);
+
     productMapped.list = list;
+
     return addImpressionCommand(productMapped);
   });
 };
@@ -282,6 +284,7 @@ const addCheckoutProductsCommand = (
 ) => {
   return map(products, product => {
     const productMapped = getProductMapped(product, productMappings);
+
     return addProductCommand(productMapped);
   });
 };
@@ -292,6 +295,7 @@ const addRefundProductsCommand = (
 ) => {
   return map(products, product => {
     const productMapped = getProductMapped(product, productMappings);
+
     return addProductCommand(productMapped);
   });
 };

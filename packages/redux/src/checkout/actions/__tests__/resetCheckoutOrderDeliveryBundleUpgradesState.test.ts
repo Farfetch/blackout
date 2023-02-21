@@ -15,6 +15,7 @@ describe('resetCheckoutOrderDeliveryBundleUpgradesState() action creator', () =>
 
   it('should dispatch the correct action for when the reset delivery bundle upgrades state is called', () => {
     resetCheckoutOrderDeliveryBundleUpgradesState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

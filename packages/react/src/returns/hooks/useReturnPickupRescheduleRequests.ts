@@ -1,13 +1,13 @@
 import {
-  BlackoutError,
-  Config,
+  type BlackoutError,
+  type Config,
   getReturnPickupRescheduleRequest,
   getReturnPickupRescheduleRequests,
-  PickupRescheduleRequest,
-  PickupRescheduleRequests,
+  type PickupRescheduleRequest,
+  type PickupRescheduleRequests,
   postReturnPickupRescheduleRequest,
-  PostReturnPickupRescheduleRequestData,
-  Return,
+  type PostReturnPickupRescheduleRequestData,
+  type Return,
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 import type { UseReturnPickupRescheduleRequestsOptions } from './types';

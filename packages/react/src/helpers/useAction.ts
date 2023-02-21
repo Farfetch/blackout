@@ -1,4 +1,4 @@
-import { AnyAction, bindActionCreators } from 'redux';
+import { type AnyAction, bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 import type { ThunkAction } from 'redux-thunk';
@@ -28,4 +28,5 @@ const useAction = <
       ) => ReturnType<ReturnType<ActionCreator>>
     : ActionCreator;
 };
+
 export default useAction;

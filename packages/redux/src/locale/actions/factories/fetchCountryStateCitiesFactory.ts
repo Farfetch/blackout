@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  City,
-  Config,
-  GetCountryStateCities,
+  type City,
+  type Config,
+  type GetCountryStateCities,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

@@ -31,22 +31,22 @@ describe('createReturn() action creator', () => {
     const expectedError = new Error('create return error');
 
     (postReturn as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createReturn(data)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postReturn).toHaveBeenCalledTimes(1);
-      expect(postReturn).toHaveBeenCalledWith(data, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_RETURN_REQUEST },
-          {
-            type: actionTypes.CREATE_RETURN_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await createReturn(data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postReturn).toHaveBeenCalledTimes(1);
+    expect(postReturn).toHaveBeenCalledWith(data, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_RETURN_REQUEST },
+        {
+          type: actionTypes.CREATE_RETURN_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create return procedure is successful', async () => {

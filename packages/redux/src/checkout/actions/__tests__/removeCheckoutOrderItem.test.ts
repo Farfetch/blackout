@@ -29,30 +29,29 @@ describe('removeCheckoutOrderItem() action creator', () => {
 
   it('should create the correct actions for when the remove checkout order item procedure fails', async () => {
     const expectedError = new Error('remove checkout order item error');
-    (deleteCheckoutOrderItem as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await removeCheckoutOrderItem(
+    (deleteCheckoutOrderItem as jest.Mock).mockRejectedValueOnce(expectedError);
+
+    await expect(
+      async () =>
+        await removeCheckoutOrderItem(checkoutOrderId, itemId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deleteCheckoutOrderItem).toHaveBeenCalledTimes(1);
+    expect(deleteCheckoutOrderItem).toHaveBeenCalledWith(
       checkoutOrderId,
       itemId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteCheckoutOrderItem).toHaveBeenCalledTimes(1);
-      expect(deleteCheckoutOrderItem).toHaveBeenCalledWith(
-        checkoutOrderId,
-        itemId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: REMOVE_CHECKOUT_ORDER_ITEM_REQUEST },
-          {
-            type: REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: REMOVE_CHECKOUT_ORDER_ITEM_REQUEST },
+        {
+          type: REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the remove checkout order item procedure is successful', async () => {
@@ -64,9 +63,9 @@ describe('removeCheckoutOrderItem() action creator', () => {
     )(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(200);
     });
+
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(deleteCheckoutOrderItem).toHaveBeenCalledTimes(1);
     expect(deleteCheckoutOrderItem).toHaveBeenCalledWith(
       checkoutOrderId,

@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetRaffleEstimation,
-  Raffle,
-  RaffleEstimation,
-  RaffleEstimationQuery,
+  type Config,
+  type GetRaffleEstimation,
+  type Raffle,
+  type RaffleEstimation,
+  type RaffleEstimationQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -50,4 +50,5 @@ const fetchRaffleEstimationFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default fetchRaffleEstimationFactory;

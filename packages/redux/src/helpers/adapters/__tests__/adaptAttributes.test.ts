@@ -36,6 +36,7 @@ describe('adaptAttributes()', () => {
       sizeAttributes,
       productWithTwoSizes.slice(1),
     );
+
     expect(result).not.toHaveProperty('globalQuantity');
     expect(result).toMatchSnapshot(
       'size attributes adapter when the given size does not exist in the available sizes',

@@ -32,22 +32,22 @@ describe('login() action creator', () => {
 
   it('should create the correct actions for when the login procedure fails', async () => {
     (postLogin as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await login(mockLoginData)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postLogin).toHaveBeenCalledTimes(1);
-      expect(postLogin).toHaveBeenCalledWith(mockLoginData, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.LOGIN_REQUEST },
-          {
-            type: actionTypes.LOGIN_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await login(mockLoginData)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postLogin).toHaveBeenCalledTimes(1);
+    expect(postLogin).toHaveBeenCalledWith(mockLoginData, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.LOGIN_REQUEST },
+        {
+          type: actionTypes.LOGIN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the login procedure is successful', async () => {

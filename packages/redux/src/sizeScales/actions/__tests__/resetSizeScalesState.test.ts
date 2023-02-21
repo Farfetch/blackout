@@ -9,6 +9,7 @@ describe('resetSizeScalesState() action', () => {
   it('should dispatch the correct action type', () => {
     store = mockStore({ sizeScales: INITIAL_STATE }, {});
     resetSizeScalesState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

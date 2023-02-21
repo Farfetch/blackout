@@ -545,6 +545,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
                         on the payload when triggering a "select content" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
+
       return undefined;
     }
 
@@ -566,11 +567,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [EventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {
     if (data.properties?.interactionType === InteractionTypes.SCROLL) {
-      if (data.properties?.target === document.body)
+      if (data.properties?.target === document.body) {
         return {
           tid: 668,
           scrollDepth: data.properties?.percentageScrolled,
         };
+      }
 
       return;
     }
@@ -581,6 +583,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
                         on the payload when triggering a "select content" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
+
       return;
     }
 
@@ -599,6 +602,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     if (properties.colour && properties.oldColour !== properties.colour) {
       // color changed event
       const additionalParameters = {} as Record<string, unknown>;
+
       if (properties?.oldColourId && properties?.colourId) {
         additionalParameters[
           'colourList'
@@ -623,6 +627,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       // size changed event
 
       const additionalParameters = {} as Record<string, unknown>;
+
       if (properties?.oldSizeScaleId && properties?.sizeScaleId) {
         additionalParameters[
           'scaleList'

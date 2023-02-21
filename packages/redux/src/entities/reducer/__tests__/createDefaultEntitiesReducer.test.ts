@@ -1,5 +1,5 @@
 import {
-  CustomEntitiesReducerByAction,
+  type CustomEntitiesReducerByAction,
   mergeEntitiesReducersByAction,
 } from '../createDefaultEntitiesReducer';
 
@@ -42,8 +42,8 @@ describe('mergeEntitiesReducersByAction', () => {
     const mergedEntitiesMapper = mergeEntitiesReducersByAction(entitiesMappers);
     const result = mergedEntitiesMapper['actionTypeName']?.(state, action);
 
-    expect(firstSpy).toBeCalledWith(state, action);
-    expect(secondSpy).toBeCalledWith(
+    expect(firstSpy).toHaveBeenCalledWith(state, action);
+    expect(secondSpy).toHaveBeenCalledWith(
       { entities: { ...ordersEntities } },
       action,
     );

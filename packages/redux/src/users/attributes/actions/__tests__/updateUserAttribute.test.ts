@@ -32,31 +32,32 @@ describe('updateUserAttribute action creator', () => {
     const expectedError = new Error('update user attribute error');
 
     (patchUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateUserAttribute(
+    await expect(
+      async () =>
+        await updateUserAttribute(
+          userId,
+          attributeId,
+          mockUpdateUserAttributeData,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchUserAttribute).toHaveBeenCalledTimes(1);
+    expect(patchUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
       mockUpdateUserAttributeData,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchUserAttribute).toHaveBeenCalledTimes(1);
-      expect(patchUserAttribute).toHaveBeenCalledWith(
-        userId,
-        attributeId,
-        mockUpdateUserAttributeData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST },
-          {
-            type: actionTypes.UPDATE_USER_ATTRIBUTE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST },
+        {
+          type: actionTypes.UPDATE_USER_ATTRIBUTE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update user attribute procedure is successful', async () => {

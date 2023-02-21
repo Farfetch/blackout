@@ -112,7 +112,7 @@ describe('useContentType', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(
         () =>
           useContentType(contentQuery.contentTypeCode, {
@@ -132,7 +132,7 @@ describe('useContentType', () => {
       );
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
           useContentType(contentQuery.contentTypeCode, {

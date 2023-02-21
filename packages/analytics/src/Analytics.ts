@@ -94,6 +94,7 @@ class Analytics {
       logger.error(
         'Tried to call `analytics.consent` before a storage was defined with `analytics.setStorage`. Returning null.',
       );
+
       return null;
     }
 
@@ -107,6 +108,7 @@ class Analytics {
       logger.error(
         `An error occurred when trying to get consent data: ${error}`,
       );
+
       return null;
     }
   }
@@ -300,6 +302,7 @@ class Analytics {
       wrappedStorage = new StorageWrapper(storage || undefined);
     } catch (e) {
       logger.error(`An error occurred when trying to create storage: ${e}`);
+
       return Promise.resolve(this);
     }
 
@@ -543,6 +546,7 @@ class Analytics {
         logger.error(
           `An error occurred when calling 'shouldLoad' for Integration '${intName}': ${error}`,
         );
+
         return;
       }
 
@@ -558,6 +562,7 @@ class Analytics {
         logger.error(
           `An error occurred when trying to create an instance for Integration '${intName}': ${error}`,
         );
+
         return;
       }
 
@@ -688,7 +693,7 @@ class Analytics {
 
     const commonData: Partial<EventData<T>> = {
       type,
-      context: context as EventContext,
+      context: context,
       platform: this.platform,
       consent: await this.consent(),
       // This cast is safe because this.user() only returns null when the storage is not set.

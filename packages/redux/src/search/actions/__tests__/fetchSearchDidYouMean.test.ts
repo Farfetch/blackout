@@ -32,32 +32,29 @@ describe('fetchSearchDidYouMean() action creator', () => {
 
     (getSearchDidYouMean as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSearchDidYouMean(query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSearchDidYouMean(query)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSearchDidYouMean).toHaveBeenCalledTimes(1);
-      expect(getSearchDidYouMean).toHaveBeenCalledWith(query, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          meta: { query, hash },
-          type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
-        },
-        {
-          meta: { query, hash },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
-        },
-      ]);
-    });
+    expect(getSearchDidYouMean).toHaveBeenCalledTimes(1);
+    expect(getSearchDidYouMean).toHaveBeenCalledWith(query, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { query, hash },
+        type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST,
+      },
+      {
+        meta: { query, hash },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch search did you mean procedure is successful', async () => {
     (getSearchDidYouMean as jest.Mock).mockResolvedValueOnce(
       mockSearchDidYouMeanResponse,
     );
-
-    expect.assertions(4);
 
     await fetchSearchDidYouMean(query)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSearchDidYouMeanResponse);

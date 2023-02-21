@@ -36,28 +36,26 @@ describe('fetchProgramUsersMembership() action creator', () => {
     (getProgramUsersMembership as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchProgramUsersMembership(programId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getProgramUsersMembership).toHaveBeenCalledTimes(1);
-        expect(getProgramUsersMembership).toHaveBeenCalledWith(
-          programId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
-            },
-            {
-              type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () => await fetchProgramUsersMembership(programId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getProgramUsersMembership).toHaveBeenCalledTimes(1);
+    expect(getProgramUsersMembership).toHaveBeenCalledWith(
+      programId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_PROGRAM_USERS_MEMBERSHIP_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 

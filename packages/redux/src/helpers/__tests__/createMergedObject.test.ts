@@ -68,6 +68,7 @@ function testMergedObjectDeepReferences(
 describe('createMergedObject()', () => {
   describe('merge with defined target', () => {
     const mergedObject = createMergedObject(target, source);
+
     it('Should create a new object that is the result of merging source into target', () => {
       expect(mergedObject).toEqual(expectedResult);
 
@@ -80,13 +81,14 @@ describe('createMergedObject()', () => {
       expect(mergedObject.products === target.products).toBe(false);
     });
 
-    it('Should maintain refs to target props that are not present on source ', () => {
+    it('Should maintain refs to target props that are not present on source', () => {
       expect(mergedObject.preferences === target.preferences).toBe(true);
     });
   });
 
   describe('merge without target', () => {
     const mergedObject = createMergedObject(null, source);
+
     it('Should return a new object that contains same properties as source', () => {
       expect(mergedObject).toEqual(source);
     });

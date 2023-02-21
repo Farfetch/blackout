@@ -36,37 +36,37 @@ describe('fetchCountryStateCities() action creator', () => {
 
     (getCountryStateCities as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchCountryStateCities(
+          mockCountryCode,
+          mockStateId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchCountryStateCities(
+    expect(getCountryStateCities).toHaveBeenCalledTimes(1);
+    expect(getCountryStateCities).toHaveBeenCalledWith(
       mockCountryCode,
       mockStateId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCountryStateCities).toHaveBeenCalledTimes(1);
-      expect(getCountryStateCities).toHaveBeenCalledWith(
-        mockCountryCode,
-        mockStateId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            countryCode: mockCountryCode,
-            stateId: mockStateId,
-          },
-          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: {
+          countryCode: mockCountryCode,
+          stateId: mockStateId,
         },
-        {
-          meta: {
-            countryCode: mockCountryCode,
-            stateId: mockStateId,
-          },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
+        type: actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST,
+      },
+      {
+        meta: {
+          countryCode: mockCountryCode,
+          stateId: mockStateId,
         },
-      ]);
-    });
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the get product details procedure is successful', async () => {

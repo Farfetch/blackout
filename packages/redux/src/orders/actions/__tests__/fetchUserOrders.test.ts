@@ -41,37 +41,33 @@ describe('fetchUserOrders() action creator', () => {
 
     (getUserOrders as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchUserOrders(userId, getUserOrdersQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchUserOrders(
+    expect(getUserOrders).toHaveBeenCalledTimes(1);
+    expect(getUserOrders).toHaveBeenCalledWith(
       userId,
       getUserOrdersQuery,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserOrders).toHaveBeenCalledTimes(1);
-      expect(getUserOrders).toHaveBeenCalledWith(
-        userId,
-        getUserOrdersQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_USER_ORDERS_REQUEST,
-        },
-        {
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_USER_ORDERS_FAILURE,
-        },
-      ]);
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_USER_ORDERS_REQUEST,
+      },
+      {
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_USER_ORDERS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch user orders procedure is successful', async () => {
     (getUserOrders as jest.Mock).mockResolvedValueOnce(mockOrdersResponse);
 
-    expect.assertions(5);
-
     const expectedPayload = merge({}, expectedOrdersResponseNormalizedPayload);
+
     expectedPayload.result.entries = [orderId, orderId2];
     expectedPayload.result.totalItems = expectedPayload.result.entries.length;
 

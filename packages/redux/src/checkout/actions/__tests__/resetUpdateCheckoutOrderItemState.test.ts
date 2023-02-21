@@ -15,6 +15,7 @@ describe('resetUpdateCheckoutOrderItemState() action creator', () => {
 
   it('should dispatch the correct action for when the reset update checkout order item state is called', () => {
     resetUpdateCheckoutOrderItemState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

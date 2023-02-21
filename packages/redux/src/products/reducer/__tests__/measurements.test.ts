@@ -2,7 +2,7 @@ import {
   mockProductId,
   mockProductVariantsMeasurements,
 } from 'tests/__fixtures__/products';
-import { productsActionTypes, ProductsMeasurementsState } from '../..';
+import { productsActionTypes, type ProductsMeasurementsState } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,

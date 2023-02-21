@@ -1,6 +1,6 @@
 import * as fromWishlistReducer from '../reducer/wishlists';
 import { buildWishlistItem, generateWishlistItemHash } from '../utils';
-import { CategoryEntity, getEntities } from '../../entities';
+import { type CategoryEntity, getEntities } from '../../entities';
 import { createSelector } from 'reselect';
 import { getWishlistSetsIds } from './wishlistsSets';
 import type { Brand, WishlistItem } from '@farfetch/blackout-client';

@@ -5,8 +5,8 @@ import {
   getWishlistItem,
   getWishlistItemError,
   isWishlistItemLoading,
-  StoreState,
-  WishlistItemActionMetadata,
+  type StoreState,
+  type WishlistItemActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';

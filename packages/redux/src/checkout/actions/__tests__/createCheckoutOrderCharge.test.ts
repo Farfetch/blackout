@@ -32,29 +32,27 @@ describe('createCheckoutOrderCharge() action creator', () => {
     const expectedError = new Error('charges error');
 
     (postCheckoutOrderCharge as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createCheckoutOrderCharge(
+    await expect(
+      async () =>
+        await createCheckoutOrderCharge(orderId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postCheckoutOrderCharge).toHaveBeenCalledTimes(1);
+    expect(postCheckoutOrderCharge).toHaveBeenCalledWith(
       orderId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postCheckoutOrderCharge).toHaveBeenCalledTimes(1);
-      expect(postCheckoutOrderCharge).toHaveBeenCalledWith(
-        orderId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: checkoutActionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST },
-          {
-            type: checkoutActionTypes.CREATE_CHECKOUT_ORDER_CHARGE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: checkoutActionTypes.CREATE_CHECKOUT_ORDER_CHARGE_REQUEST },
+        {
+          type: checkoutActionTypes.CREATE_CHECKOUT_ORDER_CHARGE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the charge procedure is successful', async () => {

@@ -33,34 +33,31 @@ describe('fetchSizeScale() action creator', () => {
 
     (getSizeScale as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSizeScale(mockScaleId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSizeScale(mockScaleId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSizeScale).toHaveBeenCalledTimes(1);
-      expect(getSizeScale).toHaveBeenCalledWith(mockScaleId, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_SIZE_SCALE_REQUEST,
-          meta: { sizeScaleId: mockScaleId },
+    expect(getSizeScale).toHaveBeenCalledTimes(1);
+    expect(getSizeScale).toHaveBeenCalledWith(mockScaleId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_SIZE_SCALE_REQUEST,
+        meta: { sizeScaleId: mockScaleId },
+      },
+      {
+        payload: {
+          error: expectedError,
         },
-        {
-          payload: {
-            error: expectedError,
-          },
-          meta: {
-            sizeScaleId: mockScaleId,
-          },
-          type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
+        meta: {
+          sizeScaleId: mockScaleId,
         },
-      ]);
-    });
+        type: actionTypes.FETCH_SIZE_SCALE_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch size scale procedure is successful', async () => {
     (getSizeScale as jest.Mock).mockResolvedValueOnce(mockSizeScale);
-
-    expect.assertions(5);
 
     await fetchSizeScale(mockScaleId)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSizeScale);

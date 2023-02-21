@@ -5,7 +5,7 @@ import {
   isReturnPickupCapabilityFetched,
   isReturnPickupCapabilityLoading,
   resetReturnPickupCapabilityState as resetReturnPickupCapabilityStateAction,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';

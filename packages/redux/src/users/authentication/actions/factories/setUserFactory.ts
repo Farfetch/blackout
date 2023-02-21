@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PutUser,
-  PutUserData,
+  type Config,
+  type PutUser,
+  type PutUserData,
   toBlackoutError,
-  User,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { UpdateUserAction } from '../../types';

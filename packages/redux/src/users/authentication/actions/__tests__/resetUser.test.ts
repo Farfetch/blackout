@@ -13,6 +13,7 @@ describe('resetUser() action creator', () => {
 
   it('should dispatch the correct action when there are no fields to resetUser', () => {
     resetUser()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

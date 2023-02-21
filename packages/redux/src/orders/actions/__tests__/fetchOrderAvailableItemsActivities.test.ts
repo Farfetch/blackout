@@ -30,28 +30,26 @@ describe('fetchOrderAvailableItemsActivities() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchOrderAvailableItemsActivities(orderId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchOrderAvailableItemsActivities(orderId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getOrderAvailableItemsActivities).toHaveBeenCalledTimes(1);
-        expect(getOrderAvailableItemsActivities).toHaveBeenCalledWith(
-          orderId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
-            },
-            {
-              type: actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    expect(getOrderAvailableItemsActivities).toHaveBeenCalledTimes(1);
+    expect(getOrderAvailableItemsActivities).toHaveBeenCalledWith(
+      orderId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 
@@ -59,8 +57,6 @@ describe('fetchOrderAvailableItemsActivities() action creator', () => {
     (getOrderAvailableItemsActivities as jest.Mock).mockResolvedValueOnce(
       mockOrderDocumentsResponse,
     );
-
-    expect.assertions(4);
 
     await fetchOrderAvailableItemsActivities(orderId)(store.dispatch).then(
       clientResult => {

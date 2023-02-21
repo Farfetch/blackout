@@ -51,7 +51,9 @@ const serverInitialState: ServerInitialState = ({ model }) => {
 
   const url = subfolder !== '/' ? slug?.replace(subfolder, '') : slug;
   const { pathname, query } = parse(url, true);
+
   delete query.json;
+
   const metadataHash = `${pathname}${buildQueryStringFromObject(query)}`;
 
   const metadata = {

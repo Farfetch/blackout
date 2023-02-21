@@ -23,7 +23,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `benefits` slice', () => {
-      expect(selectors.getUserBenefitsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserBenefitsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserBenefitsError(mockErrorState)).toBe(dummyError);
     });

@@ -5,6 +5,7 @@ import reducer from '../../reducer';
 
 let store: ReturnType<typeof mockStore>;
 const randomAction = { type: 'this_is_a_random_action' };
+
 describe('resetUserSubscriptions()', () => {
   beforeEach(() => {
     store = mockStore({ subscriptions: reducer(undefined, randomAction) }, {});
@@ -12,6 +13,7 @@ describe('resetUserSubscriptions()', () => {
 
   it('should dispatch the correct action', () => {
     resetUserSubscriptions()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

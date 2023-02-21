@@ -80,7 +80,7 @@ describe('configurations redux reducer', () => {
             entities: { configurations: {} },
           },
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_CONFIGURATIONS_FAILURE action type', () => {
@@ -89,7 +89,7 @@ describe('configurations redux reducer', () => {
           type: actionTypes.FETCH_CONFIGURATIONS_FAILURE,
           payload: { error: '' },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_CONFIGURATIONS_SUCCESS action type', () => {

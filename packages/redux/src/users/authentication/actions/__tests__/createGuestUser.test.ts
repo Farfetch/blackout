@@ -31,25 +31,22 @@ describe('createGuestUser action creator', () => {
     const expectedError = new Error('create guest user error');
 
     (postGuestUser as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createGuestUser(mockParamsData)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postGuestUser).toHaveBeenCalledTimes(1);
-      expect(postGuestUser).toHaveBeenCalledWith(
-        mockParamsData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_GUEST_USER_REQUEST },
-          {
-            type: actionTypes.CREATE_GUEST_USER_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await createGuestUser(mockParamsData)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postGuestUser).toHaveBeenCalledTimes(1);
+    expect(postGuestUser).toHaveBeenCalledWith(mockParamsData, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_GUEST_USER_REQUEST },
+        {
+          type: actionTypes.CREATE_GUEST_USER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create guest user procedure is successful', async () => {

@@ -1,4 +1,5 @@
 import type { AdaptDate } from './types';
+
 /**
  * Checks if the given timestamp has the additional property for the timezone.
  * Example: '1580828400000-0600', where the timezone is after the '-' sign.
@@ -38,6 +39,7 @@ const getTimezoneSeparator = (timestamp: string): { [k: string]: any } => {
       type: 'subtract',
     };
   }
+
   if (indexAdd !== -1) {
     return {
       index: indexAdd,

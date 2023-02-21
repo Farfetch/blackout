@@ -11,4 +11,5 @@ const serverInitialState = (...reducers: any[]) =>
     }),
     {},
   );
+
 export default serverInitialState;

@@ -10,6 +10,7 @@ describe('resetBrandsState() action', () => {
     store = mockStore({ brands: INITIAL_STATE }, {});
 
     resetBrandsState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

@@ -14,8 +14,6 @@ describe('getUserAttributes', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockUserAttributesResponse));
 
-    expect.assertions(2);
-
     await expect(getUserAttributes(userId, query)).resolves.toStrictEqual(
       mockUserAttributesResponse,
     );
@@ -29,7 +27,6 @@ describe('getUserAttributes', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(getUserAttributes(userId, query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/attributes`,

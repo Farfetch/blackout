@@ -15,6 +15,7 @@ describe('resetCheckoutOrderItemTagsState() action creator', () => {
 
   it('should dispatch the correct action for when the reset checkout order item tags state is called', () => {
     resetCheckoutOrderItemTagsState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

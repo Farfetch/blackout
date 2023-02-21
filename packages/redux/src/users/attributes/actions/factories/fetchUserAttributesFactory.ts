@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserAttributes,
-  GetUserAttributesQuery,
+  type Config,
+  type GetUserAttributes,
+  type GetUserAttributesQuery,
   toBlackoutError,
-  UserAttribute,
+  type UserAttribute,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 

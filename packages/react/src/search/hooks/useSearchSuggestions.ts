@@ -7,7 +7,7 @@ import {
   getSearchSuggestionsQuery,
   getSearchSuggestionsResult,
   resetSearchSuggestions,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';

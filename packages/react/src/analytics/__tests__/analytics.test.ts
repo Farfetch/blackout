@@ -1,8 +1,8 @@
 import analytics from '../analytics';
 import AnalyticsCore, {
   TrackTypes as analyticsTrackTypes,
-  ConsentData,
-  IntegrationOptions,
+  type ConsentData,
+  type IntegrationOptions,
   integrations,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
@@ -53,7 +53,7 @@ describe('analytics web', () => {
         {},
       );
 
-      expect(analytics.integration('marketingIntegration')).toBe(null);
+      expect(analytics.integration('marketingIntegration')).toBeNull();
 
       // Allow the integration to run - this will trigger the flow to track the previously stored page() event
       await analytics.setConsent({ marketing: true });
@@ -62,7 +62,7 @@ describe('analytics web', () => {
         'marketingIntegration',
       );
 
-      expect(marketingIntegrationInstance).not.toBe(null);
+      expect(marketingIntegrationInstance).not.toBeNull();
 
       const event = 'myEvent';
       const properties = {};
@@ -75,7 +75,7 @@ describe('analytics web', () => {
         (
           marketingIntegrationInstance as integrations.Integration<IntegrationOptions>
         ).track,
-      ).toBeCalledWith(
+      ).toHaveBeenCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,
           event,
@@ -91,7 +91,7 @@ describe('analytics web', () => {
         {},
       );
 
-      expect(analytics.integration('marketingIntegration')).toBe(null);
+      expect(analytics.integration('marketingIntegration')).toBeNull();
 
       // @ts-expect-error
       const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
@@ -102,7 +102,7 @@ describe('analytics web', () => {
       // This call will be held until the consent is given to the integration
       await analytics.page(event, properties, eventContext);
 
-      expect(coreTrackSpy).toBeCalledWith(
+      expect(coreTrackSpy).toHaveBeenCalledWith(
         analyticsTrackTypes.PAGE,
         event,
         properties,
@@ -116,13 +116,13 @@ describe('analytics web', () => {
         'marketingIntegration',
       );
 
-      expect(marketingIntegrationInstance).not.toBe(null);
+      expect(marketingIntegrationInstance).not.toBeNull();
 
       expect(
         (
           marketingIntegrationInstance as integrations.Integration<IntegrationOptions>
         ).track,
-      ).toBeCalledWith(
+      ).toHaveBeenCalledWith(
         expect.objectContaining({
           type: analyticsTrackTypes.PAGE,
           event,
@@ -141,7 +141,7 @@ describe('analytics web', () => {
 
     await analytics.page(event, properties, eventContext);
 
-    expect(coreTrackSpy).toBeCalledWith(
+    expect(coreTrackSpy).toHaveBeenCalledWith(
       analyticsTrackTypes.PAGE,
       event,
       properties,

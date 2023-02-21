@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DeleteWishlistItem,
+  type Config,
+  type DeleteWishlistItem,
   toBlackoutError,
-  Wishlist,
-  WishlistItem,
+  type Wishlist,
+  type WishlistItem,
 } from '@farfetch/blackout-client';
 import { getWishlistId, getWishlistItem } from '../../selectors';
 import { normalize } from 'normalizr';
@@ -40,6 +40,7 @@ const removeWishlistItemFactory =
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
     let wishlistItem: WishlistItemDenormalized | undefined;
+
     try {
       const state = getState();
       const wishlistId = getWishlistId(state);

@@ -14,7 +14,9 @@ const brandId = 6326412;
 const categoryId = 135967;
 const userId = 135967;
 const wishlistId = '8ea6dba4-ca23-4daa-9f0f-d34ba3d91634';
+
 export const wishlistSetId = '50408d1f-8541-49a6-be2e-64c3c267e237';
+
 const wishlistSetName = 'This is a set';
 const wishlistSetDescription = 'This is a set description';
 

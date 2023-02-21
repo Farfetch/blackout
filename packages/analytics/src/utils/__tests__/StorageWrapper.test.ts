@@ -86,13 +86,16 @@ describe('Storage', () => {
       foo: 'bar',
       ttl,
     });
+
     const now = new Date();
     const twoYearsFromNow = new Date(now.setFullYear(now.getFullYear() + 2));
+
     // @ts-expect-error
     jest.spyOn(global, 'Date').mockImplementation(() => twoYearsFromNow);
 
     // Force the createStorage flow with the same store, to ensure the ttl is updated, as the `new Date()` will return a date two years from now
     await storage.createStorage();
+
     const newTtl = await storage.getItem('ttl');
     const updatedStorage = await storage.getItem();
 
@@ -104,6 +107,7 @@ describe('Storage', () => {
 
   it('Should return an object with the storage if no key is passed via `getItem()`', async () => {
     const value = 'bar';
+
     await storage.setItem('foo', value);
 
     expect(await storage.getItem()).toMatchObject({
@@ -114,6 +118,7 @@ describe('Storage', () => {
 
   it('Should return a value if passed a key', async () => {
     const value = 'bar';
+
     await storage.setItem('foo', value);
 
     expect(await storage.getItem('foo')).toEqual(value);
@@ -145,7 +150,7 @@ describe('Storage', () => {
   it('Should remove an item from the storage', async () => {
     await storage.setItem('foo', 'bar');
 
-    expect(await storage.getItem('foo')).toEqual('bar');
+    expect(await storage.getItem('foo')).toBe('bar');
 
     await storage.removeItem('foo');
 
@@ -159,7 +164,7 @@ describe('Storage', () => {
       testStorageGetItemSpy.mockClear(); // remove the calls made from createStorage()
 
       await storage.getItem();
-      expect(testStorageGetItemSpy).toBeCalledTimes(1);
+      expect(testStorageGetItemSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should call setItem()', async () => {
@@ -168,7 +173,7 @@ describe('Storage', () => {
       testStorageSetItemSpy.mockClear(); // remove the calls made from createStorage()
 
       await storage.setItem('foo', 'bar');
-      expect(testStorageSetItemSpy).toBeCalledTimes(1);
+      expect(testStorageSetItemSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should call removeItem() when calling clear()', async () => {
@@ -177,7 +182,7 @@ describe('Storage', () => {
       testStorageRemoveItemSpy.mockClear(); // remove the calls made from createStorage()
 
       await storage.clear();
-      expect(testStorageRemoveItemSpy).toBeCalledTimes(1);
+      expect(testStorageRemoveItemSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

@@ -38,32 +38,33 @@ describe('updateUserPersonalId() action creator', () => {
     const expectedError = new Error('update user personal id error');
 
     (patchUserPersonalId as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateUserPersonalId(
+    await expect(
+      async () =>
+        await updateUserPersonalId(
+          userId,
+          personalId,
+          data,
+          config,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchUserPersonalId).toHaveBeenCalledTimes(1);
+    expect(patchUserPersonalId).toHaveBeenCalledWith(
       userId,
       personalId,
       data,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchUserPersonalId).toHaveBeenCalledTimes(1);
-      expect(patchUserPersonalId).toHaveBeenCalledWith(
-        userId,
-        personalId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_USER_PERSONAL_ID_REQUEST },
-          {
-            type: actionTypes.UPDATE_USER_PERSONAL_ID_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_USER_PERSONAL_ID_REQUEST },
+        {
+          type: actionTypes.UPDATE_USER_PERSONAL_ID_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update user personal id procedure is successful', async () => {

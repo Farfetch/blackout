@@ -13,9 +13,7 @@ describe('deleteUserContact', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
-
-    await expect(deleteUserContact(userId, contactId)).resolves.toEqual(204);
+    await expect(deleteUserContact(userId, contactId)).resolves.toBe(204);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/contacts/${contactId}`,
       expectedConfig,
@@ -24,8 +22,6 @@ describe('deleteUserContact', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       deleteUserContact(userId, contactId),

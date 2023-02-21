@@ -43,27 +43,27 @@ describe('fetchSharedWishlist()', () => {
 
     (getSharedWishlist as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchSharedWishlist(mockSharedWishlistId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSharedWishlist(mockSharedWishlistId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSharedWishlist).toHaveBeenCalledTimes(1);
-      expect(getSharedWishlist).toHaveBeenCalledWith(
-        mockSharedWishlistId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        { type: actionTypes.FETCH_SHARED_WISHLIST_REQUEST },
-        {
-          type: actionTypes.FETCH_SHARED_WISHLIST_FAILURE,
-          payload: { error: expectedError },
-        },
-      ]);
-    });
+    expect(getSharedWishlist).toHaveBeenCalledTimes(1);
+    expect(getSharedWishlist).toHaveBeenCalledWith(
+      mockSharedWishlistId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.FETCH_SHARED_WISHLIST_REQUEST },
+      {
+        type: actionTypes.FETCH_SHARED_WISHLIST_FAILURE,
+        payload: { error: expectedError },
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch shared wishlist procedure is successful', async () => {

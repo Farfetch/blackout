@@ -26,29 +26,26 @@ describe('removeUserContact() action creator', () => {
     const expectedError = new Error('get user contact error');
 
     (deleteUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await removeUserContact(
+    await expect(
+      async () => await removeUserContact(userId, contactId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deleteUserContact).toHaveBeenCalledTimes(1);
+    expect(deleteUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteUserContact).toHaveBeenCalledTimes(1);
-      expect(deleteUserContact).toHaveBeenCalledWith(
-        userId,
-        contactId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REMOVE_USER_CONTACT_REQUEST },
-          {
-            type: actionTypes.REMOVE_USER_CONTACT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REMOVE_USER_CONTACT_REQUEST },
+        {
+          type: actionTypes.REMOVE_USER_CONTACT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user contact procedure is successful', async () => {

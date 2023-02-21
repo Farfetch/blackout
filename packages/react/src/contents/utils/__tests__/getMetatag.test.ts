@@ -21,6 +21,6 @@ describe('getMetatag', () => {
   it('should return undefined if a specific metatag text if doesn`t exist', () => {
     const metatag = utils.getMetatag('og:title', metadata.metatags);
 
-    expect(metatag).toBe(undefined);
+    expect(metatag).toBeUndefined();
   });
 });

@@ -12,7 +12,6 @@ describe('getCategory()', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockCategory));
-    expect.assertions(2);
 
     await expect(getCategory(mockCategoryId)).resolves.toEqual(mockCategory);
 
@@ -24,7 +23,6 @@ describe('getCategory()', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getCategory(mockCategoryId)).rejects.toMatchSnapshot();
 

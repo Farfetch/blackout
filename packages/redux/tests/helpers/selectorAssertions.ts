@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-export */
+
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { Nullable } from '../../src';
 
@@ -34,7 +36,7 @@ export const assertSubAreasLoadingSelector = (
       ? isSelectorName
       : areSelectorName;
 
-    expect(selectors[selectorName](subAreaState)).toEqual(false);
+    expect(selectors[selectorName](subAreaState)).toBe(false);
   });
 };
 

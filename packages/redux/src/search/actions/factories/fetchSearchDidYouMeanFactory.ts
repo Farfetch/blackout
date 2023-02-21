@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSearchDidYouMean,
-  SearchDidYouMeanQuery,
-  SearchDidYouMeanSuggestion,
+  type Config,
+  type GetSearchDidYouMean,
+  type SearchDidYouMeanQuery,
+  type SearchDidYouMeanSuggestion,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateSearchDidYouMeanHash } from '../../helpers';

@@ -36,22 +36,22 @@ describe('fetchUserTitles() action creator', () => {
     const expectedError = new Error('get user titles error');
 
     (getUserTitles as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserTitles(query)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserTitles).toHaveBeenCalledTimes(1);
-      expect(getUserTitles).toHaveBeenCalledWith(query, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_TITLES_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_TITLES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserTitles(query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserTitles).toHaveBeenCalledTimes(1);
+    expect(getUserTitles).toHaveBeenCalledWith(query, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_TITLES_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_TITLES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user titles procedure is successful', async () => {

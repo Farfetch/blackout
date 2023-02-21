@@ -1,7 +1,7 @@
 /**
  * Contents selectors.
  */
-import { ContentsEntity, getEntityById } from '../entities';
+import { type ContentsEntity, getEntityById } from '../entities';
 import { generateContentHash, generateSEOPathname } from './utils';
 import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
 import type { ContentsState, Hash } from './types';

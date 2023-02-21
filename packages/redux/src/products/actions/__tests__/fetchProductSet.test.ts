@@ -63,8 +63,6 @@ describe('fetchProductSet() action creator', () => {
       entities: mockProductsListForSetsWithIdNormalized.entities,
     });
 
-    expect.assertions(2);
-
     await fetchProductSet(
       mockSetId,
       {},
@@ -83,40 +81,38 @@ describe('fetchProductSet() action creator', () => {
 
     (getProductSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchProductSet(mockSetId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductSet(mockSetId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProductSet).toHaveBeenCalledTimes(1);
-      expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          meta: { hash: mockProductsListHashForSetsWithId },
-          type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+    expect(getProductSet).toHaveBeenCalledTimes(1);
+    expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { hash: mockProductsListHashForSetsWithId },
+        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+      },
+      {
+        meta: { hash: mockProductsListHashForSetsWithId },
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+      },
+      {
+        meta: { hash: mockProductsListHashForSetsWithId },
+        payload: {
+          error: expectedError,
         },
-        {
-          meta: { hash: mockProductsListHashForSetsWithId },
-          type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
-        },
-        {
-          meta: { hash: mockProductsListHashForSetsWithId },
-          payload: {
-            error: expectedError,
-          },
-          type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
-        },
-      ]);
-    });
+        type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch set procedure is successful', async () => {
     (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
-
-    expect.assertions(5);
 
     await fetchProductSet(mockSetId)(
       store.dispatch,
@@ -149,8 +145,6 @@ describe('fetchProductSet() action creator', () => {
   it('should create the correct actions for when the fetch set procedure is successful without receiving options', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
     (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
-
-    expect.assertions(5);
 
     await fetchProductSet(mockSetId)(
       store.dispatch,
@@ -195,8 +189,6 @@ describe('fetchProductSet() action creator', () => {
     });
 
     (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
-
-    expect.assertions(5);
 
     await fetchProductSet(mockSetId)(
       store.dispatch,
@@ -248,8 +240,6 @@ describe('fetchProductSet() action creator', () => {
       expect(clientResult).toBeUndefined();
     });
 
-    expect.assertions(4);
-
     expect(normalizeSpy).not.toHaveBeenCalled();
     expect(getProductSet).not.toHaveBeenCalled();
     expect(store.getActions()).toEqual([
@@ -271,8 +261,6 @@ describe('fetchProductSet() action creator', () => {
       entities: { ...mockProductsListForSetsWithIdNormalized.entities },
     });
 
-    expect.assertions(4);
-
     await fetchProductSet(mockSetId, {}, { useCache: true })(
       store.dispatch,
       store.getState as () => StoreState,
@@ -293,8 +281,6 @@ describe('fetchProductSet() action creator', () => {
 
   it('should create the correct actions for a successful request without setting the list', async () => {
     (getProductSet as jest.Mock).mockResolvedValueOnce(mockSet);
-
-    expect.assertions(5);
 
     await fetchProductSet(
       mockSetId,

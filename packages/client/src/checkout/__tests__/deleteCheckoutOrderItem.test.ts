@@ -19,14 +19,13 @@ describe('checkout client', () => {
 
       await expect(
         deleteCheckoutOrderItem(checkoutOrderId, itemId),
-      ).resolves.toEqual(200);
-      expect(getSpy).toBeCalledWith(expectedUrl, expectedConfig);
+      ).resolves.toBe(200);
+      expect(getSpy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
 
-      expect.assertions(2);
       await expect(
         deleteCheckoutOrderItem(checkoutOrderId, itemId),
       ).rejects.toMatchSnapshot();

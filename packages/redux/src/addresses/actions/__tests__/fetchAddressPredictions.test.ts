@@ -27,29 +27,26 @@ describe('fetchAddressPredictions() action creator', () => {
     const expectedError = new Error('get address predictions error');
 
     (getAddressPredictions as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    fetchAddressPredictions(
+    await expect(
+      async () => await fetchAddressPredictions('street', {})(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getAddressPredictions).toHaveBeenCalledTimes(1);
+    expect(getAddressPredictions).toHaveBeenCalledWith(
       'street',
       {},
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getAddressPredictions).toHaveBeenCalledTimes(1);
-      expect(getAddressPredictions).toHaveBeenCalledWith(
-        'street',
-        {},
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST },
-          {
-            type: actionTypes.FETCH_ADDRESS_PREDICTIONS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_ADDRESS_PREDICTIONS_REQUEST },
+        {
+          type: actionTypes.FETCH_ADDRESS_PREDICTIONS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get address predictions procedure is successful', async () => {
@@ -63,6 +60,7 @@ describe('fetchAddressPredictions() action creator', () => {
     )(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockAddressPredictionsResponse);
     });
+
     const actionResults = store.getActions();
 
     expect(getAddressPredictions).toHaveBeenCalledTimes(1);

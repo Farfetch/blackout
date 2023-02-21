@@ -1,8 +1,8 @@
 import {
-  BlackoutError,
+  type BlackoutError,
   getUserReturns,
-  User,
-  UserReturns,
+  type User,
+  type UserReturns,
 } from '@farfetch/blackout-client';
 import { buildQueryStringFromObject } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
@@ -155,6 +155,7 @@ function useReturns(options: UseReturnsOptions = {}) {
     if (!userId) {
       return Promise.reject(new Error('No userId provided'));
     }
+
     const requestId = currentRequestId.current++;
     const actionMetadata = { userId, requestId, queryHash };
 
@@ -170,6 +171,7 @@ function useReturns(options: UseReturnsOptions = {}) {
           meta: actionMetadata,
           payload: userReturns,
         });
+
         return userReturns;
       },
       e => {
@@ -180,8 +182,9 @@ function useReturns(options: UseReturnsOptions = {}) {
         });
       },
     );
+
     return result;
-  }, [userId, fetchQuery, fetchConfig]);
+  }, [userId, queryHash, fetchQuery, fetchConfig]);
 
   useEffect(() => {
     if (

@@ -6,7 +6,7 @@ import {
 } from 'tests/__fixtures__/users';
 import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../../tests';
-import { putUser, PutUserData } from '@farfetch/blackout-client';
+import { putUser, type PutUserData } from '@farfetch/blackout-client';
 import { setUser } from '..';
 import find from 'lodash/find';
 
@@ -35,25 +35,22 @@ describe('setUser action creator', () => {
     const expectedError = new Error('update user error');
 
     (putUser as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await setUser(
-      userId,
-      {} as PutUserData,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUser).toHaveBeenCalledTimes(1);
-      expect(putUser).toHaveBeenCalledWith(userId, {}, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_USER_REQUEST },
-          {
-            type: actionTypes.UPDATE_USER_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await setUser(userId, {} as PutUserData)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUser).toHaveBeenCalledTimes(1);
+    expect(putUser).toHaveBeenCalledWith(userId, {}, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_USER_REQUEST },
+        {
+          type: actionTypes.UPDATE_USER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set user procedure is successful', async () => {

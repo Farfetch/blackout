@@ -15,6 +15,7 @@ const imageArrToObj = (array: Array<Assets>) => {
 
   return array.reduce((obj, item) => {
     obj[item.size] = item.source;
+
     return obj;
   }, {} as Record<string, string>);
 };

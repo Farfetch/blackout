@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PaymentIntent,
-  PostPaymentIntentInstrument,
-  PostPaymentIntentInstrumentData,
-  PostPaymentIntentInstrumentResponse,
+  type Config,
+  type PaymentIntent,
+  type PostPaymentIntentInstrument,
+  type PostPaymentIntentInstrumentData,
+  type PostPaymentIntentInstrumentResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { CreatePaymentIntentInstrumentAction } from '../../types';

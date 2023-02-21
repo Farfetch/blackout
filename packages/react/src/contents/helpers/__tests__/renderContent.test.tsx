@@ -1,7 +1,7 @@
 import { cleanup, render } from '@testing-library/react';
 import { mockLegacyData } from 'tests/__fixtures__/contents';
 import { registerComponent } from '../..';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import renderContent from '../renderContent';
 
 const MockTextComponent = (): ReactElement => {

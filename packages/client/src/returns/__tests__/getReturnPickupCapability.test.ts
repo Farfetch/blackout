@@ -17,7 +17,6 @@ describe('getReturnPickupCapability', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(
       getReturnPickupCapability(id, pickupDay),
     ).resolves.toStrictEqual(response);
@@ -30,7 +29,6 @@ describe('getReturnPickupCapability', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       getReturnPickupCapability(id, pickupDay),
     ).rejects.toMatchSnapshot();

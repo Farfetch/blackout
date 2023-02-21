@@ -1,4 +1,4 @@
-import { BlackoutError, ContentPageType } from '@farfetch/blackout-client';
+import { type BlackoutError, ContentPageType } from '@farfetch/blackout-client';
 import { generateContentHash } from '@farfetch/blackout-redux';
 
 export const contentPagesType = ContentPageType.Listing;

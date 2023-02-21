@@ -1,3 +1,8 @@
+// These disables are needed as this file is included by the lint config
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable jest/no-conditional-expect */
+/* eslint-disable jest/no-export */
+
 import { getInitialState } from '..';
 import type { AnyAction } from 'redux';
 
@@ -41,6 +46,7 @@ const assertPreviousState = (
 ) => {
   it('should handle other actions by returning the previous state', () => {
     const state: Record<string, unknown> = {};
+
     state[prop] = 'foo';
 
     expect(reducer(state)[prop]).toBe(state[prop]);
@@ -66,6 +72,7 @@ const assertActionTypes = (
 ) => {
   it.each(actionTypes)('should handle %s action type', actionType => {
     const payload: Record<string, unknown> = {};
+
     payload[prop] = 'foo';
 
     expect(
@@ -190,6 +197,7 @@ const assertGetter = (
 ) => {
   it(`should return the ${prop} property from a given state`, () => {
     const result: Record<string, unknown> = {};
+
     result[prop] = 'foo';
 
     switch (prop) {

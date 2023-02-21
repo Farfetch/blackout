@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  Config,
-  DeliveryBundle,
-  PatchCheckoutOrderDeliveryBundleUpgrades,
-  PatchCheckoutOrderDeliveryBundleUpgradesData,
+  type CheckoutOrder,
+  type Config,
+  type DeliveryBundle,
+  type PatchCheckoutOrderDeliveryBundleUpgrades,
+  type PatchCheckoutOrderDeliveryBundleUpgradesData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -38,6 +38,7 @@ const updateCheckoutOrderDeliveryBundleUpgradesFactory =
         data,
         config,
       );
+
       dispatch({
         type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
       });

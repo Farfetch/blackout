@@ -32,22 +32,22 @@ describe('fetchPrograms() action creator', () => {
     const expectedError = new Error('fetch programs error');
 
     (getPrograms as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchPrograms()(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getPrograms).toHaveBeenCalledTimes(1);
-      expect(getPrograms).toHaveBeenCalledWith(expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_PROGRAMS_REQUEST },
-          {
-            type: actionTypes.FETCH_PROGRAMS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchPrograms()(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getPrograms).toHaveBeenCalledTimes(1);
+    expect(getPrograms).toHaveBeenCalledWith(expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_PROGRAMS_REQUEST },
+        {
+          type: actionTypes.FETCH_PROGRAMS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch programs procedure is successful', async () => {

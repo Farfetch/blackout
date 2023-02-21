@@ -31,37 +31,33 @@ describe('fetchRecommendedSet() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchRecommendedSet(mockRecommendedSetId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchRecommendedSet(mockRecommendedSetId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
-        expect(getProductRecommendedSet).toHaveBeenCalledWith(
-          mockRecommendedSetId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: { recommendedSetId: mockRecommendedSetId },
-            type: productsActionTypes.FETCH_RECOMMENDED_SET_REQUEST,
-          },
-          {
-            meta: { recommendedSetId: mockRecommendedSetId },
-            payload: { error: expectedError },
-            type: productsActionTypes.FETCH_RECOMMENDED_SET_FAILURE,
-          },
-        ]);
-      },
+    expect(getProductRecommendedSet).toHaveBeenCalledTimes(1);
+    expect(getProductRecommendedSet).toHaveBeenCalledWith(
+      mockRecommendedSetId,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { recommendedSetId: mockRecommendedSetId },
+        type: productsActionTypes.FETCH_RECOMMENDED_SET_REQUEST,
+      },
+      {
+        meta: { recommendedSetId: mockRecommendedSetId },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_RECOMMENDED_SET_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch recommended set procedure is successful', async () => {
     (getProductRecommendedSet as jest.Mock).mockResolvedValueOnce(
       mockRecommendedSet,
     );
-
-    expect.assertions(4);
 
     await fetchRecommendedSet(mockRecommendedSetId)(store.dispatch).then(
       clientResult => {

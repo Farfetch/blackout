@@ -5,6 +5,7 @@ import getRaffles from '../getRaffles';
 import mswServer from '../../../tests/mswServer';
 
 const expectedConfig = undefined;
+
 beforeEach(jest.clearAllMocks);
 
 describe('getRaffles', () => {

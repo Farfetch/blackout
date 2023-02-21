@@ -1,5 +1,5 @@
 import { mockProductId } from 'tests/__fixtures__/products';
-import { productsActionTypes, ProductsFittingsState } from '../..';
+import { productsActionTypes, type ProductsFittingsState } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { getError, getIsLoading, INITIAL_STATE } from '../fittings';
 
@@ -49,6 +49,7 @@ describe('fittings redux reducer', () => {
         error: { [mockProductId]: toBlackoutError(new Error(error)) },
         isLoading: { [mockProductId]: false },
       };
+
       expect(reducer(state, mockAction).error).toEqual(state.error);
     });
   });

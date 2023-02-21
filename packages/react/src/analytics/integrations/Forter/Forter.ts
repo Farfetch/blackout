@@ -1,9 +1,9 @@
 import { ForterTokenLoadedAnalyticsEvent, ForterTokenTid } from './constants';
 import {
   integrations,
-  LoadIntegrationEventData,
-  SetUserEventData,
-  StrippedDownAnalytics,
+  type LoadIntegrationEventData,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
   TrackTypes,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -30,6 +30,7 @@ class Forter extends integrations.Integration<ForterIntegrationOptions> {
     analytics: StrippedDownAnalytics,
   ) {
     const safeOptions = defaultTo({ ...options }, { siteId: '' });
+
     super(safeOptions, loadData, analytics);
 
     if (!safeOptions.siteId) {
@@ -114,8 +115,10 @@ class Forter extends integrations.Integration<ForterIntegrationOptions> {
           error,
         );
       }
+
       return;
     }
+
     await postTracking({ ...omnitrackingMessage });
   }
 

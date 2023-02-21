@@ -15,15 +15,15 @@
 import {
   PageTypes as analyticsPageTypes,
   TrackTypes as analyticsTrackTypes,
-  EventData,
+  type EventData,
   integrations,
-  LoadIntegrationEventData,
-  PageviewEventData,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackEventData,
+  type LoadIntegrationEventData,
+  type PageviewEventData,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackEventData,
   TrackTypes,
-  TrackTypesValues,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import {
@@ -158,7 +158,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @param data - Event data provided by analytics.
    */
-  async trackPage(data: PageviewEventData) {
+  trackPage(data: PageviewEventData) {
     if (!window.gtag) {
       throw new Error(
         `${MESSAGE_PREFIX}Event track failed: GA4 is not loaded.`,
@@ -252,7 +252,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    *
    * @param data - Event data provided by analytics.
    */
-  async trackEvent(data: TrackEventData) {
+  trackEvent(data: TrackEventData) {
     if (!window.gtag) {
       throw new Error(
         `${MESSAGE_PREFIX}Event track failed: GA4 is not loaded.`,
@@ -281,6 +281,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       utils.logger.error(
         `${MESSAGE_PREFIX}Track event failed. Reason: ${validationResult.errorMessage}`,
       );
+
       return false;
     }
 
@@ -438,6 +439,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
           if (!ga4Command[eventPropertiesIndex]) {
             ga4Command[eventPropertiesIndex] = {};
           }
+
           const eventProperties = ga4Command[eventPropertiesIndex] as Record<
             string,
             unknown
@@ -699,6 +701,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     ) {
       try {
         const tempCustomLoadScriptFn = this.customLoadScriptFn();
+
         if (tempCustomLoadScriptFn instanceof Promise) {
           this.initializePromise = tempCustomLoadScriptFn.then(
             this.scriptOnload,
@@ -725,6 +728,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       : DEFAULT_DATA_LAYER_NAME;
     const debugMode = options[OPTION_DEBUG_MODE] || false;
     const script = document.createElement('script');
+
     script.setAttribute(
       'src',
       `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}&l=${customDataLayerAttr}`,
@@ -733,7 +737,9 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     document.head.appendChild(script);
 
     const s = document.createElement('script');
+
     s.type = 'text/javascript';
+
     const code =
       `    window.${customDataLayerAttr} = window.${customDataLayerAttr} || [];\n` +
       `    function gtag(){${customDataLayerAttr}.push(arguments);}\n` +

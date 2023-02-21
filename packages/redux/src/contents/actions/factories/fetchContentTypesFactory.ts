@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  ContentType,
-  ContentTypes,
-  GetContentTypes,
+  type Config,
+  type ContentType,
+  type ContentTypes,
+  type GetContentTypes,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

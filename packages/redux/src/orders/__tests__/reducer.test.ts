@@ -69,6 +69,7 @@ describe('orders reducer', () => {
         ...initialState,
         error: toBlackoutError(new Error('error')),
       };
+
       expect(
         reducer(state, {
           type: actionType,
@@ -84,6 +85,7 @@ describe('orders reducer', () => {
       actionTypes.FETCH_GUEST_ORDERS_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
+
       expect(
         reducer(undefined, {
           payload: { error },
@@ -169,7 +171,7 @@ describe('orders reducer', () => {
       const state = reducer(undefined, randomAction).result;
 
       expect(state).toBe(initialState.result);
-      expect(state).toBe(null);
+      expect(state).toBeNull();
     });
 
     it('should update the result when `FETCH_USER_ORDERS_SUCCESS` is dispatched', () => {
@@ -491,6 +493,7 @@ describe('orders reducer', () => {
   describe('entitiesMapper()', () => {
     describe('for FETCH_USER_ORDERS_SUCCESS', () => {
       const state = mockState.entities;
+
       it('should handle FETCH_USER_ORDERS_SUCCESS action type', () => {
         const expectedEntitiesState = merge(
           {},
@@ -645,6 +648,7 @@ describe('orders reducer', () => {
           returnItems: undefined,
         },
       );
+
       delete state.orders[orderId].byMerchant[merchantId]?.returns;
       delete state.orders[orderId].byMerchant[merchantId2]?.returns;
       delete state.orders[orderId].returns;
@@ -719,6 +723,7 @@ describe('orders reducer', () => {
 
         it('should delete all order returnOptions properties and its entities when payload is either undefined, null or empty', () => {
           const expectedResult = merge({}, state);
+
           expectedResult.returnOptions = {};
 
           delete expectedResult.orders?.[orderId]?.returnOptions;
@@ -768,6 +773,7 @@ describe('orders reducer', () => {
           const expectedResult = merge({}, state);
           const returnOptionIdOrder1 = `${orderId}_${returnOptionId}`;
           const returnOptionIdOrder2 = `${orderId}_${returnOptionId2}`;
+
           delete expectedResult.returnOptions?.[returnOptionIdOrder1];
           delete expectedResult.returnOptions?.[returnOptionIdOrder2];
 
@@ -824,6 +830,7 @@ describe('orders reducer', () => {
 
         it('should delete all order returns properties and its entities when payload is either undefined, null or empty', () => {
           const expectedResult = merge({}, state);
+
           expectedResult.returns = {};
 
           delete expectedResult.orders?.[orderId]?.returns;
@@ -862,6 +869,7 @@ describe('orders reducer', () => {
 
         it('should delete the order returns properties and its entities for the orders passed on the payload', () => {
           const expectedResult = merge({}, state);
+
           delete expectedResult.returns?.[returnId];
           delete expectedResult.returns?.[returnId2];
 
@@ -945,6 +953,7 @@ describe('orders reducer', () => {
       subArea => {
         const { [`get${subArea}` as keyof typeof subAreas]: reducerSelector } =
           fromReducer;
+
         expect(reducerSelector(subAreas, randomAction)).toEqual(subAreaResult);
       },
     );

@@ -1,6 +1,7 @@
 import type { StoreState } from '../../types';
 
 type StateEntities = NonNullable<StoreState['entities']>;
+
 type SchemaName = keyof StateEntities;
 
 type StoreStateWithEntitiesSet = Omit<NonNullable<StoreState>, 'entities'> & {
@@ -24,6 +25,7 @@ function throwError(): never {
       'You need to add an `entities` reducer to the top level of your state tree.',
     ].join('\n'),
   );
+
   error.name = 'Invariant Violation';
 
   throw error;

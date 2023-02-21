@@ -48,19 +48,19 @@ describe('fetchRecentlyViewedProducts() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchRecentlyViewedProducts(query)(
+          store.dispatch,
+          store.getState as () => StoreState,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchRecentlyViewedProducts(query)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getRecentlyViewedProducts).toHaveBeenCalledTimes(1);
-      expect(getRecentlyViewedProducts).toHaveBeenCalledWith(
-        query,
-        expectedConfig,
-      );
-    });
+    expect(getRecentlyViewedProducts).toHaveBeenCalledTimes(1);
+    expect(getRecentlyViewedProducts).toHaveBeenCalledWith(
+      query,
+      expectedConfig,
+    );
 
     expect(store.getActions()).toEqual(
       expect.arrayContaining([

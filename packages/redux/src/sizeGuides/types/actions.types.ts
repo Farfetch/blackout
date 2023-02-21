@@ -10,11 +10,13 @@ interface FetchSizeGuidesRequestAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_GUIDES_REQUEST;
   meta: { query?: SizeGuidesQuery };
 }
+
 interface FetchSizeGuidesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_GUIDES_SUCCESS;
   payload: { result: SizeGuide[] | null };
   meta: { query?: SizeGuidesQuery };
 }
+
 interface FetchSizeGuidesFailureAction extends Action {
   type: typeof actionTypes.FETCH_SIZE_GUIDES_FAILURE;
   payload: { error: BlackoutError };

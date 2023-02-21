@@ -43,37 +43,32 @@ describe('fetchProductSizes() action creator', () => {
 
     (getProductSizes as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchProductSizes(mockProductId, mockQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductSizes(
+    expect(getProductSizes).toHaveBeenCalledTimes(1);
+    expect(getProductSizes).toHaveBeenCalledWith(
       mockProductId,
       mockQuery,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProductSizes).toHaveBeenCalledTimes(1);
-      expect(getProductSizes).toHaveBeenCalledWith(
-        mockProductId,
-        mockQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { productId: mockProductId },
-          type: productsActionTypes.FETCH_PRODUCT_SIZES_REQUEST,
-        },
-        {
-          meta: { productId: mockProductId },
-          payload: { error: expectedError },
-          type: productsActionTypes.FETCH_PRODUCT_SIZES_FAILURE,
-        },
-      ]);
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        type: productsActionTypes.FETCH_PRODUCT_SIZES_REQUEST,
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_PRODUCT_SIZES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch product sizes procedure is successful', async () => {
     (getProductSizes as jest.Mock).mockResolvedValueOnce(mockProductSizes);
-
-    expect.assertions(5);
 
     await fetchProductSizes(
       mockProductId,

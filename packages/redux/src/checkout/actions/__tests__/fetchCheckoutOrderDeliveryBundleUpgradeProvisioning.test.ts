@@ -39,37 +39,38 @@ describe('fetchCheckoutOrderDeliveryBundleUpgradeProvisioning() action creator',
     (
       getCheckoutOrderDeliveryBundleUpgradeProvisioning as jest.Mock
     ).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCheckoutOrderDeliveryBundleUpgradeProvisioning(
+    await expect(
+      async () =>
+        await fetchCheckoutOrderDeliveryBundleUpgradeProvisioning(
+          checkoutId,
+          deliveryBundleId,
+          upgradeId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(
+      getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+    ).toHaveBeenCalledTimes(1);
+    expect(
+      getCheckoutOrderDeliveryBundleUpgradeProvisioning,
+    ).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
       upgradeId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(
-        getCheckoutOrderDeliveryBundleUpgradeProvisioning,
-      ).toHaveBeenCalledTimes(1);
-      expect(
-        getCheckoutOrderDeliveryBundleUpgradeProvisioning,
-      ).toHaveBeenCalledWith(
-        checkoutId,
-        deliveryBundleId,
-        upgradeId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch checkout order delivery bundle upgrade provisioning procedure is successful', async () => {
@@ -87,7 +88,6 @@ describe('fetchCheckoutOrderDeliveryBundleUpgradeProvisioning() action creator',
 
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(
       getCheckoutOrderDeliveryBundleUpgradeProvisioning,

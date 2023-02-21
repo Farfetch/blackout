@@ -35,6 +35,7 @@ const getRenderedHook = (state = mockWishlistState) => {
 
 describe('useWishlistSet', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {

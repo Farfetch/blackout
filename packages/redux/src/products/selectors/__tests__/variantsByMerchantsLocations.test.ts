@@ -31,6 +31,7 @@ describe('Merchants Locations', () => {
           },
         },
       };
+
       expect(
         selectors.getProductVariantsByMerchantsLocations(
           state,

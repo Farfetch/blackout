@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetProgramMembershipStatements,
-  GetProgramMembershipStatementsQuery,
-  Program,
-  ProgramMembership,
-  ProgramMembershipStatement,
+  type Config,
+  type GetProgramMembershipStatements,
+  type GetProgramMembershipStatementsQuery,
+  type Program,
+  type ProgramMembership,
+  type ProgramMembershipStatement,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

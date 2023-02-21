@@ -57,7 +57,7 @@ describe('Size scales', () => {
       expect(selectors.areSizeScalesLoading(mockState)).toEqual(
         mockState.sizeScales.isLoading,
       );
-      expect(spy).toBeCalledWith(mockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(mockState.sizeScales);
     });
   });
 
@@ -68,7 +68,7 @@ describe('Size scales', () => {
       expect(selectors.isSizeScaleLoading(mockState, mockScaleId)).toEqual(
         mockState.sizeScales.sizeScale.isLoading[mockScaleId],
       );
-      expect(spy).toBeCalledWith(mockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(mockState.sizeScales);
     });
 
     it('Should return the loading status of the size scale by query', () => {
@@ -81,7 +81,7 @@ describe('Size scales', () => {
           `categoryId_${mockCategoryId}`
         ],
       );
-      expect(spy).toBeCalledWith(mockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(mockState.sizeScales);
     });
   });
 
@@ -90,7 +90,7 @@ describe('Size scales', () => {
       const spy = jest.spyOn(fromReducer, 'getError');
 
       expect(selectors.getSizeScalesError(newMockState)).toEqual(error);
-      expect(spy).toBeCalledWith(newMockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(newMockState.sizeScales);
     });
   });
 
@@ -101,7 +101,7 @@ describe('Size scales', () => {
       expect(selectors.getSizeScaleError(newMockState, mockScaleId)).toEqual(
         error,
       );
-      expect(spy).toBeCalledWith(newMockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(newMockState.sizeScales);
     });
 
     it('should get the sizescale error property of a size scale by query', () => {
@@ -123,7 +123,7 @@ describe('Size scales', () => {
           categoryId: mockCategoryId,
         }),
       ).toEqual(error);
-      expect(spy).toBeCalledWith(newMockState.sizeScales);
+      expect(spy).toHaveBeenCalledWith(newMockState.sizeScales);
     });
   });
 

@@ -15,7 +15,6 @@ describe('patchReturn', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(patchReturn(id, mockPatchData)).resolves.toStrictEqual(
       response,
     );
@@ -29,7 +28,6 @@ describe('patchReturn', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(patchReturn(id, mockPatchData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/returns/${id}`,

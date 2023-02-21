@@ -30,25 +30,25 @@ describe('createClientCredentialsToken() action creator', () => {
 
   it('should create the correct actions for when the create client credentials token procedure fails', async () => {
     (postToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await createClientCredentialsToken()(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postToken).toHaveBeenCalledTimes(1);
-      expect(postToken).toHaveBeenCalledWith(
-        { grantType: 'client_credentials' },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST },
-          {
-            type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await createClientCredentialsToken()(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postToken).toHaveBeenCalledTimes(1);
+    expect(postToken).toHaveBeenCalledWith(
+      { grantType: 'client_credentials' },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST },
+        {
+          type: actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create client credentials token procedure is successful', async () => {

@@ -33,35 +33,36 @@ describe('fetchFormSchema() action creator', () => {
 
     (getFormSchema as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchFormSchema(
+          formSchemaResponse.code,
+          getFormSchemasQuery,
+          expectedConfig,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchFormSchema(
+    expect(getFormSchema).toHaveBeenCalledTimes(1);
+    expect(getFormSchema).toHaveBeenCalledWith(
       formSchemaResponse.code,
       getFormSchemasQuery,
       expectedConfig,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getFormSchema).toHaveBeenCalledTimes(1);
-      expect(getFormSchema).toHaveBeenCalledWith(
-        formSchemaResponse.code,
-        getFormSchemasQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            type: formsActionTypes.FETCH_FORM_SCHEMA_FAILURE,
-            meta: { schemaCode: formSchemaResponse.code },
-          }),
-        ]),
-      );
-    });
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: formsActionTypes.FETCH_FORM_SCHEMA_FAILURE,
+          meta: { schemaCode: formSchemaResponse.code },
+        }),
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch form schemas procedure is successful', async () => {
     const mockResult = {
       foo: 'bar',
     };
+
     (getFormSchema as jest.Mock).mockResolvedValueOnce(mockResult);
 
     await fetchFormSchema(

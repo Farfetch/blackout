@@ -57,12 +57,14 @@ describe('addresses reducers', () => {
         addressesList,
         'isCurrentShipping',
       );
+
       expect(resultDefaultShippingAddress).toEqual(defaultShippingAddress);
 
       const resultDefaultBillingAddress = fromReducer.getDefaultAddress(
         addressesList,
         'isCurrentBilling',
       );
+
       expect(resultDefaultBillingAddress).toEqual(defaultBillingAddress);
     });
   });
@@ -508,6 +510,7 @@ describe('addresses reducers', () => {
             },
           },
         };
+
         expect(
           entitiesMapper[actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS](
             state,

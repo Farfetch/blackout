@@ -1,7 +1,7 @@
 import {
-  EventData,
+  type EventData,
   EventTypes,
-  TrackTypes,
+  type TrackTypes,
 } from '@farfetch/blackout-analytics';
 import addressInfoAddedTrackData from './addressInfoAddedTrackData.fixtures';
 import checkoutAbandonedTrackData from './checkoutAbandonedTrackData.fixtures';

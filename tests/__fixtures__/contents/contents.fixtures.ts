@@ -1,8 +1,11 @@
 import {
-  ContentListComponent,
+  type ContentListComponent,
   SortContentOption,
 } from '@farfetch/blackout-react';
-import { ContentsEntity, generateContentHash } from '@farfetch/blackout-redux';
+import {
+  type ContentsEntity,
+  generateContentHash,
+} from '@farfetch/blackout-redux';
 import type { ContentEntry } from '@farfetch/blackout-client';
 
 export const contentPublicationId = '1fa65fb0-49bf-43b3-902e-78d104f160a3';

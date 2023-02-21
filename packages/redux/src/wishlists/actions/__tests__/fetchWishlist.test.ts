@@ -44,30 +44,28 @@ describe('fetchWishlist()', () => {
 
     (getWishlist as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchWishlist(mockWishlistId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchWishlist(mockWishlistId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getWishlist).toHaveBeenCalledTimes(1);
-      expect(getWishlist).toHaveBeenCalledWith(mockWishlistId, expectedConfig);
-      expect(store.getActions()).toEqual([
-        { type: actionTypes.FETCH_WISHLIST_REQUEST },
-        {
-          type: actionTypes.FETCH_WISHLIST_FAILURE,
-          payload: { error: expectedError },
-        },
-      ]);
-    });
+    expect(getWishlist).toHaveBeenCalledTimes(1);
+    expect(getWishlist).toHaveBeenCalledWith(mockWishlistId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.FETCH_WISHLIST_REQUEST },
+      {
+        type: actionTypes.FETCH_WISHLIST_FAILURE,
+        payload: { error: expectedError },
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch wishlist procedure is successful', async () => {
     (getWishlist as jest.Mock).mockResolvedValueOnce(mockWishlistsResponse);
-
-    expect.assertions(7);
 
     await fetchWishlist(mockWishlistId)(
       store.dispatch,
@@ -105,8 +103,6 @@ describe('fetchWishlist()', () => {
   it('should create the correct actions for when the fetch wishlist procedure is successful without `getOptions`', async () => {
     store = wishlistMockStoreWithoutMiddlewares();
     (getWishlist as jest.Mock).mockResolvedValueOnce(mockWishlistsResponse);
-
-    expect.assertions(5);
 
     await fetchWishlist(mockWishlistId)(
       store.dispatch,

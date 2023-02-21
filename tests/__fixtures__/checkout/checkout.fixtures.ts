@@ -1,11 +1,11 @@
 import {
   adaptAttributes,
   adaptPrice,
-  PriceAdapted,
+  type PriceAdapted,
 } from '@farfetch/blackout-redux/src/helpers/adapters';
 import {
-  BlackoutError,
-  Category,
+  type BlackoutError,
+  type Category,
   ChargeStatus,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
@@ -15,10 +15,10 @@ import {
   DeliveryWindowType,
   GenderCode,
   OrderStatusError,
-  PatchCheckoutOrderItemsData,
+  type PatchCheckoutOrderItemsData,
   ShippingCostType,
   ShippingMode,
-  UserAddress,
+  type UserAddress,
   UserGender,
   UserStatus,
 } from '@farfetch/blackout-client';
@@ -43,8 +43,11 @@ export const itemId1 = 0;
 export const itemId2 = 1;
 export const deliveryBundleUpgradeId_1 = '111';
 export const deliveryBundleUpgradeId_2 = '222';
+
 const merchantId = 10658;
+
 export const productId = 12640693;
+
 const brandId = 121212;
 
 const address: UserAddress = {
