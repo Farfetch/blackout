@@ -17,7 +17,6 @@ import {
   OrderSummaries,
   ProductType,
   ReturnItemStatus,
-  ReturnOption,
   ReturnOptionType,
   ReturnReferenceName,
   ReturnStatus,
@@ -44,8 +43,6 @@ export const orderId2 = 'QUJ9AC';
 export const orderItemId = 10070161;
 export const orderItemId2 = 10070162;
 export const orderItemId3 = 10070163;
-export const returnOptionId = '10537_CourierPickUp';
-export const returnOptionId2 = '10538_InStore';
 export const trackingNumber = '4538009162';
 export const trackingNumber2 = '4538009163';
 export const userId = 29556478;
@@ -385,7 +382,7 @@ export const mockOrderItem = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode,
   productSummary: {
     productId: '12091686',
     description: 'stud sandal',
@@ -571,7 +568,7 @@ export const mockOrderItem2 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode2,
   productSummary: {
     productId: '12511241',
     description: 'wide leg pant',
@@ -732,7 +729,7 @@ export const mockOrderItem3 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
-  merchantOrderCode: 'PZ1132281368',
+  merchantOrderCode: merchantOrderCode3,
   productSummary: {
     productId: '12511241',
     description: 'beach sheet',
@@ -1705,7 +1702,7 @@ export const mockGuestOrderResponse = mockOrderDetailsResponse;
 export const mockOrderReturnOptionsResponse = [
   {
     merchantId,
-    merchantOrderId: 100001340,
+    merchantOrderId,
     options: [
       {
         type: ReturnOptionType.CourierPickUp,
@@ -1730,8 +1727,8 @@ export const mockOrderReturnOptionsResponse = [
     ],
   },
   {
-    merchantId: 10538,
-    merchantOrderId: 100001339,
+    merchantId: merchantId2,
+    merchantOrderId: merchantOrderId2,
     options: [
       {
         type: ReturnOptionType.InStore,
@@ -2138,7 +2135,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode,
           productSummary: {
             productId: '12091686',
             description: 'stud sandal',
@@ -2259,7 +2256,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode2,
           productSummary: {
             productId: '12511241',
             description: 'wide leg pant',
@@ -2364,7 +2361,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
-          merchantOrderCode: 'PZ1132281368',
+          merchantOrderCode: merchantOrderCode3,
           productSummary: {
             productId: '12511241',
             description: 'beach sheet',
@@ -2544,71 +2541,62 @@ export const getExpectedOrderDetailsNormalizedPayload = (
 
 export const expectedOrderReturnOptionsNormalizedPayload = {
   entities: {
-    merchants: {
-      [merchantId]: { id: merchantId, name: undefined },
-      [merchantId2]: { id: merchantId2, name: undefined },
-    },
     returnOptions: {
-      [returnOptionId]: {
-        allowedCountries: [
+      [merchantOrderId]: {
+        options: [
           {
-            alpha2Code: 'PT',
-            alpha3Code: 'PRT',
-            continentId: 3,
-            culture: 'pt-PT',
-            id: countryId,
-            name: 'Portugal',
-            nativeName: 'Portugal',
-            region: 'Europe',
-            subRegion: '',
+            allowedCountries: [
+              {
+                alpha2Code: 'PT',
+                alpha3Code: 'PRT',
+                continentId: 3,
+                culture: 'pt-PT',
+                id: countryId,
+                name: 'Portugal',
+                nativeName: 'Portugal',
+                region: 'Europe',
+                subRegion: '',
+              },
+            ],
+            isAddressMandatory: true,
+            isMerchantLocationMandatory: false,
+            isNumberOfBoxesMandatory: true,
+            isSchedulePickup: true,
+            type: ReturnOptionType.CourierPickUp,
           },
         ],
-        id: returnOptionId,
-        isAddressMandatory: true,
-        isMerchantLocationMandatory: false,
-        isNumberOfBoxesMandatory: true,
-        isSchedulePickup: true,
-        merchant: 10537,
-        merchantOrderId: 100001340,
-        type: ReturnOptionType.CourierPickUp,
+        merchantId: 10537,
+        merchantOrderId,
       },
-      [returnOptionId2]: {
-        allowedCountries: [
+      [merchantOrderId2]: {
+        options: [
           {
-            alpha2Code: 'PT',
-            alpha3Code: 'PRT',
-            continentId: 3,
-            culture: 'pt-PT',
-            id: countryId,
-            name: 'Portugal',
-            nativeName: 'Portugal',
-            region: 'Europe',
-            subRegion: '',
+            allowedCountries: [
+              {
+                alpha2Code: 'PT',
+                alpha3Code: 'PRT',
+                continentId: 3,
+                culture: 'pt-PT',
+                id: countryId,
+                name: 'Portugal',
+                nativeName: 'Portugal',
+                region: 'Europe',
+                subRegion: '',
+              },
+            ],
+            type: ReturnOptionType.InStore,
+            isAddressMandatory: false,
+            isMerchantLocationMandatory: true,
+            isNumberOfBoxesMandatory: false,
+            isSchedulePickup: false,
           },
         ],
-        id: returnOptionId2,
-        isAddressMandatory: false,
-        isMerchantLocationMandatory: true,
-        isNumberOfBoxesMandatory: false,
-        isSchedulePickup: false,
-        merchant: 10538,
-        merchantOrderId: 100001339,
-        type: ReturnOptionType.InStore,
+        merchantId: 10538,
+        merchantOrderId: merchantOrderId2,
       },
     },
   },
-  result: [
-    {
-      merchantId: 10537,
-      merchantOrderId: 100001340,
-      options: [returnOptionId],
-    },
-    {
-      merchantId: 10538,
-      merchantOrderId: 100001339,
-      options: [returnOptionId2],
-    },
-  ],
+  result: [merchantOrderId, merchantOrderId2],
 };
 
 export const expectedGuestOrdersNormalizedPayload = {
@@ -2799,7 +2787,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode,
         productSummary: {
           productId: '12091686',
           description: 'stud sandal',
@@ -2926,7 +2914,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode2,
         productSummary: {
           productId: '12511241',
           description: 'wide leg pant',
@@ -3035,7 +3023,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
-        merchantOrderCode: 'PZ1132281368',
+        merchantOrderCode: merchantOrderCode3,
         productSummary: {
           productId: '12511241',
           description: 'beach sheet',
@@ -3477,27 +3465,6 @@ export const expectedGuestOrdersNormalizedPayload = {
         totalTaxes: 423.57,
         updatedDate: 1539688029817,
         userId,
-        byMerchant: {
-          [merchantId]: {
-            merchant: merchantId,
-            orderItems: [orderItemId, orderItemId3],
-            returnAvailable: false,
-            checkoutOrderId: 15338048,
-            merchantOrderCode: 'PZ1132281368',
-            totalQuantity: 2,
-            userId,
-          },
-          [merchantId2]: {
-            merchant: merchantId2,
-            orderItems: [orderItemId2],
-            returnAvailable: false,
-            checkoutOrderId: 15338048,
-            merchantOrderCode: 'PZ1132281368',
-            totalQuantity: 1,
-            userId,
-          },
-        },
-        totalItems: 3,
       },
       DVN7EE: {
         id: 'DVN7EE',
@@ -3581,18 +3548,6 @@ export const expectedGuestOrdersNormalizedPayload = {
         taxType: 'DDP',
         customerEmail: mockGuestUserEmail,
         promotionOffers: [],
-        byMerchant: {
-          '11554': {
-            merchant: 11554,
-            orderItems: [36898703],
-            returnAvailable: false,
-            checkoutOrderId: 126892294,
-            merchantOrderCode: 'PZ1123095473',
-            totalQuantity: 1,
-            userId,
-          },
-        },
-        totalItems: 1,
       },
     },
   },
@@ -3607,18 +3562,11 @@ export const merchantEntity2 = {
 };
 
 export const returnOptionEntity = {
-  ...((mockOrderReturnOptionsResponse[0] as MerchantOrderReturnOptions)
-    .options[0] as ReturnOption),
-  id: `${orderId}_${returnOptionId}`,
-  merchant: merchantId,
-  merchantOrderId: merchantOrderId,
+  ...(mockOrderReturnOptionsResponse[0] as MerchantOrderReturnOptions),
 };
 
 export const returnOptionEntity2 = {
-  ...returnOptionEntity,
-  id: `${orderId}_${returnOptionId2}`,
-  merchant: merchantId2,
-  merchantOrderId: merchantOrderId2,
+  ...(mockOrderReturnOptionsResponse[1] as MerchantOrderReturnOptions),
 };
 
 export const returnOptionEntityDenormalized = {
@@ -3959,6 +3907,7 @@ export const mockState = {
     orderReturnOptions: {
       error: { [orderId]: null },
       isLoading: { [orderId]: false },
+      result: { [orderId]: [merchantOrderId, merchantOrderId2] },
     },
     trackings: {
       error: null,
@@ -4027,8 +3976,8 @@ export const mockState = {
       [countryCode]: countryEntity,
     },
     returnOptions: {
-      [`${orderId}_${returnOptionId}`]: returnOptionEntity,
-      [`${orderId}_${returnOptionId2}`]: returnOptionEntity2,
+      [merchantOrderId]: returnOptionEntity,
+      [merchantOrderId2]: returnOptionEntity2,
     },
     returnItems: {
       [returnItemId]: returnItemEntity,

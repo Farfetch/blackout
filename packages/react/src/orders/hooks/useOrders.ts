@@ -6,7 +6,7 @@ import {
   fetchOrder as fetchOrderAction,
   fetchUserOrders as fetchUserOrdersAction,
   getUserOrdersError,
-  getUserOrdersResultByOrderId,
+  getUserOrdersResult,
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
   StoreState,
@@ -43,7 +43,7 @@ function useOrders(options: UseOrdersOptions = {}) {
   const error = useSelector((state: StoreState) =>
     getUserOrdersError(state, fetchQuery),
   );
-  const ordersResult = useSelector(getUserOrdersResultByOrderId);
+  const ordersResult = useSelector(getUserOrdersResult);
   const isFetched = useSelector(areUserOrdersFetched);
   const { data: user, isFetched: isUserFetched } = useUser();
   const isAuthenticated = isUserFetched && user && !user.isGuest;

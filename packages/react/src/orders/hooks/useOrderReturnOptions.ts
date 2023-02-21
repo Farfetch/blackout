@@ -5,8 +5,6 @@ import {
   fetchOrderReturnOptions as fetchOrderReturnOptionsAction,
   getOrderReturnOptions,
   getOrderReturnOptionsError,
-  MerchantEntity,
-  resetOrderReturnOptions as resetOrderReturnOptionsAction,
   StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
@@ -20,7 +18,6 @@ import type { UseOrderReturnOptions } from './types';
  */
 function useOrderReturnOptions(
   orderId: Order['id'],
-  merchantId?: MerchantEntity['id'],
   options: UseOrderReturnOptions = {},
 ) {
   const orderIdHookParameter = orderId;
@@ -32,13 +29,12 @@ function useOrderReturnOptions(
     getOrderReturnOptionsError(state, orderIdHookParameter),
   );
   const orderReturnOptions = useSelector((state: StoreState) =>
-    getOrderReturnOptions(state, orderIdHookParameter, merchantId),
+    getOrderReturnOptions(state, orderIdHookParameter),
   );
   const isFetched = useSelector((state: StoreState) =>
     areOrderReturnOptionsFetched(state, orderIdHookParameter),
   );
   const fetchOrderReturnOptions = useAction(fetchOrderReturnOptionsAction);
-  const resetOrderReturnOptions = useAction(resetOrderReturnOptionsAction);
 
   const fetch = useCallback(
     (orderId?: Order['id'], config?: Config) => {
@@ -51,17 +47,6 @@ function useOrderReturnOptions(
       return fetchOrderReturnOptions(orderIdRequest, config || fetchConfig);
     },
     [fetchConfig, fetchOrderReturnOptions, orderIdHookParameter],
-  );
-
-  const reset = useCallback(
-    (orderId?: Order['id']) => {
-      const orderIdRequest = orderId || orderIdHookParameter;
-
-      if (orderIdRequest) {
-        resetOrderReturnOptions([orderIdRequest]);
-      }
-    },
-    [orderIdHookParameter, resetOrderReturnOptions],
   );
 
   useEffect(() => {
@@ -80,7 +65,6 @@ function useOrderReturnOptions(
   return {
     actions: {
       fetch,
-      reset,
     },
     data: orderReturnOptions,
     error,

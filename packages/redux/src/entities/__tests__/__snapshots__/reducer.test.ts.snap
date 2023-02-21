@@ -33,7 +33,6 @@ Object {
     "@farfetch/blackout-redux/RESET_MERCHANTS_LOCATIONS_STATE": [Function],
   },
   "orders": Object {
-    "@farfetch/blackout-redux/FETCH_ORDER_SUCCESS": [Function],
     "@farfetch/blackout-redux/FETCH_USER_SUCCESS": [Function],
     "@farfetch/blackout-redux/LOGIN_SUCCESS": [Function],
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],

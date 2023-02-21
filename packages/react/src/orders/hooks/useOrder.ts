@@ -86,8 +86,8 @@ function useOrder(
     isLoading: areReturnOptionsLoading,
     isFetched: areReturnOptionsFetched,
     error: returnOptionsError,
-    actions: { fetch: fetchReturnOptions, reset: resetReturnOptions },
-  } = useOrderReturnOptions(orderIdHookParameter, undefined, {
+    actions: { fetch: fetchReturnOptions },
+  } = useOrderReturnOptions(orderIdHookParameter, {
     enableAutoFetch: false,
   });
 
@@ -102,7 +102,6 @@ function useOrder(
       fetch,
       resetOrderDetailsState,
       fetchReturnOptions,
-      resetReturnOptions,
     },
     data: order,
     orderError: error,

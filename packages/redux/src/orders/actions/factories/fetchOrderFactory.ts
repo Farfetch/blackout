@@ -26,7 +26,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types';
  */
 const fetchOrderFactory =
   (getOrder: GetOrder) =>
-  (orderId: string, config?: Config) =>
+  (orderId: Order['id'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchOrderAction>,
     getState: () => StoreState,

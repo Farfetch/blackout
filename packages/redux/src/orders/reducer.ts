@@ -6,20 +6,13 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from '../users/authentication/actionTypes';
-import merge from 'lodash/merge';
 import omit from 'lodash/omit';
-import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
 import type * as T from './types';
 import type {
-  // FetchOrderReturnOptionsSuccessAction,
   ResetOrderDetailsStateAction,
   ResetOrderReturnOptionsStateAction,
 } from './types';
-// import type {
-//   // OrderEntity,
-//   ReturnOptionEntity,
-// } from '../entities/types';
 import type { StoreState } from '../types';
 
 export const INITIAL_STATE: T.OrdersState = {
@@ -33,6 +26,7 @@ export const INITIAL_STATE: T.OrdersState = {
   orderReturnOptions: {
     error: {},
     isLoading: {},
+    result: {},
   },
   trackings: {
     error: null,
@@ -103,150 +97,7 @@ const resetEntitiesStateReducer = (
   return rest;
 };
 
-// const getReturnOptionIdWithOrder = (
-//   orderId: OrderEntity['id'],
-//   returnOptionId: ReturnOptionEntity['id'],
-// ) => {
-//   return `${orderId}_${returnOptionId}`;
-// };
-
 export const entitiesMapper = {
-  [actionTypes.FETCH_ORDER_SUCCESS]: (
-    state: NonNullable<StoreState['entities']>,
-    action: AnyAction,
-  ) => {
-    const { entities } = action.payload;
-
-    return produce(state, draftState => {
-      merge(draftState, entities);
-    });
-  },
-  // [actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS]: (
-  //   state: NonNullable<StoreState['entities']>,
-  //   action: AnyAction,
-  // ) => {
-  //   const orderReturnOptionsSuccessAction =
-  //     action as FetchOrderReturnOptionsSuccessAction;
-
-  //   const { orderId } = orderReturnOptionsSuccessAction.meta;
-  //   const {
-  //     entities: { returnOptions },
-  //     result,
-  //   } = orderReturnOptionsSuccessAction.payload;
-
-  //   const newReturnOptions: typeof returnOptions = {};
-
-  //   Object.values(returnOptions).forEach(value => {
-  //     const newReturnOptionId = getReturnOptionIdWithOrder(orderId, value.id);
-
-  //     newReturnOptions[newReturnOptionId] = {
-  //       ...value,
-  //       id: newReturnOptionId,
-  //     };
-  //   });
-
-  //   const newPayloadEntities = {
-  //     ...action.payload.entities,
-  //     returnOptions: newReturnOptions,
-  //   };
-
-  //   return produce(state, (draftState: typeof state) => {
-  //     merge(draftState, newPayloadEntities);
-
-  //     let orders = draftState.orders;
-
-  //     if (!orders) {
-  //       orders = {};
-  //       draftState.orders = orders;
-  //     }
-
-  //     let order = orders[orderId];
-
-  //     if (!order) {
-  //       order = {
-  //         byMerchant: {},
-  //         id: orderId,
-  //         totalItems: 1,
-  //         createdDate: null,
-  //       } as NonNullable<typeof order>;
-  //       orders[orderId] = order;
-  //     }
-
-  //     order.returnOptions =
-  //       result && result.length >= 0
-  //         ? result.reduce<Array<ReturnOptionEntity['id']>>(
-  //             (acc, merchantReturnOptions) => {
-  //               return acc.concat(
-  //                 merchantReturnOptions.options.map(returnOptionId =>
-  //                   getReturnOptionIdWithOrder(orderId, returnOptionId),
-  //                 ),
-  //               );
-  //             },
-  //             [],
-  //           )
-  //         : null;
-
-  //     for (const returnOptionId in newReturnOptions) {
-  //       const returnOption = newReturnOptions[
-  //         returnOptionId
-  //       ] as ReturnOptionEntity;
-
-  //       const merchantId = returnOption.merchant;
-
-  //       let orderMerchant = order.byMerchant[merchantId];
-
-  //       if (!orderMerchant) {
-  //         orderMerchant = { merchant: merchantId } as NonNullable<
-  //           typeof orderMerchant
-  //         >;
-  //         order.byMerchant[merchantId] = orderMerchant;
-  //       }
-
-  //       let existingReturnOptions = orderMerchant.returnOptions;
-
-  //       if (!existingReturnOptions) {
-  //         existingReturnOptions = [];
-  //         orderMerchant.returnOptions = existingReturnOptions;
-  //       }
-
-  //       if (!existingReturnOptions.includes(returnOptionId)) {
-  //         existingReturnOptions.push(returnOptionId);
-  //       }
-  //     }
-  //   });
-  // },
-  // [actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES]: (
-  //   state: NonNullable<StoreState['entities']>,
-  //   action: AnyAction,
-  // ) => {
-  //   const orderIdsPayload = (action as ResetOrderReturnOptionsStateAction)
-  //     .payload;
-  //   const orderIdsToEnumerate = orderIdsPayload?.length
-  //     ? orderIdsPayload
-  //     : Object.keys(state.orders ?? {});
-
-  //   return produce(state, draftState => {
-  //     orderIdsToEnumerate.forEach(orderId => {
-  //       const order = draftState.orders?.[orderId];
-
-  //       if (order) {
-  //         delete order.returnOptions;
-
-  //         Object.values(order.byMerchant).forEach(merchantOrder => {
-  //           const orderReturnOptions = merchantOrder.returnOptions;
-
-  //           if (orderReturnOptions) {
-  //             orderReturnOptions.forEach(returnOptionId => {
-  //               delete draftState.returnOptions?.[returnOptionId];
-  //             });
-  //           }
-
-  //           delete merchantOrder.returnOptions;
-  //         });
-  //       }
-  //     });
-  //   });
-  // },
   [actionTypes.RESET_ORDERS]: resetEntitiesStateReducer,
   [LOGOUT_SUCCESS]: resetEntitiesStateReducer,
   [LOGIN_SUCCESS]: resetEntitiesStateReducer,
@@ -313,6 +164,7 @@ export const orderReturnOptions = (
   switch (action.type) {
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST:
       return {
+        ...state,
         isLoading: {
           ...state.isLoading,
           [action.meta.orderId]: true,
@@ -328,6 +180,10 @@ export const orderReturnOptions = (
         isLoading: {
           ...state.isLoading,
           [action.meta.orderId]: false,
+        },
+        result: {
+          ...state.result,
+          [action.meta.orderId]: action.payload.result,
         },
       };
     case actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE:
@@ -352,6 +208,7 @@ export const orderReturnOptions = (
       return {
         isLoading: omit(state.isLoading, orderIds),
         error: omit(state.error, orderIds),
+        result: omit(state.result, orderIds),
       };
     default:
       return state;

@@ -5,7 +5,6 @@ export * from './getOrderDocument.types';
 export * from './getOrderDocuments.types';
 export * from './getOrderItemAvailableActivities.types';
 export * from './getOrderReturnOptions.types';
-export * from './getOrderReturns.types';
 export * from './getOrderShippingAddressChangeRequests.types';
 export * from './getShipmentTrackings.types';
 export * from './getUserOrders.types';

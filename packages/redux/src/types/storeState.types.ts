@@ -144,7 +144,10 @@ export type StoreState = Partial<{
     replacements: Record<ReplacementEntity['id'], ReplacementEntity>;
     returnItems: Record<ReturnItemEntity['id'], ReturnItemEntity>;
     returns: Record<ReturnEntity['id'], ReturnEntity>;
-    returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
+    returnOptions: Record<
+      ReturnOptionEntity['merchantOrderId'],
+      ReturnOptionEntity
+    >;
     returnPickupCapabilities: Record<string, ReturnPickupCapabilityEntity>;
     sizeScales: Record<SizeScale['sizeScaleId'], SizeScale>;
     sharedWishlists: Record<SharedWishlistEntity['id'], SharedWishlistEntity>;

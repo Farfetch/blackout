@@ -80,12 +80,6 @@ export const RESET_ORDER_RETURN_OPTIONS_STATE =
   '@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_STATE';
 
 /**
- * Action type dispatched when resetting the orders return options entities.
- */
-export const RESET_ORDER_RETURN_OPTIONS_ENTITIES =
-  '@farfetch/blackout-redux/RESET_ORDER_RETURN_OPTIONS_ENTITIES';
-
-/**
  * Action type dispatched when the fetch order documents request fails.
  */
 export const FETCH_ORDER_DOCUMENTS_FAILURE =

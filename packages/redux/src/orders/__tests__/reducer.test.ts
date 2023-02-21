@@ -2,21 +2,11 @@ import * as actionTypes from '../actionTypes';
 import * as fromReducer from '../reducer';
 import {
   defaultHashedQuery,
-  // expectedOrderReturnOptionsNormalizedPayload,
-  // expectedOrderReturnsNormalizedPayload,
-  getExpectedOrderDetailsNormalizedPayload,
-  // merchantId,
-  // merchantId2,
+  merchantOrderId,
+  merchantOrderId2,
   mockState,
-  // orderEntity,
   orderId,
   orderId2,
-  // returnEntity2,
-  // returnId,
-  // returnId2,
-  // returnOptionEntity2,
-  // returnOptionId,
-  // returnOptionId2,
 } from 'tests/__fixtures__/orders';
 import {
   FETCH_USER_SUCCESS,
@@ -25,7 +15,6 @@ import {
   REGISTER_SUCCESS,
 } from '../../users/authentication/actionTypes';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 import reducer, { entitiesMapper } from '../reducer';
 import type { OrdersState } from '../types';
@@ -301,7 +290,7 @@ describe('orders reducer', () => {
       const state = reducer(undefined, randomAction).orderReturnOptions;
 
       expect(state).toEqual(initialState.orderReturnOptions);
-      expect(state).toEqual({ error: {}, isLoading: {} });
+      expect(state).toEqual({ error: {}, isLoading: {}, result: {} });
     });
 
     it('should handle FETCH_ORDER_RETURN_OPTIONS_REQUEST action type', () => {
@@ -313,6 +302,7 @@ describe('orders reducer', () => {
       ).toEqual({
         error: { [orderId]: null },
         isLoading: { [orderId]: true },
+        result: {},
       });
     });
 
@@ -326,6 +316,7 @@ describe('orders reducer', () => {
       ).toEqual({
         error: { [orderId]: '' },
         isLoading: { [orderId]: false },
+        result: {},
       });
     });
 
@@ -333,9 +324,16 @@ describe('orders reducer', () => {
       expect(
         reducer(undefined, {
           meta: { orderId },
+          payload: {
+            result: [merchantOrderId, merchantOrderId2],
+          },
           type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
         }).orderReturnOptions,
-      ).toEqual({ error: {}, isLoading: { [orderId]: false } });
+      ).toEqual({
+        error: {},
+        isLoading: { [orderId]: false },
+        result: { [orderId]: [merchantOrderId, merchantOrderId2] },
+      });
     });
 
     describe('should handle RESET_ORDER_RETURNS_STATE action type', () => {
@@ -347,6 +345,7 @@ describe('orders reducer', () => {
             [orderId2]: toBlackoutError(new Error('dummy_error_2')),
           },
           isLoading: { [orderId]: true, [orderId2]: true },
+          result: {},
         },
       };
 
@@ -367,6 +366,7 @@ describe('orders reducer', () => {
           isLoading: {
             [orderId2]: true,
           },
+          result: {},
         };
 
         expect(
@@ -381,7 +381,11 @@ describe('orders reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        orderReturnOptions: { error: {}, isLoading: { [orderId]: false } },
+        orderReturnOptions: {
+          error: {},
+          isLoading: { [orderId]: false },
+          result: {},
+        },
       };
 
       expect(reducer(state, randomAction).orderReturnOptions).toEqual(
@@ -391,48 +395,6 @@ describe('orders reducer', () => {
   });
 
   describe('entitiesMapper()', () => {
-    describe('for FETCH_ORDER_SUCCESS', () => {
-      it('should handle FETCH_ORDER_SUCCESS action type when the order exists', () => {
-        const state = merge({}, mockState.entities);
-        const normalizedPayload = getExpectedOrderDetailsNormalizedPayload();
-        const expectedResult = merge({}, state, normalizedPayload.entities);
-
-        expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](state, {
-            meta: { orderId },
-            payload: normalizedPayload,
-            type: actionTypes.FETCH_ORDER_SUCCESS,
-          }),
-        ).toStrictEqual(expectedResult);
-      });
-
-      it('should handle FETCH_ORDER_SUCCESS action type when the order does not exist', () => {
-        // Clear orders and order items in state to test
-        // when a fetch order details response is received
-        // for an order that does not exist in state yet.
-        const state = merge(
-          {},
-          {
-            ...mockState.entities,
-            orders: {},
-            orderItems: {},
-            returnOptions: {},
-            returns: {},
-          },
-        );
-        const normalizedPayload = getExpectedOrderDetailsNormalizedPayload();
-        const expectedResult = merge({}, state, normalizedPayload.entities);
-
-        expect(
-          entitiesMapper[actionTypes.FETCH_ORDER_SUCCESS](state, {
-            meta: { orderId },
-            payload: normalizedPayload,
-            type: actionTypes.FETCH_ORDER_SUCCESS,
-          }),
-        ).toStrictEqual(expectedResult);
-      });
-    });
-
     // describe('for FETCH_ORDER_RETURN_OPTIONS_SUCCESS', () => {
     //   const state = merge({}, mockState.entities);
     //   const returnOptionId1WithOrderId = `${orderId}_${returnOptionId}`;
@@ -536,9 +498,7 @@ describe('orders reducer', () => {
         };
 
         expect(
-          entitiesMapper[actionType as keyof typeof entitiesMapper](state, {
-            type: actionType,
-          }),
+          entitiesMapper[actionType as keyof typeof entitiesMapper](state),
         ).toEqual(expectedResult);
       });
 

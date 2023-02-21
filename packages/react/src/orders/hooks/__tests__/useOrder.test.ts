@@ -56,7 +56,6 @@ const defaultReturn = {
     fetch: expect.any(Function),
     resetOrderDetailsState: expect.any(Function),
     fetchReturnOptions: expect.any(Function),
-    resetReturnOptions: expect.any(Function),
   },
 };
 
@@ -123,7 +122,7 @@ describe('useOrder', () => {
       enableAutoFetch: false,
     });
 
-    expect(useOrderReturnOptions).toHaveBeenCalledWith(orderId, undefined, {
+    expect(useOrderReturnOptions).toHaveBeenCalledWith(orderId, {
       enableAutoFetch: false,
     });
   });
@@ -396,31 +395,6 @@ describe('useOrder', () => {
           orderId2,
           anotherConfig,
         );
-      });
-    });
-
-    describe('resetReturnOptions', () => {
-      it('should call `reset` from the `useOrderReturnOptions` hook', async () => {
-        const {
-          result: {
-            current: {
-              actions: { resetReturnOptions },
-            },
-          },
-        } = renderHook(
-          () =>
-            useOrder(orderId, mockGuestUserEmail, {
-              enableAutoFetch: false,
-              fetchConfig: mockFetchConfig,
-            }),
-          {
-            wrapper: withStore(mockInitialState),
-          },
-        );
-
-        await resetReturnOptions(orderId2);
-
-        expect(mockResetReturnOptions).toHaveBeenCalledWith(orderId2);
       });
     });
   });

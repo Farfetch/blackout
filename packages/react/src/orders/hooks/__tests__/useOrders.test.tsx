@@ -4,7 +4,6 @@ import {
   mockGuestUserEmail,
   mockState,
   orderId,
-  orderId2,
   orderSummaryEntityDenormalized,
   orderSummaryEntityDenormalized2,
   orderSummaryEntityDenormalized3,
@@ -180,11 +179,14 @@ describe('useOrders', () => {
     expect(current).toStrictEqual({
       ...defaultReturn,
       data: {
-        [orderId]: [
+        entries: [
           orderSummaryEntityDenormalized,
           orderSummaryEntityDenormalized2,
+          orderSummaryEntityDenormalized3,
         ],
-        [orderId2]: [orderSummaryEntityDenormalized3],
+        number: 1,
+        totalItems: 3,
+        totalPages: 1,
       },
       isFetched: true,
     });
