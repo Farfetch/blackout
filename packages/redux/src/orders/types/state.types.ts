@@ -2,11 +2,20 @@ import type { BlackoutError, Order } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 import type { HashedFetchUserOrdersQuery } from '../actions/factories/helpers/generateUserOrdersRequestHash.js';
 import type { Nullable, StateWithoutResult } from '../../types/index.js';
-import type { OrderSummariesNormalized } from '../../entities/index.js';
+import type {
+  OrderSummariesNormalized,
+  ReturnOptionEntity,
+} from '../../entities/index.js';
 
 export type OrderDetailsState = {
   error: Record<Order['id'], BlackoutError | null>;
   isLoading: Record<Order['id'], boolean>;
+};
+
+export type OrderReturnOptionsState = {
+  error: Record<Order['id'], BlackoutError | null>;
+  isLoading: Record<Order['id'], boolean>;
+  result: Record<Order['id'], Array<ReturnOptionEntity['merchantOrderId']>>;
 };
 
 export type OrdersState = CombinedState<{
@@ -16,7 +25,7 @@ export type OrdersState = CombinedState<{
   orderAvailableItemsActivities: StateWithoutResult;
   orderDetails: OrderDetailsState;
   orderItemAvailableActivities: StateWithoutResult;
-  orderReturnOptions: OrderDetailsState;
+  orderReturnOptions: OrderReturnOptionsState;
   result: Nullable<
     Record<HashedFetchUserOrdersQuery, OrderSummariesNormalized>
   >;

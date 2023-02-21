@@ -5,7 +5,6 @@ export * from './getOrderDocument.types.js';
 export * from './getOrderDocuments.types.js';
 export * from './getOrderItemAvailableActivities.types.js';
 export * from './getOrderReturnOptions.types.js';
-export * from './getOrderReturns.types.js';
 export * from './getOrderShippingAddressChangeRequests.types.js';
 export * from './getShipmentTrackings.types.js';
 export * from './getUserOrders.types.js';

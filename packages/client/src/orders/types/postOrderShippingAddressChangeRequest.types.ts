@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { Order, OrderShippingAddressChangeRequest } from '.';
+import type { Config } from '../../types/index.js';
+import type { Order, OrderShippingAddressChangeRequest } from './index.js';
 
 export type PostOrderShippingAddressChangeRequest = (
   orderId: Order['id'],

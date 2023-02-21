@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes.js';
 import { mockStore } from '../../../../tests/index.js';
 import { orderId, orderId2 } from 'tests/__fixtures__/orders/index.mjs';
-import { resetOrderReturnOptions } from '../index.js';
+import { resetOrderReturnOptionsState } from '../index.js';
 
 describe('resetOrderReturnOptions() action creator', () => {
   let store: ReturnType<typeof mockStore>;
@@ -14,7 +14,7 @@ describe('resetOrderReturnOptions() action creator', () => {
   it('should dispatch the correct action', () => {
     const ordersToReset = [orderId, orderId2];
 
-    resetOrderReturnOptions(ordersToReset)(store.dispatch);
+    resetOrderReturnOptionsState(ordersToReset)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -22,10 +22,6 @@ describe('resetOrderReturnOptions() action creator', () => {
       {
         payload: ordersToReset,
         type: actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE,
-      },
-      {
-        payload: ordersToReset,
-        type: actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES,
       },
     ]);
   });

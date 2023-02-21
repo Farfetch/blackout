@@ -6,10 +6,11 @@ import {
   fetchOrder as fetchOrderAction,
   fetchUserOrders as fetchUserOrdersAction,
   getUserOrdersError,
+  getUserOrdersResult,
   getUserOrdersResultByOrderId,
   resetOrderDetailsState as resetOrderDetailsStateAction,
   resetOrders,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { usePrevious } from '../../helpers/index.js';
@@ -32,6 +33,7 @@ import type { UseOrdersOptions } from './types/index.js';
  */
 function useOrders(options: UseOrdersOptions = {}) {
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
+
   const fetchUserOrders = useAction(fetchUserOrdersAction);
   const fetchOrder = useAction(fetchOrderAction);
   const fetchGuestOrderLegacy = useAction(fetchGuestOrderLegacyAction);
@@ -43,8 +45,15 @@ function useOrders(options: UseOrdersOptions = {}) {
   const error = useSelector((state: StoreState) =>
     getUserOrdersError(state, fetchQuery),
   );
-  const ordersResult = useSelector(getUserOrdersResultByOrderId);
-  const isFetched = useSelector(areUserOrdersFetched);
+  const ordersResult = useSelector((state: StoreState) =>
+    getUserOrdersResult(state, fetchQuery),
+  );
+  const ordersResultByOrderId = useSelector((state: StoreState) =>
+    getUserOrdersResultByOrderId(state, fetchQuery),
+  );
+  const isFetched = useSelector((state: StoreState) =>
+    areUserOrdersFetched(state, fetchQuery),
+  );
   const { data: user, isFetched: isUserFetched } = useUser();
   const isAuthenticated = isUserFetched && user && !user.isGuest;
   const userId = user?.id;
@@ -114,6 +123,7 @@ function useOrders(options: UseOrdersOptions = {}) {
       resetOrderDetailsState,
     },
     data: ordersResult,
+    dataByOrderId: ordersResultByOrderId,
     error,
     isLoading,
     isFetched,

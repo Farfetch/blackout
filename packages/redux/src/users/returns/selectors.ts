@@ -1,15 +1,18 @@
 import { createSelector } from 'reselect';
-import { getReturnItemsEntities, getReturnsEntities } from '../../returns';
-import { getUserReturns as getUserReturnsFromReducer } from '../reducer';
+import {
+  getReturnItemsEntities,
+  getReturnsEntities,
+} from '../../returns/index.js';
+import { getUserReturns as getUserReturnsFromReducer } from '../reducer.js';
 import type { Return, ReturnItem } from '@farfetch/blackout-client';
 import type {
   ReturnEntity,
   ReturnEntityDenormalized,
   ReturnItemEntity,
   UserReturnsResultDenormalized,
-} from '../../entities';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+} from '../../entities/index.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status for the user returns operation.
@@ -100,3 +103,21 @@ export const getUserReturns: (
     } as UserReturnsResultDenormalized;
   },
 );
+
+/**
+ * Returns the fetched status for the user returns operation.
+ *
+ * @param state   - Application state.
+ *
+ * @returns User returns fetched status.
+ */
+export const areUserReturnsFetched: (state: StoreState) => boolean =
+  createSelector(
+    [
+      (state: StoreState) =>
+        getUserReturnsFromReducer(state.users as UsersState),
+    ],
+    userReturnsReducer =>
+      !!userReturnsReducer?.result ||
+      (!!userReturnsReducer?.error && !userReturnsReducer?.isLoading),
+  );

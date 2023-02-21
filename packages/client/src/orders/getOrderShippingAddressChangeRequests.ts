@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetOrderShippingAddressChangeRequests } from './types';
+import type { GetOrderShippingAddressChangeRequests } from './types/index.js';
 
 /**
  * Method responsible for fetching the requests to change the shipping address of the order.

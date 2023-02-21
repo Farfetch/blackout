@@ -186,10 +186,18 @@ export const isReturnPickupCapabilityFetched = (
     !!getReturnPickupCapabilityError(state, returnId, pickupDay)) &&
   !isReturnPickupCapabilityLoading(state, returnId, pickupDay);
 
-export const getReturnsFromOrder = (
+/**
+ * Returns all the returns associated to a provided order id.
+ *
+ * @param state - Application state.
+ * @param orderId - Identifier of an order
+ *
+ * @returns Array of returns
+ */
+export const getOrderReturns: (
   state: StoreState,
   orderId: Order['id'],
-) => {
+) => Array<ReturnEntityDenormalized> | undefined = (state, orderId) => {
   const returnEntities = getReturnsEntities(state);
 
   if (!returnEntities) {
@@ -199,10 +207,13 @@ export const getReturnsFromOrder = (
   const result = [];
 
   for (const returnId in returnEntities) {
-    const returnEntity = returnEntities[returnId];
-    if (returnEntity?.orderId === orderId) {
-      result.push(returnEntity);
+    const parsedReturnId = parseInt(returnId);
+    const returnEntityDenormalized = getReturn(state, parsedReturnId);
+
+    if (returnEntityDenormalized?.orderId === orderId) {
+      result.push(returnEntityDenormalized);
     }
   }
+
   return result;
 };

@@ -1,10 +1,10 @@
-import * as selectors from '../selectors';
-import { mockBaseState } from '../../__fixtures__/state.fixtures';
+import * as selectors from '../selectors.js';
+import { merge } from 'lodash-es';
+import { mockBaseState } from '../../__fixtures__/state.fixtures.js';
 import {
   mockDenormalizedUserReturnsResponse,
   mockNormalizedUserReturnsResponse,
-} from 'tests/__fixtures__/users';
-import merge from 'lodash/merge';
+} from 'tests/__fixtures__/users/index.mjs';
 
 describe('redux selectors', () => {
   describe('areUserReturnsLoading()', () => {
@@ -27,7 +27,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `returns` slice', () => {
-      expect(selectors.getUserReturnsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserReturnsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserReturnsError(mockErrorState)).toBe(dummyError);
     });

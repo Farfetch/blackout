@@ -66,42 +66,42 @@ describe('fetchUserOrders() action creator', () => {
       },
     ]);
   });
-});
 
-it('should create the correct actions for when the fetch user orders procedure is successful', async () => {
-  (getUserOrders as jest.Mock).mockResolvedValueOnce(mockOrdersResponse);
+  it('should create the correct actions for when the fetch user orders procedure is successful', async () => {
+    (getUserOrders as jest.Mock).mockResolvedValueOnce(mockOrdersResponse);
 
-  const expectedPayload = merge({}, expectedOrdersResponseNormalizedPayload);
+    const expectedPayload = merge({}, expectedOrdersResponseNormalizedPayload);
 
-  expectedPayload.result.entries = [
-    merchantOrderCode,
-    merchantOrderCode2,
-    merchantOrderCode3,
-  ];
+    expectedPayload.result.entries = [
+      merchantOrderCode,
+      merchantOrderCode2,
+      merchantOrderCode3,
+    ];
 
-  await fetchUserOrders(
-    userId,
-    getUserOrdersQuery,
-  )(store.dispatch).then(clientResult => {
-    expect(clientResult).toEqual(mockOrdersResponse);
+    await fetchUserOrders(
+      userId,
+      getUserOrdersQuery,
+    )(store.dispatch).then(clientResult => {
+      expect(clientResult).toEqual(mockOrdersResponse);
+    });
+
+    expect(normalizeSpy).toHaveBeenCalledTimes(1);
+    expect(getUserOrders).toHaveBeenCalledTimes(1);
+    expect(getUserOrders).toHaveBeenCalledWith(
+      userId,
+      getUserOrdersQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_USER_ORDERS_REQUEST,
+        meta: { hash: defaultHashedQuery },
+      },
+      {
+        payload: expectedPayload,
+        meta: { hash: defaultHashedQuery },
+        type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
+      },
+    ]);
   });
-
-  expect(normalizeSpy).toHaveBeenCalledTimes(1);
-  expect(getUserOrders).toHaveBeenCalledTimes(1);
-  expect(getUserOrders).toHaveBeenCalledWith(
-    userId,
-    getUserOrdersQuery,
-    expectedConfig,
-  );
-  expect(store.getActions()).toEqual([
-    {
-      type: actionTypes.FETCH_USER_ORDERS_REQUEST,
-      meta: { hash: defaultHashedQuery },
-    },
-    {
-      payload: expectedPayload,
-      meta: { hash: defaultHashedQuery },
-      type: actionTypes.FETCH_USER_ORDERS_SUCCESS,
-    },
-  ]);
 });

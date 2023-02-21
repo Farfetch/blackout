@@ -1,4 +1,4 @@
-import type { StateWithResult } from '../../../types/subAreaState.types';
-import type { UserReturnsResultNormalized } from '../../../entities';
+import type { StateWithResult } from '../../../types/subAreaState.types.js';
+import type { UserReturnsResultNormalized } from '../../../entities/index.js';
 
 export type UserReturnsState = StateWithResult<UserReturnsResultNormalized>;

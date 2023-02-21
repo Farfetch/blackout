@@ -1,11 +1,11 @@
 import {
   mockOrderShippingAddressChangeRequestsPayload,
   orderId,
-} from 'tests/__fixtures__/orders';
-import { postOrderShippingAddressChangeRequest } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postOrderShippingAddressChangeRequest.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { postOrderShippingAddressChangeRequest } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postOrderShippingAddressChangeRequest.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const response = 200;
 const expectedConfig = undefined;

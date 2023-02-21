@@ -37,9 +37,12 @@ type UserOrdersPayload = NormalizedSchema<
 
 type ReturnOptionsPayload = NormalizedSchema<
   {
-    returnOptions: Record<ReturnOptionEntity['id'], ReturnOptionEntity>;
+    returnOptions: Record<
+      ReturnOptionEntity['merchantOrderId'],
+      ReturnOptionEntity
+    >;
   },
-  MerchantOrderReturnOptionsNormalized[]
+  MerchantOrderReturnOptionsNormalized
 >;
 
 type ShipmentTrackingsPayload = NormalizedSchema<
@@ -216,14 +219,6 @@ export interface ResetOrderDetailsStateAction extends Action {
  */
 export interface ResetOrderReturnOptionsStateAction extends Action {
   type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE;
-  payload: Array<Order['id']> | undefined;
-}
-
-/**
- * Actions dispatched when the reset order return options entities request is made.
- */
-export interface ResetOrderReturnOptionsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES;
   payload: Array<Order['id']> | undefined;
 }
 

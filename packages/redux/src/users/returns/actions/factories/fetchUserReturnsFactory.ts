@@ -1,19 +1,19 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
-  Config,
-  GetUserReturns,
-  QuerySearchUserReturns,
+  type Config,
+  type GetUserReturns,
+  type QuerySearchUserReturns,
   toBlackoutError,
-  User,
-  UserReturns,
+  type User,
+  type UserReturns,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import returnSchema from '../../../../entities/schemas/return';
+import returnSchema from '../../../../entities/schemas/return.js';
 import type { Dispatch } from 'redux';
 import type {
   ReturnEntity,
   ReturnEntityDenormalized,
-} from '../../../../entities';
+} from '../../../../entities/index.js';
 
 /**
  * Get user returns.
@@ -40,6 +40,7 @@ const fetchUserReturnsFactory =
         },
         ReturnEntityDenormalized
       >(result, { entries: [returnSchema] });
+
       dispatch({
         payload: normalizedResult,
         type: actionTypes.FETCH_USER_RETURNS_SUCCESS,

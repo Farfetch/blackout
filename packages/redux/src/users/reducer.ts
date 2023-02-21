@@ -216,7 +216,7 @@ export const getAuthentication = (
 export const getPersonalIds = (state: UsersState): UsersState['personalIds'] =>
   state.personalIds;
 
-const reducer = combineReducers({
+const reducer: Reducer<UsersState> = combineReducers({
   error,
   id,
   isLoading,

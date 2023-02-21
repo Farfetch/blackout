@@ -82,8 +82,6 @@ describe('fetchGuestOrderLegacy() action creator', () => {
       mockProductImgQueryParam,
     );
 
-    expectedPayload.entities.orders[orderId].totalItems = 3;
-
     await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
       store.dispatch,
       store.getState as () => StoreState,
@@ -119,8 +117,6 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     );
 
     const expectedPayload = getExpectedOrderDetailsNormalizedPayload();
-
-    expectedPayload.entities.orders[orderId].totalItems = 3;
 
     await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
       store.dispatch,

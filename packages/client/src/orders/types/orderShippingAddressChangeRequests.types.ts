@@ -1,6 +1,6 @@
-import type { CheckoutAddress } from '../../types';
-import type { CheckoutOrder } from '../../checkout';
-import type { Order } from './order.types';
+import type { CheckoutAddress } from '../../types/index.js';
+import type { CheckoutOrder } from '../../checkout/index.js';
+import type { Order } from './order.types.js';
 
 export type OrderShippingAddressChangeRequests =
   Array<OrderShippingAddressChangeRequest>;

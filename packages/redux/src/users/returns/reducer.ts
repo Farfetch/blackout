@@ -1,17 +1,21 @@
-import * as actionTypes from './actionTypes';
-import { createReducerWithResult } from '../../helpers/reducerFactory';
-import type * as T from './types';
+import * as actionTypes from './actionTypes.js';
+import { createReducerWithResult } from '../../helpers/reducerFactory.js';
 
-export const INITIAL_STATE: T.UserReturnsState = {
+import type { UserReturnsState } from './types/index.js';
+
+const isNormalized = true;
+
+export const INITIAL_STATE: UserReturnsState = {
   result: null,
   error: null,
   isLoading: false,
 };
 
-const userReturnsReducer = createReducerWithResult(
+const userReturns = createReducerWithResult(
   'FETCH_USER_RETURNS',
   INITIAL_STATE,
   actionTypes,
+  isNormalized,
 );
 
-export default userReturnsReducer;
+export default userReturns;

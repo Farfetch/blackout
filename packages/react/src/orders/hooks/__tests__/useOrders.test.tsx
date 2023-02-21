@@ -4,7 +4,6 @@ import {
   mockGuestUserEmail,
   mockState,
   orderId,
-  orderId2,
   orderSummaryEntityDenormalized,
   orderSummaryEntityDenormalized2,
   orderSummaryEntityDenormalized3,
@@ -25,6 +24,7 @@ import { Orders } from './__fixtures__/Orders.fixtures.js';
 import { withStore, wrap } from '../../../../tests/helpers/index.js';
 import useOrders from '../useOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
+import orderSummary from '@farfetch/blackout-redux/src/entities/schemas/orderSummary.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');
@@ -54,6 +54,7 @@ jest.mock('@farfetch/blackout-redux', () => {
 
 const defaultReturn = {
   data: undefined,
+  dataByOrderId: undefined,
   isLoading: false,
   isFetched: false,
   error: null,
@@ -181,11 +182,34 @@ describe('useOrders', () => {
     expect(current).toStrictEqual({
       ...defaultReturn,
       data: {
-        [orderId]: [
+        entries: [
           orderSummaryEntityDenormalized,
           orderSummaryEntityDenormalized2,
+          orderSummaryEntityDenormalized3,
         ],
-        [orderId2]: [orderSummaryEntityDenormalized3],
+        number: 1,
+        totalItems: 3,
+        totalOrders: 2,
+        totalPages: 1,
+      },
+      dataByOrderId: {
+        entries: [
+          {
+            orderId: orderSummaryEntityDenormalized.id,
+            orderSummaries: [
+              orderSummaryEntityDenormalized,
+              orderSummaryEntityDenormalized2,
+            ],
+          },
+          {
+            orderId: orderSummaryEntityDenormalized3.id,
+            orderSummaries: [orderSummaryEntityDenormalized3],
+          },
+        ],
+        number: 1,
+        totalItems: 3,
+        totalOrders: 2,
+        totalPages: 1,
       },
       isFetched: true,
     });
@@ -253,7 +277,7 @@ describe('useOrders', () => {
 
             expect(fetchUserOrders).toHaveBeenCalledWith(
               userId,
-              { page: 2 },
+              { page: 2, pageSize: 60 },
               undefined,
             );
 

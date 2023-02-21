@@ -11,7 +11,7 @@ import { normalize } from 'normalizr';
 import generateUserOrdersRequestHash from './helpers/generateUserOrdersRequestHash.js';
 import orderSummary from '../../../entities/schemas/orderSummary.js';
 import type { Dispatch } from 'redux';
-import type { FetchOrdersAction } from '../../types/actions.types';
+import type { FetchOrdersAction } from '../../types/actions.types.js';
 import type {
   OrderSummariesNormalized,
   OrderSummaryEntity,

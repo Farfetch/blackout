@@ -1,8 +1,8 @@
-import * as actionTypes from '../actionTypes';
-import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
-import { mockNormalizedUserReturnsResponse } from 'tests/__fixtures__/users';
-import reducer, * as fromReducer from '../reducer';
-import type { UserReturnsState } from '../types';
+import * as actionTypes from '../actionTypes.js';
+import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
+import { mockNormalizedUserReturnsResponse } from 'tests/__fixtures__/users/index.mjs';
+import reducer, * as fromReducer from '../reducer.js';
+import type { UserReturnsState } from '../types/index.js';
 
 let initialState: UserReturnsState;
 
@@ -44,7 +44,7 @@ describe('returns reducers', () => {
         type: actionTypes.FETCH_USER_RETURNS_SUCCESS,
       });
 
-      expect(newState.result).toEqual(newResult);
+      expect(newState.result).toEqual(newResult.result);
     });
 
     it('should handle other actions by returning the previous state', () => {
@@ -130,6 +130,7 @@ describe('returns reducers', () => {
       'should handle %s action type',
       actionType => {
         const mockState = { ...initialState, isLoading: false };
+
         expect(
           reducer(mockState, {
             type: actionType,
@@ -143,6 +144,7 @@ describe('returns reducers', () => {
       'should handle %s action type',
       actionType => {
         const mockState = { ...initialState, isLoading: true };
+
         expect(
           reducer(mockState, {
             payload: { result: '' },
@@ -157,6 +159,7 @@ describe('returns reducers', () => {
       'should handle %s action type',
       actionType => {
         const mockState = { ...initialState, isLoading: true };
+
         expect(
           reducer(mockState, {
             payload: { error: '' },

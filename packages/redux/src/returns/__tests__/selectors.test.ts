@@ -552,11 +552,13 @@ describe('returns redux selectors', () => {
     });
   });
 
-  describe('getReturnsFromOrder()', () => {
+  describe('getOrderReturns()', () => {
     it('should get the returns from an order', () => {
+      const expectedResult = [returnEntityDenormalized];
+
       expect(
-        selectors.getReturnsFromOrder(mockState, returnEntity.orderId),
-      ).toEqual([mockState.entities.returns[returnId]]);
+        selectors.getOrderReturns(mockState, returnEntity.orderId),
+      ).toEqual(expectedResult);
     });
 
     it('should return undefined if there are no return entities', () => {
@@ -564,14 +566,15 @@ describe('returns redux selectors', () => {
         ...mockState,
         entities: { ...mockState.entities, returns: undefined },
       };
+
       expect(
-        selectors.getReturnsFromOrder(mockState2, returnEntity.orderId),
+        selectors.getOrderReturns(mockState2, returnEntity.orderId),
       ).toBeUndefined();
     });
 
     it('should return an empty array if a non existant orderId is passed', () => {
       expect(
-        selectors.getReturnsFromOrder(mockState, 'non existant orderId'),
+        selectors.getOrderReturns(mockState, 'non existant orderId'),
       ).toEqual([]);
     });
   });

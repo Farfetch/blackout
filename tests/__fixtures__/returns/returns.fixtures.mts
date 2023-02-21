@@ -190,7 +190,7 @@ export const responses = {
       ],
     },
   },
-  getReturnsFromOrder: {
+  getOrderReturns: {
     get: {
       success: [
         {

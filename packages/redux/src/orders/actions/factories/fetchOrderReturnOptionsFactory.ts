@@ -3,12 +3,14 @@ import {
   type Config,
   type GetOrderReturnOptions,
   type MerchantOrderReturnOptions,
+  type Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import returnOption from '../../../entities/schemas/returnOption.js';
 import type { Dispatch } from 'redux';
 import type { FetchOrderReturnOptionsAction } from '../../types/index.js';
+import type { ReturnOptionEntity } from '../../../entities/index.js';
 
 /**
  * Fetches order return options.
@@ -19,7 +21,7 @@ import type { FetchOrderReturnOptionsAction } from '../../types/index.js';
  */
 const fetchOrderReturnOptionsFactory =
   (getOrderReturnOptions: GetOrderReturnOptions) =>
-  (orderId: string, config?: Config) =>
+  (orderId: Order['id'], config?: Config) =>
   async (
     dispatch: Dispatch<FetchOrderReturnOptionsAction>,
   ): Promise<MerchantOrderReturnOptions[]> => {
@@ -30,10 +32,20 @@ const fetchOrderReturnOptionsFactory =
       });
 
       const result = await getOrderReturnOptions(orderId, config);
+      const normalizedResult = normalize<
+        ReturnOptionEntity,
+        {
+          returnOptions: Record<
+            ReturnOptionEntity['merchantOrderId'],
+            ReturnOptionEntity
+          >;
+        },
+        Array<ReturnOptionEntity['merchantOrderId']>
+      >(result, [returnOption]);
 
       dispatch({
         meta: { orderId },
-        payload: normalize(result, [{ options: [returnOption] }]),
+        payload: normalizedResult,
         type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_SUCCESS,
       });
 

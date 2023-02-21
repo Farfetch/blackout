@@ -1,7 +1,7 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { UserReturnsResultNormalized } from '../../../entities';
+import type { UserReturnsResultNormalized } from '../../../entities/index.js';
 
 export interface FetchUserReturnsFailureAction extends Action {
   payload: { error: BlackoutError };
