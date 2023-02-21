@@ -24,8 +24,6 @@ describe('patchUserAttribute', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(
       profileClient.patchUserAttribute(userId, attributeId, data),
     ).resolves.toBe(response);
@@ -38,8 +36,6 @@ describe('patchUserAttribute', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       profileClient.patchUserAttribute(userId, attributeId, data),

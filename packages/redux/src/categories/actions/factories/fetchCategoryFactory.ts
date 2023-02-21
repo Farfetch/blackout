@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Category,
-  Config,
-  GetCategory,
+  type Category,
+  type Config,
+  type GetCategory,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DeletePaymentIntentInstrument,
-  PaymentInstrument,
-  PaymentIntent,
+  type Config,
+  type DeletePaymentIntentInstrument,
+  type PaymentInstrument,
+  type PaymentIntent,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

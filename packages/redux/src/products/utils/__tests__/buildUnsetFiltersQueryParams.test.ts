@@ -21,7 +21,7 @@ describe('buildUnsetFiltersQueryParams', () => {
     expect(result).toEqual(expectedResult);
   });
 
-  it('should build the result when removing a filter if the facet value sent is an array ', () => {
+  it('should build the result when removing a filter if the facet value sent is an array', () => {
     const mockFacetKey = 'colors';
     const mockQuery = {
       [mockFacetKey]: '1|2',

@@ -19,7 +19,7 @@ describe('categories redux selectors', () => {
 
       expect(
         selectors.areTopCategoriesLoading(mockCategoriesLoadingState),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -69,7 +69,7 @@ describe('categories redux selectors', () => {
     it('should get the top categories fetched status', () => {
       const spy = jest.spyOn(fromTopCategories, 'getResult');
 
-      expect(selectors.areTopCategoriesFetched(mockState)).toEqual(true);
+      expect(selectors.areTopCategoriesFetched(mockState)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

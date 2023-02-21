@@ -1,4 +1,4 @@
-import { ContentPage, ContentPageType } from '../types';
+import { type ContentPage, ContentPageType } from '../types';
 import { getContentPage } from '..';
 import client from '../../helpers/client';
 import fixture from '../__fixtures__/contentPage.fixtures';
@@ -57,8 +57,6 @@ describe('getContentPage()', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixture.get.success(response));
 
-    expect.assertions(2);
-
     await expect(getContentPage(contentType, query)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
@@ -69,8 +67,6 @@ describe('getContentPage()', () => {
 
   it('should handle a client request error', async () => {
     mswServer.use(fixture.get.failure());
-
-    expect.assertions(2);
 
     await expect(getContentPage(contentType, query)).rejects.toMatchSnapshot();
 

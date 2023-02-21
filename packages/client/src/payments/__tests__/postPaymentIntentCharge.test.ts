@@ -18,8 +18,6 @@ describe('postPaymentIntentCharge', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(postPaymentIntentCharge(id, data)).resolves.toMatchObject(
       response,
     );
@@ -28,8 +26,6 @@ describe('postPaymentIntentCharge', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(postPaymentIntentCharge(id, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);

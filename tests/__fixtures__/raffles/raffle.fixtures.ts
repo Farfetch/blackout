@@ -1,4 +1,4 @@
-import { Raffle, RaffleStatus } from '@farfetch/blackout-client';
+import { type Raffle, RaffleStatus } from '@farfetch/blackout-client';
 
 export const raffleId = '3234f64-5717-4562-b3fc-2c963f66afa6';
 export const mockRaffleResponse: Raffle = {

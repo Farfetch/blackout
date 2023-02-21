@@ -5,10 +5,10 @@ import {
   getSEOMetadataResult,
   isSEOMetadataFetched,
   isSEOMetadataLoading,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import {
-  GetSEOMetadataQuery,
+  type GetSEOMetadataQuery,
   SeoPageType,
   SeoSubPageType,
 } from '@farfetch/blackout-client';

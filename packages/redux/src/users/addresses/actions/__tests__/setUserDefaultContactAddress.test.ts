@@ -33,33 +33,31 @@ describe('setUserDefaultContactAddress() action creator', () => {
     (putUserDefaultContactAddress as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await setUserDefaultContactAddress(
+    await expect(
+      async () =>
+        await setUserDefaultContactAddress(userId, addressId2)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUserDefaultContactAddress).toHaveBeenCalledTimes(1);
+    expect(putUserDefaultContactAddress).toHaveBeenCalledWith(
       userId,
       addressId2,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUserDefaultContactAddress).toHaveBeenCalledTimes(1);
-      expect(putUserDefaultContactAddress).toHaveBeenCalledWith(
-        userId,
-        addressId2,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { addressId: addressId2 },
-            type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
-          },
-          {
-            type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-            meta: { addressId: addressId2 },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { addressId: addressId2 },
+          type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+          meta: { addressId: addressId2 },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set user default contact address procedure is successful', async () => {
@@ -70,7 +68,6 @@ describe('setUserDefaultContactAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(putUserDefaultContactAddress).toHaveBeenCalledTimes(1);
     expect(putUserDefaultContactAddress).toHaveBeenCalledWith(
       userId,

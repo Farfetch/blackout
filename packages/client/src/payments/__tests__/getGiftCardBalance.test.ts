@@ -18,8 +18,6 @@ describe('getGiftCardBalance', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getGiftCardBalance(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
@@ -27,8 +25,6 @@ describe('getGiftCardBalance', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getGiftCardBalance(data)).rejects.toMatchSnapshot();
 

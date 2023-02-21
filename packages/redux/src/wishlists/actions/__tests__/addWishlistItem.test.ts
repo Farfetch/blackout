@@ -64,32 +64,32 @@ describe('addWishlistItem()', () => {
     store = wishlistMockStore({ wishlist: { id: mockWishlistId } });
     (postWishlistItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await addWishlistItem(data, wishlistItemMetadata)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    addWishlistItem(data, wishlistItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postWishlistItem).toHaveBeenCalledTimes(1);
-      expect(postWishlistItem).toHaveBeenCalledWith(
-        mockWishlistId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { ...wishlistItemMetadata, productId: mockProductId },
-          type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
-        },
-        {
-          meta: { ...wishlistItemMetadata, productId: mockProductId },
-          payload: { error: expectedError },
-          type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
-        },
-      ]);
-    });
+    expect(postWishlistItem).toHaveBeenCalledTimes(1);
+    expect(postWishlistItem).toHaveBeenCalledWith(
+      mockWishlistId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { ...wishlistItemMetadata, productId: mockProductId },
+        type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,
+      },
+      {
+        meta: { ...wishlistItemMetadata, productId: mockProductId },
+        payload: { error: expectedError },
+        type: actionTypes.ADD_WISHLIST_ITEM_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the adding a wishlist item procedure is successful', async () => {
@@ -97,8 +97,6 @@ describe('addWishlistItem()', () => {
     (postWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(7);
 
     await addWishlistItem(data, wishlistItemMetadata)(
       store.dispatch,
@@ -150,8 +148,6 @@ describe('addWishlistItem()', () => {
     (postWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(5);
 
     await addWishlistItem(data)(
       store.dispatch,

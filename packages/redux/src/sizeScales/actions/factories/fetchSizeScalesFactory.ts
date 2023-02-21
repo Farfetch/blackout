@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSizeScales,
-  SizeScale,
-  SizeScalesQuery,
+  type Config,
+  type GetSizeScales,
+  type SizeScale,
+  type SizeScalesQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

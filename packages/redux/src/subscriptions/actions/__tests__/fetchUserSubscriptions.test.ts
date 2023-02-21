@@ -31,27 +31,28 @@ describe('Subscriptions redux actions', () => {
       const expectedError = new Error('get subscriptions error');
 
       (getSubscriptions as jest.Mock).mockRejectedValueOnce(expectedError);
-      expect.assertions(4);
 
-      await fetchUserSubscriptions(mockGetSubscriptions.query)(
-        store.dispatch,
-      ).catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getSubscriptions).toHaveBeenCalledTimes(1);
-        expect(getSubscriptions).toHaveBeenCalledWith(
-          mockGetSubscriptions.query,
-          undefined,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST },
-            {
-              type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      });
+      await expect(
+        async () =>
+          await fetchUserSubscriptions(mockGetSubscriptions.query)(
+            store.dispatch,
+          ),
+      ).rejects.toThrow(expectedError);
+
+      expect(getSubscriptions).toHaveBeenCalledTimes(1);
+      expect(getSubscriptions).toHaveBeenCalledWith(
+        mockGetSubscriptions.query,
+        undefined,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          { type: actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST },
+          {
+            type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE,
+            payload: { error: expectedError },
+          },
+        ]),
+      );
     });
 
     it('Should create the correct actions for when the get subscriptions is successful', async () => {

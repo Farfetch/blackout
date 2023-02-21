@@ -15,8 +15,6 @@ describe('postPhoneToken', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
-
     await expect(postPhoneToken(data)).resolves.toBe(200);
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users/phoneTokens',
@@ -27,8 +25,6 @@ describe('postPhoneToken', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(postPhoneToken(data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

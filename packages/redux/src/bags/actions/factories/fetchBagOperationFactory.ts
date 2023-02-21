@@ -1,8 +1,8 @@
 import {
-  Bag,
-  BagOperation,
-  Config,
-  GetBagOperation,
+  type Bag,
+  type BagOperation,
+  type Config,
+  type GetBagOperation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {

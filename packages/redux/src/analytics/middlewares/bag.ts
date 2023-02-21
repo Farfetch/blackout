@@ -9,7 +9,7 @@ import {
 } from './helpers';
 import { getProductDenormalized } from '../../products';
 import Analytics, {
-  EventProperties,
+  type EventProperties,
   EventTypes,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -266,6 +266,7 @@ export function analyticsBagMiddleware(
         };
 
         analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_CART, data);
+
         return result;
       }
 
@@ -295,6 +296,7 @@ export function analyticsBagMiddleware(
           oldQuantity: previousBagItem?.quantity,
           ...getBagData(action),
         };
+
         let eventType = null;
 
         // Track ga4 update event - Track data is being cloned here because it will be mutated later
@@ -302,6 +304,7 @@ export function analyticsBagMiddleware(
 
         if (data.oldSize && data.oldSize !== data.size) {
           const removedProductData: EventProperties = { ...data };
+
           removedProductData.size = data.oldSize;
           removedProductData.quantity = data.oldQuantity;
 

@@ -23,6 +23,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useSearchIntents', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
@@ -88,7 +89,7 @@ describe('useSearchIntents', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(() => useSearchIntents(mockSearchIntentsQuery), {
         wrapper: withStore(mockSearchIntentsInitialState),
       });
@@ -99,7 +100,7 @@ describe('useSearchIntents', () => {
       );
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
           useSearchIntents(mockSearchIntentsQuery, { enableAutoFetch: false }),

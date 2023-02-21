@@ -50,6 +50,7 @@ describe('fetchRaffle() action creator', () => {
     (getRaffle as jest.Mock).mockResolvedValueOnce(mockRaffleResponse);
 
     const clientResult = await fetchRaffle(raffleId)(store.dispatch);
+
     expect(clientResult).toBe(mockRaffleResponse);
 
     expect(getRaffle).toHaveBeenCalledTimes(1);

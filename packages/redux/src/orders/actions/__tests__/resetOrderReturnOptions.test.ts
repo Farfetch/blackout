@@ -15,6 +15,7 @@ describe('resetOrderReturnOptions() action creator', () => {
     const ordersToReset = [orderId, orderId2];
 
     resetOrderReturnOptions(ordersToReset)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

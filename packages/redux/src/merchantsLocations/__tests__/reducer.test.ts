@@ -86,7 +86,7 @@ describe('merchants locations redux reducer', () => {
             entities: { merchantsLocations: {} },
           },
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_MERCHANTS_LOCATIONS_FAILURE action type', () => {
@@ -95,7 +95,7 @@ describe('merchants locations redux reducer', () => {
           type: actionTypes.FETCH_MERCHANTS_LOCATIONS_FAILURE,
           payload: { error: '' },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_MERCHANTS_LOCATIONS_SUCCESS action type', () => {
@@ -107,7 +107,7 @@ describe('merchants locations redux reducer', () => {
             entities: { merchantsLocations: {} },
           },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle other actions by returning the previous state', () => {

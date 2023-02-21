@@ -1,10 +1,10 @@
 import {
-  EventData,
+  type EventData,
   integrations,
-  LoadIntegrationEventData,
-  StrippedDownAnalytics,
+  type LoadIntegrationEventData,
+  type StrippedDownAnalytics,
   TrackTypes,
-  TrackTypesValues,
+  type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import type { RiskifiedIntegrationOptions } from './types';

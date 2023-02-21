@@ -16,6 +16,7 @@ describe('resetAddressPredictions() action creator', () => {
 
   it('should create the correct action to reset predictions state', () => {
     resetAddressPredictions()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

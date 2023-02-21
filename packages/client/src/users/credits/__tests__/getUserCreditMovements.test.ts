@@ -19,8 +19,6 @@ describe('getUserCreditMovements', () => {
 
     mswServer.use(fixtures.success(mockGetCreditMovementsResponse));
 
-    expect.assertions(2);
-
     await expect(getUserCreditMovements(userId, query)).resolves.toStrictEqual(
       mockGetCreditMovementsResponse,
     );
@@ -36,9 +34,8 @@ describe('getUserCreditMovements', () => {
       pageSize: 1,
     };
     const expectedUrl = `/account/v1/users/${userId}/creditMovements?page=${query.page}&pageSize=${query.pageSize}`;
-    mswServer.use(fixtures.success(mockGetCreditMovementsResponse));
 
-    expect.assertions(2);
+    mswServer.use(fixtures.success(mockGetCreditMovementsResponse));
 
     await expect(getUserCreditMovements(userId, query)).resolves.toStrictEqual(
       mockGetCreditMovementsResponse,
@@ -57,8 +54,6 @@ describe('getUserCreditMovements', () => {
 
     mswServer.use(fixtures.success(mockGetCreditMovementsResponse));
 
-    expect.assertions(2);
-
     await expect(getUserCreditMovements(userId, query)).resolves.toStrictEqual(
       mockGetCreditMovementsResponse,
     );
@@ -67,9 +62,8 @@ describe('getUserCreditMovements', () => {
 
   it('should receive a client request error', async () => {
     const query = {};
-    mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
+    mswServer.use(fixtures.failure());
 
     await expect(
       getUserCreditMovements(userId, query),

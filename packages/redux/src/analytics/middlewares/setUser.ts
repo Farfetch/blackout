@@ -3,7 +3,7 @@ import { getUser, getUserId, usersActionTypes } from '../../users';
 import { USER_ID_PROPERTY } from '../../users/constants';
 import Analytics, {
   EventTypes,
-  UserTraits,
+  type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
@@ -177,6 +177,7 @@ export function analyticsSetUserMiddleware(
 
       if (userId !== currentUserId) {
         const previousUser = currentUser;
+
         currentUser = user;
 
         const isGuest: boolean = get(user, 'isGuest', true);

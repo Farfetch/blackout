@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PutUserAddress,
+  type Config,
+  type PutUserAddress,
   toBlackoutError,
-  User,
-  UserAddress,
-  UserAddressInput,
+  type User,
+  type UserAddress,
+  type UserAddressInput,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import addressesSchema from '../../../../entities/schemas/addresses';

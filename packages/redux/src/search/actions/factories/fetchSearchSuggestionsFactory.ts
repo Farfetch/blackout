@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSearchSuggestions,
-  SearchSuggestion,
-  SearchSuggestionsQuery,
+  type Config,
+  type GetSearchSuggestions,
+  type SearchSuggestion,
+  type SearchSuggestionsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateSearchSuggestionsHash } from '../../helpers';

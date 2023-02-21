@@ -2,6 +2,7 @@ import { adaptError } from '../../helpers/client/formatError';
 import client from '../../helpers/client';
 import join from 'proper-url-join';
 import type { GetUserCredits } from './types';
+
 /**
  * Method responsible to get the credit balance of the user.
  *

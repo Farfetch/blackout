@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import omit from 'lodash/omit';
 import type {
   ProductsListsState,
@@ -41,6 +41,7 @@ const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
   if (action.type === actionTypes.SET_PRODUCTS_LIST_HASH) {
     return action.meta.hash;
   }
+
   return state;
 };
 

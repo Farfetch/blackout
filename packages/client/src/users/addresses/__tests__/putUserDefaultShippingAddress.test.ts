@@ -14,8 +14,6 @@ describe('putUserDefaultShippingAddress', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success());
 
-      expect.assertions(2);
-
       await expect(putUserDefaultShippingAddress({ id, userId })).resolves.toBe(
         200,
       );
@@ -28,8 +26,6 @@ describe('putUserDefaultShippingAddress', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         putUserDefaultShippingAddress({ id, userId }),

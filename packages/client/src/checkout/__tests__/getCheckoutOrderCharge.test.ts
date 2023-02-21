@@ -33,8 +33,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
-
       await expect(getCheckoutOrderCharge(id, chargeId)).resolves.toStrictEqual(
         response,
       );
@@ -43,8 +41,6 @@ describe('checkout client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         getCheckoutOrderCharge(id, chargeId),

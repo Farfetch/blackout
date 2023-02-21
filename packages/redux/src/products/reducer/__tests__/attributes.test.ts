@@ -1,5 +1,5 @@
 import { mockProductId } from 'tests/__fixtures__/products';
-import { productsActionTypes, ProductsAttributesState } from '../..';
+import { productsActionTypes, type ProductsAttributesState } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, { getError, getIsLoading, INITIAL_STATE } from '../attributes';
 

@@ -30,7 +30,7 @@ describe('top categories redux reducer', () => {
         reducer(undefined, {
           type: actionTypes.FETCH_TOP_CATEGORIES_REQUEST,
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_TOP_CATEGORIES_FAILURE action type', () => {
@@ -39,7 +39,7 @@ describe('top categories redux reducer', () => {
           type: actionTypes.FETCH_TOP_CATEGORIES_FAILURE,
           payload: { error: '' },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_TOP_CATEGORIES_SUCCESS action type', () => {

@@ -1,8 +1,8 @@
 import * as checkoutClient from '..';
 import {
-  GetCheckoutOrderResponse,
+  type GetCheckoutOrderResponse,
   OrderStatusError,
-  PatchCheckoutOrderData,
+  type PatchCheckoutOrderData,
 } from '../types';
 import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
@@ -26,7 +26,6 @@ describe('checkout client', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.patchCheckoutOrder(id, data),
       ).resolves.toStrictEqual(response);
@@ -44,7 +43,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.patchCheckoutOrder(id, data, configWithHeaders),
       ).resolves.toStrictEqual(response);
@@ -53,8 +51,6 @@ describe('checkout client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         checkoutClient.patchCheckoutOrder(id, data),

@@ -20,6 +20,7 @@ interface FetchSubscriptionPackagesSuccessAction extends Action {
     SubscriptionPackagesResultNormalized
   >;
 }
+
 interface FetchSubscriptionPackagesFailureAction extends Action {
   type: typeof actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE;
   payload: { error: BlackoutError };
@@ -41,6 +42,7 @@ interface FetchUserSubscriptionsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS;
   payload: Subscription[];
 }
+
 interface FetchUserSubscriptionsFailureAction extends Action {
   type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE;
   payload: { error: BlackoutError };
@@ -61,6 +63,7 @@ interface UnsubscribeSubscriptionRequestAction extends Action {
 interface UnsubscribeSubscriptionSuccessAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS;
 }
+
 interface UnsubscribeSubscriptionFailureAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE;
   payload: { error: BlackoutError };
@@ -90,6 +93,7 @@ interface UnsubscribeSubscriptionTopicRecipientSuccessAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_SUCCESS;
   payload: UnsubscribeSubscriptionTopicRecipientPayload;
 }
+
 interface UnsubscribeSubscriptionTopicRecipientFailureAction extends Action {
   type: typeof actionTypes.UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FAILURE;
   payload: { recipientId?: string; error: BlackoutError };

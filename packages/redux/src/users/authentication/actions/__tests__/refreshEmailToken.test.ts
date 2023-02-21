@@ -34,25 +34,25 @@ describe('refreshEmailToken() action creator', () => {
 
   it('should create the correct actions for when the refresh token procedure fails', async () => {
     (postRefreshEmailToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await refreshEmailToken(refreshTokenData)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postRefreshEmailToken).toHaveBeenCalledTimes(1);
-      expect(postRefreshEmailToken).toHaveBeenCalledWith(
-        refreshTokenData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST },
-          {
-            type: actionTypes.REFRESH_EMAIL_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await refreshEmailToken(refreshTokenData)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postRefreshEmailToken).toHaveBeenCalledTimes(1);
+    expect(postRefreshEmailToken).toHaveBeenCalledWith(
+      refreshTokenData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST },
+        {
+          type: actionTypes.REFRESH_EMAIL_TOKEN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the refresh token procedure is successful', async () => {

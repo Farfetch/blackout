@@ -13,6 +13,7 @@ describe('reset action', () => {
 
   it('should dispatch the correct action type', () => {
     resetUserAddresses()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

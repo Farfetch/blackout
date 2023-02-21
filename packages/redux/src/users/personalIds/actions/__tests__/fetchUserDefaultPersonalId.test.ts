@@ -29,31 +29,30 @@ describe('fetchUserDefaultPersonalId() action creator', () => {
 
   it('should create the correct actions for when the fetch user default personal id procedure fails', async () => {
     const expectedError = new Error('fetch user default personal id error');
+
     (getUserDefaultPersonalId as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchUserDefaultPersonalId(
+    await expect(
+      async () =>
+        await fetchUserDefaultPersonalId(userId, config)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+    expect(getUserDefaultPersonalId).toHaveBeenCalledWith(
       userId,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserDefaultPersonalId).toHaveBeenCalledTimes(1);
-      expect(getUserDefaultPersonalId).toHaveBeenCalledWith(
-        userId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_DEFAULT_PERSONAL_ID_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_DEFAULT_PERSONAL_ID_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_DEFAULT_PERSONAL_ID_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_DEFAULT_PERSONAL_ID_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch user default personal id procedure is successful', async () => {

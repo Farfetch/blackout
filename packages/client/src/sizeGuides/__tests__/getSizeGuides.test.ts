@@ -17,7 +17,6 @@ describe('getProductSizeGuides', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockSizeGuides));
-    expect.assertions(2);
 
     await expect(getSizeGuides(mockQuery)).resolves.toEqual(mockSizeGuides);
 
@@ -29,7 +28,6 @@ describe('getProductSizeGuides', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getSizeGuides(mockQuery)).rejects.toMatchSnapshot();
 

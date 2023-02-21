@@ -32,22 +32,22 @@ describe('fetchGiftCardBalance() action creator', () => {
     const expectedError = new Error('fetch gift card balance error');
 
     (getGiftCardBalance as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchGiftCardBalance(data)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getGiftCardBalance).toHaveBeenCalledTimes(1);
-      expect(getGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST },
-          {
-            type: actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchGiftCardBalance(data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getGiftCardBalance).toHaveBeenCalledTimes(1);
+    expect(getGiftCardBalance).toHaveBeenCalledWith(data, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_GIFT_CARD_BALANCE_REQUEST },
+        {
+          type: actionTypes.FETCH_GIFT_CARD_BALANCE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch gift card balance procedure is successful', async () => {

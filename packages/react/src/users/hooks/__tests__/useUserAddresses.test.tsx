@@ -6,7 +6,12 @@ import {
   expectedGetAddressesNormalizedPayload,
   mockGetAddressesResponse,
 } from 'tests/__fixtures__/users/addresses.fixtures';
-import { applyMiddleware, combineReducers, createStore, Reducer } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  type Reducer,
+} from 'redux';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   createDefaultEntitiesReducer,
@@ -16,7 +21,7 @@ import {
   setUserDefaultBillingAddress,
   setUserDefaultContactAddress,
   setUserDefaultShippingAddress,
-  StoreState,
+  type StoreState,
   updateUserAddress,
   usersReducer,
 } from '@farfetch/blackout-redux';
@@ -27,8 +32,8 @@ import {
 import { Provider } from 'react-redux';
 import {
   toBlackoutError,
-  UserAddress,
-  UserAddressInput,
+  type UserAddress,
+  type UserAddressInput,
 } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import flushPromises from 'tests/flushPromises';
@@ -149,6 +154,7 @@ const enhancers = applyMiddleware(thunk);
 
 describe('useUserAddresses', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -535,6 +541,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `fetchUserAddresses` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -557,6 +564,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `fetchUserAddresses` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -646,6 +654,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `createUserAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -670,6 +679,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `createUserAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -759,6 +769,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `updateUserAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -783,6 +794,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `updateUserAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -833,6 +845,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `removeUserAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -864,6 +877,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `removeUserAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -921,6 +935,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultBillingAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -952,6 +967,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultBillingAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -1009,6 +1025,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultShippingAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -1040,6 +1057,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultShippingAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {
@@ -1097,6 +1115,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultContactAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -1128,6 +1147,7 @@ describe('useUserAddresses', () => {
 
       it('should _NOT_ call `setUserDefaultContactAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {

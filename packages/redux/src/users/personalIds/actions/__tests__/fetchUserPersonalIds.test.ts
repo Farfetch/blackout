@@ -31,25 +31,22 @@ describe('fetchUserPersonalIds() action creator', () => {
     const expectedError = new Error('fetch user personal ids error');
 
     (getUserPersonalIds as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserPersonalIds(
-      userId,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserPersonalIds).toHaveBeenCalledTimes(1);
-      expect(getUserPersonalIds).toHaveBeenCalledWith(userId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_PERSONAL_IDS_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_PERSONAL_IDS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserPersonalIds(userId, config)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserPersonalIds).toHaveBeenCalledTimes(1);
+    expect(getUserPersonalIds).toHaveBeenCalledWith(userId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_PERSONAL_IDS_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_PERSONAL_IDS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch user personal ids procedure is successful', async () => {

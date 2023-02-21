@@ -17,8 +17,6 @@ describe('putUserAddress', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(data));
 
-    expect.assertions(2);
-
     await expect(putUserAddress({ id, userId }, data)).resolves.toStrictEqual(
       data,
     );
@@ -31,8 +29,6 @@ describe('putUserAddress', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       putUserAddress({ id, userId }, data),

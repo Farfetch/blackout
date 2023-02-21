@@ -1,4 +1,5 @@
 export const idTitle1 = '000';
+
 const idTitle2 = '111';
 
 export const mockGetTitlesResponse = {

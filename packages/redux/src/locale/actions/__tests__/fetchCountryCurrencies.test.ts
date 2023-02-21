@@ -32,33 +32,30 @@ describe('fetchCountryCurrencies() action creator', () => {
 
     (getCountryCurrencies as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchCountryCurrencies(mockCountryCode)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchCountryCurrencies(mockCountryCode)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getCountryCurrencies).toHaveBeenCalledTimes(1);
-        expect(getCountryCurrencies).toHaveBeenCalledWith(
-          mockCountryCode,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: {
-              countryCode: mockCountryCode,
-            },
-            type: actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST,
-          },
-          {
-            meta: {
-              countryCode: mockCountryCode,
-            },
-            payload: { error: expectedError },
-            type: actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE,
-          },
-        ]);
-      },
+    expect(getCountryCurrencies).toHaveBeenCalledTimes(1);
+    expect(getCountryCurrencies).toHaveBeenCalledWith(
+      mockCountryCode,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        meta: {
+          countryCode: mockCountryCode,
+        },
+        type: actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST,
+      },
+      {
+        meta: {
+          countryCode: mockCountryCode,
+        },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the get currencies procedure is successful', async () => {

@@ -27,22 +27,22 @@ describe('createPhoneTokens action creator', () => {
     const expectedError = new Error('create phone token error');
 
     (postPhoneToken as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createPhoneTokens(params)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postPhoneToken).toHaveBeenCalledTimes(1);
-      expect(postPhoneToken).toHaveBeenCalledWith(params, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_PHONE_TOKEN_REQUEST },
-          {
-            type: actionTypes.CREATE_PHONE_TOKEN_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await createPhoneTokens(params)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPhoneToken).toHaveBeenCalledTimes(1);
+    expect(postPhoneToken).toHaveBeenCalledWith(params, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_PHONE_TOKEN_REQUEST },
+        {
+          type: actionTypes.CREATE_PHONE_TOKEN_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create phone token procedure is successful', async () => {

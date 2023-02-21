@@ -2,7 +2,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchTopCategories,
   resetCategoriesState,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import {
   mockCategoriesInitialState,
@@ -37,6 +37,7 @@ const getRenderedHook = (
 
 describe('useTopCategories', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {

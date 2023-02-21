@@ -2,7 +2,7 @@ import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
 import { ActionTypes } from '../useUserAuthState';
 import {
   AuthenticationTokenManager,
-  AxiosAuthenticationTokenManagerOptions,
+  type AxiosAuthenticationTokenManagerOptions,
   client,
   configApiBlackAndWhite,
   defaultAuthorizationHeaderFormatter,
@@ -10,9 +10,9 @@ import {
   postToken,
   TokenData,
   TokenKinds,
-  UserToken,
+  type UserToken,
 } from '@farfetch/blackout-client';
-import { DefaultRequestBody, rest } from 'msw';
+import { type DefaultRequestBody, rest } from 'msw';
 import { NotLoggedInError, PendingUserOperationError } from '../../errors';
 import AuthenticationProvider, {
   CallbackNames,
@@ -46,6 +46,7 @@ const loginData = {
 
 const getRenderedHook = (props: Props = {}) => {
   const { baseURL, callbacks, headers, storage } = props;
+
   return renderHook(() => useAuthentication(), {
     wrapper: ({ children }) => (
       <AuthenticationProvider
@@ -103,6 +104,7 @@ describe('useAuthentication', () => {
     });
 
     const { tokenManager } = result.current;
+
     expect(client.defaults.baseURL).toBe(expectedBaseUrl);
     expect(client.defaults.headers.common).toBe(defaultHeaders);
 
@@ -261,9 +263,11 @@ describe('useAuthentication', () => {
 
   it('should set tokens context before fetching the access token', async () => {
     let guestTokenRequestBody: DefaultRequestBody; // Request info for checking later if the endpoint was called with correct data
+
     mswServer.use(
       rest.post('/authentication/v1/guestTokens', (req, res, ctx) => {
         guestTokenRequestBody = req.body;
+
         return res(
           ctx.json({
             accessToken: 'dummy_access_token',
@@ -311,16 +315,16 @@ describe('useAuthentication', () => {
     await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
     expect(result.current.activeTokenData!.kind).toBe(TokenKinds.Guest);
 
-    try {
-      await act(async () => {
-        await result.current.logout!();
-      });
-    } catch (e) {
-      await waitFor(() => {
-        expect(result.current.errorData).toBeTruthy();
-      });
-      expect(e).toBeInstanceOf(NotLoggedInError);
-    }
+    await expect(
+      async () =>
+        await act(async () => {
+          await result.current.logout!();
+        }),
+    ).rejects.toThrow(NotLoggedInError);
+
+    await waitFor(() => {
+      expect(result.current.errorData).toBeTruthy();
+    });
 
     expect(result.current.errorData).toEqual({
       causeError: expect.any(NotLoggedInError),
@@ -349,18 +353,16 @@ describe('useAuthentication', () => {
     expect(result.current.activeTokenData!.kind).toBe(TokenKinds.User);
     expect(result.current.isLoading).toBe(false);
 
-    expect.assertions(14);
+    await expect(
+      async () =>
+        await act(async () => {
+          await result.current.logout!();
+        }),
+    ).rejects.toThrow(NotLoggedInError);
 
-    try {
-      await act(async () => {
-        await result.current.logout!();
-      });
-    } catch (e) {
-      await waitFor(() => {
-        expect(result.current.errorData).toBeTruthy();
-      });
-      expect(e).toBeInstanceOf(NotLoggedInError);
-    }
+    await waitFor(() => {
+      expect(result.current.errorData).toBeTruthy();
+    });
 
     expect(result.current.errorData).toEqual({
       causeError: expect.any(NotLoggedInError),
@@ -470,18 +472,16 @@ describe('useAuthentication', () => {
       `Request failed with status code ${errorResponseStatus}`,
     );
 
-    expect.assertions(6);
+    await expect(
+      async () =>
+        await act(async () => {
+          await result.current.logout!();
+        }),
+    ).rejects.toThrow(mockError);
 
-    try {
-      await act(async () => {
-        await result.current.logout!();
-      });
-    } catch (e) {
-      await waitFor(() => {
-        expect(result.current.errorData).toBeTruthy();
-      });
-      expect(e).toStrictEqual(mockError);
-    }
+    await waitFor(() => {
+      expect(result.current.errorData).toBeTruthy();
+    });
 
     expect(result.current.errorData).toEqual({
       causeError: mockError,

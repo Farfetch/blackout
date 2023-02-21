@@ -2,7 +2,7 @@ import {
   cleanup,
   fireEvent,
   renderHook,
-  RenderResult,
+  type RenderResult,
   waitFor,
 } from '@testing-library/react';
 import {
@@ -182,7 +182,9 @@ const mockFetchConfig = {
 
 describe('useReturn', () => {
   jest.useFakeTimers();
+
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state and call all hook dependencies with the correct options', () => {
@@ -615,6 +617,7 @@ describe('useReturn', () => {
 
           rerender = renderResult.rerender;
           queryByTestId = renderResult.queryByTestId;
+
           const getByTestId = renderResult.getByTestId;
 
           rerender(

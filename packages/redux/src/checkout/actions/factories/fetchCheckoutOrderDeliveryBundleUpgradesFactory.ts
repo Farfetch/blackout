@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  Config,
-  DeliveryBundle,
-  DeliveryBundleUpgrades,
-  GetCheckoutOrderDeliveryBundleUpgrades,
+  type CheckoutOrder,
+  type Config,
+  type DeliveryBundle,
+  type DeliveryBundleUpgrades,
+  type GetCheckoutOrderDeliveryBundleUpgrades,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

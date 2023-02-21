@@ -43,27 +43,26 @@ describe('fetchProductOutfits() action creator', () => {
 
     (getProductOutfits as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchProductOutfits(mockProductId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductOutfits(mockProductId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProductOutfits).toHaveBeenCalledTimes(1);
-      expect(getProductOutfits).toHaveBeenCalledWith(
-        mockProductId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { productId: mockProductId },
-          type: productsActionTypes.FETCH_PRODUCT_OUTFITS_REQUEST,
-        },
-        {
-          meta: { productId: mockProductId },
-          payload: { error: expectedError },
-          type: productsActionTypes.FETCH_PRODUCT_OUTFITS_FAILURE,
-        },
-      ]);
-    });
+    expect(getProductOutfits).toHaveBeenCalledTimes(1);
+    expect(getProductOutfits).toHaveBeenCalledWith(
+      mockProductId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        type: productsActionTypes.FETCH_PRODUCT_OUTFITS_REQUEST,
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_PRODUCT_OUTFITS_FAILURE,
+      },
+    ]);
   });
 
   it('should dispatch the correct actions when fetch product outfits is successful', async () => {

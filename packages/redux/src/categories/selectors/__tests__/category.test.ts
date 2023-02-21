@@ -18,7 +18,7 @@ describe('categories redux selectors', () => {
 
       expect(
         selectors.isCategoryLoading(mockCategoryLoadingState, mockCategoryId),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -38,9 +38,7 @@ describe('categories redux selectors', () => {
 
   describe('isCategoryFetched()', () => {
     it('should get the fetched status', () => {
-      expect(selectors.isCategoryFetched(mockState, mockCategoryId)).toEqual(
-        true,
-      );
+      expect(selectors.isCategoryFetched(mockState, mockCategoryId)).toBe(true);
     });
   });
 

@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Bag,
-  BagPromocodesInformation,
-  Config,
-  PutBagPromocodes,
-  PutBagPromocodesData,
+  type Bag,
+  type BagPromocodesInformation,
+  type Config,
+  type PutBagPromocodes,
+  type PutBagPromocodesData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -24,6 +24,7 @@ const setBagPromocodesFactory =
       dispatch({
         type: actionTypes.SET_BAG_PROMOCODES_REQUEST,
       });
+
       const result = await putBagPromocodes(bagId, data, config);
 
       dispatch({

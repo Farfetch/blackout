@@ -16,8 +16,6 @@ describe('getAddressPredictionDetails', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(mockPredictionResponse));
 
-      expect.assertions(2);
-
       await expect(
         getAddressPredictionDetails({ predictionId }, query),
       ).resolves.toStrictEqual(mockPredictionResponse);
@@ -30,8 +28,6 @@ describe('getAddressPredictionDetails', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         getAddressPredictionDetails({ predictionId }, query),
@@ -48,8 +44,6 @@ describe('getAddressPredictionDetails', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(mockPredictionResponse));
 
-      expect.assertions(2);
-
       await expect(
         getAddressPredictionDetails({ predictionId }),
       ).resolves.toStrictEqual(mockPredictionResponse);
@@ -62,8 +56,6 @@ describe('getAddressPredictionDetails', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         getAddressPredictionDetails({ predictionId }),

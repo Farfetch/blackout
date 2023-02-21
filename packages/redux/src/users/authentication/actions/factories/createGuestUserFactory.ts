@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostGuestUser,
-  PostGuestUserData,
+  type Config,
+  type PostGuestUser,
+  type PostGuestUserData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { CreateGuestUserAction } from '../../types';
@@ -29,6 +29,7 @@ const createGuestUserFactory =
         entities: { user: result },
         result: result.id,
       };
+
       dispatch({
         payload: userEntity,
         type: actionTypes.CREATE_GUEST_USER_SUCCESS,

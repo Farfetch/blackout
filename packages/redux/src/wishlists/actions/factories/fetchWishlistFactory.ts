@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetWishlist,
+  type Config,
+  type GetWishlist,
   toBlackoutError,
-  Wishlist,
+  type Wishlist,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem';

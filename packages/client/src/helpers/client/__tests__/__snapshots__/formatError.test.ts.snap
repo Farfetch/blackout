@@ -10,7 +10,7 @@ Object {
 }
 `;
 
-exports[`formatError() should format the error properly when the api returns an OBJECT with the error  1`] = `
+exports[`formatError() should format the error properly when the api returns an OBJECT with the error 1`] = `
 Object {
   "code": "14",
   "exception": Object {},

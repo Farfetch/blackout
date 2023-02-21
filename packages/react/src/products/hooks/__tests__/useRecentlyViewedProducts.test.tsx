@@ -201,7 +201,7 @@ describe('useRecentlyViewedProducts', () => {
       expect(fetchRecentlyViewedProducts).not.toHaveBeenCalled();
     });
 
-    it('should fetch data if `enableAutoFetch` is true and there is no loaded data ', () => {
+    it('should fetch data if `enableAutoFetch` is true and there is no loaded data', () => {
       const mockState = {
         ...mockProductsState,
         products: {

@@ -44,6 +44,7 @@ const defaultReturn = {
 
 describe('usePaymentIntentInstruments', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -223,7 +224,7 @@ describe('usePaymentIntentInstruments', () => {
         );
       });
 
-      it('should throw an error when intentId is not passed to the hook', async () => {
+      it('should throw an error when intentId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -276,7 +277,7 @@ describe('usePaymentIntentInstruments', () => {
         );
       });
 
-      it('should throw an error when intentId is not passed to the hook', async () => {
+      it('should throw an error when intentId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -322,7 +323,7 @@ describe('usePaymentIntentInstruments', () => {
         );
       });
 
-      it('should throw an error when intentId is not passed to the hook', async () => {
+      it('should throw an error when intentId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -338,7 +339,7 @@ describe('usePaymentIntentInstruments', () => {
         );
       });
 
-      it('should throw an error when intentId is passed to the hook but no instrumentId is passed to the function', async () => {
+      it('should throw an error when intentId is passed to the hook but no instrumentId is passed to the function', () => {
         const {
           result: {
             current: {
@@ -388,7 +389,7 @@ describe('usePaymentIntentInstruments', () => {
         );
       });
 
-      it('should throw an error when intentId is not passed to the hook', async () => {
+      it('should throw an error when intentId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -404,7 +405,7 @@ describe('usePaymentIntentInstruments', () => {
         ).rejects.toThrow('Missing payment intent id.');
       });
 
-      it('should throw an error when intentId is passed to the hook but no instrumentId is passed to the function', async () => {
+      it('should throw an error when intentId is passed to the hook but no instrumentId is passed to the function', () => {
         const {
           result: {
             current: {

@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  FormSchema,
-  GetFormSchema,
+  type FormSchema,
+  type GetFormSchema,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

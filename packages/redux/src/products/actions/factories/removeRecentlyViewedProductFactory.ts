@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  DeleteRecentlyViewedProduct,
+  type DeleteRecentlyViewedProduct,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

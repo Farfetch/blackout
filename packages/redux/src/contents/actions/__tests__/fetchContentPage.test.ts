@@ -41,34 +41,34 @@ describe('fetchContentPage() action creator', () => {
 
     (getContentPage as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchContentPage(contentPagesType, { slug: slugContent })(
+          store.dispatch,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchContentPage(contentPagesType, { slug: slugContent })(
-      store.dispatch,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getContentPage).toHaveBeenCalledTimes(1);
-      expect(getContentPage).toHaveBeenCalledWith(
-        contentPagesType,
-        { slug: slugContent, strategy: undefined },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          payload: {
-            hash: 'content_pages!woman/gucci',
-          },
-          type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+    expect(getContentPage).toHaveBeenCalledTimes(1);
+    expect(getContentPage).toHaveBeenCalledWith(
+      contentPagesType,
+      { slug: slugContent, strategy: undefined },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        payload: {
+          hash: 'content_pages!woman/gucci',
         },
-        {
-          payload: {
-            error: expectedError,
-            hash: 'content_pages!woman/gucci',
-          },
-          type: actionTypes.FETCH_CONTENT_PAGES_FAILURE,
+        type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+      },
+      {
+        payload: {
+          error: expectedError,
+          hash: 'content_pages!woman/gucci',
         },
-      ]);
-    });
+        type: actionTypes.FETCH_CONTENT_PAGES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the get content pages procedure is successful', async () => {
@@ -79,6 +79,7 @@ describe('fetchContentPage() action creator', () => {
     );
 
     const actionResults = store.getActions();
+
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledWith(

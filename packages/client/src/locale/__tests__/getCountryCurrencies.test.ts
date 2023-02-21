@@ -21,8 +21,6 @@ describe('locale client', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.get.success(mockCurrencies));
 
-      expect.assertions(2);
-
       await expect(getCountryCurrencies(countryCode)).resolves.toEqual(
         mockCurrencies,
       );
@@ -35,8 +33,6 @@ describe('locale client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.get.failure());
-
-      expect.assertions(2);
 
       await expect(getCountryCurrencies(countryCode)).rejects.toMatchSnapshot();
 

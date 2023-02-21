@@ -1,7 +1,7 @@
 import { mockProductId } from 'tests/__fixtures__/products';
 import {
   productsActionTypes,
-  ProductsVariantsByMerchantsLocationsState,
+  type ProductsVariantsByMerchantsLocationsState,
 } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {

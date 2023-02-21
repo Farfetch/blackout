@@ -10,9 +10,9 @@ import {
 import {
   EventTypes,
   integrations,
-  LoadIntegrationEventData,
-  TrackTypesValues,
-  UserTraits,
+  type LoadIntegrationEventData,
+  type TrackTypesValues,
+  type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
 import { GTM, validationSchemaBuilder } from '../..';
@@ -31,6 +31,7 @@ import type { WebContextType } from '../../../context';
 jest.mock('../gtmTag', () => jest.fn());
 
 utils.logger.error = jest.fn();
+
 const loggerErrorSpy = utils.logger.error;
 
 const analyticsTrackDataMock =
@@ -85,7 +86,7 @@ describe('GTM', () => {
   describe('GTM integration', () => {
     it('Should be ready to load', () => {
       // @ts-expect-error
-      expect(GTM.shouldLoad(consentDefaults)).toEqual(true);
+      expect(GTM.shouldLoad(consentDefaults)).toBe(true);
     });
 
     it('Should extend Integration class', () => {
@@ -316,6 +317,7 @@ describe('GTM', () => {
 
       // Invalid, unknown event
       const invalidEventName = 'this event does not exist on the mapper';
+
       gtm.track({
         ...analyticsEvent,
         event: invalidEventName,
@@ -480,7 +482,6 @@ describe('GTM', () => {
 
   describe('GTM script', () => {
     // This test purpose is to only get coverage on the external script code.
-    // I've wrapped it with a try catch and added the expect on the catch so the test passes successfully.
     // Created a mock object so I could call jest.spyOn on its property with the function definition.
     // Feel free to improve this if you find a better way.
 
@@ -492,13 +493,9 @@ describe('GTM', () => {
 
       const spy = jest.spyOn(mockObject, 'gtmScriptFn');
 
-      expect.assertions(1);
+      expect(() => mockObject.gtmScriptFn(containerId)).toThrow();
 
-      try {
-        mockObject.gtmScriptFn(containerId);
-      } catch (e) {
-        expect(spy).toHaveBeenCalledWith(containerId);
-      }
+      expect(spy).toHaveBeenCalledWith(containerId);
     });
   });
 });

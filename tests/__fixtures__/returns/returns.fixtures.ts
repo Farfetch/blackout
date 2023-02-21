@@ -1,8 +1,8 @@
 import {
-  OrderItem,
-  PickupRescheduleRequests,
+  type OrderItem,
+  type PickupRescheduleRequests,
   RescheduleStatus,
-  ReturnItem,
+  type ReturnItem,
   ReturnItemStatus,
   ReturnOptionType,
   ReturnReferenceName,

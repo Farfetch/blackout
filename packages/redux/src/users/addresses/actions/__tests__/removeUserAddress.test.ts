@@ -31,32 +31,29 @@ describe('removeUserAddress() action creator', () => {
     const expectedError = new Error('delete user address error');
 
     (deleteUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await removeUserAddress(
-      userId,
-      addressId2,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteUserAddress).toHaveBeenCalledTimes(1);
-      expect(deleteUserAddress).toHaveBeenCalledWith(
-        { userId, id: addressId2 },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { addressId: addressId2 },
-            type: actionTypes.REMOVE_USER_ADDRESS_REQUEST,
-          },
-          {
-            type: actionTypes.REMOVE_USER_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-            meta: { addressId: addressId2 },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await removeUserAddress(userId, addressId2)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deleteUserAddress).toHaveBeenCalledTimes(1);
+    expect(deleteUserAddress).toHaveBeenCalledWith(
+      { userId, id: addressId2 },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { addressId: addressId2 },
+          type: actionTypes.REMOVE_USER_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.REMOVE_USER_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+          meta: { addressId: addressId2 },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the delete user address procedure is successful', async () => {
@@ -67,7 +64,6 @@ describe('removeUserAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(deleteUserAddress).toHaveBeenCalledTimes(1);
     expect(deleteUserAddress).toHaveBeenCalledWith(
       { userId, id: addressId2 },

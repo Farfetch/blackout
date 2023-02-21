@@ -1,7 +1,7 @@
 import { MediaContainer } from './styles';
 import Audio from './components/audio';
 import Image from './components/image';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import Video from './components/video';
 import type {
   AudioComponent,

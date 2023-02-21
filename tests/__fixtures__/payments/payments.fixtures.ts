@@ -1,14 +1,14 @@
 import {
-  BlackoutError,
+  type BlackoutError,
   ChargeStatus,
   Classification,
   DeclineCode,
   LineItemsType,
-  PaymentInstrument,
+  type PaymentInstrument,
   PaymentInstrumentStatus,
   PaymentIntentStatus,
   PaymentMethod,
-  PaymentToken,
+  type PaymentToken,
   ShopperInteraction,
 } from '@farfetch/blackout-client';
 

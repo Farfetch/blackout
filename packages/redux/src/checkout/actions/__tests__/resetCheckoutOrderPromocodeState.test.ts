@@ -15,6 +15,7 @@ describe('resetCheckoutOrderPromocodeState() action creator', () => {
 
   it('should dispatch the correct action for when the reset checkout order promocode state is called', () => {
     resetCheckoutOrderPromocodeState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

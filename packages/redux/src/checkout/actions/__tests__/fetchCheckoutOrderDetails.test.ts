@@ -32,25 +32,25 @@ describe('fetchCheckoutOrderDetails() action creator', () => {
     const expectedError = new Error('fetch checkout details error');
 
     (getCheckoutOrderDetails as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCheckoutOrderDetails(checkoutId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
-      expect(getCheckoutOrderDetails).toHaveBeenCalledWith(
-        checkoutId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST },
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchCheckoutOrderDetails(checkoutId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderDetails).toHaveBeenCalledWith(
+      checkoutId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch checkout details procedure is successful', async () => {
@@ -66,7 +66,6 @@ describe('fetchCheckoutOrderDetails() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDetails).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDetails).toHaveBeenCalledWith(

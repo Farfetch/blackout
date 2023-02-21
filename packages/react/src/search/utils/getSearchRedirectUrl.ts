@@ -3,8 +3,8 @@ import {
   buildSetFiltersQueryParams,
 } from '@farfetch/blackout-redux';
 import {
-  SearchIntents,
-  SearchIntentsResource,
+  type SearchIntents,
+  type SearchIntentsResource,
   SearchIntentsTypeFilter,
   SearchIntentsTypeRequest,
 } from '@farfetch/blackout-client';
@@ -82,6 +82,7 @@ const getSearchRedirectUrl = (
             values.length <= 1 &&
             values[0]?.slug,
         );
+
         if (filteredIndex !== -1) {
           // If found, add the resource to the resourcesWithSlug array.
           resourcesWithSlug.push(

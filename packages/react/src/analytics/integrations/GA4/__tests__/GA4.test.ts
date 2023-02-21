@@ -3,12 +3,12 @@ import {
   EventTypes,
   integrations,
   InteractionTypes,
-  LoadIntegrationEventData,
+  type LoadIntegrationEventData,
   PageTypes,
-  PageviewEventData,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackEventData,
+  type PageviewEventData,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackEventData,
   TrackTypes,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -77,9 +77,11 @@ async function createGA4InstanceAndLoad(
   analytics: StrippedDownAnalytics = strippedDownAnalytics,
 ) {
   const instance = createGA4Instance(options, loadData, analytics);
+
   instance.scriptOnload();
-  // @ts-expect-error
+  // @ts-expect-error Access private member initializePromise to ease testing
   await instance.initializePromise;
+
   return instance;
 }
 
@@ -145,14 +147,12 @@ describe('GA4 Integration', () => {
           [OPTION_LOAD_SCRIPT_FUNCTION]: () => 'not a promise response',
         };
 
-        try {
-          // @ts-expect-error
+        expect(() => {
+          // @ts-expect-error Set an invalid on load script function for testing
           ga4Instance = createGA4Instance(options);
-        } catch (e) {
-          expect((e as Error).message).toBe(
-            `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed with following error: Error: Function's return value is not a Promise`,
-          );
-        }
+        }).toThrow(
+          `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed with following error: Error: Function's return value is not a Promise`,
+        );
       });
 
       it('Should load a custom script', () => {
@@ -160,6 +160,7 @@ describe('GA4 Integration', () => {
           ...validOptions,
           [OPTION_LOAD_SCRIPT_FUNCTION]: () => {
             window.gtag = () => 'valid function';
+
             return Promise.resolve();
           },
         };
@@ -168,7 +169,7 @@ describe('GA4 Integration', () => {
         expect(window.gtag).toBeDefined();
       });
 
-      it('Should throw if custom script has error', () => {
+      it('Should throw if custom script throws an error', () => {
         const options = {
           ...validOptions,
           [OPTION_LOAD_SCRIPT_FUNCTION]: () => {
@@ -179,13 +180,11 @@ describe('GA4 Integration', () => {
           },
         };
 
-        try {
+        expect(() => {
           ga4Instance = createGA4Instance(options);
-        } catch (e) {
-          expect((e as Error).message).toContain(
-            `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed`,
-          );
-        }
+        }).toThrow(
+          `${MESSAGE_PREFIX}${INIT_ERROR}Custom loading script failed`,
+        );
       });
     });
 
@@ -194,18 +193,14 @@ describe('GA4 Integration', () => {
         ...validOptions,
       };
 
-      try {
+      await expect(async () => {
         ga4Instance = await createGA4InstanceAndLoad(options);
         // @ts-ignore
         window.gtag = undefined;
         await ga4Instance.track(
           trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
         );
-      } catch (e) {
-        expect((e as Error).message).toBe(
-          '[GA4] - Event track failed: GA4 is not loaded.',
-        );
-      }
+      }).rejects.toThrow('[GA4] - Event track failed: GA4 is not loaded.');
     });
 
     it('Should throw when tracking page event if gtag is not defined', async () => {
@@ -213,19 +208,15 @@ describe('GA4 Integration', () => {
         ...validOptions,
       };
 
-      try {
+      await expect(async () => {
         ga4Instance = await createGA4InstanceAndLoad(options);
         // @ts-ignore
         window.gtag = undefined;
         await ga4Instance.track(mockedPageData);
-      } catch (e) {
-        expect((e as Error).message).toBe(
-          '[GA4] - Event track failed: GA4 is not loaded.',
-        );
-      }
+      }).rejects.toThrow('[GA4] - Event track failed: GA4 is not loaded.');
     });
 
-    it('Should return a GA4 instance from createInstance', async () => {
+    it('Should return a GA4 instance from createInstance', () => {
       expect(
         GA4.createInstance(
           {
@@ -239,65 +230,57 @@ describe('GA4 Integration', () => {
 
     describe('Should not load GA4 script', () => {
       it('When no options argument is specified', () => {
-        try {
-          // @ts-expect-error invalid parameters
-          createGA4Instance();
-        } catch (e) {
-          expect((e as Error).message).toBe(
-            `${MESSAGE_PREFIX}${INIT_ERROR}options object was not provided`,
-          );
-          const scriptTags = document.getElementsByTagName('script');
+        // @ts-expect-error Pass no options for testing
+        expect(() => createGA4Instance()).toThrow(
+          `${MESSAGE_PREFIX}${INIT_ERROR}options object was not provided`,
+        );
 
-          expect(scriptTags.length).toBe(1);
+        const scriptTags = document.getElementsByTagName('script');
 
-          expect(window.gtag).not.toBeDefined();
-        }
+        expect(scriptTags).toHaveLength(1);
+
+        expect(window.gtag).toBeUndefined();
       });
 
       it('When no options are specified', () => {
-        try {
-          // @ts-expect-error invalid parameters
-          createGA4Instance({});
-        } catch (e) {
-          const scriptTags = document.getElementsByTagName('script');
+        // @ts-expect-error Pass no options for testing
+        expect(() => createGA4Instance({})).toThrow(
+          `${MESSAGE_PREFIX}${INIT_ERROR}options object was not provided`,
+        );
 
-          expect(scriptTags.length).toBe(1);
+        const scriptTags = document.getElementsByTagName('script');
 
-          expect((e as Error).message).toBe(
-            `${MESSAGE_PREFIX}${INIT_ERROR}options object was not provided`,
-          );
+        expect(scriptTags).toHaveLength(1);
 
-          expect(window.gtag).not.toBeDefined();
-        }
+        expect(window.gtag).toBeUndefined();
       });
 
       it(`When no ${OPTION_MEASUREMENT_ID} is specified in options`, () => {
-        try {
-          // @ts-expect-error invalid parameter measurementId
-          createGA4Instance({ [OPTION_MEASUREMENT_ID]: undefined });
-        } catch (e) {
-          expect((e as Error).message).toBe(
-            `${MESSAGE_PREFIX}${INIT_ERROR}${OPTION_MEASUREMENT_ID} is a required field and it was not provided`,
-          );
+        expect(() =>
+          // @ts-expect-error Pass invalid measurementId option for testing
+          createGA4Instance({ [OPTION_MEASUREMENT_ID]: undefined }),
+        ).toThrow(
+          `${MESSAGE_PREFIX}${INIT_ERROR}${OPTION_MEASUREMENT_ID} is a required field and it was not provided`,
+        );
 
-          const scriptTags = document.getElementsByTagName('script');
+        const scriptTags = document.getElementsByTagName('script');
 
-          expect(scriptTags.length).toBe(1);
+        expect(scriptTags).toHaveLength(1);
 
-          expect(window.gtag).not.toBeDefined();
-        }
+        expect(window.gtag).toBeUndefined();
       });
     });
 
-    it('Should add gtag script when a measurementId is specified in options', async () => {
+    it('Should add gtag script when a measurementId is specified in options', () => {
       ga4Instance = createGA4Instance(validOptions);
+
       const scriptTags = document.getElementsByTagName('script');
 
       // For GA4 to load, it needs to find an existing script tag
       // As such, we create one in a beforeEach() command to allow
       // the GA4 script to load, so here we expect the number of
       // script tags to be 3
-      expect(scriptTags.length).toBe(3);
+      expect(scriptTags).toHaveLength(3);
 
       const script = scriptTags[0];
 
@@ -322,7 +305,7 @@ describe('GA4 Integration', () => {
 
         const ga4Spy = getWindowGa4Spy();
 
-        expect(ga4Spy).not.toBeCalled();
+        expect(ga4Spy).not.toHaveBeenCalled();
       });
 
       it('Should send page events', async () => {
@@ -475,6 +458,7 @@ describe('GA4 Integration', () => {
                     customCommands = [
                       ['set', { property: data.properties.size }],
                     ];
+
                     return customCommands;
                   },
                 },
@@ -576,7 +560,7 @@ describe('GA4 Integration', () => {
 
               await ga4Instance.track(nonSupportedByDefaultTrackEvent);
 
-              expect(wildcardCommandMock.mock.calls.length).toBe(2);
+              expect(wildcardCommandMock.mock.calls).toHaveLength(2);
             });
 
             it('Should check if the main command builder specified for an event is a function', async () => {
@@ -656,7 +640,7 @@ describe('GA4 Integration', () => {
 
               expect(mockLoggerError).toHaveBeenCalled();
 
-              expect(ga4Spy.mock.calls.length).toBe(0);
+              expect(ga4Spy.mock.calls).toHaveLength(0);
             });
 
             it('Should allow to add extra commands to the default event handler', async () => {
@@ -669,6 +653,7 @@ describe('GA4 Integration', () => {
                       extraCommands = [
                         ['set', 'custom_attr', data.properties.size],
                       ];
+
                       return extraCommands;
                     },
                   },
@@ -915,13 +900,9 @@ describe('GA4 Integration', () => {
               [OPTION_ON_PRE_PROCESS_COMMANDS]: 'dummy',
             };
 
-            try {
-              createGA4Instance(options, loadData);
-            } catch (e) {
-              expect((e as Error).message).toContain(
-                'expected type was function',
-              );
-            }
+            expect(() => createGA4Instance(options, loadData)).toThrow(
+              'expected type was function',
+            );
           });
 
           it('Should log an error when the function output is not of the proper type', async () => {
@@ -975,17 +956,13 @@ describe('GA4 Integration', () => {
           it('Should log an error when the value specified is not a string', () => {
             const options: GA4IntegrationOptions = {
               ...validOptions,
-              // @ts-expect-error
+              // @ts-expect-error Pass an invalid data layer name option for testing
               [OPTION_DATA_LAYER_NAME]: true,
             };
 
-            try {
-              createGA4Instance(options, loadData);
-            } catch (e) {
-              expect((e as Error).message).toContain(
-                'expected type was string',
-              );
-            }
+            expect(() => createGA4Instance(options, loadData)).toThrow(
+              'expected type was string',
+            );
           });
 
           it('Should store data on specified layer name', () => {
@@ -1178,11 +1155,13 @@ describe('GA4 Integration', () => {
             const pageData =
               pageEventsData[pageType as keyof typeof pageEventsData];
 
-            if (pageData) {
-              await ga4Instance.track(pageData);
-
-              expect(ga4Spy.mock.calls).toMatchSnapshot();
+            if (!pageData) {
+              return;
             }
+
+            await ga4Instance.track(pageData);
+
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
           });
         });
 
@@ -1278,7 +1257,7 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(clonedEvent);
             // @ts-ignore expect obtain fixed value
-            expect(ga4Spy.mock.calls[0][2].value).toEqual(10);
+            expect(ga4Spy.mock.calls[0][2].value).toBe(10);
 
             // @ts-ignore
             delete clonedEvent.properties.value;
@@ -1309,6 +1288,7 @@ describe('GA4 Integration', () => {
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const singleGenderEvent = {
@@ -1329,6 +1309,7 @@ describe('GA4 Integration', () => {
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const getGenderData = (genderData: unknown) => ({
@@ -1358,6 +1339,7 @@ describe('GA4 Integration', () => {
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const multipleGenderEventWithInvalidGender = {
@@ -1383,15 +1365,18 @@ describe('GA4 Integration', () => {
             expect(ga4Spy).not.toHaveBeenCalled();
           });
         });
+
         describe('Search events', () => {
           const defaultEvent = {
             ...(pageEventsData[PageTypes.SEARCH] as PageviewEventData),
           };
+
           it('should not track search event with invalid search term or query, only page event.', async () => {
             ga4Instance = await createGA4InstanceAndLoad(
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const data = {
@@ -1412,6 +1397,7 @@ describe('GA4 Integration', () => {
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const data = {
@@ -1433,6 +1419,7 @@ describe('GA4 Integration', () => {
               validOptions,
               loadData,
             );
+
             const ga4Spy = getWindowGa4Spy();
 
             const data = {
@@ -1449,6 +1436,7 @@ describe('GA4 Integration', () => {
             expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
           });
         });
+
         describe('Navigation events', () => {
           describe('Interact Content event', () => {
             it('Should allow to track the interact_content transforming camelCase to snake_case', async () => {

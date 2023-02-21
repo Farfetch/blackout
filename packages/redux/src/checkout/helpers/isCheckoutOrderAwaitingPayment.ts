@@ -1,4 +1,4 @@
-import { Charge, ChargeStatus } from '@farfetch/blackout-client';
+import { type Charge, ChargeStatus } from '@farfetch/blackout-client';
 
 const isCheckoutOrderAwaitingPayment = (
   checkoutOrderCharge: Charge | undefined | null,

@@ -28,21 +28,20 @@ describe('fetchContentTypes() action creator', () => {
 
     (getContentTypes as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchContentTypes(spaceCode)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchContentTypes(spaceCode)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getContentTypes).toHaveBeenCalledTimes(1);
-      expect(getContentTypes).toHaveBeenCalledWith(spaceCode, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            type: actionTypes.FETCH_CONTENT_TYPES_FAILURE,
-            payload: { error: expectedError },
-          }),
-        ]),
-      );
-    });
+    expect(getContentTypes).toHaveBeenCalledTimes(1);
+    expect(getContentTypes).toHaveBeenCalledWith(spaceCode, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: actionTypes.FETCH_CONTENT_TYPES_FAILURE,
+          payload: { error: expectedError },
+        }),
+      ]),
+    );
   });
 
   it('should create the correct actions for fetching content types when procedure is successful', async () => {

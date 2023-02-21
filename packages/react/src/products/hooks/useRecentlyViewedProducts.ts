@@ -39,6 +39,7 @@ const useRecentlyViewedProducts = (
           if (!excludeProductId || product.productId !== excludeProductId) {
             acc.push(product.productId);
           }
+
           return acc;
         }, [] as number[])
         .join('|'),

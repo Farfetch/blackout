@@ -131,42 +131,6 @@ describe('getListingSeoMetadataParams', () => {
     });
   });
 
-  it('should return params for a category listing', () => {
-    const props = {
-      location: {
-        pathname: '/shopping',
-        search: '?categories=136000&pageindex=1',
-      },
-      totalItems: 10,
-      filterSegments: [mockFilterSegments.belts],
-      listingName: '',
-      countryCode: 'US',
-      cultureCode: 'en-US',
-      currencyIsoCode: 'USD',
-      countryName: 'United States',
-      lowestProductPrice: 1,
-    };
-
-    const result = getListingSeoMetadataParams(props);
-
-    expect(result).toEqual({
-      path: '/shopping?categories=136000&pageindex=1',
-      pageType: 2,
-      param: {
-        TotalNumberItems: 10,
-        BrandName: '',
-        CategoryName: 'Belts',
-        CategoryID: 136000,
-        FirstLevelCategory: '',
-        ParentCategory: '',
-        Country: 'United States',
-        CountryCode: 'US',
-        LowestProductPrice: '$1',
-      },
-      subPageType: 'Category',
-    });
-  });
-
   it('should return params for a brand listing', () => {
     const props = {
       location: {
@@ -239,7 +203,7 @@ describe('getSubPageType', () => {
       isOnSale: false,
     });
 
-    expect(subPageType).toEqual('Default');
+    expect(subPageType).toBe('Default');
   });
 
   it('should return BrandSale', () => {
@@ -248,7 +212,7 @@ describe('getSubPageType', () => {
       hasBrands: true,
     });
 
-    expect(subPageType).toEqual('BrandSale');
+    expect(subPageType).toBe('BrandSale');
   });
 
   it('should return Brand', () => {
@@ -257,7 +221,7 @@ describe('getSubPageType', () => {
       hasBrands: true,
     });
 
-    expect(subPageType).toEqual('Brand');
+    expect(subPageType).toBe('Brand');
   });
 
   it('should return BrandCategory', () => {
@@ -267,7 +231,7 @@ describe('getSubPageType', () => {
       hasCategories: true,
     });
 
-    expect(subPageType).toEqual('BrandCategory');
+    expect(subPageType).toBe('BrandCategory');
   });
 
   it('should return BrandCategorySale', () => {
@@ -277,7 +241,7 @@ describe('getSubPageType', () => {
       hasCategories: true,
     });
 
-    expect(subPageType).toEqual('BrandCategorySale');
+    expect(subPageType).toBe('BrandCategorySale');
   });
 
   it('should return Category', () => {
@@ -286,7 +250,7 @@ describe('getSubPageType', () => {
       hasCategories: true,
     });
 
-    expect(subPageType).toEqual('Category');
+    expect(subPageType).toBe('Category');
   });
 
   it('should return CategorySale', () => {
@@ -295,6 +259,6 @@ describe('getSubPageType', () => {
       hasCategories: true,
     });
 
-    expect(subPageType).toEqual('CategorySale');
+    expect(subPageType).toBe('CategorySale');
   });
 });

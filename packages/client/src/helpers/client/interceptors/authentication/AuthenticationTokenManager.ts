@@ -6,7 +6,7 @@ import {
 import {
   GuestTokenProvider,
   TokenData,
-  TokenKinds,
+  type TokenKinds,
   UserTokenProvider,
 } from './token-providers';
 import {
@@ -19,10 +19,10 @@ import {
 } from './errors';
 import AuthenticationConfigOptions from './AuthenticationConfigOptions';
 import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
+  type AxiosError,
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse,
 } from 'axios';
 import isNil from 'lodash/isNil';
 import type {
@@ -331,6 +331,7 @@ class AuthenticationTokenManager {
   ) {
     if (this.currentTokenProvider !== newTokenProvider) {
       const previousTokenProvider = this.currentTokenProvider;
+
       this.currentTokenProvider = newTokenProvider;
 
       this.raiseOnActiveTokenDataChangedEvent();
@@ -461,7 +462,7 @@ class AuthenticationTokenManager {
    * @returns Promise that will be resolved when the user info is set on the appropriate token provider
    * instance.
    */
-  async setUserInfo(userData: { id: number; isGuest: boolean }) {
+  async setUserInfo(userData: { id: number; isGuest: boolean } | null) {
     if (!userData) {
       return;
     }
@@ -910,6 +911,7 @@ class AuthenticationTokenManager {
    */
   async setUserTokenData(tokenData: TokenData, forceSwitch: boolean) {
     const newTokenData = new TokenData(tokenData);
+
     await this.userTokenProvider.setTokenData(newTokenData);
 
     if (forceSwitch) {

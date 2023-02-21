@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetPaymentTokens,
-  GetPaymentTokensQuery,
-  PaymentTokens,
+  type Config,
+  type GetPaymentTokens,
+  type GetPaymentTokensQuery,
+  type PaymentTokens,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

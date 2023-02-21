@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import { mockQuery, mockSizeGuides } from 'tests/__fixtures__/sizeGuides';
-import { SizeGuide, toBlackoutError } from '@farfetch/blackout-client';
+import { type SizeGuide, toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
 import type { SizeGuidesState } from '../types';
 
@@ -32,6 +32,7 @@ describe('sizeGuides reducer', () => {
 
     it('should handle FETCH_SIZE_GUIDES_REQUEST action type', () => {
       const expectedResult = initialState.error;
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
@@ -78,7 +79,7 @@ describe('sizeGuides reducer', () => {
           type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
           meta: mockQuery,
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_SIZE_GUIDES_FAILURE action type', () => {

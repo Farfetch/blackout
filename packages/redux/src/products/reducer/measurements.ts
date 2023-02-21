@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import createMergedObject from '../../helpers/createMergedObject';
 import type { ProductEntity } from '../../entities';
 import type { ProductsMeasurementsState } from '../types';

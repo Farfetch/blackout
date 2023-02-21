@@ -17,7 +17,6 @@ describe('getWishlistSets', () => {
     const response = [mockWishlistsSetResponse];
 
     mswServer.use(fixtures.success(response));
-    expect.assertions(2);
 
     await expect(getWishlistSets(mockWishlistId)).resolves.toEqual(response);
 
@@ -29,7 +28,6 @@ describe('getWishlistSets', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getWishlistSets(mockWishlistId)).rejects.toMatchSnapshot();
 

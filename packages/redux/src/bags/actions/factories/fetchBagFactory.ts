@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Bag,
-  Config,
-  GetBag,
-  GetBagQuery,
+  type Bag,
+  type Config,
+  type GetBag,
+  type GetBagQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -32,6 +32,7 @@ const fetchBagFactory =
       dispatch({
         type: actionTypes.FETCH_BAG_REQUEST,
       });
+
       const result = await getBag(bagId, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({

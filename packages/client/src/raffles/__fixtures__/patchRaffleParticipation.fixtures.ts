@@ -1,4 +1,4 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 
 const path =
   '/api/checkout/v1/raffles/:raffleId/participations/:participationId';

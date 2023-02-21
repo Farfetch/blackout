@@ -23,7 +23,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `titles` slice', () => {
-      expect(selectors.getUserTitlesError(mockBaseState)).toBe(null);
+      expect(selectors.getUserTitlesError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserTitlesError(mockErrorState)).toBe(dummyError);
     });

@@ -24,8 +24,6 @@ describe('postUserContact', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockGetContactResponse));
 
-    expect.assertions(2);
-
     await expect(postUserContact(userId, data)).resolves.toStrictEqual(
       mockGetContactResponse,
     );
@@ -38,8 +36,6 @@ describe('postUserContact', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(postUserContact(userId, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

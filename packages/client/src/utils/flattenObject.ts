@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type SourceObject = Record<string, any>;
+
 type Property =
   | string
   | number
@@ -8,6 +9,7 @@ type Property =
   | number[]
   | null
   | undefined;
+
 type FlattenedObject = Record<string, Property>;
 
 export default function flattenObject(

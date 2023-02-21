@@ -36,7 +36,7 @@ describe('products list redux selectors', () => {
           mockProductsState,
           mockProductsListHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -48,7 +48,7 @@ describe('products list redux selectors', () => {
     });
 
     it('should get the loading status of a given products list - without hash', () => {
-      expect(selectors.isProductsListLoading(mockProductsState)).toEqual(false);
+      expect(selectors.isProductsListLoading(mockProductsState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -110,7 +110,7 @@ describe('products list redux selectors', () => {
           mockProductsState,
           mockProductsListHash,
         ),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -122,7 +122,7 @@ describe('products list redux selectors', () => {
     });
 
     it('should get the products list hydrated status - without hash', () => {
-      expect(selectors.isProductsListHydrated(mockProductsState)).toEqual(true);
+      expect(selectors.isProductsListHydrated(mockProductsState)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -496,6 +496,7 @@ describe('products list redux selectors', () => {
           },
         },
       };
+
       expect(
         selectors.getProductsListSelectedFiltersCount(mockStateWithoutHash),
       ).toBeUndefined();
@@ -697,6 +698,7 @@ describe('products list redux selectors', () => {
 
     it('should return undefined if does not find facet groups belonging to the specific type', () => {
       const state = cloneDeep(mockProductsState);
+
       state.entities.productsLists![
         mockProductsListHash
       ]!.facetGroups![0]!.type = 5;

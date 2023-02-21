@@ -38,22 +38,22 @@ describe('fetchCollectPoints() action creator', () => {
     const expectedError = new Error('fetch collect points error');
 
     (getCollectPoints as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCollectPoints(query)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCollectPoints).toHaveBeenCalledTimes(1);
-      expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_COLLECT_POINTS_REQUEST },
-          {
-            type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchCollectPoints(query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCollectPoints).toHaveBeenCalledTimes(1);
+    expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_COLLECT_POINTS_REQUEST },
+        {
+          type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch collect points procedure is successful', async () => {
@@ -67,7 +67,6 @@ describe('fetchCollectPoints() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(getCollectPoints).toHaveBeenCalledTimes(1);
     expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
     expect(actionResults).toMatchObject([

@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PutUserDefaultContactAddress,
+  type Config,
+  type PutUserDefaultContactAddress,
   toBlackoutError,
-  User,
-  UserAddress,
+  type User,
+  type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { SetUserDefaultContactAddressAction } from '../../types';

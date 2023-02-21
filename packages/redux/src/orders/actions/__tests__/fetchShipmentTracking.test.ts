@@ -40,26 +40,23 @@ describe('fetchShipmentTrackings() action creator', () => {
 
     (getShipmentTrackings as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchShipmentTrackings(trackingNumbers)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchShipmentTrackings(trackingNumbers)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getShipmentTrackings).toHaveBeenCalledTimes(1);
-        expect(getShipmentTrackings).toHaveBeenCalledWith(
-          trackingNumbers,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST },
-            {
-              type: actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    expect(getShipmentTrackings).toHaveBeenCalledTimes(1);
+    expect(getShipmentTrackings).toHaveBeenCalledWith(
+      trackingNumbers,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_SHIPMENT_TRACKINGS_REQUEST },
+        {
+          type: actionTypes.FETCH_SHIPMENT_TRACKINGS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 
@@ -67,8 +64,6 @@ describe('fetchShipmentTrackings() action creator', () => {
     (getShipmentTrackings as jest.Mock).mockResolvedValueOnce(
       mockTrackingResponse,
     );
-
-    expect.assertions(5);
 
     await fetchShipmentTrackings(trackingNumbers)(store.dispatch).then(
       clientResult => {

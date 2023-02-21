@@ -20,6 +20,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useWishlistItem', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {

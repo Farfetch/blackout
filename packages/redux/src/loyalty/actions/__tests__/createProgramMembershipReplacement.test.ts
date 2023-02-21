@@ -37,33 +37,34 @@ describe('createProgramMembershipReplacement() action creator', () => {
     (postProgramMembershipReplacement as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await createProgramMembershipReplacement(
+    await expect(
+      async () =>
+        await createProgramMembershipReplacement(
+          programId,
+          membershipId,
+          data,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postProgramMembershipReplacement).toHaveBeenCalledTimes(1);
+    expect(postProgramMembershipReplacement).toHaveBeenCalledWith(
       programId,
       membershipId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postProgramMembershipReplacement).toHaveBeenCalledTimes(1);
-      expect(postProgramMembershipReplacement).toHaveBeenCalledWith(
-        programId,
-        membershipId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
-          },
-          {
-            payload: { error: expectedError },
-            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_REQUEST,
+        },
+        {
+          payload: { error: expectedError },
+          type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REPLACEMENT_FAILURE,
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create program membership replacement procedure is successful', async () => {

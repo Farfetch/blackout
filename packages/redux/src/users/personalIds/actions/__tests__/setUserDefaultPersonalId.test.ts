@@ -34,30 +34,31 @@ describe('setUserDefaultPersonalId() action creator', () => {
     (putUserDefaultPersonalId as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await setUserDefaultPersonalId(
+    await expect(
+      async () =>
+        await setUserDefaultPersonalId(
+          userId,
+          mockPutDefaultPersonalIdData,
+          config,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
+    expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
       userId,
       mockPutDefaultPersonalIdData,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUserDefaultPersonalId).toHaveBeenCalledTimes(1);
-      expect(putUserDefaultPersonalId).toHaveBeenCalledWith(
-        userId,
-        mockPutDefaultPersonalIdData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.SET_USER_DEFAULT_PERSONAL_ID_REQUEST },
-          {
-            type: actionTypes.SET_USER_DEFAULT_PERSONAL_ID_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.SET_USER_DEFAULT_PERSONAL_ID_REQUEST },
+        {
+          type: actionTypes.SET_USER_DEFAULT_PERSONAL_ID_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set user default personal id procedure is successful', async () => {

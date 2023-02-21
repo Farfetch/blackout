@@ -10,6 +10,7 @@ import {
 describe('buildMetas()', () => {
   it('should build metas with only seo', () => {
     const builtMetas = buildMetas(mockSeo, []);
+
     expect(builtMetas).toStrictEqual(mockedBuildMetasResult);
   });
 
@@ -31,6 +32,7 @@ describe('buildMetas()', () => {
 describe('buildIconLinks()', () => {
   it('should build icon links', () => {
     const builtMetas = buildIconLinks(mockDefaultAppLinks);
+
     expect(builtMetas).toStrictEqual(mockBuildIconLinksResult);
   });
 });
@@ -40,6 +42,7 @@ describe('buildLinks()', () => {
     const builtMetas = buildLinks(mockSeo, mockDefaultAppLinks, [
       { href: 'https://mockUrl.com', hreflang: 'mockHrefLang', rel: 'mockRel' },
     ]);
+
     expect(builtMetas).toStrictEqual(mockBuildLinksResult);
   });
 });

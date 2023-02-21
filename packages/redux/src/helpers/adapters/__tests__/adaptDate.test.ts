@@ -16,6 +16,7 @@ describe('adaptDate()', () => {
 
   it('should return a valid timestamp when providing a JSON date string with a negative timestamp', () => {
     const negativeDate = '/Date(-631152000000)/';
+
     expect(adaptDate(negativeDate)).toBe(-631152000000);
   });
 
@@ -27,6 +28,7 @@ describe('adaptDate()', () => {
 
   it('should return a valid timestamp when providing a JSON date string with a negative timestamp and with the timezone format', () => {
     const jsonDateNegativeWithTime = '/Date(-631152000000+0530)/';
+
     expect(adaptDate(jsonDateNegativeWithTime)).toBe(-631132200000);
   });
 

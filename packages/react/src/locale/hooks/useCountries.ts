@@ -28,6 +28,7 @@ export function useCountries(options: UseCountriesOptions = {}) {
             if (value.platformId) {
               acc[value.platformId] = value;
             }
+
             return acc;
           }, {} as Record<number, Country>)
         : undefined,

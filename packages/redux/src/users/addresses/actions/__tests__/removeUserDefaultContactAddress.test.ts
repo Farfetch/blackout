@@ -31,32 +31,33 @@ describe('removeUserDefaultContactAddress() action creator', () => {
     (deleteUserDefaultContactAddress as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await removeUserDefaultContactAddress(
+    await expect(
+      async () =>
+        await removeUserDefaultContactAddress(
+          userId,
+          addressId2,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deleteUserDefaultContactAddress).toHaveBeenCalledTimes(1);
+    expect(deleteUserDefaultContactAddress).toHaveBeenCalledWith(
       userId,
-      addressId2,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteUserDefaultContactAddress).toHaveBeenCalledTimes(1);
-      expect(deleteUserDefaultContactAddress).toHaveBeenCalledWith(
-        userId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { userId, addressId: addressId2 },
-            type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
-          },
-          {
-            type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-            meta: { userId, addressId: addressId2 },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { userId, addressId: addressId2 },
+          type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+          meta: { userId, addressId: addressId2 },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the delete user default contact address procedure is successful', async () => {
@@ -65,7 +66,6 @@ describe('removeUserDefaultContactAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(deleteUserDefaultContactAddress).toHaveBeenCalledTimes(1);
     expect(deleteUserDefaultContactAddress).toHaveBeenCalledWith(
       userId,

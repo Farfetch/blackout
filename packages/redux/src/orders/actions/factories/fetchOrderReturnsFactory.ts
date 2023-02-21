@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetOrderReturns,
-  Return,
+  type Config,
+  type GetOrderReturns,
+  type Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -34,6 +34,7 @@ const fetchOrderReturnsFactory =
         payload: normalize(result, [returnSchema]),
         type: actionTypes.FETCH_ORDER_RETURNS_SUCCESS,
       });
+
       return result;
     } catch (error) {
       const errorAsBlackoutError = toBlackoutError(error);

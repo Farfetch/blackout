@@ -1,7 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCountryAddressSchemas,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import {
   isoCode,
@@ -38,6 +38,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useCountryAddressSchemas', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

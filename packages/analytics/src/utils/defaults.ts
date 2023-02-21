@@ -1,5 +1,6 @@
 import { PACKAGE_NAME, PACKAGE_VERSION } from './constants';
 import { qs } from 'url-parse';
+
 /*
  * Returns an object with default context properties.
  */

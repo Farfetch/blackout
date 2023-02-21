@@ -7,6 +7,7 @@ import type {
   UserToken,
 } from '@farfetch/blackout-client';
 import type { ErrorData } from '../hooks/useUserAuthState';
+
 export interface AuthenticationContextProps {
   activeTokenData?: UserToken | null;
   clearTokenData?: () => void;

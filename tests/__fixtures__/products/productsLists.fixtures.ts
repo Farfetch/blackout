@@ -1,5 +1,5 @@
 import {
-  FacetGroup,
+  type FacetGroup,
   FacetGroupFormat,
   FacetGroupKey,
   FacetType,
@@ -560,6 +560,7 @@ export const mockProductsList = {
     pageSize: 20,
   },
 };
+
 const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
   entities: {
     products: {
@@ -661,9 +662,11 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
   },
   result: mockProductsListHash,
 });
+
 export const mockProductsListNormalized = getMockProductsListNormalized();
 export const mockProductsListNormalizedWithoutImageOptions =
   getMockProductsListNormalized(false);
+
 const getMockProductsListForSetsWithIdNormalized = (
   includeImageQueryParam = true,
 ) => ({
@@ -851,6 +854,7 @@ const getMockProductsListForSetsWithIdNormalized = (
   },
   result: mockProductsListHashForSetsWithId,
 });
+
 export const mockProductsListForSetsWithIdNormalized =
   getMockProductsListForSetsWithIdNormalized();
 export const mockProductsListForSetsWithIdNormalizedWithoutImageOptions =

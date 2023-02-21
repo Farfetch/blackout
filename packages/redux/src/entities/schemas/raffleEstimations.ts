@@ -7,6 +7,7 @@ export default new schema.Entity(
     idAttribute: 'raffleId',
     processStrategy: value => {
       const { raffleId, ...rest } = value;
+
       return rest;
     },
   },

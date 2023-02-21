@@ -33,29 +33,27 @@ describe('createPaymentIntentInstrument() action creator', () => {
     (postPaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await createPaymentIntentInstrument(
+    await expect(
+      async () =>
+        await createPaymentIntentInstrument(intentId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPaymentIntentInstrument).toHaveBeenCalledTimes(1);
+    expect(postPaymentIntentInstrument).toHaveBeenCalledWith(
       intentId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postPaymentIntentInstrument).toHaveBeenCalledTimes(1);
-      expect(postPaymentIntentInstrument).toHaveBeenCalledWith(
-        intentId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
-          {
-            type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
+        {
+          type: actionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create payment intent instrument procedure is successful', async () => {

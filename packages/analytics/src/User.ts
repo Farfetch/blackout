@@ -44,7 +44,7 @@ class User {
       await this.storage.setItem('localId', localId);
     }
 
-    return localId as string;
+    return localId;
   }
 
   /**
@@ -105,12 +105,12 @@ class User {
    *
    * @param localId - The localId to be set.
    */
-  async initialize(localId?: string): Promise<void> {
+  async initialize(localId?: string): Promise<User> {
     if (localId) {
       await this.storage.setItem('localId', localId);
     }
 
-    this.set();
+    return await this.set();
   }
 }
 

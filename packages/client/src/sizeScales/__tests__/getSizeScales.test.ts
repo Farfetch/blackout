@@ -19,7 +19,6 @@ describe('sizeScales client', () => {
       const response = [mockSizeScale];
 
       mswServer.use(fixtures.success(response));
-      expect.assertions(2);
 
       await expect(getSizeScales(mockQuery)).resolves.toEqual(response);
 
@@ -31,7 +30,6 @@ describe('sizeScales client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-      expect.assertions(2);
 
       await expect(getSizeScales(mockQuery)).rejects.toMatchSnapshot();
 

@@ -17,8 +17,6 @@ describe('getContentTypes()', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getContentTypes(spaceCode)).resolves.toEqual(response);
 
     expect(spy).toHaveBeenCalledWith(
@@ -29,8 +27,6 @@ describe('getContentTypes()', () => {
 
   it('should handle a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getContentTypes(spaceCode)).rejects.toMatchSnapshot();
 

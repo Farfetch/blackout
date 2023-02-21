@@ -89,8 +89,10 @@ export const validateFields = (
   }
 
   const fieldsValidationMap = new Map<string, boolean>();
+
   Object.keys(optionsInterface).forEach(field =>
     fieldsValidationMap.set(field, validateField(field, options)),
   );
+
   return fieldsValidationMap;
 };

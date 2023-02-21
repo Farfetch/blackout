@@ -1,7 +1,10 @@
 import * as fromEntities from '../../entities/selectors/entity';
 import * as fromReducer from '../reducer';
 import * as selectors from '../selectors';
-import { BlackoutError, DeliveryWindowType } from '@farfetch/blackout-client';
+import {
+  type BlackoutError,
+  DeliveryWindowType,
+} from '@farfetch/blackout-client';
 import {
   checkoutEntity,
   checkoutOrderEntity,
@@ -260,7 +263,7 @@ describe('checkout redux selectors', () => {
             },
           },
         }),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -491,7 +494,7 @@ describe('checkout redux selectors', () => {
                 state: StoreState,
               ) => boolean
             )(mockCheckoutState),
-          ).toEqual(false);
+          ).toBe(false);
         },
       );
     });

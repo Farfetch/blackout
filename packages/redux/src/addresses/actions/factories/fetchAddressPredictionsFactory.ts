@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  AddressPrediction,
-  Config,
-  GetAddressPredictions,
-  GetAddressPredictionsQuery,
+  type AddressPrediction,
+  type Config,
+  type GetAddressPredictions,
+  type GetAddressPredictionsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

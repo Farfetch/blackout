@@ -1,5 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import { addBagItem } from '..';
+import { getCallError } from 'tests/getCallError';
 import { INITIAL_STATE } from '../../reducer';
 import {
   mockBagId,
@@ -44,16 +45,18 @@ describe('addBagItem() action creator', () => {
 
   it('should throw an error if the bagId is not set on state', async () => {
     store = bagMockStore({ bag: { id: null } });
-    expect.assertions(2);
 
-    await addBagItem(mockBagItemData)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toMatchSnapshot();
-      expect(store.getActions()).toHaveLength(1);
-    });
+    const error = await getCallError(
+      async () =>
+        await addBagItem(mockBagItemData)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    );
+
+    expect(error).toMatchSnapshot();
+    expect(store.getActions()).toHaveLength(1);
   });
 
   it('should create the correct actions for when the add bag item procedure fails', async () => {
@@ -62,48 +65,46 @@ describe('addBagItem() action creator', () => {
     store = bagMockStore(mockState);
     (postBagItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await addBagItem(mockBagItemData, undefined, bagItemMetadata)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await addBagItem(mockBagItemData, undefined, bagItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postBagItem).toHaveBeenCalledTimes(1);
-      expect(postBagItem).toHaveBeenCalledWith(
-        mockBagId,
-        mockBagItemData,
-        expectedQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.ADD_BAG_ITEM_REQUEST,
-          meta: {
-            ...bagItemMetadata,
-            ...mockBagItemData,
-            bagId: mockBagId,
-          },
+    expect(postBagItem).toHaveBeenCalledTimes(1);
+    expect(postBagItem).toHaveBeenCalledWith(
+      mockBagId,
+      mockBagItemData,
+      expectedQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.ADD_BAG_ITEM_REQUEST,
+        meta: {
+          ...bagItemMetadata,
+          ...mockBagItemData,
+          bagId: mockBagId,
         },
-        {
-          payload: { error: expectedError },
-          meta: {
-            ...bagItemMetadata,
-            ...mockBagItemData,
-            bagId: mockBagId,
-          },
-          type: actionTypes.ADD_BAG_ITEM_FAILURE,
+      },
+      {
+        payload: { error: expectedError },
+        meta: {
+          ...bagItemMetadata,
+          ...mockBagItemData,
+          bagId: mockBagId,
         },
-      ]);
-    });
+        type: actionTypes.ADD_BAG_ITEM_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the add bag item procedure is successful', async () => {
     store = bagMockStore(mockState);
     (postBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(5);
 
     await addBagItem(mockBagItemData, undefined, bagItemMetadata)(
       store.dispatch,
@@ -151,8 +152,6 @@ describe('addBagItem() action creator', () => {
   it('should create the correct actions for when the add bag item procedure is successful without receiving options', async () => {
     store = bagMockStoreWithoutMiddlewares(mockState);
     (postBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(5);
 
     await addBagItem(mockBagItemData)(
       store.dispatch,

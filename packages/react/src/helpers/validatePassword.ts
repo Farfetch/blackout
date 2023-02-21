@@ -67,7 +67,9 @@ export const PasswordValidationErrorsConstants: Record<
  *
  * @returns - Object containing the result of the validation.
  * */
-export default function (password: string): PasswordValidationResult {
+export default function validatePassword(
+  password: string,
+): PasswordValidationResult {
   const result: PasswordValidationResult = {
     isValid: true,
     errors: [],
@@ -81,5 +83,6 @@ export default function (password: string): PasswordValidationResult {
       result['errors'].push(item.errorCode);
     }
   }
+
   return result;
 }

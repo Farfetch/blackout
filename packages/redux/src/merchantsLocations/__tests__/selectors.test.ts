@@ -14,7 +14,7 @@ describe('merchants locations redux selectors', () => {
     it('should get the loading status of the merchants locations', () => {
       const spy = jest.spyOn(fromReducer, 'getIsLoading');
 
-      expect(selectors.areMerchantsLocationsLoading(mockState)).toEqual(false);
+      expect(selectors.areMerchantsLocationsLoading(mockState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -48,7 +48,7 @@ describe('merchants locations redux selectors', () => {
   });
 
   describe('getMerchantsLocationsByIds()', () => {
-    it('should get the merchants locations of the provided array of ids ', () => {
+    it('should get the merchants locations of the provided array of ids', () => {
       const ids = [mockMerchantLocationId, mockMerchantLocationId1];
 
       const result = [

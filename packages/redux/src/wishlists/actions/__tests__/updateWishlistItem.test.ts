@@ -76,49 +76,47 @@ describe('updateWishlistItem()', () => {
 
     (patchWishlistItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await updateWishlistItem(
+          mockWishlistItemId,
+          data,
+          wishlistItemMetadata,
+        )(store.dispatch, store.getState as () => StoreState, { getOptions }),
+    ).rejects.toThrow(expectedError);
 
-    await updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchWishlistItem).toHaveBeenCalledTimes(1);
-      expect(patchWishlistItem).toHaveBeenCalledWith(
-        mockWishlistId,
-        mockWishlistItemId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            ...wishlistItemMetadata,
-            productId: mockProductId,
-            wishlistItemId: mockWishlistItemId,
-          },
-          type: actionTypes.UPDATE_WISHLIST_ITEM_REQUEST,
+    expect(patchWishlistItem).toHaveBeenCalledTimes(1);
+    expect(patchWishlistItem).toHaveBeenCalledWith(
+      mockWishlistId,
+      mockWishlistItemId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: {
+          ...wishlistItemMetadata,
+          productId: mockProductId,
+          wishlistItemId: mockWishlistItemId,
         },
-        {
-          meta: {
-            ...wishlistItemMetadata,
-            productId: mockProductId,
-            wishlistItemId: mockWishlistItemId,
-          },
-          payload: { error: expectedError },
-          type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
+        type: actionTypes.UPDATE_WISHLIST_ITEM_REQUEST,
+      },
+      {
+        meta: {
+          ...wishlistItemMetadata,
+          productId: mockProductId,
+          wishlistItemId: mockWishlistItemId,
         },
-      ]);
-    });
+        payload: { error: expectedError },
+        type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the update wishlist item procedure is successful', async () => {
     (patchWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(7);
 
     await updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata)(
       store.dispatch,
@@ -177,8 +175,6 @@ describe('updateWishlistItem()', () => {
     (patchWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(5);
 
     await updateWishlistItem(mockWishlistItemId, data)(
       store.dispatch,

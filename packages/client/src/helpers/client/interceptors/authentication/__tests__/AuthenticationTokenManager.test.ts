@@ -3,6 +3,7 @@ import {
   defaultAuthorizationHeaderFormatter,
   getDefaultTokenDataSerializer,
 } from '../defaults';
+import { getCallError } from 'tests/getCallError';
 import { getUser } from '../../../../../users';
 import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider';
 import {
@@ -25,6 +26,7 @@ import type {
   AxiosAuthenticationTokenManagerOptions,
   UserParams,
 } from '../types/TokenManagerOptions.types';
+import type { AxiosError } from 'axios';
 import type { ITokenData } from '../token-providers/types/TokenData.types';
 import type { RequestConfig } from '../types/AuthenticationTokenManager.types';
 import type { TokenContext } from '../token-providers/types/TokenContext.types';
@@ -74,7 +76,7 @@ const defaultOptions: AxiosAuthenticationTokenManagerOptions = {
 };
 
 describe('AuthenticationTokenManager', () => {
-  let tokenManagerInstance: any;
+  let tokenManagerInstance!: AuthenticationTokenManager;
 
   function createAndSetTokenManagerInstance(
     axiosInstance = client,
@@ -88,6 +90,7 @@ describe('AuthenticationTokenManager', () => {
       axiosInstance,
       options,
     );
+
     return tokenManagerInstance;
   }
 
@@ -181,11 +184,10 @@ describe('AuthenticationTokenManager', () => {
         );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        let mockGuestTokenRequesterPromiseResolve = (value: ITokenData) =>
-          undefined;
+        let mockGuestTokenRequesterPromiseResolve = (value: ITokenData) => {};
 
         const mockGuestTokenRequesterPromise = new Promise<ITokenData>(
-          (resolve: any) => {
+          (resolve: (value: ITokenData) => void) => {
             mockGuestTokenRequesterPromiseResolve = resolve;
           },
         );
@@ -255,7 +257,6 @@ describe('AuthenticationTokenManager', () => {
 
       it('should return a specific error if the refresh guest user access token request fails', async () => {
         // Force an error for the post guest tokens request
-
         mockGuestTokenRequester.mockImplementationOnce((data, config) => {
           return Promise.reject({
             config,
@@ -265,13 +266,9 @@ describe('AuthenticationTokenManager', () => {
           });
         });
 
-        expect.assertions(2);
-
-        try {
-          await getUser();
-        } catch (e) {
-          expect(e).toBeInstanceOf(RefreshGuestUserAccessTokenError);
-        }
+        await expect(async () => await getUser()).rejects.toThrow(
+          RefreshGuestUserAccessTokenError,
+        );
 
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(1);
       });
@@ -286,14 +283,12 @@ describe('AuthenticationTokenManager', () => {
           ),
         );
 
-        expect.assertions(3);
+        const error = await getCallError<AxiosError>(
+          async () => await getUser(),
+        );
 
-        try {
-          await getUser();
-        } catch (e: any) {
-          expect(e).toBeInstanceOf(Error);
-          expect(e.response.status).toBe(500);
-        }
+        expect(error).toBeInstanceOf(Error);
+        expect(error.response!.status).toBe(500);
 
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(2);
       });
@@ -323,13 +318,9 @@ describe('AuthenticationTokenManager', () => {
           },
         );
 
-        expect.assertions(2);
-
-        try {
-          await getUser();
-        } catch (e) {
-          expect(e).toBeInstanceOf(RefreshGuestUserAccessTokenError);
-        }
+        await expect(async () => await getUser()).rejects.toThrow(
+          RefreshGuestUserAccessTokenError,
+        );
 
         expect(mockGuestTokenRequester).toHaveBeenCalledTimes(2);
       });
@@ -344,9 +335,9 @@ describe('AuthenticationTokenManager', () => {
         );
 
         // Before any requests it should be null as it is not loading from storage.
-        expect(tokenManagerInstance.guestTokenProvider.getTokenData()).toBe(
-          null,
-        );
+        expect(
+          tokenManagerInstance.guestTokenProvider.getTokenData(),
+        ).toBeNull();
 
         // Force a get profile request so that the guest token data is set with
         // a user id.
@@ -386,7 +377,7 @@ describe('AuthenticationTokenManager', () => {
         // This is necessary so that a request to guestTokens is made
         // with the guestUserId filled with the current guest token user id
         // so that we can assert it.
-        guestTokenData.expiresTimeUtc = new Date().getTime();
+        guestTokenData!.expiresTimeUtc = new Date().getTime();
 
         // Perform the users/me request. It should not throw and should retry the request
         // after getting the first 400 response.
@@ -421,7 +412,7 @@ describe('AuthenticationTokenManager', () => {
         refreshToken: 'dummy_refresh_token',
       });
 
-      beforeEach(async () => {
+      async function setUserTokenProvider() {
         const selectTokenProviderSpy = jest.spyOn(
           tokenManagerInstance,
           'selectTokenProvider',
@@ -432,6 +423,10 @@ describe('AuthenticationTokenManager', () => {
         expect(selectTokenProviderSpy).toHaveBeenCalledWith(
           tokenManagerInstance.userTokenProvider,
         );
+      }
+
+      beforeEach(async () => {
+        await setUserTokenProvider();
       });
 
       it('should create a new user token when a previously requested user token expired', async () => {
@@ -491,11 +486,10 @@ describe('AuthenticationTokenManager', () => {
         );
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        let mockUserTokenRequesterPromiseResolve = (value: ITokenData) =>
-          undefined;
+        let mockUserTokenRequesterPromiseResolve = (value: ITokenData) => {};
 
         const mockUserTokenRequesterPromise = new Promise<ITokenData>(
-          (resolve: any) => {
+          (resolve: (value: ITokenData) => void) => {
             mockUserTokenRequesterPromiseResolve = resolve;
           },
         );
@@ -564,7 +558,7 @@ describe('AuthenticationTokenManager', () => {
 
         // Reject the refresh access token request with an error within 400 range
         mockUserTokenRequester.mockImplementationOnce(
-          (data: any, config: any) => {
+          (data: ITokenData, config?: RequestConfig) => {
             return Promise.reject({
               config,
               response: { status: 401 },
@@ -574,13 +568,9 @@ describe('AuthenticationTokenManager', () => {
           },
         );
 
-        expect.assertions(4);
-
-        try {
-          await getUser();
-        } catch (e) {
-          expect(e).toBeInstanceOf(UserSessionExpiredError);
-        }
+        await expect(async () => await getUser()).rejects.toThrow(
+          UserSessionExpiredError,
+        );
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
 
@@ -601,7 +591,7 @@ describe('AuthenticationTokenManager', () => {
 
         // Force a 500 error response to trigger another error that is not considered a user session expired error (i.e. an error within 400 range)
         mockUserTokenRequester.mockImplementationOnce(
-          (data: any, config: any) => {
+          (data: ITokenData, config?: RequestConfig) => {
             return Promise.reject({
               config,
               response: { status: 500 },
@@ -611,13 +601,9 @@ describe('AuthenticationTokenManager', () => {
           },
         );
 
-        expect.assertions(4);
-
-        try {
-          await getUser();
-        } catch (e) {
-          expect(e).toBeInstanceOf(RefreshUserAccessTokenError);
-        }
+        await expect(async () => await getUser()).rejects.toThrow(
+          RefreshUserAccessTokenError,
+        );
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
 
@@ -636,14 +622,12 @@ describe('AuthenticationTokenManager', () => {
           ),
         );
 
-        expect.assertions(4);
+        const error = await getCallError<AxiosError>(
+          async () => await getUser(),
+        );
 
-        try {
-          await getUser();
-        } catch (e: any) {
-          expect(e).toBeInstanceOf(Error);
-          expect(e.response.status).toBe(500);
-        }
+        expect(error).toBeInstanceOf(Error);
+        expect(error.response!.status).toBe(500);
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
       });
@@ -656,7 +640,7 @@ describe('AuthenticationTokenManager', () => {
         );
 
         mockUserTokenRequester.mockImplementationOnce(
-          (data: any, config: any) => {
+          (data: ITokenData, config?: RequestConfig) => {
             return Promise.reject({
               config,
               response: { status: 500 },
@@ -666,13 +650,9 @@ describe('AuthenticationTokenManager', () => {
           },
         );
 
-        expect.assertions(3);
-
-        try {
-          await getUser();
-        } catch (e) {
-          expect(e).toBeInstanceOf(RefreshUserAccessTokenError);
-        }
+        await expect(async () => await getUser()).rejects.toThrow(
+          RefreshUserAccessTokenError,
+        );
 
         expect(mockUserTokenRequester).toHaveBeenCalledTimes(1);
       });
@@ -680,14 +660,12 @@ describe('AuthenticationTokenManager', () => {
   });
 
   describe('Load', () => {
-    it('should throw an error if a request is performed before token manager is loaded', () => {
+    it('should throw an error if a request is performed before token manager is loaded', async () => {
       tokenManagerInstance = createAndSetTokenManagerInstance(client);
-
-      expect.assertions(2);
 
       expect(tokenManagerInstance.isLoaded).toBeFalsy();
 
-      expect(getUser()).rejects.toThrow(TokenManagerNotLoadedException);
+      await expect(getUser()).rejects.toThrow(TokenManagerNotLoadedException);
     });
 
     it('should wait for the load promise completion when a request is performed while token manager is loading', async () => {
@@ -709,11 +687,12 @@ describe('AuthenticationTokenManager', () => {
             removeItem: jest.fn(),
           },
           serializer: {
-            serializeTokenData: (data: any) => {
-              return data;
+            serializeTokenData: (data: ITokenData) => {
+              return JSON.stringify(data);
             },
-            deserializeTokenData: (data: any) => {
-              return data;
+            deserializeTokenData: (data: string) => {
+              // We don't care about the specific value being returned here...
+              return data as unknown as ITokenData;
             },
           },
         },
@@ -785,26 +764,22 @@ describe('AuthenticationTokenManager', () => {
         defaultOptions,
       );
 
-      // Invalidate guest token provider instance request to force an error
+      // @ts-expect-error Invalidate guest token provider instance request to force an error
       tokenManagerInstance.guestTokenProvider.requester = null;
 
-      expect.assertions(5);
+      const error = await getCallError(
+        async () => await tokenManagerInstance.load(),
+      );
 
-      try {
-        await tokenManagerInstance.load();
-      } catch (e) {
-        expect(e).toBeInstanceOf(MisconfiguredTokenProviderError);
-        expect(tokenManagerInstance.loadError).toBe(e);
-      }
+      expect(error).toBeInstanceOf(MisconfiguredTokenProviderError);
+      expect(tokenManagerInstance.loadError).toBe(error);
 
       expect(tokenManagerInstance.isLoaded).toBe(false);
       expect(tokenManagerInstance.isLoading).toBe(false);
 
-      try {
-        await getUser();
-      } catch (e) {
-        expect(e).toBe(tokenManagerInstance.loadError);
-      }
+      await expect(async () => await getUser()).rejects.toBe(
+        tokenManagerInstance.loadError,
+      );
     });
 
     it("should return null if 'getActiveToken' is called before token manager is loaded", () => {
@@ -812,7 +787,7 @@ describe('AuthenticationTokenManager', () => {
 
       const activeToken = tokenManagerInstance.getActiveToken();
 
-      expect(activeToken).toBe(null);
+      expect(activeToken).toBeNull();
     });
   });
 
@@ -868,6 +843,7 @@ describe('AuthenticationTokenManager', () => {
     });
 
     it('should not throw if the listener for active token data changes is not a function', async () => {
+      // @ts-expect-error Set invalid active token data changed event listener for testing
       tokenManagerInstance.setActiveTokenDataChangedEventListener({});
 
       const raiseOnActiveTokenDataChangedEventSpy = jest.spyOn(
@@ -919,6 +895,7 @@ describe('AuthenticationTokenManager', () => {
     });
 
     it('should not throw if the listener for user session terminated events is not a function', async () => {
+      // @ts-expect-error Set user session terminated event listener for testing
       tokenManagerInstance.setUserSessionTerminatedEventListener({});
 
       const mockUserTokenData = new TokenData({
@@ -951,7 +928,7 @@ describe('AuthenticationTokenManager', () => {
         'userTokenRequester',
       ])(
         "should throw an error if there are no value for option '%s'",
-        (option: any) => {
+        (option: string) => {
           expect(() => {
             const finalOptions = {
               ...defaultOptions,
@@ -1098,11 +1075,13 @@ describe('AuthenticationTokenManager', () => {
 
         expect(mockRemoveItem).toHaveBeenCalledWith(UserTokenDefaultStorageKey);
 
-        tokenManagerInstance.guestTokenProvider.setTokenData({
-          accessToken: 'dummy_access_token',
-          expiresIn: '12000',
-          userId: 20000,
-        });
+        tokenManagerInstance.guestTokenProvider.setTokenData(
+          new TokenData({
+            accessToken: 'dummy_access_token',
+            expiresIn: '12000',
+            userId: 20000,
+          }),
+        );
 
         expect(mockSetItem).toHaveBeenNthCalledWith(
           2,
@@ -1219,13 +1198,9 @@ describe('AuthenticationTokenManager', () => {
           optionsWithValidStorageProviderButThrows,
         );
 
-        expect.assertions(4);
-
-        try {
-          await tokenManagerInstance.load();
-        } catch (e) {
-          expect(e).toBe(mockError);
-        }
+        await expect(
+          async () => await tokenManagerInstance.load(),
+        ).rejects.toThrow(mockError);
 
         expect(tokenManagerInstance.isLoading).toBe(false);
         expect(tokenManagerInstance.isLoaded).toBe(true);
@@ -1332,6 +1307,7 @@ describe('AuthenticationTokenManager', () => {
           expiresIn: '12000',
           refreshToken: 'dummy_refresh_token',
         }),
+        false,
       );
       tokenManagerInstance.setUserInfo({ isGuest: false, id: mockUserId });
 
@@ -1347,7 +1323,8 @@ describe('AuthenticationTokenManager', () => {
 
       jest.clearAllMocks();
 
-      tokenManagerInstance.setUserInfo({});
+      // Force cast for testing
+      tokenManagerInstance.setUserInfo({} as { id: number; isGuest: boolean });
 
       expect(guestTokenProviderSetUserIdSpy).not.toHaveBeenCalled();
       expect(userTokenProviderSetUserIdSpy).not.toHaveBeenCalled();

@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  CheckoutOrderDetails,
-  Config,
-  GetCheckoutOrderDetails,
+  type CheckoutOrder,
+  type CheckoutOrderDetails,
+  type Config,
+  type GetCheckoutOrderDetails,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

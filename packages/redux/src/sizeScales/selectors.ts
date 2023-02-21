@@ -1,4 +1,4 @@
-import { CategoryEntity, getEntities, getEntityById } from '../entities';
+import { type CategoryEntity, getEntities, getEntityById } from '../entities';
 import { createSelector } from 'reselect';
 import {
   getError,

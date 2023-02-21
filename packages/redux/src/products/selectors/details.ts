@@ -266,7 +266,9 @@ export const getProductGroupedEntries: (
   product => {
     const groupedEntries = product?.groupedEntries;
 
-    if (!groupedEntries) return;
+    if (!groupedEntries) {
+      return;
+    }
 
     return {
       totalItems: groupedEntries.totalItems,

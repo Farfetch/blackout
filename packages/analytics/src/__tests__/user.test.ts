@@ -8,7 +8,7 @@ describe('User', () => {
   let storage: StorageWrapper;
 
   beforeEach(async () => {
-    storage = await new StorageWrapper(new TestStorage());
+    storage = new StorageWrapper(new TestStorage());
     userInstance = new User(storage);
     await userInstance.initialize();
   });
@@ -28,15 +28,16 @@ describe('User', () => {
 
     const data = await userInstance.get();
 
-    expect(data.id).toEqual(null);
+    expect(data.id).toBeNull();
     expect(data.traits).toMatchObject({});
   });
 
   it('Should delete the user', async () => {
     await userInstance.set(123123, mockUsersResponse);
+
     const beforeAnonymizeLocalId = await userInstance.localId();
 
-    await userInstance.anonymize();
+    userInstance.anonymize();
 
     const afterAnonymizeLocalId = await userInstance.localId();
     const data = await userInstance.get();
@@ -59,13 +60,13 @@ describe('User', () => {
   it('Should create a local ID and store it on the storage', async () => {
     const setItemMock = jest.spyOn(storage, 'setItem');
 
-    storage.clear();
+    await storage.clear();
 
     const localId = await userInstance.localId();
 
-    expect(typeof localId).toEqual('string');
+    expect(typeof localId).toBe('string');
 
-    expect(setItemMock).toBeCalledWith('localId', localId);
+    expect(setItemMock).toHaveBeenCalledWith('localId', localId);
   });
 
   it('Should return a local ID if already in storage', async () => {
@@ -78,16 +79,17 @@ describe('User', () => {
     expect(localId).toEqual(localIdInStorage);
   });
 
-  it('Should call localId when set() is executed', () => {
+  it('Should call localId when set() is executed', async () => {
     const localIdSpy = jest.spyOn(userInstance, 'localId');
 
-    userInstance.set();
+    await userInstance.set();
 
-    expect(localIdSpy).toBeCalled();
+    expect(localIdSpy).toHaveBeenCalled();
   });
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
     const invalidData = undefined;
+
     // @ts-expect-error
     expect(() => new User(invalidData)).toThrow();
   });

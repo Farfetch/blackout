@@ -11,8 +11,8 @@ import {
 } from 'tests/__fixtures__/users';
 import {
   toBlackoutError,
-  UserAddress,
-  UserAddressInput,
+  type UserAddress,
+  type UserAddressInput,
 } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers';
 import merge from 'lodash/merge';
@@ -138,6 +138,7 @@ const defaultReturn = {
 
 describe('useUserAddress', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state and call `useUserAddress` hook with the correct options', () => {
@@ -262,6 +263,7 @@ describe('useUserAddress', () => {
 
       it('should _NOT_ call `fetchUserAddress` action if the user is not set', async () => {
         const mockWithoutUserState = merge({}, mockInitialState);
+
         // @ts-expect-error Cannot set user to null/undefined if it exists
         mockWithoutUserState.entities.user = null;
         // @ts-expect-error Cannot set user's id to null/undefined if it exists
@@ -287,6 +289,7 @@ describe('useUserAddress', () => {
 
       it('should _NOT_ call `fetchUserAddress` action if the user is guest', async () => {
         const mockWithGuestUserState = merge({}, mockInitialState);
+
         mockWithGuestUserState.entities.user.isGuest = true;
 
         const {

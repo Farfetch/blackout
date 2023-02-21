@@ -14,8 +14,6 @@ describe('getUser', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockUsersResponse));
 
-    expect.assertions(2);
-
     await expect(usersClient.getUser()).resolves.toStrictEqual(
       mockUsersResponse,
     );
@@ -25,8 +23,6 @@ describe('getUser', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(usersClient.getUser()).rejects.toMatchSnapshot();
 

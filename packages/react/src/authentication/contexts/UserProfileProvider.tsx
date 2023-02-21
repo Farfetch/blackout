@@ -1,8 +1,8 @@
 import {
   AuthenticationConfigOptions,
   getUser,
-  GuestUser,
-  User,
+  type GuestUser,
+  type User,
 } from '@farfetch/blackout-client';
 import { ProfileChangedError } from '../errors';
 import noop from 'lodash/noop';

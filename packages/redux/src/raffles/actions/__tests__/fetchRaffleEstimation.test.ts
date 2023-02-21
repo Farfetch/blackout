@@ -54,6 +54,7 @@ describe('fetchRaffleEstimation() action creator', () => {
     (getRaffleEstimation as jest.Mock).mockResolvedValueOnce(
       mockRaffleEstimationResponse,
     );
+
     const clientResult = await fetchRaffleEstimation(raffleId)(store.dispatch);
 
     expect(clientResult).toBe(mockRaffleEstimationResponse);

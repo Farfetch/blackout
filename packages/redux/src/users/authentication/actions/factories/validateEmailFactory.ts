@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostValidateEmail,
-  PostValidateEmailData,
+  type Config,
+  type PostValidateEmail,
+  type PostValidateEmailData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -22,6 +22,7 @@ const validateEmailFactory =
       dispatch({
         type: actionTypes.VALIDATE_EMAIL_REQUEST,
       });
+
       const result = await postValidateEmail(data, config);
 
       dispatch({

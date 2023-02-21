@@ -1,14 +1,14 @@
 import {
-  AuthenticationTokenManager,
-  AxiosAuthenticationTokenManagerOptions,
+  type AuthenticationTokenManager,
+  type AxiosAuthenticationTokenManagerOptions,
   client,
-  TokenContext,
-  UserToken,
+  type TokenContext,
+  type UserToken,
 } from '@farfetch/blackout-client';
 import { usePrevious } from '../../helpers';
 import AuthenticationContext from './AuthenticationContext';
 import React, {
-  SetStateAction,
+  type SetStateAction,
   useCallback,
   useEffect,
   useRef,
@@ -117,6 +117,7 @@ function AuthenticationProvider({
   const setGuestUserClaims = useCallback(
     async (claims: TokenContext, useCache: boolean) => {
       await tokenManager.setGuestTokensContext(claims);
+
       return tokenManager.getAccessToken(useCache);
     },
     [tokenManager],

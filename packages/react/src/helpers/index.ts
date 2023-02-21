@@ -2,9 +2,9 @@ import * as headers from './headers';
 import getTimeInMinutes from './getTimeInMinutes';
 import usePrevious from './usePrevious';
 import validatePassword, {
-  PasswordValidationErrors,
+  type PasswordValidationErrors,
   PasswordValidationErrorsConstants,
-  PasswordValidationResult,
+  type PasswordValidationResult,
 } from './validatePassword';
 
 export {

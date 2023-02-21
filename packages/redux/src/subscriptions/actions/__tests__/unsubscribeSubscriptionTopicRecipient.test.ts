@@ -54,18 +54,20 @@ describe('Subscriptions redux actions', () => {
         expectedError,
       );
 
-      await unsubscribeSubscriptionTopicRecipient(
-        subscriptionId,
-        topicId,
-        recipientId,
-        meta,
-      )(store.dispatch).catch(error => {
-        expect(error).toBe(expectedError);
-        expect(deleteSubscriptionTopicRecipient).toBeCalled();
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining(expectedActions),
-        );
-      });
+      await expect(
+        async () =>
+          await unsubscribeSubscriptionTopicRecipient(
+            subscriptionId,
+            topicId,
+            recipientId,
+            meta,
+          )(store.dispatch),
+      ).rejects.toThrow(expectedError);
+
+      expect(deleteSubscriptionTopicRecipient).toHaveBeenCalled();
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining(expectedActions),
+      );
     });
 
     it('Should create the correct actions when the unsubscribe subscription topic recipient request is successful', async () => {
@@ -97,7 +99,7 @@ describe('Subscriptions redux actions', () => {
         meta,
       )(store.dispatch);
 
-      expect(deleteSubscriptionTopicRecipient).toBeCalled();
+      expect(deleteSubscriptionTopicRecipient).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

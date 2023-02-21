@@ -31,7 +31,6 @@ describe('getCheckoutOrderDeliveryBundleUpgradeProvisioning', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(
       checkoutClient.getCheckoutOrderDeliveryBundleUpgradeProvisioning(
         id,

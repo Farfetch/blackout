@@ -33,28 +33,28 @@ describe('fetchCountryAddressSchema() action creator', () => {
     (getCountryAddressSchemas as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchCountryAddressSchemas(isoCode)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCountryAddressSchemas).toHaveBeenCalledTimes(1);
-      expect(getCountryAddressSchemas).toHaveBeenCalledWith(
-        isoCode,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { isoCode },
-            type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchCountryAddressSchemas(isoCode)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCountryAddressSchemas).toHaveBeenCalledTimes(1);
+    expect(getCountryAddressSchemas).toHaveBeenCalledWith(
+      isoCode,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { isoCode },
+          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get address schema procedure is successful', async () => {
@@ -70,7 +70,6 @@ describe('fetchCountryAddressSchema() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(getCountryAddressSchemas).toHaveBeenCalledTimes(1);
     expect(getCountryAddressSchemas).toHaveBeenCalledWith(
       isoCode,

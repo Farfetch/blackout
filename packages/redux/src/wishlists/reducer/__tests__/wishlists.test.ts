@@ -305,6 +305,7 @@ describe('wishlists reducer', () => {
 
     it('should handle REMOVE_WISHLIST_ITEM_FAILURE action type', () => {
       const mockError = 'Delete error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
@@ -363,6 +364,7 @@ describe('wishlists reducer', () => {
 
     it('should handle UPDATE_WISHLIST_ITEM_FAILURE action type', () => {
       const mockError = 'Delete error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
@@ -417,6 +419,7 @@ describe('wishlists reducer', () => {
     const expectedResult = {
       products: mockProduct,
     };
+
     it('should map the RESET_WISHLIST_ENTITIES action to a new state', () => {
       expect(
         entitiesMapper[actionTypes.RESET_WISHLIST_ENTITIES](state),
@@ -440,6 +443,7 @@ describe('wishlists reducer', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
         const error = toBlackoutError(new Error('foo'));
+
         expect(
           fromReducer.getError({
             ...INITIAL_STATE,

@@ -22,14 +22,13 @@ describe('checkout client', () => {
 
       await expect(
         patchCheckoutOrderItem(checkoutOrderId, itemId, data),
-      ).resolves.toEqual(200);
-      expect(getSpy).toBeCalledWith(expectedUrl, data, expectedConfig);
+      ).resolves.toBe(200);
+      expect(getSpy).toHaveBeenCalledWith(expectedUrl, data, expectedConfig);
     });
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
 
-      expect.assertions(2);
       await expect(
         patchCheckoutOrderItem(checkoutOrderId, itemId, data),
       ).rejects.toMatchSnapshot();

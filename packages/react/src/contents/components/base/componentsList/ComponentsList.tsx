@@ -1,6 +1,6 @@
 import Component from '../../Component';
 import map from 'lodash/map';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import type { ComponentsList as ComponentsListType } from '../../../types';
 
 const ComponentsList = ({

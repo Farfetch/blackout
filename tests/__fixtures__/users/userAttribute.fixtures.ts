@@ -1,5 +1,5 @@
 import {
-  PatchUserAttributeData,
+  type PatchUserAttributeData,
   UserAttributeType,
 } from '@farfetch/blackout-client';
 

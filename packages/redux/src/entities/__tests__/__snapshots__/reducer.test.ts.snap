@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`reducer defaultEntitiesReducers Should export the default entities reducers 1`] = `
 Object {
   "bag": Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],

@@ -1,4 +1,4 @@
-import { Gender, SharedWishlistItem } from '@farfetch/blackout-client';
+import { Gender, type SharedWishlistItem } from '@farfetch/blackout-client';
 import { mockProductsEntity } from '../products';
 
 export const mockSharedWishlistId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';

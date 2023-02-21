@@ -13,7 +13,9 @@ describe('resetBagState() action creator', () => {
 
   it('should dispatch the correct action with fields to reset', () => {
     const fieldsToReset = ['id'];
+
     resetBagState(fieldsToReset)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

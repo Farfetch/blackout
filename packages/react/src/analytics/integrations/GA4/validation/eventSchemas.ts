@@ -275,6 +275,7 @@ const signupNewsletterSchema = yup.object({
         const validationResult = (schema: AnySchema) => {
           try {
             schema.validateSync(value);
+
             return true;
           } catch (e) {
             return false;

@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetOrder,
-  Order,
+  type Config,
+  type GetOrder,
+  type Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse';

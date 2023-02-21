@@ -1,5 +1,8 @@
 import * as actionTypes from '../../actionTypes';
-import { DeleteSubscription, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type DeleteSubscription,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { UnsubscribeSubscriptionFactory } from './types';
 
 /**

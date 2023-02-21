@@ -27,7 +27,6 @@ describe('postProgramMembership', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockResponseProgramUsersMembership));
 
-    expect.assertions(2);
     await expect(
       postProgramMembership(programId, membershipData),
     ).resolves.toStrictEqual(mockResponseProgramUsersMembership);
@@ -39,7 +38,6 @@ describe('postProgramMembership', () => {
 
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       postProgramMembership(programId, membershipData),
     ).rejects.toMatchSnapshot();

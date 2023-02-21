@@ -33,23 +33,23 @@ describe('fetchReturn() action creator', () => {
     const expectedError = new Error('fetch return error');
 
     (getReturn as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchReturn(returnId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getReturn).toHaveBeenCalledTimes(1);
-      expect(getReturn).toHaveBeenCalledWith(returnId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_RETURN_REQUEST, meta: { returnId } },
-          {
-            type: actionTypes.FETCH_RETURN_FAILURE,
-            payload: { error: expectedError },
-            meta: { returnId },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchReturn(returnId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getReturn).toHaveBeenCalledTimes(1);
+    expect(getReturn).toHaveBeenCalledWith(returnId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_RETURN_REQUEST, meta: { returnId } },
+        {
+          type: actionTypes.FETCH_RETURN_FAILURE,
+          payload: { error: expectedError },
+          meta: { returnId },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch return procedure is successful', async () => {

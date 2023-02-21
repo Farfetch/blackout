@@ -51,57 +51,53 @@ describe('updateBagItem() action creator', () => {
 
     (patchBagItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
-
-    await updateBagItem(
-      mockBagItemId,
-      mockBagItemData,
-      undefined,
-      bagItemMetadata,
-    )(store.dispatch, store.getState as () => StoreState, { getOptions }).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(patchBagItem).toHaveBeenCalledTimes(1);
-        expect(patchBagItem).toHaveBeenCalledWith(
-          mockBagId,
+    await expect(
+      async () =>
+        await updateBagItem(
           mockBagItemId,
           mockBagItemData,
-          expectedQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              meta: {
-                ...bagItemMetadata,
-                ...mockBagItemData,
-                bagId: mockBagId,
-                bagItemId: mockBagItemId,
-              },
-              type: actionTypes.UPDATE_BAG_ITEM_REQUEST,
-            },
-            {
-              payload: {
-                error: expectedError,
-              },
-              meta: {
-                ...bagItemMetadata,
-                ...mockBagItemData,
-                bagId: mockBagId,
-                bagItemId: mockBagItemId,
-              },
-              type: actionTypes.UPDATE_BAG_ITEM_FAILURE,
-            },
-          ]),
-        );
-      },
+          undefined,
+          bagItemMetadata,
+        )(store.dispatch, store.getState as () => StoreState, { getOptions }),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchBagItem).toHaveBeenCalledTimes(1);
+    expect(patchBagItem).toHaveBeenCalledWith(
+      mockBagId,
+      mockBagItemId,
+      mockBagItemData,
+      expectedQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: {
+            ...bagItemMetadata,
+            ...mockBagItemData,
+            bagId: mockBagId,
+            bagItemId: mockBagItemId,
+          },
+          type: actionTypes.UPDATE_BAG_ITEM_REQUEST,
+        },
+        {
+          payload: {
+            error: expectedError,
+          },
+          meta: {
+            ...bagItemMetadata,
+            ...mockBagItemData,
+            bagId: mockBagId,
+            bagItemId: mockBagItemId,
+          },
+          type: actionTypes.UPDATE_BAG_ITEM_FAILURE,
+        },
+      ]),
     );
   });
 
   it('should create the correct actions for when the update bag item procedure is successful', async () => {
     (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(5);
 
     await updateBagItem(
       mockBagItemId,
@@ -155,8 +151,6 @@ describe('updateBagItem() action creator', () => {
     store = bagMockStoreWithoutMiddlewares(mockState);
 
     (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(5);
 
     await updateBagItem(mockBagItemId, mockBagItemData)(
       store.dispatch,

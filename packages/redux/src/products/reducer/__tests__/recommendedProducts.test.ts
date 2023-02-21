@@ -132,6 +132,7 @@ describe('recommendations reducer', () => {
     const expectedResult = {
       [mockRecommendedProductsStrategy]: payload,
     };
+
     it('should return the initial state', () => {
       const state = reducer(undefined, mockAction);
 

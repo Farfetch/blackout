@@ -17,13 +17,13 @@
  */
 
 import {
-  EventData,
+  type EventData,
   integrations,
-  LoadIntegrationEventData,
-  OmnitrackingOptions,
-  StrippedDownAnalytics,
+  type LoadIntegrationEventData,
+  type OmnitrackingOptions,
+  type StrippedDownAnalytics,
   TrackTypes,
-  TrackTypesValues,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { getCLientCountryFromSubfolder } from './omnitracking-web-helper';

@@ -1,5 +1,5 @@
 import {
-  Configuration,
+  type Configuration,
   ConfigurationSchemaFieldType,
 } from '@farfetch/blackout-client';
 import type { ConfigurationsState } from '@farfetch/blackout-redux';
@@ -68,6 +68,7 @@ export const mockConfigurationsState = {
     configurations: mockConfigurations.reduce(
       (entity: Record<string, Configuration>, configuration) => {
         entity[configuration.code] = configuration;
+
         return entity;
       },
       {},

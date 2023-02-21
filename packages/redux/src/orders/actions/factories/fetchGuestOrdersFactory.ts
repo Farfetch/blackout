@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Brand,
-  Config,
-  GetGuestOrders,
-  Order,
+  type Brand,
+  type Config,
+  type GetGuestOrders,
+  type Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import merge from 'lodash/merge';

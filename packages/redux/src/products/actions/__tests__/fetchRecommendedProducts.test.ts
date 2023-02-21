@@ -42,36 +42,37 @@ describe('fetchRecommendedProducts() action creator', () => {
     const expectedError = new Error('fetch recommendations error');
 
     (getRecommendedProducts as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchRecommendedProducts({
-      productId: mockRecommendedProductsProductId,
-      strategyName: mockRecommendedProductsStrategy,
-    })(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getRecommendedProducts).toHaveBeenCalledTimes(1);
-      expect(getRecommendedProducts).toHaveBeenCalledWith(
-        {
+    await expect(
+      async () =>
+        await fetchRecommendedProducts({
           productId: mockRecommendedProductsProductId,
           strategyName: mockRecommendedProductsStrategy,
-        },
-        expectedConfig,
-      );
+        })(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_REQUEST,
-            meta: { strategyName: mockRecommendedProductsStrategy },
-          },
-          {
-            type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_FAILURE,
-            payload: { error: expectedError },
-            meta: { strategyName: mockRecommendedProductsStrategy },
-          },
-        ]),
-      );
-    });
+    expect(getRecommendedProducts).toHaveBeenCalledTimes(1);
+    expect(getRecommendedProducts).toHaveBeenCalledWith(
+      {
+        productId: mockRecommendedProductsProductId,
+        strategyName: mockRecommendedProductsStrategy,
+      },
+      expectedConfig,
+    );
+
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_REQUEST,
+          meta: { strategyName: mockRecommendedProductsStrategy },
+        },
+        {
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCTS_FAILURE,
+          payload: { error: expectedError },
+          meta: { strategyName: mockRecommendedProductsStrategy },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch product recommendations procedure is successful', async () => {

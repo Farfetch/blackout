@@ -14,7 +14,6 @@ describe('getOrderReturns', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(getOrderReturns(mockOrderId)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/orders/${mockOrderId}/returns`,
@@ -25,7 +24,6 @@ describe('getOrderReturns', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(getOrderReturns(mockOrderId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/orders/${mockOrderId}/returns`,

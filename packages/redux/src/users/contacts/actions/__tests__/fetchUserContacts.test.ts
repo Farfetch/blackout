@@ -30,22 +30,22 @@ describe('fetchUserContacts() action creator', () => {
     const expectedError = new Error('get user contacts error');
 
     (getUserContacts as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserContacts(userId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserContacts).toHaveBeenCalledTimes(1);
-      expect(getUserContacts).toHaveBeenCalledWith(userId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_CONTACTS_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_CONTACTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserContacts(userId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserContacts).toHaveBeenCalledTimes(1);
+    expect(getUserContacts).toHaveBeenCalledWith(userId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_CONTACTS_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_CONTACTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user contacts procedure is successful', async () => {

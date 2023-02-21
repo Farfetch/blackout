@@ -1,12 +1,12 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 
 const path = '/api/checkout/v1/orders/:id/items';
 
 const fixtures = {
   success: (): RestHandler =>
-    rest.patch(path, async (_req, res, ctx) => res(ctx.status(204))),
+    rest.patch(path, (_req, res, ctx) => res(ctx.status(204))),
   failure: (): RestHandler =>
-    rest.patch(path, async (_req, res, ctx) =>
+    rest.patch(path, (_req, res, ctx) =>
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

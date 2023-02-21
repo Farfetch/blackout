@@ -1,6 +1,6 @@
 import * as checkoutClient from '..';
 import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
-import { DeliveryBundleUpgrades, DeliveryWindowType } from '../types';
+import { type DeliveryBundleUpgrades, DeliveryWindowType } from '../types';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgrades.fixtures';
 import mswServer from '../../../tests/mswServer';
@@ -132,7 +132,6 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(
       checkoutClient.getCheckoutOrderDeliveryBundleUpgrades(
         id,
@@ -145,7 +144,6 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       checkoutClient.getCheckoutOrderDeliveryBundleUpgrades(
         id,

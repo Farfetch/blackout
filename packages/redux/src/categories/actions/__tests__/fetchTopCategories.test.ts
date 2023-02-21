@@ -29,26 +29,23 @@ describe('fetchTopCategories() action creator', () => {
 
     (getTopCategories as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchTopCategories()(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchTopCategories()(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getTopCategories).toHaveBeenCalledTimes(1);
-      expect(getTopCategories).toHaveBeenCalledWith(expectedConfig);
-      expect(store.getActions()).toEqual([
-        { type: actionTypes.FETCH_TOP_CATEGORIES_REQUEST },
-        {
-          type: actionTypes.FETCH_TOP_CATEGORIES_FAILURE,
-          payload: { error: expectedError },
-        },
-      ]);
-    });
+    expect(getTopCategories).toHaveBeenCalledTimes(1);
+    expect(getTopCategories).toHaveBeenCalledWith(expectedConfig);
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.FETCH_TOP_CATEGORIES_REQUEST },
+      {
+        type: actionTypes.FETCH_TOP_CATEGORIES_FAILURE,
+        payload: { error: expectedError },
+      },
+    ]);
   });
 
   it('should create the correct actions in case the fetch top categories procedure is successful', async () => {
     (getTopCategories as jest.Mock).mockResolvedValueOnce(mockTopCategories);
-
-    expect.assertions(4);
 
     await fetchTopCategories()(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockTopCategories);

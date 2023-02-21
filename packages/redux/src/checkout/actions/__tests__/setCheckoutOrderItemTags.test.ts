@@ -44,31 +44,32 @@ describe('setCheckoutOrderItemTags() action creator', () => {
     (putCheckoutOrderItemTags as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
-      expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
-        checkoutId,
-        checkoutOrderItemId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST },
-          {
-            type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await setCheckoutOrderItemTags(checkoutId, checkoutOrderItemId, data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
+      checkoutId,
+      checkoutOrderItemId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST },
+        {
+          type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set checkout order items tags procedure is successful', async () => {
@@ -84,7 +85,6 @@ describe('setCheckoutOrderItemTags() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(putCheckoutOrderItemTags).toHaveBeenCalledTimes(1);
     expect(putCheckoutOrderItemTags).toHaveBeenCalledWith(
       checkoutId,

@@ -17,8 +17,6 @@ describe('getPreferences', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockGetPreferencesResponse));
 
-    expect.assertions(2);
-
     await expect(getUserPreferences(userId)).resolves.toStrictEqual(
       mockGetPreferencesResponse,
     );
@@ -30,8 +28,6 @@ describe('getPreferences', () => {
 
   it('should filter by code and handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockGetPreferencesResponse));
-
-    expect.assertions(2);
 
     await expect(getUserPreferences(userId, code)).resolves.toStrictEqual(
       mockGetPreferencesResponse,
@@ -45,8 +41,6 @@ describe('getPreferences', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
-
     await expect(getUserPreferences(userId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/preferences`,
@@ -56,8 +50,6 @@ describe('getPreferences', () => {
 
   it('should receive a client request error when filtered by code', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getUserPreferences(userId, code)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

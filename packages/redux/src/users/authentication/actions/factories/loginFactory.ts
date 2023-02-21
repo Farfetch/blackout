@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  LoginData,
-  LoginResponse,
-  PostLogin,
+  type Config,
+  type LoginData,
+  type LoginResponse,
+  type PostLogin,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { LoginMethodParameterTypes } from '@farfetch/blackout-analytics';
@@ -26,6 +26,7 @@ const loginFactory =
       dispatch({
         type: actionTypes.LOGIN_REQUEST,
       });
+
       const result = await postLogin(data, config);
       const isUnverifiedUser = result.status === UNVERIFIED_USER && !result.id;
       const user = isUnverifiedUser ? {} : result;

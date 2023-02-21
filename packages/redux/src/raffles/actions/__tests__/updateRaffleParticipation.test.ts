@@ -4,7 +4,7 @@ import { mockStore } from '../../../../tests';
 import { participationId, raffleId } from 'tests/__fixtures__/raffles';
 import {
   patchRaffleParticipation,
-  PatchRaffleParticipationOperation,
+  type PatchRaffleParticipationOperation,
   RaffleParticipationStatus,
 } from '@farfetch/blackout-client';
 import updateRaffleParticipation from '../updateRaffleParticipation';

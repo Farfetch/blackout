@@ -5,6 +5,7 @@ import { postPasswordReset } from '@farfetch/blackout-client';
 import { resetPassword } from '../..';
 import find from 'lodash/find';
 import reducer from '../../reducer';
+
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   postPasswordReset: jest.fn(),
@@ -28,25 +29,25 @@ describe('resetPassword() action creator', () => {
     const expectedError = new Error('post password reset error');
 
     (postPasswordReset as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await resetPassword(mockPasswordResetData)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postPasswordReset).toHaveBeenCalledTimes(1);
-      expect(postPasswordReset).toHaveBeenCalledWith(
-        mockPasswordResetData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.PASSWORD_RESET_REQUEST },
-          {
-            type: actionTypes.PASSWORD_RESET_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await resetPassword(mockPasswordResetData)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPasswordReset).toHaveBeenCalledTimes(1);
+    expect(postPasswordReset).toHaveBeenCalledWith(
+      mockPasswordResetData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.PASSWORD_RESET_REQUEST },
+        {
+          type: actionTypes.PASSWORD_RESET_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the password resetting procedure is successful', async () => {

@@ -30,28 +30,26 @@ describe('fetchConfigurations() action creator', () => {
 
     (getConfigurations as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchConfigurations()(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchConfigurations()(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getConfigurations).toHaveBeenCalledTimes(1);
-      expect(getConfigurations).toHaveBeenCalledWith(
-        expectedConfig,
-        expectedQuery,
-      );
-      expect(store.getActions()).toEqual([
-        { type: actionTypes.FETCH_CONFIGURATIONS_REQUEST },
-        {
-          type: actionTypes.FETCH_CONFIGURATIONS_FAILURE,
-          payload: { error: expectedError },
-        },
-      ]);
-    });
+    expect(getConfigurations).toHaveBeenCalledTimes(1);
+    expect(getConfigurations).toHaveBeenCalledWith(
+      expectedConfig,
+      expectedQuery,
+    );
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.FETCH_CONFIGURATIONS_REQUEST },
+      {
+        type: actionTypes.FETCH_CONFIGURATIONS_FAILURE,
+        payload: { error: expectedError },
+      },
+    ]);
   });
 
   it('should create the correct actions in case the fetch configurations procedure is successful', async () => {
     (getConfigurations as jest.Mock).mockResolvedValueOnce(mockConfigurations);
-    expect.assertions(4);
 
     await fetchConfigurations()(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockConfigurations);

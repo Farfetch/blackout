@@ -2,7 +2,7 @@ import { getCountryCode, getCountryCulture } from '@farfetch/blackout-redux';
 import { sortContentType } from '../../../utils';
 import { useContentType } from '../../../hooks';
 import { useSelector } from 'react-redux';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import renderContent from '../../../helpers/renderContent';
 import type { ContentListComponent } from '../../../types';
 

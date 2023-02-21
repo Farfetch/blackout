@@ -24,9 +24,9 @@ describe('Staff members selectors', () => {
     it('should get the error status', () => {
       const spy = jest.spyOn(fromReducer, 'getError');
 
-      expect(selectors.getStaffMemberError(mockState, mockStaffMemberId)).toBe(
-        undefined,
-      );
+      expect(
+        selectors.getStaffMemberError(mockState, mockStaffMemberId),
+      ).toBeUndefined();
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

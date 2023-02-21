@@ -35,7 +35,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `preferences` slice', () => {
-      expect(selectors.getUserPreferencesError(mockBaseState)).toBe(null);
+      expect(selectors.getUserPreferencesError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserPreferencesError(mockErrorState)).toBe(
         dummyError,
@@ -51,7 +51,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `updatePreferences` slice', () => {
-      expect(selectors.getUserPreferencesUpdateError(mockBaseState)).toBe(null);
+      expect(selectors.getUserPreferencesUpdateError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserPreferencesUpdateError(mockErrorState)).toBe(
         dummyError,

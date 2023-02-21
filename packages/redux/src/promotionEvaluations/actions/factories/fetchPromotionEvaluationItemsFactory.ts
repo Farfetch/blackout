@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetPromotionEvaluationItems,
-  PromotionEvaluationId,
-  PromotionEvaluationItem,
+  type Config,
+  type GetPromotionEvaluationItems,
+  type PromotionEvaluationId,
+  type PromotionEvaluationItem,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

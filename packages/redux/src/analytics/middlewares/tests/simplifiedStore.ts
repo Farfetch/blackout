@@ -1,4 +1,9 @@
-import { AnyAction, combineReducers, Middleware, MiddlewareAPI } from 'redux';
+import {
+  type AnyAction,
+  combineReducers,
+  type Middleware,
+  type MiddlewareAPI,
+} from 'redux';
 import type { StoreState } from '../../../types';
 
 // This is a simplified version of our createEntitiesReducer()
@@ -35,6 +40,7 @@ export const mockStore = (
     async dispatch(action: AnyAction) {
       const next = <T extends AnyAction>(action: T) => {
         this.state = reducer(this.state as Required<typeof this.state>, action);
+
         return action;
       };
 

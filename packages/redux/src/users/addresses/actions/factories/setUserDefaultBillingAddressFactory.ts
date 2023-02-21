@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PutUserDefaultBillingAddress,
+  type Config,
+  type PutUserDefaultBillingAddress,
   toBlackoutError,
-  User,
-  UserAddress,
+  type User,
+  type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { SetUserDefaultBillingAddressAction } from '../../types';

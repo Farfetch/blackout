@@ -17,11 +17,13 @@ interface FetchSizeScaleFailureAction extends Action {
   payload: { error: BlackoutError };
   type: typeof actionTypes.FETCH_SIZE_SCALE_FAILURE;
 }
+
 interface FetchSizeScaleSuccessAction extends Action {
   meta: { sizeScaleId: SizeScale['sizeScaleId'] };
   payload: Payload;
   type: typeof actionTypes.FETCH_SIZE_SCALE_SUCCESS;
 }
+
 interface FetchSizeScaleRequestAction extends Action {
   meta: { sizeScaleId: SizeScale['sizeScaleId'] };
   type: typeof actionTypes.FETCH_SIZE_SCALE_REQUEST;
@@ -39,11 +41,13 @@ interface FetchSizeScalesRequestAction extends Action {
   meta: { query: SizeScalesQuery };
   type: typeof actionTypes.FETCH_SIZE_SCALES_REQUEST;
 }
+
 interface FetchSizeScalesSuccessAction extends Action {
   meta: { query: SizeScalesQuery };
   payload: Payload;
   type: typeof actionTypes.FETCH_SIZE_SCALES_SUCCESS;
 }
+
 interface FetchSizeScalesFailureAction extends Action {
   meta: { query: SizeScalesQuery };
   payload: { error: BlackoutError };

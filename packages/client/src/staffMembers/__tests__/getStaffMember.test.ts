@@ -16,7 +16,6 @@ describe('getStaffMember', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockStaffMember));
-    expect.assertions(2);
 
     await expect(getStaffMember(mockStaffMemberId)).resolves.toEqual(
       mockStaffMember,
@@ -30,7 +29,6 @@ describe('getStaffMember', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getStaffMember(mockStaffMemberId)).rejects.toMatchSnapshot();
 

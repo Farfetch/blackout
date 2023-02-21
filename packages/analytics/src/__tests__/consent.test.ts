@@ -26,7 +26,7 @@ describe('Consent', () => {
   });
 
   it('Should return null if no consent is set', async () => {
-    expect(await consentInstance.get()).toBe(null);
+    expect(await consentInstance.get()).toBeNull();
   });
 
   it('Should return the consent data via get()', async () => {
@@ -62,6 +62,7 @@ describe('Consent', () => {
 
   it('Should throw if an invalid storage instance is passed to the constructor', () => {
     const invalidData = undefined;
+
     // @ts-expect-error
     expect(() => new Consent(invalidData)).toThrow();
   });

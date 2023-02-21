@@ -8,7 +8,7 @@ import {
 import {
   fetchPaymentTokens,
   removePaymentToken,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers';
 import usePaymentTokens from '../usePaymentTokens';
@@ -38,6 +38,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('usePaymentTokens', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

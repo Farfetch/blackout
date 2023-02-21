@@ -13,6 +13,7 @@ describe('resetBag() action creator', () => {
 
   it('should dispatch the correct action when there are no fields to resetBag', () => {
     resetBag()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([
@@ -28,6 +29,7 @@ describe('resetBag() action creator', () => {
 
   it('should dispatch the correct action to reset bag operations entities', () => {
     resetBagOperationsEntities()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

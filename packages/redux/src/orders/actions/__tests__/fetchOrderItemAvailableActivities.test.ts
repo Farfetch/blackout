@@ -32,37 +32,35 @@ describe('fetchOrderItemAvailableActivities() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchOrderItemAvailableActivities(
+          orderId,
+          itemId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchOrderItemAvailableActivities(
+    expect(getOrderItemAvailableActivities).toHaveBeenCalledTimes(1);
+    expect(getOrderItemAvailableActivities).toHaveBeenCalledWith(
       orderId,
       itemId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getOrderItemAvailableActivities).toHaveBeenCalledTimes(1);
-      expect(getOrderItemAvailableActivities).toHaveBeenCalledWith(
-        orderId,
-        itemId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST },
-          {
-            type: actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST },
+        {
+          type: actionTypes.FETCH_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch order item activities procedure is successful', async () => {
     (getOrderItemAvailableActivities as jest.Mock).mockResolvedValueOnce(
       mockOrderDocumentsResponse,
     );
-
-    expect.assertions(4);
 
     await fetchOrderItemAvailableActivities(
       orderId,

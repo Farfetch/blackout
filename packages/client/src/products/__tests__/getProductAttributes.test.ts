@@ -16,8 +16,6 @@ describe('getProductAttributes', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockProductAttributes));
 
-    expect.assertions(2);
-
     await expect(getProductAttributes(mockProductId)).resolves.toEqual(
       mockProductAttributes,
     );
@@ -29,8 +27,6 @@ describe('getProductAttributes', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getProductAttributes(mockProductId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

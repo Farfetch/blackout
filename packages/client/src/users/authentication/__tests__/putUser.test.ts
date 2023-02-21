@@ -1,5 +1,5 @@
 import * as usersClient from '..';
-import { User, UserStatus } from '..';
+import { type User, UserStatus } from '..';
 import { UserGender } from '../../../types';
 import { userId } from 'tests/__fixtures__/users';
 import client from '../../../helpers/client';
@@ -45,8 +45,6 @@ describe('putUser', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(usersClient.putUser(userId, data)).resolves.toStrictEqual(
       response,
     );
@@ -59,8 +57,6 @@ describe('putUser', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(usersClient.putUser(userId, data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

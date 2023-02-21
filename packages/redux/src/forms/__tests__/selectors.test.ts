@@ -50,8 +50,10 @@ describe('contents redux selectors', () => {
 
     describe('getFormSchemas()', () => {
       let formsResultState: FormsResult;
+
       beforeEach(() => {
         const sampleSchema = { ...formSchemaResponse };
+
         sampleSchema.code = 'sample';
         formsResultState = {
           [sampleSchema.code]: sampleSchema,

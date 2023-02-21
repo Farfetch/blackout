@@ -18,8 +18,6 @@ describe('postUserAttribute', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockUserAttributeResponse));
 
-    expect.assertions(2);
-
     await expect(
       profileClient.postUserAttribute(userId, data),
     ).resolves.toStrictEqual(mockUserAttributeResponse);
@@ -32,8 +30,6 @@ describe('postUserAttribute', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       profileClient.postUserAttribute(userId, data),

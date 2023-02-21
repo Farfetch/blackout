@@ -1,9 +1,9 @@
 import {
-  BlackoutError,
-  Config,
-  PatchReturnData,
-  PostReturnData,
-  Return,
+  type BlackoutError,
+  type Config,
+  type PatchReturnData,
+  type PostReturnData,
+  type Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {
@@ -14,7 +14,7 @@ import {
   isReturnFetched,
   isReturnLoading,
   resetReturnState as resetReturnStateAction,
-  StoreState,
+  type StoreState,
   updateReturn as updateReturnAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -101,7 +101,7 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
   );
 
   const create = useCallback(
-    async (data: PostReturnData, config?: Config) => {
+    (data: PostReturnData, config?: Config) => {
       // Do not allow a request to create if a returnId is set.
       // This is because the isLoading/error/data will be out-of-sync
       // as the hook will give priority to the passed in returnId when
@@ -110,7 +110,9 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
         const error = toBlackoutError(
           new Error("Cannot call 'create' when 'returnId' is set"),
         );
+
         setCreateReturnError(error);
+
         return Promise.reject(error);
       }
 

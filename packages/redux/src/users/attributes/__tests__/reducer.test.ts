@@ -1,8 +1,8 @@
 import * as actionTypes from '../actionTypes';
 import {
-  BlackoutError,
+  type BlackoutError,
   toBlackoutError,
-  UserAttribute,
+  type UserAttribute,
 } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer';
 import type { UserAttributesState } from '../../types';

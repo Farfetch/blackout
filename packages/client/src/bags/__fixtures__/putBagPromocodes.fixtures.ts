@@ -1,4 +1,4 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 import type { BagPromocodesInformation } from '../types';
 
 const path = '/api/commerce/v1/bags/:bagId/promocodes';

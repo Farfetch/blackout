@@ -52,6 +52,7 @@ export default new schema.Entity(
           }),
         };
       }
+
       const orderItem = {
         customAttributes: adaptCustomAttributes(customAttributes),
         images: adaptProductImages(imagesToAdapt, {

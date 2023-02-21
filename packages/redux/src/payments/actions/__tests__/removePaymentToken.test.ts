@@ -30,25 +30,25 @@ describe('removePaymentToken() action creator', () => {
     const expectedError = new Error('remove payment token error');
 
     (deletePaymentToken as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await removePaymentToken(paymentTokenId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deletePaymentToken).toHaveBeenCalledTimes(1);
-      expect(deletePaymentToken).toHaveBeenCalledWith(
-        paymentTokenId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST },
-          {
-            type: actionTypes.REMOVE_PAYMENT_TOKEN_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await removePaymentToken(paymentTokenId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deletePaymentToken).toHaveBeenCalledTimes(1);
+    expect(deletePaymentToken).toHaveBeenCalledWith(
+      paymentTokenId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST },
+        {
+          type: actionTypes.REMOVE_PAYMENT_TOKEN_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the remove payment token procedure is successful', async () => {

@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostRefreshEmailToken,
-  PostRefreshEmailTokenData,
+  type Config,
+  type PostRefreshEmailToken,
+  type PostRefreshEmailTokenData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -24,6 +24,7 @@ const refreshEmailTokenFactory =
       dispatch({
         type: actionTypes.REFRESH_EMAIL_TOKEN_REQUEST,
       });
+
       const result = await postRefreshEmailToken(data, config);
 
       dispatch({

@@ -1,8 +1,3 @@
-import {
-  OPTION_HTTP_CLIENT,
-  OPTION_SEARCH_QUERY_PARAMETERS,
-  OPTION_TRANSFORM_PAYLOAD,
-} from '../constants';
 import type {
   commonTrackAndPageParams,
   pageActionEventTypes,
@@ -19,6 +14,11 @@ import type {
   TrackTypes,
   TrackTypesValues,
 } from '../../..';
+import type {
+  OPTION_HTTP_CLIENT,
+  OPTION_SEARCH_QUERY_PARAMETERS,
+  OPTION_TRANSFORM_PAYLOAD,
+} from '../constants';
 
 export type PageViewEvents =
   typeof pageViewEventTypes[keyof typeof pageViewEventTypes];

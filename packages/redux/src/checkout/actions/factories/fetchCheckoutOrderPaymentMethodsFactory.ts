@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  Config,
-  GetCheckoutOrderPaymentMethods,
-  PaymentMethods,
+  type CheckoutOrder,
+  type Config,
+  type GetCheckoutOrderPaymentMethods,
+  type PaymentMethods,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

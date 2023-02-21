@@ -32,30 +32,27 @@ describe('fetchBrand() action creator', () => {
 
     (getBrand as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchBrand(mockBrandId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchBrand(mockBrandId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getBrand).toHaveBeenCalledTimes(1);
-      expect(getBrand).toHaveBeenCalledWith(mockBrandId, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          meta: { brandId: mockBrandId },
-          type: actionTypes.FETCH_BRAND_REQUEST,
-        },
-        {
-          meta: { brandId: mockBrandId },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_BRAND_FAILURE,
-        },
-      ]);
-    });
+    expect(getBrand).toHaveBeenCalledTimes(1);
+    expect(getBrand).toHaveBeenCalledWith(mockBrandId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { brandId: mockBrandId },
+        type: actionTypes.FETCH_BRAND_REQUEST,
+      },
+      {
+        meta: { brandId: mockBrandId },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_BRAND_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch brand procedure is successful', async () => {
     (getBrand as jest.Mock).mockResolvedValueOnce(mockBrandResponse);
-
-    expect.assertions(5);
 
     await fetchBrand(mockBrandId)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockBrandResponse);

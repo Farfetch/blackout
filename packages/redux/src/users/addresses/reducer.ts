@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import omit from 'lodash/omit';
 import produce from 'immer';
 import reducerFactory, {
@@ -51,6 +51,7 @@ export const getDefaultAddress = (
       return address;
     }
   }
+
   return null;
 };
 
@@ -240,6 +241,7 @@ export const entitiesMapper = {
         // Unmark previous shipping address as default
         const prevCurrentShippingAddressStore =
           addresses[prevCurrentShippingAddress.id];
+
         if (prevCurrentShippingAddressStore) {
           prevCurrentShippingAddressStore.isCurrentShipping = false;
         }
@@ -247,6 +249,7 @@ export const entitiesMapper = {
 
       // Select the selected address as default
       const newDefaultShippingAddress = addresses[addressId];
+
       if (newDefaultShippingAddress) {
         newDefaultShippingAddress.isCurrentShipping = true;
       }
@@ -280,6 +283,7 @@ export const entitiesMapper = {
         // Unmark previous billing address as default
         const prevCurrentBillingAddressStore =
           addresses[prevCurrentBillingAddress.id];
+
         if (prevCurrentBillingAddressStore) {
           prevCurrentBillingAddressStore.isCurrentBilling = false;
         }
@@ -287,6 +291,7 @@ export const entitiesMapper = {
 
       // Select the selected address as default
       const newDefaultBillingAddress = addresses[addressId];
+
       if (newDefaultBillingAddress) {
         newDefaultBillingAddress.isCurrentBilling = true;
       }

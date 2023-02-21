@@ -25,8 +25,6 @@ describe('locale client', () => {
 
       mswServer.use(fixtures.get.success(response));
 
-      expect.assertions(2);
-
       await expect(getCountries()).resolves.toEqual(response.entries);
 
       expect(spy).toHaveBeenCalledWith(
@@ -37,8 +35,6 @@ describe('locale client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.get.failure());
-
-      expect.assertions(2);
 
       await expect(getCountries()).rejects.toMatchSnapshot();
 

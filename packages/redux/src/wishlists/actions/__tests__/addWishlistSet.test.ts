@@ -42,27 +42,27 @@ describe('addWishlistSet()', () => {
     store = wishlistMockStore({ wishlist: { id: mockWishlistId } });
     (postWishlistSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await addWishlistSet(data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await addWishlistSet(data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postWishlistSet).toHaveBeenCalledTimes(1);
-      expect(postWishlistSet).toHaveBeenCalledWith(
-        mockWishlistId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        { type: actionTypes.ADD_WISHLIST_SET_REQUEST },
-        {
-          payload: { error: expectedError },
-          type: actionTypes.ADD_WISHLIST_SET_FAILURE,
-        },
-      ]);
-    });
+    expect(postWishlistSet).toHaveBeenCalledTimes(1);
+    expect(postWishlistSet).toHaveBeenCalledWith(
+      mockWishlistId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      { type: actionTypes.ADD_WISHLIST_SET_REQUEST },
+      {
+        payload: { error: expectedError },
+        type: actionTypes.ADD_WISHLIST_SET_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the adding a wishlist set procedure is successful', async () => {
@@ -70,8 +70,6 @@ describe('addWishlistSet()', () => {
     (postWishlistSet as jest.Mock).mockResolvedValueOnce(
       mockWishlistsSetResponse,
     );
-
-    expect.assertions(5);
 
     await addWishlistSet(data)(
       store.dispatch,

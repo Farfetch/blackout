@@ -16,7 +16,6 @@ describe('getWishlistSet', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockWishlistsSetResponse));
-    expect.assertions(2);
 
     await expect(
       getWishlistSet(mockWishlistId, mockWishlistSetId),
@@ -30,7 +29,6 @@ describe('getWishlistSet', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(
       getWishlistSet(mockWishlistId, mockWishlistSetId),

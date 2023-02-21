@@ -1,12 +1,13 @@
 import {
   EventTypes,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackTypes,
-  TrackTypesValues,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackTypes,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { ForterTokenTid } from '../constants';
+import { getCallError } from 'tests/getCallError';
 import {
   loadIntegrationData,
   onSetUserEventData,
@@ -37,6 +38,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   postTracking: jest.fn(async () => {
     mockPostTrackingsPromiseResolve();
+
     return await mockPostTrackingsPromise;
   }),
 }));
@@ -71,22 +73,22 @@ describe('Forter', () => {
     ).toBeInstanceOf(Forter);
   });
 
-  it('should return an error when siteId is not set on Forter Options.', () => {
-    try {
+  it('should return an error when siteId is not set on Forter Options.', async () => {
+    const error = await getCallError(() =>
       Forter.createInstance(
         // @ts-expect-error try loading Riskified without passing shop
         {},
         loadIntegrationData,
         strippedDownAnalytics,
-      );
-    } catch (error) {
-      expect(error).toEqual(
-        expect.objectContaining({
-          message:
-            "[Forter] - `siteId` parameter was not provided in options. It's mandatory to load Forter Integration.",
-        }),
-      );
-    }
+      ),
+    );
+
+    expect(error).toEqual(
+      expect.objectContaining({
+        message:
+          "[Forter] - `siteId` parameter was not provided in options. It's mandatory to load Forter Integration.",
+      }),
+    );
   });
 
   it('should log a warn message if `origin` is not specified in options', () => {
@@ -102,10 +104,7 @@ describe('Forter', () => {
   });
 
   it('should post a message to Omnitracking with forter token when it is loaded', async () => {
-    const createEventMock = async function (
-      type: TrackTypesValues,
-      event: string,
-    ) {
+    const createEventMock = function (type: TrackTypesValues, event: string) {
       return Promise.resolve({
         ...eventData,
         event,
@@ -157,10 +156,7 @@ describe('Forter', () => {
   });
 
   it('should post a message to Omnitracking with forter using custom http client', async () => {
-    const createEventMock = async function (
-      type: TrackTypesValues,
-      event: string,
-    ) {
+    const createEventMock = function (type: TrackTypesValues, event: string) {
       return Promise.resolve({
         ...eventData,
         event,
@@ -174,6 +170,7 @@ describe('Forter', () => {
     );
     const httpClientMock = jest.fn(async () => {
       mockHttpClientPromiseResolve();
+
       return await mockHttpClientPromise;
     });
 
@@ -215,10 +212,7 @@ describe('Forter', () => {
   });
 
   it('should post a message to Omnitracking with forter using custom http client and throw error', async () => {
-    const createEventMock = async function (
-      type: TrackTypesValues,
-      event: string,
-    ) {
+    const createEventMock = function (type: TrackTypesValues, event: string) {
       return Promise.resolve({
         ...eventData,
         event,
@@ -232,6 +226,7 @@ describe('Forter', () => {
     );
     const httpClientMock = jest.fn(async () => {
       mockHttpClientPromiseReject();
+
       return await mockHttpClientPromise;
     });
 
@@ -253,17 +248,15 @@ describe('Forter', () => {
     // were completed and the reference updated.
     await flushPromises();
 
-    await mockHttpClientPromise.catch(() => {
-      expect((utils.logger.error as jest.Mock).mock.calls).toEqual(
+    expect((utils.logger.error as jest.Mock).mock.calls).toEqual(
+      expect.arrayContaining([
         expect.arrayContaining([
-          expect.arrayContaining([
-            expect.stringContaining(
-              '[Forter] - Error sending tracking event through Omnitracking HTTP client',
-            ),
-          ]),
+          expect.stringContaining(
+            '[Forter] - Error sending tracking event through Omnitracking HTTP client',
+          ),
         ]),
-      );
-    });
+      ]),
+    );
   });
 
   it('should not throw when track method is called', () => {

@@ -31,30 +31,27 @@ describe('fetchSizeScales() action creator', () => {
 
     (getSizeScales as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSizeScales(mockQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSizeScales(mockQuery)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSizeScales).toHaveBeenCalledTimes(1);
-      expect(getSizeScales).toHaveBeenCalledWith(mockQuery, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_SIZE_SCALES_REQUEST,
-          meta: { query: mockQuery },
-        },
-        {
-          meta: { query: mockQuery },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_SIZE_SCALES_FAILURE,
-        },
-      ]);
-    });
+    expect(getSizeScales).toHaveBeenCalledTimes(1);
+    expect(getSizeScales).toHaveBeenCalledWith(mockQuery, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_SIZE_SCALES_REQUEST,
+        meta: { query: mockQuery },
+      },
+      {
+        meta: { query: mockQuery },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_SIZE_SCALES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch size scales procedure is successful', async () => {
     (getSizeScales as jest.Mock).mockResolvedValueOnce(mockSizeScales);
-
-    expect.assertions(3);
 
     await fetchSizeScales(mockQuery)(store.dispatch);
 

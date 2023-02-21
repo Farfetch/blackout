@@ -11,7 +11,7 @@ import {
   participationId,
   raffleId,
 } from 'tests/__fixtures__/raffles';
-import { RafflesQuery, RaffleStatus } from '@farfetch/blackout-client';
+import { type RafflesQuery, RaffleStatus } from '@farfetch/blackout-client';
 import type { StoreState } from '../../types';
 
 describe('Raffles redux selectors', () => {
@@ -25,6 +25,7 @@ describe('Raffles redux selectors', () => {
         mockFetchRafflesNormalizedPayload.entities.raffles,
       );
       const spy = jest.spyOn(fromEntities, 'getEntities');
+
       expect(selectors.getAllRaffles(mockRafflesState as StoreState)).toEqual(
         expectedRaffles,
       );
@@ -34,6 +35,7 @@ describe('Raffles redux selectors', () => {
     it('should return an empty object when raffles is undefined', () => {
       const spy = jest.spyOn(fromEntities, 'getEntities');
       const state = { entities: {} } as StoreState;
+
       expect(selectors.getAllRaffles(state)).toEqual([]);
       expect(spy).toHaveBeenCalledWith(state, 'raffles');
     });
@@ -41,10 +43,12 @@ describe('Raffles redux selectors', () => {
 
   describe('getRafflesResult', () => {
     const query = { status: RaffleStatus.Closed };
+
     it('should return an array of raffles for a specific query params', () => {
       const expectedRaffles = [
         mockFetchRafflesNormalizedPayload.entities.raffles[raffleId],
       ];
+
       expect(
         selectors.getRafflesResult(mockRafflesState as StoreState, query),
       ).toEqual(expectedRaffles);
@@ -52,6 +56,7 @@ describe('Raffles redux selectors', () => {
 
     it("should return undefined when a raffle with specific query params doesn't exist", () => {
       const query = { status: RaffleStatus.Draft };
+
       expect(
         selectors.getRafflesResult(mockRafflesState as StoreState, query),
       ).toBeUndefined();
@@ -64,6 +69,7 @@ describe('Raffles redux selectors', () => {
         mockFetchRafflesNormalizedPayload.entities.raffles[raffleId];
 
       const spy = jest.spyOn(fromEntities, 'getEntityById');
+
       expect(
         selectors.getRaffle(mockRafflesState as StoreState, raffleId),
       ).toEqual(expectedRaffles);
@@ -79,6 +85,7 @@ describe('Raffles redux selectors', () => {
         ];
 
       const spy = jest.spyOn(fromEntities, 'getEntityById');
+
       expect(
         selectors.getRaffleEstimation(mockRafflesState as StoreState, raffleId),
       ).toEqual(expectedRaffles);
@@ -97,6 +104,7 @@ describe('Raffles redux selectors', () => {
           .raffleParticipations[participationId];
 
       const spy = jest.spyOn(fromEntities, 'getEntityById');
+
       expect(
         selectors.getRaffleParticipation(
           mockRafflesState as StoreState,
@@ -117,6 +125,7 @@ describe('Raffles redux selectors', () => {
         mockFetchRaffleParticipationsNormalizedPayload.entities
           .raffleParticipations[participationId];
       const spy = jest.spyOn(fromEntities, 'getEntities');
+
       expect(
         selectors.getRaffleParticipationForRaffle(
           mockRafflesState as StoreState,
@@ -132,6 +141,7 @@ describe('Raffles redux selectors', () => {
     it('should return undefined when raffle participations are undefined', () => {
       const spy = jest.spyOn(fromEntities, 'getEntities');
       const state = { entities: {} } as StoreState;
+
       expect(
         selectors.getRaffleParticipationForRaffle(state, raffleId),
       ).toBeUndefined();
@@ -148,6 +158,7 @@ describe('Raffles redux selectors', () => {
       };
 
       const spy = jest.spyOn(fromEntities, 'getEntityById');
+
       expect(
         selectors.getDetailedRaffle(mockRafflesState as StoreState, raffleId),
       ).toEqual(expectedRaffles);
@@ -161,6 +172,7 @@ describe('Raffles redux selectors', () => {
 
     it('should return undefined when raffle doesnt exist', () => {
       const invalidRaffleId = 'invalid Raffle Id';
+
       expect(
         selectors.getDetailedRaffle(
           mockRafflesState as StoreState,
@@ -183,6 +195,7 @@ describe('Raffles redux selectors', () => {
           raffleEstimations: {},
         },
       };
+
       expect(
         selectors.getDetailedRaffle(state as StoreState, raffleId),
       ).toEqual(expectedResult);
@@ -221,6 +234,7 @@ describe('Raffles redux selectors', () => {
     it('should return the loading status for a raffle request', () => {
       const expectedResult =
         mockRafflesState.raffles?.raffles[raffleId]?.isLoading;
+
       expect(
         selectors.isRaffleLoading(mockRafflesState as StoreState, raffleId),
       ).toEqual(expectedResult);
@@ -230,6 +244,7 @@ describe('Raffles redux selectors', () => {
   describe('getRaffleError', () => {
     it('should return the error status for a raffle request', () => {
       const expectedResult = mockRafflesState.raffles?.raffles[raffleId]?.error;
+
       expect(
         selectors.getRaffleError(mockRafflesState as StoreState, raffleId),
       ).toEqual(expectedResult);

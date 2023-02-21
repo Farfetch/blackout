@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DeleteToken,
+  type Config,
+  type DeleteToken,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -21,6 +21,7 @@ const removeUserTokenFactory =
       dispatch({
         type: actionTypes.DELETE_USER_TOKEN_REQUEST,
       });
+
       const result = await deleteTokens(userTokenId, config);
 
       dispatch({

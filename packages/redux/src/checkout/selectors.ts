@@ -479,7 +479,10 @@ export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod: (
   [getCheckoutOrderSelectedCollectPoint, getCheckoutOrderShippingOptions],
   (selectedCollectPoint, shippingOptions) => {
     const merchantLocationId = get(selectedCollectPoint, 'merchantLocationId');
-    if (!merchantLocationId) return;
+
+    if (!merchantLocationId) {
+      return;
+    }
 
     const initialValue: INITIAL_VALUE = {
       minEstimatedDeliveryHour: null,
@@ -496,6 +499,7 @@ export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod: (
       ) => {
         const emptyArray: number[] = [];
         const merchants = get(shippingOption, 'merchants', emptyArray);
+
         if (merchants.includes(merchantLocationId)) {
           const { minEstimatedDeliveryHour, maxEstimatedDeliveryHour } =
             shippingOption.shippingService;
@@ -832,6 +836,7 @@ const getItemsDeliveryOptionsDate = (
   }
 
   const firstBundle = itemsDeliveryOptions[0];
+
   if (!firstBundle?.deliveryWindow) {
     return '';
   }
@@ -842,12 +847,15 @@ const getItemsDeliveryOptionsDate = (
     if (!item.deliveryWindow) {
       return acc;
     }
+
     const date =
       timeLimitType === 'min'
         ? Math.min(Date.parse(acc), Date.parse(item.deliveryWindow.min))
         : Math.max(Date.parse(acc), Date.parse(item.deliveryWindow.max));
+
     return new Date(date).toISOString();
   }, timeLimit);
+
   return estimatedDate || '';
 };
 
@@ -867,11 +875,16 @@ export const getCheckoutOrderDeliveryBundleWindow = (
     state,
     deliveryBundleId,
   );
-  if (!deliveryBundle) return;
+
+  if (!deliveryBundle) {
+    return;
+  }
 
   const { itemsDeliveryOptions } = deliveryBundle;
 
-  if (!itemsDeliveryOptions) return;
+  if (!itemsDeliveryOptions) {
+    return;
+  }
 
   return {
     minEstimatedDeliveryDate: getItemsDeliveryOptionsDate(

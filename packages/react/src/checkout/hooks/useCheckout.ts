@@ -17,20 +17,20 @@ import {
   updateCheckoutOrder,
 } from '@farfetch/blackout-redux';
 import {
-  CheckoutOrder,
-  Config,
-  GetCheckoutOrderQuery,
-  GetCollectPointsQuery,
+  type CheckoutOrder,
+  type Config,
+  type GetCheckoutOrderQuery,
+  type GetCollectPointsQuery,
   headers,
-  PatchCheckoutOrderData,
-  PaymentInstrument,
+  type PatchCheckoutOrderData,
+  type PaymentInstrument,
   PaymentMethod,
-  PostCheckoutOrderChargeData,
-  PostCheckoutOrderDataWithBag,
-  PostCheckoutOrderDataWithItems,
-  PostPaymentIntentInstrumentData,
-  PutCheckoutOrderPromocodeData,
-  PutPaymentIntentInstrumentData,
+  type PostCheckoutOrderChargeData,
+  type PostCheckoutOrderDataWithBag,
+  type PostCheckoutOrderDataWithItems,
+  type PostPaymentIntentInstrumentData,
+  type PutCheckoutOrderPromocodeData,
+  type PutPaymentIntentInstrumentData,
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -324,6 +324,7 @@ function useCheckout(
       // overrides object to avoid it polluting the response.
       const overridesCopy = { ...overrides };
       const guestUserEmail = overridesCopy?.guestUserEmail;
+
       delete overridesCopy?.guestUserEmail;
 
       const isRegisteredUser = !!user && !user.isGuest;
@@ -366,6 +367,7 @@ function useCheckout(
       // overrides object to avoid it polluting the response.
       const overridesCopy = { ...overrides };
       const guestUserEmail = overridesCopy?.guestUserEmail;
+
       delete overridesCopy?.guestUserEmail;
 
       const data: PostPaymentIntentInstrumentData = {

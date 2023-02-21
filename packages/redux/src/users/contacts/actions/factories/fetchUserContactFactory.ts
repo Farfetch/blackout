@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserContact,
+  type Config,
+  type GetUserContact,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

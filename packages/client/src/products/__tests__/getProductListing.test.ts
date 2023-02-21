@@ -17,8 +17,6 @@ describe('getProductListing', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockProductsListResponse));
 
-    expect.assertions(2);
-
     await expect(
       getProductListing(mockProductsListSlug, query),
     ).resolves.toEqual(mockProductsListResponse);
@@ -31,8 +29,6 @@ describe('getProductListing', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getProductListing(mockProductsListSlug, query),

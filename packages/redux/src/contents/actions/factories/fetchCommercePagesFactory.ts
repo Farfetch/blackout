@@ -1,14 +1,14 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CommercePages,
-  CommercePagesStrategy,
-  Config,
-  GetCommercePages,
-  QueryCommercePages,
+  type CommercePages,
+  type CommercePagesStrategy,
+  type Config,
+  type GetCommercePages,
+  type QueryCommercePages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';
-import { ContentTypeCode, FetchCommercePagesAction } from '../../types';
+import { ContentTypeCode, type FetchCommercePagesAction } from '../../types';
 import { generateContentHash, getRankedCommercePage } from '../../utils';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
@@ -31,6 +31,7 @@ const fetchCommercePagesFactory =
     dispatch: Dispatch<FetchCommercePagesAction>,
   ): Promise<CommercePages> => {
     let hash: string | undefined;
+
     try {
       hash = generateContentHash({
         contentTypeCode: ContentTypeCode.CommercePages,

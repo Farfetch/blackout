@@ -1,6 +1,6 @@
 import {
   BagChangeReason,
-  BagOperation,
+  type BagOperation,
   BagViolationFixSuggestionAction,
   ChangeType,
 } from '@farfetch/blackout-client';

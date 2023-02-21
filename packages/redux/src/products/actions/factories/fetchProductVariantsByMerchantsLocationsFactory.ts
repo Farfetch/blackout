@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetProductVariantMerchantsLocations,
-  Product,
-  ProductVariantMerchantLocation,
+  type Config,
+  type GetProductVariantMerchantsLocations,
+  type Product,
+  type ProductVariantMerchantLocation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getProduct } from '../../selectors/product';

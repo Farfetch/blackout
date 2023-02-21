@@ -2,9 +2,9 @@ import {
   addWishlistItem,
   fetchWishlist,
   resetWishlist,
-  StoreState,
+  type StoreState,
   updateWishlistItem,
-  WishlistNormalized,
+  type WishlistNormalized,
 } from '@farfetch/blackout-redux';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
@@ -55,6 +55,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useWishlist', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

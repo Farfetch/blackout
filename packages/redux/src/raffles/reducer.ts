@@ -1,6 +1,6 @@
 import * as actionRafflesTypes from './types/rafflesActions.types';
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import createReducer, {
   createReducerWithResult,
@@ -30,6 +30,7 @@ const allRaffles = (state = INITIAL_STATE.allRaffles, action: AnyAction) => {
       [action.meta.hash]: allRafflesReducer(state[action.meta.hash], action),
     };
   }
+
   return state;
 };
 
@@ -48,6 +49,7 @@ const raffles = (state = INITIAL_STATE.raffles, action: AnyAction) => {
       ),
     };
   }
+
   return state;
 };
 
@@ -66,6 +68,7 @@ const estimations = (state = INITIAL_STATE.estimations, action: AnyAction) => {
       ),
     };
   }
+
   return state;
 };
 
@@ -87,6 +90,7 @@ const participations = (
       ),
     };
   }
+
   return state;
 };
 
@@ -112,6 +116,7 @@ const participationCreations = (
       ),
     };
   }
+
   return state;
 };
 
@@ -120,13 +125,16 @@ export const entitiesMapper = {
     state: NonNullable<StoreState['entities']>,
   ) => {
     const { raffles, raffleParticipations, raffleEstimations, ...rest } = state;
+
     return rest;
   },
   [LOGOUT_SUCCESS]: (state: NonNullable<StoreState['entities']>) => {
     if (!state) {
       return state;
     }
+
     const { raffles, raffleParticipations, raffleEstimations, ...rest } = state;
+
     return rest;
   },
 };
@@ -161,6 +169,7 @@ const rafflesReducer: Reducer<T.RafflesState> = (state, action) => {
   ) {
     return reducer(INITIAL_STATE, action);
   }
+
   return reducer(state, action);
 };
 

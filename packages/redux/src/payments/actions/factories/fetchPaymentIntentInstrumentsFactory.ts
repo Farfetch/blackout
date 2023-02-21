@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetPaymentIntentInstruments,
-  PaymentInstrument,
-  PaymentIntent,
+  type Config,
+  type GetPaymentIntentInstruments,
+  type PaymentInstrument,
+  type PaymentIntent,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

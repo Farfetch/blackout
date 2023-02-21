@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostParticipationData,
-  PostRaffleParticipation,
-  Raffle,
-  RaffleParticipation,
+  type Config,
+  type PostParticipationData,
+  type PostRaffleParticipation,
+  type Raffle,
+  type RaffleParticipation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -27,6 +27,7 @@ const createRaffleParticipationFactory =
         meta: { raffleId },
         type: actionTypes.CREATE_RAFFLE_PARTICIPATION_REQUEST,
       });
+
       const result = await postRaffleParticipation(raffleId, data, config);
       const normalizedResult = normalize(result, raffleParticipationSchema);
 
@@ -49,4 +50,5 @@ const createRaffleParticipationFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default createRaffleParticipationFactory;

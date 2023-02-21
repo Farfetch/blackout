@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { createReducerWithResult } from '../helpers/reducerFactory';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import type * as T from './types';

@@ -1,8 +1,8 @@
 import {
-  EventData,
+  type EventData,
   EventTypes,
   PageTypes,
-  TrackTypesValues,
+  type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import { getEventProperties, getProductData } from './utils';
 import get from 'lodash/get';

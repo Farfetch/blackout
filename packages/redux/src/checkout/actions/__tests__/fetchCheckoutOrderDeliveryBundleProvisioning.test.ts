@@ -38,33 +38,32 @@ describe('fetchCheckoutOrderDeliveryBundleProvisioning() action creator', () => 
     (
       getCheckoutOrderDeliveryBundleProvisioning as jest.Mock
     ).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCheckoutOrderDeliveryBundleProvisioning(
+    await expect(
+      async () =>
+        await fetchCheckoutOrderDeliveryBundleProvisioning(
+          checkoutId,
+          deliveryBundleId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(
-        1,
-      );
-      expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(
-        checkoutId,
-        deliveryBundleId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch order delivery bundle provisioning procedure is successful', async () => {
@@ -81,7 +80,6 @@ describe('fetchCheckoutOrderDeliveryBundleProvisioning() action creator', () => 
 
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderDeliveryBundleProvisioning).toHaveBeenCalledWith(

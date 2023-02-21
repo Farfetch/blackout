@@ -14,6 +14,7 @@ describe('reset gift card balance state action', () => {
 
   it('should dispatch the correct action type', () => {
     resetGiftCardBalanceState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

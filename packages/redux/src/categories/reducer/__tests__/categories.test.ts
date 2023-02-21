@@ -76,7 +76,7 @@ describe('categories redux reducer', () => {
             entities: { categories: {} },
           },
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_CATEGORIES_FAILURE action type', () => {
@@ -85,7 +85,7 @@ describe('categories redux reducer', () => {
           type: actionTypes.FETCH_CATEGORIES_FAILURE,
           payload: { error: '' },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_CATEGORIES_SUCCESS action type', () => {

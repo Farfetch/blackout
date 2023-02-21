@@ -41,31 +41,29 @@ describe('fetchProductGroupingProperties() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchProductGroupingProperties(mockProductId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductGroupingProperties(mockProductId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getProductGroupingProperties).toHaveBeenCalledTimes(1);
-        expect(getProductGroupingProperties).toHaveBeenCalledWith(
-          mockProductId,
-          {},
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: { productId: mockProductId },
-            payload: { hash: '!all' },
-            type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
-          },
-          {
-            meta: { productId: mockProductId },
-            payload: { error: expectedError, hash: '!all' },
-            type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
-          },
-        ]);
-      },
+    expect(getProductGroupingProperties).toHaveBeenCalledTimes(1);
+    expect(getProductGroupingProperties).toHaveBeenCalledWith(
+      mockProductId,
+      {},
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        payload: { hash: '!all' },
+        type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError, hash: '!all' },
+        type: productsActionTypes.FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch product grouping properties procedure is successful', async () => {

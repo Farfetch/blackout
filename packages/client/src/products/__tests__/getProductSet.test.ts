@@ -13,8 +13,6 @@ describe('getProductSet', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockSet));
 
-    expect.assertions(2);
-
     await expect(getProductSet(mockSetId)).resolves.toEqual(mockSet);
     expect(spy).toHaveBeenCalledWith(
       `/commerce/v1/sets/${mockSetId}`,
@@ -24,8 +22,6 @@ describe('getProductSet', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getProductSet(mockSetId, {})).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

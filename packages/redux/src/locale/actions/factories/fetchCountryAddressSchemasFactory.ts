@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  CountryAddressSchema,
-  GetCountryAddressSchemas,
+  type Config,
+  type CountryAddressSchema,
+  type GetCountryAddressSchemas,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -26,6 +26,7 @@ const fetchCountryAddressSchemasFactory =
         meta: { isoCode },
         type: actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_REQUEST,
       });
+
       const result = await getCountryAddressSchemas(isoCode, config);
 
       const schemaEntity = {

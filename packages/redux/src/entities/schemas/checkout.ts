@@ -28,15 +28,19 @@ export default new schema.Entity(
       if (shippingOptions !== null) {
         result['shippingOptions'] = shippingOptions;
       }
+
       if (deliveryBundles !== null) {
         result['deliveryBundles'] = deliveryBundles;
       }
+
       if (paymentMethods !== null) {
         result['paymentMethods'] = paymentMethods;
       }
+
       if (userPaymentTokens !== null) {
         result['userPaymentTokens'] = userPaymentTokens;
       }
+
       if (orderStatus !== null) {
         result['orderStatus'] = orderStatus;
       }

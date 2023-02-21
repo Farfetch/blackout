@@ -9,6 +9,7 @@ import productCategoriesValidator from '../productCategoriesValidator';
 import type { GACommandList } from '../../types';
 
 utils.logger.warn = jest.fn();
+
 const mockLoggerWarn = utils.logger.warn;
 
 describe('productCategoriesValidator', () => {

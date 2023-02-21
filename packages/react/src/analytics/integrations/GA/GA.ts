@@ -17,14 +17,14 @@
  */
 import {
   TrackTypes as analyticsTrackTypes,
-  EventData,
+  type EventData,
   integrations,
-  LoadIntegrationEventData,
-  PageviewEventData,
-  SetUserEventData,
-  StrippedDownAnalytics,
-  TrackEventData,
-  TrackTypesValues,
+  type LoadIntegrationEventData,
+  type PageviewEventData,
+  type SetUserEventData,
+  type StrippedDownAnalytics,
+  type TrackEventData,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import { loadGaScript } from './gaLoadScript';
@@ -102,6 +102,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
       utils.logger.error(
         '[GA] - Page event failed: Google Analytics is not loaded.',
       );
+
       return;
     }
 
@@ -168,6 +169,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
       utils.logger.error(
         '[GA] - Track event failed: Google Analytics is not loaded.',
       );
+
       return;
     }
 
@@ -191,6 +193,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
       utils.logger.error(
         '[GA] - onSetUser failed: Google Analytics is not loaded.',
       );
+
       return;
     }
 
@@ -240,6 +243,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
       utils.logger.error(
         `[GA] - Track event failed. Reason: ${validationResult.errorMessage}`,
       );
+
       return false;
     }
 

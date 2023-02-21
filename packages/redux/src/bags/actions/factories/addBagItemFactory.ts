@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Bag,
-  Config,
-  PostBagItem,
-  PostBagItemData,
-  PostBagItemQuery,
+  type Bag,
+  type Config,
+  type PostBagItem,
+  type PostBagItemData,
+  type PostBagItemQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
@@ -37,8 +37,10 @@ const addBagItemFactory =
     }: GetOptionsArgument,
   ): Promise<Bag> => {
     let bagId: Nullable<string> = null;
+
     try {
       const state = getState();
+
       bagId = getBagId(state);
 
       // Do not add product if there's no bag set yet
@@ -54,6 +56,7 @@ const addBagItemFactory =
           bagId,
         },
       });
+
       const result = await postBagItem(bagId, data, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({

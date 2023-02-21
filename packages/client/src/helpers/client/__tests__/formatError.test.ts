@@ -36,7 +36,7 @@ describe('formatError()', () => {
     expect(result).toMatchSnapshot();
   });
 
-  it('should format the error properly when the api returns an OBJECT with the error ', () => {
+  it('should format the error properly when the api returns an OBJECT with the error', () => {
     const result = adaptError(ApiErrorData);
     const { data, status } = ApiErrorData.response as MockAxiosResponse;
     const { message, code } = data as DefaultErrorAdapterData;

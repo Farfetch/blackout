@@ -1,5 +1,5 @@
 import { mockProductId, mockProductsEntity } from 'tests/__fixtures__/products';
-import { productsActionTypes, ProductsDetailsState } from '../..';
+import { productsActionTypes, type ProductsDetailsState } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
@@ -168,6 +168,7 @@ describe('details redux reducer', () => {
         isLoading: {},
         error: {},
       };
+
       expect(reducer(state, mockAction).isHydrated).toEqual(state.isHydrated);
     });
   });
@@ -249,6 +250,7 @@ describe('details redux reducer', () => {
         isLoading: { [mockProductId]: false },
         error: {},
       };
+
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
     });
   });
@@ -352,6 +354,7 @@ describe('details redux reducer', () => {
           ...initialState,
           isLoading,
         };
+
         expect(getIsLoading(state)).toEqual(isLoading);
       });
     });

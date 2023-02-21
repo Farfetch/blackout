@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostPhoneToken,
-  PostPhoneTokenData,
+  type Config,
+  type PostPhoneToken,
+  type PostPhoneTokenData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

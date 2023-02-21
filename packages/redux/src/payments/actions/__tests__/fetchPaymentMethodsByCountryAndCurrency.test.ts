@@ -31,28 +31,27 @@ describe('fetchPaymentMethodsByCountryAndCurrency() action creator', () => {
     (getPaymentMethodsByCountryAndCurrency as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchPaymentMethodsByCountryAndCurrency()(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledTimes(1);
-        expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledWith(
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
-            },
-            {
-              type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
+    await expect(
+      async () =>
+        await fetchPaymentMethodsByCountryAndCurrency()(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledTimes(1);
+    expect(getPaymentMethodsByCountryAndCurrency).toHaveBeenCalledWith(
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_PAYMENT_METHODS_BY_COUNTRY_AND_CURRENCY_FAILURE,
+
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 

@@ -13,8 +13,6 @@ describe('putUserDefaultBillingAddress', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
-
     await expect(putUserDefaultBillingAddress({ id, userId })).resolves.toBe(
       200,
     );
@@ -27,8 +25,6 @@ describe('putUserDefaultBillingAddress', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       putUserDefaultBillingAddress({ id, userId }),

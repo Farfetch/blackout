@@ -44,7 +44,7 @@ describe('RecentlyViewed redux selectors', () => {
     it('should get the error status', () => {
       const spy = jest.spyOn(recentlyViewedReducer, 'getError');
 
-      expect(selectors.getRecentlyViewedProductsError(mockState)).toBe(null);
+      expect(selectors.getRecentlyViewedProductsError(mockState)).toBeNull();
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -80,7 +80,7 @@ describe('RecentlyViewed redux selectors', () => {
             },
           },
         } as StoreState),
-      ).toEqual(null);
+      ).toBeNull();
     });
   });
 
@@ -101,7 +101,7 @@ describe('RecentlyViewed redux selectors', () => {
         },
       } as StoreState;
 
-      expect(selectors.areRecentlyViewedProductsFetched(initialState)).toEqual(
+      expect(selectors.areRecentlyViewedProductsFetched(initialState)).toBe(
         false,
       );
       expect(spy).toHaveBeenCalledTimes(1);
@@ -110,9 +110,7 @@ describe('RecentlyViewed redux selectors', () => {
     it('should return true if the remote entry is filled', () => {
       const spy = jest.spyOn(recentlyViewedReducer, 'getResult');
 
-      expect(selectors.areRecentlyViewedProductsFetched(mockState)).toEqual(
-        true,
-      );
+      expect(selectors.areRecentlyViewedProductsFetched(mockState)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

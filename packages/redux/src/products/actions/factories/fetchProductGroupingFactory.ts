@@ -1,11 +1,11 @@
 import { adaptGrouping } from '../../../helpers/adapters';
 import { buildQueryStringFromObject } from '../../../helpers';
 import {
-  Config,
-  GetProductGrouping,
-  GroupingQuery,
-  Product,
-  ProductGrouping,
+  type Config,
+  type GetProductGrouping,
+  type GroupingQuery,
+  type Product,
+  type ProductGrouping,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {

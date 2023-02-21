@@ -39,7 +39,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `personalIds` slice', () => {
-      expect(selectors.getUserPersonalIdsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserPersonalIdsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserPersonalIdsError(mockErrorState)).toBe(
         dummyError,
@@ -55,7 +55,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `personalIds.defaultPersonalId` slice', () => {
-      expect(selectors.getUserDefaultPersonalIdError(mockBaseState)).toBe(null);
+      expect(selectors.getUserDefaultPersonalIdError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserDefaultPersonalIdError(mockErrorState)).toBe(
         dummyError,
@@ -71,7 +71,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `result` value from `personalIds` slice', () => {
-      expect(selectors.getUserPersonalIdsResult(mockBaseState)).toBe(null);
+      expect(selectors.getUserPersonalIdsResult(mockBaseState)).toBeNull();
 
       expect(selectors.getUserPersonalIdsResult(mockStateWithResult)).toEqual(
         userPersonalIds,
@@ -91,9 +91,9 @@ describe('redux selectors', () => {
     });
 
     it('should return `result` value from `personalIds.defaultPersonalId` slice', () => {
-      expect(selectors.getUserDefaultPersonalIdResult(mockBaseState)).toBe(
-        null,
-      );
+      expect(
+        selectors.getUserDefaultPersonalIdResult(mockBaseState),
+      ).toBeNull();
 
       expect(
         selectors.getUserDefaultPersonalIdResult(mockStateWithResult),

@@ -18,7 +18,6 @@ describe('postLogin', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(postLogin(data)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/legacy/v1/account/login',
@@ -30,7 +29,6 @@ describe('postLogin', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(postLogin(data)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       '/legacy/v1/account/login',

@@ -24,7 +24,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `attributes` slice', () => {
-      expect(selectors.getUserAttributesError(mockBaseState)).toBe(null);
+      expect(selectors.getUserAttributesError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserAttributesError(mockErrorState)).toBe(dummyError);
     });

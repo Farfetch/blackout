@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
 import assignWith from 'lodash/assignWith';
 import createMergedObject from '../helpers/createMergedObject';
@@ -162,7 +162,9 @@ const convertCheckoutOrder = (
   };
 
   const tempMergedState = {};
+
   assignWith(tempMergedState, state, customizer);
+
   const entitiesMerged = mergeWith({}, entities, customizer);
   const mergedState = createMergedObject(tempMergedState, entitiesMerged) as {
     checkoutOrders: Record<string, CheckoutOrderEntity>;
@@ -215,6 +217,7 @@ const handleRemoveCheckoutOrderItemSuccess = produce<
   }
 
   const { id } = action.meta;
+
   delete draftState.checkoutOrderItems[id];
 });
 
@@ -228,6 +231,7 @@ const handleUpdateCheckoutOrderItemSuccess = produce<
 
   const { id } = action.meta;
   const checkoutOrderItem = draftState.checkoutOrderItems[id];
+
   if (!checkoutOrderItem) {
     return;
   }
@@ -293,6 +297,7 @@ export const entitiesMapper = {
             entities,
             `itemDeliveryProvisioning[${itemID}]`,
           );
+
           return {
             ...acc,
             [itemID]: {

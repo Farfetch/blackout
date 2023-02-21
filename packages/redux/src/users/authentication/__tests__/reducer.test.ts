@@ -28,6 +28,7 @@ describe('authentication reducer', () => {
         error: null,
         isLoading: true,
       };
+
       expect(
         reducer(undefined, {
           type: actionType,
@@ -47,6 +48,7 @@ describe('authentication reducer', () => {
         error: 'mocked error',
         isLoading: false,
       };
+
       expect(
         reducer(undefined, {
           type: actionType,
@@ -72,6 +74,7 @@ describe('authentication reducer', () => {
         error: initialState.userToken.error,
         isLoading: false,
       };
+
       expect(
         reducer(undefined, {
           type: actionType,
@@ -101,6 +104,7 @@ describe('authentication reducer', () => {
       const reducerResult = reducer(state as AuthenticationState, {
         type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
       });
+
       expect(reducerResult.userToken).toEqual(userToken);
     });
 
@@ -150,18 +154,36 @@ describe('authentication reducer', () => {
       ...extendedSubAreasNames,
     ];
 
+    type PickSubAreaSelectors<T> = T extends `get${any}` ? T : never;
+
+    type ReducerSubAreaSelectors = PickSubAreaSelectors<
+      keyof typeof fromReducer
+    >;
+
+    type ReducerSubAreaSelector = typeof fromReducer[ReducerSubAreaSelectors];
+
+    function assertSubAreaSelector(
+      selector: ReducerSubAreaSelector,
+      expectedState: AuthenticationState[keyof AuthenticationState],
+    ) {
+      expect(selector(subAreas)).toEqual(expectedState);
+    }
+
     it.each(subAreaNames)(
       'return the `%s` property from a given state',
       subArea => {
         const { [`get${subArea}` as keyof typeof subAreas]: reducerSelector } =
           fromReducer;
 
+        expect(reducerSelector).toBeInstanceOf(Function);
+
         extendedSubAreasNames.includes(subArea)
-          ? expect(reducerSelector(subAreas, mockAction)).toEqual({
+          ? assertSubAreaSelector(reducerSelector as ReducerSubAreaSelector, {
               ...subAreaResult,
               result: null,
             })
-          : expect(reducerSelector(subAreas, mockAction)).toEqual(
+          : assertSubAreaSelector(
+              reducerSelector as ReducerSubAreaSelector,
               subAreaResult,
             );
       },

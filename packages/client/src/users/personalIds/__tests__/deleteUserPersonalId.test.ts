@@ -20,8 +20,6 @@ describe('deleteUserPersonalId', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(
       deleteUserPersonalId(userId, personalId, config),
     ).resolves.toBe(response);
@@ -34,8 +32,6 @@ describe('deleteUserPersonalId', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       deleteUserPersonalId(userId, personalId, config),

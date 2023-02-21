@@ -1,6 +1,13 @@
 import * as authenticationActionTypes from '../../../users/authentication/actionTypes';
 import * as usersActionTypes from '../../../users/actionTypes';
 import {
+  type default as Analytics,
+  EventTypes,
+  LoginMethodParameterTypes,
+  type UserData,
+  type UserTraits,
+} from '@farfetch/blackout-analytics';
+import {
   DEFAULT_TRIGGER_ANONYMIZE_ACTION_TYPES,
   DEFAULT_TRIGGER_SET_USER_ACTION_TYPES,
   OPTION_FETCH_USER_ID_SELECTOR,
@@ -13,12 +20,6 @@ import { getUser, getUserId } from '../../../users/selectors';
 import { mockStore } from './../tests/simplifiedStore';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { UserGender } from '@farfetch/blackout-client';
-import Analytics, {
-  EventTypes,
-  LoginMethodParameterTypes,
-  UserData,
-  UserTraits,
-} from '@farfetch/blackout-analytics';
 import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
 
@@ -132,14 +133,14 @@ describe('analyticsSetUserMiddleware', () => {
     // test undefined value
     analyticsSetUserMiddleware(undefined);
 
-    expect(loggerErrorSpy).toBeCalled();
+    expect(loggerErrorSpy).toHaveBeenCalled();
 
     jest.clearAllMocks();
 
     // test instanceof
     analyticsSetUserMiddleware({});
 
-    expect(loggerErrorSpy).toBeCalled();
+    expect(loggerErrorSpy).toHaveBeenCalled();
   });
 
   describe('When called with no options', () => {

@@ -33,22 +33,22 @@ describe('fetchUserAddresses() action creator', () => {
     const expectedError = new Error('get user adresses error');
 
     (getUserAddresses as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserAddresses(userId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserAddresses).toHaveBeenCalledTimes(1);
-      expect(getUserAddresses).toHaveBeenCalledWith({ userId }, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_USER_ADDRESSES_REQUEST },
-          {
-            type: actionTypes.FETCH_USER_ADDRESSES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserAddresses(userId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserAddresses).toHaveBeenCalledTimes(1);
+    expect(getUserAddresses).toHaveBeenCalledWith({ userId }, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_USER_ADDRESSES_REQUEST },
+        {
+          type: actionTypes.FETCH_USER_ADDRESSES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user address book procedure is successful', async () => {
@@ -59,7 +59,6 @@ describe('fetchUserAddresses() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getUserAddresses).toHaveBeenCalledTimes(1);
     expect(getUserAddresses).toHaveBeenCalledWith({ userId }, expectedConfig);

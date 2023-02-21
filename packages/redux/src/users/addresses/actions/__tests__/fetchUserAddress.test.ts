@@ -34,32 +34,29 @@ describe('fetchUserAddress() action creator', () => {
     const expectedError = new Error('get user address details error');
 
     (getUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserAddress(
-      userId,
-      addressId2,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserAddress).toHaveBeenCalledTimes(1);
-      expect(getUserAddress).toHaveBeenCalledWith(
-        { id: addressId2, userId },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { addressId: addressId2 },
-            type: actionTypes.FETCH_USER_ADDRESS_REQUEST,
-          },
-          {
-            meta: { addressId: addressId2 },
-            type: actionTypes.FETCH_USER_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchUserAddress(userId, addressId2)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserAddress).toHaveBeenCalledTimes(1);
+    expect(getUserAddress).toHaveBeenCalledWith(
+      { id: addressId2, userId },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { addressId: addressId2 },
+          type: actionTypes.FETCH_USER_ADDRESS_REQUEST,
+        },
+        {
+          meta: { addressId: addressId2 },
+          type: actionTypes.FETCH_USER_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user address details procedure is successful', async () => {
@@ -68,7 +65,6 @@ describe('fetchUserAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getUserAddress).toHaveBeenCalledTimes(1);
     expect(getUserAddress).toHaveBeenCalledWith(

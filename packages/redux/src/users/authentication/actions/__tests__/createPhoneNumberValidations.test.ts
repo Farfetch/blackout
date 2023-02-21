@@ -29,24 +29,25 @@ describe('createPhoneNumberValidations action creator', () => {
     (postPhoneNumberValidation as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
-    await createPhoneNumberValidations(params)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postPhoneNumberValidation).toHaveBeenCalledTimes(1);
-      expect(postPhoneNumberValidation).toHaveBeenCalledWith(
-        params,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST },
-          {
-            type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+
+    await expect(
+      async () => await createPhoneNumberValidations(params)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPhoneNumberValidation).toHaveBeenCalledTimes(1);
+    expect(postPhoneNumberValidation).toHaveBeenCalledWith(
+      params,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST },
+        {
+          type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create phone number  validations procedure is successful', async () => {

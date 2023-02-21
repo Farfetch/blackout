@@ -206,6 +206,7 @@ export function analyticsWishlistMiddleware(
         // On add item success, it is expected that the item
         // is added on the store after the reducers run.
         state = store.getState();
+
         const wishlistItemId = getWishlistItemIdFromAction(action);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
@@ -223,6 +224,7 @@ export function analyticsWishlistMiddleware(
         // On delete item success, it is expected that the item
         // that will be deleted is on the store before the reducers run.
         state = store.getState();
+
         const wishlistItemId = getWishlistItemIdFromAction(action);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
@@ -269,6 +271,7 @@ export function analyticsWishlistMiddleware(
         // getWishlistItemIdFromAction to not search
         // for a wishlistItemId on the action.meta.
         state = store.getState();
+
         const wishlistItemId = getWishlistItemIdFromAction(action, false);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
@@ -333,7 +336,9 @@ export function analyticsWishlistMiddleware(
         // wishlist item id.
         if (isAddOperation && !isNil(wishlistItemId)) {
           const result = await next(action);
+
           state = store.getState();
+
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
           analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {

@@ -100,14 +100,14 @@ describe('analyticsWishlistMiddleware', () => {
     // @ts-expect-error test undefined value
     analyticsWishlistMiddleware(undefined);
 
-    expect(loggerErrorSpy).toBeCalled();
+    expect(loggerErrorSpy).toHaveBeenCalled();
 
     loggerErrorSpy.mockClear();
 
     // @ts-expect-error test instanceof
     analyticsWishlistMiddleware({});
 
-    expect(loggerErrorSpy).toBeCalled();
+    expect(loggerErrorSpy).toHaveBeenCalled();
   });
 
   describe('When the store has incomplete data', () => {
@@ -180,7 +180,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(loggerErrorSpy).toBeCalled();
+      expect(loggerErrorSpy).toHaveBeenCalled();
     });
   });
 
@@ -227,29 +227,32 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-        affiliation,
-        brand: brandName,
-        category: categoryName,
-        coupon,
-        currency: currencyCode,
-        discountValue: discount,
-        from,
-        id: wishlistMockData.productId,
-        list,
-        listId,
-        name: productDescription?.trim(),
-        position,
-        price: priceWithDiscount,
-        priceWithoutDiscount,
-        quantity,
-        size: size.name,
-        sizeId: size.id,
-        sizeScaleId: size.scale,
-        value,
-        variant: colorName,
-        wishlistId: wishlistMockData.wishlistId,
-      });
+      expect(trackSpy).toHaveBeenCalledWith(
+        EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+        {
+          affiliation,
+          brand: brandName,
+          category: categoryName,
+          coupon,
+          currency: currencyCode,
+          discountValue: discount,
+          from,
+          id: wishlistMockData.productId,
+          list,
+          listId,
+          name: productDescription?.trim(),
+          position,
+          price: priceWithDiscount,
+          priceWithoutDiscount,
+          quantity,
+          size: size.name,
+          sizeId: size.id,
+          sizeScaleId: size.scale,
+          value,
+          variant: colorName,
+          wishlistId: wishlistMockData.wishlistId,
+        },
+      );
     });
   });
 
@@ -280,7 +283,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(
+      expect(trackSpy).toHaveBeenCalledWith(
         EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
         {
           affiliation,
@@ -337,7 +340,7 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(
+        expect(trackSpy).toHaveBeenCalledWith(
           EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
           {
             affiliation,
@@ -383,7 +386,7 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(
+        expect(trackSpy).toHaveBeenCalledWith(
           EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
           {
             affiliation,
@@ -504,29 +507,32 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-          affiliation,
-          brand: brandName,
-          category: categoryName,
-          coupon,
-          currency: currencyCode,
-          discountValue: discount,
-          from,
-          id: wishlistMockData.productId,
-          list,
-          listId,
-          name: productDescription?.trim(),
-          price: priceWithDiscount,
-          priceWithoutDiscount,
-          position,
-          quantity,
-          size: size.name,
-          sizeId: size.id,
-          sizeScaleId: size.scale,
-          value,
-          variant: colorName,
-          wishlistId: wishlistSetId,
-        });
+        expect(trackSpy).toHaveBeenCalledWith(
+          EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          {
+            affiliation,
+            brand: brandName,
+            category: categoryName,
+            coupon,
+            currency: currencyCode,
+            discountValue: discount,
+            from,
+            id: wishlistMockData.productId,
+            list,
+            listId,
+            name: productDescription?.trim(),
+            price: priceWithDiscount,
+            priceWithoutDiscount,
+            position,
+            quantity,
+            size: size.name,
+            sizeId: size.id,
+            sizeScaleId: size.scale,
+            value,
+            variant: colorName,
+            wishlistId: wishlistSetId,
+          },
+        );
       });
     });
 
@@ -547,29 +553,32 @@ describe('analyticsWishlistMiddleware', () => {
           },
         });
 
-        expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
-          affiliation,
-          brand: brandName,
-          category: categoryName,
-          coupon,
-          currency: currencyCode,
-          discountValue: discount,
-          from,
-          id: wishlistMockData.productId,
-          list,
-          listId,
-          name: productDescription?.trim(),
-          price: priceWithDiscount,
-          priceWithoutDiscount,
-          position,
-          quantity,
-          size: size.name,
-          sizeId: size.id,
-          sizeScaleId: size.scale,
-          value,
-          variant: colorName,
-          wishlistId: wishlistSetId,
-        });
+        expect(trackSpy).toHaveBeenCalledWith(
+          EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          {
+            affiliation,
+            brand: brandName,
+            category: categoryName,
+            coupon,
+            currency: currencyCode,
+            discountValue: discount,
+            from,
+            id: wishlistMockData.productId,
+            list,
+            listId,
+            name: productDescription?.trim(),
+            price: priceWithDiscount,
+            priceWithoutDiscount,
+            position,
+            quantity,
+            size: size.name,
+            sizeId: size.id,
+            sizeScaleId: size.scale,
+            value,
+            variant: colorName,
+            wishlistId: wishlistSetId,
+          },
+        );
       });
     });
 
@@ -591,9 +600,9 @@ describe('analyticsWishlistMiddleware', () => {
             wishlistSetId,
           },
         });
-      });
 
-      expect(trackSpy).not.toHaveBeenCalled();
+        expect(trackSpy).not.toHaveBeenCalled();
+      });
     });
 
     it('Should not track an event when the `UPDATE_WISHLIST_SET_SUCCESS` does not specify a wishlist item id', async () => {
@@ -612,9 +621,9 @@ describe('analyticsWishlistMiddleware', () => {
           wishlistSetId,
         },
       });
-    });
 
-    expect(trackSpy).not.toHaveBeenCalled();
+      expect(trackSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('Update item in wishlist', () => {
@@ -699,7 +708,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).nthCalledWith(1, EventTypes.PRODUCT_UPDATED, {
+      expect(trackSpy).toHaveBeenNthCalledWith(1, EventTypes.PRODUCT_UPDATED, {
         affiliation,
         brand: brandName,
         category: categoryName,
@@ -727,33 +736,37 @@ describe('analyticsWishlistMiddleware', () => {
         sizeScaleId,
       });
 
-      expect(trackSpy).nthCalledWith(2, EventTypes.PRODUCT_UPDATED_WISHLIST, {
-        affiliation,
-        brand: brandName,
-        category: categoryName,
-        coupon,
-        currency: currencyCode,
-        discountValue: discount,
-        from: FromParameterTypes.WISHLIST,
-        id: wishlistMockData.productId,
-        list: wishlistName,
-        listId: wishlistMockData.wishlistId,
-        name: productDescription?.trim(),
-        position,
-        price: priceWithDiscount,
-        priceWithoutDiscount,
-        quantity: newQuantity,
-        size: newSize,
-        value,
-        variant: colorName,
-        wishlistId: wishlistMockData.wishlistId,
-        oldSize: undefined,
-        oldSizeId: undefined,
-        oldSizeScaleId: undefined,
-        oldQuantity: undefined,
-        sizeId,
-        sizeScaleId,
-      });
+      expect(trackSpy).toHaveBeenNthCalledWith(
+        2,
+        EventTypes.PRODUCT_UPDATED_WISHLIST,
+        {
+          affiliation,
+          brand: brandName,
+          category: categoryName,
+          coupon,
+          currency: currencyCode,
+          discountValue: discount,
+          from: FromParameterTypes.WISHLIST,
+          id: wishlistMockData.productId,
+          list: wishlistName,
+          listId: wishlistMockData.wishlistId,
+          name: productDescription?.trim(),
+          position,
+          price: priceWithDiscount,
+          priceWithoutDiscount,
+          quantity: newQuantity,
+          size: newSize,
+          value,
+          variant: colorName,
+          wishlistId: wishlistMockData.wishlistId,
+          oldSize: undefined,
+          oldSizeId: undefined,
+          oldSizeScaleId: undefined,
+          oldQuantity: undefined,
+          sizeId,
+          sizeScaleId,
+        },
+      );
     });
   });
 
@@ -783,7 +796,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      expect(trackSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should handle a custom action type for update wishlist action', async () => {
@@ -795,7 +808,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(2);
+      expect(trackSpy).toHaveBeenCalledTimes(2);
     });
 
     it('should handle a custom action type for remove from wishlist action', async () => {
@@ -807,7 +820,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      expect(trackSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should handle a custom action type for update wishlist set action', async () => {
@@ -820,7 +833,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      expect(trackSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should not track an event if any other action is called', async () => {
@@ -834,7 +847,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).not.toBeCalled();
+      expect(trackSpy).not.toHaveBeenCalled();
     });
   });
 });

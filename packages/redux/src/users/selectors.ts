@@ -1,4 +1,4 @@
-import { getEntities, UserEntity } from '../entities';
+import { getEntities, type UserEntity } from '../entities';
 import { getError, getIsLoading } from './reducer';
 import { USER_ID_PROPERTY } from './constants';
 import get from 'lodash/get';

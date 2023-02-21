@@ -41,6 +41,7 @@ const serverInitialState: ListsServerInitialState = ({
     slug,
   } = model;
   const { pathname, query } = parse(slug, true);
+
   // Remove CDN required `json=true` param from query which breaks our
   // selectors and causes SSR de-optimization
   delete query.json;

@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  Currency,
-  GetCountryCurrencies,
+  type Config,
+  type Currency,
+  type GetCountryCurrencies,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

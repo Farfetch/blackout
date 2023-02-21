@@ -7,8 +7,8 @@ import {
   integrations as coreIntegrations,
   EventTypes,
   PageTypes,
-  PageviewEventData,
-  StrippedDownAnalytics,
+  type PageviewEventData,
+  type StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
 import Omnitracking from '..';
@@ -36,7 +36,7 @@ describe('Omnitracking', () => {
 
   describe('Class methods setup', () => {
     it('Should be ready to load', () => {
-      expect(Omnitracking.shouldLoad()).toEqual(true);
+      expect(Omnitracking.shouldLoad()).toBe(true);
     });
 
     it('Should extend Omnitracking class from @farfetch/blackout-client', () => {
@@ -96,7 +96,7 @@ describe('Omnitracking', () => {
           ) as Omnitracking;
 
           // Assert
-          expect(omnitrackingInstance.currentUniqueViewId).toBe(null);
+          expect(omnitrackingInstance.currentUniqueViewId).toBeNull();
         }).not.toThrow();
       });
 
@@ -119,7 +119,7 @@ describe('Omnitracking', () => {
         );
 
         // Assert
-        expect(newStorage.get(mockUrl)).toBe(null);
+        expect(newStorage.get(mockUrl)).toBeNull();
       });
     });
   });
@@ -245,7 +245,7 @@ describe('Omnitracking', () => {
         );
 
         // Assert
-        expect(storage.get(mockUrl)).toBe(null);
+        expect(storage.get(mockUrl)).toBeNull();
       });
     });
   });

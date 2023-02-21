@@ -17,7 +17,6 @@ describe('postWishlistSet', () => {
     const response = mockWishlistsSetResponse;
 
     mswServer.use(fixtures.success(response));
-    expect.assertions(2);
 
     await expect(
       postWishlistSet(mockWishlistId, mockWishlistsSetResponse),
@@ -32,7 +31,6 @@ describe('postWishlistSet', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(
       postWishlistSet(mockWishlistId, mockWishlistsSetResponse),

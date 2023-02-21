@@ -4,8 +4,9 @@ import {
 } from './raffleParticipation.fixtures';
 import { mockRaffleEstimationNormalizedPayload } from './raffleEstimation.fixtures';
 import { raffleId } from './raffle.fixtures';
-import { Raffles, RaffleStatus } from '@farfetch/blackout-client';
+import { type Raffles, RaffleStatus } from '@farfetch/blackout-client';
 import type { StoreState } from '@farfetch/blackout-redux';
+
 export const mockRafflesResponse: Raffles = {
   entries: [
     {
@@ -69,7 +70,9 @@ export const mockFetchRafflesNormalizedPayload = {
     nextToken: 'string',
   },
 };
+
 const raffleQuery = '?status=Closed';
+
 export const mockRafflesState: StoreState = {
   entities: {
     ...mockFetchRafflesNormalizedPayload.entities,

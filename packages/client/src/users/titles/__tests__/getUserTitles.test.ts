@@ -27,8 +27,6 @@ describe('getTitles', () => {
 
     mswServer.use(fixtures.success(mockGetTitlesResponse));
 
-    expect.assertions(2);
-
     await expect(getUserTitles(query)).resolves.toStrictEqual(
       mockGetTitlesResponse,
     );
@@ -37,8 +35,6 @@ describe('getTitles', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getUserTitles()).rejects.toMatchSnapshot();
 

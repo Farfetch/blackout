@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import { adaptRecommendedProducts } from '../../../helpers/adapters';
 import {
-  GetRecommendedProducts,
-  RecommendedProductsResult,
+  type GetRecommendedProducts,
+  type RecommendedProductsResult,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

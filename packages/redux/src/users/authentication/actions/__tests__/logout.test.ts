@@ -28,21 +28,22 @@ describe('logout() action creator', () => {
     const expectedError = new Error('post logout error');
 
     (postLogout as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
-    await logout()(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postLogout).toHaveBeenCalledTimes(1);
-      expect(postLogout).toHaveBeenCalledWith(expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.LOGOUT_REQUEST },
-          {
-            type: actionTypes.LOGOUT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+
+    await expect(async () => await logout()(store.dispatch)).rejects.toThrow(
+      expectedError,
+    );
+
+    expect(postLogout).toHaveBeenCalledTimes(1);
+    expect(postLogout).toHaveBeenCalledWith(expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.LOGOUT_REQUEST },
+        {
+          type: actionTypes.LOGOUT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the logout procedure is successful', async () => {

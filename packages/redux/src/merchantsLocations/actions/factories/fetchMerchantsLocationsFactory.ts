@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetMerchantsLocations,
-  GetMerchantsLocationsQuery,
-  MerchantLocation,
+  type Config,
+  type GetMerchantsLocations,
+  type GetMerchantsLocationsQuery,
+  type MerchantLocation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

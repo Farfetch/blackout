@@ -29,29 +29,30 @@ describe('removePaymentIntentInstrument() action creator', () => {
     (deletePaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await removePaymentIntentInstrument(
+    await expect(
+      async () =>
+        await removePaymentIntentInstrument(
+          intentId,
+          instrumentId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deletePaymentIntentInstrument).toHaveBeenCalledTimes(1);
+    expect(deletePaymentIntentInstrument).toHaveBeenCalledWith(
       intentId,
       instrumentId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deletePaymentIntentInstrument).toHaveBeenCalledTimes(1);
-      expect(deletePaymentIntentInstrument).toHaveBeenCalledWith(
-        intentId,
-        instrumentId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
-          {
-            type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
+        {
+          type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions when the remove payment intent instrument procedure is successful', async () => {

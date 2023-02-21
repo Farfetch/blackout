@@ -55,7 +55,7 @@ jest.mock('../../../utils/logger', () => {
 });
 
 jest.mock('@farfetch/blackout-client', () => ({
-  ...jest.requireActual('@farfetch/blackout-client'),
+  ...jest.requireActual<object>('@farfetch/blackout-client'),
   postTracking: jest.fn(),
 }));
 
@@ -94,7 +94,7 @@ describe('Omnitracking', () => {
   });
 
   it('Should be ready to load', () => {
-    expect(Omnitracking.shouldLoad()).toEqual(true);
+    expect(Omnitracking.shouldLoad()).toBe(true);
   });
 
   it('Should extend Integration class', () => {
@@ -130,6 +130,7 @@ describe('Omnitracking', () => {
     describe('culture', () => {
       it('Should send the correct clientLanguage when a culture is passed', async () => {
         const data = generateMockData();
+
         // force a different culture instead of using the mocked one, which will return the default `en` clientLanguage
         data.context.culture = 'pt-PT';
 
@@ -146,6 +147,7 @@ describe('Omnitracking', () => {
 
       it('Should send the default clientLanguage when no culture is passed', async () => {
         const data = generateMockData();
+
         data.context.culture = undefined;
 
         await omnitracking.track(data);
@@ -167,6 +169,7 @@ describe('Omnitracking', () => {
 
       it('Should send searchQuery when a custom searchQueryParameters option is sent', async () => {
         const data = generateMockData();
+
         (
           data.context.web as WebContext
         ).window.location.query.customSearchQuery = 'some text';
@@ -192,34 +195,10 @@ describe('Omnitracking', () => {
 
       it('Should send searchQuery when no searchQueryParameters option is sent', async () => {
         const data = generateMockData();
+
         (data.context.web as WebContext).window.location.query.q = 'some text';
 
         await omnitracking.track(data);
-
-        expect(postTrackingSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            parameters: expect.objectContaining({
-              searchQuery: 'some text',
-            }),
-          }),
-        );
-      });
-
-      it('Should send searchQuery when a custom searchQueryParameters option is sent', async () => {
-        const data = generateMockData();
-        (
-          data.context.web as WebContext
-        ).window.location.query.customSearchQuery = 'some text';
-
-        const omnitrackingInstance = new Omnitracking(
-          {
-            [OPTION_SEARCH_QUERY_PARAMETERS]: ['customSearchQuery'],
-          },
-          loadIntegrationData,
-          strippedDownAnalytics,
-        );
-
-        await omnitrackingInstance.track(data);
 
         expect(postTrackingSpy).toHaveBeenCalledWith(
           expect.objectContaining({
@@ -234,6 +213,7 @@ describe('Omnitracking', () => {
     describe('currency', () => {
       it('Should send the correct viewCurrency when a currency is passed', async () => {
         const data = generateMockData();
+
         // force a currencyCode context value
         data.context.currencyCode = 'USD';
 
@@ -374,6 +354,7 @@ describe('Omnitracking', () => {
           const data = generateTrackMockData({
             event: EventTypes.PLACE_ORDER_STARTED,
           });
+
           await omnitracking.track(data);
 
           expect(mockLoggerError).toHaveBeenCalledWith(
@@ -389,6 +370,7 @@ describe('Omnitracking', () => {
             event: 'customEvent',
             type: analyticsTrackTypes.PAGE,
           });
+
           await omnitracking.track(data);
 
           data = generateTrackMockData({
@@ -401,6 +383,7 @@ describe('Omnitracking', () => {
         });
       });
     });
+
     describe('Should send track events when', () => {
       beforeEach(() => {
         omnitracking.currentUniqueViewId = mocked_view_uid;
@@ -623,6 +606,7 @@ describe('Omnitracking', () => {
             percentageScrolled: 50,
           },
         });
+
         await omnitracking.track(data);
 
         expect(postTrackingSpy).toHaveBeenCalledTimes(0);
@@ -792,6 +776,7 @@ describe('Omnitracking', () => {
         );
       });
     });
+
     describe('searchQueryParameter', () => {
       it('Should log an error if the value specified is not an array', () => {
         const searchQueryParameters = 'Invalid value';
@@ -809,6 +794,7 @@ describe('Omnitracking', () => {
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. It must be an array.`,
         );
       });
+
       it('Should log an error if the value specified is an empty array', () => {
         const searchQueryParameters: never[] = [];
 
@@ -824,6 +810,7 @@ describe('Omnitracking', () => {
           `[Omnitracking] - Invalid value provided for ${OPTION_SEARCH_QUERY_PARAMETERS} option. It must contain a value`,
         );
       });
+
       it('Should log an error if the value specified has invalid data', () => {
         const searchQueryParameters = [{}];
 
@@ -894,6 +881,7 @@ describe('Omnitracking', () => {
         payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
       ) => {
         lastPayload = payload;
+
         return lastPayload;
       };
 
@@ -969,8 +957,10 @@ describe('Omnitracking', () => {
         loadIntegrationData,
         strippedDownAnalytics,
       );
+
       const mockUniqueViewId = '78989d11-8863-4a12-b2ce-48cab737a43b';
       const pageEventData = generateMockData();
+
       pageEventData.properties.uniqueViewId = mockUniqueViewId;
 
       await omnitracking.track(pageEventData);

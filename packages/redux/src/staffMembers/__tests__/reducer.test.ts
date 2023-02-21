@@ -129,6 +129,7 @@ describe('staffMembers reducer', () => {
     const expectedResult = {
       [mockStaffMemberId]: mockStaffMember,
     };
+
     it('should return the initial state', () => {
       const state = reducer(INITIAL_STATE, mockAction).result;
 
