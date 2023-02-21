@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.80.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.79.0...@farfetch/blackout-core@1.80.0) (2023-02-21)
+
+
+### Features
+
+* **core:** add put bags promocodes endpoint ([fef85b3](https://github.com/Farfetch/blackout/commit/fef85b3dc278de90b3c7dbba18ef8e7c04d0adbe))
+* add targets.segments on searchContents ([5695ca8](https://github.com/Farfetch/blackout/commit/5695ca8ce2e0c227c57804459bf0ed65acd64c69))
+* **core|react:** setup promocode applied analytics event ([ec78acc](https://github.com/Farfetch/blackout/commit/ec78acc9fd8446196a2dc3c0b2be6fd918cd3f2e))
+
+
+
+
+
 # [1.79.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.78.0...@farfetch/blackout-core@1.79.0) (2023-02-08)
 
 

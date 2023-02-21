@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-react",
-  "version": "0.51.0",
+  "version": "0.52.0",
   "description": "React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app",
   "license": "MIT",
   "main": "src/index.js",

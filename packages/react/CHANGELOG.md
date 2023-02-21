@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.52.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.51.0...@farfetch/blackout-react@0.52.0) (2023-02-21)
+
+
+### Features
+
+* **core|react:** setup promocode applied analytics event ([ec78acc](https://github.com/Farfetch/blackout/commit/ec78acc9fd8446196a2dc3c0b2be6fd918cd3f2e))
+
+
+
+
+
 # [0.51.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.50.0...@farfetch/blackout-react@0.51.0) (2023-02-08)
 
 
