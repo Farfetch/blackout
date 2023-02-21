@@ -2,6 +2,7 @@ import warnDeprecatedProp from '../warnDeprecatedProp';
 
 describe('warnDeprecatedProp()', () => {
   const spy = jest.fn();
+
   console.warn = spy;
 
   beforeEach(() => {

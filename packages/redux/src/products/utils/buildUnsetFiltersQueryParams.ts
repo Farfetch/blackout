@@ -1,5 +1,6 @@
 import type { FacetEntity } from '../../entities/types';
 import type { GetProductListingQuery } from '@farfetch/blackout-client';
+
 export const PRICE_FACET_KEY = 'price';
 
 /**

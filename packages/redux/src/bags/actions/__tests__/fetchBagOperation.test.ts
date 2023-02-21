@@ -37,38 +37,36 @@ describe('fetchBagOperation()', () => {
     const expectedError = new Error('get bagOperation error');
 
     (getBagOperation as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchBagOperation(
+    await expect(
+      async () =>
+        await fetchBagOperation(mockBagId, mockBagOperationId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getBagOperation).toHaveBeenCalledTimes(1);
+    expect(getBagOperation).toHaveBeenCalledWith(
       mockBagId,
       mockBagOperationId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getBagOperation).toHaveBeenCalledTimes(1);
-      expect(getBagOperation).toHaveBeenCalledWith(
-        mockBagId,
-        mockBagOperationId,
-        expectedConfig,
-      );
+      expectedConfig,
+    );
 
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_BAG_OPERATION_REQUEST,
-            meta: { bagOperationId: mockBagOperationId },
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_BAG_OPERATION_REQUEST,
+          meta: { bagOperationId: mockBagOperationId },
+        },
+        {
+          type: actionTypes.FETCH_BAG_OPERATION_FAILURE,
+          payload: {
+            error: expectedError,
           },
-          {
-            type: actionTypes.FETCH_BAG_OPERATION_FAILURE,
-            payload: {
-              error: expectedError,
-            },
-            meta: {
-              bagOperationId: mockBagOperationId,
-            },
+          meta: {
+            bagOperationId: mockBagOperationId,
           },
-        ]),
-      );
-    });
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get bagOperation procedure is successful', async () => {

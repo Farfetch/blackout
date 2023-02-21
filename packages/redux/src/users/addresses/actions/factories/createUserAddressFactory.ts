@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostUserAddress,
+  type Config,
+  type PostUserAddress,
   toBlackoutError,
-  User,
-  UserAddress,
-  UserAddressInput,
+  type User,
+  type UserAddress,
+  type UserAddressInput,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import addressesSchema from '../../../../entities/schemas/addresses';
@@ -27,6 +27,7 @@ const createUserAddressFactory =
       dispatch({
         type: actionTypes.CREATE_USER_ADDRESS_REQUEST,
       });
+
       const result = await postAddress({ userId }, data, config);
 
       dispatch({

@@ -16,7 +16,6 @@ describe('programs client', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(mockResponsePrograms));
 
-      expect.assertions(2);
       await expect(getPrograms()).resolves.toStrictEqual(mockResponsePrograms);
       expect(spy).toHaveBeenCalledWith(apiPath, expectedConfig);
     });
@@ -24,7 +23,6 @@ describe('programs client', () => {
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
 
-      expect.assertions(2);
       await expect(getPrograms()).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(apiPath, expectedConfig);
     });

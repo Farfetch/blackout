@@ -106,6 +106,7 @@ describe('brands reducer', () => {
 
     it('should handle SET_BRANDS_HASH action type', () => {
       const hash = 'foo';
+
       expect(
         reducer(undefined, {
           type: actionTypes.SET_BRANDS_HASH,
@@ -140,7 +141,7 @@ describe('brands reducer', () => {
           type: actionTypes.FETCH_BRAND_REQUEST,
           meta: { brandId: mockBrandId },
         }).isLoading[mockBrandId],
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_BRANDS_REQUEST action type', () => {
@@ -149,7 +150,7 @@ describe('brands reducer', () => {
           type: actionTypes.FETCH_BRANDS_REQUEST,
           meta: { hash, query: mockQuery },
         }).isLoading[hash],
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_BRAND_SUCCESS action type', () => {
@@ -166,7 +167,7 @@ describe('brands reducer', () => {
           },
           meta: { brandId: mockBrandId },
         }).isLoading[mockBrandId],
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_BRAND_FAILURE action type', () => {
@@ -178,7 +179,7 @@ describe('brands reducer', () => {
           },
           meta: { brandId: mockBrandId },
         }).isLoading[mockBrandId],
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_BRANDS_SUCCESS action type', () => {
@@ -195,7 +196,7 @@ describe('brands reducer', () => {
           },
           meta: { hash, query: mockQuery },
         }).isLoading[hash],
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle FETCH_BRANDS_FAILURE action type', () => {
@@ -207,7 +208,7 @@ describe('brands reducer', () => {
           },
           meta: { hash, query: mockQuery },
         }).isLoading[hash],
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle other actions by returning the previous state', () => {

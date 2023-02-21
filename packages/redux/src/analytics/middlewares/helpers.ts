@@ -1,5 +1,5 @@
+import { type default as Analytics, utils } from '@farfetch/blackout-analytics';
 import { getBrand as getBrandSelector } from '../../brands';
-import Analytics, { utils } from '@farfetch/blackout-analytics';
 import get from 'lodash/get';
 import type {
   ProductEntity,

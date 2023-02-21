@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { adaptDate, adaptTimestamp } from '../../../helpers/adapters';
 import {
-  Config,
-  PatchReturn,
-  PatchReturnData,
-  Return,
+  type Config,
+  type PatchReturn,
+  type PatchReturnData,
+  type Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

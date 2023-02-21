@@ -1,4 +1,8 @@
-import { BlackoutError, Category, Gender } from '@farfetch/blackout-client';
+import {
+  type BlackoutError,
+  type Category,
+  Gender,
+} from '@farfetch/blackout-client';
 
 export const mockCategoryId = 135981;
 export const mockCategory = {
@@ -89,6 +93,7 @@ export const mockCategoriesState = {
     categories: mockCategories.reduce(
       (entity: Record<string, Category>, category) => {
         entity[category.id] = category;
+
         return entity;
       },
       {},

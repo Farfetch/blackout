@@ -15,8 +15,6 @@ describe('resetReturns() action creator', () => {
   });
 
   it('should reset the returns area including the entities', async () => {
-    expect.assertions(1);
-
     await resetReturns(true)(store.dispatch);
 
     expect(store.getActions()).toEqual(
@@ -30,8 +28,6 @@ describe('resetReturns() action creator', () => {
   });
 
   it('should reset the returns area excluding the entities', async () => {
-    expect.assertions(1);
-
     await resetReturns(false)(store.dispatch);
 
     expect(store.getActions()).toEqual(
@@ -45,8 +41,6 @@ describe('resetReturns() action creator', () => {
   });
 
   it('should reset the returns area excluding the entities by default', async () => {
-    expect.assertions(1);
-
     await resetReturns()(store.dispatch);
 
     expect(store.getActions()).toEqual(

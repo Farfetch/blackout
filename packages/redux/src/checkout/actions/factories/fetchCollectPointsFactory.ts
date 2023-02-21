@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CollectPoint,
-  Config,
-  GetCollectPoints,
-  GetCollectPointsQuery,
+  type CollectPoint,
+  type Config,
+  type GetCollectPoints,
+  type GetCollectPointsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

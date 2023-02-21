@@ -34,41 +34,38 @@ describe('createUserAddress() action creator', () => {
     const expectedError = new Error('create address error');
 
     (postUserAddress as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createUserAddress(
-      userId,
+    await expect(
+      async () => await createUserAddress(userId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postUserAddress).toHaveBeenCalledTimes(1);
+    expect(postUserAddress).toHaveBeenCalledWith(
+      { userId },
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postUserAddress).toHaveBeenCalledTimes(1);
-      expect(postUserAddress).toHaveBeenCalledWith(
-        { userId },
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.CREATE_USER_ADDRESS_REQUEST,
-          },
-          {
-            type: actionTypes.CREATE_USER_ADDRESS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.CREATE_USER_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.CREATE_USER_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create user address procedure is successful', async () => {
     (postUserAddress as jest.Mock).mockResolvedValueOnce(
       mockPostUserAddressResponse,
     );
+
     const result = await createUserAddress(userId, data)(store.dispatch);
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(postUserAddress).toHaveBeenCalledTimes(1);
     expect(postUserAddress).toHaveBeenCalledWith(

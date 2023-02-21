@@ -15,6 +15,7 @@ describe('resetUserState() action creator', () => {
     const fieldsToReset = ['id'];
 
     resetUserState(fieldsToReset)(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

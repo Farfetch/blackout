@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetProductFittings,
-  Product,
-  ProductFitting,
+  type Config,
+  type GetProductFittings,
+  type Product,
+  type ProductFitting,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

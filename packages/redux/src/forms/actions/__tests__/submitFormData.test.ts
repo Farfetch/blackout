@@ -33,34 +33,35 @@ describe('submitFormData() action creator', () => {
 
     (postFormData as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await submitFormData(
+          formSchemaResponse.code,
+          postFormDataPayload,
+          expectedConfig,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await submitFormData(
+    expect(postFormData).toHaveBeenCalledTimes(1);
+    expect(postFormData).toHaveBeenCalledWith(
       formSchemaResponse.code,
       postFormDataPayload,
       expectedConfig,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postFormData).toHaveBeenCalledTimes(1);
-      expect(postFormData).toHaveBeenCalledWith(
-        formSchemaResponse.code,
-        postFormDataPayload,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            type: formsActionTypes.SUBMIT_FORM_REQUEST,
-          }),
-        ]),
-      );
-    });
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: formsActionTypes.SUBMIT_FORM_REQUEST,
+        }),
+      ]),
+    );
   });
 
   it('should create the correct actions for when the submit form data procedure is successful', async () => {
     const mockResult = {
       foo: 'bar',
     };
+
     (postFormData as jest.Mock).mockResolvedValueOnce(mockResult);
 
     await submitFormData(

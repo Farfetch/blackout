@@ -1,5 +1,8 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { fetchCountryStateCities, StoreState } from '@farfetch/blackout-redux';
+import {
+  fetchCountryStateCities,
+  type StoreState,
+} from '@farfetch/blackout-redux';
 import {
   mockCities,
   mockCitiesEntities,
@@ -39,6 +42,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useCountryStateCities', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

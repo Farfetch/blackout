@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetSizeScale,
-  SizeScale,
+  type Config,
+  type GetSizeScale,
+  type SizeScale,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

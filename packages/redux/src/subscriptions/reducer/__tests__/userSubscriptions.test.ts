@@ -177,6 +177,7 @@ describe('userSubscriptions reducer', () => {
       };
 
       const newChannels = [...(topic?.channels || [])];
+
       newChannels.splice(channelIndex, 1);
 
       const newTopic = {
@@ -256,7 +257,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_REQUEST,
           payload: {},
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it(`should handle ${actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST} action type`, () => {
@@ -265,7 +266,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST,
           payload: {},
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST} action type`, () => {
@@ -274,7 +275,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_REQUEST,
           payload: {},
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it(`should handle ${actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE} action type`, () => {
@@ -283,7 +284,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE,
           payload: { error: { code: -1 } },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
@@ -292,7 +293,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS,
           payload: {},
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE} action type`, () => {
@@ -301,7 +302,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_FAILURE,
           payload: { error: { code: -1 } },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS} action type`, () => {
@@ -310,7 +311,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UPDATE_USER_SUBSCRIPTIONS_SUCCESS,
           payload: {},
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE} action type`, () => {
@@ -319,7 +320,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_FAILURE,
           payload: { error: { code: -1 } },
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it(`should handle ${actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS} action type`, () => {
@@ -328,7 +329,7 @@ describe('userSubscriptions reducer', () => {
           type: actionTypes.UNSUBSCRIBE_SUBSCRIPTION_SUCCESS,
           payload: {},
         }).isLoading,
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should handle other actions by returning the previous state', () => {

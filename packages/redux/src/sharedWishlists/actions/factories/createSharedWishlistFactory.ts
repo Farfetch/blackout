@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostSharedWishlist,
-  PostSharedWishlistData,
-  SharedWishlist,
+  type Config,
+  type PostSharedWishlist,
+  type PostSharedWishlistData,
+  type SharedWishlist,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

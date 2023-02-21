@@ -69,18 +69,23 @@ export const getPageRanking = (metadata: Metadata): number => {
     switch (key) {
       case 'gender':
         ranking += rankingGender;
+
         return;
       case 'brand':
         ranking += rankingBrand;
+
         return;
       case 'category':
         ranking += rankingCategory;
+
         return;
       case 'priceType':
         ranking += rankingPriceType;
+
         return;
       case 'id':
         ranking += rankingId;
+
         return;
 
       default:
@@ -169,6 +174,7 @@ export const getMergeStrategy = (result: CommercePages): CommercePages => {
   const rankedCommercePages = getCommercePagesRanked(result);
   // Merge components inside the selected commerce page
   const mergedComponents: ComponentType[] = [];
+
   rankedCommercePages.forEach(content =>
     content.components.forEach(component => {
       if (
@@ -176,8 +182,9 @@ export const getMergeStrategy = (result: CommercePages): CommercePages => {
           mergedComponent =>
             mergedComponent.customType === component.customType,
         )
-      )
+      ) {
         mergedComponents.push(component);
+      }
     }),
   );
 

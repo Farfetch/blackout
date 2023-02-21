@@ -31,29 +31,27 @@ describe('removeUserAttribute action creator', () => {
     const expectedError = new Error('remove user attribute error');
 
     (deleteUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await removeUserAttribute(
+    await expect(
+      async () =>
+        await removeUserAttribute(userId, attributeId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(deleteUserAttribute).toHaveBeenCalledTimes(1);
+    expect(deleteUserAttribute).toHaveBeenCalledWith(
       userId,
       attributeId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteUserAttribute).toHaveBeenCalledTimes(1);
-      expect(deleteUserAttribute).toHaveBeenCalledWith(
-        userId,
-        attributeId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST },
-          {
-            type: actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST },
+        {
+          type: actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the remove user attribute procedure is successful', async () => {

@@ -20,8 +20,6 @@ describe('schemas client', () => {
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(successResponse));
 
-      expect.assertions(2);
-
       await expect(
         getFormSchema(schemaCode, query, expectedConfig),
       ).resolves.toEqual(successResponse);
@@ -36,8 +34,6 @@ describe('schemas client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         getFormSchema(schemaCode, query, expectedConfig),

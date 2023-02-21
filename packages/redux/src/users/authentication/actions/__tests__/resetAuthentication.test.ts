@@ -20,8 +20,6 @@ describe('resetAuthentication() action creator', () => {
   });
 
   it('should create the correct actions when the reset authentication area is called with no subarea prop', async () => {
-    expect.assertions(1);
-
     await reset()(store.dispatch);
     expect(store.getActions()).toEqual(
       expect.arrayContaining([{ type: actionTypes.RESET_AUTHENTICATION }]),
@@ -46,8 +44,6 @@ describe('resetAuthentication() action creator', () => {
   ])(
     'should create the correct actions when the reset authentication area is called with the %s subarea',
     async subArea => {
-      expect.assertions(1);
-
       await reset(subArea as SubAreaType)(store.dispatch);
       expect(store.getActions()).toEqual(
         expect.arrayContaining([

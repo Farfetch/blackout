@@ -31,41 +31,39 @@ describe('fetchPromotionEvaluationItems() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchPromotionEvaluationItems(mockPromotionEvaluationId)(
+          store.dispatch,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchPromotionEvaluationItems(mockPromotionEvaluationId)(
-      store.dispatch,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getPromotionEvaluationItems).toHaveBeenCalledTimes(1);
-      expect(getPromotionEvaluationItems).toHaveBeenCalledWith(
-        mockPromotionEvaluationId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            promotionEvaluationId: mockPromotionEvaluationId,
-          },
-          type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
+    expect(getPromotionEvaluationItems).toHaveBeenCalledTimes(1);
+    expect(getPromotionEvaluationItems).toHaveBeenCalledWith(
+      mockPromotionEvaluationId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: {
+          promotionEvaluationId: mockPromotionEvaluationId,
         },
-        {
-          meta: {
-            promotionEvaluationId: mockPromotionEvaluationId,
-          },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
+        type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_REQUEST,
+      },
+      {
+        meta: {
+          promotionEvaluationId: mockPromotionEvaluationId,
         },
-      ]);
-    });
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_PROMOTION_EVALUATION_ITEMS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch promotion evaluation items procedure is successful', async () => {
     (getPromotionEvaluationItems as jest.Mock).mockResolvedValueOnce(
       mockPromotionEvaluationsItemsResponse,
     );
-
-    expect.assertions(3);
 
     await fetchPromotionEvaluationItems(mockPromotionEvaluationId)(
       store.dispatch,

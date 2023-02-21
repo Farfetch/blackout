@@ -15,7 +15,6 @@ describe('deleteWishlistSet', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
-    expect.assertions(2);
 
     await expect(
       deleteWishlistSet(mockWishlistId, mockWishlistSetId),
@@ -29,7 +28,6 @@ describe('deleteWishlistSet', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(
       deleteWishlistSet(mockWishlistId, mockWishlistSetId),

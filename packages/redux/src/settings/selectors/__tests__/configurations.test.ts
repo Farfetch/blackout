@@ -16,7 +16,7 @@ describe('configurations redux selectors', () => {
 
       expect(
         selectors.areConfigurationsLoading(mockConfigurationsLoadingState),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -33,7 +33,7 @@ describe('configurations redux selectors', () => {
 
   describe('areConfigurationsFetched()', () => {
     it('should get the fetched status', () => {
-      expect(selectors.areConfigurationsFetched(mockState)).toEqual(true);
+      expect(selectors.areConfigurationsFetched(mockState)).toBe(true);
     });
   });
 

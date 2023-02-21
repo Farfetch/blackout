@@ -117,6 +117,7 @@ class TokenProvider {
   async invalidateCurrentAccessToken() {
     if (this.tokenData) {
       const newTokenData = new TokenData({ ...this.tokenData });
+
       delete newTokenData.accessToken;
       await this.setTokenData(newTokenData);
     }
@@ -232,6 +233,7 @@ class TokenProvider {
         );
       }
     }
+
     this.invokeTokenChangedListeners(this.tokenData);
   }
 

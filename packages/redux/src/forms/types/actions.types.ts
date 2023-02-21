@@ -10,11 +10,13 @@ interface FetchFormSchemaRequestAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_REQUEST;
   meta: { schemaCode: string };
 }
+
 interface FetchFormSchemaSuccessAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_SUCCESS;
   payload: FormSchema;
   meta: { schemaCode: string };
 }
+
 interface FetchFormSchemaFailureAction extends Action {
   type: typeof actionTypes.FETCH_FORM_SCHEMA_FAILURE;
   payload: { error: BlackoutError };
@@ -33,11 +35,13 @@ interface SubmitFormDataRequestAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_REQUEST;
   meta: { schemaCode: string; data: unknown };
 }
+
 interface SubmitFormDataSuccessAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_SUCCESS;
   payload: SubmittedFormData;
   meta: { schemaCode: string; data: unknown };
 }
+
 interface SubmitFormDataFailureAction extends Action {
   type: typeof actionTypes.SUBMIT_FORM_FAILURE;
   payload: { error: BlackoutError };

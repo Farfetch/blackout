@@ -1,7 +1,7 @@
 import { adaptProductSizes } from '@farfetch/blackout-redux/src/helpers/adapters';
 import {
   AttributeType,
-  BagItem,
+  type BagItem,
   PurchaseChannel,
 } from '@farfetch/blackout-client';
 import { mockMerchantId, mockProductId } from '../products/ids.fixtures';

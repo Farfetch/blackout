@@ -1,4 +1,4 @@
-import { EventData, PageTypes, TrackTypesValues } from '../../..';
+import { type EventData, PageTypes, type TrackTypesValues } from '../../..';
 import { pageEventsData } from 'tests/__fixtures__/analytics/';
 import { userGenderValuesMapper } from '../definitions';
 import mockedUuid from './mocked_uuid';

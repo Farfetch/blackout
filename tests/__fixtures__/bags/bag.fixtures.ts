@@ -1,6 +1,6 @@
 import {
   AttributeType,
-  BlackoutError,
+  type BlackoutError,
   PurchaseChannel,
   toBlackoutError,
 } from '@farfetch/blackout-client';

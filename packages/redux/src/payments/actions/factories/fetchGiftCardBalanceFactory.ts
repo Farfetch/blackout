@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Balance,
-  Config,
-  GetGiftCardBalance,
-  GetGiftCardBalanceData,
+  type Balance,
+  type Config,
+  type GetGiftCardBalance,
+  type GetGiftCardBalanceData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

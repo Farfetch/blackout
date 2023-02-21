@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import { adaptDate } from '../../../helpers/adapters';
 import {
-  Config,
-  GetReturnPickupCapability,
-  Return,
-  ReturnPickupCapability,
+  type Config,
+  type GetReturnPickupCapability,
+  type Return,
+  type ReturnPickupCapability,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import generateReturnPickupCapabilityHash from '../../helpers/generateReturnPickupCapabilityHash';

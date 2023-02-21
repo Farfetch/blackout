@@ -32,6 +32,7 @@ class UniqueViewIdStorage {
 
     if (this.isExpired(key)) {
       this.removeItem(key);
+
       return null;
     }
 
@@ -64,6 +65,7 @@ class UniqueViewIdStorage {
     }
 
     this.setItem(key, value);
+
     return true;
   }
 
@@ -78,6 +80,7 @@ class UniqueViewIdStorage {
     // Loop in reverse as removing items will change indices of tail
     for (let i = localStorage.length - 1; i >= 0; --i) {
       const keyWithPrefix = localStorage.key(i) as string;
+
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
         const key = keyWithPrefix.replace(CACHE_PREFIX, '');
 
@@ -97,6 +100,7 @@ class UniqueViewIdStorage {
 
     for (let i = 0; i < localStorage.length; i++) {
       const keyWithPrefix = localStorage.key(i) as string;
+
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
         const obj = JSON.parse(localStorage.getItem(keyWithPrefix) as string);
 
@@ -121,8 +125,10 @@ class UniqueViewIdStorage {
    */
   hasLimitReached() {
     let count = 0;
+
     for (let i = localStorage.length - 1; i >= 0; --i) {
       const key = localStorage.key(i) as string;
+
       if (key.indexOf(CACHE_PREFIX) === 0) {
         count++;
       }
@@ -194,8 +200,10 @@ class UniqueViewIdStorage {
   supportsLocalStorage() {
     try {
       const x = '__storage_test__';
+
       localStorage.setItem(x, x);
       localStorage.removeItem(x);
+
       return true;
     } catch (e) {
       // In private browsing mode, Safari and iOS Safari up to including version 10.x
@@ -227,8 +235,10 @@ class UniqueViewIdStorage {
     // Loop in reverse as removing items will change indices of tail
     for (let i = localStorage.length - 1; i >= 0; --i) {
       const keyWithPrefix = localStorage.key(i) as string;
+
       if (keyWithPrefix.indexOf(CACHE_PREFIX) === 0) {
         const key = keyWithPrefix.replace(CACHE_PREFIX, '');
+
         this.removeItem(key);
       }
     }

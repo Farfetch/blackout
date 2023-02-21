@@ -43,36 +43,35 @@ describe('fetchBag() action creator', () => {
     const expectedError = new Error('fetch bag error');
 
     (getBag as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchBag(mockBagId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getBag).toHaveBeenCalledTimes(1);
-      expect(getBag).toHaveBeenCalledWith(
-        mockBagId,
-        expectedQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_BAG_REQUEST },
-          {
-            type: actionTypes.FETCH_BAG_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await fetchBag(mockBagId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(getBag).toHaveBeenCalledTimes(1);
+    expect(getBag).toHaveBeenCalledWith(
+      mockBagId,
+      expectedQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_BAG_REQUEST },
+        {
+          type: actionTypes.FETCH_BAG_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch bag procedure is successful', async () => {
     (getBag as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(6);
 
     await fetchBag(mockBagId)(
       store.dispatch,
@@ -107,8 +106,6 @@ describe('fetchBag() action creator', () => {
     store = bagMockStoreWithoutMiddlewares();
 
     (getBag as jest.Mock).mockResolvedValueOnce(mockResponse);
-
-    expect.assertions(6);
 
     await fetchBag(mockBagId)(
       store.dispatch,

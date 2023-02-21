@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import baseComponents from './base';
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import type { ComponentProps } from '../types';
 
 type Components = Record<string, React.ElementType>;

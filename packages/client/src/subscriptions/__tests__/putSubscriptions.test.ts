@@ -14,7 +14,7 @@ describe('putSubscriptions', () => {
 
     await expect(
       putSubscriptions(mockPutSubscriptions.data),
-    ).resolves.toStrictEqual(undefined);
+    ).resolves.toBeUndefined();
 
     expect(spy).toHaveBeenCalledWith(
       '/marketing/v1/subscriptions',

@@ -1,11 +1,11 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetWishlistSet,
-  PatchWishlistSet,
-  PatchWishlistSetData,
+  type Config,
+  type GetWishlistSet,
+  type PatchWishlistSet,
+  type PatchWishlistSetData,
   toBlackoutError,
-  WishlistSet,
+  type WishlistSet,
 } from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import fetchWishlistSetFactory from './fetchWishlistSetFactory';

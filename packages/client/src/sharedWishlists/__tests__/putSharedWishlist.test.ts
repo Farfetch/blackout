@@ -17,7 +17,6 @@ describe('putSharedWishlist', () => {
     const response = mockSharedWishlistsResponse;
 
     mswServer.use(fixtures.success(response));
-    expect.assertions(2);
 
     await expect(putSharedWishlist(mockSharedWishlistId)).resolves.toEqual(
       response,
@@ -31,7 +30,6 @@ describe('putSharedWishlist', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(
       putSharedWishlist(mockSharedWishlistId),

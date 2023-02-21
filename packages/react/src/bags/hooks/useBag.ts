@@ -3,8 +3,8 @@
  */
 import {
   addBagItem as addBagItemAction,
-  BagItemActionMetadata,
-  BagItemDenormalized,
+  type BagItemActionMetadata,
+  type BagItemDenormalized,
   buildBagItem,
   fetchBag as fetchBagAction,
   generateBagItemHash,
@@ -16,8 +16,8 @@ import {
   isBagLoading,
   removeBagItem as removeBagItemAction,
   resetBag as resetBagAction,
-  SizeAdapted,
-  StoreState,
+  type SizeAdapted,
+  type StoreState,
   updateBagItem as updateBagItemAction,
 } from '@farfetch/blackout-redux';
 import {
@@ -301,6 +301,7 @@ const useBag = (options: UseBagOptions = {}) => {
             undefined,
             metadata,
           );
+
           return;
         }
 

@@ -3,7 +3,7 @@ import {
   createDefaultEntitiesReducer,
   createEntitiesReducer,
   defaultEntitiesReducers,
-  ProductEntity,
+  type ProductEntity,
 } from '..';
 import type { StoreState } from '../../types';
 
@@ -35,6 +35,7 @@ describe('reducer', () => {
       ...mockNewProduct,
     },
   });
+
   describe('createEntitiesReducer', () => {
     it('should call entities mapper even when there is no payload', () => {
       const mockMapper = {
@@ -80,6 +81,8 @@ describe('reducer', () => {
   });
 
   describe('defaultEntitiesReducers', () => {
-    expect(defaultEntitiesReducers).toMatchSnapshot();
+    it('Should export the default entities reducers', () => {
+      expect(defaultEntitiesReducers).toMatchSnapshot();
+    });
   });
 });

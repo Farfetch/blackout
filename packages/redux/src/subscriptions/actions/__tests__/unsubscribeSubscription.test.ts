@@ -38,15 +38,17 @@ describe('Subscriptions redux actions', () => {
 
       (deleteSubscription as jest.Mock).mockRejectedValueOnce(expectedError);
 
-      await unsubscribeSubscription(mockDeleteSubscription.query)(
-        store.dispatch,
-      ).catch(error => {
-        expect(error).toBe(expectedError);
-        expect(deleteSubscription).toBeCalled();
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining(expectedActions),
-        );
-      });
+      await expect(
+        async () =>
+          await unsubscribeSubscription(mockDeleteSubscription.query)(
+            store.dispatch,
+          ),
+      ).rejects.toThrow(expectedError);
+
+      expect(deleteSubscription).toHaveBeenCalled();
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining(expectedActions),
+      );
     });
 
     it('Should create the correct actions when the unsubscribe subscription request is successful', async () => {
@@ -64,7 +66,7 @@ describe('Subscriptions redux actions', () => {
         store.dispatch,
       );
 
-      expect(deleteSubscription).toBeCalled();
+      expect(deleteSubscription).toHaveBeenCalled();
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

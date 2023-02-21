@@ -79,7 +79,7 @@ describe('sizeScales reducer', () => {
           type: actionTypes.FETCH_SIZE_SCALES_REQUEST,
           meta: { query: {} },
         }).isLoading,
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should handle FETCH_SIZE_SCALES_FAILURE action type', () => {

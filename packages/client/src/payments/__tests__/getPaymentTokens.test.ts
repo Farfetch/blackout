@@ -73,16 +73,12 @@ describe('getPaymentTokens', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getPaymentTokens(query)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getPaymentTokens(query)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);

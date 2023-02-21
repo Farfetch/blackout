@@ -1,10 +1,10 @@
 import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants';
 import {
-  AnalyticsProduct,
-  EventData,
+  type AnalyticsProduct,
+  type EventData,
   SignupNewsletterGenderTypes,
-  TrackTypes,
-  TrackTypesValues,
+  type TrackTypes,
+  type TrackTypesValues,
 } from '../..';
 import {
   CLIENT_LANGUAGES_LIST,
@@ -164,7 +164,9 @@ function getSpecificWebParameters<T extends EventData<TrackTypesValues>>(
     const internalRequest =
       referrer.indexOf(`${location.protocol}//${location.host}`) === 0;
 
-    const url = get(data, 'context.web.window.location.pathname').split('/');
+    const url = get(data, 'context.web.window.location.pathname', '').split(
+      '/',
+    );
     const subfolder = url[1].split('-');
     const userCountryLocation = (
       subfolder[1] ? subfolder[1] : subfolder[0]
@@ -210,6 +212,7 @@ function getSpecificMobileParameters<T extends EventData<TrackTypesValues>>(
     >;
     // Referrer must be sent with an empty string when we don't have a value for it.
     const referrer = get(data, 'context.app.referrer', '');
+
     screenParameters.referrer = referrer;
   }
 

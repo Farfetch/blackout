@@ -23,6 +23,7 @@ describe('setUserPreferences() action creator', () => {
       values: ['136968', '136831'],
     },
   ];
+
   beforeEach(() => {
     jest.clearAllMocks();
     store = usersMockStore();
@@ -32,30 +33,27 @@ describe('setUserPreferences() action creator', () => {
     const expectedError = new Error('update user preferences error');
 
     (putUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await setUserPreferences(
+    await expect(
+      async () =>
+        await setUserPreferences(userId, data, expectedConfig)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putUserPreferences).toHaveBeenCalledTimes(1);
+    expect(putUserPreferences).toHaveBeenCalledWith(
       userId,
       data,
       expectedConfig,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putUserPreferences).toHaveBeenCalledTimes(1);
-      expect(putUserPreferences).toHaveBeenCalledWith(
-        userId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_USER_PREFERENCES_REQUEST },
-          {
-            type: actionTypes.UPDATE_USER_PREFERENCES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_USER_PREFERENCES_REQUEST },
+        {
+          type: actionTypes.UPDATE_USER_PREFERENCES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update user preferences procedure is successful', async () => {
@@ -70,6 +68,7 @@ describe('setUserPreferences() action creator', () => {
       },
       result: ['FFA'],
     };
+
     (putUserPreferences as jest.Mock).mockResolvedValueOnce({});
 
     await setUserPreferences(userId, data, expectedConfig)(store.dispatch);

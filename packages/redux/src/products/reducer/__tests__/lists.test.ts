@@ -4,7 +4,7 @@ import {
   mockProductsListHash,
   mockProductsListsEntity,
 } from 'tests/__fixtures__/products';
-import { productsActionTypes, ProductsListsState } from '../..';
+import { productsActionTypes, type ProductsListsState } from '../..';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
@@ -166,6 +166,7 @@ describe('lists redux reducer', () => {
         isHydrated: {},
         hash: mockProductsListHash,
       };
+
       expect(reducer(state, mockAction).hash).toBe(state.hash);
     });
   });
@@ -419,6 +420,7 @@ describe('lists redux reducer', () => {
       expect(getIsLoading(state)).toEqual(isLoading);
     });
   });
+
   describe('getIsHydrated() selector', () => {
     it('should return the `isHydrated` property from a given state', () => {
       const isHydrated = { [mockProductsListHash]: true };

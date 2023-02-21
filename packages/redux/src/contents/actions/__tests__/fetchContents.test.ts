@@ -16,6 +16,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getSearchContents: jest.fn(),
 }));
+
 const normalizeSpy = jest.spyOn(normalizr, 'normalize');
 
 const contentsMockStore = (state = {}) =>
@@ -35,26 +36,25 @@ describe('fetchContents() action creator', () => {
 
     (getSearchContents as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchContents(contentQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchContents(contentQuery)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSearchContents).toHaveBeenCalledTimes(1);
-      expect(getSearchContents).toHaveBeenCalledWith(
-        contentQuery,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          payload: { hash: contentHash },
-          type: actionTypes.FETCH_CONTENTS_REQUEST,
-        },
-        {
-          payload: { error: expectedError, hash: contentHash },
-          type: actionTypes.FETCH_CONTENTS_FAILURE,
-        },
-      ]);
-    });
+    expect(getSearchContents).toHaveBeenCalledTimes(1);
+    expect(getSearchContents).toHaveBeenCalledWith(
+      contentQuery,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        payload: { hash: contentHash },
+        type: actionTypes.FETCH_CONTENTS_REQUEST,
+      },
+      {
+        payload: { error: expectedError, hash: contentHash },
+        type: actionTypes.FETCH_CONTENTS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch content procedure is successful', async () => {

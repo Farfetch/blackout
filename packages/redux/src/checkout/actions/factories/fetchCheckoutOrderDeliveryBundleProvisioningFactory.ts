@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  Config,
-  DeliveryBundle,
-  GetCheckoutOrderDeliveryBundleProvisioning,
-  ItemDeliveryProvisioning,
+  type CheckoutOrder,
+  type Config,
+  type DeliveryBundle,
+  type GetCheckoutOrderDeliveryBundleProvisioning,
+  type ItemDeliveryProvisioning,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -38,6 +38,7 @@ const fetchCheckoutOrderDeliveryBundleProvisioning =
         deliveryBundleId,
         config,
       );
+
       dispatch({
         meta: { deliveryBundleId },
         payload: normalize(result, itemDeliveryProvisioningSchema),

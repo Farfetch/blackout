@@ -59,8 +59,6 @@ describe('fetchBrands() action creator', () => {
     const useCache = true;
     const setBrandsHash = false;
 
-    expect.assertions(3);
-
     await fetchBrands(
       mockQuery,
       useCache,
@@ -75,8 +73,6 @@ describe('fetchBrands() action creator', () => {
 
   it('should return and set brand hash if result is in cache, useCache is true and setBrandsaHash is true', async () => {
     const useCache = true;
-
-    expect.assertions(4);
 
     await fetchBrands(mockQuery, useCache)(
       store.dispatch,
@@ -95,8 +91,6 @@ describe('fetchBrands() action creator', () => {
 
     const useCache = false;
     const setBrandsHash = false;
-
-    expect.assertions(5);
 
     await fetchBrands(
       mockQuery,
@@ -121,35 +115,34 @@ describe('fetchBrands() action creator', () => {
 
     (getBrands as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchBrands(mockQuery)(
+          store.dispatch,
+          store.getState as () => StoreState,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchBrands(mockQuery)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getBrands).toHaveBeenCalledTimes(1);
-      expect(getBrands).toHaveBeenCalledWith(mockQuery, expectedConfig);
-      expect(store.getActions()).toEqual([
-        ACTION_RESET,
-        ACTION_SET_HASH,
-        ACTION_REQUEST,
-        {
-          meta: {
-            hash: mockHash,
-            query: mockQuery,
-          },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_BRANDS_FAILURE,
+    expect(getBrands).toHaveBeenCalledTimes(1);
+    expect(getBrands).toHaveBeenCalledWith(mockQuery, expectedConfig);
+    expect(store.getActions()).toEqual([
+      ACTION_RESET,
+      ACTION_SET_HASH,
+      ACTION_REQUEST,
+      {
+        meta: {
+          hash: mockHash,
+          query: mockQuery,
         },
-      ]);
-    });
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_BRANDS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch brands procedure is successful', async () => {
     (getBrands as jest.Mock).mockResolvedValueOnce(mockBrandsResponse);
 
-    expect.assertions(5);
     await fetchBrands(mockQuery)(
       store.dispatch,
       store.getState as () => StoreState,

@@ -1,8 +1,8 @@
 import * as checkoutClient from '..';
 import {
-  GetCheckoutOrderResponse,
+  type GetCheckoutOrderResponse,
   OrderStatusError,
-  PostCheckoutOrderDataWithBag,
+  type PostCheckoutOrderDataWithBag,
   ShippingMode,
 } from '../types';
 import client from '../../helpers/client';
@@ -31,7 +31,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.postCheckoutOrder(data),
       ).resolves.toStrictEqual(response);
@@ -41,7 +40,6 @@ describe('checkout client', () => {
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
 
-      expect.assertions(2);
       await expect(
         checkoutClient.postCheckoutOrder(data),
       ).rejects.toMatchSnapshot();

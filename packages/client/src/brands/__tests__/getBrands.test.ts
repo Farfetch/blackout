@@ -14,7 +14,6 @@ describe('brands client', () => {
 
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(mockBrandsResponse));
-      expect.assertions(2);
 
       await expect(getBrands(mockQuery)).resolves.toEqual(mockBrandsResponse);
 
@@ -26,8 +25,6 @@ describe('brands client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(getBrands(mockQuery)).rejects.toMatchSnapshot();
 

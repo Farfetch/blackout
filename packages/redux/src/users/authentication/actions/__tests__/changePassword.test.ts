@@ -29,26 +29,24 @@ describe('changePassword() action creator', () => {
     const expectedError = new Error('post password change error');
 
     (postPasswordChange as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await changePassword(mockPasswordChangeData)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(postPasswordChange).toHaveBeenCalledTimes(1);
-        expect(postPasswordChange).toHaveBeenCalledWith(
-          mockPasswordChangeData,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.PASSWORD_CHANGE_REQUEST },
-            {
-              type: actionTypes.PASSWORD_CHANGE_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () => await changePassword(mockPasswordChangeData)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postPasswordChange).toHaveBeenCalledTimes(1);
+    expect(postPasswordChange).toHaveBeenCalledWith(
+      mockPasswordChangeData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.PASSWORD_CHANGE_REQUEST },
+        {
+          type: actionTypes.PASSWORD_CHANGE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 

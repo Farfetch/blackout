@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import omit from 'lodash/omit';
 import uniqBy from 'lodash/uniqBy';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client';

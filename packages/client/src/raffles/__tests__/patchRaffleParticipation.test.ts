@@ -1,6 +1,6 @@
 import { participationId, raffleId } from 'tests/__fixtures__/raffles';
 import {
-  PatchRaffleParticipationOperation,
+  type PatchRaffleParticipationOperation,
   RaffleParticipationStatus,
 } from '../types';
 import client from '../../helpers/client';

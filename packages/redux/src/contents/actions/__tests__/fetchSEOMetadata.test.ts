@@ -10,6 +10,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
   getSEOMetadata: jest.fn(),
 }));
+
 const contentsSEOMockStore = (state = {}) =>
   mockStore({ contents: INITIAL_STATE_CONTENT }, state);
 
@@ -27,23 +28,22 @@ describe('fetchSEOMetadata action creator', () => {
 
     (getSEOMetadata as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSEOMetadata(seoQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSEOMetadata(seoQuery)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSEOMetadata).toHaveBeenCalledTimes(1);
-      expect(getSEOMetadata).toHaveBeenCalledWith(seoQuery, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          payload: { pathname },
-          type: actionTypes.FETCH_SEO_METADATA_REQUEST,
-        },
-        {
-          payload: { error: expectedError, pathname },
-          type: actionTypes.FETCH_SEO_METADATA_FAILURE,
-        },
-      ]);
-    });
+    expect(getSEOMetadata).toHaveBeenCalledTimes(1);
+    expect(getSEOMetadata).toHaveBeenCalledWith(seoQuery, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        payload: { pathname },
+        type: actionTypes.FETCH_SEO_METADATA_REQUEST,
+      },
+      {
+        payload: { error: expectedError, pathname },
+        type: actionTypes.FETCH_SEO_METADATA_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch SEO procedure is successful', async () => {

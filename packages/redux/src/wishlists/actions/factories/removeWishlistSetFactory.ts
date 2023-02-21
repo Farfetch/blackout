@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DeleteWishlistSet,
+  type Config,
+  type DeleteWishlistSet,
   toBlackoutError,
-  WishlistSet,
+  type WishlistSet,
 } from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import type { Dispatch } from 'redux';

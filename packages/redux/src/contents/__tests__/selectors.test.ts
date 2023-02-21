@@ -141,7 +141,7 @@ describe('contents redux selectors', () => {
     it('should get the isFetched status of an existing SEO metadata by query', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
 
-      expect(selectors.isSEOMetadataFetched(mockState, seoQuery)).toEqual(true);
+      expect(selectors.isSEOMetadataFetched(mockState, seoQuery)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -150,7 +150,7 @@ describe('contents redux selectors', () => {
 
       expect(
         selectors.isSEOMetadataFetched(mockState, { path: '/anotherPage' }),
-      ).toEqual(false);
+      ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(2);
     });
   });

@@ -1,12 +1,12 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetProductListing,
-  GetProductListingQuery,
-  GetProductSet,
-  GetProductSetQuery,
-  ProductListing,
-  ProductSet,
+  type Config,
+  type GetProductListing,
+  type GetProductListingQuery,
+  type GetProductSet,
+  type GetProductSetQuery,
+  type ProductListing,
+  type ProductSet,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateProductsListHash } from '../../utils';
@@ -50,8 +50,10 @@ const fetchProductsListFactory = async (
   isSet: boolean,
 ): Promise<ProductListing | ProductSet | undefined> => {
   let hash: Nullable<string> = null;
+
   try {
     hash = generateProductsListHash(slug, query, { isSet });
+
     const { productImgQueryParam } = getOptions(getState);
     const isHydrated = isProductsListHydrated(getState(), hash);
 

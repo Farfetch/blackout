@@ -1,8 +1,8 @@
 import Analytics, {
   TrackTypes as analyticsTrackTypes,
-  EventContextData,
-  EventProperties,
-  IntegrationRuntimeData,
+  type EventContextData,
+  type EventProperties,
+  type IntegrationRuntimeData,
   PlatformTypes,
 } from '@farfetch/blackout-analytics';
 import webContext from './context';

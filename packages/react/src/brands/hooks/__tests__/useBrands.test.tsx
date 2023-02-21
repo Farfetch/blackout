@@ -29,6 +29,7 @@ const getRenderedHook = (state = mockInitialState, config = {}) => {
 
 describe('useBrands', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly', () => {

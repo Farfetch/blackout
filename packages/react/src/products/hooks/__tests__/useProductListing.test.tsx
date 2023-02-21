@@ -188,7 +188,7 @@ describe('useProductListing', () => {
       });
     });
 
-    it('should fetch data if `enableAutoFetch` is true and there is no loaded data ', () => {
+    it('should fetch data if `enableAutoFetch` is true and there is no loaded data', () => {
       const slug = getSlug('shopping/men/clothing');
 
       renderHook(() => useProductListing(slug), {

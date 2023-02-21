@@ -46,37 +46,32 @@ describe('fetchProductMeasurements() action creator', () => {
       expectedError,
     );
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchProductMeasurements(mockProductId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductMeasurements(mockProductId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getProductVariantsMeasurements).toHaveBeenCalledTimes(1);
-        expect(getProductVariantsMeasurements).toHaveBeenCalledWith(
-          mockProductId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            meta: { productId: mockProductId },
-            type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
-          },
-          {
-            meta: { productId: mockProductId },
-            payload: { error: expectedError },
-            type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
-          },
-        ]);
-      },
+    expect(getProductVariantsMeasurements).toHaveBeenCalledTimes(1);
+    expect(getProductVariantsMeasurements).toHaveBeenCalledWith(
+      mockProductId,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_REQUEST,
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_PRODUCT_MEASUREMENTS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch product measurements procedure is successful', async () => {
     (getProductVariantsMeasurements as jest.Mock).mockResolvedValueOnce(
       mockProductVariantsMeasurements,
     );
-
-    expect.assertions(5);
 
     await fetchProductMeasurements(mockProductId)(store.dispatch).then(
       clientResult => {

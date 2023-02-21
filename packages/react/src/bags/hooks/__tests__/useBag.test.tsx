@@ -1,13 +1,13 @@
 import {
   addBagItem,
-  BagNormalized,
+  type BagNormalized,
   fetchBag,
   removeBagItem,
   resetBag,
   updateBagItem,
 } from '@farfetch/blackout-redux';
 import { AddUpdateItemBagError, BagItemNotFoundError } from '../errors';
-import { BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
+import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockBagId,
@@ -39,6 +39,7 @@ const metadata = { from: 'plp' };
 
 describe('useBag', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return values correctly with initial state', () => {
@@ -221,7 +222,7 @@ describe('useBag', () => {
   });
 
   describe('options', () => {
-    it('should call `fetch` action if `enableAutoFetch` option is true', async () => {
+    it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(() => useBag({ enableAutoFetch: true }), {
         wrapper: withStore(mockState),
       });
@@ -229,7 +230,7 @@ describe('useBag', () => {
       expect(fetchBag).toHaveBeenCalledWith(mockBagId, undefined, undefined);
     });
 
-    it('should not call `fetch` action if `enableAutoFetch` option is false', async () => {
+    it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(() => useBag(), {
         wrapper: withStore(mockState),
       });
@@ -558,7 +559,7 @@ describe('useBag', () => {
       expect(resetBag).toHaveBeenCalled();
     });
 
-    it('should throw an error when calling `addItem` action with invalid product id', async () => {
+    it('should throw an error when calling `addItem` action with invalid product id', () => {
       const {
         result: {
           current: {
@@ -574,7 +575,7 @@ describe('useBag', () => {
       );
     });
 
-    it('should throw an error when calling `addItem` action with invalid size id', async () => {
+    it('should throw an error when calling `addItem` action with invalid size id', () => {
       const {
         result: {
           current: {
@@ -602,8 +603,6 @@ describe('useBag', () => {
         wrapper: withStore(mockStateWithSizeWithoutStock),
       });
 
-      expect.assertions(2);
-
       let error = toBlackoutError({});
 
       try {
@@ -627,8 +626,6 @@ describe('useBag', () => {
         wrapper: withStore(mockStateWithUnavailableStock),
       });
 
-      expect.assertions(2);
-
       let error = toBlackoutError({});
 
       try {
@@ -651,8 +648,6 @@ describe('useBag', () => {
       } = renderHook(() => useBag(), {
         wrapper: withStore(mockState),
       });
-
-      expect.assertions(2);
 
       let error = toBlackoutError({});
 
@@ -680,8 +675,6 @@ describe('useBag', () => {
       } = renderHook(() => useBag(), {
         wrapper: withStore(mockStateWithUnavailableStock),
       });
-
-      expect.assertions(2);
 
       let error = toBlackoutError({});
 

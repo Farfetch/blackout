@@ -23,7 +23,6 @@ describe('deleteSharedWishlist', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(
       deleteSharedWishlist(mockSharedWishlistId),

@@ -26,30 +26,27 @@ describe('fetchSizeGuides() action creator', () => {
 
     (getSizeGuides as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchSizeGuides(mockQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchSizeGuides(mockQuery)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getSizeGuides).toHaveBeenCalledTimes(1);
-      expect(getSizeGuides).toHaveBeenCalledWith(mockQuery, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
-          meta: { query: mockQuery },
-        },
-        {
-          meta: { query: mockQuery },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_SIZE_GUIDES_FAILURE,
-        },
-      ]);
-    });
+    expect(getSizeGuides).toHaveBeenCalledTimes(1);
+    expect(getSizeGuides).toHaveBeenCalledWith(mockQuery, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_SIZE_GUIDES_REQUEST,
+        meta: { query: mockQuery },
+      },
+      {
+        meta: { query: mockQuery },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_SIZE_GUIDES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch sizeGuides procedure is successful', async () => {
     (getSizeGuides as jest.Mock).mockResolvedValueOnce(mockSizeGuides);
-
-    expect.assertions(4);
 
     await fetchSizeGuides(mockQuery)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockSizeGuides);

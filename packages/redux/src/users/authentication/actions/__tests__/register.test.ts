@@ -32,22 +32,22 @@ describe('register() action creator', () => {
 
   it('should create the correct actions for when the register procedure fails', async () => {
     (postUser as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await register(mockRegisterData)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postUser).toHaveBeenCalledTimes(1);
-      expect(postUser).toHaveBeenCalledWith(mockRegisterData, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REGISTER_REQUEST },
-          {
-            type: actionTypes.REGISTER_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await register(mockRegisterData)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postUser).toHaveBeenCalledTimes(1);
+    expect(postUser).toHaveBeenCalledWith(mockRegisterData, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REGISTER_REQUEST },
+        {
+          type: actionTypes.REGISTER_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the normal register procedure is successful', async () => {

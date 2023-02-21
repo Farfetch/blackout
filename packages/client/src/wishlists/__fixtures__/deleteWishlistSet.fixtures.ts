@@ -1,13 +1,13 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 
 const path = '/api/commerce/v1/wishlists/:wishlistId/sets/:wishlistSetId';
 
 const fixtures = {
   success: (): RestHandler =>
-    rest.delete(path, async (_req, res, ctx) => res(ctx.status(204))),
+    rest.delete(path, (_req, res, ctx) => res(ctx.status(204))),
 
   failure: (): RestHandler =>
-    rest.delete(path, async (_req, res, ctx) =>
+    rest.delete(path, (_req, res, ctx) =>
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostPasswordChange,
-  PostPasswordChangeData,
+  type Config,
+  type PostPasswordChange,
+  type PostPasswordChangeData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -22,6 +22,7 @@ const changePasswordFactory =
       dispatch({
         type: actionTypes.PASSWORD_CHANGE_REQUEST,
       });
+
       const result = await postPasswordChange(data, config);
 
       dispatch({

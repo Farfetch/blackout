@@ -4,9 +4,9 @@ import {
   fetchOrderReturns as fetchOrderReturnsAction,
   getOrderReturns,
   getOrderReturnsError,
-  MerchantEntity,
+  type MerchantEntity,
   resetOrderReturns as resetOrderReturnsAction,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';

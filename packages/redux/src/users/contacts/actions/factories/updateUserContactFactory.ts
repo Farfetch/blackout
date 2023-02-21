@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PatchUserContact,
-  PatchUserContactOperation,
+  type Config,
+  type PatchUserContact,
+  type PatchUserContactOperation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

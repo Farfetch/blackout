@@ -30,29 +30,27 @@ describe('fetchCategory() action creator', () => {
 
     (getCategory as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchCategory(mockCategoryId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchCategory(mockCategoryId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCategory).toHaveBeenCalledTimes(1);
-      expect(getCategory).toHaveBeenCalledWith(mockCategoryId, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_CATEGORY_REQUEST,
-          meta: { id: mockCategoryId },
-        },
-        {
-          type: actionTypes.FETCH_CATEGORY_FAILURE,
-          payload: { error: expectedError },
-          meta: { id: mockCategoryId },
-        },
-      ]);
-    });
+    expect(getCategory).toHaveBeenCalledTimes(1);
+    expect(getCategory).toHaveBeenCalledWith(mockCategoryId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_CATEGORY_REQUEST,
+        meta: { id: mockCategoryId },
+      },
+      {
+        type: actionTypes.FETCH_CATEGORY_FAILURE,
+        payload: { error: expectedError },
+        meta: { id: mockCategoryId },
+      },
+    ]);
   });
 
   it('should create the correct actions in case the fetch category procedure is successful', async () => {
     (getCategory as jest.Mock).mockResolvedValueOnce(mockCategories);
-    expect.assertions(4);
 
     await fetchCategory(mockCategoryId)(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockCategories);

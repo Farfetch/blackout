@@ -7,7 +7,7 @@ import {
 describe('adaptGroupingProperties()', () => {
   it("should return undefined when doesn't receive groupingProperties", () => {
     // @ts-expect-error Allow passing undefined for test
-    expect(adaptGroupingProperties(undefined)).toEqual(undefined);
+    expect(adaptGroupingProperties(undefined)).toBeUndefined();
   });
 
   it('should map grouping to the corresponding adapted structure', () => {

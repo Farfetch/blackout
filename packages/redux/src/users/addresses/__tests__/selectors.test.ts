@@ -84,7 +84,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `addresses` slice', () => {
-      expect(selectors.getUserAddressesError(mockBaseState)).toBe(null);
+      expect(selectors.getUserAddressesError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserAddressesError(mockErrorState)).toBe(dummyError);
     });
@@ -98,7 +98,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `addresses.addresses` slice', () => {
-      expect(selectors.getUserAddressesListError(mockBaseState)).toBe(null);
+      expect(selectors.getUserAddressesListError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserAddressesListError(mockErrorState)).toBe(
         dummyError,
@@ -136,9 +136,9 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `addresses.defaultAddressDetails` slice', () => {
-      expect(selectors.getUserDefaultAddressDetailsError(mockBaseState)).toBe(
-        null,
-      );
+      expect(
+        selectors.getUserDefaultAddressDetailsError(mockBaseState),
+      ).toBeNull();
 
       expect(selectors.getUserDefaultAddressDetailsError(mockErrorState)).toBe(
         dummyError,
@@ -154,7 +154,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `result` value from `addresses` slice', () => {
-      expect(selectors.getUserAddressesResult(mockBaseState)).toBe(null);
+      expect(selectors.getUserAddressesResult(mockBaseState)).toBeNull();
 
       expect(selectors.getUserAddressesResult(mockStateWithResult)).toEqual(
         userAddresses,
@@ -175,9 +175,9 @@ describe('redux selectors', () => {
     });
 
     it('should return `result` value from `addresses.defaultAddressDetails` slice', () => {
-      expect(selectors.getUserDefaultAddressDetailsResult(mockBaseState)).toBe(
-        null,
-      );
+      expect(
+        selectors.getUserDefaultAddressDetailsResult(mockBaseState),
+      ).toBeNull();
 
       expect(
         selectors.getUserDefaultAddressDetailsResult(mockStateWithResult),

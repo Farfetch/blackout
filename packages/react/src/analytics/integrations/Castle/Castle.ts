@@ -26,17 +26,17 @@
 import * as castleJS from '@castleio/castle-js';
 import { client as coreClient } from '@farfetch/blackout-client';
 import {
-  EventData,
+  type EventData,
   EventTypes,
   integrations,
-  LoadIntegrationEventData,
-  PageviewEventData,
-  StrippedDownAnalytics,
-  TrackEventData,
+  type LoadIntegrationEventData,
+  type PageviewEventData,
+  type StrippedDownAnalytics,
+  type TrackEventData,
   TrackTypes,
-  TrackTypesValues,
-  UserData,
-  UserTraits,
+  type TrackTypesValues,
+  type UserData,
+  type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
 import identity from 'lodash/identity';
@@ -48,7 +48,6 @@ import type {
   ConfigureOptions,
   FormParams,
   PageParams,
-  Thenable,
   UserParams,
 } from '@castleio/castle-js';
 import type { WebContextType } from '../../context';
@@ -257,9 +256,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns - Promise that will resolve when the method finishes.
    */
-  override async track(
-    data: EventData<TrackTypesValues>,
-  ): Promise<Thenable<boolean | null | undefined>> {
+  override track(data: EventData<TrackTypesValues>) {
     switch (data.type) {
       case TrackTypes.PAGE:
         return this.trackPage(data as PageviewEventData);
@@ -279,7 +276,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackEvent(data: TrackEventData): Promise<Thenable<boolean | null>> {
+  trackEvent(data: TrackEventData) {
     const user = this.getUserData(data);
 
     switch (data.event) {
@@ -321,7 +318,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns - The resolved promise of each castle call method.
    */
-  async trackPage(data: PageviewEventData): Promise<Thenable<boolean | null>> {
+  trackPage(data: PageviewEventData) {
     const user = this.getUserData(data);
     const dataWithWebEventType = data as PageviewEventData & {
       context: WebContextType;

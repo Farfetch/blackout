@@ -5,6 +5,7 @@ import reducer from '../../reducer';
 
 let store: ReturnType<typeof mockStore>;
 const randomAction = { type: 'this_is_a_random_action' };
+
 describe('reset()', () => {
   beforeEach(() => {
     store = mockStore({ subscriptions: reducer(undefined, randomAction) }, {});

@@ -3,16 +3,17 @@
  * items.
  */
 import {
-  BagItemActionMetadata,
+  type BagItemActionMetadata,
   getBagItem,
   getBagItemError,
   isBagItemLoading,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useBag } from './';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import type { BagItemId, HandleUpdateBagItemData } from './types';
+
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
  * bag items business logic.

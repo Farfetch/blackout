@@ -21,7 +21,7 @@ describe('configuration redux selectors', () => {
           mockConfigurationLoadingState,
           mockConfigurationCode,
         ),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -45,7 +45,7 @@ describe('configuration redux selectors', () => {
     it('should get the fetched status', () => {
       expect(
         selectors.isConfigurationFetched(mockState, mockConfigurationCode),
-      ).toEqual(true);
+      ).toBe(true);
     });
   });
 

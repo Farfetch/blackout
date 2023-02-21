@@ -16,6 +16,7 @@ describe('returns redux selectors', () => {
   describe('getReturnItem()', () => {
     it('should get the return item from state', () => {
       const spy = jest.spyOn(fromEntities, 'getEntityById');
+
       expect(selectors.getReturnItem(mockState, returnItemId)).toEqual(
         returnItem,
       );
@@ -45,7 +46,7 @@ describe('returns redux selectors', () => {
           },
           returnId,
         ),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -72,7 +73,7 @@ describe('returns redux selectors', () => {
           },
           returnId,
         ),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -254,9 +255,10 @@ describe('returns redux selectors', () => {
           returns: {},
         },
       };
-      expect(selectors.getReturn(mockStateWithoutReturnEntity, returnId)).toBe(
-        undefined,
-      );
+
+      expect(
+        selectors.getReturn(mockStateWithoutReturnEntity, returnId),
+      ).toBeUndefined();
 
       const mockStateWithoutReturnEntities = {
         ...mockState,
@@ -268,7 +270,7 @@ describe('returns redux selectors', () => {
 
       expect(
         selectors.getReturn(mockStateWithoutReturnEntities, returnId),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -302,7 +304,7 @@ describe('returns redux selectors', () => {
           returnId,
           pickupDay,
         ),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 
@@ -519,7 +521,7 @@ describe('returns redux selectors', () => {
           returnId,
           pickupDay,
         ),
-      ).toBe(undefined);
+      ).toBeUndefined();
     });
   });
 

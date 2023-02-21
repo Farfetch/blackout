@@ -33,33 +33,31 @@ describe('fetchReturnPickupCapability action creator', () => {
     (getReturnPickupCapability as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchReturnPickupCapability(
+    await expect(
+      async () =>
+        await fetchReturnPickupCapability(returnId, pickupDay)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getReturnPickupCapability).toHaveBeenCalledTimes(1);
+    expect(getReturnPickupCapability).toHaveBeenCalledWith(
       returnId,
       pickupDay,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getReturnPickupCapability).toHaveBeenCalledTimes(1);
-      expect(getReturnPickupCapability).toHaveBeenCalledWith(
-        returnId,
-        pickupDay,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_REQUEST,
-            meta: { hash: '5926969|2020-04-20' },
-          },
-          {
-            type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_FAILURE,
-            payload: { error: expectedError },
-            meta: { hash: '5926969|2020-04-20' },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_REQUEST,
+          meta: { hash: '5926969|2020-04-20' },
+        },
+        {
+          type: actionTypes.FETCH_RETURN_PICKUP_CAPABILITY_FAILURE,
+          payload: { error: expectedError },
+          meta: { hash: '5926969|2020-04-20' },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get pickup capability procedure is successful', async () => {

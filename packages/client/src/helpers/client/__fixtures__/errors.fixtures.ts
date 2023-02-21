@@ -55,8 +55,13 @@ const mockAxiosApiError = (
 
   const result: Result = { config };
 
-  if (returnResponse) result['response'] = response as MockAxiosResponse;
-  if (returnRequest) result['request'] = request;
+  if (returnResponse) {
+    result['response'] = response as MockAxiosResponse;
+  }
+
+  if (returnRequest) {
+    result['request'] = request;
+  }
 
   result.isAxiosError = true;
 

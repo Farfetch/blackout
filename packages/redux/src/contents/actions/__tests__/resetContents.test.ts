@@ -8,6 +8,7 @@ describe('reset contents action', () => {
     const store = mockStore({ contents: INITIAL_STATE_CONTENT }, {});
 
     resetContents()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

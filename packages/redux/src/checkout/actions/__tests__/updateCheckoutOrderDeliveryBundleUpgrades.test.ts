@@ -7,7 +7,7 @@ import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import {
   patchCheckoutOrderDeliveryBundleUpgrades,
-  PatchCheckoutOrderDeliveryBundleUpgradesData,
+  type PatchCheckoutOrderDeliveryBundleUpgradesData,
 } from '@farfetch/blackout-client';
 import { updateCheckoutOrderDeliveryBundleUpgrades } from '..';
 import find from 'lodash/find';
@@ -59,33 +59,34 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
     (
       patchCheckoutOrderDeliveryBundleUpgrades as jest.Mock
     ).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateCheckoutOrderDeliveryBundleUpgrades(
+    await expect(
+      async () =>
+        await updateCheckoutOrderDeliveryBundleUpgrades(
+          checkoutId,
+          deliveryBundleId,
+          data,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,
       deliveryBundleId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
-      expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
-        checkoutId,
-        deliveryBundleId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
-          },
-          {
-            type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
+        },
+        {
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update checkout order delivery bundle upgrades procedure is successful', async () => {
@@ -103,7 +104,6 @@ describe('updateCheckoutOrderDeliveryBundleUpgrades() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledTimes(1);
     expect(patchCheckoutOrderDeliveryBundleUpgrades).toHaveBeenCalledWith(
       checkoutId,

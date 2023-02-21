@@ -23,8 +23,6 @@ describe('getPaymentMethodsByIntent', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getPaymentMethodsByIntent(id)).resolves.toStrictEqual(
       response,
     );
@@ -33,8 +31,6 @@ describe('getPaymentMethodsByIntent', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getPaymentMethodsByIntent(id)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, expectedConfig);

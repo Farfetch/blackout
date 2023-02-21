@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostProgramMembershipConvert,
-  Program,
-  ProgramMembership,
-  ProgramMembershipConvert,
+  type Config,
+  type PostProgramMembershipConvert,
+  type Program,
+  type ProgramMembership,
+  type ProgramMembershipConvert,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

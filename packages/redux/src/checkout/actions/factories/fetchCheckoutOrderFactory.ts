@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  Config,
-  GetCheckoutOrder,
-  GetCheckoutOrderQuery,
-  GetCheckoutOrderResponse,
+  type CheckoutOrder,
+  type Config,
+  type GetCheckoutOrder,
+  type GetCheckoutOrderQuery,
+  type GetCheckoutOrderResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -43,6 +43,7 @@ const fetchCheckoutOrderFactory =
 
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
+
         (
           result.checkoutOrder as { productImgQueryParam?: string }
         ).productImgQueryParam = productImgQueryParam;
@@ -76,4 +77,5 @@ const fetchCheckoutOrderFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default fetchCheckoutOrderFactory;

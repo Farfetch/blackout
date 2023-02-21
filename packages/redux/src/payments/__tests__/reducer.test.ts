@@ -97,6 +97,7 @@ describe('payments reducer', () => {
         actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE,
       ])('should handle %s action type', actionType => {
         const mockError = 'mocked error';
+
         expect(
           reducer(undefined, {
             type: actionType,
@@ -134,6 +135,7 @@ describe('payments reducer', () => {
           ...mockResult,
           chargeId,
         };
+
         expect(
           reducer(undefined, {
             type: actionType,
@@ -343,6 +345,7 @@ describe('payments reducer', () => {
         'should handle %s action type',
         actionType => {
           const mockError = 'mocked error';
+
           expect(
             reducer(undefined, {
               type: actionType,
@@ -375,6 +378,7 @@ describe('payments reducer', () => {
         actionType => {
           const mockResult = { foo: 'mocked result' };
           const expectedResult = mockResult;
+
           expect(
             reducer(undefined, {
               type: actionType,
@@ -420,6 +424,7 @@ describe('payments reducer', () => {
         'should handle %s action type',
         actionType => {
           const mockError = 'mocked error';
+
           expect(
             reducer(undefined, {
               type: actionType,
@@ -452,6 +457,7 @@ describe('payments reducer', () => {
         actionType => {
           const mockResult = { foo: 'mocked result' };
           const expectedResult = mockResult;
+
           expect(
             reducer(undefined, {
               type: actionType,
@@ -497,6 +503,7 @@ describe('payments reducer', () => {
         'should handle %s action type',
         actionType => {
           const mockError = 'mocked error';
+
           expect(
             reducer(undefined, {
               type: actionType,
@@ -529,6 +536,7 @@ describe('payments reducer', () => {
         actionType => {
           const mockResult = { foo: 'mocked result' };
           const expectedResult = mockResult;
+
           expect(
             reducer(undefined, {
               type: actionType,

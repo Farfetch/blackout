@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetProduct,
-  Product,
-  ProductDetailsQuery,
+  type Config,
+  type GetProduct,
+  type Product,
+  type ProductDetailsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { isProductHydrated } from '../../selectors';
@@ -37,6 +37,7 @@ const fetchProductDetailsFactory =
   ): Promise<Product | undefined> => {
     try {
       const isHydrated = isProductHydrated(getState(), productId);
+
       // Check if product data is already fetched, if we don't want
       // to force the dispatch.
       // If yes, let the calling code know there's nothing to wait for.

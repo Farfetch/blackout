@@ -45,30 +45,31 @@ describe('fetchCheckoutOrder() action creator', () => {
     const expectedError = new Error('fetch checkout order error');
 
     (getCheckoutOrder as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchCheckoutOrder(checkoutId, query)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrder).toHaveBeenCalledTimes(1);
-      expect(getCheckoutOrder).toHaveBeenCalledWith(
-        checkoutId,
-        query,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_CHECKOUT_ORDER_REQUEST },
-          {
-            type: actionTypes.FETCH_CHECKOUT_ORDER_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await fetchCheckoutOrder(checkoutId, query)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrder).toHaveBeenCalledWith(
+      checkoutId,
+      query,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_CHECKOUT_ORDER_REQUEST },
+        {
+          type: actionTypes.FETCH_CHECKOUT_ORDER_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch checkout order procedure is successful', async () => {
@@ -84,7 +85,6 @@ describe('fetchCheckoutOrder() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(6);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrder).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrder).toHaveBeenCalledWith(

@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetRaffleParticipation,
-  Raffle,
-  RaffleParticipation,
+  type Config,
+  type GetRaffleParticipation,
+  type Raffle,
+  type RaffleParticipation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -30,6 +30,7 @@ const fetchRaffleParticipationFactory =
         meta: { raffleId, participationId },
         type: actionTypes.FETCH_RAFFLE_PARTICIPATION_REQUEST,
       });
+
       const result = await getRaffleParticipation(
         raffleId,
         participationId,
@@ -55,4 +56,5 @@ const fetchRaffleParticipationFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default fetchRaffleParticipationFactory;

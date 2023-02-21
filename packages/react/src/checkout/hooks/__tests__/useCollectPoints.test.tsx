@@ -36,6 +36,7 @@ const fetchConfig = { dummy: 'fetch' };
 
 describe('useCollectPoints', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -251,7 +252,7 @@ describe('useCollectPoints', () => {
         );
       });
 
-      it('should throw an error when query is not passed to the hook nor the function', async () => {
+      it('should throw an error when query is not passed to the hook nor the function', () => {
         const {
           result: {
             current: {

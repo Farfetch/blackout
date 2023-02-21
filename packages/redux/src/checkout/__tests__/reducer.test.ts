@@ -377,6 +377,7 @@ describe('checkout reducer', () => {
 
     it('should handle CREATE_CHECKOUT_ORDER_CHARGE_FAILURE action type', () => {
       const mockError = 'mocked error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_FAILURE,
@@ -387,6 +388,7 @@ describe('checkout reducer', () => {
 
     it('should handle FETCH_CHECKOUT_ORDER_CHARGE_FAILURE action type', () => {
       const mockError = 'mocked error';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_FAILURE,
@@ -397,6 +399,7 @@ describe('checkout reducer', () => {
 
     it('should handle CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS action type', () => {
       const mockResult = 'mocked result';
+
       expect(
         reducer(undefined, {
           type: actionTypes.CREATE_CHECKOUT_ORDER_CHARGE_SUCCESS,
@@ -411,6 +414,7 @@ describe('checkout reducer', () => {
 
     it('should handle FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS action type', () => {
       const mockResult = 'mocked result';
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_CHECKOUT_ORDER_CHARGE_SUCCESS,
@@ -462,6 +466,7 @@ describe('checkout reducer', () => {
       actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
     ])('should handle %s action type', actionType => {
       const mockError = 'mocked error';
+
       expect(
         reducer(undefined, {
           type: actionType,
@@ -487,6 +492,7 @@ describe('checkout reducer', () => {
 
     it('should handle FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS action type', () => {
       const mockResult = { result: 'mocked result' };
+
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
@@ -514,6 +520,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDetails.isLoading).toBe(true);
       expect(state.checkoutOrderDetails.error).toBeNull();
     });
@@ -526,6 +533,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDetails.isLoading).toBe(false);
       expect(state.checkoutOrderDetails.error).toBe(action.payload.error);
     });
@@ -536,6 +544,7 @@ describe('checkout reducer', () => {
         payload: { result: 'foo' },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDetails.isLoading).toBe(false);
       expect(state.checkoutOrderDetails.error).toBeNull();
     });
@@ -554,6 +563,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderDetails.isLoading).toBe(false);
       expect(state.checkoutOrderDetails.error).toBeNull();
     });
@@ -565,6 +575,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.collectPoints.isLoading).toBe(true);
       expect(state.collectPoints.error).toBeNull();
     });
@@ -577,6 +588,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.collectPoints.isLoading).toBe(false);
       expect(state.collectPoints.error).toBe(action.payload.error);
     });
@@ -587,6 +599,7 @@ describe('checkout reducer', () => {
         payload: {},
       };
       const state = reducer(undefined, action);
+
       expect(state.collectPoints.isLoading).toBe(false);
       expect(state.collectPoints.error).toBeNull();
     });
@@ -605,6 +618,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.collectPoints.isLoading).toBe(false);
       expect(state.collectPoints.error).toBeNull();
     });
@@ -616,6 +630,7 @@ describe('checkout reducer', () => {
         type: actionTypes.SET_CHECKOUT_ORDER_TAGS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderTags.isLoading).toBe(true);
       expect(state.checkoutOrderTags.error).toBeNull();
     });
@@ -628,6 +643,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderTags.isLoading).toBe(false);
       expect(state.checkoutOrderTags.error).toBe(action.payload.error);
     });
@@ -638,6 +654,7 @@ describe('checkout reducer', () => {
         payload: { result: 'foo' },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderTags.isLoading).toBe(false);
       expect(state.checkoutOrderTags.error).toBeNull();
     });
@@ -656,6 +673,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderTags.isLoading).toBe(false);
       expect(state.checkoutOrderTags.error).toBeNull();
     });
@@ -667,6 +685,7 @@ describe('checkout reducer', () => {
         type: actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItemTags.isLoading).toBe(true);
       expect(state.checkoutOrderItemTags.error).toBeNull();
     });
@@ -679,6 +698,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItemTags.isLoading).toBe(false);
       expect(state.checkoutOrderItemTags.error).toBe(action.payload.error);
     });
@@ -689,6 +709,7 @@ describe('checkout reducer', () => {
         payload: { result: 'foo' },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItemTags.isLoading).toBe(false);
       expect(state.checkoutOrderItemTags.error).toBeNull();
     });
@@ -707,6 +728,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderItemTags.isLoading).toBe(false);
       expect(state.checkoutOrderItemTags.error).toBeNull();
     });
@@ -718,6 +740,7 @@ describe('checkout reducer', () => {
         type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderPromocode.isLoading).toBe(true);
       expect(state.checkoutOrderPromocode.error).toBeNull();
     });
@@ -730,6 +753,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderPromocode.isLoading).toBe(false);
       expect(state.checkoutOrderPromocode.error).toBe(action.payload.error);
     });
@@ -740,6 +764,7 @@ describe('checkout reducer', () => {
         payload: { result: 'foo' },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderPromocode.isLoading).toBe(false);
       expect(state.checkoutOrderPromocode.error).toBeNull();
     });
@@ -758,6 +783,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderPromocode.isLoading).toBe(false);
       expect(state.checkoutOrderPromocode.error).toBeNull();
     });
@@ -769,6 +795,7 @@ describe('checkout reducer', () => {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItems.isLoading).toBe(true);
       expect(state.checkoutOrderItems.error).toBeNull();
     });
@@ -781,6 +808,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItems.isLoading).toBe(false);
       expect(state.checkoutOrderItems.error).toBe(action.payload.error);
     });
@@ -791,6 +819,7 @@ describe('checkout reducer', () => {
         payload: {},
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderItems.isLoading).toBe(false);
       expect(state.checkoutOrderItems.error).toBeNull();
     });
@@ -809,6 +838,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderItems.isLoading).toBe(false);
       expect(state.checkoutOrderItems.error).toBeNull();
     });
@@ -820,6 +850,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDeliveryBundleProvisioning.isLoading).toBe(
         true,
       );
@@ -834,6 +865,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDeliveryBundleProvisioning.isLoading).toBe(
         false,
       );
@@ -848,6 +880,7 @@ describe('checkout reducer', () => {
         payload: {},
       };
       const state = reducer(undefined, action);
+
       expect(state.checkoutOrderDeliveryBundleProvisioning.isLoading).toBe(
         false,
       );
@@ -868,6 +901,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.checkoutOrderDeliveryBundleProvisioning.isLoading).toBe(
         false,
       );
@@ -881,6 +915,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(
         state.checkoutOrderDeliveryBundleUpgradeProvisioning.isLoading,
       ).toBe(true);
@@ -897,6 +932,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(
         state.checkoutOrderDeliveryBundleUpgradeProvisioning.isLoading,
       ).toBe(false);
@@ -911,6 +947,7 @@ describe('checkout reducer', () => {
         payload: {},
       };
       const state = reducer(undefined, action);
+
       expect(
         state.checkoutOrderDeliveryBundleUpgradeProvisioning.isLoading,
       ).toBe(false);
@@ -933,6 +970,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(
         state.checkoutOrderDeliveryBundleUpgradeProvisioning.isLoading,
       ).toBe(false);
@@ -948,6 +986,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATION_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.operation.isLoading).toBe(true);
       expect(state.operation.error).toBeNull();
     });
@@ -960,6 +999,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.operation.isLoading).toBe(false);
       expect(state.operation.error).toBe(action.payload.error);
     });
@@ -970,6 +1010,7 @@ describe('checkout reducer', () => {
         payload: mockGetOperationActionPayload,
       };
       const state = reducer(undefined, action);
+
       expect(state.operation.isLoading).toBe(false);
       expect(state.operation.error).toBeNull();
     });
@@ -988,6 +1029,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.operation.isLoading).toBe(false);
       expect(state.operation.error).toBeNull();
     });
@@ -999,6 +1041,7 @@ describe('checkout reducer', () => {
         type: actionTypes.FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.operations.isLoading).toBe(true);
       expect(state.operations.error).toBeNull();
     });
@@ -1011,6 +1054,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.operations.isLoading).toBe(false);
       expect(state.operations.error).toBe(action.payload.error);
     });
@@ -1021,6 +1065,7 @@ describe('checkout reducer', () => {
         payload: mockGetOperationsActionPayload,
       };
       const state = reducer(undefined, action);
+
       expect(state.operations.isLoading).toBe(false);
       expect(state.operations.error).toBeNull();
       expect(state.operations.result).toBe(action.payload.result);
@@ -1041,6 +1086,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.operations.isLoading).toBe(false);
       expect(state.operations.error).toBeNull();
       expect(state.operations.result).toBeNull();
@@ -1053,6 +1099,7 @@ describe('checkout reducer', () => {
         type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.removeOrderItem.isLoading).toBe(true);
       expect(state.removeOrderItem.error).toBeNull();
     });
@@ -1065,6 +1112,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.removeOrderItem.isLoading).toBe(false);
       expect(state.removeOrderItem.error).toBe(action.payload.error);
     });
@@ -1075,6 +1123,7 @@ describe('checkout reducer', () => {
         payload: { quantity: 2 },
       };
       const state = reducer(undefined, action);
+
       expect(state.removeOrderItem.isLoading).toBe(false);
       expect(state.removeOrderItem.error).toBeNull();
     });
@@ -1093,6 +1142,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.removeOrderItem.isLoading).toBe(false);
       expect(state.removeOrderItem.error).toBeNull();
     });
@@ -1104,6 +1154,7 @@ describe('checkout reducer', () => {
         type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
       };
       const state = reducer(undefined, action);
+
       expect(state.updateOrderItem.isLoading).toBe(true);
       expect(state.updateOrderItem.error).toBeNull();
     });
@@ -1116,6 +1167,7 @@ describe('checkout reducer', () => {
         },
       };
       const state = reducer(undefined, action);
+
       expect(state.updateOrderItem.isLoading).toBe(false);
       expect(state.updateOrderItem.error).toBe(action.payload.error);
     });
@@ -1126,6 +1178,7 @@ describe('checkout reducer', () => {
         payload: mockGetOperationActionPayload,
       };
       const state = reducer(undefined, action);
+
       expect(state.updateOrderItem.isLoading).toBe(false);
       expect(state.updateOrderItem.error).toBeNull();
     });
@@ -1144,6 +1197,7 @@ describe('checkout reducer', () => {
         },
         action,
       );
+
       expect(state.updateOrderItem.isLoading).toBe(false);
       expect(state.updateOrderItem.error).toBeNull();
     });
@@ -1165,6 +1219,7 @@ describe('checkout reducer', () => {
         collectpoints: mockCollectPointsResponse,
       },
     };
+
     describe('without convertCheckoutOrder', () => {
       const entities = {
         anotherProp: 123,
@@ -1209,6 +1264,7 @@ describe('checkout reducer', () => {
             },
           },
         };
+
         expect(
           entitiesMapper[actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS](
             state,
@@ -1240,6 +1296,7 @@ describe('checkout reducer', () => {
             12345678: mockDeliveryBundlesResponse[0]!,
           },
         } as NonNullable<StoreState['entities']>;
+
         expect(
           entitiesMapper[
             actionTypes
@@ -1273,6 +1330,7 @@ describe('checkout reducer', () => {
               .deliveryBundleUpgrades[12345678],
           },
         };
+
         expect(
           entitiesMapper[
             actionTypes
@@ -1525,6 +1583,7 @@ describe('checkout reducer', () => {
         ...initialState,
         isLoading: true,
       };
+
       expect(fromReducer.getIsLoading(state)).toBe(state.isLoading);
     });
   });
@@ -1566,6 +1625,7 @@ describe('checkout reducer', () => {
       subArea => {
         const { [`get${subArea}` as keyof typeof subAreas]: reducerSelector } =
           fromReducer;
+
         expect(reducerSelector(subAreas, mockAction)).toEqual(subAreaResult);
       },
     );

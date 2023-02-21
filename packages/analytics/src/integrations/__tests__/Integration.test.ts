@@ -1,8 +1,8 @@
 import {
   EventTypes,
-  IntegrationOptions,
-  LoadIntegrationEventData,
-  StrippedDownAnalytics,
+  type IntegrationOptions,
+  type LoadIntegrationEventData,
+  type StrippedDownAnalytics,
 } from '../..';
 import { Integration } from '..';
 import {
@@ -11,6 +11,7 @@ import {
 } from 'tests/__fixtures__/analytics';
 
 const constructorSpy = jest.fn();
+
 class MyIntegration extends Integration<IntegrationOptions> {
   constructor(
     options: IntegrationOptions,
@@ -39,6 +40,10 @@ describe('Integration', () => {
     },
   };
 
+  function assertConstructorCalled() {
+    expect(constructorSpy).toHaveBeenCalled();
+  }
+
   let integration: Integration<IntegrationOptions>;
 
   beforeEach(() => {
@@ -46,7 +51,7 @@ describe('Integration', () => {
       createEvent: type => Promise.resolve({ ...loadData, type }),
     });
 
-    expect(constructorSpy).toHaveBeenCalled();
+    assertConstructorCalled();
   });
 
   it('`track` should throw a `Method not implemented` error by default', () => {
@@ -77,7 +82,7 @@ describe('Integration', () => {
   describe('Consent', () => {
     it('Should not be ready to load by default', () => {
       // @ts-expect-error - Ensure it returns false even when there's no consent
-      expect(Integration.shouldLoad()).toEqual(false);
+      expect(Integration.shouldLoad()).toBe(false);
     });
 
     it('Should have a setConsent method', () => {
@@ -122,7 +127,7 @@ describe('Integration', () => {
             consentCategories: 123,
           },
         ),
-      ).toThrowError();
+      ).toThrow();
     });
   });
 });

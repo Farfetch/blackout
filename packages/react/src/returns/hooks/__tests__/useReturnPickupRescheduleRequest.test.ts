@@ -1,6 +1,6 @@
 import { act, cleanup, renderHook } from '@testing-library/react';
 import {
-  PickupRescheduleRequest,
+  type PickupRescheduleRequest,
   RescheduleStatus,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -71,6 +71,7 @@ const mockFetchConfig = {
 
 describe('useReturnPickupRescheduleRequest', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state and call all hook dependencies with the correct options', () => {

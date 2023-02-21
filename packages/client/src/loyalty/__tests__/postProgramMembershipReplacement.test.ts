@@ -24,7 +24,6 @@ describe('postProgramMembershipReplacement', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockResponseProgramMembershipReplacement));
 
-    expect.assertions(2);
     await expect(
       postProgramMembershipReplacement(
         programId,
@@ -40,7 +39,6 @@ describe('postProgramMembershipReplacement', () => {
 
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       postProgramMembershipReplacement(
         programId,

@@ -1,5 +1,5 @@
 import { Component } from '../components';
-import React, { ComponentProps, ReactElement } from 'react';
+import React, { type ComponentProps, type ReactElement } from 'react';
 import type { ComponentType } from '@farfetch/blackout-client';
 
 /**

@@ -17,9 +17,9 @@ describe('getPaymentMethodsByCountryAndCurrency', () => {
       mockFetchPaymentMethodsResponse,
       mockFetchPaymentMethodsResponse,
     ];
+
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(
       getPaymentMethodsByCountryAndCurrency(),
     ).resolves.toStrictEqual(response);
@@ -28,8 +28,6 @@ describe('getPaymentMethodsByCountryAndCurrency', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getPaymentMethodsByCountryAndCurrency(),

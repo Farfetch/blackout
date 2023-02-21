@@ -17,6 +17,7 @@ describe('resetReturnPickupCapabilityState() action creator', () => {
     resetReturnPickupCapabilityState(returnPickupCapabilitiesToReset)(
       store.dispatch,
     );
+
     const actionResults = store.getActions();
 
     expect(actionResults).toEqual([

@@ -27,29 +27,27 @@ describe('fetchPaymentIntentCharge() action creator', () => {
     const expectedError = new Error('fetch payment intent charge error');
 
     (getPaymentIntentCharge as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchPaymentIntentCharge(
+    await expect(
+      async () =>
+        await fetchPaymentIntentCharge(intentId, chargeId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getPaymentIntentCharge).toHaveBeenCalledTimes(1);
+    expect(getPaymentIntentCharge).toHaveBeenCalledWith(
       intentId,
       chargeId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getPaymentIntentCharge).toHaveBeenCalledTimes(1);
-      expect(getPaymentIntentCharge).toHaveBeenCalledWith(
-        intentId,
-        chargeId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_PAYMENT_INTENT_CHARGE_REQUEST },
-          {
-            type: actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_PAYMENT_INTENT_CHARGE_REQUEST },
+        {
+          type: actionTypes.FETCH_PAYMENT_INTENT_CHARGE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch payment intent charge procedure is successful', async () => {

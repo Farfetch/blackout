@@ -15,7 +15,6 @@ describe('getUserDefaultContactAddress', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(getUserDefaultContactAddress(userId)).resolves.toStrictEqual(
       response,
     );
@@ -24,8 +23,6 @@ describe('getUserDefaultContactAddress', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       getUserDefaultContactAddress(userId),

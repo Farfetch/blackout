@@ -35,31 +35,32 @@ describe('createProgramMembershipConvert() action creator', () => {
     (postProgramMembershipConvert as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await createProgramMembershipConvert(
+    await expect(
+      async () =>
+        await createProgramMembershipConvert(
+          programId,
+          membershipId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postProgramMembershipConvert).toHaveBeenCalledTimes(1);
+    expect(postProgramMembershipConvert).toHaveBeenCalledWith(
       programId,
       membershipId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postProgramMembershipConvert).toHaveBeenCalledTimes(1);
-      expect(postProgramMembershipConvert).toHaveBeenCalledWith(
-        programId,
-        membershipId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
-          },
-          {
-            payload: { error: expectedError },
-            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_REQUEST,
+        },
+        {
+          payload: { error: expectedError },
+          type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_CONVERT_FAILURE,
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create program membership convert procedure is successful', async () => {

@@ -24,7 +24,7 @@ describe('search suggestions redux selectors', () => {
           mockState,
           mockSearchSuggestionsHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -63,7 +63,7 @@ describe('search suggestions redux selectors', () => {
           mockState,
           mockSearchSuggestionsHash,
         ),
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should return true if a fetch error occured', () => {
@@ -72,7 +72,7 @@ describe('search suggestions redux selectors', () => {
           mockSearchSuggestionsErrorState,
           mockSearchSuggestionsHash,
         ),
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should return false if not fetched', () => {
@@ -81,7 +81,7 @@ describe('search suggestions redux selectors', () => {
           mockSearchSuggestionsInitialState,
           mockSearchSuggestionsHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should return false if is loading', () => {
@@ -90,7 +90,7 @@ describe('search suggestions redux selectors', () => {
           mockSearchSuggestionsLoadingState,
           mockSearchSuggestionsHash,
         ),
-      ).toEqual(false);
+      ).toBe(false);
     });
   });
 });

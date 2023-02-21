@@ -14,8 +14,6 @@ describe('deleteGuestToken', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
-
     await expect(deleteGuestToken(id)).resolves.toBe(204);
 
     expect(spy).toHaveBeenCalledWith(`${endpoint}/${id}`, expectedConfig);
@@ -23,8 +21,6 @@ describe('deleteGuestToken', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(deleteGuestToken(id)).rejects.toMatchSnapshot();
 

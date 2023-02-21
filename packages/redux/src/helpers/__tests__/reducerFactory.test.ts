@@ -73,7 +73,7 @@ describe('reducerFactory', () => {
 
     const response = reducerThatShouldResetState(state, action);
 
-    expect(response.error).toBe(null);
+    expect(response.error).toBeNull();
     expect(response.isLoading).toBe(false);
   });
 });

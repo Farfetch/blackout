@@ -33,32 +33,33 @@ describe('fetchUserPreferences() action creator', () => {
     const expectedError = new Error('get user preferences error');
 
     (getUserPreferences as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchUserPreferences(
+    await expect(
+      async () =>
+        await fetchUserPreferences(
+          userId,
+          code,
+          expectedConfig,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserPreferences).toHaveBeenCalledTimes(1);
+    expect(getUserPreferences).toHaveBeenCalledWith(
       userId,
       code,
       expectedConfig,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getUserPreferences).toHaveBeenCalledTimes(1);
-      expect(getUserPreferences).toHaveBeenCalledWith(
-        userId,
-        code,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_USER_PREFERENCES_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_USER_PREFERENCES_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_USER_PREFERENCES_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_USER_PREFERENCES_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get user preferences procedure is successful', async () => {

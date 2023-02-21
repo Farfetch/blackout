@@ -22,7 +22,6 @@ describe('postUser', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(postUser(requestData)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users',
@@ -34,7 +33,6 @@ describe('postUser', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(postUser(requestData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       '/account/v1/users',

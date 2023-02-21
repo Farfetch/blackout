@@ -14,6 +14,6 @@ describe('constants', () => {
   });
 
   it('Should export CONSENT_CATEGORIES_PROPERTY', () => {
-    expect(constants.CONSENT_CATEGORIES_PROPERTY).toEqual('consentCategories');
+    expect(constants.CONSENT_CATEGORIES_PROPERTY).toBe('consentCategories');
   });
 });

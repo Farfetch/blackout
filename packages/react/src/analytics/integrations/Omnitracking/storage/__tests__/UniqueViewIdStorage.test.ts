@@ -33,11 +33,14 @@ describe('UniqueViewIdStorage Tests', () => {
 
   it('Should remove oldest item when limit reached', () => {
     const mockConfig = UniqueViewIdStorageOptions.default();
+
     mockConfig.maxItems = 2;
+
     const lStorage = new UniqueViewIdStorage(mockConfig);
     // Add a not unique view id value to localStorage
     const mockNotUniqueViewIdKey = 'not_unique_view_id_key';
     const mockDummyValue = 'dummy_value';
+
     localStorage.setItem(mockNotUniqueViewIdKey, mockDummyValue);
 
     lStorage.set('Key1', 'Value1');
@@ -45,9 +48,11 @@ describe('UniqueViewIdStorage Tests', () => {
     lStorage.set('Key3', 'Value3');
 
     const value1 = lStorage.get('Key1');
-    expect(value1).toBe(null);
+
+    expect(value1).toBeNull();
 
     const value2 = lStorage.get('Key2');
+
     expect(value2).toBe('Value2');
 
     expect(localStorage.getItem(mockNotUniqueViewIdKey)).toBe(mockDummyValue);
@@ -55,30 +60,36 @@ describe('UniqueViewIdStorage Tests', () => {
 
   it('Should not remove when same item is inserted when limit reached', () => {
     const mockConfig = UniqueViewIdStorageOptions.default();
+
     mockConfig.maxItems = 1;
+
     const lStorage = new UniqueViewIdStorage(mockConfig);
 
     lStorage.set('Key1', 'Value1');
     lStorage.set('Key1', 'Value2');
 
     const value1 = lStorage.get('Key1');
+
     expect(value1).toBe('Value2');
   });
 
   it('Should remove item expired', () => {
     const mockConfig = UniqueViewIdStorageOptions.default();
+
     mockConfig.expires = -UniqueViewIdStorageOptions.MAX_EXPIRES;
+
     const lStorage = new UniqueViewIdStorage(mockConfig);
 
     lStorage.set('Key', 'Value');
 
     const value = lStorage.get('Key');
 
-    expect(value).toBe(null);
+    expect(value).toBeNull();
   });
 
   it('Should expired items when removeExpired called and preserve other localStorage items', () => {
     const mockConfig = UniqueViewIdStorageOptions.default();
+
     mockConfig.expires = -UniqueViewIdStorageOptions.MAX_EXPIRES;
 
     const lStorage = new UniqueViewIdStorage(mockConfig);
@@ -94,15 +105,16 @@ describe('UniqueViewIdStorage Tests', () => {
     // Add a not unique view id value to localStorage
     const mockNotUniqueViewIdKey = 'not_unique_view_id_key';
     const mockDummyValue = 'dummy_value';
+
     localStorage.setItem(mockNotUniqueViewIdKey, mockDummyValue);
 
     lStorage.removeExpired();
 
     const value = lStorage.get('ExpiredKey');
 
-    expect(value).toBe(null);
+    expect(value).toBeNull();
 
-    expect(localStorage.length).toBe(2);
+    expect(localStorage).toHaveLength(2);
     expect(localStorage.getItem(mockNotUniqueViewIdKey)).toBe(mockDummyValue);
   });
 
@@ -118,8 +130,6 @@ describe('UniqueViewIdStorage Tests', () => {
       writable: true,
     });
 
-    expect.assertions(3);
-
     try {
       const lStorage = new UniqueViewIdStorage(
         UniqueViewIdStorageOptions.default(),
@@ -132,7 +142,7 @@ describe('UniqueViewIdStorage Tests', () => {
 
         lStorage.set('x', 'y');
 
-        expect(lStorage.get('x')).toBe(null);
+        expect(lStorage.get('x')).toBeNull();
       }).not.toThrow();
     } finally {
       Object.defineProperty(global, 'localStorage', {
@@ -155,7 +165,7 @@ describe('UniqueViewIdStorage Tests', () => {
 
     lStorage.clear();
 
-    expect(lStorage.get('Key')).toBe(null);
+    expect(lStorage.get('Key')).toBeNull();
 
     expect(localStorage.getItem(mockNotUniqueViewIdKey)).toBe(mockDummyValue);
   });

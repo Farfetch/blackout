@@ -83,6 +83,7 @@ const defaultReturn = {
 
 describe('useUser', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly before user fetch', () => {

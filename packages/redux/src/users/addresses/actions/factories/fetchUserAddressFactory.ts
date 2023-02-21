@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserAddress,
+  type Config,
+  type GetUserAddress,
   toBlackoutError,
-  User,
-  UserAddress,
+  type User,
+  type UserAddress,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import addressesSchema from '../../../../entities/schemas/addresses';
@@ -27,6 +27,7 @@ const fetchUserAddressFactory =
         meta: { addressId },
         type: actionTypes.FETCH_USER_ADDRESS_REQUEST,
       });
+
       const result = await getUserAddress({ id: addressId, userId }, config);
 
       dispatch({

@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Balance,
-  Config,
-  GetUserCreditBalance,
-  GetUserCreditBalanceData,
+  type Balance,
+  type Config,
+  type GetUserCreditBalance,
+  type GetUserCreditBalanceData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

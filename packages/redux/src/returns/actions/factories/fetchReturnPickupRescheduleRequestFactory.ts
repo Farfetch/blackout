@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetReturnPickupRescheduleRequest,
-  PickupRescheduleRequest,
-  Return,
+  type Config,
+  type GetReturnPickupRescheduleRequest,
+  type PickupRescheduleRequest,
+  type Return,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

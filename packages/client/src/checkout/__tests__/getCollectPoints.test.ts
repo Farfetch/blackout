@@ -1,5 +1,5 @@
 import * as checkoutClient from '..';
-import { CollectPoint, Weekday } from '../types';
+import { type CollectPoint, Weekday } from '../types';
 import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/getCollectPoints.fixtures';
@@ -74,7 +74,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.getCollectPoints(query),
       ).resolves.toStrictEqual(response);

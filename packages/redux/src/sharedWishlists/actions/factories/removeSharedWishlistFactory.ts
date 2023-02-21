@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  DeleteSharedWishlist,
-  SharedWishlist,
+  type Config,
+  type DeleteSharedWishlist,
+  type SharedWishlist,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

@@ -46,6 +46,7 @@ const fetchConfig = {
 
 describe('useCheckoutOrderCharge', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -320,7 +321,7 @@ describe('useCheckoutOrderCharge', () => {
         );
       });
 
-      it('should throw an error when checkoutOrderId is not passed to the hook', async () => {
+      it('should throw an error when checkoutOrderId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -340,7 +341,7 @@ describe('useCheckoutOrderCharge', () => {
         return expect(fetch()).rejects.toThrow('Missing checkout order id.');
       });
 
-      it('should throw an error when chargeId is not passed to the hook', async () => {
+      it('should throw an error when chargeId is not passed to the hook', () => {
         const {
           result: {
             current: {
@@ -398,7 +399,7 @@ describe('useCheckoutOrderCharge', () => {
         );
       });
 
-      it('should throw an error when checkoutOrderId is not passed to the hook', async () => {
+      it('should throw an error when checkoutOrderId is not passed to the hook', () => {
         const {
           result: {
             current: {

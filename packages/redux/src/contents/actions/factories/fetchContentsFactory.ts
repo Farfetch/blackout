@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  Contents,
-  GetSearchContents,
-  QuerySearchContents,
+  type Config,
+  type Contents,
+  type GetSearchContents,
+  type QuerySearchContents,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { contentEntries } from '../../../entities/schemas/content';

@@ -1,12 +1,12 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 
 const path = '/api/account/v1/users/phoneTokenValidations';
 
 const fixtures = {
   success: (): RestHandler =>
-    rest.post(path, async (_req, res, ctx) => res(ctx.status(200))),
+    rest.post(path, (_req, res, ctx) => res(ctx.status(200))),
   failure: (): RestHandler =>
-    rest.post(path, async (_req, res, ctx) =>
+    rest.post(path, (_req, res, ctx) =>
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

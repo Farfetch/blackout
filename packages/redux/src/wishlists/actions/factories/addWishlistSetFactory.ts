@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostWishlistSet,
-  PostWishlistSetData,
+  type Config,
+  type PostWishlistSet,
+  type PostWishlistSetData,
   toBlackoutError,
-  WishlistSet,
+  type WishlistSet,
 } from '@farfetch/blackout-client';
 import { getWishlistId } from '../../selectors';
 import { normalize } from 'normalizr';

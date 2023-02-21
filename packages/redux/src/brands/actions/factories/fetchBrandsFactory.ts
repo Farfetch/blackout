@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Brands,
-  BrandsQuery,
-  Config,
-  GetBrands,
+  type Brands,
+  type BrandsQuery,
+  type Config,
+  type GetBrands,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateBrandsHash } from '../../utils';
@@ -38,6 +38,7 @@ const fetchBrandsFactory =
 
     try {
       hash = generateBrandsHash(query);
+
       // Check if brands data is already fetched.
       // If it is, let the calling code know there's nothing to wait for.
       // If not, dispatch an action to fetch the brands data.

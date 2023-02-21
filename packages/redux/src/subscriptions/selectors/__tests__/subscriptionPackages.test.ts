@@ -10,7 +10,7 @@ const mockStore: StoreState = mockState;
 beforeEach(jest.clearAllMocks);
 
 describe('subscription packages redux selectors', () => {
-  describe('getSubscriptionPackagesError() ', () => {
+  describe('getSubscriptionPackagesError()', () => {
     it('Should get the subscription packages error property', () => {
       expect(
         selectors.getSubscriptionPackagesError(

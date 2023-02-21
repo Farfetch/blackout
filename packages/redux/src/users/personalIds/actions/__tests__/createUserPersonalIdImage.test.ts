@@ -32,30 +32,31 @@ describe('createUserPersonalIdImage() action creator', () => {
     const expectedError = new Error('create user personal id image error');
 
     (postUserPersonalIdImage as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createUserPersonalIdImage(
+    await expect(
+      async () =>
+        await createUserPersonalIdImage(
+          userId,
+          personalIdImageData,
+          config,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postUserPersonalIdImage).toHaveBeenCalledTimes(1);
+    expect(postUserPersonalIdImage).toHaveBeenCalledWith(
       userId,
       personalIdImageData,
-      config,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postUserPersonalIdImage).toHaveBeenCalledTimes(1);
-      expect(postUserPersonalIdImage).toHaveBeenCalledWith(
-        userId,
-        personalIdImageData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_USER_PERSONAL_ID_IMAGE_REQUEST },
-          {
-            type: actionTypes.CREATE_USER_PERSONAL_ID_IMAGE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_USER_PERSONAL_ID_IMAGE_REQUEST },
+        {
+          type: actionTypes.CREATE_USER_PERSONAL_ID_IMAGE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create user personal id image procedure is successful', async () => {

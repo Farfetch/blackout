@@ -72,6 +72,7 @@ describe('wishlists redux selectors', () => {
     it('should return true if the wishlist fetch request succeeded', () => {
       expect(selectors.isWishlistFetched(mockWishlistState)).toBe(true);
     });
+
     it('should return true if the wishlist fetch request failed', () => {
       const mockStateWithError = {
         ...mockWishlistState,
@@ -81,8 +82,10 @@ describe('wishlists redux selectors', () => {
           id: null,
         },
       };
+
       expect(selectors.isWishlistFetched(mockStateWithError)).toBe(true);
     });
+
     it('should return false if there is an ongoing fetch request', () => {
       const mockStateLoading = {
         ...mockWishlistState,
@@ -322,7 +325,7 @@ describe('wishlists redux selectors', () => {
 
       expect(
         selectors.isWishlistItemLoading(mockWishlistState, mockWishlistItemId),
-      ).toEqual(true);
+      ).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -363,9 +366,9 @@ describe('wishlists redux selectors', () => {
         },
       };
 
-      expect(
-        selectors.isWishlistWithAnyError(mockStateWithGeneralError),
-      ).toEqual(true);
+      expect(selectors.isWishlistWithAnyError(mockStateWithGeneralError)).toBe(
+        true,
+      );
     });
 
     it('should return true if there is an error in a wishlist item', () => {
@@ -392,7 +395,7 @@ describe('wishlists redux selectors', () => {
 
       expect(
         selectors.isWishlistWithAnyError(mockStatewithWishlistItemError),
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should return false if there are no errors', () => {
@@ -416,7 +419,8 @@ describe('wishlists redux selectors', () => {
           },
         },
       };
-      expect(selectors.isWishlistWithAnyError(mockStateWithoutError)).toEqual(
+
+      expect(selectors.isWishlistWithAnyError(mockStateWithoutError)).toBe(
         false,
       );
     });
@@ -438,9 +442,10 @@ describe('wishlists redux selectors', () => {
           },
         },
       };
+
       expect(
         selectors.isWishlistWithAnyError(mockStateWithoutWishlistItems),
-      ).toEqual(false);
+      ).toBe(false);
     });
 
     it('should return false if does not exist wishlist items', () => {
@@ -460,9 +465,10 @@ describe('wishlists redux selectors', () => {
           },
         },
       };
+
       expect(
         selectors.isWishlistWithAnyError(mockStateWithoutWishlistItems),
-      ).toEqual(false);
+      ).toBe(false);
     });
   });
 

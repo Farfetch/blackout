@@ -25,7 +25,7 @@ const fetchProductSetFactory =
     actionOptions?: ProductsListActionOptions,
     config?: Config,
   ) =>
-  async (
+  (
     dispatch: Dispatch,
     getState: () => StoreState,
     options: GetOptionsArgument,

@@ -22,8 +22,6 @@ describe('getUserBenefits', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(usersClient.getUserBenefits(userId)).resolves.toStrictEqual(
       response,
     );
@@ -35,8 +33,6 @@ describe('getUserBenefits', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(usersClient.getUserBenefits(userId)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(

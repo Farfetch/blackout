@@ -4,7 +4,7 @@ import { INITIAL_STATE } from '../../../reducer';
 import { mockStore } from '../../../../../tests';
 import {
   patchUserContact,
-  PatchUserContactOperation,
+  type PatchUserContactOperation,
 } from '@farfetch/blackout-client';
 import { updateUserContact } from '..';
 import find from 'lodash/find';
@@ -37,31 +37,28 @@ describe('updateUserContact() action creator', () => {
     const expectedError = new Error('patch user contact error');
 
     (patchUserContact as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateUserContact(
+    await expect(
+      async () =>
+        await updateUserContact(userId, contactId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchUserContact).toHaveBeenCalledTimes(1);
+    expect(patchUserContact).toHaveBeenCalledWith(
       userId,
       contactId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchUserContact).toHaveBeenCalledTimes(1);
-      expect(patchUserContact).toHaveBeenCalledWith(
-        userId,
-        contactId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_USER_CONTACT_REQUEST },
-          {
-            type: actionTypes.UPDATE_USER_CONTACT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_USER_CONTACT_REQUEST },
+        {
+          type: actionTypes.UPDATE_USER_CONTACT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update user contact procedure is successful', async () => {

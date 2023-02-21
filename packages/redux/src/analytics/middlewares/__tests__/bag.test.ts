@@ -159,7 +159,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(loggerErrorSpy).toBeCalled();
+      expect(loggerErrorSpy).toHaveBeenCalled();
     });
   });
 
@@ -198,7 +198,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
         affiliation,
         brand: brandName,
         cartId: bagMockData.mockBagId,
@@ -272,24 +272,27 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_REMOVED_FROM_CART, {
-        brand: brandName,
-        cartId: bagMockData.mockBagId,
-        category: categoryName,
-        currency: currencyCode,
-        discountValue: discountIncludingPromotions,
-        id: bagMockData.mockProductId,
-        name: productDescription,
-        price: priceWithDiscount - discount,
-        priceWithoutDiscount: priceWithoutDiscount,
-        quantity,
-        sku,
-        size: sizes[0]?.name,
-        sizeId: sizes[0]?.id,
-        sizeScaleId: sizes[0]?.scale,
-        value,
-        variant: colorName,
-      });
+      expect(trackSpy).toHaveBeenCalledWith(
+        EventTypes.PRODUCT_REMOVED_FROM_CART,
+        {
+          brand: brandName,
+          cartId: bagMockData.mockBagId,
+          category: categoryName,
+          currency: currencyCode,
+          discountValue: discountIncludingPromotions,
+          id: bagMockData.mockProductId,
+          name: productDescription,
+          price: priceWithDiscount - discount,
+          priceWithoutDiscount: priceWithoutDiscount,
+          quantity,
+          sku,
+          size: sizes[0]?.name,
+          sizeId: sizes[0]?.id,
+          sizeScaleId: sizes[0]?.scale,
+          value,
+          variant: colorName,
+        },
+      );
     });
   });
 
@@ -317,26 +320,29 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_REMOVED_FROM_CART, {
-        brand: brandName,
-        cartId: bagMockData.mockBagId,
-        category: categoryName,
-        currency: currencyCode,
-        discountValue: discount,
-        id: bagMockData.mockProductAlternativeId,
-        name: productDescription,
-        price: priceWithDiscount,
-        priceWithoutDiscount,
-        quantity: 2,
-        sku,
-        size: sizes[0]?.name,
-        sizeId: sizes[0]?.id,
-        sizeScaleId: sizes[0]?.scale,
-        oldSize: sizes[0]?.name,
-        oldSizeId: sizes[0]?.id,
-        oldSizeScaleId: sizes[0]?.scale,
-        variant: colorName,
-      });
+      expect(trackSpy).toHaveBeenCalledWith(
+        EventTypes.PRODUCT_REMOVED_FROM_CART,
+        {
+          brand: brandName,
+          cartId: bagMockData.mockBagId,
+          category: categoryName,
+          currency: currencyCode,
+          discountValue: discount,
+          id: bagMockData.mockProductAlternativeId,
+          name: productDescription,
+          price: priceWithDiscount,
+          priceWithoutDiscount,
+          quantity: 2,
+          sku,
+          size: sizes[0]?.name,
+          sizeId: sizes[0]?.id,
+          sizeScaleId: sizes[0]?.scale,
+          oldSize: sizes[0]?.name,
+          oldSizeId: sizes[0]?.id,
+          oldSizeScaleId: sizes[0]?.scale,
+          variant: colorName,
+        },
+      );
     });
 
     it('Should call `analytics.track(EventTypes.PRODUCT_ADDED_TO_CART)` with the correct payload if new quantity is higher than old quantity', async () => {
@@ -362,7 +368,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
+      expect(trackSpy).toHaveBeenCalledWith(EventTypes.PRODUCT_ADDED_TO_CART, {
         brand: brandName,
         cartId: bagMockData.mockBagId,
         category: categoryName,
@@ -435,18 +441,30 @@ describe('analyticsBagMiddleware', () => {
         variant: colorName,
       };
 
-      expect(trackSpy).nthCalledWith(1, EventTypes.PRODUCT_UPDATED, baseData);
+      expect(trackSpy).toHaveBeenNthCalledWith(
+        1,
+        EventTypes.PRODUCT_UPDATED,
+        baseData,
+      );
 
-      expect(trackSpy).nthCalledWith(2, EventTypes.PRODUCT_REMOVED_FROM_CART, {
-        ...baseData,
-        quantity: 3,
-        size: sizes[0]?.name,
-      });
+      expect(trackSpy).toHaveBeenNthCalledWith(
+        2,
+        EventTypes.PRODUCT_REMOVED_FROM_CART,
+        {
+          ...baseData,
+          quantity: 3,
+          size: sizes[0]?.name,
+        },
+      );
 
-      expect(trackSpy).nthCalledWith(3, EventTypes.PRODUCT_ADDED_TO_CART, {
-        ...baseData,
-        oldQuantity: undefined,
-      });
+      expect(trackSpy).toHaveBeenNthCalledWith(
+        3,
+        EventTypes.PRODUCT_ADDED_TO_CART,
+        {
+          ...baseData,
+          oldQuantity: undefined,
+        },
+      );
     });
   });
 
@@ -464,6 +482,7 @@ describe('analyticsBagMiddleware', () => {
         }),
       ]);
     });
+
     it('should handle a custom action type for add to bag action', async () => {
       await store.dispatch({
         type: myActionTypeAddToBag,
@@ -476,11 +495,12 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      expect(trackSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should handle a custom action type for update bag action', async () => {
       const newQuantity = 1;
+
       await store.dispatch({
         type: myActionTypeUpdateBag,
         payload: {
@@ -519,7 +539,10 @@ describe('analyticsBagMiddleware', () => {
       };
 
       // expect trigger analytics product updated event
-      expect(trackSpy).toBeCalledWith(EventTypes.PRODUCT_UPDATED, expectedData);
+      expect(trackSpy).toHaveBeenCalledWith(
+        EventTypes.PRODUCT_UPDATED,
+        expectedData,
+      );
 
       // expect trigger analytics product removed event
       const expectedRemovedFromCartData = {
@@ -527,7 +550,8 @@ describe('analyticsBagMiddleware', () => {
         oldQuantity: undefined,
         quantity: 2,
       };
-      expect(trackSpy).toBeCalledWith(
+
+      expect(trackSpy).toHaveBeenCalledWith(
         EventTypes.PRODUCT_REMOVED_FROM_CART,
         expectedRemovedFromCartData,
       );
@@ -545,7 +569,7 @@ describe('analyticsBagMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toBeCalledTimes(1);
+      expect(trackSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

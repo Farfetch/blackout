@@ -1,5 +1,9 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, PostLogout, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type Config,
+  type PostLogout,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -17,6 +21,7 @@ const logoutFactory =
       dispatch({
         type: actionTypes.LOGOUT_REQUEST,
       });
+
       const result = await postLogout(config);
 
       dispatch({

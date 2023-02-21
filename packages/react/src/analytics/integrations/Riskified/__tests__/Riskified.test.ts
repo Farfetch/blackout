@@ -1,7 +1,7 @@
 import {
   integrations,
-  StrippedDownAnalytics,
-  TrackTypes,
+  type StrippedDownAnalytics,
+  type TrackTypes,
   utils,
 } from '@farfetch/blackout-analytics';
 import {
@@ -46,7 +46,7 @@ describe('Riskified', () => {
     });
 
     it('Should be ready to load by default', () => {
-      expect(Riskified.shouldLoad()).toEqual(true);
+      expect(Riskified.shouldLoad()).toBe(true);
     });
 
     it('Should have a base URL defined', () => {
@@ -88,7 +88,7 @@ describe('Riskified', () => {
 
       await instance.track(data);
 
-      expect(spy).toBeCalledWith(data.context.web.window.location.href);
+      expect(spy).toHaveBeenCalledWith(data.context.web.window.location.href);
     });
 
     it('Should not call `RISKX.go` if the integration is not ready.', () => {
@@ -110,27 +110,22 @@ describe('Riskified', () => {
 
       instance.track(data);
 
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 
   describe('Riskified Integration Options', () => {
     it('Should return an error when shop is not set on Riskified Options.', () => {
-      try {
+      expect(() => {
         Riskified.createInstance(
           // @ts-expect-error try loading Riskified without passing shop
           {},
           loadIntegrationData,
           strippedDownAnalytics,
         );
-      } catch (error) {
-        expect(error).toEqual(
-          expect.objectContaining({
-            message:
-              "[Riskified] - `shop` parameter was not provided in options. It's mandatory to load Riskified Integration.",
-          }),
-        );
-      }
+      }).toThrow(
+        "[Riskified] - `shop` parameter was not provided in options. It's mandatory to load Riskified Integration.",
+      );
     });
   });
 });

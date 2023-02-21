@@ -33,31 +33,32 @@ describe('Subscriptions redux actions', () => {
       (getSubscriptionPackages as jest.Mock).mockRejectedValueOnce(
         expectedError,
       );
-      expect.assertions(4);
 
-      await fetchSubscriptionPackages(mockGetSubscriptionPackages.query)(
-        store.dispatch,
-      ).catch(error => {
-        expect(error).toBe(expectedError);
-        expect(getSubscriptionPackages).toHaveBeenCalledTimes(1);
-        expect(getSubscriptionPackages).toHaveBeenCalledWith(
-          mockGetSubscriptionPackages.query,
-          undefined,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
-              meta: { hash: 'id=Newsletter&id=BackInStock' },
-            },
-            {
-              type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
-              payload: { error: expectedError },
-              meta: { hash: 'id=Newsletter&id=BackInStock' },
-            },
-          ]),
-        );
-      });
+      await expect(
+        async () =>
+          await fetchSubscriptionPackages(mockGetSubscriptionPackages.query)(
+            store.dispatch,
+          ),
+      ).rejects.toThrow(expectedError);
+
+      expect(getSubscriptionPackages).toHaveBeenCalledTimes(1);
+      expect(getSubscriptionPackages).toHaveBeenCalledWith(
+        mockGetSubscriptionPackages.query,
+        undefined,
+      );
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining([
+          {
+            type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_REQUEST,
+            meta: { hash: 'id=Newsletter&id=BackInStock' },
+          },
+          {
+            type: actionTypes.FETCH_SUBSCRIPTION_PACKAGES_FAILURE,
+            payload: { error: expectedError },
+            meta: { hash: 'id=Newsletter&id=BackInStock' },
+          },
+        ]),
+      );
     });
 
     it('Should create the correct actions for when the get subscription packages is successful', async () => {

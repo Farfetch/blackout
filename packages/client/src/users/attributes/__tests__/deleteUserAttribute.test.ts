@@ -15,8 +15,6 @@ describe('deleteUserAttribute', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(
       profileClient.deleteUserAttribute(userId, attributeId),
     ).resolves.toStrictEqual(response);
@@ -28,8 +26,6 @@ describe('deleteUserAttribute', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       profileClient.deleteUserAttribute(userId, attributeId),

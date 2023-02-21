@@ -11,7 +11,7 @@ import {
   isWishlistSetFetched,
   isWishlistSetLoading,
   removeWishlistSet as removeWishlistSetAction,
-  StoreState,
+  type StoreState,
   updateWishlistSet as updateWishlistSetAction,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';

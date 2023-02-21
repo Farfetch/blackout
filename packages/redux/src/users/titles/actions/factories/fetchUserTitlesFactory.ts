@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserTitles,
-  GetUserTitlesQuery,
+  type Config,
+  type GetUserTitles,
+  type GetUserTitlesQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

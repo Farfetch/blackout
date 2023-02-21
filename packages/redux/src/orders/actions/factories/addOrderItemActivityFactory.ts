@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  Order,
-  OrderItem,
-  PostOrderItemActivity,
-  PostOrderItemActivityData,
+  type Config,
+  type Order,
+  type OrderItem,
+  type PostOrderItemActivity,
+  type PostOrderItemActivityData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { AddOrderItemActivityAction } from '../../types/actions.types';

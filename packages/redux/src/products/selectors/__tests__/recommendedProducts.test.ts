@@ -49,7 +49,7 @@ describe('Recommended Products redux selectors', () => {
           mockStore,
           mockRecommendedProductsStrategy,
         ),
-      ).toBe(undefined);
+      ).toBeUndefined();
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });

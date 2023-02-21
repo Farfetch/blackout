@@ -68,6 +68,7 @@ const mockFetchConfig = {
 
 describe('useReturnPickupRescheduleRequests', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state and call all hook dependencies with the correct options', () => {
@@ -358,7 +359,7 @@ describe('useReturnPickupRescheduleRequests', () => {
           );
         });
 
-        it('should fail when return id parameter is not passed to both the hook and the function', async () => {
+        it('should fail when return id parameter is not passed to both the hook and the function', () => {
           const {
             result: {
               current: {
@@ -441,7 +442,7 @@ describe('useReturnPickupRescheduleRequests', () => {
           );
         });
 
-        it('should fail when return id parameter is not passed to both the hook and the function', async () => {
+        it('should fail when return id parameter is not passed to both the hook and the function', () => {
           const {
             result: {
               current: {

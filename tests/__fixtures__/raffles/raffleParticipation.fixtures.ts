@@ -1,6 +1,6 @@
 import { raffleId } from './raffle.fixtures';
 import {
-  RaffleParticipation,
+  type RaffleParticipation,
   RaffleParticipationStatus,
 } from '@farfetch/blackout-client';
 

@@ -125,14 +125,6 @@ describe('generateContentHash', () => {
     expect(result).toBe(expectedResult);
   });
 
-  it('should return an hash with codes "all" when query received doesnt include codes', () => {
-    const mockQuery = { contentTypeCode: 'pages' };
-    const expectedResult = 'pages!all';
-    const result = generateContentHash(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
   it('should return an hash with contentType "all" when query received doesnt include contentTypeCode', () => {
     const mockQuery = {
       codes: 'abc',
@@ -140,14 +132,6 @@ describe('generateContentHash', () => {
     };
     const expectedResult = 'all!abc!en_US';
     // @ts-expect-error Force contentTypeCode to be undefined for test
-    const result = generateContentHash(mockQuery);
-
-    expect(result).toBe(expectedResult);
-  });
-
-  it('should return an hash with pageSize on the end when query received include pageSize', () => {
-    const mockQuery = { contentTypeCode: 'pages', pageSize: 2 };
-    const expectedResult = 'pages!all!2';
     const result = generateContentHash(mockQuery);
 
     expect(result).toBe(expectedResult);

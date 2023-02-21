@@ -1,5 +1,5 @@
 import * as checkoutClient from '..';
-import { GetCheckoutOrderResponse, OrderStatusError } from '../types';
+import { type GetCheckoutOrderResponse, OrderStatusError } from '../types';
 import { id } from 'tests/__fixtures__/checkout';
 import client from '../../helpers/client';
 import fixtures from '../__fixtures__/putCheckoutOrderTags.fixtures';
@@ -23,7 +23,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.putCheckoutOrderTags(id, data),
       ).resolves.toStrictEqual(response);
@@ -33,8 +32,6 @@ describe('checkout client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         checkoutClient.putCheckoutOrderTags(id, data),

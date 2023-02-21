@@ -6,7 +6,7 @@ import {
   getContents,
   isContentFetched,
   isContentLoading,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';

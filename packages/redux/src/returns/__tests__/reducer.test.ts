@@ -291,7 +291,7 @@ describe('returns reducer', () => {
         'returnPickupCapabilities',
       ]);
 
-      it('should handle RESET_RETURNS action WITH reset entities flag ', () => {
+      it('should handle RESET_RETURNS action WITH reset entities flag', () => {
         expect(
           entitiesMapper[actionTypes.RESET_RETURNS](state, {
             meta: { resetEntities: true },
@@ -300,7 +300,7 @@ describe('returns reducer', () => {
         ).toEqual(expectedResult);
       });
 
-      it('should handle RESET_RETURNS action WITHOUT reset entities flag ', () => {
+      it('should handle RESET_RETURNS action WITHOUT reset entities flag', () => {
         expect(
           entitiesMapper[actionTypes.RESET_RETURNS](state, {
             meta: { resetEntities: false },

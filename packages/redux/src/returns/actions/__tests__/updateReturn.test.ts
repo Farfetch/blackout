@@ -33,30 +33,27 @@ describe('updateReturn() action creator', () => {
     const expectedError = new Error('update return error');
 
     (patchReturn as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateReturn(
+    await expect(
+      async () => await updateReturn(returnId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchReturn).toHaveBeenCalledTimes(1);
+    expect(patchReturn).toHaveBeenCalledWith(
       returnId,
-      data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchReturn).toHaveBeenCalledTimes(1);
-      expect(patchReturn).toHaveBeenCalledWith(
-        returnId,
-        expectedData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_RETURN_REQUEST, meta: { returnId } },
-          {
-            type: actionTypes.UPDATE_RETURN_FAILURE,
-            payload: { error: expectedError },
-            meta: { returnId },
-          },
-        ]),
-      );
-    });
+      expectedData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_RETURN_REQUEST, meta: { returnId } },
+        {
+          type: actionTypes.UPDATE_RETURN_FAILURE,
+          payload: { error: expectedError },
+          meta: { returnId },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update return procedure is successful', async () => {

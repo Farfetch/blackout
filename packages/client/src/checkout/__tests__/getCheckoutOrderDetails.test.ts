@@ -1,7 +1,7 @@
 import * as checkoutClient from '..';
 import {
   AttributeType,
-  CheckoutOrderDetails,
+  type CheckoutOrderDetails,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
   CreationChannelLegacy,
@@ -405,7 +405,6 @@ describe('checkout client', () => {
 
       mswServer.use(fixtures.success(response));
 
-      expect.assertions(2);
       await expect(
         checkoutClient.getCheckoutOrderDetails(id),
       ).resolves.toStrictEqual(response);
@@ -414,8 +413,6 @@ describe('checkout client', () => {
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
-
-      expect.assertions(2);
 
       await expect(
         checkoutClient.getCheckoutOrderDetails(id),

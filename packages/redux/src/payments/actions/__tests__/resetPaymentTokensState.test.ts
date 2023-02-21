@@ -14,6 +14,7 @@ describe('reset payment tokens state action', () => {
 
   it('should dispatch the correct action type', () => {
     resetPaymentTokensState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

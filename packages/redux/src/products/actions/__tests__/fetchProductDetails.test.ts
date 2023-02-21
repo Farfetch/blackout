@@ -49,40 +49,34 @@ describe('fetchProductDetails() action creator', () => {
 
     (getProduct as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await fetchProductDetails(mockProductId)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductDetails(mockProductId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProduct).toHaveBeenCalledTimes(1);
-      expect(getProduct).toHaveBeenCalledWith(
-        mockProductId,
-        {},
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { productId: mockProductId },
-          type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
-        },
-        {
-          meta: { productId: mockProductId },
-          payload: { error: expectedError },
-          type: productsActionTypes.FETCH_PRODUCT_DETAILS_FAILURE,
-        },
-      ]);
-    });
+    expect(getProduct).toHaveBeenCalledTimes(1);
+    expect(getProduct).toHaveBeenCalledWith(mockProductId, {}, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_REQUEST,
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError },
+        type: productsActionTypes.FETCH_PRODUCT_DETAILS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch product details procedure is successful', async () => {
     (getProduct as jest.Mock).mockResolvedValueOnce(mockProductDetails);
 
     const query = { merchantId: mockMerchantId };
-
-    expect.assertions(4);
 
     await fetchProductDetails(mockProductId, query)(
       store.dispatch,
@@ -116,8 +110,6 @@ describe('fetchProductDetails() action creator', () => {
     (getProduct as jest.Mock).mockResolvedValueOnce(mockProductDetails);
 
     const query = { merchantId: mockMerchantId };
-
-    expect.assertions(5);
 
     await fetchProductDetails(mockProductId, query)(
       store.dispatch,
@@ -156,8 +148,6 @@ describe('fetchProductDetails() action creator', () => {
       },
     });
 
-    expect.assertions(4);
-
     await fetchProductDetails(mockProductId)(
       store.dispatch,
       store.getState as () => StoreState,
@@ -181,8 +171,6 @@ describe('fetchProductDetails() action creator', () => {
 
     const query = { merchantId: mockMerchantId };
     const forceDispatch = true;
-
-    expect.assertions(6);
 
     await fetchProductDetails(mockProductId, query, forceDispatch)(
       store.dispatch,

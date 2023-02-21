@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
 import wishlistsSetReducer, {
   INITIAL_STATE as SETS_INITIAL_STATE,
@@ -53,6 +53,7 @@ const idReducer = (state = INITIAL_STATE.id, action: AnyAction) => {
   if (action.type === actionTypes.FETCH_WISHLIST_SUCCESS) {
     return action.payload.result.id;
   }
+
   return state;
 };
 

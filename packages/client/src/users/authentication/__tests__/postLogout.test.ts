@@ -12,7 +12,6 @@ describe('postLogout', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success());
 
-    expect.assertions(2);
     await expect(postLogout()).resolves.toMatchObject(
       expect.objectContaining({
         status: 200,
@@ -28,7 +27,6 @@ describe('postLogout', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(postLogout()).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       '/legacy/v1/account/logout',

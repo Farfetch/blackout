@@ -32,23 +32,23 @@ describe('fetchCountry() action creator', () => {
 
     (getCountry as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
-    await fetchCountry(mockCountryCode)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCountry).toHaveBeenCalledTimes(1);
-      expect(getCountry).toHaveBeenCalledWith(mockCountryCode, expectedConfig);
-      expect(store.getActions()).toEqual([
-        {
-          meta: { countryCode: mockCountryCode },
-          type: actionTypes.FETCH_COUNTRY_REQUEST,
-        },
-        {
-          meta: { countryCode: mockCountryCode },
-          payload: { error: expectedError },
-          type: actionTypes.FETCH_COUNTRY_FAILURE,
-        },
-      ]);
-    });
+    await expect(
+      async () => await fetchCountry(mockCountryCode)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCountry).toHaveBeenCalledTimes(1);
+    expect(getCountry).toHaveBeenCalledWith(mockCountryCode, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        meta: { countryCode: mockCountryCode },
+        type: actionTypes.FETCH_COUNTRY_REQUEST,
+      },
+      {
+        meta: { countryCode: mockCountryCode },
+        payload: { error: expectedError },
+        type: actionTypes.FETCH_COUNTRY_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the get country procedure is successful', async () => {

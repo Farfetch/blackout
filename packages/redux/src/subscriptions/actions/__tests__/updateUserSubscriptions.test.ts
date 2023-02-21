@@ -39,14 +39,15 @@ describe('Subscriptions redux actions', () => {
 
       (putSubscriptions as jest.Mock).mockRejectedValueOnce(expectedError);
 
-      // @ts-expect-error
-      await updateUserSubscriptions()(store.dispatch).catch(error => {
-        expect(error).toBe(expectedError);
-        expect(putSubscriptions).toBeCalled();
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining(expectedActions),
-        );
-      });
+      await expect(
+        // @ts-expect-error No data was provided to facilitate testing
+        async () => await updateUserSubscriptions()(store.dispatch),
+      ).rejects.toThrow(expectedError);
+
+      expect(putSubscriptions).toHaveBeenCalled();
+      expect(store.getActions()).toEqual(
+        expect.arrayContaining(expectedActions),
+      );
     });
 
     it("Should create the correct actions when the user subscriptions' put request is successful", async () => {

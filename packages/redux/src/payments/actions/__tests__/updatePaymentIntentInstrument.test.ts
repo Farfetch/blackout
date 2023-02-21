@@ -38,31 +38,32 @@ describe('updatePaymentIntentInstrument() action creator', () => {
     (putPaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await updatePaymentIntentInstrument(
+    await expect(
+      async () =>
+        await updatePaymentIntentInstrument(
+          intentId,
+          instrumentId,
+          data,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(putPaymentIntentInstrument).toHaveBeenCalledTimes(1);
+    expect(putPaymentIntentInstrument).toHaveBeenCalledWith(
       intentId,
       instrumentId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putPaymentIntentInstrument).toHaveBeenCalledTimes(1);
-      expect(putPaymentIntentInstrument).toHaveBeenCalledWith(
-        intentId,
-        instrumentId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
-          {
-            type: actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST },
+        {
+          type: actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update payment intent instruments procedure is successful', async () => {

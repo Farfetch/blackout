@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import {
   getEntities,
   getEntityById,
-  MerchantLocationEntity,
+  type MerchantLocationEntity,
 } from '../entities';
 import { getError, getIsLoading } from './reducer';
 import type { MerchantLocation } from '@farfetch/blackout-client';

@@ -27,6 +27,7 @@ describe('fetchPaymentTokens() action creator', () => {
     orderId: 1,
     showExpiredCards: false,
   };
+
   beforeEach(() => {
     jest.clearAllMocks();
     store = paymentsMockStore();
@@ -36,22 +37,22 @@ describe('fetchPaymentTokens() action creator', () => {
     const expectedError = new Error('fetch payment tokens error');
 
     (getPaymentTokens as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchPaymentTokens(query)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getPaymentTokens).toHaveBeenCalledTimes(1);
-      expect(getPaymentTokens).toHaveBeenCalledWith(query, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_PAYMENT_TOKENS_REQUEST },
-          {
-            type: actionTypes.FETCH_PAYMENT_TOKENS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchPaymentTokens(query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getPaymentTokens).toHaveBeenCalledTimes(1);
+    expect(getPaymentTokens).toHaveBeenCalledWith(query, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_PAYMENT_TOKENS_REQUEST },
+        {
+          type: actionTypes.FETCH_PAYMENT_TOKENS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch payment tokens procedure is successful', async () => {

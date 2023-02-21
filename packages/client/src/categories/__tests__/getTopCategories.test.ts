@@ -12,7 +12,6 @@ describe('getTopCategories()', () => {
 
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockTopCategories));
-    expect.assertions(2);
 
     await expect(getTopCategories()).resolves.toEqual(mockTopCategories);
 
@@ -24,7 +23,6 @@ describe('getTopCategories()', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-    expect.assertions(2);
 
     await expect(getTopCategories()).rejects.toMatchSnapshot();
 

@@ -128,6 +128,7 @@ async function setupAnalyticsWithFaultyStorage() {
   analytics.isReady = false;
 
   const faultyStorage = new TestStorage();
+
   await analytics.setStorage(faultyStorage);
   await analytics.ready();
 
@@ -142,6 +143,7 @@ describe('analytics', () => {
   beforeAll(() => {
     analytics = new Analytics();
   });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -183,7 +185,7 @@ describe('analytics', () => {
       expect(loggerErrorSpy).toHaveBeenCalledWith(
         'No storage instance is available to analytics. Please, call analytics.setStorage() with a valid storage instance',
       );
-      expect(loadIntegrationsSpy).not.toBeCalled();
+      expect(loadIntegrationsSpy).not.toHaveBeenCalled();
     });
 
     it('should log an error if calling `analytics.setStorage` after `analytics.ready` is called', async () => {
@@ -200,7 +202,7 @@ describe('analytics', () => {
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Cannot call setStorage after analytics is ready.',
         ),
@@ -212,7 +214,7 @@ describe('analytics', () => {
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Tried to call `analytics.user` before a storage was defined',
         ),
@@ -226,7 +228,7 @@ describe('analytics', () => {
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Tried to call `analytics.consent` before a storage was defined',
         ),
@@ -240,7 +242,7 @@ describe('analytics', () => {
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Tried to call `analytics.setUser` before a storage was defined',
         ),
@@ -256,19 +258,19 @@ describe('analytics', () => {
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Tried to call `analytics.setConsent` before a storage was defined with `analytics.setStorage`. This will be a noop.',
         ),
       );
     });
 
-    it('should log an error when calling `analytics.anonymize`', () => {
-      analytics.anonymize();
+    it('should log an error when calling `analytics.anonymize`', async () => {
+      await analytics.anonymize();
 
       expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
-      expect(loggerErrorSpy).toBeCalledWith(
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
         expect.stringContaining(
           'Tried to call `analytics.anonymize` before a storage was defined',
         ),
@@ -301,8 +303,8 @@ describe('analytics', () => {
       await analytics.setStorage(storage);
     });
 
-    beforeEach(() => {
-      storage.clear();
+    beforeEach(async () => {
+      await storage.clear();
     });
 
     describe('When user is not set in analytics', () => {
@@ -316,16 +318,16 @@ describe('analytics', () => {
         ) as MyIntegration<IntegrationOptions>;
         const spyTrack = jest.spyOn(integrationInstance, 'track');
 
-        // @ts-expect-error
+        // @ts-expect-error Forcing call to trackInternal
         analytics.trackInternal(TrackTypes.PAGE, PageTypes.HOMEPAGE);
 
         analytics.track('myEvent');
 
-        expect(spyTrack).not.toBeCalled();
+        expect(spyTrack).not.toHaveBeenCalled();
 
         await analytics.setUser(123456);
 
-        expect(spyTrack).toBeCalledTimes(2);
+        expect(spyTrack).toHaveBeenCalledTimes(2);
       });
     });
 
@@ -339,6 +341,7 @@ describe('analytics', () => {
         analytics.integrations.clear();
         // @ts-expect-error
         analytics.isReady = false;
+
         const testStorageInstance = new TestStorage();
 
         await analytics.setStorage(testStorageInstance);
@@ -374,7 +377,7 @@ describe('analytics', () => {
           analytics.useContext(newContext);
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             expect.stringContaining(
               'Invalid context argument provided to `analytics.useContext`',
             ),
@@ -389,7 +392,7 @@ describe('analytics', () => {
           analytics.setContext();
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             expect.stringContaining('analytics.setContext is deprecated'),
           );
         });
@@ -417,7 +420,7 @@ describe('analytics', () => {
           analytics.contextFns = previousContextFns;
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             'An error occurred when trying to execute context function: Error: Dummy error',
           );
 
@@ -441,6 +444,7 @@ describe('analytics', () => {
 
           // Test getter with key
           const marketingConsent = await analytics.consent('marketing');
+
           expect(marketingConsent).toBe(data.marketing);
         });
 
@@ -480,9 +484,9 @@ describe('analytics', () => {
 
           await analytics.setConsent(data);
 
-          expect(loadIntegrationsSpy).toBeCalledWith(true);
+          expect(loadIntegrationsSpy).toHaveBeenCalledWith(true);
 
-          expect(spy).toBeCalledWith(data);
+          expect(spy).toHaveBeenCalledWith(data);
         });
 
         it('Should load integrations after required consent has been given', async () => {
@@ -513,7 +517,7 @@ describe('analytics', () => {
           await analytics.setConsent({ statistics: true });
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             'An error occurred when trying to set consent: Error: Dummy storage error.',
           );
         });
@@ -524,7 +528,7 @@ describe('analytics', () => {
           await analytics.consent();
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             'An error occurred when trying to get consent data: Error: Dummy storage error',
           );
         });
@@ -556,7 +560,7 @@ describe('analytics', () => {
             MyIntegration,
           );
 
-          expect(loggerErrorSpy).toBeCalledTimes(1);
+          expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
         });
 
         it('Should log an error when an integration`s createInstance method throws', async () => {
@@ -568,7 +572,7 @@ describe('analytics', () => {
             )
             .ready();
 
-          expect(loggerErrorSpy).toBeCalled();
+          expect(loggerErrorSpy).toHaveBeenCalled();
 
           expect(
             analytics.integration('createInstanceThrowsIntegration'),
@@ -581,7 +585,7 @@ describe('analytics', () => {
             .addIntegration('nullInstanceIntegration', NullInstanceIntegration)
             .ready();
 
-          expect(loggerErrorSpy).toBeCalledTimes(1);
+          expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
           expect(analytics.integration('nullInstanceIntegration')).toBeNull();
         });
@@ -596,7 +600,7 @@ describe('analytics', () => {
             )
             .ready();
 
-          expect(loggerErrorSpy).toBeCalledTimes(1);
+          expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
 
           expect(
             analytics.integration('noIntegrationInstanceIntegration'),
@@ -625,7 +629,7 @@ describe('analytics', () => {
           // @ts-expect-error
           await analytics.loadIntegrations(true);
 
-          expect(onLoadedIntegrationsSpy).toBeCalled();
+          expect(onLoadedIntegrationsSpy).toHaveBeenCalled();
         });
       });
 
@@ -650,7 +654,7 @@ describe('analytics', () => {
 
           expect(currentLocalId).toEqual(sameLocalId);
 
-          storage.clear();
+          await storage.clear();
 
           expect(await analytics.user()).toMatchObject({
             id: null,
@@ -663,6 +667,7 @@ describe('analytics', () => {
           await analytics.setUser();
 
           let user = (await analytics.user()) as UserData;
+
           expect(user.id).toBeNull();
           expect(user.traits).toMatchObject({});
           expect(user.localId).not.toBeNull();
@@ -732,7 +737,7 @@ describe('analytics', () => {
           await analytics.setUser(12, mockUsersResponse);
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             'An error occurred when trying to set user data: Error: Dummy storage error',
           );
         });
@@ -743,7 +748,7 @@ describe('analytics', () => {
           await analytics.user();
 
           expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
-          expect(loggerErrorSpy).toBeCalledWith(
+          expect(loggerErrorSpy).toHaveBeenCalledWith(
             "An error occurred when trying to get user value for key 'undefined': Error: Dummy storage error. Returning null instead.",
           );
         });
@@ -772,10 +777,11 @@ describe('analytics', () => {
           );
 
           const userId = 12345678;
+
           await analytics.setUser(userId, mockUsersResponse);
 
-          expect(spyIntegration1).toBeCalled();
-          expect(spyIntegration2).toBeCalled();
+          expect(spyIntegration1).toHaveBeenCalled();
+          expect(spyIntegration2).toHaveBeenCalled();
         });
 
         it('Should successfully handle when an integration`s onSetUser implementation throws', async () => {
@@ -793,28 +799,8 @@ describe('analytics', () => {
 
           await analytics.setUser(123456);
 
-          expect(loggerErrorSpy).toBeCalled();
-          expect(spy).toBeCalled();
-        });
-
-        it('Should successfully handle when an integration`s onSetUser implementation throws', async () => {
-          await analytics
-            .addIntegration('errorIntegration', ErrorIntegration, {})
-            .addIntegration('myIntegration', MyIntegration, {})
-            .ready();
-
-          const spy = jest.spyOn(
-            analytics.integration(
-              'myIntegration',
-            ) as MyIntegration<IntegrationOptions>,
-            'onSetUser',
-          );
-
-          await analytics.setUser(123456);
-
-          expect(loggerErrorSpy).toBeCalled();
-
-          expect(spy).toBeCalled();
+          expect(loggerErrorSpy).toHaveBeenCalled();
+          expect(spy).toHaveBeenCalled();
         });
       });
 
@@ -841,8 +827,8 @@ describe('analytics', () => {
           // @ts-expect-error
           await analytics.track(event, properties);
 
-          expect(loggerErrorSpy).toBeCalledTimes(1);
-          expect(spyTrack).not.toBeCalled();
+          expect(loggerErrorSpy).toHaveBeenCalledTimes(1);
+          expect(spyTrack).not.toHaveBeenCalled();
         });
 
         it('Should track an event and pass the information to integrations', async () => {
@@ -877,7 +863,7 @@ describe('analytics', () => {
 
           await analytics.track(event, properties, eventContext);
 
-          expect(spyIntegration).toBeCalledWith(expectedData);
+          expect(spyIntegration).toHaveBeenCalledWith(expectedData);
         });
 
         it("Should log an error if analytics is not ready and not call any integration's track method", async () => {
@@ -893,9 +879,9 @@ describe('analytics', () => {
 
           await analytics.track(EventTypes.PRODUCT_CLICKED);
 
-          expect(loggerErrorSpy).toBeCalled();
+          expect(loggerErrorSpy).toHaveBeenCalled();
 
-          expect(spyTrack).not.toBeCalled();
+          expect(spyTrack).not.toHaveBeenCalled();
         });
       });
 
@@ -931,7 +917,7 @@ describe('analytics', () => {
           await analytics.track(TrackTypes.PAGE, PageTypes.HOMEPAGE);
           await analytics.track(EventTypes.PRODUCT_CLICKED);
 
-          expect(spyTrack).toBeCalled();
+          expect(spyTrack).toHaveBeenCalled();
         });
 
         it("Should not load an integration if it's not ready to load", async () => {
@@ -967,12 +953,12 @@ describe('analytics', () => {
           // @ts-expect-error
           await analytics.trackInternal(TrackTypes.PAGE, PageTypes.HOMEPAGE);
 
-          expect(spyTrack).toBeCalled();
+          expect(spyTrack).toHaveBeenCalled();
 
           await analytics.track(EventTypes.PRODUCT_CLICKED);
 
-          expect(loggerErrorSpy).toBeCalled();
-          expect(spyTrack).toBeCalled();
+          expect(loggerErrorSpy).toHaveBeenCalled();
+          expect(spyTrack).toHaveBeenCalled();
         });
       });
     });

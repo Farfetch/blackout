@@ -14,9 +14,9 @@ describe('categories redux selectors', () => {
     it('should get the loading status', () => {
       const spy = jest.spyOn(fromCategories, 'getIsLoading');
 
-      expect(
-        selectors.areCategoriesLoading(mockCategoriesLoadingState),
-      ).toEqual(true);
+      expect(selectors.areCategoriesLoading(mockCategoriesLoadingState)).toBe(
+        true,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -33,7 +33,7 @@ describe('categories redux selectors', () => {
 
   describe('areCategoriesFetched()', () => {
     it('should get the fetched status', () => {
-      expect(selectors.areCategoriesFetched(mockState)).toEqual(true);
+      expect(selectors.areCategoriesFetched(mockState)).toBe(true);
     });
   });
 

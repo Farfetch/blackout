@@ -41,33 +41,34 @@ describe('fetchProgramMembershipStatements() action creator', () => {
     (getProgramMembershipStatements as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchProgramMembershipStatements(
+    await expect(
+      async () =>
+        await fetchProgramMembershipStatements(
+          programId,
+          membershipId,
+          query,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getProgramMembershipStatements).toHaveBeenCalledTimes(1);
+    expect(getProgramMembershipStatements).toHaveBeenCalledWith(
       programId,
       membershipId,
       query,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProgramMembershipStatements).toHaveBeenCalledTimes(1);
-      expect(getProgramMembershipStatements).toHaveBeenCalledWith(
-        programId,
-        membershipId,
-        query,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
-          },
-          {
-            type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_PROGRAM_MEMBERSHIP_STATEMENTS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch program membership statements procedure is successful', async () => {

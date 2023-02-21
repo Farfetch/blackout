@@ -39,29 +39,28 @@ describe('fetchProductGrouping() action creator', () => {
 
     (getProductGrouping as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchProductGrouping(mockProductId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchProductGrouping(mockProductId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getProductGrouping).toHaveBeenCalledTimes(1);
-      expect(getProductGrouping).toHaveBeenCalledWith(
-        mockProductId,
-        {},
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { productId: mockProductId },
-          type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
-          payload: { hash: '!all' },
-        },
-        {
-          meta: { productId: mockProductId },
-          payload: { error: expectedError, hash: '!all' },
-          type: productsActionTypes.FETCH_PRODUCT_GROUPING_FAILURE,
-        },
-      ]);
-    });
+    expect(getProductGrouping).toHaveBeenCalledTimes(1);
+    expect(getProductGrouping).toHaveBeenCalledWith(
+      mockProductId,
+      {},
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { productId: mockProductId },
+        type: productsActionTypes.FETCH_PRODUCT_GROUPING_REQUEST,
+        payload: { hash: '!all' },
+      },
+      {
+        meta: { productId: mockProductId },
+        payload: { error: expectedError, hash: '!all' },
+        type: productsActionTypes.FETCH_PRODUCT_GROUPING_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch product grouping procedure is successful', async () => {

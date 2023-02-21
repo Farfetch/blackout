@@ -31,31 +31,31 @@ describe('addOrderItemActivity() action creator', () => {
 
     (postOrderItemActivity as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await addOrderItemActivity(
+          orderId,
+          itemId,
+          mockOrderItemActivityPayload,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await addOrderItemActivity(
+    expect(postOrderItemActivity).toHaveBeenCalledTimes(1);
+    expect(postOrderItemActivity).toHaveBeenCalledWith(
       orderId,
       itemId,
       mockOrderItemActivityPayload,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postOrderItemActivity).toHaveBeenCalledTimes(1);
-      expect(postOrderItemActivity).toHaveBeenCalledWith(
-        orderId,
-        itemId,
-        mockOrderItemActivityPayload,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_REQUEST },
-          {
-            type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_REQUEST },
+        {
+          type: actionTypes.ADD_ORDER_ITEM_ACTIVITY_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the add order item activities procedure is successful', async () => {

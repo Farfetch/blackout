@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  DeleteSubscriptionTopicRecipient,
+  type DeleteSubscriptionTopicRecipient,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { UnsubscribeSubscriptionTopicRecipientFactory } from './types';

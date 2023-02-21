@@ -4,18 +4,19 @@ import {
   loadIntegrationData,
 } from 'tests/__fixtures__/analytics';
 import {
-  EventData,
+  type EventData,
   EventTypes,
   integrations,
-  LoadIntegrationEventData,
+  type LoadIntegrationEventData,
   PageTypes,
-  PageviewEventData,
-  StrippedDownAnalytics,
-  TrackEventData,
-  TrackTypesValues,
+  type PageviewEventData,
+  type StrippedDownAnalytics,
+  type TrackEventData,
+  type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
 import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle';
+import flushPromises from 'tests/flushPromises';
 import isString from 'lodash/isString';
 import pickBy from 'lodash/pickBy';
 import type { CastleIntegrationOptions } from '../types';
@@ -40,8 +41,8 @@ const createInstance = (
 
 jest.mock('@castleio/castle-js', () => {
   return {
-    ...jest.requireActual('@castleio/castle-js'),
-    createRequestToken: async () => Promise.resolve(mockRequestHeaderValue),
+    ...jest.requireActual<object>('@castleio/castle-js'),
+    createRequestToken: () => Promise.resolve(mockRequestHeaderValue),
   };
 });
 
@@ -79,27 +80,28 @@ describe('Castle integration', () => {
       expect(() =>
         // @ts-expect-error - We want to test this specific case
         createInstance({ configureOptions: { pk: null } }),
-      ).toThrowError();
+      ).toThrow();
     });
 
     it('Should throw an error if an invalid `configureHttpClient` is passed', () => {
       expect(() =>
         // @ts-expect-error - We want to test this specific case
         createInstance({ ...mockOptions, configureHttpClient: 'foo' }),
-      ).toThrowError();
+      ).toThrow();
     });
 
     it('Should throw an error if an invalid `clientIdHeaderName` is passed`', () => {
       expect(() =>
         // @ts-expect-error - We want to test this specific case
         createInstance({ ...mockOptions, clientIdHeaderName: 123 }),
-      ).toThrowError();
+      ).toThrow();
     });
   });
 
   describe('Initialization', () => {
     it('Should configure the SDK with the provided options', () => {
       instance = createInstance();
+
       const castleSDKSpy = jest.spyOn(instance.castleJS, 'configure');
 
       // clear the call made by the constructor
@@ -113,10 +115,12 @@ describe('Castle integration', () => {
     it('Should allow to pass a custom function to install the interceptors', async () => {
       const mockConfigureClient = jest.fn();
 
-      instance = await createInstance({
+      instance = createInstance({
         ...mockOptions,
         configureHttpClient: mockConfigureClient,
       });
+
+      await flushPromises();
 
       expect(mockConfigureClient).toHaveBeenCalledWith(
         instance.castleJS.createRequestToken,
@@ -144,13 +148,14 @@ describe('Castle integration', () => {
 
     it('Should throw if an error occurs during the interceptors installation', () => {
       instance = createInstance({ ...mockOptions });
+
       const configureSpy = jest.spyOn(instance.castleJS, 'configure');
 
       configureSpy.mockImplementationOnce(() => {
         throw new TypeError('Invalid option `foo`.');
       });
 
-      expect(() => instance?.applyOptions(mockOptions)).toThrowError(
+      expect(() => instance?.applyOptions(mockOptions)).toThrow(
         'Castle 2.x - Failed to initialize Castle. Error: TypeError: Invalid option `foo`.',
       );
     });
@@ -229,6 +234,7 @@ describe('Castle integration', () => {
       expect(castleCustomSpy).not.toHaveBeenCalled();
     });
   });
+
   describe('Handle user`s createdDate various date formats', () => {
     it('Should handle values that are in the format `/Date(number)/`', async () => {
       instance = createInstance();

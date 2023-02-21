@@ -75,48 +75,46 @@ describe('removeWishlistItem() action creator', () => {
 
     (deleteWishlistItem as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
-      expect(deleteWishlistItem).toHaveBeenCalledWith(
-        mockWishlistId,
-        mockWishlistItemId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: {
-            ...wishlistItemMetadata,
-            productId: mockProductId,
-            wishlistItemId: mockWishlistItemId,
-          },
-          type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
+    expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
+    expect(deleteWishlistItem).toHaveBeenCalledWith(
+      mockWishlistId,
+      mockWishlistItemId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: {
+          ...wishlistItemMetadata,
+          productId: mockProductId,
+          wishlistItemId: mockWishlistItemId,
         },
-        {
-          meta: {
-            ...wishlistItemMetadata,
-            productId: mockProductId,
-            wishlistItemId: mockWishlistItemId,
-          },
-          payload: { error: expectedError },
-          type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
+        type: actionTypes.REMOVE_WISHLIST_ITEM_REQUEST,
+      },
+      {
+        meta: {
+          ...wishlistItemMetadata,
+          productId: mockProductId,
+          wishlistItemId: mockWishlistItemId,
         },
-      ]);
-    });
+        payload: { error: expectedError },
+        type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the remove wishlist item procedure is successful', async () => {
     (deleteWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(7);
 
     await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
       store.dispatch,
@@ -175,8 +173,6 @@ describe('removeWishlistItem() action creator', () => {
     (deleteWishlistItem as jest.Mock).mockResolvedValueOnce(
       mockWishlistsResponse,
     );
-
-    expect.assertions(5);
 
     await removeWishlistItem(mockWishlistItemId)(
       store.dispatch,

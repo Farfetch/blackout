@@ -33,26 +33,26 @@ describe('fetchOrderReturns() action creator', () => {
     const expectedError = new Error('get order returns error');
 
     (getOrderReturns as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await fetchOrderReturns(orderId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getOrderReturns).toHaveBeenCalledTimes(1);
-      expect(getOrderReturns).toHaveBeenCalledWith(orderId, expectedConfig);
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          {
-            meta: { orderId },
-            type: actionTypes.FETCH_ORDER_RETURNS_REQUEST,
-          },
-          {
-            meta: { orderId },
-            type: actionTypes.FETCH_ORDER_RETURNS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await fetchOrderReturns(orderId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getOrderReturns).toHaveBeenCalledTimes(1);
+    expect(getOrderReturns).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          meta: { orderId },
+          type: actionTypes.FETCH_ORDER_RETURNS_REQUEST,
+        },
+        {
+          meta: { orderId },
+          type: actionTypes.FETCH_ORDER_RETURNS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the get order returns procedure is successful', async () => {

@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import type {
   Subscription,
   SubscriptionTopic,
@@ -96,6 +96,7 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
 
             // update topic list
             const newTopics: SubscriptionTopic[] = [];
+
             if (!newTopicChannels.length) {
               // if result channel list are empty, then remove topic entry
               newTopics.push(
@@ -115,6 +116,7 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
             }
 
             const newState: Subscription[] = [];
+
             if (!newTopics.length) {
               // if result channel list are empty, then remove topic entry
               newState.push(
@@ -141,6 +143,7 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
           }
         }
       }
+
       return state;
     }
     default:

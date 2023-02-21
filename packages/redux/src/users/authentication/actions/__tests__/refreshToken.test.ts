@@ -32,25 +32,25 @@ describe('refreshToken() action creator', () => {
 
   it('should create the correct actions for when the refresh user token procedure fails', async () => {
     (postToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await refreshToken(refreshTokenValue)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postToken).toHaveBeenCalledTimes(1);
-      expect(postToken).toHaveBeenCalledWith(
-        { refreshToken: refreshTokenValue, grantType: 'refresh_token' },
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.REFRESH_USER_TOKEN_REQUEST },
-          {
-            type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await refreshToken(refreshTokenValue)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postToken).toHaveBeenCalledTimes(1);
+    expect(postToken).toHaveBeenCalledWith(
+      { refreshToken: refreshTokenValue, grantType: 'refresh_token' },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.REFRESH_USER_TOKEN_REQUEST },
+        {
+          type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the refresh user token procedure is successful', async () => {

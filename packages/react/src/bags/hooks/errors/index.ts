@@ -16,6 +16,7 @@ export class AddUpdateItemBagError extends Error {
       code === 3
         ? 'No stock available for this item'
         : 'Missing stock information';
+
     super(message);
   }
 }

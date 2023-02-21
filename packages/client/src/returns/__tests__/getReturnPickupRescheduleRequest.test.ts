@@ -20,7 +20,6 @@ describe('getReturnPickupRescheduleRequest', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
     await expect(
       getReturnPickupRescheduleRequest(id, rescheduleRequestId),
     ).resolves.toStrictEqual(response);
@@ -36,7 +35,6 @@ describe('getReturnPickupRescheduleRequest', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       getReturnPickupRescheduleRequest(id, rescheduleRequestId),
     ).rejects.toMatchSnapshot();

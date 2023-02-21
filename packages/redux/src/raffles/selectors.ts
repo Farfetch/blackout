@@ -69,6 +69,7 @@ export const getRafflesResult: (
       props.state.raffles as RafflesState,
     );
     const raffles = allRaffles[rafflesHash];
+
     return raffles?.result?.entries
       .map((raffleId: Raffle['id']) => rafflesEntities?.[raffleId])
       .filter(Boolean) as Raffle[];
@@ -171,6 +172,7 @@ export const getDetailedRaffle: (
 export const areRafflesLoading = (state: StoreState, query?: RafflesQuery) => {
   const rafflesHash = generateRafflesHash(query || {});
   const allRaffles = getAllRafflesFromReducer(state.raffles as RafflesState);
+
   return !!allRaffles[rafflesHash]?.isLoading;
 };
 
@@ -187,6 +189,7 @@ export const getRafflesError = (state: StoreState, query?: RafflesQuery) => {
   const raffleError = getAllRafflesFromReducer(state.raffles as RafflesState)[
     rafflesHash
   ];
+
   return raffleError?.error;
 };
 

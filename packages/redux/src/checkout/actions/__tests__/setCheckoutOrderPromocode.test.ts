@@ -46,30 +46,31 @@ describe('setCheckoutOrderPromocode() action creator', () => {
     (putCheckoutOrderPromocode as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await setCheckoutOrderPromocode(checkoutId, data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
-      expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
-        checkoutId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST },
-          {
-            type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () =>
+        await setCheckoutOrderPromocode(checkoutId, data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+          { getOptions },
+        ),
+    ).rejects.toThrow(expectedError);
+
+    expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
+      checkoutId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST },
+        {
+          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the set checkout order promocode procedure is successful', async () => {
@@ -87,7 +88,6 @@ describe('setCheckoutOrderPromocode() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
     expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
       checkoutId,

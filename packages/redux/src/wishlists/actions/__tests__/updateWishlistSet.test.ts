@@ -38,32 +38,32 @@ describe('updateWishlistSet()', () => {
 
     (patchWishlistSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () =>
+        await updateWishlistSet(mockWishlistSetId, data)(
+          store.dispatch,
+          store.getState as () => StoreState,
+        ),
+    ).rejects.toThrow(expectedError);
 
-    await updateWishlistSet(mockWishlistSetId, data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchWishlistSet).toHaveBeenCalledTimes(1);
-      expect(patchWishlistSet).toHaveBeenCalledWith(
-        mockWishlistId,
-        mockWishlistSetId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          meta: { wishlistSetId: mockWishlistSetId },
-          type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
-        },
-        {
-          meta: { wishlistSetId: mockWishlistSetId },
-          payload: { error: expectedError },
-          type: actionTypes.UPDATE_WISHLIST_SET_FAILURE,
-        },
-      ]);
-    });
+    expect(patchWishlistSet).toHaveBeenCalledTimes(1);
+    expect(patchWishlistSet).toHaveBeenCalledWith(
+      mockWishlistId,
+      mockWishlistSetId,
+      data,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual([
+      {
+        meta: { wishlistSetId: mockWishlistSetId },
+        type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
+      },
+      {
+        meta: { wishlistSetId: mockWishlistSetId },
+        payload: { error: expectedError },
+        type: actionTypes.UPDATE_WISHLIST_SET_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the update wishlist set procedure is successful', async () => {
@@ -73,8 +73,6 @@ describe('updateWishlistSet()', () => {
     (getWishlistSet as jest.Mock).mockResolvedValueOnce(
       mockWishlistsSetResponse,
     );
-
-    expect.assertions(4);
 
     await updateWishlistSet(mockWishlistSetId, data)(
       store.dispatch,

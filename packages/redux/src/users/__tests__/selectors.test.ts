@@ -125,7 +125,7 @@ describe('users redux selectors', () => {
     it('should get the users loading property from state', () => {
       const spy = jest.spyOn(fromUsers, 'getIsLoading');
 
-      expect(selectors.isUserLoading(mockState)).toEqual(false);
+      expect(selectors.isUserLoading(mockState)).toBe(false);
       expect(spy).toHaveBeenCalledWith(mockState.users);
     });
   });

@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  CheckoutOrderItem,
-  Config,
-  GetCheckoutOrderResponse,
-  PutCheckoutOrderItemTags,
+  type CheckoutOrder,
+  type CheckoutOrderItem,
+  type Config,
+  type GetCheckoutOrderResponse,
+  type PutCheckoutOrderItemTags,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -49,6 +49,7 @@ const setCheckoutOrderItemTagsFactory =
 
       if (result.checkoutOrder) {
         const { productImgQueryParam } = getOptions(getState);
+
         (
           result.checkoutOrder as { productImgQueryParam?: string }
         ).productImgQueryParam = productImgQueryParam;

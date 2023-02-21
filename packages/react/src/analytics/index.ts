@@ -10,6 +10,7 @@ import {
   PageTypes,
   PlatformTypes,
 } from '@farfetch/blackout-analytics';
+
 export { default as analytics } from './analytics';
 export {
   integrations,

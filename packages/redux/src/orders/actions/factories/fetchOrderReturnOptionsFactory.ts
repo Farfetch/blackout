@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetOrderReturnOptions,
-  MerchantOrderReturnOptions,
+  type Config,
+  type GetOrderReturnOptions,
+  type MerchantOrderReturnOptions,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';

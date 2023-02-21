@@ -95,6 +95,7 @@ const mockFetchConfig = {
 
 describe('useReturnPickupCapability', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

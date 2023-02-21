@@ -41,33 +41,30 @@ describe('fetchCommercePages() action creator', () => {
 
     (getCommercePages as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchCommercePages(commercePagesQuery)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchCommercePages(commercePagesQuery)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getCommercePages).toHaveBeenCalledTimes(1);
-        expect(getCommercePages).toHaveBeenCalledWith(
-          commercePagesQuery,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual([
-          {
-            payload: {
-              hash: 'commerce_pages!woman',
-            },
-            type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
-          },
-          {
-            payload: {
-              error: expectedError,
-              hash: 'commerce_pages!woman',
-            },
-            type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
-          },
-        ]);
-      },
+    expect(getCommercePages).toHaveBeenCalledTimes(1);
+    expect(getCommercePages).toHaveBeenCalledWith(
+      commercePagesQuery,
+      expectedConfig,
     );
+    expect(store.getActions()).toEqual([
+      {
+        payload: {
+          hash: 'commerce_pages!woman',
+        },
+        type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
+      },
+      {
+        payload: {
+          error: expectedError,
+          hash: 'commerce_pages!woman',
+        },
+        type: actionTypes.FETCH_COMMERCE_PAGES_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the get commerce pages procedure is successful', async () => {
@@ -80,6 +77,7 @@ describe('fetchCommercePages() action creator', () => {
     );
 
     const actionResults = store.getActions();
+
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(

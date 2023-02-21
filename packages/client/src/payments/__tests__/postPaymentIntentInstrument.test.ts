@@ -4,9 +4,9 @@ import {
   mockPaymentIntentInstrumentResponse as response,
 } from 'tests/__fixtures__/payments';
 import {
-  Amounts,
-  CreatePaymentInstrumentData,
-  Payer,
+  type Amounts,
+  type CreatePaymentInstrumentData,
+  type Payer,
   PayerAddressType,
   PaymentMethod,
   ShopperInteraction,
@@ -61,8 +61,6 @@ describe('postPaymentIntentInstrument', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(postPaymentIntentInstrument(id, data)).resolves.toMatchObject(
       response,
     );
@@ -72,8 +70,6 @@ describe('postPaymentIntentInstrument', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(
       postPaymentIntentInstrument(id, data),

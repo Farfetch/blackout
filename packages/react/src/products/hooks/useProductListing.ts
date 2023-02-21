@@ -10,13 +10,13 @@ import {
   isProductsListFetched,
   isProductsListLoading,
   resetProductsLists,
-  StoreState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import {
   isSet,
   ProductListingTypes,
-  Slug,
-  UseProductListingOptions,
+  type Slug,
+  type UseProductListingOptions,
 } from './types';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';

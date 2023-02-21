@@ -15,6 +15,7 @@ describe('resetCheckoutOrderDeliveryBundleProvisioningState() action creator', (
 
   it('should dispatch the correct action for when the reset checkout order delivery bundle provisioning state is called', () => {
     resetCheckoutOrderDeliveryBundleProvisioningState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

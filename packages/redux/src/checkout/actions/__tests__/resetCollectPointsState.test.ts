@@ -15,6 +15,7 @@ describe('resetCollectPointsState() action creator', () => {
 
   it('should dispatch the correct action for when the reset collect points state is called', () => {
     resetCollectPointsState()(store.dispatch);
+
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([

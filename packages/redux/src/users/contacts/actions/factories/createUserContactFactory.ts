@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PostUserContact,
+  type Config,
+  type PostUserContact,
   toBlackoutError,
-  UserContact,
+  type UserContact,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import contactsSchema from '../../../../entities/schemas/contact';

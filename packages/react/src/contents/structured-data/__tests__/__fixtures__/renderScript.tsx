@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import type { Thing } from 'schema-dts';
 
 export const MockRenderScript = (structuredData: Thing) => (

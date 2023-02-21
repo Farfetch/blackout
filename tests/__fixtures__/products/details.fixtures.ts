@@ -17,6 +17,7 @@ export const mockComplementaryInformation = [
     value: '<p>Wash the item in low temperatures.</p>',
   },
 ];
+
 const mockDataLayer = { general: { type: 'Product' } };
 const mockProductSlug = 'rockstud-sling-back-flats-12854475';
 const mockProductResult = {
@@ -44,6 +45,7 @@ const mockProductResult = {
   shortDescription: 'Rockstud sling-back flats',
   customAttributes: null,
 };
+
 export const mockDetailsModel = {
   dataLayer: mockDataLayer,
   slug: mockProductSlug,
@@ -294,6 +296,7 @@ const getMockProductResponseNormalized = (includeImageQueryParam = true) => ({
   },
   result: mockProductId,
 });
+
 export const mockProductResponseNormalized = getMockProductResponseNormalized();
 export const mockProductResponseNormalizedWithoutImageOptions =
   getMockProductResponseNormalized(false);

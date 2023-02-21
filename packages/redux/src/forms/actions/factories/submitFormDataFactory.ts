@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  PostFormData,
-  SubmittedFormData,
+  type PostFormData,
+  type SubmittedFormData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

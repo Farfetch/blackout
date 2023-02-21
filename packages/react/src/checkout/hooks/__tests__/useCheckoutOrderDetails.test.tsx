@@ -41,6 +41,7 @@ const fetchConfig = {
 
 describe('useCheckoutOrderDetails', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {
@@ -287,7 +288,7 @@ describe('useCheckoutOrderDetails', () => {
         );
       });
 
-      it('should throw an error when checkoutOrderId is not passed to the hook', async () => {
+      it('should throw an error when checkoutOrderId is not passed to the hook', () => {
         const {
           result: {
             current: {

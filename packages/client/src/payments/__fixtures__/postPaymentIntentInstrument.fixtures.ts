@@ -1,11 +1,11 @@
-import { rest, RestHandler } from 'msw';
+import { rest, type RestHandler } from 'msw';
 import type { PostPaymentIntentInstrumentResponse } from '../types';
 
 const path = '/api/payment/v1/intents/:id/instruments';
 
 const fixtures = {
   success: (response: PostPaymentIntentInstrumentResponse): RestHandler =>
-    rest.post(path, async (_req, res, ctx) =>
+    rest.post(path, (_req, res, ctx) =>
       res(
         ctx.status(201),
         ctx.json(response.data),
@@ -13,7 +13,7 @@ const fixtures = {
       ),
     ),
   failure: (): RestHandler =>
-    rest.post(path, async (_req, res, ctx) =>
+    rest.post(path, (_req, res, ctx) =>
       res(ctx.status(404), ctx.json({ message: 'stub error' })),
     ),
 };

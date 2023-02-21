@@ -1,5 +1,9 @@
 import * as actionTypes from '../../actionTypes';
-import { Config, PostToken, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type Config,
+  type PostToken,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
 /**
@@ -17,6 +21,7 @@ const refreshTokenFactory =
       dispatch({
         type: actionTypes.REFRESH_USER_TOKEN_REQUEST,
       });
+
       const result = await postToken(
         { refreshToken, grantType: 'refresh_token' },
         config,

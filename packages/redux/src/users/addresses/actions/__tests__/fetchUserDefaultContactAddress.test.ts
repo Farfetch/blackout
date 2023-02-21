@@ -31,28 +31,26 @@ describe('fetchUserDefaultContactAddress() action creator', () => {
     (getUserDefaultContactAddress as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchUserDefaultContactAddress(userId)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(expectedError);
-        expect(getUserDefaultContactAddress).toHaveBeenCalledTimes(1);
-        expect(getUserDefaultContactAddress).toHaveBeenCalledWith(
-          userId,
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            {
-              type: actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
-            },
-            {
-              type: actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
-              payload: { error: expectedError },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () => await fetchUserDefaultContactAddress(userId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getUserDefaultContactAddress).toHaveBeenCalledTimes(1);
+    expect(getUserDefaultContactAddress).toHaveBeenCalledWith(
+      userId,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        {
+          type: actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
+        },
+        {
+          type: actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
     );
   });
 
@@ -66,7 +64,6 @@ describe('fetchUserDefaultContactAddress() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(4);
     expect(getUserDefaultContactAddress).toHaveBeenCalledTimes(1);
     expect(getUserDefaultContactAddress).toHaveBeenCalledWith(
       userId,

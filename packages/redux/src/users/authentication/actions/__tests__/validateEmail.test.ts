@@ -32,25 +32,25 @@ describe('validateEmail() action creator', () => {
 
   it('should create the correct actions for when the validate e-mail procedure fails', async () => {
     (postValidateEmail as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await validateEmail(validateData)(store.dispatch).catch(error => {
-      expect(error).toBe(mockErrorObject);
-      expect(postValidateEmail).toHaveBeenCalledTimes(1);
-      expect(postValidateEmail).toHaveBeenCalledWith(
-        validateData,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.VALIDATE_EMAIL_REQUEST },
-          {
-            type: actionTypes.VALIDATE_EMAIL_FAILURE,
-            payload: { error: toBlackoutError(mockErrorObject) },
-          },
-        ]),
-      );
-    });
+    await expect(
+      async () => await validateEmail(validateData)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postValidateEmail).toHaveBeenCalledTimes(1);
+    expect(postValidateEmail).toHaveBeenCalledWith(
+      validateData,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.VALIDATE_EMAIL_REQUEST },
+        {
+          type: actionTypes.VALIDATE_EMAIL_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the validate e-mail procedure is successful', async () => {

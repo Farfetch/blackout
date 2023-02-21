@@ -135,9 +135,11 @@ export const getSubPageType = ({
   if (hasBrands) {
     subPageTypeSegments.push(SeoSubPageType.Brand);
   }
+
   if (hasCategories) {
     subPageTypeSegments.push(SeoSubPageType.Category);
   }
+
   if (subPageTypeSegments?.length) {
     if (isOnSale) {
       subPageTypeSegments.push(SeoSubPageType.Sale);

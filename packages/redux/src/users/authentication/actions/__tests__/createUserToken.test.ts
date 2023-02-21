@@ -31,26 +31,25 @@ describe('createUserToken() action creator', () => {
 
   it('should create the correct actions for when the create user token procedure fails', async () => {
     (postToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
-    expect.assertions(4);
 
-    await createUserToken(mockCreateUserTokenData)(store.dispatch).catch(
-      error => {
-        expect(error).toBe(mockErrorObject);
-        expect(postToken).toHaveBeenCalledTimes(1);
-        expect(postToken).toHaveBeenCalledWith(
-          { ...mockCreateUserTokenData, grantType: 'password' },
-          expectedConfig,
-        );
-        expect(store.getActions()).toEqual(
-          expect.arrayContaining([
-            { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
-            {
-              type: actionTypes.CREATE_USER_TOKEN_FAILURE,
-              payload: { error: toBlackoutError(mockErrorObject) },
-            },
-          ]),
-        );
-      },
+    await expect(
+      async () =>
+        await createUserToken(mockCreateUserTokenData)(store.dispatch),
+    ).rejects.toThrow(mockErrorObject);
+
+    expect(postToken).toHaveBeenCalledTimes(1);
+    expect(postToken).toHaveBeenCalledWith(
+      { ...mockCreateUserTokenData, grantType: 'password' },
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_USER_TOKEN_REQUEST },
+        {
+          type: actionTypes.CREATE_USER_TOKEN_FAILURE,
+          payload: { error: toBlackoutError(mockErrorObject) },
+        },
+      ]),
     );
   });
 

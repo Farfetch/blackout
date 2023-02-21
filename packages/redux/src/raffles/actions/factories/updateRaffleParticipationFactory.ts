@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  PatchRaffleParticipation,
-  PatchRaffleParticipationOperation,
-  Raffle,
-  RaffleParticipation,
+  type Config,
+  type PatchRaffleParticipation,
+  type PatchRaffleParticipationOperation,
+  type Raffle,
+  type RaffleParticipation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -30,6 +30,7 @@ const updateRaffleParticipationFactory =
         meta: { raffleId, participationId },
         type: actionTypes.UPDATE_RAFFLE_PARTICIPATION_REQUEST,
       });
+
       const result = await patchRaffleParticipation(
         raffleId,
         participationId,
@@ -55,4 +56,5 @@ const updateRaffleParticipationFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default updateRaffleParticipationFactory;

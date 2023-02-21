@@ -4,7 +4,7 @@ import { INITIAL_STATE } from '../../reducer';
 import { mockStore } from '../../../../tests';
 import {
   patchCheckoutOrderItems,
-  PatchCheckoutOrderItemsData,
+  type PatchCheckoutOrderItemsData,
 } from '@farfetch/blackout-client';
 import { updateCheckoutOrderItems } from '..';
 import find from 'lodash/find';
@@ -62,29 +62,27 @@ describe('updateCheckoutOrderItems() action creator', () => {
     const expectedError = new Error('update checkout order items error');
 
     (patchCheckoutOrderItems as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await updateCheckoutOrderItems(
+    await expect(
+      async () =>
+        await updateCheckoutOrderItems(checkoutId, data)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(patchCheckoutOrderItems).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrderItems).toHaveBeenCalledWith(
       checkoutId,
       data,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(patchCheckoutOrderItems).toHaveBeenCalledTimes(1);
-      expect(patchCheckoutOrderItems).toHaveBeenCalledWith(
-        checkoutId,
-        data,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_REQUEST },
-          {
-            type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_REQUEST },
+        {
+          type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEMS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the update checkout order items procedure is successful', async () => {

@@ -23,6 +23,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 
 describe('useLocale', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

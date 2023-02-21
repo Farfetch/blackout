@@ -88,9 +88,10 @@ describe('authentication redux selectors', () => {
   describe('sub-areas loading selectors', () => {
     it.each(subAreaNames)('should handle is%sLoading selector', subArea => {
       const selectorName = `is${subArea}Loading`;
-      expect(
-        selectors[selectorName as keyof typeof selectors](mockState),
-      ).toEqual(false);
+
+      expect(selectors[selectorName as keyof typeof selectors](mockState)).toBe(
+        false,
+      );
     });
   });
 
@@ -127,7 +128,7 @@ describe('authentication redux selectors', () => {
 
   describe('isAuthenticated()', () => {
     it('should get the authentication isAuthenticated property from state', () => {
-      expect(selectors.isAuthenticated(mockState)).toEqual(true);
+      expect(selectors.isAuthenticated(mockState)).toBe(true);
     });
   });
 });

@@ -34,30 +34,31 @@ describe('fetchPaymentIntentInstrument() action creator', () => {
     (getPaymentIntentInstrument as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchPaymentIntentInstrument(
+    await expect(
+      async () =>
+        await fetchPaymentIntentInstrument(
+          intentId,
+          instrumentId,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getPaymentIntentInstrument).toHaveBeenCalledTimes(1);
+    expect(getPaymentIntentInstrument).toHaveBeenCalledWith(
       intentId,
       instrumentId,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getPaymentIntentInstrument).toHaveBeenCalledTimes(1);
-      expect(getPaymentIntentInstrument).toHaveBeenCalledWith(
-        intentId,
-        instrumentId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST },
-          {
-            type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_REQUEST },
+        {
+          type: actionTypes.FETCH_PAYMENT_INTENT_INSTRUMENT_FAILURE,
 
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions when the fetch payment intent instrument procedure is successful', async () => {

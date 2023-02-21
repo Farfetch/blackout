@@ -7,7 +7,7 @@ import {
 import { fetchCheckoutOrderOperations } from '..';
 import {
   getCheckoutOrderOperations,
-  GetCheckoutOrderOperationsQuery,
+  type GetCheckoutOrderOperationsQuery,
 } from '@farfetch/blackout-client';
 import { INITIAL_STATE } from '../../reducer';
 import {
@@ -42,32 +42,31 @@ describe('fetchCheckoutOrderOperations() action creator', () => {
 
   it('should create the correct actions for when the fetch checkout order operations procedure fails', async () => {
     const expectedError = new Error('fetch checkout order operations error');
+
     (getCheckoutOrderOperations as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
-    expect.assertions(4);
 
-    await fetchCheckoutOrderOperations(
+    await expect(
+      async () =>
+        await fetchCheckoutOrderOperations(orderId, query)(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(getCheckoutOrderOperations).toHaveBeenCalledTimes(1);
+    expect(getCheckoutOrderOperations).toHaveBeenCalledWith(
       orderId,
       query,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getCheckoutOrderOperations).toHaveBeenCalledTimes(1);
-      expect(getCheckoutOrderOperations).toHaveBeenCalledWith(
-        orderId,
-        query,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST },
-          {
-            type: FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
-            payload: { error: expectedError },
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST },
+        {
+          type: FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
+          payload: { error: expectedError },
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the fetch checkout order operations procedure is successful', async () => {
@@ -84,7 +83,6 @@ describe('fetchCheckoutOrderOperations() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect.assertions(5);
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperations).toHaveBeenCalledTimes(1);
     expect(getCheckoutOrderOperations).toHaveBeenCalledWith(

@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetRaffle,
-  Raffle,
+  type Config,
+  type GetRaffle,
+  type Raffle,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -26,6 +26,7 @@ const fetchRaffleFactory =
         meta: { raffleId },
         type: actionTypes.FETCH_RAFFLE_REQUEST,
       });
+
       const result = await getRaffle(raffleId, config);
       const normalizedResult = normalize(result, raffleSchema);
 
@@ -48,4 +49,5 @@ const fetchRaffleFactory =
       throw errorAsBlackoutError;
     }
   };
+
 export default fetchRaffleFactory;

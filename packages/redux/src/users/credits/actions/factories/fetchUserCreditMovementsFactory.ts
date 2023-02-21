@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserCreditMovements,
-  GetUserCreditMovementsQuery,
+  type Config,
+  type GetUserCreditMovements,
+  type GetUserCreditMovementsQuery,
   toBlackoutError,
-  User,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 

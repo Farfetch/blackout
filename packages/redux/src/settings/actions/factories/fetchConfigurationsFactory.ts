@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  Configurations,
-  ConfigurationsQuery,
-  GetConfigurations,
+  type Config,
+  type Configurations,
+  type ConfigurationsQuery,
+  type GetConfigurations,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -36,6 +36,7 @@ const fetchConfigurationsFactory =
         type: actionTypes.FETCH_CONFIGURATIONS_SUCCESS,
         payload: normalize(result, [configurationSchema]),
       });
+
       return result;
     } catch (error) {
       const errorAsBlackoutError = toBlackoutError(error);

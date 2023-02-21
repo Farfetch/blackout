@@ -32,29 +32,30 @@ describe('createProgramMembership() action creator', () => {
     const expectedError = new Error('create program membership error');
 
     (postProgramMembership as jest.Mock).mockRejectedValueOnce(expectedError);
-    expect.assertions(4);
 
-    await createProgramMembership(
+    await expect(
+      async () =>
+        await createProgramMembership(
+          programId,
+          mockResponseProgramMembership,
+        )(store.dispatch),
+    ).rejects.toThrow(expectedError);
+
+    expect(postProgramMembership).toHaveBeenCalledTimes(1);
+    expect(postProgramMembership).toHaveBeenCalledWith(
       programId,
       mockResponseProgramMembership,
-    )(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(postProgramMembership).toHaveBeenCalledTimes(1);
-      expect(postProgramMembership).toHaveBeenCalledWith(
-        programId,
-        mockResponseProgramMembership,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual(
-        expect.arrayContaining([
-          { type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REQUEST },
-          {
-            payload: { error: expectedError },
-            type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_FAILURE,
-          },
-        ]),
-      );
-    });
+      expectedConfig,
+    );
+    expect(store.getActions()).toEqual(
+      expect.arrayContaining([
+        { type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_REQUEST },
+        {
+          payload: { error: expectedError },
+          type: actionTypes.CREATE_PROGRAM_MEMBERSHIP_FAILURE,
+        },
+      ]),
+    );
   });
 
   it('should create the correct actions for when the create program membership procedure is successful', async () => {

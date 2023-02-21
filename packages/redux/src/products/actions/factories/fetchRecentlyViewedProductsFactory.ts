@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes';
 import { areRecentlyViewedProductsFetched } from '../../selectors';
 import {
-  GetRecentlyViewedProducts,
-  RecentlyViewedProducts,
+  type GetRecentlyViewedProducts,
+  type RecentlyViewedProducts,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

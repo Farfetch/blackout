@@ -18,8 +18,6 @@ describe('getUserCreditBalance', () => {
 
     mswServer.use(fixtures.success(response));
 
-    expect.assertions(2);
-
     await expect(getUserCreditBalance(data)).resolves.toStrictEqual(response);
 
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
@@ -27,8 +25,6 @@ describe('getUserCreditBalance', () => {
 
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
-
-    expect.assertions(2);
 
     await expect(getUserCreditBalance(data)).rejects.toMatchSnapshot();
 

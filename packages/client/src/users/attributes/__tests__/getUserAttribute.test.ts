@@ -17,8 +17,6 @@ describe('getUserAttribute', () => {
   it('should handle a client request successfully', async () => {
     mswServer.use(fixtures.success(mockUserAttributeResponse));
 
-    expect.assertions(2);
-
     await expect(getUserAttribute(userId, attributeId)).resolves.toStrictEqual(
       mockUserAttributeResponse,
     );
@@ -32,7 +30,6 @@ describe('getUserAttribute', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    expect.assertions(2);
     await expect(
       getUserAttribute(userId, attributeId),
     ).rejects.toMatchSnapshot();

@@ -25,7 +25,7 @@ describe('user subscriptions redux selectors', () => {
     });
   });
 
-  describe('getUpdateUserSubscriptionsError() ', () => {
+  describe('getUpdateUserSubscriptionsError()', () => {
     it('Should get the update user subscriptions error property', () => {
       const expectedResult =
         mockState.subscriptions.user.updateSubscriptionsError;

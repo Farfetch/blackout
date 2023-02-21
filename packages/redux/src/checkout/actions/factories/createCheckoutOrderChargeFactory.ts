@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  CheckoutOrder,
-  CheckoutOrderCharge,
-  Config,
-  PostCheckoutOrderCharge,
-  PostCheckoutOrderChargeData,
+  type CheckoutOrder,
+  type CheckoutOrderCharge,
+  type Config,
+  type PostCheckoutOrderCharge,
+  type PostCheckoutOrderChargeData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';

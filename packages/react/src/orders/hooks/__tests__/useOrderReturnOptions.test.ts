@@ -87,6 +87,7 @@ const mockFetchConfig = {
 
 describe('useOrderReturnOptions', () => {
   beforeEach(jest.clearAllMocks);
+
   afterEach(cleanup);
 
   it('should return correctly with initial state', () => {

@@ -39,35 +39,29 @@ describe('fetchOrderReturnOptions() action creator', () => {
 
     (getOrderReturnOptions as jest.Mock).mockRejectedValueOnce(expectedError);
 
-    expect.assertions(4);
+    await expect(
+      async () => await fetchOrderReturnOptions(orderId)(store.dispatch),
+    ).rejects.toThrow(expectedError);
 
-    await fetchOrderReturnOptions(orderId)(store.dispatch).catch(error => {
-      expect(error).toBe(expectedError);
-      expect(getOrderReturnOptions).toHaveBeenCalledTimes(1);
-      expect(getOrderReturnOptions).toHaveBeenCalledWith(
-        orderId,
-        expectedConfig,
-      );
-      expect(store.getActions()).toEqual([
-        {
-          type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
-          meta: { orderId },
-        },
-        {
-          payload: { error: expectedError },
-          meta: { orderId },
-          type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
-        },
-      ]);
-    });
+    expect(getOrderReturnOptions).toHaveBeenCalledTimes(1);
+    expect(getOrderReturnOptions).toHaveBeenCalledWith(orderId, expectedConfig);
+    expect(store.getActions()).toEqual([
+      {
+        type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_REQUEST,
+        meta: { orderId },
+      },
+      {
+        payload: { error: expectedError },
+        meta: { orderId },
+        type: actionTypes.FETCH_ORDER_RETURN_OPTIONS_FAILURE,
+      },
+    ]);
   });
 
   it('should create the correct actions for when the fetch order return options procedure is successful', async () => {
     (getOrderReturnOptions as jest.Mock).mockResolvedValueOnce(
       mockOrderReturnOptionsResponse,
     );
-
-    expect.assertions(5);
 
     await fetchOrderReturnOptions(orderId)(store.dispatch).then(
       clientResult => {

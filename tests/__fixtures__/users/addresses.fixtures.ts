@@ -1,4 +1,4 @@
-import { AddressType, UserAddress } from '@farfetch/blackout-client';
+import { AddressType, type UserAddress } from '@farfetch/blackout-client';
 
 export const addressId = '1234';
 export const addressId2 = '2222222';

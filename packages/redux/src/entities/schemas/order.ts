@@ -1,8 +1,8 @@
 import {
   CustomerType,
   CustomerTypeLegacy,
-  Order,
-  OrderLegacy,
+  type Order,
+  type OrderLegacy,
 } from '@farfetch/blackout-client';
 import { schema } from 'normalizr';
 import orderItem from './orderItem';

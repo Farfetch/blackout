@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Config,
-  GetUserBenefits,
+  type Config,
+  type GetUserBenefits,
   toBlackoutError,
-  User,
-  UserBenefit,
+  type User,
+  type UserBenefit,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import userBenefitsSchema from '../../../../entities/schemas/benefit';

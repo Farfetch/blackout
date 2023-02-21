@@ -39,7 +39,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `credits` slice', () => {
-      expect(selectors.getUserCreditsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserCreditsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserCreditsError(mockErrorState)).toBe(dummyError);
     });
@@ -53,7 +53,7 @@ describe('redux selectors', () => {
     });
 
     it('should return `error` value from `creditMovements` slice', () => {
-      expect(selectors.getUserCreditMovementsError(mockBaseState)).toBe(null);
+      expect(selectors.getUserCreditMovementsError(mockBaseState)).toBeNull();
 
       expect(selectors.getUserCreditMovementsError(mockErrorState)).toBe(
         dummyError,

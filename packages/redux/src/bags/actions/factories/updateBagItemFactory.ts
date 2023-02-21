@@ -1,10 +1,10 @@
 import * as actionTypes from '../../actionTypes';
 import {
-  Bag,
-  Config,
-  PatchBagItem,
-  PatchBagItemData,
-  PatchBagItemQuery,
+  type Bag,
+  type Config,
+  type PatchBagItem,
+  type PatchBagItemData,
+  type PatchBagItemQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { getBagId } from '../../selectors';
@@ -42,6 +42,7 @@ const updateBagItemFactory =
 
     try {
       const state = getState();
+
       bagId = getBagId(state);
 
       dispatch({
@@ -53,6 +54,7 @@ const updateBagItemFactory =
         },
         type: actionTypes.UPDATE_BAG_ITEM_REQUEST,
       });
+
       const result = await patchBagItem(bagId, bagItemId, data, query, config);
       const { productImgQueryParam } = getOptions(getState);
       const newItems = result.items.map(item => ({
