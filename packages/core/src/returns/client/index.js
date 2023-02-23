@@ -16,3 +16,4 @@ export { default as getPickupRescheduleRequests } from './getPickupRescheduleReq
 export { default as postPickupRescheduleRequests } from './postPickupRescheduleRequests';
 export { default as getPickupRescheduleRequest } from './getPickupRescheduleRequest';
 export { default as getUserReturns } from './getUserReturns';
+export { default as getReturnWorkflow } from './getReturnWorkflow';
