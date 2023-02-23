@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.376](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.375...@farfetch/blackout-redux@1.0.0-next.376) (2023-02-23)
+
+
+### Bug Fixes
+
+* add "type": "module" to all packages ([71a07d9](https://github.com/Farfetch/blackout/commit/71a07d970cd00cf450ad4a23b63f07876c9ab6db))
+
+
+
+
+
 # [1.0.0-next.375](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.374...@farfetch/blackout-redux@1.0.0-next.375) (2023-02-23)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
