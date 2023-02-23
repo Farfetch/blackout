@@ -5,6 +5,7 @@
   "license": "MIT",
   "main": "src/index.ts",
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "yarn build:transpile && yarn build:types",
     "build:transpile": "../../scripts/transpile.sh",
