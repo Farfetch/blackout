@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.242](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.241...@farfetch/blackout-client@2.0.0-next.242) (2023-02-23)
+
+
+### Bug Fixes
+
+* add "type": "module" to all packages ([71a07d9](https://github.com/Farfetch/blackout/commit/71a07d970cd00cf450ad4a23b63f07876c9ab6db))
+
+
+
+
+
 # [2.0.0-next.241](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.240...@farfetch/blackout-client@2.0.0-next.241) (2023-02-23)
 
 **Note:** Version bump only for package @farfetch/blackout-client
