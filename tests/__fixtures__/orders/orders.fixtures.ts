@@ -12,6 +12,7 @@ import {
   OrderItemActivities,
   OrderItemActivityType,
   OrderItemStatus,
+  OrderShippingAddressChangeRequestStatus,
   OrderStatus,
   OrderSummaries,
   ProductType,
@@ -52,6 +53,7 @@ export const mockGuestUserEmail = 'qat5@farfetch.com';
 export const merchantOrderCode = 'PZ1129361393';
 export const merchantOrderCode2 = 'PZ1128781830';
 export const merchantOrderCode3 = 'PZ1129361394';
+export const changeAddressId = '367c55b3-ff52-40b7-a892-26649d010555';
 
 export const mockOrdersResponse = {
   entries: [
@@ -4225,3 +4227,75 @@ export const mockOrderAvailableItemsActivities = [
 export const mockOrderItemAvailableActivities = [
   mockOrderAvailableItemsActivities[0],
 ] as OrderItemActivities[];
+
+export const mockOrderShippingAddressChangeRequestsResponse = [
+  {
+    id: changeAddressId,
+    checkoutOrderId,
+    orderId,
+    status: OrderShippingAddressChangeRequestStatus.Approved,
+    createdDate: '2023-02-22T10:07:42.91+00:00',
+    updatedDate: '2023-02-22T10:07:49.05+00:00',
+    merchantOrders: [
+      {
+        id: merchantOrderCode,
+      },
+    ],
+    shippingAddress: {
+      id: '00000000-0000-0000-0000-000000000000',
+      firstName: 'John',
+      lastName: 'Doe',
+      addressLine1: 'Rua As Camponesas do Corvo 1',
+      addressLine2: 'Arcozelo 1',
+      city: { id: 0, name: 'Vila Nova de Gaia', countryId: 165 },
+      state: { id: 0, code: 'Porto', name: 'Porto', countryId: 0 },
+      country: {
+        id: 165,
+        name: 'Portugal',
+        nativeName: 'Portugal',
+        alpha2Code: 'PT',
+        alpha3Code: 'PRT',
+        culture: 'pt-PT',
+        region: 'Europe',
+        continentId: 3,
+      },
+      zipCode: '4410-432',
+      phone: '32131231231',
+      addressType: AddressType.Any,
+      createdDate: '0001-01-01T00:00:00Z',
+    },
+    isForcedUpdate: false,
+  },
+];
+
+export const mockOrderShippingAddressChangeRequestsPayload = {
+  merchantOrders: [
+    {
+      id: merchantOrderCode,
+    },
+  ],
+  shippingAddress: {
+    id: '00000000-0000-0000-0000-000000000000',
+    firstName: 'John',
+    lastName: 'Doe',
+    addressLine1: 'Rua As Camponesas do Corvo 1',
+    addressLine2: 'Arcozelo 1',
+    city: { id: 0, name: 'Vila Nova de Gaia', countryId: 165 },
+    state: { id: 0, code: 'Porto', name: 'Porto', countryId: 0 },
+    country: {
+      id: 165,
+      name: 'Portugal',
+      nativeName: 'Portugal',
+      alpha2Code: 'PT',
+      alpha3Code: 'PRT',
+      culture: 'pt-PT',
+      region: 'Europe',
+      continentId: 3,
+    },
+    zipCode: '4410-432',
+    phone: '32131231231',
+    addressType: AddressType.Any,
+    createdDate: '0001-01-01T00:00:00Z',
+  },
+  isForcedUpdate: false,
+};
