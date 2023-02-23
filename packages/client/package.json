@@ -4,6 +4,7 @@
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
   "main": "src/index.ts",
+  "type": "module",
   "sideEffects": false,
   "scripts": {
     "build": "yarn build:transpile && yarn build:types",
