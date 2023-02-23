@@ -8,9 +8,11 @@ export { default as getOrderDocument } from './getOrderDocument.js';
 export { default as getOrderDocuments } from './getOrderDocuments.js';
 export { default as getOrderItemAvailableActivities } from './getOrderItemAvailableActivities.js';
 export { default as getOrderReturnOptions } from './getOrderReturnOptions.js';
+export { default as getOrderShippingAddressChangeRequests } from './getOrderShippingAddressChangeRequests.js';
 export { default as getShipmentTrackings } from './getShipmentTrackings.js';
 export { default as getUserOrders } from './getUserOrders.js';
 export { default as postOrderDocument } from './postOrderDocument.js';
 export { default as postOrderItemActivity } from './postOrderItemActivity.js';
+export { default as postOrderShippingAddressChangeRequest } from './postOrderShippingAddressChangeRequest.js';
 
 export * from './types/index.js';

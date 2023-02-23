@@ -11,5 +11,5 @@ export { default as fetchOrderDocumentsFactory } from './fetchOrderDocumentsFact
 export { default as fetchOrderFactory } from './fetchOrderFactory.js';
 export { default as fetchOrderItemAvailableActivitiesFactory } from './fetchOrderItemAvailableActivitiesFactory.js';
 export { default as fetchOrderReturnOptionsFactory } from './fetchOrderReturnOptionsFactory.js';
-export { default as fetchUserOrdersFactory } from './fetchUserOrdersFactory.js';
 export { default as fetchShipmentTrackingsFactory } from './fetchShipmentTrackingsFactory.js';
+export { default as fetchUserOrdersFactory } from './fetchUserOrdersFactory.js';
