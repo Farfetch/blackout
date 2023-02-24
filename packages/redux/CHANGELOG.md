@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.377](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.376...@farfetch/blackout-redux@1.0.0-next.377) (2023-02-24)
+
+
+### Bug Fixes
+
+* **redux:** checkout reducer not overwriting address state ([eec50e8](https://github.com/Farfetch/blackout/commit/eec50e8b798733f0e84e80acf0d4898fb3dfe043))
+
+
+
+
+
 # [1.0.0-next.376](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.375...@farfetch/blackout-redux@1.0.0-next.376) (2023-02-23)
 
 
