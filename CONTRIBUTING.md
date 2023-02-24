@@ -7,8 +7,12 @@ Please note that this project is released with a [Code of Conduct](CODE_OF_CONDU
 - [Contributing](#contributing)
   - [Issues](#issues)
   - [Pull Requests](#pull-requests)
-    - [Does it state intent](#does-it-state-intent)
-    - [Is it of good quality](#is-it-of-good-quality)
+    - [Prerequisites](#prerequisites)
+    - [Get Started](#get-started)
+    - [Creating and submitting your changes](#creating-and-submitting-your-changes)
+    - [Creating good pull requests](#creating-good-pull-requests)
+      - [Clear description](#clear-description)
+      - [Good quality](#good-quality)
   - [Workflow](#workflow)
     - [Code review and approval process](#code-review-and-approval-process)
     - [Release process](#release-process)
@@ -32,19 +36,54 @@ If you find an issue that addresses the problem you're having, please add your o
 
 PRs are always welcome and can be a quick way to get your fix or improvement slated for the next release.
 
-In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susam/gitpr)
+### Prerequisites
 
-1. Fork the repository to your own Github account
-2. Clone the project to your machine
-3. Create a branch locally with a succinct but descriptive name
-4. Commit changes to the branch
-5. Follow any guidelines specific to this repo
-6. Push changes to your fork
-7. Open a PR in our repository and follow the PR template so that we can efficiently review the changes.
+To add a code contribution to our project, you will need:
+
+0. A bug or feature that you want to work on.
+1. A development machine with either Windows, Mac or Linux operating systems
+2. [A Github Account](https://github.com/)
+3. [Git](https://docs.github.com/en/get-started/quickstart/set-up-git#setting-up-git) installed and configured
+4. Node v14 or higher installed. If you are in Mac or Linux, you can use [nvm](https://github.com/nvm-sh/nvm) or [n](https://github.com/tj/n) to help installing and managing node versions
+5. [Yarn v1](https://classic.yarnpkg.com/en/docs/install#mac-stable) installed
+6. An editor. [VS Code](https://code.visualstudio.com/) is a good and free editor you can use
+
+### Get Started
+
+First, you will need to set up the project on your machine. For that, follow these steps:
+
+1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the repository to your own Github account
+2. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the project to your development machine
+3. Go to the folder where the project was cloned and install the dependencies by running the command `yarn install`
+4. Run unit tests to make sure everything is working by running the command `yarn test`
+5. If tests are successfull, follow the steps in the next section to start creating your changes
+
+### Creating and submitting your changes
+
+1. Create a branch locally with a succint name that is prefixed with either `fix_` for bug fixes, `feat_` for new features and `chore_` for everything else
+
+   - Examples: `fix_fetch_orders_response`, `feat_add_bag_client`, `chore: remove unnecessary module`.
+
+2. When creating the code, make sure it follows the [coding guidelines](https://github.com/Farfetch/blackout/wiki/Coding-Guidelines)
+3. When you have finished coding, make sure the following checks are passing:
+
+   - Check unit tests by runnning `yarn test`
+   - Check linting errors by running `yarn lint`
+   - Check type errors by runnning `yarn ci:types`
+
+4. Commit changes to the branch by following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard
+
+   - The project is configured to lint the commit message and will raise an error if the message is not well formatted
+   - The message should state its intent clearly
+
+5. Push changes to your fork
+6. Open a PR in our repository targeting the correct branch and follow the PR template so that we can efficiently review the changes.
+
+### Creating good pull requests
 
 When opening a pull request, consider the following:
 
-### Does it state intent
+#### Clear description
 
 You should be clear about which problem you're trying to solve with your contribution. For example:
 
@@ -58,11 +97,17 @@ This tells the problem that you have found, and the pull request shows the actio
 
 The same principle applies to the commit body.
 
-### Is it of good quality
+#### Good quality
 
-- It follows the provided template
-- There are no spelling mistakes
-- It follows the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification
+Make sure that the PR you are opening is of a good quality in order to be considered for merging. Here are some points you should pay attention to:
+
+- The PR template is filled correctly
+- There are no spelling mistakes in the description and code
+- The code contains the adequate amount of unit tests
+  - Tests should fail when your non-test code is absent
+  - Tests should include reasonable permutations of the target fix/change
+- No warnings are introduced by the changes when running unit tests
+- Follow the [coding guidelines](https://github.com/Farfetch/blackout/wiki/Coding-Guidelines)
 
 ## Workflow
 
@@ -97,8 +142,7 @@ On the other hand, a hotfix is released as soon as it's ready and needs no inter
 
 ## Your First Contribution
 
-If you want to deep dive and help out with development, then first get the project installed locally.
-After that is done we suggest you have a look at issues that are labelled "[good first issue](https://github.com/Farfetch/blackout/labels/good%20first%20issue)".
+Have a look at issues that are labelled "[good first issue](https://github.com/Farfetch/blackout/labels/good%20first%20issue)".
 These are meant to be a great way to get a smooth start and won’t put you in front of the most complex parts of the system.
 
 ## Additional resources
