@@ -6,14 +6,15 @@ import {
   client,
   configApiBlackAndWhite,
   defaultAuthorizationHeaderFormatter,
+  type GuestToken,
   postGuestToken,
   postToken,
   TokenData,
   TokenKinds,
   type UserToken,
 } from '@farfetch/blackout-client';
-import { type DefaultRequestBody, rest } from 'msw';
 import { NotLoggedInError, PendingUserOperationError } from '../../errors';
+import { rest } from 'msw';
 import AuthenticationProvider, {
   CallbackNames,
 } from '../../contexts/AuthenticationProvider';
@@ -262,11 +263,11 @@ describe('useAuthentication', () => {
   });
 
   it('should set tokens context before fetching the access token', async () => {
-    let guestTokenRequestBody: DefaultRequestBody; // Request info for checking later if the endpoint was called with correct data
+    let guestTokenRequestBody: GuestToken | undefined; // Request info for checking later if the endpoint was called with correct data
 
     mswServer.use(
-      rest.post('/authentication/v1/guestTokens', (req, res, ctx) => {
-        guestTokenRequestBody = req.body;
+      rest.post('/authentication/v1/guestTokens', async (req, res, ctx) => {
+        guestTokenRequestBody = await req.json<GuestToken>();
 
         return res(
           ctx.json({
