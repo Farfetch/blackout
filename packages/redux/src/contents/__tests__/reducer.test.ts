@@ -172,15 +172,17 @@ describe('contents redux reducer', () => {
   });
 
   describe('getContentResult() selector', () => {
-    it('should return the `content` property from a given state', () => {
+    it('should return the `searchResults` property from a given state', () => {
       const state = {
         ...initialState,
         searchResults: {
-          error: {},
-          isLoading: false,
-          result: {
-            hash: 'foo',
-            ...mockContentResult,
+          hash: {
+            error: null,
+            isLoading: false,
+            result: {
+              hash: 'foo',
+              ...mockContentResult,
+            },
           },
         },
       } as ContentsState;
