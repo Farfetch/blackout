@@ -8,7 +8,7 @@ import { schema } from 'normalizr';
 import orderItem from './orderItem';
 import preprocessOrder from '../../helpers/preprocessOrder';
 
-export default new schema.Entity(
+const orderSchema = new schema.Entity(
   'orders',
   { items: [orderItem] },
   {
@@ -27,7 +27,8 @@ export default new schema.Entity(
           | undefined;
 
         if (customerTypeKey) {
-          preprocessedOrder.customerType = CustomerType[customerTypeKey];
+          (preprocessedOrder.customerType as unknown as CustomerType) =
+            CustomerType[customerTypeKey];
         }
       }
 
@@ -35,3 +36,5 @@ export default new schema.Entity(
     },
   },
 );
+
+export default orderSchema;
