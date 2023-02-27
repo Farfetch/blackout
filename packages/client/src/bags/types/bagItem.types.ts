@@ -6,8 +6,11 @@ import type {
   ProductImageGroup,
 } from '../../types';
 import type { Brand } from '../../brands/types';
+import type { Metadata } from '../../types/common/metadata.types';
 import type { Price, Product, ProductVariant, Size } from '../../products';
 import type { ProductCategory } from '../../categories/types';
+
+export type BagItemMetadata = Metadata;
 
 export type BagItem = {
   id: number;
@@ -52,4 +55,5 @@ export type BagItem = {
     images: ProductImageGroup;
   } | null;
   gender: GenderCode;
+  metadata?: BagItemMetadata;
 };
