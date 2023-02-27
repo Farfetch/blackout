@@ -1,5 +1,5 @@
 import type { Bag } from './bag.types';
-import type { Config } from '../..';
+import type { BagItemMetadata, Config } from '../..';
 import type { PostBagItemQuery } from './query.types';
 import type { Product } from '../../products/types';
 
@@ -23,6 +23,9 @@ export type PostBagItemData = {
   // For restriction product. This value is a code, received by the
   // user, used to unlock the AddToBag operation.
   authCode?: string;
+  // Extra fields that a tenant could store related to the resource
+  // based on a predefined json schema.
+  metadata?: BagItemMetadata;
 };
 
 export type PostBagItem = (
