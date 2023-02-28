@@ -63,7 +63,7 @@ const removeBagItemFactory =
         { items: [bagItemSchema] },
       );
 
-      dispatch({
+      await dispatch({
         payload: normalizedBag,
         type: actionTypes.REMOVE_BAG_ITEM_SUCCESS,
         meta: {

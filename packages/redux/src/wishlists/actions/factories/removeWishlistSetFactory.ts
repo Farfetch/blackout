@@ -40,7 +40,7 @@ const removeWishlistSetFactory =
 
       await deleteWishlistSet(wishlistId, wishlistSetId, config);
 
-      dispatch({
+      await dispatch({
         meta: { wishlistSetId },
         type: actionTypes.REMOVE_WISHLIST_SET_SUCCESS,
       });

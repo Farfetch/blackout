@@ -43,7 +43,7 @@ const addWishlistSetFactory =
 
       const result = await postWishlistSet(wishlistId, data, config);
 
-      dispatch({
+      await dispatch({
         payload: normalize(result, wishlistSetSchema),
         type: actionTypes.ADD_WISHLIST_SET_SUCCESS,
       });

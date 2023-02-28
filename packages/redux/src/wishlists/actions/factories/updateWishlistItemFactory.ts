@@ -74,7 +74,7 @@ const updateWishlistItemFactory =
         productImgQueryParam,
       }));
 
-      dispatch({
+      await dispatch({
         meta: {
           ...metadata,
           ...data,

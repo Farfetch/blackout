@@ -36,7 +36,7 @@ const registerFactory =
         result: userId,
       };
 
-      dispatch({
+      await dispatch({
         payload: userEntity,
         type: actionTypes.REGISTER_SUCCESS,
         meta: {
