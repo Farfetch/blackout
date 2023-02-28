@@ -41,7 +41,7 @@ const fetchWishlistFactory =
         productImgQueryParam,
       }));
 
-      dispatch({
+      await dispatch({
         payload: normalize(
           { ...result, items: newItems },
           { items: [wishlistItemSchema] },

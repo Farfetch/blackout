@@ -29,7 +29,7 @@ const fetchGuestUserFactory =
         result: result.id,
       };
 
-      dispatch({
+      await dispatch({
         payload: userEntity,
         type: actionTypes.FETCH_GUEST_USER_SUCCESS,
       });

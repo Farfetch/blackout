@@ -36,7 +36,7 @@ const loginFactory =
         result: userId,
       };
 
-      dispatch({
+      await dispatch({
         payload: userEntity,
         type: actionTypes.LOGIN_SUCCESS,
         meta: { isLoginAction: true, method: LoginMethodParameterTypes.TENANT },

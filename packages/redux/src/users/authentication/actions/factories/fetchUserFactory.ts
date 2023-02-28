@@ -29,7 +29,7 @@ const fetchUserFactory =
         result: result.id,
       };
 
-      dispatch({
+      await dispatch({
         payload: userEntity,
         type: actionTypes.FETCH_USER_SUCCESS,
         meta: config,

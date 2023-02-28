@@ -27,7 +27,7 @@ const setBagPromocodesFactory =
 
       const result = await putBagPromocodes(bagId, data, config);
 
-      dispatch({
+      await dispatch({
         payload: {
           result: bagId,
           entities: {

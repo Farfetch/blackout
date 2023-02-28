@@ -24,7 +24,7 @@ const logoutFactory =
 
       const result = await postLogout(config);
 
-      dispatch({
+      await dispatch({
         type: actionTypes.LOGOUT_SUCCESS,
       });
 

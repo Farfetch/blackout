@@ -33,7 +33,7 @@ const fetchBagOperationFactory =
 
       const result = await getBagOperation(bagId, bagOperationId, config);
 
-      dispatch({
+      await dispatch({
         payload: { ...normalize(result, bagOperationSchema) },
         meta: { bagOperationId },
         type: FETCH_BAG_OPERATION_SUCCESS,

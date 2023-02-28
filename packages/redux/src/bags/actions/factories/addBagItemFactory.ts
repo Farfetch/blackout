@@ -69,7 +69,7 @@ const addBagItemFactory =
         { items: [bagItemSchema] },
       );
 
-      dispatch({
+      await dispatch({
         payload: normalizedBag,
         type: actionTypes.ADD_BAG_ITEM_SUCCESS,
         meta: {

@@ -59,7 +59,7 @@ const addWishlistItemFactory =
         productImgQueryParam,
       }));
 
-      dispatch({
+      await dispatch({
         meta: { ...metadata, ...data, wishlistId },
         payload: normalize(
           { ...result, items: newItems },
