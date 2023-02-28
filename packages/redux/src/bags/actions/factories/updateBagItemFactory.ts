@@ -67,7 +67,7 @@ const updateBagItemFactory =
         { items: [bagItemSchema] },
       );
 
-      dispatch({
+      await dispatch({
         payload: normalizedBag,
         type: actionTypes.UPDATE_BAG_ITEM_SUCCESS,
         meta: {

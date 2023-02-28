@@ -41,7 +41,7 @@ const fetchWishlistSetsFactory =
 
       const result = await getWishlistSets(wishlistId, config);
 
-      dispatch({
+      await dispatch({
         payload: normalize(result, [wishlistSetSchema]),
         type: actionTypes.FETCH_WISHLIST_SETS_SUCCESS,
       });

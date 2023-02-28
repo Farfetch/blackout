@@ -82,6 +82,8 @@ const useBag = (options: UseBagOptions = {}) => {
         throw new AddUpdateItemBagError(-1);
       }
 
+      const itemsRefreshed = getBagItems(getState());
+
       // Iterate through the stock of different merchants
       for (const { merchantId, quantity: merchantQuantity } of size.stock) {
         // If there is no quantity on this merchant jump to the next one
@@ -104,7 +106,7 @@ const useBag = (options: UseBagOptions = {}) => {
         // by comparing the bag items' hash
         const hash = generateBagItemHash(requestData);
 
-        const itemInBag = items?.find(
+        const itemInBag = itemsRefreshed?.find(
           item => generateBagItemHash(item) === hash,
         );
 
@@ -152,7 +154,7 @@ const useBag = (options: UseBagOptions = {}) => {
         throw new AddUpdateItemBagError(3);
       }
     },
-    [addBagItem, items, updateBagItem],
+    [addBagItem, getState, updateBagItem],
   );
 
   const addItem = useCallback(
@@ -455,7 +457,9 @@ const useBag = (options: UseBagOptions = {}) => {
       },
       metadata?: BagItemActionMetadata,
     ) => {
-      const bagItem = items.find(item => item.id === bagItemId);
+      const itemsRefreshed = getBagItems(getState());
+
+      const bagItem = itemsRefreshed.find(item => item.id === bagItemId);
 
       if (!bagItem || !bagItem.product) {
         throw new BagItemNotFoundError();
@@ -478,7 +482,7 @@ const useBag = (options: UseBagOptions = {}) => {
 
       return;
     },
-    [handleFullUpdate, handleQuantityChange, handleSizeChange, items],
+    [getState, handleFullUpdate, handleQuantityChange, handleSizeChange],
   );
 
   const data = useMemo(() => {

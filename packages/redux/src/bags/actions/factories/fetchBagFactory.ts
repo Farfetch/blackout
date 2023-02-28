@@ -44,7 +44,7 @@ const fetchBagFactory =
         { items: [bagItemSchema] },
       );
 
-      dispatch({
+      await dispatch({
         payload: normalizedBag,
         type: actionTypes.FETCH_BAG_SUCCESS,
       });
