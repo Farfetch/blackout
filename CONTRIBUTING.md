@@ -62,7 +62,7 @@ First, you will need to set up the project on your machine. For that, follow the
 
 1. Create a branch locally with a succint name that is prefixed with either `fix_` for bug fixes, `feat_` for new features and `chore_` for everything else
 
-   - Examples: `fix_fetch_orders_response`, `feat_add_bag_client`, `chore: remove unnecessary module`.
+   - Examples: `fix_fetch_orders_response`, `feat_add_bag_client`, `chore_remove_unnecessary_module`.
 
 2. When creating the code, make sure it follows the [coding guidelines](https://github.com/Farfetch/blackout/wiki/Coding-Guidelines)
 3. When you have finished coding, make sure the following checks are passing:
@@ -77,7 +77,7 @@ First, you will need to set up the project on your machine. For that, follow the
    - The message should state its intent clearly
 
 5. Push changes to your fork
-6. Open a PR in our repository targeting the correct branch and follow the PR template so that we can efficiently review the changes.
+6. Open a PR in our repository targeting the correct branch and follow the PR template so that we can efficiently review the changes
 
 ### Creating good pull requests
 
@@ -107,6 +107,7 @@ Make sure that the PR you are opening is of a good quality in order to be consid
   - Tests should fail when your non-test code is absent
   - Tests should include reasonable permutations of the target fix/change
 - No warnings are introduced by the changes when running unit tests
+- It does not contain unused or commented code
 - Follow the [coding guidelines](https://github.com/Farfetch/blackout/wiki/Coding-Guidelines)
 
 ## Workflow
@@ -128,6 +129,8 @@ Our maintainers look at pull requests on a regular basis, and the process follow
 2. After being reviewed, it is tested by our internal QA team
    1. Applicable to bugfixes and features
 3. After being approved, it is merged
+
+If we request some changes to the PR after review, please add the changes in a new commit to ease reviewing. After the changes are reviewed and the PR is ready to be merged, we may ask you to squash your commits to keep git history clean.
 
 Note that after feedback has been given we expect responses within two weeks. After two weeks we may close the pull request if it isn't showing any activity.
 
