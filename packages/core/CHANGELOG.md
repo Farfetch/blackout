@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.81.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.80.0...@farfetch/blackout-core@1.81.0) (2023-03-01)
+
+
+### Bug Fixes
+
+* **core:** overwrite shipping and billing address state ([be36e3f](https://github.com/Farfetch/blackout/commit/be36e3f9efbcf5383abc3979466ecf6d094b42f4))
+
+
+### Features
+
+* **core|redux:** add get return workflow endpoint ([89ec3ac](https://github.com/Farfetch/blackout/commit/89ec3ac5d70b6aa25a6d13c45cfa7a64aa2bdc69))
+
+
+
+
+
 # [1.80.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.79.0...@farfetch/blackout-core@1.80.0) (2023-02-21)
 
 
