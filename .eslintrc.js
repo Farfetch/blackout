@@ -17,6 +17,12 @@ module.exports = {
   plugins: ['sort-imports-es6-autofix', 'eslint-plugin-tsdoc', 'prettier'],
   rules: {
     curly: 'error',
+    'import/no-anonymous-default-export': [
+      'error',
+      {
+        allowNew: true,
+      },
+    ],
     'require-await': 'error',
     'no-duplicate-imports': 'error',
     '@typescript-eslint/consistent-type-imports': [
