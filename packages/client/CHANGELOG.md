@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.243](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.242...@farfetch/blackout-client@2.0.0-next.243) (2023-03-01)
+
+
+### Features
+
+* **client:** add metadata to bag item and requests types ([d2959c9](https://github.com/Farfetch/blackout/commit/d2959c987747fb46dc5968676540e0beeaeabdbf))
+
+
+
+
+
 # [2.0.0-next.242](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.241...@farfetch/blackout-client@2.0.0-next.242) (2023-02-23)
 
 
