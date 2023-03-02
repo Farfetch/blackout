@@ -18,14 +18,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 
 const bagMockStore = (state = {}) => mockStore({ bag: INITIAL_STATE }, state);
 const expectedConfig = undefined;
-const payload = {
-  result: mockBagId,
-  entities: {
-    bagPromocodesInformation: {
-      [mockBagId]: mockBagPromocodesResponse.promoCodesInformation,
-    },
-  },
-};
+const payload = mockBagPromocodesResponse;
 
 let store: ReturnType<typeof bagMockStore>;
 

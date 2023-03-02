@@ -3,17 +3,12 @@
 exports[`setBagPromocodes() action creator should create the correct actions for when the set bag promocodes procedure is successful: set bag promocodes success payload 1`] = `
 Object {
   "payload": Object {
-    "entities": Object {
-      "bagPromocodesInformation": Object {
-        "7894746": Array [
-          Object {
-            "isValid": true,
-            "promoCode": "code-1",
-          },
-        ],
+    "promoCodesInformation": Array [
+      Object {
+        "isValid": true,
+        "promoCode": "code-1",
       },
-    },
-    "result": "7894746",
+    ],
   },
   "type": "@farfetch/blackout-redux/SET_BAG_PROMOCODES_SUCCESS",
 }

@@ -8,6 +8,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
+import type { SetBagPromocodesAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to set.
@@ -19,7 +20,9 @@ import type { Dispatch } from 'redux';
 const setBagPromocodesFactory =
   (putBagPromocodes: PutBagPromocodes) =>
   (bagId: Bag['id'], data: PutBagPromocodesData, config?: Config) =>
-  async (dispatch: Dispatch): Promise<BagPromocodesInformation> => {
+  async (
+    dispatch: Dispatch<SetBagPromocodesAction>,
+  ): Promise<BagPromocodesInformation> => {
     try {
       dispatch({
         type: actionTypes.SET_BAG_PROMOCODES_REQUEST,
@@ -28,12 +31,7 @@ const setBagPromocodesFactory =
       const result = await putBagPromocodes(bagId, data, config);
 
       await dispatch({
-        payload: {
-          result: bagId,
-          entities: {
-            bagPromocodesInformation: { [bagId]: result.promoCodesInformation },
-          },
-        },
+        payload: result,
         type: actionTypes.SET_BAG_PROMOCODES_SUCCESS,
       });
 

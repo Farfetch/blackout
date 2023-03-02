@@ -696,33 +696,62 @@ describe('bags redux selectors', () => {
 
   describe('getBagPromocodesError()', () => {
     it('should get the bag promocodes error property from state', () => {
-      const expectedResult = mockState.bag.bagPromocodes.error;
-      const spy = jest.spyOn(fromBag, 'getBagPromocodesError');
+      const mockError = toBlackoutError(new Error('unexpected error'));
 
-      expect(selectors.getBagPromocodesError(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
+      const mockErrorState = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          bagPromocodes: {
+            ...mockState.bag.bagPromocodes,
+            error: mockError,
+          },
+        },
+      };
+
+      expect(selectors.getBagPromocodesError(mockErrorState)).toBe(mockError);
     });
   });
 
   describe('areBagPromocodesLoading()', () => {
     it('should get the bag promocodes loading status from state', () => {
-      const expectedResult = mockState.bag.bagPromocodes.isLoading;
-      const spy = jest.spyOn(fromBag, 'getAreBagPromocodesLoading');
+      const mockIsLoading = true;
 
-      expect(selectors.areBagPromocodesLoading(mockState)).toBe(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
+      const mockLoadingState = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          bagPromocodes: {
+            ...mockState.bag.bagPromocodes,
+            isLoading: mockIsLoading,
+          },
+        },
+      };
+
+      expect(selectors.areBagPromocodesLoading(mockLoadingState)).toBe(
+        mockIsLoading,
+      );
     });
   });
 
   describe('getBagPromocodesInformation()', () => {
     it('should return all bag promocodes information', () => {
-      const spy = jest.spyOn(fromBag, 'getId');
-      const expectedResult = mockBagPromocodesResponse.promoCodesInformation;
+      const mockPromocodesInformation = mockBagPromocodesResponse;
 
-      expect(selectors.getBagPromocodesInformation(mockState)).toEqual(
-        expectedResult,
+      const mockDataState = {
+        ...mockState,
+        bag: {
+          ...mockState.bag,
+          bagPromocodes: {
+            ...mockState.bag.bagPromocodes,
+            result: mockPromocodesInformation,
+          },
+        },
+      };
+
+      expect(selectors.getBagPromocodesInformation(mockDataState)).toEqual(
+        mockPromocodesInformation.promoCodesInformation,
       );
-      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

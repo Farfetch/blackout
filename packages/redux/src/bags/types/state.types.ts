@@ -1,6 +1,7 @@
 import type {
   BagItem,
   BagOperation,
+  BagPromocodesInformation,
   BlackoutError,
 } from '@farfetch/blackout-client';
 import type { BagNormalized } from '../types/index.js';
@@ -24,6 +25,7 @@ export type BagOperationsState = CombinedState<{
 export type BagPromocodesState = {
   error: BlackoutError | null;
   isLoading: boolean;
+  result: BagPromocodesInformation | undefined | null;
 };
 
 export type BagsState = CombinedState<{
