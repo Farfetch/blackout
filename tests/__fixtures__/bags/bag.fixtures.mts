@@ -84,6 +84,7 @@ export const mockInitialState = {
     bagPromocodes: {
       error: null,
       isLoading: false,
+      result: undefined,
     },
   },
   entities: {
@@ -210,8 +211,9 @@ export const mockState = {
       },
     },
     bagPromocodes: {
-      error: toBlackoutError(new Error('unexpected error')),
+      error: null,
       isLoading: false,
+      result: undefined,
     },
   },
   entities: {

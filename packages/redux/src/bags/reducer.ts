@@ -4,9 +4,13 @@ import {
   FETCH_USER_SUCCESS,
   LOGOUT_SUCCESS,
 } from '../users/authentication/actionTypes.js';
-import reducerFactory from '../helpers/reducerFactory.js';
 import type { BagItem } from '@farfetch/blackout-client';
-import type { BagItemsState, BagsState } from './types/index.js';
+import type {
+  BagItemsState,
+  BagsState,
+  SetBagPromocodesFailureAction,
+  SetBagPromocodesSuccessAction,
+} from './types/index.js';
 import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: BagsState = {
@@ -28,6 +32,7 @@ export const INITIAL_STATE: BagsState = {
   bagPromocodes: {
     error: null,
     isLoading: false,
+    result: undefined,
   },
 };
 
@@ -198,18 +203,40 @@ const bagOperations = (
   }
 };
 
-const bagPromocodes = reducerFactory(
-  'SET_BAG_PROMOCODES',
-  INITIAL_STATE.bagPromocodes,
-  actionTypes,
-);
+const bagPromocodes = (
+  state = INITIAL_STATE.bagPromocodes,
+  action: AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.SET_BAG_PROMOCODES_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case actionTypes.SET_BAG_PROMOCODES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        result: (action as SetBagPromocodesSuccessAction).payload,
+      };
+    case actionTypes.SET_BAG_PROMOCODES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: (action as SetBagPromocodesFailureAction).payload.error,
+      };
+    default:
+      return state;
+  }
+};
 
 const resetBagEntities = (state: NonNullable<StoreState['entities']>) => {
   if (!state) {
     return state;
   }
 
-  const { bagItems, bagOperations, bagPromocodesInformation, ...rest } = state;
+  const { bagItems, bagOperations, ...rest } = state;
 
   return rest;
 };
@@ -248,6 +275,8 @@ export const getAreBagPromocodesLoading = (state: BagsState) =>
   state.bagPromocodes.isLoading;
 export const getBagPromocodesError = (state: BagsState) =>
   state.bagPromocodes.error;
+export const getBagPromocodesResult = (state: BagsState) =>
+  state.bagPromocodes.result;
 
 const reducer = combineReducers({
   bagPromocodes,

@@ -2,7 +2,7 @@ export * as bagsActionTypes from './actionTypes.js';
 
 export * from './actions/index.js';
 export * from './actions/factories/index.js';
-export * as bagMiddlewares from './middlewares/index.js';
+export * as bagsMiddlewares from './middlewares/index.js';
 export * from './selectors.js';
 export * from './utils/index.js';
 

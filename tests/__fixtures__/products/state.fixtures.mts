@@ -197,6 +197,7 @@ export const mockProductsState = {
     bagPromocodes: {
       error: null,
       isLoading: false,
+      result: undefined,
     },
   },
   entities: {

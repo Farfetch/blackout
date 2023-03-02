@@ -1,7 +1,6 @@
 export * from './addresses.types.js';
 export * from './bagItem.types.js';
 export * from './bagOperation.types.js';
-export * from './bagPromocodesInformation.types.js';
 export * from './benefit.types.js';
 export * from './brand.types.js';
 export * from './category.types.js';

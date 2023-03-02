@@ -5,7 +5,7 @@ import {
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
   CreationChannelLegacy,
-  CustomerType,
+  CustomerTypeLegacy,
   DeliveryWindowType,
   GenderCode,
   PurchaseChannel,
@@ -105,7 +105,7 @@ describe('checkout client', () => {
             },
           ],
           currency: 'string',
-          customerType: CustomerType.Normal,
+          customerType: CustomerTypeLegacy.Normal,
           grandTotal: 0,
           id: 0,
           items: [

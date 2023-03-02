@@ -285,7 +285,7 @@ Object {
             },
           ],
           "currency": "EUR",
-          "customerType": "Normal",
+          "customerType": 0,
           "formattedGrandTotal": "102 €",
           "formattedSubTotalAmount": "100 €",
           "formattedSubTotalAmountExclTaxes": "100 €",
