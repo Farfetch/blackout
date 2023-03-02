@@ -209,6 +209,12 @@ Object {
     "Estimated": 1,
     "Nominated": 0,
   },
+  "EligibleOfferType": Object {
+    "1": "OfferMoneyOff",
+    "2": "OfferPercentOff",
+    "OfferMoneyOff": 1,
+    "OfferPercentOff": 2,
+  },
   "ExchangeBookRequestStatus": Object {
     "Error": "Error",
     "None": "None",

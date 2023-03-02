@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import {
   getAreBagPromocodesLoading,
   getAreItemsLoading,
+  getBagPromocodesResult,
   getError,
   getId,
   getIsBagOperationLoading,
@@ -791,12 +792,5 @@ export const areBagPromocodesLoading = (state: StoreState) =>
  * });
  * ```
  */
-export const getBagPromocodesInformation = (state: StoreState) => {
-  const bagId = getBagId(state);
-
-  if (!bagId) {
-    return;
-  }
-
-  return getEntityById(state, 'bagPromocodesInformation', bagId);
-};
+export const getBagPromocodesInformation = (state: StoreState) =>
+  getBagPromocodesResult(state.bag as BagsState)?.promoCodesInformation;

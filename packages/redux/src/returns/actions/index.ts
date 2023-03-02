@@ -9,6 +9,3 @@ export { default as resetReturnPickupCapabilityState } from './resetReturnPickup
 export { default as resetReturns } from './resetReturns.js';
 export { default as resetReturnState } from './resetReturnState.js';
 export { default as updateReturn } from './updateReturn.js';
-export { default as fetchReturnPickupRescheduleRequest } from './fetchReturnPickupRescheduleRequest.js';
-export { default as fetchReturnPickupRescheduleRequests } from './fetchReturnPickupRescheduleRequests.js';
-export { default as createReturnPickupRescheduleRequest } from './createReturnPickupRescheduleRequest.js';

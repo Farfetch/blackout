@@ -1,8 +1,9 @@
 import type { CheckoutAddress } from '../../types/common/address.types.js';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from './index.js';
-import type { CustomerType } from '../../orders/types/order.types.js';
+import type { CustomerTypeLegacy } from '../../orders/types/order.types.js';
 import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types.js';
 import type { PaymentIntent } from '../../payments/index.js';
+import type { PromotionEvaluationId } from '../../promotionEvaluations/index.js';
 
 export enum ShippingMode {
   ByMerchant = 'ByMerchant',
@@ -38,7 +39,7 @@ export type CheckoutOrder = {
     userId: string;
   }[];
   currency: string;
-  customerType: CustomerType;
+  customerType: CustomerTypeLegacy;
   grandTotal: number;
   items: CheckoutOrderItem[];
   locale: string;
@@ -71,4 +72,5 @@ export type CheckoutOrder = {
   isGuestUser: boolean;
   shippingMode: ShippingMode;
   paymentIntentId?: PaymentIntent['id'];
+  promotionEvaluationId?: PromotionEvaluationId;
 };

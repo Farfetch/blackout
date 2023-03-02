@@ -2,6 +2,7 @@ import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BagItem,
+  BagPromocodesInformation,
   BlackoutError,
   Brand,
   Category,
@@ -166,3 +167,22 @@ export type FetchBagOperationAction =
   | FetchBagRequestAction
   | FetchBagSuccessAction
   | FetchBagFailureAction;
+
+export interface SetBagPromocodesRequestAction extends Action {
+  type: typeof actionTypes.SET_BAG_PROMOCODES_REQUEST;
+}
+export interface SetBagPromocodesSuccessAction extends Action {
+  type: typeof actionTypes.SET_BAG_PROMOCODES_SUCCESS;
+  payload: BagPromocodesInformation;
+}
+export interface SetBagPromocodesFailureAction extends Action {
+  type: typeof actionTypes.SET_BAG_PROMOCODES_FAILURE;
+  payload: { error: BlackoutError };
+}
+/**
+ * Actions dispatched when the set bag promocodes request is made.
+ */
+export type SetBagPromocodesAction =
+  | SetBagPromocodesRequestAction
+  | SetBagPromocodesSuccessAction
+  | SetBagPromocodesFailureAction;

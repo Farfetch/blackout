@@ -77,33 +77,3 @@ export const UPDATE_RETURN_REQUEST =
  */
 export const UPDATE_RETURN_SUCCESS =
   '@farfetch/blackout-redux/UPDATE_RETURN_SUCCESS';
-
-/** Action type dispatched when the fetch pickup reschedule requests fails. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_FAILURE =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_FAILURE';
-/** Action type dispatched when the fetch pickup reschedule requests starts. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_REQUEST';
-/** Action type dispatched when the fetch pickup reschedule requests succeeds. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUESTS_SUCCESS';
-
-/** Action type dispatched when the fetch pickup reschedule request fails. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE';
-/** Action type dispatched when the fetch pickup reschedule request starts. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST';
-/** Action type dispatched when the fetch pickup reschedule request succeeds. */
-export const FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS =
-  '@farfetch/blackout-redux/FETCH_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS';
-
-/** Action type dispatched when the create pickup reschedule request fails. */
-export const CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE =
-  '@farfetch/blackout-redux/CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_FAILURE';
-/** Action type dispatched when the create pickup reschedule request starts. */
-export const CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_REQUEST =
-  '@farfetch/blackout-redux/CREATE_PICKUP_RETURN_RESCHEDULE_REQUEST_REQUEST';
-/** Action type dispatched when the create pickup reschedule request succeeds. */
-export const CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS =
-  '@farfetch/blackout-redux/CREATE_RETURN_PICKUP_RESCHEDULE_REQUEST_SUCCESS';
