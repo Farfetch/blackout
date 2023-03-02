@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
+import { produce } from 'immer';
 import omit from 'lodash/omit';
-import produce from 'immer';
 import reducerFactory, {
   createReducerWithResult,
 } from '../../helpers/reducerFactory';

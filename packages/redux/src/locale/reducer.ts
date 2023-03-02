@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
+import { produce } from 'immer';
 import get from 'lodash/get';
-import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
 import type { LocaleState } from './types';
 import type { StoreState } from '../types';

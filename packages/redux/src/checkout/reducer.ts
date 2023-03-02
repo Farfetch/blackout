@@ -1,12 +1,12 @@
 import * as actionTypes from './actionTypes';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import { produce } from 'immer';
 import assignWith from 'lodash/assignWith';
 import createMergedObject from '../helpers/createMergedObject';
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 import mergeWith from 'lodash/mergeWith';
-import produce from 'immer';
 import reducerFactory, {
   createReducerWithResult,
 } from '../helpers/reducerFactory';
