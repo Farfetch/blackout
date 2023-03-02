@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.381](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.380...@farfetch/blackout-redux@1.0.0-next.381) (2023-03-02)
+
+
+### Bug Fixes
+
+* **redux:** fix immer imports to work with nodenext ([076c010](https://github.com/Farfetch/blackout/commit/076c01028c5682c8bce7672fb41860582c61e76a))
+
+
+
+
+
 # [1.0.0-next.380](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.379...@farfetch/blackout-redux@1.0.0-next.380) (2023-03-01)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
