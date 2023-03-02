@@ -6,9 +6,9 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from '../users/authentication/actionTypes';
+import { produce } from 'immer';
 import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash';
 import omit from 'lodash/omit';
-import produce from 'immer';
 import type {
   FetchReturnFailureAction,
   FetchReturnPickupCapabilityFailureAction,

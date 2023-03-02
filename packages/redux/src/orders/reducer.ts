@@ -6,9 +6,9 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from '../users/authentication/actionTypes';
+import { produce } from 'immer';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
-import produce from 'immer';
 import reducerFactory from '../helpers/reducerFactory';
 import type * as T from './types';
 import type {
