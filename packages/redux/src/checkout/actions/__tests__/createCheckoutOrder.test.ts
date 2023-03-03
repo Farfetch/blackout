@@ -29,8 +29,15 @@ describe('createCheckoutOrder() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
   const normalizeSpy = jest.spyOn(normalizr, 'normalize');
-  const bagId = '3243-343424-2545';
-  const guestUserEmail = 'optional@optinal.com';
+  const mockData = {
+    bagId: '3243-343424-2545',
+    guestUserEmail: 'optional@optinal.com',
+    metadata: {
+      someKey: 'someValue',
+      anotherKey: 'anotherValue',
+    },
+  };
+
   const expectedConfig = undefined;
   let store: ReturnType<typeof checkoutMockStore>;
 
@@ -46,7 +53,7 @@ describe('createCheckoutOrder() action creator', () => {
 
     await expect(
       async () =>
-        await createCheckoutOrder({ bagId, guestUserEmail })(
+        await createCheckoutOrder(mockData)(
           store.dispatch,
           store.getState as () => StoreState,
           { getOptions },
@@ -54,10 +61,7 @@ describe('createCheckoutOrder() action creator', () => {
     ).rejects.toThrow(expectedError);
 
     expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
-    expect(postCheckoutOrder).toHaveBeenCalledWith(
-      { bagId, guestUserEmail },
-      expectedConfig,
-    );
+    expect(postCheckoutOrder).toHaveBeenCalledWith(mockData, expectedConfig);
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
         { type: actionTypes.CREATE_CHECKOUT_ORDER_REQUEST },
@@ -72,7 +76,7 @@ describe('createCheckoutOrder() action creator', () => {
   it('should create the correct actions for when the create checkout procedure is successful', async () => {
     (postCheckoutOrder as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-    await createCheckoutOrder({ bagId, guestUserEmail })(
+    await createCheckoutOrder(mockData)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -84,10 +88,7 @@ describe('createCheckoutOrder() action creator', () => {
 
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(postCheckoutOrder).toHaveBeenCalledTimes(1);
-    expect(postCheckoutOrder).toHaveBeenCalledWith(
-      { bagId, guestUserEmail },
-      expectedConfig,
-    );
+    expect(postCheckoutOrder).toHaveBeenCalledWith(mockData, expectedConfig);
 
     expect(actionResults).toMatchObject([
       { type: actionTypes.CREATE_CHECKOUT_ORDER_REQUEST },
