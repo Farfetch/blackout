@@ -458,6 +458,10 @@ describe('useCheckout', () => {
       const createData = {
         bagId: 'dummyBagId',
         guestUserEmail: 'guest@dummy.com',
+        metadata: {
+          someKey: 'someValue',
+          anotherKey: 'anotherValue',
+        },
       };
 
       it('should create a checkout order if checkoutId is not passed, the user is guest and createData is passed and its guestUserEmail property is set', () => {
