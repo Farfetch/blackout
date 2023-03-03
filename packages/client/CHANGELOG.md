@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.244](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.243...@farfetch/blackout-client@2.0.0-next.244) (2023-03-03)
+
+
+### Bug Fixes
+
+* **client:** add metadata in post checkout order request and types ([88b956f](https://github.com/Farfetch/blackout/commit/88b956f65dc3f35c063d7be76153d234fee710c8))
+
+
+
+
+
 # [2.0.0-next.243](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.242...@farfetch/blackout-client@2.0.0-next.243) (2023-03-01)
 
 
