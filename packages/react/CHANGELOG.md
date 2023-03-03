@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.394](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.393...@farfetch/blackout-react@1.0.0-next.394) (2023-03-03)
+
+
+### Bug Fixes
+
+* **client:** add metadata in post checkout order request and types ([88b956f](https://github.com/Farfetch/blackout/commit/88b956f65dc3f35c063d7be76153d234fee710c8))
+
+
+
+
+
 # [1.0.0-next.393](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.392...@farfetch/blackout-react@1.0.0-next.393) (2023-03-02)
 
 **Note:** Version bump only for package @farfetch/blackout-react
