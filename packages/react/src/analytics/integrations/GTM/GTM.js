@@ -297,8 +297,14 @@ class GTM extends Integration {
       return this;
     }
 
+    const uniqueEventId = get(
+      data,
+      `context.event.${coreUtils.ANALYTICS_UNIQUE_EVENT_ID}`,
+    );
+
     const payload = {
       ...eventProperties,
+      [coreUtils.ANALYTICS_UNIQUE_EVENT_ID]: uniqueEventId,
       type: data.type,
       event: data.event,
     };

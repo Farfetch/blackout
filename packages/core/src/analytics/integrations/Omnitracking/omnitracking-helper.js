@@ -3,6 +3,7 @@
  * @private
  */
 
+import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils';
 import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
@@ -35,7 +36,7 @@ import platformTypes from '../../types/platformTypes';
 export const getCommonParameters = data => {
   return {
     clientTimestamp: new Date(data.timestamp).toJSON(),
-    uuid: get(data, 'context.event.__uniqueEventId'),
+    uuid: get(data, `context.event.${ANALYTICS_UNIQUE_EVENT_ID}`),
   };
 };
 
@@ -318,7 +319,6 @@ export const getValParameterForEvent = (valParameters = {}) => {
  * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
  *
  * @param {object} data - Event data passed by analytics.
- 
  * @returns {string} - The payment attempt reference ID.
  */
 export const generatePaymentAttemptReferenceId = data => {

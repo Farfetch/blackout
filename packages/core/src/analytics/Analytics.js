@@ -1,4 +1,9 @@
-import { getContextDefaults, logger, StorageWrapper } from './utils';
+import {
+  ANALYTICS_UNIQUE_EVENT_ID,
+  getContextDefaults,
+  logger,
+  StorageWrapper,
+} from './utils';
 import { Integration } from './integrations';
 import { v4 as uuidv4 } from 'uuid';
 import Consent from './Consent';
@@ -556,7 +561,7 @@ class Analytics {
     Object.assign(context, {
       event: {
         ...eventContext,
-        __uniqueEventId: uuidv4(),
+        [ANALYTICS_UNIQUE_EVENT_ID]: uuidv4(),
       },
     });
 

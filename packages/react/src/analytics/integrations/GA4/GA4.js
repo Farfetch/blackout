@@ -37,7 +37,6 @@ import {
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-  OPTION_UNIQUE_EVENT_ID_KEY,
 } from './constants';
 import { validateFields } from './validation/optionsValidator';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
@@ -369,11 +368,14 @@ class GA4 extends integrations.Integration {
    */
   postProcessEvent(command, data) {
     const eventProperties = command[2];
-    const uniqueEventId = get(data, 'context.event.__uniqueEventId');
+    const uniqueEventId = get(
+      data,
+      `context.event.${utils.ANALYTICS_UNIQUE_EVENT_ID}`,
+    );
     const contextLocation = utils.getLocation(data);
 
     if (typeof eventProperties === 'object') {
-      eventProperties[OPTION_UNIQUE_EVENT_ID_KEY] = uniqueEventId;
+      eventProperties[utils.ANALYTICS_UNIQUE_EVENT_ID] = uniqueEventId;
 
       if (data.type === analyticsTrackTypes.TRACK) {
         eventProperties['page_path'] =
