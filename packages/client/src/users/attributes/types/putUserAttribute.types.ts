@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { UserAttributeData } from '.';
+import type { Config } from '../../../types/index.js';
+import type { UserAttributeData } from './index.js';
 
 export type PutUserAttribute = (
   id: number,

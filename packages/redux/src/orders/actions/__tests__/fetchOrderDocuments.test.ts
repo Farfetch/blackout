@@ -1,12 +1,15 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchOrderDocuments } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchOrderDocuments } from '../index.js';
 import {
   getOrderDocuments,
   OrderDocumentType,
 } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer.js';
+import {
+  mockOrderDocumentsResponse,
+  orderId,
+} from 'tests/__fixtures__/orders/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

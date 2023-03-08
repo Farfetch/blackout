@@ -1,5 +1,5 @@
-export { default as createUserContact } from './createUserContact';
-export { default as fetchUserContact } from './fetchUserContact';
-export { default as fetchUserContacts } from './fetchUserContacts';
-export { default as removeUserContact } from './removeUserContact';
-export { default as updateUserContact } from './updateUserContact';
+export { default as createUserContact } from './createUserContact.js';
+export { default as fetchUserContact } from './fetchUserContact.js';
+export { default as fetchUserContacts } from './fetchUserContacts.js';
+export { default as removeUserContact } from './removeUserContact.js';
+export { default as updateUserContact } from './updateUserContact.js';

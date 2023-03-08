@@ -1,2 +1,2 @@
-export * from './useSubscriptionPackages.types';
-export * from './useUserSubscriptions.types';
+export * from './useSubscriptionPackages.types.js';
+export * from './useUserSubscriptions.types.js';

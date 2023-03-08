@@ -1,11 +1,11 @@
-import { getSearchDidYouMean } from '..';
+import { getSearchDidYouMean } from '../index.js';
 import {
   mockSearchDidYouMeanQuery,
   mockSearchDidYouMeanResponse,
-} from 'tests/__fixtures__/search';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSearchDidYouMean.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/search/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSearchDidYouMean.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('search did you mean client', () => {
   const expectedConfig = undefined;

@@ -17,9 +17,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 // Types
-import type { UseWishlistOptions } from './types';
+import type { UseWishlistOptions } from './types/index.js';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with

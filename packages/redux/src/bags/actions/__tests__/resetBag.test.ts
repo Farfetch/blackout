@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import { resetBag, resetBagOperationsEntities } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetBag, resetBagOperationsEntities } from '../index.js';
 
 describe('resetBag() action creator', () => {
   let store: ReturnType<typeof mockStore>;

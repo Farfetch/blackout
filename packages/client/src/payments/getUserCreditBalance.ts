@@ -1,6 +1,6 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import type { GetUserCreditBalance } from './types';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import type { GetUserCreditBalance } from './types/index.js';
 
 /**
  * Method responsible for getting the user credit balance.

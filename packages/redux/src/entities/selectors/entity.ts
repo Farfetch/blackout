@@ -1,4 +1,4 @@
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 type StateEntities = NonNullable<StoreState['entities']>;
 

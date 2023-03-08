@@ -3,8 +3,8 @@ import {
   breadcrumbsResult,
   breadcrumbsResultEmpty,
   MockRenderScript,
-} from './__fixtures__';
-import structuredBreadcrumbs from '../structuredBreadcrumbs';
+} from './__fixtures__/index.js';
+import structuredBreadcrumbs from '../structuredBreadcrumbs.js';
 
 describe('structuredBreadcrumbs', () => {
   it('should correctly generate JSON-LD for a list of breadcrumbs', () => {

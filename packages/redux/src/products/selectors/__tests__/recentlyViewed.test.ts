@@ -1,12 +1,11 @@
-import * as recentlyViewedReducer from '../../reducer/recentlyViewedProducts';
-import * as selectors from '../recentlyViewedProducts';
+import * as recentlyViewedReducer from '../../reducer/recentlyViewedProducts.js';
+import * as selectors from '../recentlyViewedProducts.js';
 import {
   expectedRecentlyViewedLocalPayload,
   expectedRecentlyViewedRemotePayload,
-} from 'tests/__fixtures__/products';
-import omit from 'lodash/omit';
-import uniqBy from 'lodash/uniqBy';
-import type { StoreState } from '../../../types';
+} from 'tests/__fixtures__/products/index.mjs';
+import { omit, uniqBy } from 'lodash-es';
+import type { StoreState } from '../../../types/index.js';
 
 describe('RecentlyViewed redux selectors', () => {
   const mockState: StoreState = {

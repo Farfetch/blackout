@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes.js';
 import wishlistsSetReducer, {
   INITIAL_STATE as SETS_INITIAL_STATE,
-} from './wishlistsSets';
-import type { StoreState } from '../../types';
-import type { WishlistSetsState, WishlistsState } from '../types';
+} from './wishlistsSets.js';
+import type { StoreState } from '../../types/index.js';
+import type { WishlistSetsState, WishlistsState } from '../types/index.js';
 
 export const INITIAL_STATE: WishlistsState = {
   error: null,

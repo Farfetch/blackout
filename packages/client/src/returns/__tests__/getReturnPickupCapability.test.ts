@@ -1,9 +1,9 @@
-import { getReturnPickupCapability } from '..';
-import { id, responses } from 'tests/__fixtures__/returns';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getReturnPickupCapability.fixtures';
+import { getReturnPickupCapability } from '../index.js';
+import { id, responses } from 'tests/__fixtures__/returns/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getReturnPickupCapability.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getReturnPickupCapability', () => {
   const pickupDay = '2020-04-20';

@@ -1,12 +1,12 @@
-import * as fromEntities from '../../../entities/selectors/entity';
-import * as fromWishlistSets from '../../reducer/wishlistsSets';
-import * as selectors from '..';
+import * as fromEntities from '../../../entities/selectors/entity.js';
+import * as fromWishlistSets from '../../reducer/wishlistsSets.js';
+import * as selectors from '../index.js';
 import {
   mockProductId,
   mockWishlistItemId,
   mockWishlistSetId,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 describe('wishlists redux selectors', () => {

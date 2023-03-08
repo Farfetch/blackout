@@ -1,14 +1,18 @@
-import { address, id, instrumentId } from 'tests/__fixtures__/payments';
+import {
+  address,
+  id,
+  instrumentId,
+} from 'tests/__fixtures__/payments/index.mjs';
 import {
   type Amounts,
   type Payer,
   PayerAddressType,
   ShopperInteraction,
-} from '../types';
-import { putPaymentIntentInstrument } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/putPaymentIntentInstrument.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from '../types/index.js';
+import { putPaymentIntentInstrument } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putPaymentIntentInstrument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('putPaymentIntentInstrument', () => {
   const expectedConfig = undefined;

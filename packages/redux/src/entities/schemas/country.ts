@@ -1,5 +1,5 @@
 import { schema } from 'normalizr';
-import state from './state';
+import state from './state.js';
 
 export default new schema.Entity(
   'countries',

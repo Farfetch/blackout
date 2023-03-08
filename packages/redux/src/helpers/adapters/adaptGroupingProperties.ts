@@ -1,5 +1,5 @@
-import adaptProductImages from './adaptProductImages';
-import type { AdaptGroupingProperties } from '../../entities';
+import adaptProductImages from './adaptProductImages.js';
+import type { AdaptGroupingProperties } from '../../entities/index.js';
 
 const adaptGroupingProperties: AdaptGroupingProperties = groupingProperties =>
   groupingProperties &&

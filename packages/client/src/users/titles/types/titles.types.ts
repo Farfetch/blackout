@@ -1,5 +1,5 @@
-import type { Config, PagedResponse } from '../../../types';
-import type { GetUserTitlesQuery } from './query.types';
+import type { Config, PagedResponse } from '../../../types/index.js';
+import type { GetUserTitlesQuery } from './query.types.js';
 
 export type Title = {
   id: string;

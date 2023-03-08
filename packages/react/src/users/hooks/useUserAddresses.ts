@@ -12,16 +12,16 @@ import {
   updateUserAddress as updateAddressAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { usePrevious, useUser } from '../..';
+import { usePrevious, useUser } from '../../index.js';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type {
   Config,
   User,
   UserAddress,
   UserAddressInput,
 } from '@farfetch/blackout-client';
-import type { UseUserAddressesOptions } from './types/useUserAddresses.types';
+import type { UseUserAddressesOptions } from './types/useUserAddresses.types.js';
 
 const isPreferredAddress = (address: UserAddress) =>
   !!address.isCurrentPreferred;

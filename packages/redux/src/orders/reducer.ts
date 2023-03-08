@@ -1,16 +1,15 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../users/authentication/actionTypes';
+} from '../users/authentication/actionTypes.js';
+import { merge, omit } from 'lodash-es';
 import { produce } from 'immer';
-import merge from 'lodash/merge';
-import omit from 'lodash/omit';
-import reducerFactory from '../helpers/reducerFactory';
-import type * as T from './types';
+import reducerFactory from '../helpers/reducerFactory.js';
+import type * as T from './types/index.js';
 import type {
   FetchOrderReturnOptionsSuccessAction,
   FetchOrderReturnsSuccessAction,
@@ -18,13 +17,13 @@ import type {
   ResetOrderReturnOptionsStateAction,
   ResetOrderReturnsEntitiesAction,
   ResetOrderReturnsStateAction,
-} from './types';
+} from './types/index.js';
 import type {
   OrderEntity,
   ReturnEntity,
   ReturnOptionEntity,
-} from '../entities/types';
-import type { StoreState } from '../types';
+} from '../entities/types/index.js';
+import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: T.OrdersState = {
   error: null,

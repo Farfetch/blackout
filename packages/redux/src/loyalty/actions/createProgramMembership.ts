@@ -1,4 +1,4 @@
-import { createProgramMembershipFactory } from './factories';
+import { createProgramMembershipFactory } from './factories/index.js';
 import { postProgramMembership } from '@farfetch/blackout-client';
 
 /**

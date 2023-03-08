@@ -1,4 +1,4 @@
-import type { CheckoutOrderItem } from './checkoutOrderItem.types';
+import type { CheckoutOrderItem } from './checkoutOrderItem.types.js';
 
 enum Action {
   DecreaseQuantity = 'DecreaseQuantity',

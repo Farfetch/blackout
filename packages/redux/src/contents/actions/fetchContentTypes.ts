@@ -1,4 +1,4 @@
-import { fetchContentTypesFactory } from './factories';
+import { fetchContentTypesFactory } from './factories/index.js';
 import { getContentTypes } from '@farfetch/blackout-client';
 
 /**

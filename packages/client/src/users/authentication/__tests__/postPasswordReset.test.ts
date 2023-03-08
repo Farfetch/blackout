@@ -1,7 +1,7 @@
-import { postPasswordReset } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postPasswordReset.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postPasswordReset } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPasswordReset.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postPasswordReset', () => {
   const spy = jest.spyOn(client, 'post');

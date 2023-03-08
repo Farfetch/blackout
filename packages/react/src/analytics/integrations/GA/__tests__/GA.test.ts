@@ -4,7 +4,7 @@ import {
   DEFAULT_IN_STOCK_METRIC,
   DEFAULT_OUT_OF_STOCK_METRIC,
   MAX_PRODUCT_CATEGORIES,
-} from '../constants';
+} from '../constants.js';
 import {
   type EventData,
   EventTypes,
@@ -16,25 +16,24 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
+import { get, merge } from 'lodash-es';
 import {
   loadIntegrationData,
   onSetUserEventData,
   pageEventsData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
-import { validationSchemaBuilder } from '../..';
-import defaultEventCommands from '../commands';
-import GA from '../GA';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
-import type { DefaultPageFixturesResult } from 'tests/__fixtures__/analytics/page';
+} from 'tests/__fixtures__/analytics/index.mjs';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import { validationSchemaBuilder } from '../../index.js';
+import defaultEventCommands from '../commands.js';
+import GA from '../GA.js';
+import type { DefaultPageFixturesResult } from 'tests/__fixtures__/analytics/page/index.mjs';
 import type {
   GACommandList,
   GAIntegrationOptions,
   ScopeCommands,
-} from '../types';
-import type { TrackFixtures } from 'tests/__fixtures__/analytics/track';
+} from '../types/index.js';
+import type { TrackFixtures } from 'tests/__fixtures__/analytics/track/index.mjs';
 
 const mockedPageData = pageEventsData[
   PageTypes.HOMEPAGE
@@ -248,7 +247,7 @@ describe('GA Integration', () => {
             'page',
             get(mockedPageData, 'context.web.window.location.pathname', '') +
               utils.stringifyQuery(
-                get(mockedPageData, 'context.web.window.location.query', ''),
+                get(mockedPageData, 'context.web.window.location.query', {}),
               ),
           ],
           ['send', 'pageview'],
@@ -967,12 +966,13 @@ describe('GA Integration', () => {
 
             await gaInstance.track(trackEventsData[EventTypes.PRODUCT_VIEWED]);
 
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_OUT_OF_STOCK_METRIC],
-            ).toBe(1);
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_IN_STOCK_METRIC],
-            ).toBe(0);
+            const parameters = gaSpy.mock.calls[1]?.[1] as Record<
+              string,
+              unknown
+            >;
+
+            expect(parameters[DEFAULT_OUT_OF_STOCK_METRIC]).toBe(1);
+            expect(parameters[DEFAULT_IN_STOCK_METRIC]).toBe(0);
           });
 
           it('Should ignore the out of stock metric if is not defined', async () => {
@@ -988,12 +988,13 @@ describe('GA Integration', () => {
 
             await gaInstance.track(trackEventsData[EventTypes.PRODUCT_VIEWED]);
 
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_OUT_OF_STOCK_METRIC],
-            ).toBeUndefined();
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_IN_STOCK_METRIC],
-            ).toBeUndefined();
+            const parameters = gaSpy.mock.calls[1]?.[1] as Record<
+              string,
+              unknown
+            >;
+
+            expect(parameters[DEFAULT_OUT_OF_STOCK_METRIC]).toBeUndefined();
+            expect(parameters[DEFAULT_IN_STOCK_METRIC]).toBeUndefined();
           });
 
           it('Should track the default custom metric for the cart value', async () => {
@@ -1004,9 +1005,14 @@ describe('GA Integration', () => {
 
             await gaInstance.track(trackData);
 
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_CART_VALUE_METRIC],
-            ).toEqual(trackData.properties.price);
+            const parameters = gaSpy.mock.calls[1]?.[1] as Record<
+              string,
+              unknown
+            >;
+
+            expect(parameters[DEFAULT_CART_VALUE_METRIC]).toEqual(
+              trackData.properties.price,
+            );
           });
 
           it('Should ignore the cart value metric if is not defined', async () => {
@@ -1024,9 +1030,12 @@ describe('GA Integration', () => {
               trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
             );
 
-            expect(
-              get(gaSpy, 'mock.calls[1][1]')[DEFAULT_CART_VALUE_METRIC],
-            ).toBeUndefined();
+            const parameters = gaSpy.mock.calls[1]?.[1] as Record<
+              string,
+              unknown
+            >;
+
+            expect(parameters[DEFAULT_CART_VALUE_METRIC]).toBeUndefined();
           });
         });
 

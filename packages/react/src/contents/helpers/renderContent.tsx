@@ -1,7 +1,7 @@
-import { Component } from '../components';
-import map from 'lodash/map';
+import { Component } from '../components/index.js';
+import { map } from 'lodash-es';
 import React, { type ReactElement } from 'react';
-import type { ComponentProps } from '../types';
+import type { ComponentProps } from '../types/index.js';
 import type { ContentEntry } from '@farfetch/blackout-client';
 
 /**

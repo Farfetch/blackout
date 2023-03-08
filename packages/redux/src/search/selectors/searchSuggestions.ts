@@ -1,5 +1,5 @@
-import type { SearchHash as Hash } from '../types';
-import type { StoreState } from '../../types';
+import type { SearchHash as Hash } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /*
  * @param state - Application state.

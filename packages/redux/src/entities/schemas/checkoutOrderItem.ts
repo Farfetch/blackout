@@ -2,10 +2,10 @@ import {
   adaptAttributes,
   adaptPrice,
   adaptProductImages,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
-import checkoutOrderItemProduct from './checkoutOrderItemProduct';
-import merchant from './merchant';
+import checkoutOrderItemProduct from './checkoutOrderItemProduct.js';
+import merchant from './merchant.js';
 
 export default new schema.Entity(
   'checkoutOrderItems',

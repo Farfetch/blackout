@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useOrders from '../../useOrders';
+import useOrders from '../../useOrders.js';
 
 export const Orders = () => {
   const [fetchQuery, setFetchQuery] = useState({ page: 1 });

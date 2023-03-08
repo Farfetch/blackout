@@ -6,10 +6,10 @@ import {
   mockCommercePagesInitialState,
   mockCommercePagesLoadingState,
   mockCommercePagesState,
-} from 'tests/__fixtures__/contents';
+} from 'tests/__fixtures__/contents/index.mjs';
 import { fetchCommercePages } from '@farfetch/blackout-redux';
-import { withStore } from '../../../../tests/helpers';
-import useCommercePages from '../useCommercePages';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCommercePages from '../useCommercePages.js';
 
 const mockDispatch = jest.fn();
 

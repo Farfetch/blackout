@@ -5,18 +5,22 @@ import {
   getGenderValueFromProperties,
   getProductLineItems,
   getProductLineItemsQuantity,
-} from './omnitracking-helper';
-import { getProductId, logger } from '../../utils';
-import EventTypes from '../../types/EventTypes';
-import InteractionTypes from '../../types/InteractionTypes';
-import isNil from 'lodash/isNil';
-import PageTypes from '../../types/PageTypes';
-import type { EventData, EventProperties, TrackTypesValues } from '../..';
+} from './omnitracking-helper.js';
+import { getProductId, logger } from '../../utils/index.js';
+import { isNil } from 'lodash-es';
+import EventTypes from '../../types/EventTypes.js';
+import InteractionTypes from '../../types/InteractionTypes.js';
+import PageTypes from '../../types/PageTypes.js';
+import type {
+  EventData,
+  EventProperties,
+  TrackTypesValues,
+} from '../../index.js';
 import type {
   OmnitrackingPageEventsMapper,
   OmnitrackingTrackEventParameters,
   OmnitrackingTrackEventsMapper,
-} from './types/Omnitracking.types';
+} from './types/Omnitracking.types.js';
 
 export const PRODUCT_ID_PARAMETER = 'productId';
 

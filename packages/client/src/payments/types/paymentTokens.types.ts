@@ -1,3 +1,3 @@
-import type { PaymentToken } from '.';
+import type { PaymentToken } from './index.js';
 
 export type PaymentTokens = PaymentToken[];

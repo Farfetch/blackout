@@ -1,7 +1,7 @@
-import { postLogout } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postLogout.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postLogout } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postLogout.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postLogout', () => {
   const spy = jest.spyOn(client, 'post');

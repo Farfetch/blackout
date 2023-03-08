@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import { resetOrderReturnsState } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetOrderReturnsState } from '../index.js';
 
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state);

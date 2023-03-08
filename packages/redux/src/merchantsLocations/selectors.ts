@@ -3,11 +3,11 @@ import {
   getEntities,
   getEntityById,
   type MerchantLocationEntity,
-} from '../entities';
-import { getError, getIsLoading } from './reducer';
+} from '../entities/index.js';
+import { getError, getIsLoading } from './reducer.js';
 import type { MerchantLocation } from '@farfetch/blackout-client';
-import type { MerchantsLocationsState } from './types';
-import type { StoreState } from '../types';
+import type { MerchantsLocationsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the loading merchants locations status.

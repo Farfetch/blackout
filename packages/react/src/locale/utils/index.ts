@@ -2,4 +2,4 @@
  * Locale utils.
  */
 
-export { default as currencyFormatter } from './currencyFormatter';
+export { default as currencyFormatter } from './currencyFormatter.js';

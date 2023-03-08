@@ -1,4 +1,4 @@
-import type { LoginResponse } from '../types';
+import type { LoginResponse } from '../types/index.js';
 
 export const mockResponse: LoginResponse = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',

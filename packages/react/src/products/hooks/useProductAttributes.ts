@@ -9,8 +9,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseProductAttributesOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { UseProductAttributesOptions } from './types/index.js';
 
 const useProductAttributes = (
   productId: ProductEntity['id'],

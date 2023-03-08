@@ -1,5 +1,5 @@
 import { schema } from 'normalizr';
-import courier from './courier';
+import courier from './courier.js';
 
 export default new schema.Entity(
   'labelTracking',

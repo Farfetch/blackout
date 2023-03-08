@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { GetUserAddress } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { GetUserAddress } from './types/index.js';
 
 /**
  * Responsible for getting the details of the address with the specified 'id'.

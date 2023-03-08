@@ -1,11 +1,11 @@
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   mockCategoryId,
   mockScaleId,
   mockSizeScale,
   mockState,
-} from 'tests/__fixtures__/sizeScales';
+} from 'tests/__fixtures__/sizeScales/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 const error = toBlackoutError(new Error('This is an error'));

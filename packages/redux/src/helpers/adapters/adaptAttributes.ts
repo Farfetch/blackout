@@ -1,5 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import type { AdaptAttributes, AttributesAdapted } from './types';
+import { isEmpty } from 'lodash-es';
+import type { AdaptAttributes, AttributesAdapted } from './types/index.js';
 import type { Size } from '@farfetch/blackout-client';
 
 /**

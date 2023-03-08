@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import Text from '../text/Text';
+import Text from '../text/Text.js';
 
 describe('<Text />', () => {
   const data = {

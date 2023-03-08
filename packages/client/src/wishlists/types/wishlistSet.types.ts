@@ -1,4 +1,4 @@
-import type { WishlistItem } from './wishlistItem.types';
+import type { WishlistItem } from './wishlistItem.types.js';
 
 export type WishlistSetItem = {
   createdByStaffMemberId?: string | null;

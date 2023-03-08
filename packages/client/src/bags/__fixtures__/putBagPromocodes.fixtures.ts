@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { BagPromocodesInformation } from '../types';
+import type { BagPromocodesInformation } from '../types/index.js';
 
 const path = '/api/commerce/v1/bags/:bagId/promocodes';
 

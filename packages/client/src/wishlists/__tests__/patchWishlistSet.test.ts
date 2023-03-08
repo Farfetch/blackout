@@ -2,11 +2,11 @@ import {
   mockWishlistId,
   mockWishlistSetId,
   mockWishlistSetPatchData,
-} from 'tests/__fixtures__/wishlists';
-import { patchWishlistSet } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/patchWishlistSet.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import { patchWishlistSet } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchWishlistSet.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('patchWishlistSet', () => {
   const expectedConfig = undefined;

@@ -1,5 +1,5 @@
-import type { Config, PagedResponse } from '../../../types';
-import type { User } from '../../authentication/types/user.types';
+import type { Config, PagedResponse } from '../../../types/index.js';
+import type { User } from '../../authentication/types/user.types.js';
 
 export type UserCreditMovement = {
   type: number;

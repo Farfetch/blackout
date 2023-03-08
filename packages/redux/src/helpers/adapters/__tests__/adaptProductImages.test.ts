@@ -1,9 +1,9 @@
-import { adaptProductImages } from '..';
+import { adaptProductImages } from '../index.js';
 import {
   digitalAssets,
   groupedProductImages,
   productImages,
-} from '../__fixtures__/adapters.fixtures';
+} from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptProductImages()', () => {
   const adapterMatcher = expect.arrayContaining([

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ProductGroupingProperties } from '../types';
+import type { ProductGroupingProperties } from '../types/index.js';
 
 const path = '/api/commerce/v1/products/:id/groupingProperties';
 

@@ -1,26 +1,26 @@
-import * as actionTypes from '../../../wishlists/actionTypes';
-import { analyticsWishlistMiddleware } from '../../middlewares/wishlist';
-import { getBrand } from '../../../brands';
-import { getCategory } from '../../../categories';
-import { getProduct } from '../../../products/selectors/product';
-import { getWishlistItem } from '../../../wishlists';
-import { mockStore } from '../../../../tests';
-import { mockWishlistItem } from 'tests/__fixtures__/wishlists';
+import * as actionTypes from '../../../wishlists/actionTypes.js';
+import { analyticsWishlistMiddleware } from '../../middlewares/wishlist.js';
+import { getBrand } from '../../../brands/index.js';
+import { getCategory } from '../../../categories/index.js';
+import { getProduct } from '../../../products/selectors/product.js';
+import { getWishlistItem } from '../../../wishlists/index.js';
+import { merge } from 'lodash-es';
+import { mockStore } from '../../../../tests/index.js';
+import { mockWishlistItem } from 'tests/__fixtures__/wishlists/index.mjs';
 import {
   wishlistMockData,
   wishlistSetId,
-} from 'tests/__fixtures__/analytics/wishlist';
+} from 'tests/__fixtures__/analytics/wishlist/index.mjs';
 import Analytics, {
   EventTypes,
   FromParameterTypes,
   utils,
 } from '@farfetch/blackout-analytics';
-import merge from 'lodash/merge';
 import type {
   ProductEntity,
   WishlistItemDenormalized,
-} from '../../../entities/types';
-import type { StoreState } from '../../../types';
+} from '../../../entities/types/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({

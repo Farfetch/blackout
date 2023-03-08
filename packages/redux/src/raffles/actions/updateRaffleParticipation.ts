@@ -1,5 +1,5 @@
 import { patchRaffleParticipation } from '@farfetch/blackout-client';
-import updateRaffleParticipationFactory from './factories/updateRaffleParticipationFactory';
+import updateRaffleParticipationFactory from './factories/updateRaffleParticipationFactory.js';
 
 /**
  * Update a raffle participation.

@@ -1,8 +1,11 @@
-import { getSizeScale } from '../';
-import { mockScaleId, mockSizeScale } from 'tests/__fixtures__/sizeScales';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSizeScale.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getSizeScale } from '..//index.js';
+import {
+  mockScaleId,
+  mockSizeScale,
+} from 'tests/__fixtures__/sizeScales/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSizeScale.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('sizeScales client', () => {
   const expectedConfig = undefined;

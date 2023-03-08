@@ -3,8 +3,8 @@ import {
   articleResult,
   metadata,
   MockRenderScript,
-} from './__fixtures__';
-import structuredArticle from '../structuredArticle';
+} from './__fixtures__/index.js';
+import structuredArticle from '../structuredArticle.js';
 
 const { date, url, title, image, author, breadcrumbs, publisher } = article;
 

@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import { resetWishlistState } from '../';
-import INITIAL_STATE from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetWishlistState } from '..//index.js';
+import INITIAL_STATE from '../../reducer/index.js';
 
 let store: ReturnType<typeof mockStore>;
 

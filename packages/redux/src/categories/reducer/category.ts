@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { AnyAction, Reducer } from 'redux';
-import type { CategoryState } from '../types';
+import type { CategoryState } from '../types/index.js';
 
 export const INITIAL_STATE: CategoryState = {
   isLoading: {},

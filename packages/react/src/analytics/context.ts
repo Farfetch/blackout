@@ -1,4 +1,4 @@
-import merge from 'lodash/merge';
+import { merge } from 'lodash-es';
 import parse from 'url-parse';
 
 export type WebContextType = {

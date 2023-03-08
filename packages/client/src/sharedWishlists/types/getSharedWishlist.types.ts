@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { SharedWishlist } from './sharedWishlist.types';
+import type { Config } from '../../index.js';
+import type { SharedWishlist } from './sharedWishlist.types.js';
 
 export type GetSharedWishlist = (
   id: SharedWishlist['id'],

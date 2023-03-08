@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { UserPreference } from '../types';
+import type { UserPreference } from '../types/index.js';
 
 const path = '/api/account/v1/users/:mockUserId/preferences';
 

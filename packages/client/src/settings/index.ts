@@ -2,7 +2,7 @@
  * Management Configurations clients.
  */
 
-export { default as getConfiguration } from './getConfiguration';
-export { default as getConfigurations } from './getConfigurations';
+export { default as getConfiguration } from './getConfiguration.js';
+export { default as getConfigurations } from './getConfigurations.js';
 
-export * from './types';
+export * from './types/index.js';

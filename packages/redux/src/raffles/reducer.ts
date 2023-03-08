@@ -1,13 +1,13 @@
-import * as actionRafflesTypes from './types/rafflesActions.types';
-import * as actionTypes from './actionTypes';
+import * as actionRafflesTypes from './types/rafflesActions.types.js';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes.js';
 import createReducer, {
   createReducerWithResult,
-} from '../helpers/reducerFactory';
-import type * as T from './types';
-import type { RafflesState } from './types';
-import type { StoreState } from '../types';
+} from '../helpers/reducerFactory.js';
+import type * as T from './types/index.js';
+import type { RafflesState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: T.RafflesState = {
   allRaffles: {},

@@ -1,5 +1,5 @@
 import { schema } from 'normalizr';
-import checkoutOrder from './checkoutOrder';
+import checkoutOrder from './checkoutOrder.js';
 
 export default new schema.Entity(
   'checkoutDetails',

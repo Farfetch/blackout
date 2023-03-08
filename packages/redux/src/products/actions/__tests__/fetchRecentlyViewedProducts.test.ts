@@ -1,11 +1,11 @@
-import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
-import { fetchRecentlyViewedProducts } from '../';
+import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products/index.mjs';
+import { fetchRecentlyViewedProducts } from '..//index.js';
+import { find } from 'lodash-es';
 import { getRecentlyViewedProducts } from '@farfetch/blackout-client';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../../';
-import find from 'lodash/find';
-import reducer from '../../reducer';
-import type { StoreState } from '../../../types';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../..//index.js';
+import reducer from '../../reducer/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => {
   return {

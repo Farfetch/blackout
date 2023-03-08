@@ -1,5 +1,5 @@
-import type { ComponentType, ContentEntry } from './contents.types';
-import type { Config, PagedResponse } from '../../types';
+import type { ComponentType, ContentEntry } from './contents.types.js';
+import type { Config, PagedResponse } from '../../types/index.js';
 
 export enum ContentPageType {
   Product = 'PRODUCT',

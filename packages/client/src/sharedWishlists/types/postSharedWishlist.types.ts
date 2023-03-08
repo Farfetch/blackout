@@ -1,6 +1,6 @@
-import type { Config } from '../..';
-import type { SharedWishlist } from './sharedWishlist.types';
-import type { Wishlist, WishlistSet } from '../../wishlists/types';
+import type { Config } from '../../index.js';
+import type { SharedWishlist } from './sharedWishlist.types.js';
+import type { Wishlist, WishlistSet } from '../../wishlists/types/index.js';
 
 export type PostSharedWishlistData = {
   wishlistId: Wishlist['id'];

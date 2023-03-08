@@ -1,9 +1,13 @@
-import { DEFAULT_MEDIA } from '../../..';
-import { Play, Player, Thumbnails, VideoContainer } from './styles';
-import Image from '../image';
+import { DEFAULT_MEDIA } from '../../../index.js';
+import { Play, Player, Thumbnails, VideoContainer } from './styles.js';
+import Image from '../image/index.js';
 import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
-import type { VideoComponent } from '../../../../../types';
+import ReactPlayerImport from 'react-player';
+import type { VideoComponent } from '../../../../../types/index.js';
+
+// react-player is a cjs package whose module.exports is an object
+// with a "default" property pointing to the ReactPlayer component.
+const ReactPlayer = ReactPlayerImport.default;
 
 const Video = ({
   data,

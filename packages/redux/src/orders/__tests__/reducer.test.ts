@@ -1,5 +1,5 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
 import {
   expectedOrderReturnOptionsNormalizedPayload,
   expectedOrderReturnsNormalizedPayload,
@@ -17,19 +17,18 @@ import {
   returnOptionEntity2,
   returnOptionId,
   returnOptionId2,
-} from 'tests/__fixtures__/orders';
+} from 'tests/__fixtures__/orders/index.mjs';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../../users/authentication/actionTypes';
+} from '../../users/authentication/actionTypes.js';
+import { merge, omit } from 'lodash-es';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import merge from 'lodash/merge';
-import omit from 'lodash/omit';
-import reducer, { entitiesMapper } from '../reducer';
-import type { OrdersState } from '../types';
-import type { StoreState } from '../../types';
+import reducer, { entitiesMapper } from '../reducer.js';
+import type { OrdersState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 let initialState: OrdersState;
 const randomAction = { type: 'this_is_a_random_action' };

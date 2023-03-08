@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetOrderDocuments,
@@ -8,7 +8,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchOrderDocumentsAction } from '../../types/actions.types';
+import type { FetchOrderDocumentsAction } from '../../types/actions.types.js';
 
 /**
  * Action responsible for fetching the documents of the respective order.

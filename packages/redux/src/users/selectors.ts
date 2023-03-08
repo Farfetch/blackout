@@ -1,9 +1,9 @@
-import { getEntities, type UserEntity } from '../entities';
-import { getError, getIsLoading } from './reducer';
-import { USER_ID_PROPERTY } from './constants';
-import get from 'lodash/get';
-import type { StoreState } from '../types';
-import type { UsersState } from './types';
+import { get } from 'lodash-es';
+import { getEntities, type UserEntity } from '../entities/index.js';
+import { getError, getIsLoading } from './reducer.js';
+import { USER_ID_PROPERTY } from './constants.js';
+import type { StoreState } from '../types/index.js';
+import type { UsersState } from './types/index.js';
 
 /** Common selectors */
 
@@ -142,12 +142,12 @@ export const getUserBagId = (user: UserEntity | undefined) =>
 export const getUserTitle = (user: UserEntity | undefined) =>
   get(user, 'title');
 
-export * from './addresses/selectors';
-export * from './attributes/selectors';
-export * from './authentication/selectors';
-export * from './benefits/selectors';
-export * from './contacts/selectors';
-export * from './credits/selectors';
-export * from './personalIds/selectors';
-export * from './preferences/selectors';
-export * from './titles/selectors';
+export * from './addresses/selectors.js';
+export * from './attributes/selectors.js';
+export * from './authentication/selectors.js';
+export * from './benefits/selectors.js';
+export * from './contacts/selectors.js';
+export * from './credits/selectors.js';
+export * from './personalIds/selectors.js';
+export * from './preferences/selectors.js';
+export * from './titles/selectors.js';

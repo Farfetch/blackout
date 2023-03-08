@@ -1,5 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import type { FacetEntity } from '../../entities/types';
+import { isEmpty } from 'lodash-es';
+import type { FacetEntity } from '../../entities/types/index.js';
 
 /**
  * Build all the children below a certain facetId, by facetId received. This is a

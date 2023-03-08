@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Subscription } from '../types';
+import type { Subscription } from '../types/index.js';
 
 const path = '/api/marketing/v1/subscriptions';
 

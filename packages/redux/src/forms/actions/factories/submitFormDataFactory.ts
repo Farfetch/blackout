@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type PostFormData,
   type SubmittedFormData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { SubmitFormDataAction } from '../../types';
-import type { SubmitFormDataFactory } from './types';
+import type { SubmitFormDataAction } from '../../types/index.js';
+import type { SubmitFormDataFactory } from './types/index.js';
 
 /**
  * Method responsible for posting Form data based on a schema.

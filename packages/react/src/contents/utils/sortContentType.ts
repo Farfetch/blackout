@@ -1,4 +1,4 @@
-import { SortContentOption } from '../types/base.types';
+import { SortContentOption } from '../types/base.types.js';
 import type { ContentsEntity } from '@farfetch/blackout-redux';
 
 /**

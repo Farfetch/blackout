@@ -1,4 +1,4 @@
-import { addOrderDocumentFactory } from './factories';
+import { addOrderDocumentFactory } from './factories/index.js';
 import { postOrderDocument } from '@farfetch/blackout-client';
 
 /**

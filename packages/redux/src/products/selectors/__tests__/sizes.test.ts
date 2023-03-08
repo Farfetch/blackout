@@ -1,11 +1,11 @@
-import * as selectors from '../sizes';
+import * as selectors from '../sizes.js';
 import {
   mockOutOfStockSizes,
   mockProductEntity,
   mockProductId,
   mockProductSizesAdapted,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Sizes', () => {
   describe('areProductSizesLoading()', () => {

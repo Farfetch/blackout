@@ -7,10 +7,8 @@ import {
   type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
-import { MAX_PRODUCT_CATEGORIES } from './constants';
-import get from 'lodash/get';
-import isObject from 'lodash/isObject';
-import snakeCase from 'lodash/snakeCase';
+import { get, isObject, snakeCase } from 'lodash-es';
+import { MAX_PRODUCT_CATEGORIES } from './constants.js';
 
 export const InternalEventTypes = {
   PRODUCT_UPDATED: {

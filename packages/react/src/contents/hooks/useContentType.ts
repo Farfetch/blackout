@@ -9,9 +9,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { ComponentType } from '@farfetch/blackout-client';
-import type { UseContentTypeOptions } from './types/useContentType.types';
+import type { UseContentTypeOptions } from './types/useContentType.types.js';
 
 function useContentType<T = ComponentType[]>(
   contentTypeCode: string,

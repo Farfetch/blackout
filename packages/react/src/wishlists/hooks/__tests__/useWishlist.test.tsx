@@ -10,14 +10,14 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockUserInitialState,
   mockUsersResponse,
-} from 'tests/__fixtures__/users';
+} from 'tests/__fixtures__/users/index.mjs';
 import {
   mockWishlistId,
   mockWishlistItemId,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
-import { withStore } from '../../../../tests/helpers';
-import useWishlist from '../useWishlist';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useWishlist from '../useWishlist.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockUserState = {

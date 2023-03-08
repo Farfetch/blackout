@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSearchIntents,
@@ -6,9 +6,9 @@ import {
   type SearchIntentsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateSearchIntentsHash } from '../../helpers';
+import { generateSearchIntentsHash } from '../../helpers/index.js';
 import type { Dispatch } from 'redux';
-import type { FetchSearchIntentsAction } from '../../types';
+import type { FetchSearchIntentsAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch the search

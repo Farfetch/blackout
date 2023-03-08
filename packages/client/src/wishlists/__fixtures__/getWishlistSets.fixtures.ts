@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { WishlistSets } from '../types';
+import type { WishlistSets } from '../types/index.js';
 
 const path = '/api/commerce/v1/wishlists/:wishlistId/sets';
 

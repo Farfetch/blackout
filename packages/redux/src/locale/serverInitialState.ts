@@ -1,8 +1,8 @@
-import { INITIAL_STATE_LOCALE } from './reducer';
+import { INITIAL_STATE_LOCALE } from './reducer.js';
+import { isEmpty } from 'lodash-es';
 import { normalize } from 'normalizr';
-import country from '../entities/schemas/country';
-import isEmpty from 'lodash/isEmpty';
-import type { ServerInitialState } from '../types/serverInitialState.types';
+import country from '../entities/schemas/country.js';
+import type { ServerInitialState } from '../types/serverInitialState.types.js';
 
 /**
  * Converts server data for locale into store state.

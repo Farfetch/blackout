@@ -1,13 +1,13 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import categoryReducer, {
   INITIAL_STATE as CATEGORY_INITIAL_STATE,
-} from './category';
+} from './category.js';
 import topCategoryReducer, {
   INITIAL_STATE as TOP_CATEGORIES_INITIAL_STATE,
-} from './topCategories';
+} from './topCategories.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { CategoriesState } from '../types';
+import type { CategoriesState } from '../types/index.js';
 
 export const INITIAL_STATE: CategoriesState = {
   error: null,

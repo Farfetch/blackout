@@ -1,18 +1,18 @@
-import * as fromWishlistReducer from '../reducer/wishlists';
-import { buildWishlistItem, generateWishlistItemHash } from '../utils';
-import { type CategoryEntity, getEntities } from '../../entities';
+import * as fromWishlistReducer from '../reducer/wishlists.js';
+import { buildWishlistItem, generateWishlistItemHash } from '../utils/index.js';
+import { type CategoryEntity, getEntities } from '../../entities/index.js';
 import { createSelector } from 'reselect';
-import { getWishlistSetsIds } from './wishlistsSets';
+import { getWishlistSetsIds } from './wishlistsSets.js';
 import type { Brand, WishlistItem } from '@farfetch/blackout-client';
-import type { BuildWishlistItemData } from '../utils/buildWishlistItem';
+import type { BuildWishlistItemData } from '../utils/buildWishlistItem.js';
 import type {
   ProductEntity,
   WishlistItemDenormalized,
   WishlistItemEntity,
   WishlistSetEntity,
-} from '../../entities/types';
-import type { StoreState } from '../../types';
-import type { WishlistsState } from '../types';
+} from '../../entities/types/index.js';
+import type { StoreState } from '../../types/index.js';
+import type { WishlistsState } from '../types/index.js';
 
 /**
  * Retrieves the universal identifier of the current user's wishlist.

@@ -10,8 +10,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseBrandsOptions } from './types/useBrands';
+import useAction from '../../helpers/useAction.js';
+import type { UseBrandsOptions } from './types/useBrands.js';
 
 const useBrands = (options: UseBrandsOptions = {}) => {
   const {

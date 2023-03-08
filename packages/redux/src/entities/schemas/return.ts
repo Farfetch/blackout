@@ -1,7 +1,7 @@
-import { adaptDate } from '../../helpers/adapters';
+import { adaptDate } from '../../helpers/adapters/index.js';
+import { omit } from 'lodash-es';
 import { schema } from 'normalizr';
-import omit from 'lodash/omit';
-import returnItem from './returnItem';
+import returnItem from './returnItem.js';
 
 export default new schema.Entity(
   'returns',

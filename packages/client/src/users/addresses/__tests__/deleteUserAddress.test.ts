@@ -1,8 +1,11 @@
-import { deleteUserAddress } from '..';
-import { addressId as id, userId } from 'tests/__fixtures__/addresses';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteUserAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { deleteUserAddress } from '../index.js';
+import {
+  addressId as id,
+  userId,
+} from 'tests/__fixtures__/addresses/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteUserAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteUserAddress', () => {
   const expectedConfig = undefined;

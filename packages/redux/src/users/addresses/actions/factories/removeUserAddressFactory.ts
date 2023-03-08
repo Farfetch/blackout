@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type DeleteUserAddress,
@@ -7,7 +7,7 @@ import {
   type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { RemoveUserAddressAction } from '../../types';
+import type { RemoveUserAddressAction } from '../../types/index.js';
 
 /**
  * Responsible for removing the address with the specified 'addressId'.

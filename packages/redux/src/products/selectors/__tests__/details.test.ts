@@ -1,14 +1,14 @@
-import * as fromBags from '../../../bags/selectors';
-import * as fromProductEntities from '../product';
-import * as selectors from '../details';
+import * as fromBags from '../../../bags/selectors.js';
+import * as fromProductEntities from '../product.js';
+import * as selectors from '../details.js';
 import {
   mockBrandId,
   mockBreadCrumbs,
   mockGroupedEntries,
   mockProductId,
   mockProductsState,
-} from 'tests/__fixtures__/products';
-import { mockCategoryId } from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockCategoryId } from 'tests/__fixtures__/categories/index.mjs';
 
 beforeEach(() => {
   jest.clearAllMocks();

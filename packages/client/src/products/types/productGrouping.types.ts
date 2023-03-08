@@ -1,5 +1,5 @@
-import type { DigitalAsset } from './common.types';
-import type { PagedResponse } from '../../types';
+import type { DigitalAsset } from './common.types.js';
+import type { PagedResponse } from '../../types/index.js';
 
 export enum VariationPropertyType {
   Volume = 'Volume',

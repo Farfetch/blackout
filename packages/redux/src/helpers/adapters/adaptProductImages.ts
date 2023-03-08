@@ -1,7 +1,8 @@
-import groupBy from 'lodash/groupBy';
-import isArray from 'lodash/isArray';
-import isEmpty from 'lodash/isEmpty';
-import type { AdaptProductImages, GenerateSourcesByOrder } from './types';
+import { groupBy, isArray, isEmpty } from 'lodash-es';
+import type {
+  AdaptProductImages,
+  GenerateSourcesByOrder,
+} from './types/index.js';
 import type { Image } from '@farfetch/blackout-client';
 
 /**

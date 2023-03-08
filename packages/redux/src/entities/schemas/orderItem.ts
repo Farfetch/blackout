@@ -3,7 +3,7 @@ import {
   adaptDate,
   adaptPrice,
   adaptProductImages,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 import {
   CreationChannel,
   CreationChannelLegacy,
@@ -13,11 +13,11 @@ import {
   OrderItemStatusLegacy,
   ProductType,
 } from '@farfetch/blackout-client';
+import { defaultTo } from 'lodash-es';
 import { schema } from 'normalizr';
-import brand from './brand';
-import category from './category';
-import defaultTo from 'lodash/defaultTo';
-import merchant from './merchant';
+import brand from './brand.js';
+import category from './category.js';
+import merchant from './merchant.js';
 
 export default new schema.Entity(
   'orderItems',

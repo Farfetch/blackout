@@ -1,4 +1,4 @@
-import { fetchUserAddressFactory } from './factories';
+import { fetchUserAddressFactory } from './factories/index.js';
 import { getUserAddress } from '@farfetch/blackout-client';
 
 /**

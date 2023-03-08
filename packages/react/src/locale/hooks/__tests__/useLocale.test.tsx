@@ -4,9 +4,9 @@ import {
   mockCountry,
   mockCountryNormalized,
   mockLocaleState,
-} from 'tests/__fixtures__/locale';
-import { withStore } from '../../../../tests/helpers';
-import useLocale from '../useLocale';
+} from 'tests/__fixtures__/locale/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useLocale from '../useLocale.js';
 import type { StoreState } from '@farfetch/blackout-redux';
 
 const stateMockData: StoreState = {

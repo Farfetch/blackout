@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { RecommendedSet } from '../types';
+import type { RecommendedSet } from '../types/index.js';
 
 const path = '/api/commerce/v1/recommendedsets/:id';
 

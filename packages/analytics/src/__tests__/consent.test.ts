@@ -1,5 +1,5 @@
-import { StorageWrapper } from '../utils';
-import Consent from '../Consent';
+import { StorageWrapper } from '../utils/index.js';
+import Consent from '../Consent.js';
 import TestStorage from 'test-storage';
 
 describe('Consent', () => {

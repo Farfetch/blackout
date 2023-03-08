@@ -1,5 +1,5 @@
-import type { ClickAndCollect } from './checkoutOrder.types';
-import type { StoreAddress } from '../../types/common/address.types';
+import type { ClickAndCollect } from './checkoutOrder.types.js';
+import type { StoreAddress } from '../../types/common/address.types.js';
 
 export enum Weekday {
   Sunday,

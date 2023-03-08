@@ -1,19 +1,22 @@
-import { buildBagItem, generateBagItemHash } from '../../bags/utils';
+import { buildBagItem, generateBagItemHash } from '../../bags/utils/index.js';
 import { createSelector } from 'reselect';
 import {
   findProductInBag,
   getBagItems,
   getProductQuantityInBag,
-} from '../../bags';
-import { getError, getIsHydrated, getIsLoading } from '../reducer/details';
-import { getProduct, getProductDenormalized } from './product';
+} from '../../bags/index.js';
+import { getError, getIsHydrated, getIsLoading } from '../reducer/details.js';
+import { getProduct, getProductDenormalized } from './product.js';
 import type {
   GroupedEntriesAdapted,
   ProductEntity,
-} from '../../entities/types';
-import type { ProductsState } from '../types';
-import type { SizeAdapted, SizesAdapted } from '../../helpers/adapters';
-import type { StoreState } from '../../types';
+} from '../../entities/types/index.js';
+import type { ProductsState } from '../types/index.js';
+import type {
+  SizeAdapted,
+  SizesAdapted,
+} from '../../helpers/adapters/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns the error given by product actions.

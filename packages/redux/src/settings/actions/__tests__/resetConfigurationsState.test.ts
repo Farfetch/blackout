@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer/configurations';
-import { mockStore } from '../../../../tests';
-import { resetConfigurationsState } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer/configurations.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetConfigurationsState } from '../index.js';
 
 const buildConfigurationsMockStore = (state = {}) =>
   mockStore({ configurations: INITIAL_STATE }, state);

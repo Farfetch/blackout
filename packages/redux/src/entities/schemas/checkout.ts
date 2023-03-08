@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
-import checkoutOrder from './checkoutOrder';
-import deliveryBundles from './deliveryBundles';
+import checkoutOrder from './checkoutOrder.js';
+import deliveryBundles from './deliveryBundles.js';
 
 export default new schema.Entity(
   'checkout',

@@ -15,9 +15,9 @@ import {
   mockState,
   mockSubscriptionId,
   mockTopicId1,
-} from 'tests/__fixtures__/subscriptions';
-import { withStore } from '../../../../tests/helpers';
-import useUserSubscriptions from '../useUserSubscriptions';
+} from 'tests/__fixtures__/subscriptions/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useUserSubscriptions from '../useUserSubscriptions.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

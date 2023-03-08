@@ -1,4 +1,4 @@
-import { buildSubscriptionPackagesHash } from '..';
+import { buildSubscriptionPackagesHash } from '../index.js';
 
 describe('buildSubscriptionPackagesHash()', () => {
   it('should generate an hash', () => {

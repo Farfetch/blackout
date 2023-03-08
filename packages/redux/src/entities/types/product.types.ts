@@ -19,15 +19,15 @@ import type {
   ProductVariantMerchantLocation,
   WishlistItem,
 } from '@farfetch/blackout-client';
-import type { BrandEntity } from './brand.types';
-import type { CategoryEntity } from './category.types';
+import type { BrandEntity } from './brand.types.js';
+import type { CategoryEntity } from './category.types.js';
 import type {
   CustomAttributesAdapted,
   PriceAdapted,
   ProductImagesAdapted,
   SizesAdapted,
-} from '../../helpers/adapters';
-import type { MerchantEntity } from './merchant.types';
+} from '../../helpers/adapters/index.js';
+import type { MerchantEntity } from './merchant.types.js';
 
 export type GroupingAdapted =
   | (Omit<ProductGrouping, 'entries'> & {

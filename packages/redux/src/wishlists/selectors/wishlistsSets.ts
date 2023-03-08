@@ -1,16 +1,16 @@
-import * as fromWishlistSetsReducer from '../reducer/wishlistsSets';
+import * as fromWishlistSetsReducer from '../reducer/wishlistsSets.js';
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../../entities/selectors';
-import { getProductDenormalized } from '../../products';
-import type { StoreState } from '../../types';
+import { getEntities, getEntityById } from '../../entities/selectors/index.js';
+import { getProductDenormalized } from '../../products/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { WishlistSet } from '@farfetch/blackout-client';
 import type {
   WishlistSetDenormalized,
   WishlistSetEntity,
   WishlistSetsDenormalized,
-} from '../../entities/types';
-import type { WishlistSetsErrors } from './types/wishlistsSets.types';
-import type { WishlistsState } from '../types';
+} from '../../entities/types/index.js';
+import type { WishlistSetsErrors } from './types/wishlistsSets.types.js';
+import type { WishlistsState } from '../types/index.js';
 
 /**
  * Retrieves the error state of the current user's wishlist sets.

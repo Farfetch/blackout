@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { Product } from './product.types';
+import type { Config } from '../../index.js';
+import type { Product } from './product.types.js';
 
 export type RecommendedSet = {
   id: number;

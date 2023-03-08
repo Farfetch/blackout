@@ -1,5 +1,5 @@
 import { patchCheckoutOrderItem } from '@farfetch/blackout-client';
-import updateCheckoutOrderItemFactory from './factories/updateCheckoutOrderItemFactory';
+import updateCheckoutOrderItemFactory from './factories/updateCheckoutOrderItemFactory.js';
 
 /**
  * Update checkout order item

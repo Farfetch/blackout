@@ -1,7 +1,7 @@
-import { mockFilterSegments } from './__fixtures__/getListingSeoMetadataParams.fixtures';
+import { mockFilterSegments } from './__fixtures__/getListingSeoMetadataParams.fixtures.js';
 import getListingSeoMetadataParams, {
   getSubPageType,
-} from '../getListingSeoMetadataParams';
+} from '../getListingSeoMetadataParams.js';
 
 describe('getListingSeoMetadataParams', () => {
   it('should return params for a category listing', () => {

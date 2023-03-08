@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import subscriptionPackagesReducer, {
   subscriptionPackagesEntitiesMapper,
-} from './subscriptionPackages';
-import userSubscriptionReducer from './userSubscriptions';
+} from './subscriptionPackages.js';
+import userSubscriptionReducer from './userSubscriptions.js';
 
 export const entitiesMapper = {
   ...subscriptionPackagesEntitiesMapper,

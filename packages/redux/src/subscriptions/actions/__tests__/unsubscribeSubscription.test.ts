@@ -1,9 +1,9 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import { deleteSubscription } from '@farfetch/blackout-client';
-import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions';
-import { mockStore } from '../../../../tests';
-import { unsubscribeSubscription } from '..';
-import reducer from '../../reducer';
+import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { unsubscribeSubscription } from '../index.js';
+import reducer from '../../reducer/index.js';
 
 jest.mock('@farfetch/blackout-client', () => {
   return {

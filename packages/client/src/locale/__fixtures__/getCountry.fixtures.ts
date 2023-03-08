@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Country } from '../types';
+import type { Country } from '../types/index.js';
 
 const path = '/api/settings/v1/countries/:countryCode';
 

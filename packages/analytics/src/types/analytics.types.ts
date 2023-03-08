@@ -2,12 +2,12 @@ import type {
   CONSENT_CATEGORIES_PROPERTY,
   LOAD_INTEGRATION_TRACK_TYPE,
   ON_SET_USER_TRACK_TYPE,
-} from '../utils/constants';
-import type { Integration } from '../integrations';
+} from '../utils/constants.js';
+import type { Integration } from '../integrations/index.js';
 import type { User } from '@farfetch/blackout-client';
-import type TrackTypes from '../types/TrackTypes';
+import type TrackTypes from '../types/TrackTypes.js';
 
-export type TrackTypesValues = typeof TrackTypes[keyof typeof TrackTypes];
+export type TrackTypesValues = (typeof TrackTypes)[keyof typeof TrackTypes];
 
 export type ConsentData = {
   [k: string]: boolean;

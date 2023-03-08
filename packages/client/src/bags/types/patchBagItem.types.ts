@@ -1,8 +1,8 @@
-import type { Bag } from './bag.types';
-import type { BagItem, BagItemMetadata } from './bagItem.types';
-import type { Config } from '../..';
-import type { PatchBagItemQuery } from './query.types';
-import type { Product } from '../../products/types';
+import type { Bag } from './bag.types.js';
+import type { BagItem, BagItemMetadata } from './bagItem.types.js';
+import type { Config } from '../../index.js';
+import type { PatchBagItemQuery } from './query.types.js';
+import type { Product } from '../../products/types/index.js';
 
 export type PatchBagItemData = {
   // Product identifier.

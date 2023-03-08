@@ -1,6 +1,6 @@
-import merge from 'lodash/merge';
-import type { ConsentData } from './types/analytics.types';
-import type StorageWrapper from './utils/StorageWrapper';
+import { merge } from 'lodash-es';
+import type { ConsentData } from './types/analytics.types.js';
+import type StorageWrapper from './utils/StorageWrapper.js';
 
 /**
  * Stores the consent values in a new instance.

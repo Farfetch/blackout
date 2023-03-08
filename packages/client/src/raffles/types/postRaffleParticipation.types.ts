@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { Raffle, RaffleParticipation } from './raffles.types';
+import type { Config } from '../../index.js';
+import type { Raffle, RaffleParticipation } from './raffles.types.js';
 
 export type PostParticipationData = Pick<
   RaffleParticipation,

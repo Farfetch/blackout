@@ -1,10 +1,13 @@
-import { mockProductId, mockProductsState } from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+import {
+  mockProductId,
+  mockProductsState,
+} from 'tests/__fixtures__/products/index.mjs';
+import { productsActionTypes } from '../../index.js';
 import reducer, {
   getError,
   getIsLoading,
   INITIAL_STATE,
-} from '../groupingProperties';
+} from '../groupingProperties.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockAction = { type: 'foo' };

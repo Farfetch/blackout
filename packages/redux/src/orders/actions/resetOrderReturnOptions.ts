@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
-import { resetOrderReturnOptionsState } from '.';
+import * as actionTypes from '../actionTypes.js';
+import { resetOrderReturnOptionsState } from './index.js';
 import type { Dispatch } from 'redux';
 import type { Order } from '@farfetch/blackout-client';
 import type {
   ResetOrderReturnOptionsEntitiesAction,
   ResetOrderReturnOptionsStateAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**

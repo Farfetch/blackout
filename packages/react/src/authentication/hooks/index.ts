@@ -1,2 +1,2 @@
-export { default as useAuthentication } from './useAuthentication';
-export { default as useUserProfile } from './useUserProfile';
+export { default as useAuthentication } from './useAuthentication.js';
+export { default as useUserProfile } from './useUserProfile.js';

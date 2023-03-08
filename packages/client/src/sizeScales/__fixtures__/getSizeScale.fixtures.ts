@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { SizeScale } from '../types';
+import type { SizeScale } from '../types/index.js';
 
 const path = '/api/commerce/v1/sizeScales/:id';
 

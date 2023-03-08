@@ -2,11 +2,11 @@ import {
   mockBagId,
   mockBagPromocodesData,
   mockBagPromocodesResponse,
-} from 'tests/__fixtures__/bags';
-import { putBagPromocodes } from '../';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/putBagPromocodes.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/bags/index.mjs';
+import { putBagPromocodes } from '..//index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putBagPromocodes.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('putBagPromocodes', () => {
   const expectedConfig = undefined;

@@ -1,1 +1,1 @@
-export * from './wishlistsSets.types';
+export * from './wishlistsSets.types.js';

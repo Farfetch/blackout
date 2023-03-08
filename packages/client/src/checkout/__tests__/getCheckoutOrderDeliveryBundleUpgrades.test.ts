@@ -1,9 +1,12 @@
-import * as checkoutClient from '..';
-import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
-import { type DeliveryBundleUpgrades, DeliveryWindowType } from '../types';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgrades.fixtures';
-import mswServer from '../../../tests/mswServer';
+import * as checkoutClient from '../index.js';
+import { deliveryBundleId, id } from 'tests/__fixtures__/checkout/index.mjs';
+import {
+  type DeliveryBundleUpgrades,
+  DeliveryWindowType,
+} from '../types/index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgrades.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
   const spy = jest.spyOn(client, 'get');

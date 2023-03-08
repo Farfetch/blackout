@@ -1,4 +1,4 @@
 export {
   default as settingsReducer,
   entitiesMapper as settingsEntitiesMapper,
-} from './configurations';
+} from './configurations.js';

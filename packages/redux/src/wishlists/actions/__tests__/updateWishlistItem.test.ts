@@ -1,6 +1,6 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { INITIAL_STATE } from '../../reducer/wishlists';
+import { INITIAL_STATE } from '../../reducer/wishlists.js';
 import {
   mockProductId,
   mockProductImgQueryParam,
@@ -11,12 +11,12 @@ import {
   mockWishlistsResponse,
   mockWishlistState,
   wishlistItemMetadata,
-} from 'tests/__fixtures__/wishlists';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { patchWishlistItem } from '@farfetch/blackout-client';
-import { updateWishlistItem } from '../';
+import { updateWishlistItem } from '..//index.js';
 import thunk from 'redux-thunk';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

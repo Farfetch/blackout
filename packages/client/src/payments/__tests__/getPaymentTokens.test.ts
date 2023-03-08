@@ -1,13 +1,13 @@
-import { getPaymentTokens } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPaymentTokens.fixtures';
+import { getPaymentTokens } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPaymentTokens.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 import type {
   GetPaymentTokensQuery,
   PaymentToken,
   PaymentTokens,
-} from '../types';
+} from '../types/index.js';
 
 describe('getPaymentTokens', () => {
   const query: GetPaymentTokensQuery = { orderId: 1, showExpiredCards: false };

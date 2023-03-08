@@ -1,7 +1,7 @@
-import { INITIAL_STATE } from '../../reducer/details';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../..';
-import { resetProductDetailsState } from '..';
+import { INITIAL_STATE } from '../../reducer/details.js';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../../index.js';
+import { resetProductDetailsState } from '../index.js';
 
 describe('resetProductDetailsState() action creator', () => {
   let store: ReturnType<typeof mockStore>;

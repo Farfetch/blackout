@@ -1,6 +1,6 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   expectedPaymentTokensNormalizedPayload,
   instrumentId,
@@ -9,8 +9,8 @@ import {
   mockInitialState,
   mockPaymentInstrumentsWithDataState,
   paymentTokenId,
-} from 'tests/__fixtures__/payments';
-import { selectorAssertions } from '../../../tests/helpers';
+} from 'tests/__fixtures__/payments/index.mjs';
+import { selectorAssertions } from '../../../tests/helpers/index.js';
 
 const mockState = {
   ...mockInitialState,

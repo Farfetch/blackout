@@ -1,7 +1,7 @@
-import { getError, getIsLoading } from '../reducer/groupingProperties';
-import type { ProductEntity } from '../../entities/types';
-import type { ProductsState } from '../types';
-import type { StoreState } from '../../types';
+import { getError, getIsLoading } from '../reducer/groupingProperties.js';
+import type { ProductEntity } from '../../entities/types/index.js';
+import type { ProductsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns the loading grouping properties condition to a specific product.

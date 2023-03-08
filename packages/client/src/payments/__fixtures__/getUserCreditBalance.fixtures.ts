@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Balance } from '../types';
+import type { Balance } from '../types/index.js';
 
 const path = '/api/payment/v1/checkCreditBalance';
 

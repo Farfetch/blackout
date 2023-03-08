@@ -1,4 +1,4 @@
-import type { ShippingOption } from '.';
+import type { ShippingOption } from './index.js';
 
 export type CheckoutOrderMerchant = {
   merchantId: number;

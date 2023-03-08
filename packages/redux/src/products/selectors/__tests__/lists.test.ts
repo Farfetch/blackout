@@ -1,7 +1,8 @@
-import * as fromReducer from '../../reducer/lists';
-import * as selectors from '../lists';
+import * as fromReducer from '../../reducer/lists.js';
+import * as selectors from '../lists.js';
+import { cloneDeep } from 'lodash-es';
 import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
-import { mockBrandResponse } from 'tests/__fixtures__/brands';
+import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
 import {
   mockBreadCrumbs,
   mockFacets,
@@ -13,9 +14,8 @@ import {
   mockProductsListNormalizedPayload,
   mockProductsState,
   mockSetId,
-} from 'tests/__fixtures__/products';
-import { mockCategory } from 'tests/__fixtures__/categories';
-import cloneDeep from 'lodash/cloneDeep';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
 
 const mockFacetId = mockFacets[0]!.id;
 const mockFacetId1 = mockFacets[1]!.id;

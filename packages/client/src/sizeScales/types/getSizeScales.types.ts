@@ -1,6 +1,6 @@
-import type { Config } from '../../types';
-import type { SizeScale } from './sizeScale.types';
-import type { SizeScalesQuery } from './sizeScalesQuery.types';
+import type { Config } from '../../types/index.js';
+import type { SizeScale } from './sizeScale.types.js';
+import type { SizeScalesQuery } from './sizeScalesQuery.types.js';
 
 export type GetSizeScales = (
   query: SizeScalesQuery,

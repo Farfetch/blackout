@@ -4,14 +4,14 @@ import {
   mockInitialState,
   paymentTokenId,
   paymentTokenId2,
-} from 'tests/__fixtures__/payments';
+} from 'tests/__fixtures__/payments/index.mjs';
 import {
   fetchPaymentTokens,
   removePaymentToken,
   type StoreState,
 } from '@farfetch/blackout-redux';
-import { withStore } from '../../../../tests/helpers';
-import usePaymentTokens from '../usePaymentTokens';
+import { withStore } from '../../../../tests/helpers/index.js';
+import usePaymentTokens from '../usePaymentTokens.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const paymentTokens =

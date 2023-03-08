@@ -2,11 +2,11 @@ import {
   fileId,
   mockOrderDocumentPayload,
   orderId,
-} from 'tests/__fixtures__/orders';
-import { postOrderDocument } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postOrderDocument.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { postOrderDocument } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postOrderDocument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const response = '';
 const expectedConfig = undefined;

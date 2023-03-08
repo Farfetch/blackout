@@ -1,40 +1,40 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { basicEntitiesReducer } from '../entities/reducer/createEntities';
+import { basicEntitiesReducer } from '../entities/reducer/createEntities.js';
 import addressesReducer, {
   entitiesMapper as addressesEntitiesMapper,
   INITIAL_STATE as INITIAL_ADDRESSES_STATE,
-} from './addresses/reducer';
+} from './addresses/reducer.js';
 import attributesReducer, {
   INITIAL_STATE as INITIAL_ATTRIBUTES_STATE,
-} from './attributes/reducer';
+} from './attributes/reducer.js';
 import authenticationReducer, {
   INITIAL_STATE as INITIAL_AUTHENTICATION_STATE,
-} from './authentication/reducer';
+} from './authentication/reducer.js';
 import benefitsReducer, {
   entitiesMapper as benefitsEntitiesMapper,
   INITIAL_STATE as INITIAL_BENEFITS_STATE,
-} from './benefits/reducer';
+} from './benefits/reducer.js';
 import contactsReducer, {
   entitiesMapper as contactsEntitiesMapper,
   INITIAL_STATE as INITIAL_CONTACTS_STATE,
-} from './contacts/reducer';
+} from './contacts/reducer.js';
 import creditsReducers, {
   entitiesMapper as creditsEntitiesMapper,
   INITIAL_STATE as INITIAL_CREDITS_STATE,
-} from './credits/reducer';
+} from './credits/reducer.js';
 import personalIdsReducer, {
   INITIAL_STATE as INITIAL_PERSONAL_IDS_STATE,
-} from './personalIds/reducer';
+} from './personalIds/reducer.js';
 import preferencesReducers, {
   INITIAL_STATE as INITIAL_PREFERENCES_STATE,
   entitiesMapper as preferencesEntitiesMapper,
-} from './preferences/reducer';
+} from './preferences/reducer.js';
 import titlesReducer, {
   INITIAL_STATE as INITIAL_TITLES_STATE,
-} from './titles/reducer';
-import type { StoreState } from '../types';
-import type { UsersState } from './types';
+} from './titles/reducer.js';
+import type { StoreState } from '../types/index.js';
+import type { UsersState } from './types/index.js';
 
 export const INITIAL_STATE: UsersState = {
   error: null,

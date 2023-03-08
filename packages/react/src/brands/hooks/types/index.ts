@@ -1,2 +1,2 @@
-export * from './useBrand';
-export * from './useBrands';
+export * from './useBrand.js';
+export * from './useBrands.js';

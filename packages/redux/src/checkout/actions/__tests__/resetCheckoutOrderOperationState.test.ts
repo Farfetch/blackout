@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import resetCheckoutOrderOperationState from '../resetCheckoutOrderOperationState';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
+import resetCheckoutOrderOperationState from '../resetCheckoutOrderOperationState.js';
 
 describe('resetCheckoutOrderOperationState() action creator', () => {
   const checkoutMockStore = (state = {}) =>

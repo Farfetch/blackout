@@ -1,7 +1,7 @@
 /**
  * Settings hooks.
  */
-export { default as useConfigurations } from './useConfigurations';
-export { default as useConfiguration } from './useConfiguration';
+export { default as useConfigurations } from './useConfigurations.js';
+export { default as useConfiguration } from './useConfiguration.js';
 
-export * from './types';
+export * from './types/index.js';

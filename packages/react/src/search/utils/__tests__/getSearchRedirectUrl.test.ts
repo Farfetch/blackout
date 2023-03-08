@@ -5,8 +5,8 @@ import {
   mockSearchIntentsResponseListingWithParameters,
   mockSearchIntentsResponseProduct,
   mockSearchIntentsResponseRedirect,
-} from 'tests/__fixtures__/search';
-import getSearchRedirectUrl from '../getSearchRedirectUrl';
+} from 'tests/__fixtures__/search/index.mjs';
+import getSearchRedirectUrl from '../getSearchRedirectUrl.js';
 
 const BASE_URL = '/shopping';
 

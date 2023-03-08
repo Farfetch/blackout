@@ -3,7 +3,7 @@ import type {
   DeleteSubscriptionTopicRecipient,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { UnsubscribeSubscriptionTopicRecipientAction } from '../../../types';
+import type { UnsubscribeSubscriptionTopicRecipientAction } from '../../../types/index.js';
 
 export type UnsubscribeSubscriptionTopicRecipientFactory<
   T extends DeleteSubscriptionTopicRecipient,

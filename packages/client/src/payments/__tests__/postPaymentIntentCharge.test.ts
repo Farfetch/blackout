@@ -1,8 +1,9 @@
-import { id, mockCharge as response } from 'tests/__fixtures__/payments';
-import { postPaymentIntentCharge } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postPaymentIntentCharge.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { id, mockCharge } from 'tests/__fixtures__/payments/index.mjs';
+import { type PaymentIntentCharge, postPaymentIntentCharge } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPaymentIntentCharge.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { AxiosResponse } from 'axios';
 
 describe('postPaymentIntentCharge', () => {
   const data = {
@@ -16,6 +17,12 @@ describe('postPaymentIntentCharge', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
+    // Force the cast here as it is not necessary for the test
+    // to mock the AxiosResponse completely.
+    const response = {
+      data: mockCharge,
+    } as unknown as AxiosResponse<PaymentIntentCharge>;
+
     mswServer.use(fixtures.success(response));
 
     await expect(postPaymentIntentCharge(id, data)).resolves.toMatchObject(

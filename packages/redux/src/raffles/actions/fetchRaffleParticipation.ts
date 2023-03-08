@@ -1,5 +1,5 @@
 import { getRaffleParticipation } from '@farfetch/blackout-client';
-import fetchRaffleParticipationFactory from './factories/fetchRaffleParticipationFactory';
+import fetchRaffleParticipationFactory from './factories/fetchRaffleParticipationFactory.js';
 
 /**
  * Fetch raffle participation by raffle id and participation id.

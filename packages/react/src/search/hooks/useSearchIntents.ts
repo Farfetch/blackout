@@ -11,9 +11,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { SearchIntentsQuery } from '@farfetch/blackout-client';
-import type { UseSearchIntentsOptions } from './types';
+import type { UseSearchIntentsOptions } from './types/index.js';
 
 const useSearchIntents = (
   query: SearchIntentsQuery,

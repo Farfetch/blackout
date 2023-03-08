@@ -3,7 +3,7 @@ import type { CombinedState } from 'redux';
 import type {
   GroupingPropertiesAdapted,
   ProductEntity,
-} from '../../../entities/types';
+} from '../../../entities/types/index.js';
 
 export type ProductsGroupingPropertiesState = CombinedState<{
   error: Record<

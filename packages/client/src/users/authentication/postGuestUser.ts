@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { PostGuestUser } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { PostGuestUser } from './types/index.js';
 
 /**
  * Registers a new guest user.

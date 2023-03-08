@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../../users/authentication/actionTypes';
-import reducer, * as fromReducer from '../reducer';
-import type { AddressesState } from '../types';
+} from '../../users/authentication/actionTypes.js';
+import reducer, * as fromReducer from '../reducer.js';
+import type { AddressesState } from '../types/index.js';
 
 let initialState: AddressesState;
 

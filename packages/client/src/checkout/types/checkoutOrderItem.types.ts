@@ -9,7 +9,7 @@ import type {
   ProductCategory,
   ProductImageGroup,
   ProductVariant,
-} from '../..';
+} from '../../index.js';
 
 export type CheckoutOrderItem = {
   attributes: Attribute[];

@@ -5,7 +5,7 @@ import {
   addressId2,
   expectedGetAddressesNormalizedPayload,
   mockGetAddressesResponse,
-} from 'tests/__fixtures__/users/addresses.fixtures';
+} from 'tests/__fixtures__/users/addresses.fixtures.mjs';
 import {
   applyMiddleware,
   combineReducers,
@@ -25,22 +25,22 @@ import {
   updateUserAddress,
   usersReducer,
 } from '@farfetch/blackout-redux';
+import { merge } from 'lodash-es';
 import {
   mockAuthenticatedUserEntities,
   mockUserInitialState,
-} from 'tests/__fixtures__/users';
+} from 'tests/__fixtures__/users/index.mjs';
 import { Provider } from 'react-redux';
 import {
   toBlackoutError,
   type UserAddress,
   type UserAddressInput,
 } from '@farfetch/blackout-client';
-import { withStore } from '../../../../tests/helpers';
-import flushPromises from 'tests/flushPromises';
-import merge from 'lodash/merge';
+import { withStore } from '../../../../tests/helpers/index.js';
+import flushPromises from 'tests/flushPromises.mjs';
 import React from 'react';
 import thunk from 'redux-thunk';
-import useUserAddresses from '../useUserAddresses';
+import useUserAddresses from '../useUserAddresses.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

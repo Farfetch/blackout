@@ -1,4 +1,4 @@
-import { getCurrency } from '../helpers';
+import { getCurrency } from '../helpers.js';
 import { utils } from '@farfetch/blackout-analytics';
 
 jest.mock('@farfetch/blackout-analytics', () => {

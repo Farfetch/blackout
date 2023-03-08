@@ -1,12 +1,12 @@
-import { fetchRecommendedSet } from '..';
+import { fetchRecommendedSet } from '../index.js';
 import { getProductRecommendedSet } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/recommendedSet';
+import { INITIAL_STATE } from '../../reducer/recommendedSet.js';
 import {
   mockRecommendedSet,
   mockRecommendedSetId,
-} from 'tests/__fixtures__/products';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../..';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

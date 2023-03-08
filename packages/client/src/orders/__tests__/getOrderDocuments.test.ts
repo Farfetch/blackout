@@ -1,8 +1,11 @@
-import { getOrderDocuments, OrderDocumentType } from '..';
-import { mockOrderDocumentsResponse, orderId } from 'tests/__fixtures__/orders';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getOrderDocuments.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getOrderDocuments, OrderDocumentType } from '../index.js';
+import {
+  mockOrderDocumentsResponse,
+  orderId,
+} from 'tests/__fixtures__/orders/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getOrderDocuments.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 const types = [OrderDocumentType.ComercialInvoice];

@@ -1,7 +1,11 @@
-import { getEntities } from '../../entities';
-import { getError, getIsLoading, getResult } from '../reducer/configurations';
-import type { SettingsState } from '../types';
-import type { StoreState } from '../../types';
+import { getEntities } from '../../entities/index.js';
+import {
+  getError,
+  getIsLoading,
+  getResult,
+} from '../reducer/configurations.js';
+import type { SettingsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Retrieves the error status of configurations.

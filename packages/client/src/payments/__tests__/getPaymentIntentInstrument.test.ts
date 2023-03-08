@@ -1,12 +1,12 @@
-import { getPaymentIntentInstrument } from '..';
+import { getPaymentIntentInstrument } from '../index.js';
 import {
   id,
   instrumentId,
   mockFetchInstrumentResponse,
-} from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPaymentIntentInstrument.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPaymentIntentInstrument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getPaymentIntentInstrument', () => {
   const expectedConfig = undefined;

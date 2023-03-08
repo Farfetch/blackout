@@ -1,9 +1,9 @@
-import { getUserCreditBalance } from '..';
-import { mockCreditBalanceResponse } from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getUserCreditBalance.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { Balance } from '../types';
+import { getUserCreditBalance } from '../index.js';
+import { mockCreditBalanceResponse } from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserCreditBalance.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { Balance } from '../types/index.js';
 
 describe('getUserCreditBalance', () => {
   const expectedConfig = undefined;

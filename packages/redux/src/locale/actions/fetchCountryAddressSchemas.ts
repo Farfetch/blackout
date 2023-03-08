@@ -1,4 +1,4 @@
-import { fetchCountryAddressSchemasFactory } from './factories';
+import { fetchCountryAddressSchemasFactory } from './factories/index.js';
 import { getCountryAddressSchemas } from '@farfetch/blackout-client';
 
 /**

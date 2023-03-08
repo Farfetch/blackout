@@ -1,3 +1,3 @@
-export * from './getMerchantsLocations.types';
-export * from './getMerchantsLocationsQuery.types';
-export * from './merchantLocation.types';
+export * from './getMerchantsLocations.types.js';
+export * from './getMerchantsLocationsQuery.types.js';
+export * from './merchantLocation.types.js';

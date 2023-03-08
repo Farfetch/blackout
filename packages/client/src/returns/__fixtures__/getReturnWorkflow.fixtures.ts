@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ReturnWorkflow } from '../types/getReturnWorkflow.types';
+import type { ReturnWorkflow } from '../types/getReturnWorkflow.types.js';
 
 const path = '/api/account/v1/returns/:id/workflow';
 

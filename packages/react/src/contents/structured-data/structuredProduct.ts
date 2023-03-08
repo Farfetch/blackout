@@ -1,10 +1,13 @@
-import * as schemaProperties from './schemas/schemaProperties';
-import { getConditionSchemaOrg, getMetatag } from '../utils';
-import { renderScriptTag } from '../helpers';
+import * as schemaProperties from './schemas/schemaProperties.js';
+import { getConditionSchemaOrg, getMetatag } from '../utils/index.js';
+import { renderScriptTag } from '../helpers/index.js';
 import type { Product as ProductSchema, WithContext } from 'schema-dts';
 import type { ReactElement } from 'react';
 import type { SEOMetadata } from '@farfetch/blackout-client';
-import type { StructuredProductData, StructuredProductImage } from '../types';
+import type {
+  StructuredProductData,
+  StructuredProductImage,
+} from '../types/index.js';
 
 /**
  * Generate Structured Data (JSON-LD) for Product Details.

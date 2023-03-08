@@ -2,7 +2,7 @@ import type {
   ProductEntity,
   ProductEntityDenormalized,
   WishlistItemEntity,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 
 type WishlistItemHashData = Partial<{
   merchant: number;

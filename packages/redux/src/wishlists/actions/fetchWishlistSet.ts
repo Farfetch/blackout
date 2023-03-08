@@ -1,4 +1,4 @@
-import { fetchWishlistSetFactory } from './factories';
+import { fetchWishlistSetFactory } from './factories/index.js';
 import { getWishlistSet } from '@farfetch/blackout-client';
 
 /**

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
-import { getBrands } from '../brands';
-import { getCategories } from '../categories';
+import { get } from 'lodash-es';
+import { getBrands } from '../brands/index.js';
+import { getCategories } from '../categories/index.js';
 import {
   getDocuments,
   getError,
@@ -12,11 +13,10 @@ import {
   getOrderReturns as getOrderReturnsFromReducer,
   getResult,
   getShipmentTrackings,
-} from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
-import { getMerchants } from '../products';
-import { getReturnsEntities } from '../returns';
-import get from 'lodash/get';
+} from './reducer.js';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
+import { getMerchants } from '../products/index.js';
+import { getReturnsEntities } from '../returns/index.js';
 import type { Brand, Order, OrderItem } from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
@@ -31,9 +31,9 @@ import type {
   ReturnEntity,
   ReturnOptionEntity,
   ReturnOptionEntityDenormalized,
-} from '../entities/types';
-import type { OrdersState } from './types';
-import type { StoreState } from '../types';
+} from '../entities/types/index.js';
+import type { OrdersState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the loading flag for the orders area actions.

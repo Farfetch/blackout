@@ -1,6 +1,6 @@
-import * as schemaProperties from './schemas/schemaProperties';
-import { renderScriptTag } from '../helpers';
-import type { Breadcrumb } from '../types';
+import * as schemaProperties from './schemas/schemaProperties.js';
+import { renderScriptTag } from '../helpers/index.js';
+import type { Breadcrumb } from '../types/index.js';
 import type { BreadcrumbList, WithContext } from 'schema-dts';
 import type { ReactElement } from 'react';
 

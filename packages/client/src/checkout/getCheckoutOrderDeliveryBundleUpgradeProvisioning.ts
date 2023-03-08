@@ -1,6 +1,6 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import type { GetCheckoutOrderDeliveryBundleUpgradeProvisioning } from './types';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import type { GetCheckoutOrderDeliveryBundleUpgradeProvisioning } from './types/index.js';
 
 /**
  * Obtains the items delivery provisioning available for a upgrade.

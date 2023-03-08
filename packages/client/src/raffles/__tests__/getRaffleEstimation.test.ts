@@ -1,11 +1,11 @@
 import {
   mockRaffleEstimationResponse,
   raffleId,
-} from 'tests/__fixtures__/raffles';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getRaffleEstimation.fixtures';
-import getRaffleEstimation from '../getRaffleEstimation';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/raffles/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getRaffleEstimation.fixtures.js';
+import getRaffleEstimation from '../getRaffleEstimation.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getRaffleEstimation', () => {
   const expectedConfig = undefined;

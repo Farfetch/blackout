@@ -1,11 +1,11 @@
-export * as usersActionTypes from './actionTypes';
+export * as usersActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './selectors';
+export * from './actions.js';
+export * from './selectors.js';
 
 export {
   default as usersReducer,
   entitiesMapper as usersEntitiesMapper,
-} from './reducer';
+} from './reducer.js';
 
-export * from './types';
+export * from './types/index.js';

@@ -1,16 +1,16 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { addWishlistSet } from '../';
-import { INITIAL_STATE } from '../../reducer/wishlists';
-import { mockStore } from '../../../../tests';
+import { addWishlistSet } from '..//index.js';
+import { INITIAL_STATE } from '../../reducer/wishlists.js';
+import { mockStore } from '../../../../tests/index.js';
 import {
   mockWishlistId,
   mockWishlistSetId,
   mockWishlistsSetNormalizedPayload,
   mockWishlistsSetResponse,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import { postWishlistSet } from '@farfetch/blackout-client';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

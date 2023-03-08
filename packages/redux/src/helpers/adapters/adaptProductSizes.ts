@@ -1,9 +1,9 @@
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import type {
   AdaptProductSizes,
   ComposePurchaseChannels,
   GetAttributesBySizeId,
-} from './types';
+} from './types/index.js';
 import type { ProductVariant, Size } from '@farfetch/blackout-client';
 
 /**

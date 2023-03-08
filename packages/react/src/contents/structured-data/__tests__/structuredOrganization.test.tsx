@@ -2,8 +2,8 @@ import {
   MockRenderScript,
   organization,
   organizationResult,
-} from './__fixtures__';
-import structuredOrganization from '../structuredOrganization';
+} from './__fixtures__/index.js';
+import structuredOrganization from '../structuredOrganization.js';
 
 const { metadata, name, url, logoUrl, address, contact, sameAs } = organization;
 

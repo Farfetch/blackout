@@ -1,14 +1,14 @@
-import * as actionTypes from '../../actionTypes';
-import { createGuestUser } from '../../../actions';
+import * as actionTypes from '../../actionTypes.js';
+import { createGuestUser } from '../../../actions.js';
 import {
   expectedNormalizedPayload,
   mockParamsData,
   mockGuestUserResponse as mockPostGuestUserResponse,
-} from 'tests/__fixtures__/users';
-import { INITIAL_STATE } from '../../../reducer';
-import { mockStore } from '../../../../../tests';
+} from 'tests/__fixtures__/users/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import { postGuestUser } from '@farfetch/blackout-client';
-import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

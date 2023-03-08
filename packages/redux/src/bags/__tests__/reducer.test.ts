@@ -1,5 +1,5 @@
-import * as actionTypes from '../actionTypes';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
+import * as actionTypes from '../actionTypes.js';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes.js';
 import {
   mockBagId,
   mockBagItemEntity,
@@ -8,10 +8,10 @@ import {
   mockBagOperationId,
   mockError,
   mockState,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { BagNormalized, BagsState } from '../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { BagNormalized, BagsState } from '../types/index.js';
 
 let initialState: BagsState;
 const randomAction = { type: 'this_is_a_random_action' };

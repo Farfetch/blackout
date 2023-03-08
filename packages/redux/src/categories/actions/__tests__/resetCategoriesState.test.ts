@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer/categories';
-import { mockStore } from '../../../../tests';
-import { resetCategoriesState } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer/categories.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetCategoriesState } from '../index.js';
 
 const buildCategoriesMockStore = (state = {}) =>
   mockStore({ categories: INITIAL_STATE }, state);

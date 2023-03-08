@@ -1,7 +1,7 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { DeleteUserDefaultContactAddress } from './types';
+import type { DeleteUserDefaultContactAddress } from './types/index.js';
 
 /**
  * Responsible for unsetting the users default contact address.

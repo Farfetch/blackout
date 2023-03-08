@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { FormSchema } from '../types';
+import type { FormSchema } from '../types/index.js';
 
 const path = '/api/communication/v1/forms/:schemaCode';
 

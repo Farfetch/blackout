@@ -1,6 +1,4 @@
-import get from 'lodash/get';
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
+import { get, isArray, isString } from 'lodash-es';
 import type {
   AnalyticsProduct,
   EventData,
@@ -9,7 +7,7 @@ import type {
   UserData,
   UserTraits,
 } from '@farfetch/blackout-analytics';
-import type { GTMEventContext } from './types';
+import type { GTMEventContext } from './types/index.js';
 import type { User } from '@farfetch/blackout-client';
 import type URLParse from 'url-parse';
 
@@ -44,7 +42,7 @@ export const getUserParameters = (
   localId: get(user, 'localId'),
   email: get(user, 'traits.email'),
   name: get(user, 'traits.name'),
-  isGuest: get(user, 'traits.isGuest'),
+  isGuest: get(user, 'traits.isGuest', true),
 });
 
 /**
@@ -66,7 +64,7 @@ export const getContextParameters = (
   userAgent: get(
     context,
     'web.window.navigator.userAgent',
-  ) as typeof window.navigator['userAgent'],
+  ) as (typeof window.navigator)['userAgent'],
 });
 
 /**

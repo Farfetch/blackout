@@ -1,7 +1,7 @@
-import { getError, getId, getIsLoading, getResult } from './reducer';
+import { getError, getId, getIsLoading, getResult } from './reducer.js';
 import type { PromotionEvaluationId } from '@farfetch/blackout-client';
-import type { PromotionEvaluationsState } from './types';
-import type { StoreState } from '../types';
+import type { PromotionEvaluationsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves a list of all the promotion evaluations items available.

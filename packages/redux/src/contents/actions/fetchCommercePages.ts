@@ -1,4 +1,4 @@
-import { fetchCommercePagesFactory } from './factories';
+import { fetchCommercePagesFactory } from './factories/index.js';
 import { getCommercePages } from '@farfetch/blackout-client';
 
 /**

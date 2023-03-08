@@ -4,14 +4,14 @@ import type {
   OrderItem,
   OrderItemLegacy,
 } from '@farfetch/blackout-client';
-import type { BrandEntity } from './brand.types';
-import type { CategoryEntity } from './category.types';
+import type { BrandEntity } from './brand.types.js';
+import type { CategoryEntity } from './category.types.js';
 import type {
   CustomAttributesAdapted,
   PriceAdapted,
   ProductImagesAdapted,
-} from '../../types';
-import type { MerchantEntity } from './merchant.types';
+} from '../../types/index.js';
+import type { MerchantEntity } from './merchant.types.js';
 
 export type OrderItemEntity = Omit<
   OrderItem | OrderItemLegacy,

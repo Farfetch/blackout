@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Boolean from '../boolean/Boolean';
+import Boolean from '../boolean/Boolean.js';
 import React from 'react';
 
 describe('<Boolean />', () => {

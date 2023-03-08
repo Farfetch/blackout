@@ -5,8 +5,8 @@ import {
   type TokenContext,
   type UserToken,
 } from '@farfetch/blackout-client';
-import { usePrevious } from '../../helpers';
-import AuthenticationContext from './AuthenticationContext';
+import { usePrevious } from '../../helpers/index.js';
+import AuthenticationContext from './AuthenticationContext.js';
 import React, {
   type SetStateAction,
   useCallback,
@@ -14,8 +14,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import setAuthenticationInterceptors from './helpers/setAuthenticationInterceptors';
-import useUserAuthState from '../hooks/useUserAuthState';
+import setAuthenticationInterceptors from './helpers/setAuthenticationInterceptors.js';
+import useUserAuthState from '../hooks/useUserAuthState.js';
 
 export enum CallbackNames {
   OnUserSessionTerminated = 'onUserSessionTerminated',

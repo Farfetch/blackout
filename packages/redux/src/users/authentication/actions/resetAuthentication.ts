@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { SubAreaType } from '../types/subArea.types';
+import type { SubAreaType } from '../types/subArea.types.js';
 
 /**
  * Resets the specific sub-area or the general authentication area error if no

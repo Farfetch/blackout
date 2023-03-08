@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Raffle } from '../types';
+import type { Raffle } from '../types/index.js';
 
 const path = '/api/checkout/v1/raffles/:raffleId';
 

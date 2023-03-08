@@ -1,6 +1,6 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromLocale from '../reducer';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromLocale from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   isoCode as countryId,
   isoCode,
@@ -13,7 +13,7 @@ import {
   mockStateId,
   mockStates,
   mockStatesEntities,
-} from 'tests/__fixtures__/locale';
+} from 'tests/__fixtures__/locale/index.mjs';
 import type { CityEntity } from '@farfetch/blackout-redux';
 
 describe('locale redux selectors', () => {

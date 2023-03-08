@@ -1,8 +1,12 @@
-import * as schemaProperties from './schemas/schemaProperties';
-import { getCategories, getMetatag, stripUrlSubfolder } from '../utils';
-import { renderScriptTag } from '../helpers';
+import * as schemaProperties from './schemas/schemaProperties.js';
+import {
+  getCategories,
+  getMetatag,
+  stripUrlSubfolder,
+} from '../utils/index.js';
+import { renderScriptTag } from '../helpers/index.js';
 import type { Article, WithContext } from 'schema-dts';
-import type { Breadcrumb, ContentsDate, Publisher } from '../types';
+import type { Breadcrumb, ContentsDate, Publisher } from '../types/index.js';
 import type { ReactElement } from 'react';
 import type { SEOMetadata } from '@farfetch/blackout-client';
 

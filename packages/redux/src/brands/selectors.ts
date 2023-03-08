@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities/selectors';
-import { getError, getHash, getIsLoading, getResult } from './reducer';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
+import { getError, getHash, getIsLoading, getResult } from './reducer.js';
 import type { Brand, Brands } from '@farfetch/blackout-client';
-import type { BrandsState } from './types';
-import type { StoreState } from '../types';
+import type { BrandsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves the current brands hash.

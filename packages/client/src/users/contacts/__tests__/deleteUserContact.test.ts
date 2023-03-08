@@ -1,8 +1,8 @@
-import { contactId, userId } from 'tests/__fixtures__/users';
-import { deleteUserContact } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteUserContact.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { contactId, userId } from 'tests/__fixtures__/users/index.mjs';
+import { deleteUserContact } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteUserContact.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteUserContact', () => {
   const expectedConfig = undefined;

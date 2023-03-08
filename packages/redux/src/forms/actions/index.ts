@@ -2,8 +2,8 @@
  * Forms actions.
  */
 
-export { default as submitFormData } from './submitFormData';
-export { default as fetchFormSchema } from './fetchFormSchema';
-export { default as resetFormSchema } from './resetFormSchema';
+export { default as submitFormData } from './submitFormData.js';
+export { default as fetchFormSchema } from './fetchFormSchema.js';
+export { default as resetFormSchema } from './resetFormSchema.js';
 
-export * from './factories';
+export * from './factories/index.js';

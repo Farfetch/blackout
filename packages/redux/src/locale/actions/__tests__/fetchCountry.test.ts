@@ -1,11 +1,14 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { fetchCountry } from '..';
+import { fetchCountry } from '../index.js';
+import { find } from 'lodash-es';
 import { getCountry } from '@farfetch/blackout-client';
-import { INITIAL_STATE_LOCALE as INITIAL_STATE } from '../../reducer';
-import { mockCountry, mockCountryCode } from 'tests/__fixtures__/locale';
-import { mockStore } from '../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE_LOCALE as INITIAL_STATE } from '../../reducer.js';
+import {
+  mockCountry,
+  mockCountryCode,
+} from 'tests/__fixtures__/locale/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 const localeMockStore = (state = {}) =>
   mockStore({ locale: INITIAL_STATE }, state);

@@ -1,7 +1,7 @@
-import { postPasswordRecover } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postPasswordRecover.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postPasswordRecover } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPasswordRecover.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postPasswordRecover', () => {
   const spy = jest.spyOn(client, 'post');

@@ -1,5 +1,5 @@
 import React from 'react';
-import useReturn from '../useReturn';
+import useReturn from '../useReturn.js';
 import type { PostReturnData, Return } from '@farfetch/blackout-client';
 
 const booleanToText = (boolean: boolean | null) => (boolean ? 'yes' : 'no');

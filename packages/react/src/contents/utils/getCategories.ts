@@ -1,5 +1,5 @@
-import initial from 'lodash/initial';
-import type { Breadcrumb } from '../types';
+import { initial } from 'lodash-es';
+import type { Breadcrumb } from '../types/index.js';
 
 /**
  * Agreggate all the url texts in breadcrumbs into strings separated by commas.

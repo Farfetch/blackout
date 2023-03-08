@@ -1,7 +1,7 @@
-import { entitiesMapper as wishlistsSetsEntitiesMapper } from './wishlistsSets';
+import { entitiesMapper as wishlistsSetsEntitiesMapper } from './wishlistsSets.js';
 import wishlistsReducer, {
   entitiesMapper as wishlistsEntitiesMapper,
-} from './wishlists';
+} from './wishlists.js';
 
 export const entitiesMapper = {
   ...wishlistsEntitiesMapper,

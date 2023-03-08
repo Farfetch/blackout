@@ -1,8 +1,8 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../category';
-import { mockCategoryId } from 'tests/__fixtures__/categories';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../category.js';
+import { mockCategoryId } from 'tests/__fixtures__/categories/index.mjs';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { CategoryState } from '../../types';
+import type { CategoryState } from '../../types/index.js';
 
 let initialState: CategoryState;
 const reducer = fromReducer.default;

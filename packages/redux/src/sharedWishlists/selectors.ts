@@ -1,6 +1,6 @@
-import * as fromSharedWishlistReducer from './reducer';
+import * as fromSharedWishlistReducer from './reducer.js';
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
 import type { Brand, SharedWishlist } from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
@@ -8,9 +8,9 @@ import type {
   SharedWishlistEntity,
   SharedWishlistItemDenormalized,
   SharedWishlistItemEntity,
-} from '../entities/types';
-import type { SharedWishlistState } from './types';
-import type { StoreState } from '../types';
+} from '../entities/types/index.js';
+import type { SharedWishlistState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves current user's shared wishlist id.

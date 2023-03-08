@@ -2,7 +2,7 @@
  * Subscriptions hooks.
  */
 
-export { default as useSubscriptionPackages } from './useSubscriptionPackages';
-export { default as useUserSubscriptions } from './useUserSubscriptions';
+export { default as useSubscriptionPackages } from './useSubscriptionPackages.js';
+export { default as useUserSubscriptions } from './useUserSubscriptions.js';
 
-export * from './types';
+export * from './types/index.js';

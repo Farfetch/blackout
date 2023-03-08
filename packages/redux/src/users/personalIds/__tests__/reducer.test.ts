@@ -1,7 +1,7 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { toBlackoutError, VerifyLevel } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { UserPersonalIdsState } from '../../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { UserPersonalIdsState } from '../../types/index.js';
 
 let initialState: UserPersonalIdsState;
 

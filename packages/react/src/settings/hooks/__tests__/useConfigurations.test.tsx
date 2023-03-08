@@ -8,10 +8,10 @@ import {
   mockConfigurationsInitialState,
   mockConfigurationsLoadingState,
   mockConfigurationsState,
-} from 'tests/__fixtures__/settings';
-import { mockStore } from '../../../../tests/helpers';
+} from 'tests/__fixtures__/settings/index.mjs';
+import { mockStore } from '../../../../tests/helpers/index.js';
 import { Provider } from 'react-redux';
-import { useConfigurations } from '../../';
+import { useConfigurations } from '../..//index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

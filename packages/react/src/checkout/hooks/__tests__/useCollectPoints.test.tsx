@@ -5,14 +5,14 @@ import {
   mockErrorState,
   mockInitialState,
   mockLoadingState,
-} from 'tests/__fixtures__/checkout';
+} from 'tests/__fixtures__/checkout/index.mjs';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCollectPoints,
   resetCollectPointsState,
 } from '@farfetch/blackout-redux';
-import { withStore } from '../../../../tests/helpers';
-import useCollectPoints from '../useCollectPoints';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCollectPoints from '../useCollectPoints.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

@@ -1,17 +1,17 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../wishlists';
-import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes';
-import { mockProduct } from 'tests/__fixtures__/products';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../wishlists.js';
+import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes.js';
+import { mockProduct } from 'tests/__fixtures__/products/index.mjs';
 import {
   mockWishlistId,
   mockWishlistItem,
   mockWishlistItemId,
   mockWishlistSets,
   mockWishlistsResponse,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { entitiesMapper } from '../';
-import type { WishlistsState } from '../../types';
+import reducer, { entitiesMapper } from '..//index.js';
+import type { WishlistsState } from '../../types/index.js';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };

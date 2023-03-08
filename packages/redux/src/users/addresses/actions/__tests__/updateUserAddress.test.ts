@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
 import {
   addressId2,
@@ -6,12 +6,12 @@ import {
   expectedUpdateAddressNormalizedPayload,
   mockUpdateAddressResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../../tests';
+} from 'tests/__fixtures__/users/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import { putUserAddress } from '@farfetch/blackout-client';
-import { updateUserAddress } from '..';
-import find from 'lodash/find';
+import { updateUserAddress } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

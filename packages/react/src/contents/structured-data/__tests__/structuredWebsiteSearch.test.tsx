@@ -2,8 +2,8 @@ import {
   MockRenderScript,
   websiteSearch,
   websiteSearchResult,
-} from './__fixtures__';
-import structuredWebsiteSearch from '../structuredWebsiteSearch';
+} from './__fixtures__/index.js';
+import structuredWebsiteSearch from '../structuredWebsiteSearch.js';
 
 const { metadata, url, searchTitle, urlTemplate } = websiteSearch;
 

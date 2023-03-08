@@ -1,4 +1,4 @@
-import type { GetSelectedSortOption } from './types';
+import type { GetSelectedSortOption } from './types/index.js';
 
 /**
  * Get which sort option is currently selected.

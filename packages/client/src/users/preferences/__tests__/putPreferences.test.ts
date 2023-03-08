@@ -1,8 +1,11 @@
-import { mockGetPreferencesResponse, userId } from 'tests/__fixtures__/users';
-import { putUserPreferences } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/putUserPreferences.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import {
+  mockGetPreferencesResponse,
+  userId,
+} from 'tests/__fixtures__/users/index.mjs';
+import { putUserPreferences } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putUserPreferences.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('putPreferences', () => {
   const expectedConfig = undefined;

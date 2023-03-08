@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetUserCredits,
   toBlackoutError,
   type User,
 } from '@farfetch/blackout-client';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash-es';
 import type { Dispatch } from 'redux';
 
 /**

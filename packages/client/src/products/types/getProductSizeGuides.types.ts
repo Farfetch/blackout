@@ -1,6 +1,6 @@
-import type { Config } from '../..';
-import type { Product } from './product.types';
-import type { ProductSizeGuide } from './productSizeGuide.types';
+import type { Config } from '../../index.js';
+import type { Product } from './product.types.js';
+import type { ProductSizeGuide } from './productSizeGuide.types.js';
 
 export type GetProductSizeGuides = (
   id: Product['result']['id'],

@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { GuestUser } from './guestUser.types';
+import type { Config } from '../../../types/index.js';
+import type { GuestUser } from './guestUser.types.js';
 
 export type PostGuestUserData = {
   countryCode: string;

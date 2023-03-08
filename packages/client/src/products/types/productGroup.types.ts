@@ -1,4 +1,4 @@
-import type { Product } from './product.types';
+import type { Product } from './product.types.js';
 
 export type ProductGroupEntry = {
   productId: Product['result']['id'];

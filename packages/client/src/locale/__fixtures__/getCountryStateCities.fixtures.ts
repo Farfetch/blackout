@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { City } from '../types';
+import type { City } from '../types/index.js';
 
 const path = '/api/settings/v1/countries/:countryCode/states/:stateId/cities';
 

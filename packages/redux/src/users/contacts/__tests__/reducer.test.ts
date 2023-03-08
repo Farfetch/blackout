@@ -1,8 +1,8 @@
-import * as actionTypes from '../actionTypes';
-import { mockBaseState } from '../../__fixtures__/state.fixtures';
+import * as actionTypes from '../actionTypes.js';
+import { mockBaseState } from '../../__fixtures__/state.fixtures.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { entitiesMapper, INITIAL_STATE } from '../reducer';
-import type { StoreState } from '../../../types';
+import reducer, { entitiesMapper, INITIAL_STATE } from '../reducer.js';
+import type { StoreState } from '../../../types/index.js';
 
 describe('contacts reducer', () => {
   it.each([

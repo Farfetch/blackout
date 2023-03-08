@@ -1,5 +1,5 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
 import {
   checkoutEntity,
   checkoutId,
@@ -21,27 +21,27 @@ import {
   mockResponse,
   mockUpdateCheckoutResponse,
   productId,
-} from 'tests/__fixtures__/checkout';
+} from 'tests/__fixtures__/checkout/index.mjs';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../../users/authentication/actionTypes';
-import { mockProductsEntity } from 'tests/__fixtures__/products';
+} from '../../users/authentication/actionTypes.js';
+import { mockProductsEntity } from 'tests/__fixtures__/products/index.mjs';
 import { OrderStatusError, toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { entitiesMapper } from '../reducer';
+import reducer, { entitiesMapper } from '../reducer.js';
 import type {
   CheckoutDetailsEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type {
   CheckoutState,
   RemoveCheckoutOrderItemSuccessAction,
   UpdateCheckoutOrderItemSuccessAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 let initialState: CheckoutState;
 const mockAction = { type: 'foo' };

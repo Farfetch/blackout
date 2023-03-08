@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ReturnPickupCapability } from '../types/returnPickupCapability.types';
+import type { ReturnPickupCapability } from '../types/returnPickupCapability.types.js';
 
 const path = '/api/account/v1/returns/:id/pickupcapabilities/:pickupDay';
 

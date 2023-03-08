@@ -1,4 +1,4 @@
-import getProductSeoMetadataParams from '../getProductSeoMetadataParams';
+import getProductSeoMetadataParams from '../getProductSeoMetadataParams.js';
 
 const mockProduct = {
   price: {

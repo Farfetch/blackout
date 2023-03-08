@@ -1,15 +1,15 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
-import { mockProduct } from 'tests/__fixtures__/products';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes.js';
+import { mockProduct } from 'tests/__fixtures__/products/index.mjs';
 import {
   mockSharedWishlistId,
   mockSharedWishlistItem,
   mockSharedWishlistsResponse,
-} from 'tests/__fixtures__/sharedWishlists';
+} from 'tests/__fixtures__/sharedWishlists/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { entitiesMapper } from '../reducer';
-import type { SharedWishlistState } from '../types';
+import reducer, { entitiesMapper } from '../reducer.js';
+import type { SharedWishlistState } from '../types/index.js';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };

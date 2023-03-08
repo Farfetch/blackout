@@ -1,7 +1,7 @@
-import type { Bag } from './bag.types';
-import type { BagOperation } from './bagOperation.types';
-import type { Config, PagedResponse } from '../..';
-import type { GetBagOperationsQuery } from './query.types';
+import type { Bag } from './bag.types.js';
+import type { BagOperation } from './bagOperation.types.js';
+import type { Config, PagedResponse } from '../../index.js';
+import type { GetBagOperationsQuery } from './query.types.js';
 
 export type BagOperations = PagedResponse<BagOperation>;
 

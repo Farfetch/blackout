@@ -1,4 +1,4 @@
-import { fetchUserCreditBalanceFactory } from './factories';
+import { fetchUserCreditBalanceFactory } from './factories/index.js';
 import { getUserCreditBalance } from '@farfetch/blackout-client';
 
 /**

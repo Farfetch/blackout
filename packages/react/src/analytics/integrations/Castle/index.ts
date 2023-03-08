@@ -1,3 +1,3 @@
-export { default } from './Castle';
+export { default } from './Castle.js';
 
-export * from './types';
+export * from './types/index.js';

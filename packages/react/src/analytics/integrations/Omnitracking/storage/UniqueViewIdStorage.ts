@@ -1,6 +1,6 @@
-import { getTimeInMinutes } from '../../../../helpers';
+import { getTimeInMinutes } from '../../../../helpers/index.js';
 import { utils } from '@farfetch/blackout-analytics';
-import type UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions';
+import type UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions.js';
 
 const CACHE_PREFIX = 'UniqueViewId_';
 

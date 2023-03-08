@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
@@ -16,7 +16,7 @@ import type {
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
   DeliveryBundleEntity,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
 
 type Payload = NormalizedSchema<

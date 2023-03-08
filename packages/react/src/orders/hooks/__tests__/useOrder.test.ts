@@ -5,12 +5,12 @@ import {
   orderEntityDenormalized,
   orderId,
   orderId2,
-} from 'tests/__fixtures__/orders/orders.fixtures';
-import { withStore } from '../../../../tests/helpers';
-import useOrder from '../useOrder';
-import useOrderReturnOptions from '../useOrderReturnOptions';
-import useOrderReturns from '../useOrderReturns';
-import useOrders from '../useOrders';
+} from 'tests/__fixtures__/orders/orders.fixtures.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useOrder from '../useOrder.js';
+import useOrderReturnOptions from '../useOrderReturnOptions.js';
+import useOrderReturns from '../useOrderReturns.js';
+import useOrders from '../useOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockFetchOrderDetailsFn = jest.fn();

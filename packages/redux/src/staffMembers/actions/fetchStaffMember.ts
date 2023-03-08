@@ -1,4 +1,4 @@
-import { fetchStaffMemberFactory } from './factories';
+import { fetchStaffMemberFactory } from './factories/index.js';
 import { getStaffMember } from '@farfetch/blackout-client';
 
 /**

@@ -1,7 +1,7 @@
-import { EventTypes } from '../../..';
-import { trackEventsData } from 'tests/__fixtures__/analytics';
-import mocked_view_uid from './mocked_view_uid';
-import mockedUuid from './mocked_uuid';
+import { EventTypes } from '../../../index.js';
+import { trackEventsData } from 'tests/__fixtures__/analytics/index.mjs';
+import mocked_view_uid from './mocked_view_uid.js';
+import mockedUuid from './mocked_uuid.js';
 
 const trackMockData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
 

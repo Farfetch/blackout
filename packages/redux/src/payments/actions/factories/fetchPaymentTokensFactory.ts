@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetPaymentTokens,
@@ -7,9 +7,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import paymentTokenSchema from '../../../entities/schemas/paymentToken';
+import paymentTokenSchema from '../../../entities/schemas/paymentToken.js';
 import type { Dispatch } from 'redux';
-import type { FetchPaymentTokensAction } from '../../types';
+import type { FetchPaymentTokensAction } from '../../types/index.js';
 
 /**
  * Method responsible for loading payment tokens. This is used for selecting the

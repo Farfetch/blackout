@@ -1,9 +1,9 @@
 /**
  * Products serverInitialState.
  */
-import listsServerInitialState from './lists';
-import productsServerInitialState from './products';
-import type { ServerInitialState } from '../../types/serverInitialState.types';
+import listsServerInitialState from './lists.js';
+import productsServerInitialState from './products.js';
+import type { ServerInitialState } from '../../types/serverInitialState.types.js';
 
 const serverInitialState: ServerInitialState = ({ model, options }) => {
   const { entities: listsEntities, ...listsState } = listsServerInitialState({

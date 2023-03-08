@@ -8,9 +8,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { Brand } from '@farfetch/blackout-client';
-import type { UseBrandOptions } from './types/useBrand';
+import type { UseBrandOptions } from './types/useBrand.js';
 
 const useBrand = (brandId: Brand['id'], options: UseBrandOptions = {}) => {
   const { enableAutoFetch = true, fetchConfig } = options;

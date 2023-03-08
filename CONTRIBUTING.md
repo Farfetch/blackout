@@ -65,19 +65,32 @@ First, you will need to set up the project on your machine. For that, follow the
    - Examples: `fix_fetch_orders_response`, `feat_add_bag_client`, `chore_remove_unnecessary_module`.
 
 2. When creating the code, make sure it follows the [coding guidelines](https://github.com/Farfetch/blackout/wiki/Coding-Guidelines)
-3. When you have finished coding, make sure the following checks are passing:
+
+3. If you need to test your changes in an application, follow these steps:
+
+   1. Run the command `yarn dev:link` from the root of the project. The script will build the packages exactly as the pipeline does when it generates a new release and then will perform a `yarn link` call to make each package available for linking.
+
+   2. From the app you want to test your changes, call `yarn link <package>` for each package that you want to link (this assumes the application is using `yarn` as well).
+
+      - If you are using webpack in your application make sure the webpack config contains the option `webpackConfig.resolve.symlinks` equal to `false`.
+
+   3. Run the app. If you need to test additional changes while the app is running, you can either run the command `yarn build` to build all the packages again (slow) or run the command `yarn build:watch` and then perform your changes. When you save the changes, the changed files will be compiled. Make sure your application does not ignore hot reloading files inside `node_modules/@farfetch/*` directories for the changes to be picked up.
+
+   4. When you are finished, run the command `yarn dev:unlink` from the root of the project to unlink the `@farfetch` packages and call `yarn unlink <package>` from your application's root folder to unlink the `@farfetch` packages that were linked in step 2.
+
+4. When you have finished coding, make sure the following checks are passing:
 
    - Check unit tests by runnning `yarn test`
    - Check linting errors by running `yarn lint`
    - Check type errors by runnning `yarn ci:types`
 
-4. Commit changes to the branch by following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard
+5. Commit changes to the branch by following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard
 
    - The project is configured to lint the commit message and will raise an error if the message is not well formatted
    - The message should state its intent clearly
 
-5. Push changes to your fork
-6. Open a PR in our repository targeting the correct branch and follow the PR template so that we can efficiently review the changes
+6. Push changes to your fork
+7. Open a PR in our repository targeting the correct branch and follow the PR template so that we can efficiently review the changes
 
 ### Creating good pull requests
 

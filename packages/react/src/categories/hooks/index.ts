@@ -1,8 +1,8 @@
 /**
  * Categories hooks.
  */
-export { default as useCategories } from './useCategories';
-export { default as useCategory } from './useCategory';
-export { default as useTopCategories } from './useTopCategories';
+export { default as useCategories } from './useCategories.js';
+export { default as useCategory } from './useCategory.js';
+export { default as useTopCategories } from './useTopCategories.js';
 
-export * from './types';
+export * from './types/index.js';

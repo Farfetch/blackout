@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchSearchDidYouMean } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchSearchDidYouMean } from '../index.js';
 import { getSearchDidYouMean } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/searchDidYouMean';
+import { INITIAL_STATE } from '../../reducer/searchDidYouMean.js';
 import {
   mockSearchDidYouMeanHash,
   mockSearchDidYouMeanQuery,
   mockSearchDidYouMeanResponse,
-} from 'tests/__fixtures__/search';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/search/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

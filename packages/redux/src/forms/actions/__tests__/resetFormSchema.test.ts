@@ -1,6 +1,6 @@
-import { formsActionTypes, formsReducer } from '../../';
-import { mockStore } from '../../../../tests';
-import { resetFormSchema } from '../';
+import { formsActionTypes, formsReducer } from '../..//index.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetFormSchema } from '..//index.js';
 
 let store: ReturnType<typeof mockStore>;
 const randomAction = { type: 'this_is_a_random_action' };

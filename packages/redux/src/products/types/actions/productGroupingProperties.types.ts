@@ -1,10 +1,10 @@
-import type * as actionTypes from '../../actionTypes';
+import type * as actionTypes from '../../actionTypes/index.js';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   GroupingPropertiesAdapted,
   ProductEntity,
-} from '../../../entities/types';
+} from '../../../entities/types/index.js';
 
 export interface FetchProductGroupingPropertiesRequestAction extends Action {
   meta: { productId: ProductEntity['id'] };

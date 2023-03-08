@@ -8,13 +8,14 @@
   "type": "module",
   "scripts": {
     "build": "yarn build:transpile && yarn build:types",
+    "build:watch": "../../scripts/transpile.sh --skip-initial-build --watch --verbose",
     "build:transpile": "../../scripts/transpile.sh",
     "build:types": "tsc -p tsconfig.release.json",
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
-    "prebuild": "yarn clean",
     "clean": "rimraf dist tsconfig.release.tsbuildinfo",
     "ci:types": "tsc -p tsconfig.ci.runtime.json",
-    "prepack": "yarn build:copy-package-json"
+    "prepack": "yarn build:copy-package-json",
+    "dev:link": "yarn build && yarn build:copy-package-json && cd dist && yarn link"
   },
   "repository": {
     "type": "git",
@@ -35,15 +36,15 @@
     "lodash": "^4.17.21",
     "redux": "^4.1.0",
     "redux-mock-store": "^1.5.4",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.2"
   },
   "peerDependencies": {
     "@farfetch/blackout-analytics": "^1.0.0-next.87",
     "@farfetch/blackout-client": "^2.0.0-next.216",
     "immer": "^9.0.19",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.4.1",
+    "redux-thunk": "^2.4.2",
     "reselect": "^4.1.5"
   },
   "publishConfig": {

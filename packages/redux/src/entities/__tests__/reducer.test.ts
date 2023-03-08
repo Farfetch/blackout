@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   createDefaultEntitiesReducer,
   createEntitiesReducer,
   defaultEntitiesReducers,
   type ProductEntity,
-} from '..';
-import type { StoreState } from '../../types';
+} from '../index.js';
+import type { StoreState } from '../../types/index.js';
 
 describe('reducer', () => {
   const mockProductsState = {

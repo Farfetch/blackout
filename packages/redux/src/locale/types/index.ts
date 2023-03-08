@@ -1,2 +1,2 @@
-export * from './actions.types';
-export * from './reducer.types';
+export * from './actions.types.js';
+export * from './reducer.types.js';

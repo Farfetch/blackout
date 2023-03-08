@@ -1,6 +1,9 @@
-import type { Config } from '../../types';
-import type { Order } from './order.types';
-import type { OrderDocument, OrderDocumentType } from './orderDocuments.types';
+import type { Config } from '../../types/index.js';
+import type { Order } from './order.types.js';
+import type {
+  OrderDocument,
+  OrderDocumentType,
+} from './orderDocuments.types.js';
 
 export type PostOrderDocument = (
   id: Order['id'],

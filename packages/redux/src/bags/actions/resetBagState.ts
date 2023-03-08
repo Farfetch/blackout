@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetBagStateAction } from '../types';
+import type { ResetBagStateAction } from '../types/index.js';
 
 /**
  * Reset bag state to its initial value.

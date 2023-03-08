@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import { resetReturnState } from '..';
-import { returnId } from 'tests/__fixtures__/returns';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetReturnState } from '../index.js';
+import { returnId } from 'tests/__fixtures__/returns/index.mjs';
 
 describe('resetReturnState() action creator', () => {
   let store: ReturnType<typeof mockStore>;

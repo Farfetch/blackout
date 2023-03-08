@@ -1,4 +1,4 @@
-import analytics from '../analytics';
+import analytics from '../analytics.js';
 import AnalyticsCore, {
   TrackTypes as analyticsTrackTypes,
   type ConsentData,

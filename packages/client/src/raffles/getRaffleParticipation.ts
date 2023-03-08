@@ -1,7 +1,6 @@
-import { adaptError } from '@farfetch/blackout-client';
-import client from '../helpers/client';
+import client, { adaptError } from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetRaffleParticipation } from './types/getRaffleParticipation.types';
+import type { GetRaffleParticipation } from './types/getRaffleParticipation.types.js';
 
 /**
  * Method responsible for getting the raffle participation by its id.

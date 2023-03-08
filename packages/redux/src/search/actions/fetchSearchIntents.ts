@@ -1,4 +1,4 @@
-import { fetchSearchIntentsFactory } from './factories';
+import { fetchSearchIntentsFactory } from './factories/index.js';
 import { getSearchIntents } from '@farfetch/blackout-client';
 
 /**

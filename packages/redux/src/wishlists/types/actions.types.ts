@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
@@ -12,9 +12,9 @@ import type {
   MerchantEntity,
   ProductEntity,
   WishlistSetEntities,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
-import type { WishlistsState } from './state.types';
+import type { WishlistsState } from './state.types.js';
 
 export type WishlistNormalizedPayload = NormalizedSchema<
   {

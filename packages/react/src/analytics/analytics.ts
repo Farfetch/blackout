@@ -5,7 +5,7 @@ import Analytics, {
   type IntegrationRuntimeData,
   PlatformTypes,
 } from '@farfetch/blackout-analytics';
-import webContext from './context';
+import webContext from './context.js';
 
 /**
  * Analytics facade for web applications. Refer to \@farfetch/blackout-analytics

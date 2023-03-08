@@ -1,12 +1,12 @@
-import { getOrderItemAvailableActivities } from '..';
+import { getOrderItemAvailableActivities } from '../index.js';
 import {
   mockOrderItemAvailableActivities,
   orderId,
   orderItemId,
-} from 'tests/__fixtures__/orders';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getOrderItemAvailableActivities.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/orders/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getOrderItemAvailableActivities.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PutUserAddress,
@@ -8,9 +8,9 @@ import {
   type UserAddressInput,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import addressesSchema from '../../../../entities/schemas/addresses';
+import addressesSchema from '../../../../entities/schemas/addresses.js';
 import type { Dispatch } from 'redux';
-import type { UpdateUserAddressAction } from '../../types';
+import type { UpdateUserAddressAction } from '../../types/index.js';
 
 /**
  * Updates the user address information with the specified 'addressId'.

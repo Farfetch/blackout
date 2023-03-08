@@ -1,4 +1,4 @@
-import { bagsActionTypes, getBagItem } from '../../bags';
+import { bagsActionTypes, getBagItem } from '../../bags/index.js';
 import {
   calculatePriceDiscount,
   getCategory,
@@ -6,24 +6,23 @@ import {
   getSize,
   getSizeFullInformation,
   getVariant,
-} from './helpers';
-import { getProductDenormalized } from '../../products';
+} from './helpers.js';
+import { get, isNil } from 'lodash-es';
+import { getProductDenormalized } from '../../products/index.js';
 import Analytics, {
   type EventProperties,
   EventTypes,
   utils,
 } from '@farfetch/blackout-analytics';
-import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
 import type {
   BagActionMiddlewareOptions,
   BagActionProcessedOptions,
   BagProductActionMetadata,
-} from './types';
+} from './types/index.js';
 import type { BagItem } from '@farfetch/blackout-client';
-import type { BagItemEntity } from '../../entities/types';
-import type { StoreState } from '../../types';
+import type { BagItemEntity } from '../../entities/types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Extends the default action types with the ones passed to the middleware.
@@ -145,15 +144,15 @@ const getProductData = async (
   // Now we can safely retrieve the correct bag item data from the store.
   const bagItem = getBagItem(state, bagItemId);
   const id = productIdMeta || get(bagItem, 'product.id'); // If no productId property exists on the action meta, use the id on the bagItem if available
-  const product = getProductDenormalized(state, id);
+  const product = id ? getProductDenormalized(state, id) : undefined;
   const { sku, shortDescription, name: productName } = product || {};
   const name = shortDescription || productName;
   const category = getCategory(product);
   const brand = product?.brand?.name;
   const variant = getVariant(product);
   const priceWithDiscount =
-    get(bagItem, 'price.includingTaxes') || // price might be defined only on bagItem on a hard-refresh of the bag page
-    get(product, 'price.includingTaxes');
+    get(bagItem, 'price.includingTaxes', 0) || // price might be defined only on bagItem on a hard-refresh of the bag page
+    get(product, 'price.includingTaxes', 0);
   const priceWithoutDiscount =
     get(bagItem, 'price.includingTaxesWithoutDiscount', priceWithDiscount) ||
     get(product, 'price.includingTaxesWithoutDiscount', priceWithDiscount);

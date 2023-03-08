@@ -1,20 +1,20 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
+import { omit } from 'lodash-es';
 import { produce } from 'immer';
-import omit from 'lodash/omit';
 import reducerFactory, {
   createReducerWithResult,
-} from '../../helpers/reducerFactory';
+} from '../../helpers/reducerFactory.js';
 import type {
   AddressEntity,
   AddressesEntity,
-} from '../../entities/types/addresses.types';
+} from '../../entities/types/addresses.types.js';
 import type {
   FetchUserAddressesSuccessAction,
   FetchUserAddressSuccessAction,
   UserAddressesState,
-} from './types';
-import type { StoreState } from '../../types';
+} from './types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 export const INITIAL_STATE: UserAddressesState = {
   error: null,

@@ -1,6 +1,6 @@
-import type { Config } from '../..';
-import type { Configuration } from './configuration';
-import type { ConfigurationQuery } from './configurationQuery';
+import type { Config } from '../../index.js';
+import type { Configuration } from './configuration.js';
+import type { ConfigurationQuery } from './configurationQuery.js';
 
 export type GetConfiguration = (
   code: Configuration['code'],

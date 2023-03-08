@@ -1,3 +1,3 @@
-export * from './FetchRecentlyViewedProductsFactory.types';
-export * from './RemoveRecentlyViewedProductFactory.types';
-export * from './FetchRecommendedProductsFactory.types';
+export * from './FetchRecentlyViewedProductsFactory.types.js';
+export * from './RemoveRecentlyViewedProductFactory.types.js';
+export * from './FetchRecommendedProductsFactory.types.js';

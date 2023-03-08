@@ -1,9 +1,9 @@
-import * as actionTypes from '../../actionTypes';
-import { createPhoneNumberValidations } from '..';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { createPhoneNumberValidations } from '../index.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import { postPhoneNumberValidation } from '@farfetch/blackout-client';
-import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

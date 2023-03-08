@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PaymentInstrument,
@@ -8,7 +8,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { UpdatePaymentIntentInstrumentAction } from '../../types';
+import type { UpdatePaymentIntentInstrumentAction } from '../../types/index.js';
 
 /**
  * Method responsible for updating a payment instrument of a payment intent.

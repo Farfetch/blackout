@@ -1,4 +1,4 @@
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 

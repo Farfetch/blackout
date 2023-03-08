@@ -1,3 +1,3 @@
-export * from './useSearchIntents.types';
-export * from './useSearchSuggestions.types';
-export * from './useSearchDidYouMean.types';
+export * from './useSearchIntents.types.js';
+export * from './useSearchSuggestions.types.js';
+export * from './useSearchDidYouMean.types.js';

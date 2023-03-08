@@ -1,7 +1,7 @@
-import { getEntities } from '../../entities/selectors';
-import { getError, getIsLoading, getResult } from '../reducer/categories';
-import type { CategoriesState } from '../types';
-import type { StoreState } from '../../types';
+import { getEntities } from '../../entities/selectors/index.js';
+import { getError, getIsLoading, getResult } from '../reducer/categories.js';
+import type { CategoriesState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Retrieves the error status of categories.

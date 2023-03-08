@@ -3,8 +3,8 @@ import {
   removeRecentlyViewedProduct,
   saveRecentlyViewedProduct,
 } from '@farfetch/blackout-redux';
-import { mockBrandResponse } from 'tests/__fixtures__/brands';
-import { mockCategory } from 'tests/__fixtures__/categories';
+import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
+import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
 import {
   mockProductId,
   mockProductsListHash,
@@ -12,10 +12,10 @@ import {
   mockProductsListHashWithSingleProductId,
   mockProductsListNormalizedPayload,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 import { renderHook } from '@testing-library/react';
-import { withStore } from '../../../../tests/helpers';
-import useRecentlyViewedProduct from '../useRecentlyViewedProducts';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useRecentlyViewedProduct from '../useRecentlyViewedProducts.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

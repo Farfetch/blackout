@@ -5,8 +5,8 @@ import {
   type OrderLegacy,
 } from '@farfetch/blackout-client';
 import { schema } from 'normalizr';
-import orderItem from './orderItem';
-import preprocessOrder from '../../helpers/preprocessOrder';
+import orderItem from './orderItem.js';
+import preprocessOrder from '../../helpers/preprocessOrder.js';
 
 const orderSchema = new schema.Entity(
   'orders',

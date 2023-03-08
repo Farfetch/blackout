@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import { getConfiguration } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/configuration';
+import { INITIAL_STATE } from '../../reducer/configuration.js';
 import {
   mockConfiguration,
   mockConfigurationCode,
   mockConfigurationNormalizedResponse,
-} from 'tests/__fixtures__/settings';
-import { mockStore } from '../../../../tests';
-import fetchConfiguration from '../fetchConfiguration';
+} from 'tests/__fixtures__/settings/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import fetchConfiguration from '../fetchConfiguration.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

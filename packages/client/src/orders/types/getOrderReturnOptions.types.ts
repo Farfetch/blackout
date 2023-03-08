@@ -1,5 +1,5 @@
-import type { Config, Order } from '../..';
-import type { MerchantOrderReturnOptions } from './orderReturnOptions.types';
+import type { Config, Order } from '../../index.js';
+import type { MerchantOrderReturnOptions } from './orderReturnOptions.types.js';
 
 export type GetOrderReturnOptions = (
   id: Order['id'],

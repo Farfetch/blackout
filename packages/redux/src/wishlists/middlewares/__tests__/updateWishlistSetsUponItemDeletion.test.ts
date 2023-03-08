@@ -1,8 +1,8 @@
-import { fetchWishlistSets } from '../../actions';
-import { mockStore } from '../../../../tests';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
-import { REMOVE_WISHLIST_ITEM_SUCCESS } from '../../actionTypes';
-import { updateWishlistSetsUponItemDeletion } from '../';
+import { fetchWishlistSets } from '../../actions/index.js';
+import { mockStore } from '../../../../tests/index.js';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import { REMOVE_WISHLIST_ITEM_SUCCESS } from '../../actionTypes.js';
+import { updateWishlistSetsUponItemDeletion } from '..//index.js';
 import thunk from 'redux-thunk';
 
 jest.mock('../../actions', () => ({

@@ -1,4 +1,4 @@
-import { fetchCheckoutOrderDeliveryBundleProvisioningFactory } from './factories';
+import { fetchCheckoutOrderDeliveryBundleProvisioningFactory } from './factories/index.js';
 import { getCheckoutOrderDeliveryBundleProvisioning } from '@farfetch/blackout-client';
 
 /**

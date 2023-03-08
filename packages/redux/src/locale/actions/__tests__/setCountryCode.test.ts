@@ -1,8 +1,8 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE_LOCALE } from '../../reducer';
-import { mockCountryCode } from 'tests/__fixtures__/locale';
-import { mockStore } from '../../../../tests';
-import { setCountryCode } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE_LOCALE } from '../../reducer.js';
+import { mockCountryCode } from 'tests/__fixtures__/locale/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { setCountryCode } from '../index.js';
 
 describe('setCountry() action creator', () => {
   let store: ReturnType<typeof mockStore>;

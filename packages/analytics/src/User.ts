@@ -1,7 +1,7 @@
-import DataStore from './DataStore';
+import DataStore from './DataStore.js';
 import uuid from 'uuid';
-import type { StorageWrapper } from './utils';
-import type { UserData, UserTraits } from './types/analytics.types';
+import type { StorageWrapper } from './utils/index.js';
+import type { UserData, UserTraits } from './types/analytics.types.js';
 
 /**
  * Handles and persists user data on the instance. Persists localId on the passed
@@ -40,7 +40,7 @@ class User {
     let localId = (await this.storage.getItem('localId')) as string | undefined;
 
     if (!localId) {
-      localId = uuid.v4();
+      localId = uuid();
       await this.storage.setItem('localId', localId);
     }
 

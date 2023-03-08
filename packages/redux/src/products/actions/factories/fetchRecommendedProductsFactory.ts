@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { adaptRecommendedProducts } from '../../../helpers/adapters';
+import * as actionTypes from '../../actionTypes/index.js';
+import { adaptRecommendedProducts } from '../../../helpers/adapters/index.js';
 import {
   type GetRecommendedProducts,
   type RecommendedProductsResult,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchRecommendedProductsAction } from '../../types';
-import type { FetchRecommendedProductsFactory } from './types';
+import type { FetchRecommendedProductsAction } from '../../types/index.js';
+import type { FetchRecommendedProductsFactory } from './types/index.js';
 
 /**
  * Method responsible for retrieving recommendations for a product based on a

@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetProductOutfits } from './types';
+import type { GetProductOutfits } from './types/index.js';
 
 /**
  * Method responsible for getting outfits photographed for the product, usually a single one.

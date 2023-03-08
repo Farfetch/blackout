@@ -1,6 +1,6 @@
-import type { Brand } from './brand.types';
-import type { Category } from '../../categories/types';
-import type { GenderCode } from '../../types';
+import type { Brand } from './brand.types.js';
+import type { Category } from '../../categories/types/index.js';
+import type { GenderCode } from '../../types/index.js';
 
 export type BrandsQuery = {
   page?: number;

@@ -1,4 +1,4 @@
-import { adaptDate } from '../../helpers/adapters';
+import { adaptDate } from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
 
 export const content = new schema.Entity(

@@ -27,17 +27,15 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { loadGaScript } from './gaLoadScript';
+import { each, get, merge } from 'lodash-es';
+import { loadGaScript } from './gaLoadScript.js';
 import defaultEventCommands, {
   commandListSchema,
   nonInteractionEvents,
-} from './commands';
-import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
-import each from 'lodash/each';
-import eventValidator from '../shared/validation/eventValidator';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
-import productCategoriesValidator from './validation/productCategoriesValidator';
+} from './commands.js';
+import defaultSchemaEventsMap from '../shared/validation/eventSchemas.js';
+import eventValidator from '../shared/validation/eventValidator.js';
+import productCategoriesValidator from './validation/productCategoriesValidator.js';
 import type {
   EventScopeCommandsHandlers,
   GACommandList,
@@ -49,7 +47,7 @@ import type {
   Schemas,
   ScopeCommands,
   ValidateCommandResult,
-} from './types';
+} from './types/index.js';
 
 /**
  * Google Analytics Integration.

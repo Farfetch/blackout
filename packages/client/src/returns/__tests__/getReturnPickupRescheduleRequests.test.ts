@@ -1,9 +1,12 @@
-import { getReturnPickupRescheduleRequests } from '..';
-import { returnId as id, responses } from 'tests/__fixtures__/returns';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getReturnPickupRescheduleRequests.fixtures';
+import { getReturnPickupRescheduleRequests } from '../index.js';
+import {
+  returnId as id,
+  responses,
+} from 'tests/__fixtures__/returns/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getReturnPickupRescheduleRequests.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getReturnPickupRescheduleRequests', () => {
   const spy = jest.spyOn(client, 'get');

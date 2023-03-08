@@ -2,4 +2,4 @@
  * Merchants locations actions factories.
  */
 
-export { default as fetchMerchantsLocationsFactory } from './fetchMerchantsLocationsFactory';
+export { default as fetchMerchantsLocationsFactory } from './fetchMerchantsLocationsFactory.js';

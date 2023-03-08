@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import LongText from '../longText/LongText';
+import LongText from '../longText/LongText.js';
 import React from 'react';
 
 describe('<LongText />', () => {

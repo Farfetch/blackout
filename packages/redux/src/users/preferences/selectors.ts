@@ -1,10 +1,10 @@
-import { getEntities } from '../../entities';
+import { getEntities } from '../../entities/index.js';
 import {
   getUserPreferences as getUserPreferencesFromReducer,
   getUserPreferencesUpdate,
-} from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+} from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status for the preferences operation.

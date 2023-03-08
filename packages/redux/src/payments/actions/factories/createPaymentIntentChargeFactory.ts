@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PaymentIntent,
@@ -7,7 +7,7 @@ import {
   type PostPaymentIntentChargeResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { CreatePaymentIntentChargeAction } from '../../types';
+import type { CreatePaymentIntentChargeAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
 
 /**

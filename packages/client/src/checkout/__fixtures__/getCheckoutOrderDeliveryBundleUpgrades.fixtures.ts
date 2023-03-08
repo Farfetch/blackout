@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { DeliveryBundleUpgrades } from '../types';
+import type { DeliveryBundleUpgrades } from '../types/index.js';
 
 const path =
   '/api/checkout/v1/orders/:id/deliveryBundles/:deliveryBundleId/upgrades';

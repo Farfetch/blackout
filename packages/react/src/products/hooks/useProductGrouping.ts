@@ -10,8 +10,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseProductGroupingOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { UseProductGroupingOptions } from './types/index.js';
 
 const useProductGrouping = (
   productId: ProductEntity['id'],

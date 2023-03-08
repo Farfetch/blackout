@@ -7,7 +7,8 @@ Object {
   "exception": Object {},
   "message": "error",
   "moreInformation": "Error more information",
+  "name": "AxiosError",
   "status": 400,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;

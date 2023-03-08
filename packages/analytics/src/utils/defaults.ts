@@ -1,5 +1,5 @@
-import { PACKAGE_NAME, PACKAGE_VERSION } from './constants';
-import { qs } from 'url-parse';
+import { PACKAGE_NAME, PACKAGE_VERSION } from './constants.js';
+import urlparse from 'url-parse';
 
 /*
  * Returns an object with default context properties.
@@ -40,5 +40,5 @@ export const getContextDefaults = (): {
 export const stringifyQuery = (
   query: Record<string, string | undefined>,
 ): string => {
-  return qs.stringify(query, true);
+  return urlparse.qs.stringify(query, true);
 };

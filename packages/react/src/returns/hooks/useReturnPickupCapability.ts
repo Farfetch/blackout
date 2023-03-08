@@ -9,9 +9,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { Config, Return } from '@farfetch/blackout-client';
-import type { UseReturnPickupCapabilityOptions } from './types/useReturnPickupCapability';
+import type { UseReturnPickupCapabilityOptions } from './types/useReturnPickupCapability.js';
 
 /**
  * Obtains the pickup capability for a specific return and pickup day.

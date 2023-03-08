@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetRaffle,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import raffleSchema from '../../../entities/schemas/raffles';
+import raffleSchema from '../../../entities/schemas/raffles.js';
 import type { Dispatch } from 'redux';
 
 /**

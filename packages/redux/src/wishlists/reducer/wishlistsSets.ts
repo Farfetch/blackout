@@ -1,9 +1,9 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
-import omit from 'lodash/omit';
-import type { StoreState } from '../../types';
-import type { WishlistSetsState } from '../types';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes.js';
+import { omit } from 'lodash-es';
+import type { StoreState } from '../../types/index.js';
+import type { WishlistSetsState } from '../types/index.js';
 
 export const INITIAL_STATE: WishlistSetsState = {
   error: null,

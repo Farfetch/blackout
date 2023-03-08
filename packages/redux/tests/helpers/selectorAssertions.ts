@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-export */
 
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { Nullable } from '../../src';
+import type { Nullable } from '../../src/index.js';
 
 /**
  * Converts the subArea naming into a compatible one for compatibility with the

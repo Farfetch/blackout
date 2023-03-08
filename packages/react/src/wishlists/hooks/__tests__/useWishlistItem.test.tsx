@@ -3,13 +3,13 @@ import {
   mockWishlistItemId,
   mockWishlistItemPatchData,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import {
   removeWishlistItem,
   updateWishlistItem,
 } from '@farfetch/blackout-redux';
-import { withStore } from '../../../../tests/helpers';
-import useWishlistItem from '../useWishlistItem';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useWishlistItem from '../useWishlistItem.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

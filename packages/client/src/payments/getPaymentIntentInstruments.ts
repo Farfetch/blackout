@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetPaymentIntentInstruments } from './types';
+import type { GetPaymentIntentInstruments } from './types/index.js';
 
 /**
  * Obtains all the intent instruments that will process on demand.

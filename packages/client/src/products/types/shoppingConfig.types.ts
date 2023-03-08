@@ -1,4 +1,4 @@
-import type { FacetType } from './facetTypeEnum.types';
+import type { FacetType } from './facetTypeEnum.types.js';
 
 export type ShoppingConfig = {
   pageIndex: number;

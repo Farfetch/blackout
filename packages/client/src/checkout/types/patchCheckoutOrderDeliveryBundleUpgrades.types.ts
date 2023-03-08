@@ -1,6 +1,6 @@
-import type { CheckoutOrder } from './checkoutOrder.types';
-import type { Config } from '../../types';
-import type { DeliveryBundle } from './deliveryBundle.types';
+import type { CheckoutOrder } from './checkoutOrder.types.js';
+import type { Config } from '../../types/index.js';
+import type { DeliveryBundle } from './deliveryBundle.types.js';
 import type { ReplacePatch, TestPatch } from 'json-patch';
 
 export type PatchCheckoutOrderDeliveryBundleUpgradesData =

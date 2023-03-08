@@ -1,8 +1,8 @@
-import { generateBagItemHash } from '..';
+import { generateBagItemHash } from '../index.js';
 import {
   mockBagItemEntity,
   mockBagItemHydrated,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 
 describe('generateBagItemHash()', () => {
   describe('error handling', () => {

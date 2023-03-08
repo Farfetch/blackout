@@ -1,2 +1,2 @@
-export * from './useConfigurations';
-export * from './useConfiguration';
+export * from './useConfigurations.js';
+export * from './useConfiguration.js';

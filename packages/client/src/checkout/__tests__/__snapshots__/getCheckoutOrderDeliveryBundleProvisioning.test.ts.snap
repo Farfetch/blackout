@@ -4,7 +4,8 @@ exports[`getCheckoutOrderDeliveryBundleProvisioning should receive a client requ
 Object {
   "code": "-1",
   "message": "stub error",
+  "name": "AxiosError",
   "status": 404,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;

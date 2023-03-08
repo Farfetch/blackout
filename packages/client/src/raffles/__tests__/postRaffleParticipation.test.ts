@@ -1,11 +1,11 @@
 import {
   mockRaffleParticipationResponse,
   raffleId,
-} from 'tests/__fixtures__/raffles';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postRaffleParticipation.fixtures';
-import mswServer from '../../../tests/mswServer';
-import postRaffleParticipation from '../postRaffleParticipation';
+} from 'tests/__fixtures__/raffles/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postRaffleParticipation.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import postRaffleParticipation from '../postRaffleParticipation.js';
 
 describe('postRaffleParticipation', () => {
   const data = {

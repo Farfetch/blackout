@@ -11,9 +11,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { GetSubscriptionsQuery } from '@farfetch/blackout-client';
-import type { UseUserSubscriptionsOptions } from './types';
+import type { UseUserSubscriptionsOptions } from './types/index.js';
 
 function useUserSubscriptions(
   query: GetSubscriptionsQuery,

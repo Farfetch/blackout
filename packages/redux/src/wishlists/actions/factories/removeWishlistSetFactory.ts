@@ -1,14 +1,14 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type DeleteWishlistSet,
   toBlackoutError,
   type WishlistSet,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors';
+import { getWishlistId } from '../../selectors/index.js';
 import type { Dispatch } from 'redux';
-import type { RemoveWishlistSetAction } from '../../types';
-import type { StoreState } from '../../../types';
+import type { RemoveWishlistSetAction } from '../../types/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to remove a set

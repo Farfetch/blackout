@@ -1,5 +1,5 @@
 import { deleteSubscriptionTopicRecipient } from '@farfetch/blackout-client';
-import { unsubscribeSubscriptionTopicRecipientFactory } from './factories';
+import { unsubscribeSubscriptionTopicRecipientFactory } from './factories/index.js';
 
 /**
  * Method responsible for unsubscribing a subscription topic recipient.

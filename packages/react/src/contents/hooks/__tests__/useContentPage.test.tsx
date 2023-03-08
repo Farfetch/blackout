@@ -8,9 +8,9 @@ import {
   mockContentPageLoadingState,
   mockContentPageWithDataState,
   slug,
-} from 'tests/__fixtures__/contents';
-import { withStore } from '../../../../tests/helpers';
-import useContentPage from '../useContentPage';
+} from 'tests/__fixtures__/contents/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useContentPage from '../useContentPage.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

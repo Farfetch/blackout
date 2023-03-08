@@ -1,4 +1,4 @@
-import reducerFactory, { createReducerWithResult } from '../reducerFactory';
+import reducerFactory, { createReducerWithResult } from '../reducerFactory.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 describe('reducerFactory', () => {

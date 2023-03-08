@@ -1,17 +1,17 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { fetchGuestOrderLegacy } from '..';
+import { fetchGuestOrderLegacy } from '../index.js';
 import {
   getExpectedOrderDetailsNormalizedPayload,
   mockGuestUserEmail,
   mockOrderDetailsResponse,
   orderId,
-} from 'tests/__fixtures__/orders';
+} from 'tests/__fixtures__/orders/index.mjs';
 import { getGuestOrderLegacy } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import thunk from 'redux-thunk';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -25,6 +25,7 @@ const mockMiddlewares = [
     getOptions,
   }),
 ];
+
 const ordersMockStore = (state = {}) =>
   mockStore({ orders: INITIAL_STATE }, state, mockMiddlewares);
 const ordersMockStoreWithoutMiddlewares = (state = {}) =>

@@ -1,5 +1,5 @@
-import { generateSearchSuggestionsHash } from '..';
-import { mockSearchSuggestionsQuery } from 'tests/__fixtures__/search';
+import { generateSearchSuggestionsHash } from '../index.js';
+import { mockSearchSuggestionsQuery } from 'tests/__fixtures__/search/index.mjs';
 
 describe('generateSearchSuggestionsHash()', () => {
   it('should generate an hash', () => {

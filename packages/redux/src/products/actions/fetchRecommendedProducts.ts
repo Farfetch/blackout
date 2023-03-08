@@ -1,4 +1,4 @@
-import { fetchRecommendedProductsFactory } from './factories';
+import { fetchRecommendedProductsFactory } from './factories/index.js';
 import { getRecommendedProducts } from '@farfetch/blackout-client';
 
 /**

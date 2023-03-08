@@ -4,9 +4,9 @@ import {
   PageTypes,
   type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
-import { getEventProperties, getProductData } from './utils';
-import get from 'lodash/get';
-import type { EventMappers } from './types';
+import { get } from 'lodash-es';
+import { getEventProperties, getProductData } from './utils.js';
+import type { EventMappers } from './types/index.js';
 
 const noPropertiesMappedFn = () => ({});
 

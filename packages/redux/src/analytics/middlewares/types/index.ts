@@ -1,3 +1,3 @@
-export * from './setUser.types';
-export * from './bag.types';
-export * from './wishlist.types';
+export * from './setUser.types.js';
+export * from './bag.types.js';
+export * from './wishlist.types.js';

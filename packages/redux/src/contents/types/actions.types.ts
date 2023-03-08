@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
@@ -6,8 +6,8 @@ import type {
   ContentType,
   SEOMetadata,
 } from '@farfetch/blackout-client';
-import type { ContentsEntity } from '../../entities';
-import type { Hash, Pathname } from './reducers.types';
+import type { ContentsEntity } from '../../entities/index.js';
+import type { Hash, Pathname } from './reducers.types.js';
 import type { NormalizedSchema } from 'normalizr';
 
 export type ContentsNormalized = Omit<Contents, 'entries'> & {

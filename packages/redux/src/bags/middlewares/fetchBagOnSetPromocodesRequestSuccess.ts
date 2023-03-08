@@ -1,9 +1,9 @@
-import { fetchBag } from '../actions';
-import { getBagId } from '../selectors';
-import { SET_BAG_PROMOCODES_SUCCESS } from '../actionTypes';
+import { fetchBag } from '../actions/index.js';
+import { getBagId } from '../selectors.js';
+import { SET_BAG_PROMOCODES_SUCCESS } from '../actionTypes.js';
 import type { AnyAction, Middleware } from 'redux';
-import type { FetchBagAction } from '../types';
-import type { GetOptionsArgument, StoreState } from '../../types';
+import type { FetchBagAction } from '../types/index.js';
+import type { GetOptionsArgument, StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 type FetchBagOnSetPromocodesRequestSuccess = {

@@ -1,10 +1,10 @@
-export * as categoriesActionTypes from './actionTypes';
+export * as categoriesActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * from './selectors';
-export * from './utils';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * from './selectors/index.js';
+export * from './utils/index.js';
 
-export { default as categoriesReducer } from './reducer';
+export { default as categoriesReducer } from './reducer/index.js';
 
-export * from './types';
+export * from './types/index.js';

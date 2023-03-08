@@ -1,6 +1,10 @@
-import { adaptAttributes, adaptDate, adaptPrice } from '../../helpers/adapters';
+import {
+  adaptAttributes,
+  adaptDate,
+  adaptPrice,
+} from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
-import product from './product';
+import product from './product.js';
 
 export default new schema.Entity(
   'sharedWishlistItems',

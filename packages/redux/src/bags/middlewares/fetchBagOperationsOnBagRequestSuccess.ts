@@ -3,16 +3,16 @@ import {
   FETCH_BAG_SUCCESS,
   REMOVE_BAG_ITEM_SUCCESS,
   UPDATE_BAG_ITEM_SUCCESS,
-} from '../actionTypes';
+} from '../actionTypes.js';
 import {
   fetchBagOperation,
   resetBagOperationsEntities,
   resetBagState,
-} from '../actions';
-import { getBag, getBagId } from '../selectors';
+} from '../actions/index.js';
+import { getBag, getBagId } from '../selectors.js';
 import type { AnyAction, Middleware } from 'redux';
-import type { FetchBagOperationAction } from '../types';
-import type { StoreState } from '../../types';
+import type { FetchBagOperationAction } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 const INTERCEPTED_BAG_ACTIONS = [

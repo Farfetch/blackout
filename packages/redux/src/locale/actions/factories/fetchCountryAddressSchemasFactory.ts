@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type CountryAddressSchema,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchCountryAddressSchemaAction } from '../../types';
+import type { FetchCountryAddressSchemaAction } from '../../types/index.js';
 
 /**
  * Obtains the address schema for a country specified with 'id'.

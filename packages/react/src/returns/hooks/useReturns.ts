@@ -6,9 +6,9 @@ import {
 } from '@farfetch/blackout-client';
 import { buildQueryStringFromObject } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
-import { usePrevious } from '../../helpers';
-import useUser from '../../users/hooks/useUser';
-import type { UseReturnsOptions } from './types';
+import { usePrevious } from '../../helpers/index.js';
+import useUser from '../../users/hooks/useUser.js';
+import type { UseReturnsOptions } from './types/index.js';
 
 const actionTypes = {
   FetchUserReturnsRequest: 'FETCH_USER_RETURNS_REQUEST',

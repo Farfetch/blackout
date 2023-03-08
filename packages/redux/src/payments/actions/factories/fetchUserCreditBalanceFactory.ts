@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Balance,
   type Config,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchUserCreditBalanceAction } from '../../types';
+import type { FetchUserCreditBalanceAction } from '../../types/index.js';
 
 /**
  * Method responsible for getting the user credit balance.

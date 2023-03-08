@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import type { ProductsOutfitsState } from '../types';
+import type { ProductsOutfitsState } from '../types/index.js';
 
 export const INITIAL_STATE: ProductsOutfitsState = {
   error: {},

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Html from '../html/Html';
+import Html from '../html/Html.js';
 import React from 'react';
 
 describe('<Html />', () => {

@@ -1,4 +1,4 @@
-import type { PagedResponse } from '../../types';
+import type { PagedResponse } from '../../types/index.js';
 
 export type ShipmentTrackings = PagedResponse<ShipmentTracking>;
 

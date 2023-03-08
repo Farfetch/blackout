@@ -1,6 +1,6 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import type * as T from './types';
+import type * as T from './types/index.js';
 
 export const INITIAL_STATE: T.UserAttributesState = {
   result: null,

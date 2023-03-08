@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
 import { getGiftCardBalance } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockGiftCardBalanceResponse } from 'tests/__fixtures__/payments';
-import { mockStore } from '../../../../tests';
-import fetchGiftCardBalance from '../fetchGiftCardBalance';
-import find from 'lodash/find';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockGiftCardBalanceResponse } from 'tests/__fixtures__/payments/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import fetchGiftCardBalance from '../fetchGiftCardBalance.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -3,9 +3,12 @@ import type {
   CustomAttributesAdapted,
   PriceAdapted,
   SizeAdapted,
-} from '../../helpers/adapters';
-import type { MerchantEntity } from './merchant.types';
-import type { ProductEntity, ProductEntityDenormalized } from './product.types';
+} from '../../helpers/adapters/index.js';
+import type { MerchantEntity } from './merchant.types.js';
+import type {
+  ProductEntity,
+  ProductEntityDenormalized,
+} from './product.types.js';
 
 export type BagItemEntity = Omit<
   BagItem,

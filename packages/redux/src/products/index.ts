@@ -1,13 +1,13 @@
-export * as productsActionTypes from './actionTypes';
+export * as productsActionTypes from './actionTypes/index.js';
 
-export { default as productsServerInitialState } from './serverInitialState';
+export { default as productsServerInitialState } from './serverInitialState/index.js';
 
-export * from './actions';
-export * from './selectors';
-export * from './types';
-export * from './utils';
+export * from './actions/index.js';
+export * from './selectors/index.js';
+export * from './types/index.js';
+export * from './utils/index.js';
 
 export {
   default as productsReducer,
   entitiesMapper as productsEntitiesMapper,
-} from './reducer';
+} from './reducer/index.js';

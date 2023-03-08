@@ -3,8 +3,8 @@ import type {
   MerchantEntity,
   ProductEntity,
   ProductEntityDenormalized,
-} from '../../entities/types';
-import type { CustomAttributesAdapted } from '../../helpers/adapters';
+} from '../../entities/types/index.js';
+import type { CustomAttributesAdapted } from '../../helpers/adapters/index.js';
 
 type Params = Partial<{
   productId: ProductEntity['id'];

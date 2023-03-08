@@ -1,5 +1,9 @@
-import type { Config, UserAddress, UserAddressInput } from '../../../types';
-import type { User } from '../../../users/authentication/types/user.types';
+import type {
+  Config,
+  UserAddress,
+  UserAddressInput,
+} from '../../../types/index.js';
+import type { User } from '../../../users/authentication/types/user.types.js';
 
 export type PutUserAddressProps = {
   // Identifier of the address.

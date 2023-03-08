@@ -1,5 +1,5 @@
-import * as actionTypes from './actionTypes';
-import reducerFactory from '../../helpers/reducerFactory';
+import * as actionTypes from './actionTypes.js';
+import reducerFactory from '../../helpers/reducerFactory.js';
 
 export const INITIAL_STATE = {
   error: null,

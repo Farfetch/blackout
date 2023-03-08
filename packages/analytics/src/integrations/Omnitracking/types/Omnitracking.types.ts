@@ -4,7 +4,7 @@ import type {
   pageDefinitions,
   pageViewEventTypes,
   trackDefinitions,
-} from '../definitions';
+} from '../definitions.js';
 import type {
   EventData,
   EventTypes,
@@ -13,31 +13,31 @@ import type {
   PlatformTypes,
   TrackTypes,
   TrackTypesValues,
-} from '../../..';
+} from '../../../index.js';
 import type {
   OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
-} from '../constants';
+} from '../constants.js';
 
 export type PageViewEvents =
-  typeof pageViewEventTypes[keyof typeof pageViewEventTypes];
+  (typeof pageViewEventTypes)[keyof typeof pageViewEventTypes];
 
 export type PageActionEvents =
-  typeof pageActionEventTypes[keyof typeof pageActionEventTypes];
+  (typeof pageActionEventTypes)[keyof typeof pageActionEventTypes];
 
 export type OmnitrackingPageEventParameters = {
-  [K in typeof pageDefinitions[PageViewEvents][number]]?: unknown;
+  [K in (typeof pageDefinitions)[PageViewEvents][number]]?: unknown;
 };
 
 export type ValParameter = Record<string, unknown>;
 
 export type OmnitrackingTrackEventParameters = {
-  [K in typeof trackDefinitions[number]]?: unknown;
+  [K in (typeof trackDefinitions)[number]]?: unknown;
 } & { val?: string };
 
 export type OmnitrackingCommonEventParameters = {
-  [K in typeof commonTrackAndPageParams[number]]?: unknown;
+  [K in (typeof commonTrackAndPageParams)[number]]?: unknown;
 };
 
 export type OmnitrackingPreCalculatedEventParameters =
@@ -47,7 +47,7 @@ export interface OmnitrackingRequestPayload<
   T extends PageViewEvents | PageActionEvents,
 > {
   clientId: number;
-  correlationId: string;
+  correlationId: string | null;
   customerId: string;
   event: T;
   parameters: T extends PageViewEvents
@@ -72,10 +72,10 @@ export type OmnitrackingTrackOrPageEventMapper = (
 ) => OmnitrackingTrackOrPageMapperResult;
 
 export type OmnitrackingTrackMapperKey =
-  typeof EventTypes[keyof typeof EventTypes];
+  (typeof EventTypes)[keyof typeof EventTypes];
 
 export type OmnitrackingPageMapperKey =
-  typeof PageTypes[keyof typeof PageTypes];
+  (typeof PageTypes)[keyof typeof PageTypes];
 
 export type OmnitrackingTrackEventsMapper = {
   [k in OmnitrackingTrackMapperKey]?: OmnitrackingTrackOrPageEventMapper;
@@ -107,7 +107,7 @@ export type SpecificParametersForEventType<
   : OmnitrackingRequestPayload<PageActionEvents>['parameters'];
 
 export type SpecificParametersBuilderByPlatform = {
-  [K in typeof PlatformTypes[keyof typeof PlatformTypes]]: <
+  [K in (typeof PlatformTypes)[keyof typeof PlatformTypes]]: <
     T extends EventData<TrackTypesValues>,
   >(
     data: T,

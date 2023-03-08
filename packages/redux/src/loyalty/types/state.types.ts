@@ -6,7 +6,10 @@ import type {
   ProgramMembershipReplacement,
   ProgramMembershipStatement,
 } from '@farfetch/blackout-client';
-import type { StateWithResult, StateWithResultArray } from '../../types';
+import type {
+  StateWithResult,
+  StateWithResultArray,
+} from '../../types/index.js';
 
 export type LoyaltyState = CombinedState<{
   programs: StateWithResultArray<Program['id']>;

@@ -1,1 +1,1 @@
-export { default } from './Forter';
+export { default } from './Forter.js';

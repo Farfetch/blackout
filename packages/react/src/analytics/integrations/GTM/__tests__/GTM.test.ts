@@ -6,7 +6,7 @@ import {
   DATA_LAYER_CONTEXT_EVENT,
   DATA_LAYER_SET_USER_EVENT,
   SET_USER_TYPE,
-} from '../constants';
+} from '../constants.js';
 import {
   EventTypes,
   integrations,
@@ -15,18 +15,18 @@ import {
   type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
-import { GTM, validationSchemaBuilder } from '../..';
+import { GTM, validationSchemaBuilder } from '../../index.js';
 import {
   loadIntegrationData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
-import eventsMapper from '../eventsMapper';
+} from 'tests/__fixtures__/analytics/index.mjs';
+import eventsMapper from '../eventsMapper.js';
 import type {
   EventMappers,
   GTMEventData,
   GTMIntegrationOptions,
-} from '../types';
-import type { WebContextType } from '../../../context';
+} from '../types/index.js';
+import type { WebContextType } from '../../../context.js';
 
 jest.mock('../gtmTag', () => jest.fn());
 

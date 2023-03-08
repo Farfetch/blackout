@@ -1,4 +1,4 @@
-import { fetchPaymentTokensFactory } from './factories';
+import { fetchPaymentTokensFactory } from './factories/index.js';
 import { getPaymentTokens } from '@farfetch/blackout-client';
 
 /**

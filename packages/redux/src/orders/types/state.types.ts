@@ -1,7 +1,7 @@
 import type { BlackoutError, Order } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { Nullable, StateWithoutResult } from '../../types';
-import type { OrderEntity, OrdersNormalized } from '../../entities';
+import type { Nullable, StateWithoutResult } from '../../types/index.js';
+import type { OrderEntity, OrdersNormalized } from '../../entities/index.js';
 
 export type OrderDetailsState = {
   error: Record<Order['id'], BlackoutError | null>;

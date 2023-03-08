@@ -1,4 +1,4 @@
-import { renderComponent } from '..';
+import { renderComponent } from '../index.js';
 
 describe('renderComponent', () => {
   it('should render component', () => {

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { UserAttribute } from '../types/userAttribute.types';
+import type { UserAttribute } from '../types/userAttribute.types.js';
 
 const path = '/api/account/v1/users/:userId/attributes';
 

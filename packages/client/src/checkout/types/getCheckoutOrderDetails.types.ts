@@ -1,5 +1,5 @@
-import type { CheckoutOrder, CheckoutOrderDetails } from '.';
-import type { Config } from '../../types';
+import type { CheckoutOrder, CheckoutOrderDetails } from './index.js';
+import type { Config } from '../../types/index.js';
 
 export type GetCheckoutOrderDetails = (
   checkoutOrderId: CheckoutOrder['id'],

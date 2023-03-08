@@ -1,4 +1,4 @@
-import type { Gender, GenderCode } from '../../types';
+import type { Gender, GenderCode } from '../../types/index.js';
 
 export type Category = {
   id: number;

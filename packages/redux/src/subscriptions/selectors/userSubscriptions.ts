@@ -1,11 +1,11 @@
-import * as userSubscriptionReducer from '../reducer/userSubscriptions';
+import * as userSubscriptionReducer from '../reducer/userSubscriptions.js';
 import { createSelector } from 'reselect';
-import defaultTo from 'lodash/defaultTo';
-import type { StoreState } from '../../types';
+import { defaultTo } from 'lodash-es';
+import type { StoreState } from '../../types/index.js';
 import type {
   SubscriptionsState,
   UnsubscribeRecipientFromTopicType,
-} from './../types';
+} from './../types/index.js';
 import type { SubscriptionTopic } from '@farfetch/blackout-client';
 
 // Default user subscriptions value for the following selectors.

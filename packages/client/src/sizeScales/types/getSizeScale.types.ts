@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { SizeScale } from './sizeScale.types';
+import type { Config } from '../../index.js';
+import type { SizeScale } from './sizeScale.types.js';
 
 export type GetSizeScale = (
   id: SizeScale['sizeScaleId'],

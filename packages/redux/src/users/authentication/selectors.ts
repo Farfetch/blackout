@@ -1,4 +1,4 @@
-import { getAuthentication } from '../reducer';
+import { getAuthentication } from '../reducer.js';
 import {
   getChangePassword,
   getLogin,
@@ -9,10 +9,10 @@ import {
   getResetPassword,
   getUserToken,
   getValidateEmail,
-} from './reducer';
-import { getUser } from '../../users/selectors';
-import type { StoreState } from '../../types';
-import type { UsersState } from '../types';
+} from './reducer.js';
+import { getUser } from '../../users/selectors.js';
+import type { StoreState } from '../../types/index.js';
+import type { UsersState } from '../types/index.js';
 
 /**
  * Returns the status of the user authentication status.

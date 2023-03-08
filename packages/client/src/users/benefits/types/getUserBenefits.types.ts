@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { User } from '../../authentication';
+import type { Config } from '../../../types/index.js';
+import type { User } from '../../authentication/index.js';
 
 export type UserBenefit = {
   id: string;

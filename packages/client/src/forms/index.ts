@@ -1,7 +1,7 @@
 /**
  * Forms clients.
  */
-export { default as getFormSchema } from './getFormSchema';
-export { default as postFormData } from './postFormData';
+export { default as getFormSchema } from './getFormSchema.js';
+export { default as postFormData } from './postFormData.js';
 
-export * from './types';
+export * from './types/index.js';

@@ -19,10 +19,10 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import useReturnPickupCapability from './useReturnPickupCapability';
-import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests';
-import type { UseReturnOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import useReturnPickupCapability from './useReturnPickupCapability.js';
+import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests.js';
+import type { UseReturnOptions } from './types/index.js';
 
 /**
  * Provides facilities to manage a return.

@@ -1,6 +1,5 @@
-import { adaptDate } from './adapters';
-import omit from 'lodash/omit';
-import trim from 'lodash/trim';
+import { adaptDate } from './adapters/index.js';
+import { omit, trim } from 'lodash-es';
 import type {
   Order,
   OrderLegacy,

@@ -1,1 +1,1 @@
-export { default } from './Riskified';
+export { default } from './Riskified.js';

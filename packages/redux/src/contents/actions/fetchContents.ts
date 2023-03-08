@@ -1,4 +1,4 @@
-import { fetchContentsFactory } from './factories';
+import { fetchContentsFactory } from './factories/index.js';
 import { getSearchContents } from '@farfetch/blackout-client';
 
 /**

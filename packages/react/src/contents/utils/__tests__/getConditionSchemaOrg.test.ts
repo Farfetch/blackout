@@ -1,4 +1,4 @@
-import * as utils from '..';
+import * as utils from '../index.js';
 
 const metatags = [
   {

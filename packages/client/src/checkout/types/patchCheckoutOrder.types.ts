@@ -1,10 +1,10 @@
-import type { CheckoutAddress, Config } from '../../types';
+import type { CheckoutAddress, Config } from '../../types/index.js';
 import type {
   CheckoutOrder,
   ClickAndCollect,
   GetCheckoutOrderResponse,
   ShippingOption,
-} from '.';
+} from './index.js';
 
 export type DeliveryBundleUpdate = {
   id: string;

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { RecentlyViewedProducts } from '../types';
+import type { RecentlyViewedProducts } from '../types/index.js';
 
 const path = '/api/marketing/v1/recentlyViewed/products';
 

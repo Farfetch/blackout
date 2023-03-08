@@ -1,8 +1,8 @@
-import { getEntityById } from '../../entities';
-import { getError, getIsLoading } from '../reducer/configuration';
+import { getEntityById } from '../../entities/index.js';
+import { getError, getIsLoading } from '../reducer/configuration.js';
 import type { Configuration } from '@farfetch/blackout-client';
-import type { SettingsState } from '../types';
-import type { StoreState } from '../../types';
+import type { SettingsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Retrieves the error status of a configuration by its code.

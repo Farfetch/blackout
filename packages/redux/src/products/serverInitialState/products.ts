@@ -1,10 +1,9 @@
-import { INITIAL_STATE as DETAILS_INITIAL_STATE } from '../reducer/details';
+import { INITIAL_STATE as DETAILS_INITIAL_STATE } from '../reducer/details.js';
+import { get, isEmpty } from 'lodash-es';
 import { normalize } from 'normalizr';
-import { INITIAL_STATE as SIZES_INITIAL_STATE } from '../reducer/sizes';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import productSchema from '../../entities/schemas/product';
-import type { ProductsServerInitialState } from './types';
+import { INITIAL_STATE as SIZES_INITIAL_STATE } from '../reducer/sizes.js';
+import productSchema from '../../entities/schemas/product.js';
+import type { ProductsServerInitialState } from './types/index.js';
 
 /**
  * Converts server data for details of a product to store state.

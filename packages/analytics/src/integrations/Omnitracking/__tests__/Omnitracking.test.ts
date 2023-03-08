@@ -1,44 +1,44 @@
 import * as clients from '@farfetch/blackout-client';
-import * as definitions from '../definitions';
-import { Integration, Omnitracking } from '../..';
+import * as definitions from '../definitions.js';
+import { Integration, Omnitracking } from '../../index.js';
 import {
   loadIntegrationData,
   pageEventsData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
+} from 'tests/__fixtures__/analytics/index.mjs';
+import { merge } from 'lodash-es';
 import {
   mockedUuid,
   expectedPagePayloadMobile as mockExpectedPagePayloadMobile,
   expectedPagePayloadUnknown as mockExpectedPagePayloadUnknown,
   expectedPagePayloadWeb as mockExpectedPagePayloadWeb,
   expectedTrackPayload as mockExpectedTrackPayload,
-} from '../__fixtures__';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
+} from '../__fixtures__/index.js';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
 import {
   OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
-} from '../constants';
-import analyticsTrackTypes from '../../../types/TrackTypes';
-import EventTypes from '../../../types/EventTypes';
-import InteractionTypes from '../../../types/InteractionTypes';
-import merge from 'lodash/merge';
-import mocked_view_uid from '../__fixtures__/mocked_view_uid';
-import PageTypes from '../../../types/PageTypes';
-import PlatformTypes from '../../../types/PlatformTypes';
+} from '../constants.js';
+import analyticsTrackTypes from '../../../types/TrackTypes.js';
+import EventTypes from '../../../types/EventTypes.js';
+import InteractionTypes from '../../../types/InteractionTypes.js';
+import mocked_view_uid from '../__fixtures__/mocked_view_uid.js';
+import PageTypes from '../../../types/PageTypes.js';
+import PlatformTypes from '../../../types/PlatformTypes.js';
 import uuid from 'uuid';
 import type {
   EventContext,
   EventData,
   StrippedDownAnalytics,
   TrackTypesValues,
-} from '../../../types/analytics.types';
+} from '../../../types/analytics.types.js';
 import type {
   OmnitrackingRequestPayload,
   OmnitrackingTrackOrPageEventMapper,
   PageActionEvents,
   PageViewEvents,
-} from '../types/Omnitracking.types';
+} from '../types/Omnitracking.types.js';
 
 const mockLoggerError = jest.fn();
 const mockLoggerWarn = jest.fn();
@@ -59,9 +59,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   postTracking: jest.fn(),
 }));
 
-jest.mock('uuid', () => ({
-  v4: jest.fn(() => mockedUuid),
-}));
+jest.mock('uuid', () => jest.fn(() => mockedUuid));
 
 const mockedPageData = pageEventsData[PageTypes.HOMEPAGE];
 const mockedTrackData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
@@ -924,11 +922,11 @@ describe('Omnitracking', () => {
 
       expect(newUniqueViewId).toBe(currentUniqueViewId);
 
-      // Mock v4 function here to return a different value than
+      // Mock uuid function here to return a different value than
       // the mockedUuid so the uniqueViewId changes
       // on the next omnitracking.track call with a page event.
-      // Remember that v4 is jest.fn() in this test file.
-      (uuid.v4 as jest.Mock<string>).mockImplementation(
+      // Remember that uuid is jest.fn() in this test file.
+      (uuid as unknown as jest.Mock<string>).mockImplementation(
         () => '981945ad-b9d4-4c21-b3b0-2764b31bdc43',
       );
 
@@ -939,10 +937,12 @@ describe('Omnitracking', () => {
       // of the uniqueViewId.
       await omnitracking.track(pageEventData);
 
-      // After this, we need to restore the mock for v4
+      // After this, we need to restore the mock for uuid
       // to use the original implementation in other tests
       // that may be defined after this one.
-      (uuid.v4 as jest.Mock<string>).mockImplementation(() => mockedUuid);
+      (uuid as unknown as jest.Mock<string>).mockImplementation(
+        () => mockedUuid,
+      );
 
       expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
       expect(

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { getProduct } from './product';
-import type { ProductEntity } from '../../entities/types';
+import { getProduct } from './product.js';
+import type { ProductEntity } from '../../entities/types/index.js';
 import type { RelatedSet } from '@farfetch/blackout-client';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Gets the related sets of a specific type from a given product.

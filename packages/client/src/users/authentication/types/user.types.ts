@@ -1,5 +1,5 @@
-import type { GuestUser } from './guestUser.types';
-import type { UserGender } from '../../../types';
+import type { GuestUser } from './guestUser.types.js';
+import type { UserGender } from '../../../types/index.js';
 
 export type User = Omit<GuestUser, 'isGuest'> & {
   dateOfBirth?: string;

@@ -1,5 +1,5 @@
-import * as fromPromotionEvaluations from '../reducer';
-import * as selectors from '../selectors';
+import * as fromPromotionEvaluations from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   mockErrorState,
   mockLoadingState,
@@ -7,7 +7,7 @@ import {
   mockPromotionEvaluationItemId,
   mockPromotionEvaluationsItemsResponse,
   mockState,
-} from 'tests/__fixtures__/promotionEvaluations';
+} from 'tests/__fixtures__/promotionEvaluations/index.mjs';
 
 describe('promotionEvaluations redux selectors', () => {
   beforeEach(jest.clearAllMocks);

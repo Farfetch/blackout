@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { INITIAL_STATE } from '../reducer';
+import reducer, { INITIAL_STATE } from '../reducer.js';
 
 describe('titles reducer', () => {
   it.each([actionTypes.FETCH_USER_TITLES_REQUEST])(

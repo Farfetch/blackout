@@ -2,13 +2,13 @@ import type {
   BlackoutError,
   CheckoutOrderCharge,
 } from '@farfetch/blackout-client';
-import type { CheckoutOrderOperationsNormalized } from './actions.types';
+import type { CheckoutOrderOperationsNormalized } from './actions.types.js';
 import type { CombinedState } from 'redux';
 import type {
   Nullable,
   StateWithoutResult,
   StateWithResult,
-} from '../../types';
+} from '../../types/index.js';
 
 export type CheckoutState = CombinedState<{
   error: Nullable<BlackoutError>;

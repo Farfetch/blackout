@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import reducer, { INITIAL_STATE } from '../subscriptionPackages';
+import * as actionTypes from '../../actionTypes.js';
+import reducer, { INITIAL_STATE } from '../subscriptionPackages.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { SubscriptionsState } from '../../types';
+import type { SubscriptionsState } from '../../types/index.js';
 
 const hash = 'id=Newsletter';
 const randomAction = { type: 'this_is_a_random_action' };

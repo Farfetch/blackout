@@ -9,9 +9,9 @@ import {
   FETCH_BAG_OPERATION_FAILURE,
   FETCH_BAG_OPERATION_REQUEST,
   FETCH_BAG_OPERATION_SUCCESS,
-} from '../../actionTypes';
+} from '../../actionTypes.js';
 import { normalize } from 'normalizr';
-import bagOperationSchema from '../../../entities/schemas/bagOperation';
+import bagOperationSchema from '../../../entities/schemas/bagOperation.js';
 import type { Dispatch } from 'redux';
 
 /**

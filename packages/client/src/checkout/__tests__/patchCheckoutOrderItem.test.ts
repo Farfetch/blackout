@@ -1,8 +1,8 @@
-import { checkoutOrderId, itemId } from 'tests/__fixtures__/checkout';
-import { patchCheckoutOrderItem } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/patchCheckoutOrderItem.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { checkoutOrderId, itemId } from 'tests/__fixtures__/checkout/index.mjs';
+import { patchCheckoutOrderItem } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchCheckoutOrderItem.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('checkout client', () => {
   beforeEach(() => {

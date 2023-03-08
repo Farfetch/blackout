@@ -2,9 +2,9 @@
  * Wishlists hooks.
  */
 
-export { default as useWishlist } from './useWishlist';
-export { default as useWishlistItem } from './useWishlistItem';
-export { default as useWishlistSet } from './useWishlistSet';
-export { default as useWishlistSets } from './useWishlistSets';
+export { default as useWishlist } from './useWishlist.js';
+export { default as useWishlistItem } from './useWishlistItem.js';
+export { default as useWishlistSet } from './useWishlistSet.js';
+export { default as useWishlistSets } from './useWishlistSets.js';
 
-export * from './types';
+export * from './types/index.js';

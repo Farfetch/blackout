@@ -1,13 +1,13 @@
-import { getSizeGuides } from '..';
+import { getSizeGuides } from '../index.js';
 import {
   mockBrandId,
   mockCategoriesIds,
   mockQuery,
   mockSizeGuides,
-} from 'tests/__fixtures__/sizeGuides';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSizeGuides.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/sizeGuides/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSizeGuides.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getProductSizeGuides', () => {
   const expectedConfig = undefined;

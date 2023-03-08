@@ -1,11 +1,11 @@
-import * as fromCategories from '../../reducer/category';
-import * as selectors from '../category';
+import * as fromCategories from '../../reducer/category.js';
+import * as selectors from '../category.js';
 import {
   mockCategoriesState,
   mockCategory,
   mockCategoryId,
   mockCategoryLoadingState,
-} from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/categories/index.mjs';
 
 describe('categories redux selectors', () => {
   const mockState = mockCategoriesState;

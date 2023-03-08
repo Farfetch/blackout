@@ -3,7 +3,7 @@ import type {
   MockAxiosRequest,
   MockAxiosResponse,
   Result,
-} from '../types';
+} from '../types/index.js';
 
 const mockRequest = {
   status: 400,

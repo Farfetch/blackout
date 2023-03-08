@@ -1,18 +1,22 @@
-import { type CategoryEntity, getEntities, getEntityById } from '../entities';
+import {
+  type CategoryEntity,
+  getEntities,
+  getEntityById,
+} from '../entities/index.js';
 import { createSelector } from 'reselect';
 import {
   getError,
   getIsLoading,
   getSizeScaleError as getSizeScaleErrorByIdentifier,
   getSizeScaleIsLoading as getSizeScaleIsLoadingByIdentifier,
-} from './reducer';
+} from './reducer.js';
 import type {
   Category,
   SizeScale,
   SizeScalesQuery,
 } from '@farfetch/blackout-client';
-import type { SizeScalesState } from './types';
-import type { StoreState } from '../types';
+import type { SizeScalesState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns a specific scale by its id.

@@ -1,8 +1,8 @@
-import { getAddressPredictions } from '..';
-import { mockAddressPredictionsResponse } from 'tests/__fixtures__/addresses';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getAddressPredictions.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getAddressPredictions } from '../index.js';
+import { mockAddressPredictionsResponse } from 'tests/__fixtures__/addresses/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getAddressPredictions.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getPredictions', () => {
   const text = 'dummy%20text';

@@ -43,18 +43,16 @@ import {
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-} from './constants';
-import { validateFields } from './validation/optionsValidator';
-import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
-import each from 'lodash/each';
-import eventValidator from '../shared/validation/eventValidator';
-import GA4SchemaEventsMap from './validation/eventSchemas';
-import get from 'lodash/get';
+} from './constants.js';
+import { each, get, merge } from 'lodash-es';
+import { validateFields } from './validation/optionsValidator.js';
+import defaultSchemaEventsMap from '../shared/validation/eventSchemas.js';
+import eventValidator from '../shared/validation/eventValidator.js';
+import GA4SchemaEventsMap from './validation/eventSchemas.js';
 import getDefaultCommandsBuilder, {
   commandListSchema,
   nonInteractionEvents,
-} from './commands';
-import merge from 'lodash/merge';
+} from './commands.js';
 import type {
   EventScopeCommandsHandlers,
   GA4Command,
@@ -65,7 +63,7 @@ import type {
   ProductMappings,
   Schemas,
   ScopeCommands,
-} from './types';
+} from './types/index.js';
 
 /**
  * Google Analytics 4 Integration.

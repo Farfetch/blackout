@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { DeleteSubscriptionTopicRecipient } from './types';
+import type { DeleteSubscriptionTopicRecipient } from './types/index.js';
 
 /**
  * Method responsible for sending a request to remove a recipient from a

@@ -1,9 +1,9 @@
-import type { Config } from '../../types';
+import type { Config } from '../../types/index.js';
 import type {
   Subscription,
   SubscriptionDeliveryChannel,
   SubscriptionTopic,
-} from '.';
+} from './index.js';
 
 export type SubscriptionDeliveryChannelRequest = Omit<
   SubscriptionDeliveryChannel,

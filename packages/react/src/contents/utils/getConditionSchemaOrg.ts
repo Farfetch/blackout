@@ -1,4 +1,4 @@
-import * as schemaProperties from '../structured-data/schemas/schemaProperties';
+import * as schemaProperties from '../structured-data/schemas/schemaProperties.js';
 
 /**
  * Returns the Schema.org property that equals the metatag content value.

@@ -7,10 +7,10 @@ import {
 import {
   loadIntegrationData,
   pageEventsData,
-} from 'tests/__fixtures__/analytics';
-import merge from 'lodash/merge';
-import Riskified from '..';
-import type { RiskifiedIntegrationOptions } from '../types';
+} from 'tests/__fixtures__/analytics/index.mjs';
+import { merge } from 'lodash-es';
+import Riskified from '../index.js';
+import type { RiskifiedIntegrationOptions } from '../types/index.js';
 
 const defaultEventData = pageEventsData.homepage;
 

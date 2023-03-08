@@ -1,8 +1,11 @@
-import { getGuestUser } from '../..';
-import { mockGuestUserResponse, userId } from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getGuestUser.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { getGuestUser } from '../../index.js';
+import {
+  mockGuestUserResponse,
+  userId,
+} from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getGuestUser.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getGuestUser', () => {
   const expectedConfig = undefined;

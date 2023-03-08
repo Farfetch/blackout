@@ -1,4 +1,4 @@
-import type { FacetEntity } from '../../entities/types';
+import type { FacetEntity } from '../../entities/types/index.js';
 import type { GetProductListingQuery } from '@farfetch/blackout-client';
 
 /**

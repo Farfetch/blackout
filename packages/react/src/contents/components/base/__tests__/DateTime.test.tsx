@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import DateTime from '../dateTime/DateTime';
+import DateTime from '../dateTime/DateTime.js';
 import React from 'react';
 
 describe('<DateTime />', () => {

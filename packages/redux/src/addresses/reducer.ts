@@ -1,12 +1,12 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../users/authentication/actionTypes';
-import type * as T from './types';
+} from '../users/authentication/actionTypes.js';
+import type * as T from './types/index.js';
 
 export const INITIAL_STATE: T.AddressesState = {
   predictions: {

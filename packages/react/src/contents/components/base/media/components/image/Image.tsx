@@ -1,9 +1,9 @@
-import { DEFAULT_MEDIA } from '../../..';
-import { imageArrToObj } from '../utils';
-import { ImageStyled, ImageThumbnail, LinkStyled } from './styles';
-import CallToAction from '../../../callToAction/CallToAction';
+import { DEFAULT_MEDIA } from '../../../index.js';
+import { imageArrToObj } from '../utils/index.js';
+import { ImageStyled, ImageThumbnail, LinkStyled } from './styles.js';
+import CallToAction from '../../../callToAction/CallToAction.js';
 import React from 'react';
-import type { ImageComponent } from '../../../../../types';
+import type { ImageComponent } from '../../../../../types/index.js';
 
 const Image = ({
   data: {

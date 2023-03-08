@@ -1,8 +1,7 @@
-import { buildQueryStringFromObject } from '../../helpers';
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import { buildQueryStringFromObject } from '../../helpers/index.js';
+import { isObject, isString } from 'lodash-es';
 import parse from 'url-parse';
-import type { GenerateProductsListHash } from './types';
+import type { GenerateProductsListHash } from './types/index.js';
 
 /**
  * Build a hash with slug and query to identify products lists (listings or sets).

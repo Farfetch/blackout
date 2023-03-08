@@ -1,4 +1,4 @@
-import FromParameterTypes from '../FromParameterTypes';
+import FromParameterTypes from '../FromParameterTypes.js';
 
 it('Should export FromParameterTypes', () => {
   expect(FromParameterTypes).toMatchSnapshot();

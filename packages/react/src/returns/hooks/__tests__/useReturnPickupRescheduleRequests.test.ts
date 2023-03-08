@@ -9,9 +9,9 @@ import {
   rescheduleRequestId,
   responses,
   returnId,
-} from 'tests/__fixtures__/returns';
-import { useReturnPickupRescheduleRequests } from '../../..';
-import flushPromises from 'tests/flushPromises';
+} from 'tests/__fixtures__/returns/index.mjs';
+import { useReturnPickupRescheduleRequests } from '../../../index.js';
+import flushPromises from 'tests/flushPromises.mjs';
 
 const mockReturnPickupReschedulesResponse =
   responses.getReturnPickupRescheduleRequests.success;

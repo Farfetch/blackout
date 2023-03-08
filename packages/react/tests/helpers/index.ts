@@ -1,2 +1,2 @@
-export * from './react';
-export * from './redux';
+export * from './react.js';
+export * from './redux.js';

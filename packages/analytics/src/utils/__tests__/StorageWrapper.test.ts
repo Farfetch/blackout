@@ -1,8 +1,8 @@
-import { PACKAGE_NAME } from '../constants';
-import logger from '../logger';
-import StorageWrapper from '../StorageWrapper';
+import { PACKAGE_NAME } from '../constants.js';
+import logger from '../logger.js';
+import StorageWrapper from '../StorageWrapper.js';
 import TestStorage from 'test-storage';
-import type { Storage } from '../types/storage.types';
+import type { Storage } from '../types/storage.types.js';
 
 logger.error = jest.fn();
 logger.warn = jest.fn();

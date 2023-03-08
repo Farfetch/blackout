@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   contentTypesResult,
   mockContentResult,
   seoData,
-} from 'tests/__fixtures__/contents';
-import reducer, * as fromReducer from '../reducer';
-import type { ContentsState } from '../types';
+} from 'tests/__fixtures__/contents/index.mjs';
+import reducer, * as fromReducer from '../reducer.js';
+import type { ContentsState } from '../types/index.js';
 
 const { INITIAL_STATE_CONTENT } = fromReducer;
 const mockAction = { type: 'foo' };

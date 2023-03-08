@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { StaffMember } from './staffMember.types';
+import type { Config } from '../../index.js';
+import type { StaffMember } from './staffMember.types.js';
 
 export type GetStaffMember = (
   id: StaffMember['id'],

@@ -1,8 +1,8 @@
-import { getBag } from '../';
-import { mockBagId, mockResponse } from 'tests/__fixtures__/bags';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getBag.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getBag } from '..//index.js';
+import { mockBagId, mockResponse } from 'tests/__fixtures__/bags/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getBag.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getBag', () => {
   const expectedConfig = undefined;

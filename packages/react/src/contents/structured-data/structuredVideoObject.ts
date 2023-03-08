@@ -1,6 +1,6 @@
-import * as schemaProperties from './schemas/schemaProperties';
-import { renderScriptTag } from '../helpers';
-import type { Media } from '../types';
+import * as schemaProperties from './schemas/schemaProperties.js';
+import { renderScriptTag } from '../helpers/index.js';
+import type { Media } from '../types/index.js';
 import type { ReactElement } from 'react';
 import type { VideoObject, WithContext } from 'schema-dts';
 

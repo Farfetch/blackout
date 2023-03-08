@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchAddressPredictionDetails } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchAddressPredictionDetails } from '../index.js';
+import { find } from 'lodash-es';
 import { getAddressPredictionDetails } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockAddressPredictionResponse } from 'tests/__fixtures__/addresses';
-import { mockStore } from '../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockAddressPredictionResponse } from 'tests/__fixtures__/addresses/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

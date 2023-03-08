@@ -1,4 +1,4 @@
-import buildQueryStringFromObject from '../buildQueryStringFromObject';
+import buildQueryStringFromObject from '../buildQueryStringFromObject.js';
 
 describe('buildQueryStringFromObject', () => {
   it('should correctly construct the correct query string given a query object', () => {

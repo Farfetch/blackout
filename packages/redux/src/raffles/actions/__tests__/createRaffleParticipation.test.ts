@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockCreateRaffleParticipationsNormalizedPayload,
   mockRaffleParticipationResponse,
   raffleId,
-} from 'tests/__fixtures__/raffles';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/raffles/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { postRaffleParticipation } from '@farfetch/blackout-client';
-import createRaffleParticipation from '../createRaffleParticipation';
+import createRaffleParticipation from '../createRaffleParticipation.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

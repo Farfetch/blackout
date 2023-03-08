@@ -4,13 +4,17 @@ import {
   adaptPrice,
   adaptProductImages,
   adaptProductSizes,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
+import { get } from 'lodash-es';
 import { schema } from 'normalizr';
-import brand from './brand';
-import category from './category';
-import get from 'lodash/get';
-import merchant from './merchant';
-import type { AdaptGroupedEntries, AdaptPrices, AdaptVariants } from '../types';
+import brand from './brand.js';
+import category from './category.js';
+import merchant from './merchant.js';
+import type {
+  AdaptGroupedEntries,
+  AdaptPrices,
+  AdaptVariants,
+} from '../types/index.js';
 
 const adaptGroupedEntries: AdaptGroupedEntries = groupedEntries =>
   groupedEntries && {

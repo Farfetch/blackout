@@ -1,4 +1,4 @@
-import type { CountryAddress } from '../../../types/common/address.types';
+import type { CountryAddress } from '../../../types/common/address.types.js';
 
 export type CountryDetails = {
   countryCode: CountryAddress['alpha2Code'];

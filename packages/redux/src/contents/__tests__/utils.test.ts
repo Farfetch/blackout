@@ -3,7 +3,7 @@ import {
   mergeStrategyResult,
   mergeStrategyResultOneEntry,
   mockCommercePages,
-} from 'tests/__fixtures__/contents';
+} from 'tests/__fixtures__/contents/index.mjs';
 import {
   generateContentHash,
   generateSEOPathname,
@@ -11,7 +11,7 @@ import {
   getMergeStrategy,
   getPageRanking,
   getRankedCommercePage,
-} from '../utils';
+} from '../utils.js';
 import { SeoPageType } from '@farfetch/blackout-client';
 
 describe('getPageRanking', () => {

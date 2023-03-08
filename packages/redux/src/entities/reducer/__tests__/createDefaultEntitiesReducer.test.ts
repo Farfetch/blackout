@@ -1,7 +1,7 @@
 import {
   type CustomEntitiesReducerByAction,
   mergeEntitiesReducersByAction,
-} from '../createDefaultEntitiesReducer';
+} from '../createDefaultEntitiesReducer.js';
 
 describe('mergeEntitiesReducersByAction', () => {
   it('should return the correct result for mergeEntitiesReducersByAction when receiving duplicated action keys', () => {

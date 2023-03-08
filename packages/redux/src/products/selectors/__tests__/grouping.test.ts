@@ -1,9 +1,9 @@
-import * as selectors from '../grouping';
+import * as selectors from '../grouping.js';
 import {
   mockProductGroupingAdapted,
   mockProductId,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Grouping', () => {
   describe('getProductGrouping()', () => {

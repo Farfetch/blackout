@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ContentTypes } from '../types';
+import type { ContentTypes } from '../types/index.js';
 
 const path = '/api/content/v1/spaces/:spaceCode/contentTypes';
 

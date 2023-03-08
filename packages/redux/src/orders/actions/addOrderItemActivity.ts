@@ -1,4 +1,4 @@
-import { addOrderItemActivityFactory } from './factories';
+import { addOrderItemActivityFactory } from './factories/index.js';
 import { postOrderItemActivity } from '@farfetch/blackout-client';
 
 /**

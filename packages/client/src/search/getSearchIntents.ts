@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetSearchIntents } from './types';
+import type { GetSearchIntents } from './types/index.js';
 
 /**
  * Method responsible for get the search intents for the given query with search

@@ -1,16 +1,16 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   mockRecommendedSet,
   mockRecommendedSetId,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import recommendedSetsReducer, {
   getError,
   getIsLoading,
   getResult,
   INITIAL_STATE,
-} from '../recommendedSet';
-import type { RecommendedSetState } from '../../types';
+} from '../recommendedSet.js';
+import type { RecommendedSetState } from '../../types/index.js';
 
 describe('recommended sets redux recommendedSetsReducer', () => {
   let initialState: RecommendedSetState;

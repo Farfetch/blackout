@@ -2,22 +2,19 @@ import {
   buildFacetTree,
   generateProductsListHash,
   getMaxDepth,
-} from '../utils';
+} from '../utils/index.js';
 import { createSelector } from 'reselect';
-import { getBrands } from '../../brands/selectors';
-import { getCategories } from '../../categories';
-import { getEntities, getEntityById } from '../../entities/selectors';
+import { flatten, flattenDeep, isEmpty, sortBy } from 'lodash-es';
+import { getBrands } from '../../brands/selectors.js';
+import { getCategories } from '../../categories/index.js';
+import { getEntities, getEntityById } from '../../entities/selectors/index.js';
 import {
   getError,
   getHash,
   getIsHydrated,
   getIsLoading,
-} from '../reducer/lists';
-import flatten from 'lodash/flatten';
-import flattenDeep from 'lodash/flattenDeep';
-import getShallowestDepth from '../utils/getShallowestDepth';
-import isEmpty from 'lodash/isEmpty';
-import sortBy from 'lodash/sortBy';
+} from '../reducer/lists.js';
+import getShallowestDepth from '../utils/getShallowestDepth.js';
 import type {
   FacetEntity,
   FacetEntityWithChildren,
@@ -27,10 +24,10 @@ import type {
   ProductEntity,
   ProductEntityDenormalized,
   ProductsListEntity,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type { FacetGroup } from '@farfetch/blackout-client';
-import type { ProductsState } from '../types';
-import type { StoreState } from '../../types';
+import type { ProductsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Checks if the type of the hash is a number or not. If it's a number, converts to

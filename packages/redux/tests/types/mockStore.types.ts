@@ -1,6 +1,6 @@
 import type { AnyAction, Dispatch } from 'redux';
 import type { MockStoreEnhanced } from 'redux-mock-store';
-import type { StoreState } from '../../';
+import type { StoreState } from '../../src/index.js';
 import type { ThunkMiddleware } from 'redux-thunk';
 
 export type MockStore = (

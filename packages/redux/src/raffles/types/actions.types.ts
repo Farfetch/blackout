@@ -1,6 +1,6 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
-import type { RaffleEntity } from '../../entities';
+import type { RaffleEntity } from '../../entities/index.js';
 
 /**
  * Action dispatched when the reset raffles request is made.

@@ -1,12 +1,12 @@
 import {
   getError,
   getIsLoading,
-} from '../reducer/variantsByMerchantsLocations';
-import { getProduct } from './product';
-import type { ProductEntity } from '../../entities/types';
-import type { ProductsState } from '../types';
+} from '../reducer/variantsByMerchantsLocations.js';
+import { getProduct } from './product.js';
+import type { ProductEntity } from '../../entities/types/index.js';
+import type { ProductsState } from '../types/index.js';
 import type { ProductVariant } from '@farfetch/blackout-client';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns the merchants locations loading condition for a specific product.

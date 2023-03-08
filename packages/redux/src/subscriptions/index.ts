@@ -1,11 +1,11 @@
-export * as subscriptionsActionTypes from './actionTypes';
+export * as subscriptionsActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './selectors';
-export * from './types';
-export * from './helpers';
+export * from './actions/index.js';
+export * from './selectors/index.js';
+export * from './types/index.js';
+export * from './helpers/index.js';
 
 export {
   default as subscriptionsReducer,
   entitiesMapper as subscriptionsEntitiesMapper,
-} from './reducer';
+} from './reducer/index.js';

@@ -1,5 +1,5 @@
 import { SeoPageType, SeoSubPageType } from '@farfetch/blackout-client';
-import type { GetProductSeoMetadataParams } from '../types';
+import type { GetProductSeoMetadataParams } from '../types/index.js';
 
 const getProductSeoMetadataParams: GetProductSeoMetadataParams = product => {
   const {

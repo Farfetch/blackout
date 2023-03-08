@@ -1,6 +1,6 @@
-import type { Config } from '../..';
-import type { SizeGuide } from './sizeGuides.types';
-import type { SizeGuidesQuery } from './sizeGuidesQuery.types';
+import type { Config } from '../../index.js';
+import type { SizeGuide } from './sizeGuides.types.js';
+import type { SizeGuidesQuery } from './sizeGuidesQuery.types.js';
 
 export type GetSizeGuides = (
   query?: SizeGuidesQuery,

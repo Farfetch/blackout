@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../users/authentication/actionTypes';
+import * as actionTypes from '../actionTypes.js';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import type {
   Subscription,
   SubscriptionTopic,
 } from '@farfetch/blackout-client';
-import type { SubscriptionsState } from '../types';
+import type { SubscriptionsState } from '../types/index.js';
 
 type UserSubscriptionsState = SubscriptionsState['user'];
 

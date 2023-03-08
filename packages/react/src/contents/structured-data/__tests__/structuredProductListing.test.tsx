@@ -3,8 +3,8 @@ import {
   MockRenderScript,
   productListing,
   productListingResult,
-} from './__fixtures__';
-import structuredProductListing from '../structuredProductListing';
+} from './__fixtures__/index.js';
+import structuredProductListing from '../structuredProductListing.js';
 
 describe('structuredProductListing', () => {
   it('should correctly generate JSON-LD for a list of products', () => {

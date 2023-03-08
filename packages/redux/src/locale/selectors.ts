@@ -2,6 +2,7 @@
  * Locale selectors.
  */
 
+import { get } from 'lodash-es';
 import {
   getAreCountriesLoading,
   getAreCountryCurrenciesLoading,
@@ -15,13 +16,12 @@ import {
   getCountryStatesError as getCountryStatesErrorFromReducer,
   getSourceCountryCode as getSourceCountryCodeFromReducer,
   getSubfolder as getSubfolderFromReducer,
-} from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors/entity';
-import get from 'lodash/get';
+} from './reducer.js';
+import { getEntities, getEntityById } from '../entities/selectors/entity.js';
 import type { City } from '@farfetch/blackout-client';
-import type { LocaleState } from './types';
-import type { StateEntity } from '../entities';
-import type { StoreState } from '../types';
+import type { LocaleState } from './types/index.js';
+import type { StateEntity } from '../entities/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the current country code.

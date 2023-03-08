@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetPrograms,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import programSchema from '../../../entities/schemas/program';
+import programSchema from '../../../entities/schemas/program.js';
 import type { Dispatch } from 'redux';
-import type { FetchProgramsAction } from '../../types';
+import type { FetchProgramsAction } from '../../types/index.js';
 
 /**
  * Load programs.

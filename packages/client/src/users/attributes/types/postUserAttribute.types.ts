@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { UserAttributeData } from './userAttributeData.types';
+import type { Config } from '../../../types/index.js';
+import type { UserAttributeData } from './userAttributeData.types.js';
 
 export type PostUserAttribute = (
   userId: number,

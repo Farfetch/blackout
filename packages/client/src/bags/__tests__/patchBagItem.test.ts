@@ -3,11 +3,11 @@ import {
   mockBagItemData,
   mockBagItemId,
   mockResponse,
-} from 'tests/__fixtures__/bags';
-import { patchBagItem } from '../';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/patchBagItem.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/bags/index.mjs';
+import { patchBagItem } from '..//index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchBagItem.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('patchBagItem', () => {
   const expectedConfig = undefined;

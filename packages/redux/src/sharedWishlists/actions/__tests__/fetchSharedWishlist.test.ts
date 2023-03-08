@@ -1,17 +1,17 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { fetchSharedWishlist } from '..';
+import { fetchSharedWishlist } from '../index.js';
 import { getSharedWishlist } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockProductImgQueryParam,
   mockSharedWishlistId,
   mockSharedWishlistNormalizedPayload,
   mockSharedWishlistsResponse,
-} from 'tests/__fixtures__/sharedWishlists';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/sharedWishlists/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import thunk from 'redux-thunk';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

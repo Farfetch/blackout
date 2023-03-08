@@ -1,4 +1,4 @@
-import * as headers from './headers';
+import * as headers from './headers.js';
 import axios from 'axios';
 
 /**

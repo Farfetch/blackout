@@ -1,4 +1,4 @@
-import { metadata } from './metadata.fixtures';
+import { metadata } from './metadata.fixtures.js';
 
 export const websiteSearch = {
   metadata: {

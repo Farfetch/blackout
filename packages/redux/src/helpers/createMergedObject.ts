@@ -1,5 +1,4 @@
-import isPlainObject from 'lodash/isPlainObject';
-import merge from 'lodash/merge';
+import { isPlainObject, merge } from 'lodash-es';
 
 /**
  * Creates a new object with the following properties:

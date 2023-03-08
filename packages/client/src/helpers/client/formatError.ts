@@ -1,7 +1,10 @@
+import { isArray } from 'lodash-es';
 import axios from 'axios';
-import isArray from 'lodash/isArray';
-import type { BlackoutError } from '../../types';
-import type { DefaultErrorAdapterData, LegacyErrorAdapterData } from './types';
+import type { BlackoutError } from '../../types/index.js';
+import type {
+  DefaultErrorAdapterData,
+  LegacyErrorAdapterData,
+} from './types/index.js';
 
 export const defaultError = {
   code: '-1',

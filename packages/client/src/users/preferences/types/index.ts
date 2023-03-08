@@ -1,3 +1,3 @@
-export * from './getUserPreferences.types';
-export * from './putUserPreferences.types';
-export * from './userPreferences.types';
+export * from './getUserPreferences.types.js';
+export * from './putUserPreferences.types.js';
+export * from './userPreferences.types.js';

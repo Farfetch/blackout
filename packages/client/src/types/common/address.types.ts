@@ -1,5 +1,5 @@
-import type { City, State } from '../../locale/types';
-import type { User } from '../../users/authentication/types/user.types';
+import type { City, State } from '../../locale/types/index.js';
+import type { User } from '../../users/authentication/types/user.types.js';
 
 export type Continent = {
   id: number;

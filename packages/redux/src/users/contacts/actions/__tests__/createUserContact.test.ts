@@ -1,15 +1,15 @@
-import * as actionTypes from '../../actionTypes';
-import { createUserContact } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { createUserContact } from '../index.js';
 import {
   expectedCreateContactNormalized,
   mockGetContactResponse,
   mockPostContactResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import { INITIAL_STATE } from '../../../reducer';
-import { mockStore } from '../../../../../tests';
+} from 'tests/__fixtures__/users/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import { postUserContact } from '@farfetch/blackout-client';
-import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

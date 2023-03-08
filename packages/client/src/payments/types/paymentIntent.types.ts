@@ -1,4 +1,4 @@
-import type { PaymentAddress } from '../../types/common/address.types';
+import type { PaymentAddress } from '../../types/common/address.types.js';
 
 export enum PaymentIntentStatus {
   Created = 'Created',

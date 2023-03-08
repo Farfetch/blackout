@@ -1,12 +1,12 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockStore } from '../../../../tests/helpers';
+import { mockStore } from '../../../../tests/helpers/index.js';
 import {
   mockWishlistSetId,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import { Provider } from 'react-redux';
 import React from 'react';
-import useWishlistSets from '../useWishlistSets';
+import useWishlistSets from '../useWishlistSets.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

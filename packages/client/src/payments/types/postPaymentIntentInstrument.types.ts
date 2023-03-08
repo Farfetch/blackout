@@ -4,10 +4,10 @@ import type {
   PayerAddressType,
   PayerInput,
   PaymentIntent,
-  PostPaymentIntentInstrumentResponse,
   ShopperInteraction,
-} from '.';
-import type { Config } from '../../types';
+} from './index.js';
+import type { AxiosResponse } from 'axios';
+import type { Config } from '../../types/index.js';
 
 export type CreatePaymentInstrumentData = {
   cardHolderName?: string;
@@ -52,6 +52,8 @@ export type PostPaymentIntentInstrumentData = {
   data?: CreatePaymentInstrumentData;
   shopperInteraction?: ShopperInteraction;
 };
+
+export type PostPaymentIntentInstrumentResponse = AxiosResponse;
 
 export type PostPaymentIntentInstrument = (
   paymentIntentId: PaymentIntent['id'],

@@ -1,8 +1,8 @@
-import { fileId, orderId } from 'tests/__fixtures__/orders';
-import { getOrderDocument } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getOrderDocument.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { fileId, orderId } from 'tests/__fixtures__/orders/index.mjs';
+import { getOrderDocument } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getOrderDocument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 const response = '';

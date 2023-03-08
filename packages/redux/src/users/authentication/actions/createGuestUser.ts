@@ -1,4 +1,4 @@
-import { createGuestUserFactory } from './factories';
+import { createGuestUserFactory } from './factories/index.js';
 import { postGuestUser } from '@farfetch/blackout-client';
 
 /**

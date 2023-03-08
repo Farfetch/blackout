@@ -1,8 +1,11 @@
-import { getGuestOrderLegacy } from '..';
-import { mockOrderDetailsResponse, orderId } from 'tests/__fixtures__/orders';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getGuestOrderLegacy.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getGuestOrderLegacy } from '../index.js';
+import {
+  mockOrderDetailsResponse,
+  orderId,
+} from 'tests/__fixtures__/orders/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getGuestOrderLegacy.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const email = 'dummy@email.com';
 const expectedConfig = undefined;

@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostGuestUser,
   type PostGuestUserData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { CreateGuestUserAction } from '../../types';
+import type { CreateGuestUserAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
 
 /**

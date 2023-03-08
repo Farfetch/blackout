@@ -1,18 +1,18 @@
-import { entitiesMapper as entitiesMapperBag } from '../../bags/reducer';
-import { entitiesMapper as entitiesMapperCheckout } from '../../checkout/reducer';
-import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations/reducer';
-import { entitiesMapper as entitiesMapperOrders } from '../../orders/reducer';
-import { entitiesMapper as entitiesMapperPayments } from '../../payments/reducer';
-import { entitiesMapper as entitiesMapperRaffles } from '../../raffles/reducer';
-import { entitiesMapper as entitiesMapperReturns } from '../../returns/reducer';
-import { entitiesMapper as entitiesMapperUsers } from '../../users/reducer';
-import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists/reducer';
-import { productsEntitiesMapper } from '../../products';
-import { settingsEntitiesMapper } from '../../settings/reducer';
-import { subscriptionsEntitiesMapper } from '../../subscriptions';
-import createEntitiesReducer from './createEntities';
+import { entitiesMapper as entitiesMapperBag } from '../../bags/reducer.js';
+import { entitiesMapper as entitiesMapperCheckout } from '../../checkout/reducer.js';
+import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations/reducer.js';
+import { entitiesMapper as entitiesMapperOrders } from '../../orders/reducer.js';
+import { entitiesMapper as entitiesMapperPayments } from '../../payments/reducer.js';
+import { entitiesMapper as entitiesMapperRaffles } from '../../raffles/reducer.js';
+import { entitiesMapper as entitiesMapperReturns } from '../../returns/reducer.js';
+import { entitiesMapper as entitiesMapperUsers } from '../../users/reducer.js';
+import { entitiesMapper as entitiesMapperWishlist } from '../../wishlists/reducer/index.js';
+import { productsEntitiesMapper } from '../../products/index.js';
+import { settingsEntitiesMapper } from '../../settings/reducer/index.js';
+import { subscriptionsEntitiesMapper } from '../../subscriptions/index.js';
+import createEntitiesReducer from './createEntities.js';
 import type { AnyAction } from 'redux';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 // CustomEntitiesReducer is what was called previously as an "entities mapper"
 // Every custom entities reducer will be guaranteed that it will receive a defined value

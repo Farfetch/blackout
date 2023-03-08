@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type CheckoutOrder,
   type CheckoutOrderDetails,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails';
+import checkoutDetailsSchema from '../../../entities/schemas/checkoutDetails.js';
 import type { Dispatch } from 'redux';
 
 /**

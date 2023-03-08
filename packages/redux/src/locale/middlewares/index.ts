@@ -2,4 +2,4 @@
  * Locale middlewares.
  */
 
-export { default as setCountryCodeMiddleware } from './setCountryCode';
+export { default as setCountryCodeMiddleware } from './setCountryCode.js';

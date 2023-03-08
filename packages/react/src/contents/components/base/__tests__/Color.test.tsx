@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Color from '../color/Color';
+import Color from '../color/Color.js';
 import React from 'react';
 
 describe('<Color />', () => {

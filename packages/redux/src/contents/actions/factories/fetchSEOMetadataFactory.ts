@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSEOMetadata,
@@ -6,9 +6,9 @@ import {
   type SEOMetadata,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateSEOPathname } from '../../utils';
+import { generateSEOPathname } from '../../utils.js';
 import type { Dispatch } from 'redux';
-import type { FetchSEOMetadataAction } from '../../types';
+import type { FetchSEOMetadataAction } from '../../types/index.js';
 
 /**
  * Fetch SEO metadata content with a specific query object.

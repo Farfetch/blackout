@@ -1,5 +1,5 @@
-import { ForterTokenReadyEvent } from '../constants';
-import ForterTokenLoadedEventDetector from '../forterTokenLoadedEventDetector';
+import { ForterTokenReadyEvent } from '../constants.js';
+import ForterTokenLoadedEventDetector from '../forterTokenLoadedEventDetector.js';
 
 describe('ForterTokenLoadedEventDetector', () => {
   it('should return a forter token when the forter token loaded event is raised through element.dispatchEvent', async () => {

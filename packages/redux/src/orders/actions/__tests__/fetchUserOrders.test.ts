@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
 import {
   expectedOrdersResponseNormalizedPayload,
@@ -6,12 +6,12 @@ import {
   orderId,
   orderId2,
   userId,
-} from 'tests/__fixtures__/orders';
-import { fetchUserOrders } from '..';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { fetchUserOrders } from '../index.js';
 import { getUserOrders } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import merge from 'lodash/merge';
+import { INITIAL_STATE } from '../../reducer.js';
+import { merge } from 'lodash-es';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

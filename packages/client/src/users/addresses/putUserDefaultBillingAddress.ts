@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { PutUserDefaultBillingAddress } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { PutUserDefaultBillingAddress } from './types/index.js';
 
 /**
  * Sets the address specified with 'id', as the default billing address.

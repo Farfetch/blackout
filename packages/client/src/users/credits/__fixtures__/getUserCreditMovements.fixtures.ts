@@ -1,6 +1,6 @@
 import { rest, type RestHandler } from 'msw';
-import type { PagedResponse } from '../../../types';
-import type { UserCreditMovement } from '../types';
+import type { PagedResponse } from '../../../types/index.js';
+import type { UserCreditMovement } from '../types/index.js';
 
 const path = '/api/account/v1/users/:id/creditMovements';
 
