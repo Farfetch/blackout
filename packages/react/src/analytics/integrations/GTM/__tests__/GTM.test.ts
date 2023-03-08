@@ -153,7 +153,7 @@ describe('GTM', () => {
           context: {
             currencyCode: data.context.currencyCode,
             eventContext: {
-              __uniqueEventId: expect.any(String),
+              [utils.ANALYTICS_UNIQUE_EVENT_ID]: expect.any(String),
             },
             libraryVersion: data.context.library.version,
             // @ts-expect-error Force cast to facilitate testing
@@ -326,6 +326,23 @@ describe('GTM', () => {
       dataLayerEntry = getDataLayerEntryByEvent(invalidEventName);
 
       expect(dataLayerEntry).toBeUndefined();
+    });
+
+    it('Should track with unique id on track result', () => {
+      const analyticsEvent = {
+        ...analyticsTrackDataMock,
+        event: EventTypes.PRODUCT_CLICKED,
+        properties: {
+          id: 123123,
+        },
+      };
+
+      gtm.track(analyticsEvent);
+
+      // Valid, known event
+      const dataLayerEntry = getDataLayerEntryByEvent(analyticsEvent.event);
+
+      expect(dataLayerEntry).toMatchSnapshot();
     });
 
     it('Should log an error if an event does not have a function as the property value', () => {

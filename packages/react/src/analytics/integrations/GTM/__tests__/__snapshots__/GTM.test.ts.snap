@@ -557,3 +557,15 @@ exports[`GTM EventsMapper Should match the snapshot for the event: stores 1`] = 
 exports[`GTM EventsMapper Should match the snapshot for the event: unsubscribe 1`] = `Object {}`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: wishlist 1`] = `Object {}`;
+
+exports[`GTM Track Should track with unique id on track result 1`] = `
+Object {
+  "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+  "event": "Product Clicked",
+  "product": Object {
+    "category": undefined,
+    "id": 123123,
+  },
+  "type": "track",
+}
+`;

@@ -133,7 +133,7 @@ Object {
     "Omnitracking": [Function],
   },
   "utils": Object {
-    "ANALYTICS_UNIQUE_EVENT_ID": "__uniqueEventId",
+    "ANALYTICS_UNIQUE_EVENT_ID": "__blackoutAnalyticsEventId",
     "CONSENT_CATEGORIES_PROPERTY": "consentCategories",
     "CONSENT_KEYS": Array [
       "statistics",

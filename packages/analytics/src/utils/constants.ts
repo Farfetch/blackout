@@ -17,7 +17,8 @@ export const CONSENT_KEYS = [
   DefaultConsentKeys.MARKETING,
   DefaultConsentKeys.PREFERENCES,
 ];
+
 export const CONSENT_CATEGORIES_PROPERTY = 'consentCategories';
 export const LOAD_INTEGRATION_TRACK_TYPE = 'loadIntegration';
 export const ON_SET_USER_TRACK_TYPE = 'onSetUser';
-export const ANALYTICS_UNIQUE_EVENT_ID = '__uniqueEventId';
+export const ANALYTICS_UNIQUE_EVENT_ID = '__blackoutAnalyticsEventId';
