@@ -1,5 +1,5 @@
+import { ANALYTICS_UNIQUE_EVENT_ID, logger, PACKAGE_NAME } from '../utils';
 import { Integration } from '../integrations';
-import { logger, PACKAGE_NAME } from '../utils';
 import { TestStorage } from '../../../tests/helpers';
 import Analytics from '../';
 import eventTypes from '../types/eventTypes';
@@ -798,7 +798,7 @@ describe('analytics', () => {
               ...context,
               event: {
                 ...context.event,
-                __uniqueEventId: expect.any(String),
+                [ANALYTICS_UNIQUE_EVENT_ID]: expect.any(String),
               },
             },
             user: await analytics.user(),

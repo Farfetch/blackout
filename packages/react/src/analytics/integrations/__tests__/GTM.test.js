@@ -435,7 +435,7 @@ describe('GTM', () => {
 
       dataLayerEntry = getDataLayerEntryByEvent(analyticsEvent.event);
 
-      expect(dataLayerEntry).toBeDefined();
+      expect(dataLayerEntry).toMatchSnapshot();
     });
   });
 
