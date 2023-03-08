@@ -1,3 +1,4 @@
+import { ANALYTICS_UNIQUE_EVENT_ID } from '../utils';
 import {
   expectedCommonParameters,
   mockAnalyticsUniqueEventId,
@@ -108,7 +109,7 @@ const pageMockData = {
       pageLocationReferrer: 'https://example.com',
     },
     event: {
-      __uniqueEventId: mockAnalyticsUniqueEventId,
+      [ANALYTICS_UNIQUE_EVENT_ID]: mockAnalyticsUniqueEventId,
     },
   },
   timestamp: mockCommonData.timestamp,
