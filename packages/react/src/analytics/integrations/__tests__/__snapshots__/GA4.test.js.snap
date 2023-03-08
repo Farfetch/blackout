@@ -80,6 +80,8 @@ Array [
     "search",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
       "search_term": "term",
     },
   ],
@@ -102,6 +104,8 @@ Array [
     "search",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
       "search_term": "query",
     },
   ],
@@ -885,6 +889,8 @@ Array [
           "size": "L",
         },
       ],
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
       "value": 19,
       "wishlist_id": undefined,
       "wishlist_name": undefined,
@@ -909,6 +915,8 @@ Array [
     "search",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
       "search_term": "shoes",
     },
   ],
@@ -931,6 +939,8 @@ Array [
     "view_wishlist",
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
       "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
     },
   ],

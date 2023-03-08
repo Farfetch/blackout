@@ -195,7 +195,7 @@ class GA4 extends integrations.Integration {
       case analyticsPageTypes.WISHLIST:
         // Make sure the page view fires first, so the event being triggered after uses the correct page path (otherwise the event fires with the previous one).
         await this.trackPage(data);
-        await this.trackEvent(data);
+        await this.trackEvent({ ...data, type: analyticsTrackTypes.TRACK });
 
         break;
       default:
