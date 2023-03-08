@@ -76,7 +76,7 @@ const fixtures = {
       pageLocationReferrer: 'https://example.com',
     },
     event: {
-      __uniqueEventId: '4eabf689-96e3-4952-8176-248a848f1e1f',
+      __blackoutAnalyticsEventId: '4eabf689-96e3-4952-8176-248a848f1e1f',
     },
   },
   timestamp: 1567010265879,

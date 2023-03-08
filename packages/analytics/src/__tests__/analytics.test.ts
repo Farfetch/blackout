@@ -1,5 +1,5 @@
+import { ANALYTICS_UNIQUE_EVENT_ID, logger } from '../utils';
 import { Integration } from '../integrations';
-import { logger } from '../utils';
 import { mockUsersResponse } from 'tests/__fixtures__/users';
 import { PACKAGE_NAME } from '../utils/constants';
 import Analytics from '../';
@@ -851,7 +851,7 @@ describe('analytics', () => {
               ...context,
               event: {
                 ...eventContext,
-                __uniqueEventId: expect.any(String),
+                [ANALYTICS_UNIQUE_EVENT_ID]: expect.any(String),
               },
             },
             user: await analytics.user(),
