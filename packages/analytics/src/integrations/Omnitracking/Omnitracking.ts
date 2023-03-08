@@ -13,6 +13,7 @@
  * ```
  */
 
+import { get, isArray, isObject } from 'lodash-es';
 import {
   getClientLanguageFromCulture,
   getCommonParameters,
@@ -23,14 +24,17 @@ import {
   pickPageParameters,
   pickTrackParameters,
   validateOutgoingOmnitrackingPayload,
-} from './omnitracking-helper';
-import { getCustomerIdFromUser } from '../../utils';
-import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
+} from './omnitracking-helper.js';
+import { getCustomerIdFromUser } from '../../utils/index.js';
+import {
+  isPageEventType,
+  isScreenEventType,
+} from '../../utils/typePredicates.js';
 import {
   OPTION_HTTP_CLIENT,
   OPTION_SEARCH_QUERY_PARAMETERS,
   OPTION_TRANSFORM_PAYLOAD,
-} from './constants';
+} from './constants.js';
 import {
   pageActionEventTypes,
   pageEventsMapper,
@@ -38,15 +42,12 @@ import {
   trackEventsMapper,
   userGenderValuesMapper,
   viewGenderValuesMapper,
-} from './definitions';
+} from './definitions.js';
 import { postTracking, type User, UserGender } from '@farfetch/blackout-client';
-import analyticsTrackTypes from '../../types/TrackTypes';
-import get from 'lodash/get';
-import Integration from '../Integration';
-import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
-import logger from '../../utils/logger';
-import PlatformTypes from '../../types/PlatformTypes';
+import analyticsTrackTypes from '../../types/TrackTypes.js';
+import Integration from '../Integration.js';
+import logger from '../../utils/logger.js';
+import PlatformTypes from '../../types/PlatformTypes.js';
 import type {
   EventContext,
   EventData,
@@ -54,7 +55,7 @@ import type {
   StrippedDownAnalytics,
   TrackTypesValues,
   UserTraits,
-} from '../..';
+} from '../../index.js';
 import type {
   OmnitrackingOptions,
   OmnitrackingPageEventParameters,
@@ -67,7 +68,7 @@ import type {
   OmnitrackingTrackOrPageMapperResult,
   PageActionEvents,
   PageViewEvents,
-} from './types/Omnitracking.types';
+} from './types/Omnitracking.types.js';
 
 /**
  * Omnitracking integration.

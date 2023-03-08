@@ -1,6 +1,6 @@
-import type { Config } from '../../types';
-import type { PickupRescheduleRequest } from './pickupRescheduleRequests.types';
-import type { Return } from './return.types';
+import type { Config } from '../../types/index.js';
+import type { PickupRescheduleRequest } from './pickupRescheduleRequests.types.js';
+import type { Return } from './return.types.js';
 
 export type PostReturnPickupRescheduleRequestData = Omit<
   PickupRescheduleRequest,

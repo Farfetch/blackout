@@ -1,7 +1,7 @@
-import { getSEOMetadata, SeoPageType } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/seo.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getSEOMetadata, SeoPageType } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/seo.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('SEO client', () => {
   const expectedConfig = undefined;

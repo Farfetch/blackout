@@ -1,6 +1,6 @@
-import * as fromAddresses from '../reducer';
-import * as selectors from '../selectors';
-import { mockCurrentState as mockState } from 'tests/__fixtures__/addresses';
+import * as fromAddresses from '../reducer.js';
+import * as selectors from '../selectors.js';
+import { mockCurrentState as mockState } from 'tests/__fixtures__/addresses/index.mjs';
 
 describe('addresses redux selectors', () => {
   beforeEach(jest.clearAllMocks);

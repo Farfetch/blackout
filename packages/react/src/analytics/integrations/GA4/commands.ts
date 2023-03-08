@@ -4,12 +4,12 @@ import {
   type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
-import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
+import { validationSchemaBuilder } from '../shared/validation/eventSchemas.js';
 import ga4EventNameMapping, {
   getEventProperties,
   InternalEventTypes,
-} from './eventMapping';
-import type { GA4CommandList } from './types';
+} from './eventMapping.js';
+import type { GA4CommandList } from './types/index.js';
 
 /**
  * Returns GA4's event data from analytics data, into ga4 final mapping result.

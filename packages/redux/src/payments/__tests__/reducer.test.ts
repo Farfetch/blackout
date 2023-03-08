@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../../users/authentication/actionTypes';
+} from '../../users/authentication/actionTypes.js';
 import {
   instrumentId,
   mockInitialState,
@@ -13,13 +13,13 @@ import {
   mockPaymentTokensResponse,
   paymentTokenId,
   paymentTokenId2,
-} from 'tests/__fixtures__/payments';
-import { reducerAssertions } from '../../../tests/helpers';
+} from 'tests/__fixtures__/payments/index.mjs';
+import { omit } from 'lodash-es';
+import { reducerAssertions } from '../../../tests/helpers/index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import omit from 'lodash/omit';
-import reducer, { entitiesMapper } from '../reducer';
-import type { PaymentsState } from '../types';
-import type { PaymentTokenEntity } from '../../entities';
+import reducer, { entitiesMapper } from '../reducer.js';
+import type { PaymentsState } from '../types/index.js';
+import type { PaymentTokenEntity } from '../../entities/index.js';
 
 let initialState: PaymentsState;
 

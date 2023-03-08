@@ -1,3 +1,3 @@
-export { default as getUserCredits } from './getUserCredits';
-export { default as getUserCreditMovements } from './getUserCreditMovements';
-export * from './types';
+export { default as getUserCredits } from './getUserCredits.js';
+export { default as getUserCreditMovements } from './getUserCreditMovements.js';
+export * from './types/index.js';

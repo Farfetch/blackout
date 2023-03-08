@@ -1,4 +1,4 @@
-import type { AddressType, Config } from '../../types';
+import type { AddressType, Config } from '../../types/index.js';
 
 export type CountryAddressSchemaLine = {
   apiMapping: string;

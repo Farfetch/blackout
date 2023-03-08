@@ -1,8 +1,11 @@
-import { postFormData } from '../';
-import { postFormDataResponse, schemaCode } from 'tests/__fixtures__/forms';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postFormData.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { postFormData } from '..//index.js';
+import {
+  postFormDataResponse,
+  schemaCode,
+} from 'tests/__fixtures__/forms/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postFormData.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('schemas client', () => {
   const expectedConfig = undefined;

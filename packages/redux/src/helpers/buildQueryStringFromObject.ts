@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash-es';
 
 /**
  * Construct a query string with all query parameters received in a form of an

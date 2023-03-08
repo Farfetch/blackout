@@ -1,8 +1,8 @@
-import * as profileClient from '..';
-import { attributeId, userId } from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteUserAttribute.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import * as profileClient from '../index.js';
+import { attributeId, userId } from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteUserAttribute.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteUserAttribute', () => {
   const expectedConfig = undefined;

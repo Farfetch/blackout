@@ -1,13 +1,13 @@
-import * as checkoutClient from '..';
-import { ChargeStatus, DeclineCode } from '../../payments/types';
-import { id } from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postCheckoutOrderCharge.fixtures';
-import mswServer from '../../../tests/mswServer';
+import * as checkoutClient from '../index.js';
+import { ChargeStatus, DeclineCode } from '../../payments/types/index.js';
+import { id } from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postCheckoutOrderCharge.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 import type {
   CheckoutOrderCharge,
   PostCheckoutOrderChargeData,
-} from '../types';
+} from '../types/index.js';
 
 describe('checkout client', () => {
   const data: PostCheckoutOrderChargeData = {

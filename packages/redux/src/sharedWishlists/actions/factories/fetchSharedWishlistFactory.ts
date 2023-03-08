@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSharedWishlist,
@@ -6,10 +6,10 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import sharedWishlistSchema from '../../../entities/schemas/sharedWishlist';
+import sharedWishlistSchema from '../../../entities/schemas/sharedWishlist.js';
 import type { Dispatch } from 'redux';
-import type { FetchSharedWishlistAction } from '../../types';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { FetchSharedWishlistAction } from '../../types/index.js';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch shared

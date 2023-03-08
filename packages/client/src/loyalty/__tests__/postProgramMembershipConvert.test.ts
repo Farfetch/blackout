@@ -2,11 +2,11 @@ import {
   membershipId,
   mockResponseProgramMembershipConvert,
   programId,
-} from 'tests/__fixtures__/loyalty';
-import { postProgramMembershipConvert } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postProgramMembershipConvert.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/loyalty/index.mjs';
+import { postProgramMembershipConvert } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postProgramMembershipConvert.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 

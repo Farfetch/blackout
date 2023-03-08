@@ -1,16 +1,16 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { createCheckoutOrder } from '..';
+import { createCheckoutOrder } from '../index.js';
 import {
   expectedNormalizedPayload,
   mockResponse,
-} from 'tests/__fixtures__/checkout';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/checkout/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { postCheckoutOrder } from '@farfetch/blackout-client';
-import find from 'lodash/find';
 import thunk from 'redux-thunk';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

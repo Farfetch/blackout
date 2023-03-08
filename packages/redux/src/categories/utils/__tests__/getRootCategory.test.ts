@@ -1,5 +1,8 @@
-import { mockCategories, mockCategoryId } from 'tests/__fixtures__/categories';
-import getRootCategory from '../getRootCategory';
+import {
+  mockCategories,
+  mockCategoryId,
+} from 'tests/__fixtures__/categories/index.mjs';
+import getRootCategory from '../getRootCategory.js';
 import type { Category } from '@farfetch/blackout-client';
 
 describe('getRootCategory', () => {

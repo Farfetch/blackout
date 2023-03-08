@@ -10,7 +10,7 @@ import {
   EVENT_CATEGORY_ECOMMERCE,
   PRODUCT_CATEGORY_FIELD,
   SET_ACTION_COMMAND,
-} from './constants';
+} from './constants.js';
 import {
   type AnalyticsProduct,
   type EventData,
@@ -18,12 +18,10 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { validationSchemaBuilder } from '../shared/validation/eventSchemas';
-import get from 'lodash/get';
-import isBoolean from 'lodash/isBoolean';
-import map from 'lodash/map';
-import objectMapper from './objectMapper';
-import type { ProductMappings } from './types';
+import { get, isBoolean, map } from 'lodash-es';
+import { validationSchemaBuilder } from '../shared/validation/eventSchemas.js';
+import objectMapper from './objectMapper.js';
+import type { ProductMappings } from './types/index.js';
 
 /**
  * Mappings.

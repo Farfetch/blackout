@@ -10,8 +10,8 @@
  * divided the tests in different files for different environments.
  */
 
-import { GTM } from '../..';
-import { loadIntegrationData } from 'tests/__fixtures__/analytics';
+import { GTM } from '../../index.js';
+import { loadIntegrationData } from 'tests/__fixtures__/analytics/index.mjs';
 
 jest.mock('../gtmTag', () => jest.fn);
 

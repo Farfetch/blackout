@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostUserContact,
@@ -6,7 +6,7 @@ import {
   type UserContact,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import contactsSchema from '../../../../entities/schemas/contact';
+import contactsSchema from '../../../../entities/schemas/contact.js';
 import type { Dispatch } from 'redux';
 
 /**

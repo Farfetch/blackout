@@ -1,5 +1,5 @@
 /**
  * Configurations actions factories.
  */
-export { default as fetchConfigurationsFactory } from './fetchConfigurationsFactory';
-export { default as fetchConfigurationFactory } from './fetchConfigurationFactory';
+export { default as fetchConfigurationsFactory } from './fetchConfigurationsFactory.js';
+export { default as fetchConfigurationFactory } from './fetchConfigurationFactory.js';

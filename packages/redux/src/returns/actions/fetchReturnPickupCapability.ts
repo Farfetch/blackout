@@ -1,4 +1,4 @@
-import { fetchReturnPickupCapabilityFactory } from './factories';
+import { fetchReturnPickupCapabilityFactory } from './factories/index.js';
 import { getReturnPickupCapability } from '@farfetch/blackout-client';
 
 /**

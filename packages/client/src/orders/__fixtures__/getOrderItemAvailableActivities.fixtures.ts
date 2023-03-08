@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { OrderItemActivities } from '../types';
+import type { OrderItemActivities } from '../types/index.js';
 
 const path = '/api/account/v1/orders/:id/items/:itemId/availableActivities';
 

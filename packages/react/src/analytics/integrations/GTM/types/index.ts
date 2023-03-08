@@ -7,7 +7,7 @@ import type {
   SET_CONTEXT_KEY,
   SET_USER_FN_KEY,
   SET_USER_KEY,
-} from '../constants';
+} from '../constants.js';
 import type {
   EventContext,
   EventData,
@@ -15,7 +15,7 @@ import type {
   TrackTypesValues,
   UserData,
 } from '@farfetch/blackout-analytics';
-import type { Schemas } from '../../GA';
+import type { Schemas } from '../../GA/index.js';
 import type URLParse from 'url-parse';
 
 export type EventMappers = Record<
@@ -39,7 +39,7 @@ export type GTMEventContext = {
   eventContext: EventContext['event'];
   libraryVersion: EventContext['library']['version'];
   location: URLParse<Record<string, string | undefined>> | undefined;
-  userAgent: typeof window.navigator['userAgent'] | undefined;
+  userAgent: (typeof window.navigator)['userAgent'] | undefined;
 };
 
 export type GTMEventData = {

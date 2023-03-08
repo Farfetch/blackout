@@ -1,11 +1,11 @@
 import { type default as Analytics, utils } from '@farfetch/blackout-analytics';
-import { getBrand as getBrandSelector } from '../../brands';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
+import { getBrand as getBrandSelector } from '../../brands/index.js';
 import type {
   ProductEntity,
   ProductEntityDenormalized,
-} from '../../entities/types';
-import type { StoreState } from '../../types';
+} from '../../entities/types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns the different product categories separated with a `/`.

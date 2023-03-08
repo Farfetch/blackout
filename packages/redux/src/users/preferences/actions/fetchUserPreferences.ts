@@ -1,4 +1,4 @@
-import { fetchUserPreferencesFactory } from './factories';
+import { fetchUserPreferencesFactory } from './factories/index.js';
 import { getUserPreferences } from '@farfetch/blackout-client';
 
 /**

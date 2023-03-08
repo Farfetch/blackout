@@ -1,11 +1,11 @@
-import * as headers from './headers';
-import getTimeInMinutes from './getTimeInMinutes';
-import usePrevious from './usePrevious';
+import * as headers from './headers.js';
+import getTimeInMinutes from './getTimeInMinutes.js';
+import usePrevious from './usePrevious.js';
 import validatePassword, {
   type PasswordValidationErrors,
   PasswordValidationErrorsConstants,
   type PasswordValidationResult,
-} from './validatePassword';
+} from './validatePassword.js';
 
 export {
   getTimeInMinutes,

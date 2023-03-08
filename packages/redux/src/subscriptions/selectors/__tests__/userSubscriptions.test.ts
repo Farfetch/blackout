@@ -1,12 +1,12 @@
-import * as selectors from '..';
+import * as selectors from '../index.js';
 import {
   mockEmailAddress,
   mockSmsAddress,
   mockState,
   mockTopicWithEmailChannel,
   mockTopicWithSmsAndEmailChannels,
-} from 'tests/__fixtures__/subscriptions';
-import type { StoreState } from '../../../types';
+} from 'tests/__fixtures__/subscriptions/index.mjs';
+import type { StoreState } from '../../../types/index.js';
 
 const mockStore: StoreState = {
   ...mockState,

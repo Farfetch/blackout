@@ -8,8 +8,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseCountryStateCitiesOptions } from './types/useCountryStateCities.types';
+import useAction from '../../helpers/useAction.js';
+import type { UseCountryStateCitiesOptions } from './types/useCountryStateCities.types.js';
 
 export function useCountryStateCities(
   countryCode: string,

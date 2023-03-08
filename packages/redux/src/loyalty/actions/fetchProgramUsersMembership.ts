@@ -1,4 +1,4 @@
-import { fetchProgramUsersMembershipFactory } from './factories';
+import { fetchProgramUsersMembershipFactory } from './factories/index.js';
 import { getProgramUsersMembership } from '@farfetch/blackout-client';
 
 /**

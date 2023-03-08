@@ -4,8 +4,9 @@ exports[`getAddressPredictionDetails with query params should receive a client r
 Object {
   "code": "-1",
   "message": "stub error",
+  "name": "AxiosError",
   "status": 404,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;
 
@@ -13,7 +14,8 @@ exports[`getAddressPredictionDetails without query params should receive a clien
 Object {
   "code": "-1",
   "message": "stub error",
+  "name": "AxiosError",
   "status": 404,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;

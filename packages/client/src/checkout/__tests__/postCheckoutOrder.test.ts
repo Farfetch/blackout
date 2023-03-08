@@ -1,13 +1,13 @@
-import * as checkoutClient from '..';
+import * as checkoutClient from '../index.js';
 import {
   type GetCheckoutOrderResponse,
   OrderStatusError,
   type PostCheckoutOrderDataWithBag,
   ShippingMode,
-} from '../types';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postCheckoutOrder.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from '../types/index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postCheckoutOrder.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('checkout client', () => {
   const data: PostCheckoutOrderDataWithBag = {

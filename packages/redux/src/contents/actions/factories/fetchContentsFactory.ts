@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type Contents,
@@ -6,11 +6,11 @@ import {
   type QuerySearchContents,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { contentEntries } from '../../../entities/schemas/content';
-import { generateContentHash } from '../../utils';
+import { contentEntries } from '../../../entities/schemas/content.js';
+import { generateContentHash } from '../../utils.js';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
-import type { FetchContentsAction } from '../../types';
+import type { FetchContentsAction } from '../../types/index.js';
 
 /**
  * Fetch contents for a specific query object received.

@@ -1,1 +1,1 @@
-export * from './mockStore';
+export * from './mockStore.js';

@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE_LOCALE } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import { resetLocaleState } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE_LOCALE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetLocaleState } from '../index.js';
 
 describe('resetLocaleState() action creator', () => {
   let store: ReturnType<typeof mockStore>;

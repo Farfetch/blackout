@@ -1,3 +1,3 @@
-export * from './address.types';
-export * from './pagedResponse.types';
-export * from './jsonValue.types';
+export * from './address.types.js';
+export * from './pagedResponse.types.js';
+export * from './jsonValue.types.js';

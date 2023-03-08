@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { Error } from './UserProfileProvider';
+import type { Error } from './UserProfileProvider.js';
 import type { GuestUser, User } from '@farfetch/blackout-client';
 
 export interface UserProfileContextProps {

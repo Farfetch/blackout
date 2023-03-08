@@ -1,5 +1,5 @@
-import GuestTokenProvider from '../GuestTokenProvider';
-import type { ITokenData } from '../types/TokenData.types';
+import GuestTokenProvider from '../GuestTokenProvider.js';
+import type { ITokenData } from '../types/TokenData.types.js';
 
 jest.useFakeTimers();
 

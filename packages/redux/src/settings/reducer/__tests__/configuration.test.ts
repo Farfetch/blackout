@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../configuration';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../configuration.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import type { ConfigurationState } from '../../types';
+import type { ConfigurationState } from '../../types/index.js';
 
 let initialState: ConfigurationState;
 const reducer = fromReducer.default;

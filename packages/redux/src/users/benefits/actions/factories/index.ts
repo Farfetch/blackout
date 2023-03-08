@@ -1,1 +1,1 @@
-export { default as fetchUserBenefitsFactory } from './fetchUserBenefitsFactory';
+export { default as fetchUserBenefitsFactory } from './fetchUserBenefitsFactory.js';

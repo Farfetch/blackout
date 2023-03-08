@@ -1,12 +1,12 @@
 import { normalize } from 'normalizr';
-import orderSummary from '../../../../entities/schemas/orderSummary';
-import type { MerchantEntity } from '../../../../entities/types/merchant.types';
+import orderSummary from '../../../../entities/schemas/orderSummary.js';
+import type { MerchantEntity } from '../../../../entities/types/merchant.types.js';
 import type {
   MerchantOrderNormalized,
   OrderEntity,
   OrdersNormalized,
   OrderSummaryNormalized,
-} from '../../../../entities/types/orders.types';
+} from '../../../../entities/types/orders.types.js';
 import type { Orders } from '@farfetch/blackout-client';
 
 type OrderSummarySemiNormalized = OrderSummaryNormalized & {

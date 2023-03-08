@@ -1,8 +1,7 @@
-import { PACKAGE_NAME } from './constants';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
-import validateStorage from './validateStorage';
-import type { Storage, StorageData } from './types';
+import { get, merge } from 'lodash-es';
+import { PACKAGE_NAME } from './constants.js';
+import validateStorage from './validateStorage.js';
+import type { Storage, StorageData } from './types/index.js';
 
 const oldStorageKey = '@farfetch/blackout-core/analytics';
 

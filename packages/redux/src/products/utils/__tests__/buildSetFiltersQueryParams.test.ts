@@ -1,4 +1,4 @@
-import { buildSetFiltersQueryParams } from '..';
+import { buildSetFiltersQueryParams } from '../index.js';
 
 describe('buildSetFiltersQueryParams', () => {
   it('should build the result when adding a non existing filter', () => {

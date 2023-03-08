@@ -1,4 +1,4 @@
-import type { Config, PagedResponse } from '../../types';
+import type { Config, PagedResponse } from '../../types/index.js';
 
 export type CustomMetadataSchemaProperty = {
   title: string;

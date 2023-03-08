@@ -1,13 +1,13 @@
-import { deleteSubscriptionTopicRecipient } from '..';
+import { deleteSubscriptionTopicRecipient } from '../index.js';
 import {
   mockRecipientId1TopicId1 as recipientId,
   mockSubscriptionId as subscriptionId,
   mockTopicId1 as topicId,
-} from 'tests/__fixtures__/subscriptions';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deleteSubscriptionTopicRecipient.fixtures';
+} from 'tests/__fixtures__/subscriptions/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteSubscriptionTopicRecipient.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deleteSubscriptionTopicRecipient', () => {
   const expectedConfig = undefined;

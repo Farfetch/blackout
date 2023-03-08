@@ -1,10 +1,10 @@
-export { registerComponent } from './components/Component';
-export * from './components';
-export { renderComponent, renderContent } from './helpers';
-export * from './hooks';
+export { registerComponent } from './components/Component.js';
+export * from './components/index.js';
+export { renderComponent, renderContent } from './helpers/index.js';
+export * from './hooks/index.js';
 export {
   getListingSeoMetadataParams,
   getProductSeoMetadataParams,
-} from './utils';
-export * from './structured-data';
-export * from './types';
+} from './utils/index.js';
+export * from './structured-data/index.js';
+export * from './types/index.js';

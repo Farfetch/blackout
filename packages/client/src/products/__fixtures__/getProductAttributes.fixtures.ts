@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ProductAttribute } from '../types';
+import type { ProductAttribute } from '../types/index.js';
 
 const path = '/api/commerce/v1/products/:id/attributes';
 

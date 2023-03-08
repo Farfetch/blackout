@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../../tests';
-import { resetUserAddresses } from '..';
-import INITIAL_STATE from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../../tests/index.js';
+import { resetUserAddresses } from '../index.js';
+import INITIAL_STATE from '../../reducer.js';
 
 let store: ReturnType<typeof mockStore>;
 

@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import { orderId, orderId2 } from 'tests/__fixtures__/orders';
-import { resetOrderReturnOptions } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import { orderId, orderId2 } from 'tests/__fixtures__/orders/index.mjs';
+import { resetOrderReturnOptions } from '../index.js';
 
 describe('resetOrderReturnOptions() action creator', () => {
   let store: ReturnType<typeof mockStore>;

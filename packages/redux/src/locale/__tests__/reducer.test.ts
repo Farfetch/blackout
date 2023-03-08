@@ -1,9 +1,9 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { AddressType } from '@farfetch/blackout-client';
-import { localeEntitiesMapper } from '..';
-import { mockCountryCode } from 'tests/__fixtures__/locale';
-import reducer, * as fromReducer from '../reducer';
-import type { LocaleState } from '../types';
+import { localeEntitiesMapper } from '../index.js';
+import { mockCountryCode } from 'tests/__fixtures__/locale/index.mjs';
+import reducer, * as fromReducer from '../reducer.js';
+import type { LocaleState } from '../types/index.js';
 
 const { INITIAL_STATE_LOCALE } = fromReducer;
 const mockAction = { type: 'foo' };

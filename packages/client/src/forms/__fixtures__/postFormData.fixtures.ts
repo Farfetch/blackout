@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { SubmittedFormData } from '../types';
+import type { SubmittedFormData } from '../types/index.js';
 
 const path = '/api/communication/v1/forms/:schemaCode/data';
 

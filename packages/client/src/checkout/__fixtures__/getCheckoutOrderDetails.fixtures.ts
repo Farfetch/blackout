@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { CheckoutOrderDetails } from '../types';
+import type { CheckoutOrderDetails } from '../types/index.js';
 
 const path = '/api/checkout/v1/orders/:id/details';
 

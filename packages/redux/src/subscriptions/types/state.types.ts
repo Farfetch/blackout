@@ -4,7 +4,7 @@ import type {
   SubscriptionPackage,
   SubscriptionPackagesResult,
 } from '@farfetch/blackout-client';
-import type { StateWithResult } from '../../types';
+import type { StateWithResult } from '../../types/index.js';
 
 export type SubscriptionsState = {
   user: UserSubscriptionsState;

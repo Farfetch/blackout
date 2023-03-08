@@ -1,9 +1,9 @@
-import { findSpecificSizeGuide } from '../utils';
+import { findSpecificSizeGuide } from '../utils.js';
 import {
   mockBrandId,
   mockCategories,
   mockSizeGuides,
-} from 'tests/__fixtures__/sizeGuides';
+} from 'tests/__fixtures__/sizeGuides/index.mjs';
 
 describe('findSpecificSizeGuide', () => {
   describe('should correctly found the most specific sizeGuide', () => {

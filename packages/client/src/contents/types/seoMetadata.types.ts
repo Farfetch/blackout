@@ -1,4 +1,4 @@
-import type { Config } from '../../types';
+import type { Config } from '../../types/index.js';
 
 export type GetSEOMetadata = (
   query: GetSEOMetadataQuery,

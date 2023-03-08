@@ -1,5 +1,5 @@
 import { deleteCheckoutOrderItem } from '@farfetch/blackout-client';
-import removeCheckoutOrderItemFactory from './factories/removeCheckoutOrderItemFactory';
+import removeCheckoutOrderItemFactory from './factories/removeCheckoutOrderItemFactory.js';
 
 /**
  * Remove checkout order item

@@ -1,17 +1,17 @@
-export * as checkoutActionTypes from './actionTypes';
+export * as checkoutActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * from './selectors';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * from './selectors.js';
 
 export {
   default as checkoutReducer,
   entitiesMapper as checkoutEntitiesMapper,
-} from './reducer';
+} from './reducer.js';
 
 export {
   isCheckoutOrderAwaitingPayment,
   isCheckoutOrderConfirmed,
-} from './helpers';
+} from './helpers/index.js';
 
-export * from './types';
+export * from './types/index.js';

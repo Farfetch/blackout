@@ -4,10 +4,10 @@ import type {
   OPTION_TRIGGER_ANONYMIZE_ACTIONS,
   OPTION_TRIGGER_SET_USER_ACTIONS,
   OPTION_USER_TRAITS_PICKER,
-} from '../setUser';
-import type { StoreState } from '../../../types';
+} from '../setUser.js';
+import type { StoreState } from '../../../types/index.js';
 import type { UserData, UserTraits } from '@farfetch/blackout-analytics';
-import type { UserEntity } from '../../../entities';
+import type { UserEntity } from '../../../entities/index.js';
 
 export type SetUserActionTypes = Set<string> | Array<string>;
 

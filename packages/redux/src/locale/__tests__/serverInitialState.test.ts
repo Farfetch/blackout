@@ -1,6 +1,6 @@
-import { mockModel } from 'tests/__fixtures__/locale';
-import serverInitialState from '../serverInitialState';
-import type { Model } from '../../types';
+import { mockModel } from 'tests/__fixtures__/locale/index.mjs';
+import serverInitialState from '../serverInitialState.js';
+import type { Model } from '../../types/index.js';
 
 describe('local serverInitialState()', () => {
   it('should initialize server state for the locale', () => {

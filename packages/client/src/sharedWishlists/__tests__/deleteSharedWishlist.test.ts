@@ -1,8 +1,8 @@
-import { deleteSharedWishlist } from '..';
-import { mockSharedWishlistId } from 'tests/__fixtures__/sharedWishlists';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deleteSharedWishlist.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { deleteSharedWishlist } from '../index.js';
+import { mockSharedWishlistId } from 'tests/__fixtures__/sharedWishlists/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteSharedWishlist.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deleteSharedWishlist', () => {
   const expectedConfig = undefined;

@@ -7,11 +7,11 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useOrderReturnOptions from './useOrderReturnOptions';
-import useOrderReturns from './useOrderReturns';
-import useOrders from './useOrders';
+import useOrderReturnOptions from './useOrderReturnOptions.js';
+import useOrderReturns from './useOrderReturns.js';
+import useOrders from './useOrders.js';
 import type { Config, Order } from '@farfetch/blackout-client';
-import type { UseOrderOptions } from './types';
+import type { UseOrderOptions } from './types/index.js';
 
 /**
  * Obtains the user orders and actions to perform on them.

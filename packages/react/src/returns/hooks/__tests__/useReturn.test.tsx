@@ -19,14 +19,14 @@ import {
   returnEntityDenormalized,
   returnId,
   returnId2,
-} from 'tests/__fixtures__/returns';
-import { mockStore, withStore, wrap } from '../../../../tests/helpers';
+} from 'tests/__fixtures__/returns/index.mjs';
+import { mockStore, withStore, wrap } from '../../../../tests/helpers/index.js';
 import { Provider } from 'react-redux';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { useReturn } from '../../..';
-import ReturnTest from '../__fixtures__/ReturnsTest.fixtures';
-import useReturnPickupCapability from '../useReturnPickupCapability';
-import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests';
+import { useReturn } from '../../../index.js';
+import ReturnTest from '../__fixtures__/ReturnsTest.fixtures.js';
+import useReturnPickupCapability from '../useReturnPickupCapability.js';
+import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');

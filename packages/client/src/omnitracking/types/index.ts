@@ -1,1 +1,1 @@
-export * from './trackingData';
+export * from './trackingData.js';

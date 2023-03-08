@@ -1,8 +1,8 @@
-import { getSizeScales } from '../';
-import { mockSizeScale } from 'tests/__fixtures__/sizeScales';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSizeScales.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getSizeScales } from '..//index.js';
+import { mockSizeScale } from 'tests/__fixtures__/sizeScales/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSizeScales.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('sizeScales client', () => {
   const mockQuery = {

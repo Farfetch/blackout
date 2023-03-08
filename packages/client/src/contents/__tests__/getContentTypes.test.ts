@@ -1,8 +1,8 @@
-import { getContentTypes } from '../';
-import { types as response } from 'tests/__fixtures__/contents';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/contentTypes.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getContentTypes } from '../index.js';
+import { types as response } from 'tests/__fixtures__/contents/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/contentTypes.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getContentTypes()', () => {
   const expectedConfig = undefined;

@@ -1,14 +1,14 @@
-import * as actionTypes from '../../actionTypes';
-import { areRecentlyViewedProductsFetched } from '../../selectors';
+import * as actionTypes from '../../actionTypes/index.js';
+import { areRecentlyViewedProductsFetched } from '../../selectors/index.js';
 import {
   type GetRecentlyViewedProducts,
   type RecentlyViewedProducts,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchRecentlyViewedProductsAction } from '../../types';
-import type { FetchRecentlyViewedProductsFactory } from './types';
-import type { StoreState } from '../../../types';
+import type { FetchRecentlyViewedProductsAction } from '../../types/index.js';
+import type { FetchRecentlyViewedProductsFactory } from './types/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 /**
  * Method to create a thunk factory configured with the specified client fo fetch

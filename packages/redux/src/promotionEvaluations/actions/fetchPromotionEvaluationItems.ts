@@ -1,4 +1,4 @@
-import { fetchPromotionEvaluationItemsFactory } from './factories';
+import { fetchPromotionEvaluationItemsFactory } from './factories/index.js';
 import { getPromotionEvaluationItems } from '@farfetch/blackout-client';
 
 /**

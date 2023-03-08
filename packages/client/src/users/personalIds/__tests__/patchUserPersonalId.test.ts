@@ -2,11 +2,11 @@ import {
   mockPatchPersonalIdResponse,
   personalId,
   userId,
-} from 'tests/__fixtures__/users';
-import { patchUserPersonalId } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/patchUserPersonalId.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/users/index.mjs';
+import { patchUserPersonalId } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchUserPersonalId.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('patchPersonalId', () => {
   const expectedConfig = {

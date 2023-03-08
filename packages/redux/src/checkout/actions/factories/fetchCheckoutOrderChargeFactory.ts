@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type CheckoutOrder,
   type CheckoutOrderCharge,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchCheckoutOrderChargeAction } from '../../types';
+import type { FetchCheckoutOrderChargeAction } from '../../types/index.js';
 
 /**
  * Method responsible for getting the order charge.

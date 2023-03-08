@@ -1,6 +1,6 @@
-import type { Config, GenderCode } from '../../types';
-import type { Contents } from './contents.types';
-import type { PriceType } from '../../products/types';
+import type { Config, GenderCode } from '../../types/index.js';
+import type { Contents } from './contents.types.js';
+import type { PriceType } from '../../products/types/index.js';
 
 export enum CommercePagesType {
   PRODUCT = 'PRODUCT',

@@ -1,14 +1,14 @@
 import {
   expectedRecentlyViewedLocalPayload,
   expectedRecentlyViewedRemotePayload,
-} from 'tests/__fixtures__/products';
-import { productsActionTypes } from '../..';
+} from 'tests/__fixtures__/products/index.mjs';
+import { productsActionTypes } from '../../index.js';
 import reducer, {
   getError,
   getIsLoading,
   getResult,
-} from '../recentlyViewedProducts';
-import type { RecentlyViewedState } from '../../types';
+} from '../recentlyViewedProducts.js';
+import type { RecentlyViewedState } from '../../types/index.js';
 
 let initialState: RecentlyViewedState;
 const mockAction = { type: 'this_is_a_mock_action' };

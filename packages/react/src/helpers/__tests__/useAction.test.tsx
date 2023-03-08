@@ -1,6 +1,6 @@
-import { Action } from '../__fixtures__/Action.fixtures';
+import { Action } from '../__fixtures__/Action.fixtures.js';
 import { fireEvent } from '@testing-library/react';
-import { wrap } from '../../../tests/helpers';
+import { wrap } from '../../../tests/helpers/index.js';
 import React from 'react';
 
 jest.mock('react-redux', () => ({

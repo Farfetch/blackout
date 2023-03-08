@@ -1,4 +1,4 @@
-import type { DeliveryWindow } from '.';
+import type { DeliveryWindow } from './index.js';
 
 export type DeliveryBundleUpgrade = {
   id: string;

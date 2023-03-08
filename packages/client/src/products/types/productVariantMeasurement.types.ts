@@ -1,4 +1,4 @@
-import type { Attribute } from '../../types';
+import type { Attribute } from '../../types/index.js';
 
 export type FullMeasurement = {
   description: string;

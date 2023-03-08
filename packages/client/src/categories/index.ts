@@ -2,8 +2,8 @@
  * Categories clients.
  */
 
-export { default as getCategories } from './getCategories';
-export { default as getTopCategories } from './getTopCategories';
-export { default as getCategory } from './getCategory';
+export { default as getCategories } from './getCategories.js';
+export { default as getTopCategories } from './getTopCategories.js';
+export { default as getCategory } from './getCategory.js';
 
-export * from './types';
+export * from './types/index.js';

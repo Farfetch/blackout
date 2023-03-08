@@ -1,4 +1,4 @@
-import warnDeprecatedMethod from '../warnDeprecatedMethod';
+import warnDeprecatedMethod from '../warnDeprecatedMethod.js';
 
 describe('warnDeprecatedMethod()', () => {
   const spy = jest.fn();

@@ -1,4 +1,4 @@
-import { fetchPaymentMethodsByCountryAndCurrencyFactory } from './factories';
+import { fetchPaymentMethodsByCountryAndCurrencyFactory } from './factories/index.js';
 import { getPaymentMethodsByCountryAndCurrency } from '@farfetch/blackout-client';
 
 /**

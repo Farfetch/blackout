@@ -1,10 +1,10 @@
+import { get } from 'lodash-es';
 import {
   getError,
   getIsLoading,
   getResult,
-} from '../reducer/recentlyViewedProducts';
-import get from 'lodash/get';
-import type { StoreState } from '../../types';
+} from '../reducer/recentlyViewedProducts.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Check if recently viewed products request has an error.

@@ -4,7 +4,8 @@ exports[`checkout client putCheckoutOrderPromocode should receive a client reque
 Object {
   "code": "-1",
   "message": "stub error",
+  "name": "AxiosError",
   "status": 404,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;

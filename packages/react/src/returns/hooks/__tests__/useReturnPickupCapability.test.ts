@@ -8,10 +8,10 @@ import {
   pickupDay,
   returnId,
   returnPickupCapabilityId,
-} from 'tests/__fixtures__/returns';
+} from 'tests/__fixtures__/returns/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { useReturnPickupCapability } from '../../..';
-import { withStore } from '../../../../tests/helpers';
+import { useReturnPickupCapability } from '../../../index.js';
+import { withStore } from '../../../../tests/helpers/index.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');

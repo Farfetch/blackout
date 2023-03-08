@@ -4,7 +4,8 @@ exports[`getGuestOrders should receive a client request error 1`] = `
 Object {
   "code": "-1",
   "message": "stub error",
+  "name": "AxiosError",
   "status": 404,
-  "toJSON": [Function],
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
 }
 `;

@@ -1,4 +1,4 @@
 /**
  * Brands utils.
  */
-export { default as generateBrandsHash } from './generateBrandsHash';
+export { default as generateBrandsHash } from './generateBrandsHash.js';

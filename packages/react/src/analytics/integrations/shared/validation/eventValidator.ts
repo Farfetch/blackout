@@ -1,6 +1,6 @@
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import type { EventData, TrackTypesValues } from '@farfetch/blackout-analytics';
-import type { Schema } from '../types/shared.types';
+import type { Schema } from '../types/shared.types.js';
 
 /**
  * Validates the passed in data against the schema defined for the event. The

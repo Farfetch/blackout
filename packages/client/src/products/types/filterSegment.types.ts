@@ -1,5 +1,5 @@
-import type { FacetType } from './facetTypeEnum.types';
-import type { GenderCode } from '../../types';
+import type { FacetType } from './facetTypeEnum.types.js';
+import type { GenderCode } from '../../types/index.js';
 
 export type FilterSegment = {
   order: number;

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProductListing,
@@ -9,13 +9,20 @@ import {
   type ProductSet,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateProductsListHash } from '../../utils';
-import { isProductsListCached, isProductsListHydrated } from '../../selectors';
+import { generateProductsListHash } from '../../utils/index.js';
+import {
+  isProductsListCached,
+  isProductsListHydrated,
+} from '../../selectors/index.js';
 import { normalize } from 'normalizr';
-import productsListSchema from '../../../entities/schemas/productsList';
+import productsListSchema from '../../../entities/schemas/productsList.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, Nullable, StoreState } from '../../../types';
-import type { ProductsListActionOptions } from '../../types';
+import type {
+  GetOptionsArgument,
+  Nullable,
+  StoreState,
+} from '../../../types/index.js';
+import type { ProductsListActionOptions } from '../../types/index.js';
 
 /**
  * Creates a thunk configured with the specified client to fetch a product listing

@@ -1,7 +1,7 @@
-import { getEntities } from '../../entities';
-import { getUserBenefits as getUserBenefitsFromReducer } from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+import { getEntities } from '../../entities/index.js';
+import { getUserBenefits as getUserBenefitsFromReducer } from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status for the user benefits operation.

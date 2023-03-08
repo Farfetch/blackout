@@ -1,10 +1,10 @@
-import * as headers from './headers';
+import * as headers from './headers.js';
 import {
   adaptError,
   isBlackoutErrorType,
   toBlackoutError,
-} from './formatError';
-import { configApiBlackAndWhite } from './configs';
+} from './formatError.js';
+import { configApiBlackAndWhite } from './configs.js';
 
 export {
   configApiBlackAndWhite,
@@ -13,4 +13,4 @@ export {
   toBlackoutError,
   adaptError,
 };
-export { default } from './axiosInstance';
+export { default } from './axiosInstance.js';

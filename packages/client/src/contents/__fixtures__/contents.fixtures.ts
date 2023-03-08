@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Contents } from '../types';
+import type { Contents } from '../types/index.js';
 
 const path = '/api/content/v1/search/contents';
 

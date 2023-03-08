@@ -1,8 +1,8 @@
-import { expectedRecentlyViewedLocalPayload } from 'tests/__fixtures__/products';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../../';
-import { saveRecentlyViewedProduct } from '../';
-import reducer from '../../reducer';
+import { expectedRecentlyViewedLocalPayload } from 'tests/__fixtures__/products/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../..//index.js';
+import { saveRecentlyViewedProduct } from '..//index.js';
+import reducer from '../../reducer/index.js';
 
 const mockAction = { type: 'this_is_a_mock_action' };
 const productId = expectedRecentlyViewedLocalPayload[0]?.productId as number;

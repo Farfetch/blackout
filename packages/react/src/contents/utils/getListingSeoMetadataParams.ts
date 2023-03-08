@@ -1,6 +1,6 @@
-import { currencyFormatter } from '../../locale';
+import { currencyFormatter } from '../../locale/index.js';
 import { SeoPageType, SeoSubPageType } from '@farfetch/blackout-client';
-import type { GetListingSeoMetadataParams } from '../types';
+import type { GetListingSeoMetadataParams } from '../types/index.js';
 
 const SET_REGEX = /\.*\/(sets)\.*/;
 const PricetypeFacetKey = 'pricetype';

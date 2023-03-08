@@ -1,4 +1,4 @@
-import type { EventData, TrackTypesValues } from '../types/analytics.types';
+import type { EventData, TrackTypesValues } from '../types/analytics.types.js';
 
 /**
  * Returns the customer id for tracking of the passed user instance.

@@ -1,4 +1,4 @@
-import { fetchUserBenefitsFactory } from './factories';
+import { fetchUserBenefitsFactory } from './factories/index.js';
 import { getUserBenefits } from '@farfetch/blackout-client';
 
 /**

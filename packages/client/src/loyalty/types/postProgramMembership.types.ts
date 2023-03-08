@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { Program, ProgramMembership } from '.';
+import type { Config } from '../../types/index.js';
+import type { Program, ProgramMembership } from './index.js';
 
 export type PostProgramMembership = (
   programId: Program['id'],

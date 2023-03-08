@@ -1,9 +1,9 @@
 import {
   expectedNormalizedPayload,
   mockModel,
-} from 'tests/__fixtures__/contents';
-import serverInitialState from '../serverInitialState';
-import type { Model } from '../../types';
+} from 'tests/__fixtures__/contents/index.mjs';
+import serverInitialState from '../serverInitialState.js';
+import type { Model } from '../../types/index.js';
 
 describe('contents serverInitialState()', () => {
   it('should initialize server state for the contents', () => {

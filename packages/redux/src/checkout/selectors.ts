@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { findKey, get } from 'lodash-es';
 import {
   getCheckoutOrderCharge as getCheckoutOrderChargeFromReducer,
   getCheckoutOrderDeliveryBundleProvisioning,
@@ -17,10 +18,8 @@ import {
   getOperations,
   getRemoveOrderItem,
   getUpdateOrderItem,
-} from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
-import findKey from 'lodash/findKey';
-import get from 'lodash/get';
+} from './reducer.js';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
 import type {
   CategoryEntity,
   CheckoutOrderEntityDenormalized,
@@ -30,7 +29,7 @@ import type {
   DeliveryBundleEntity,
   MerchantEntity,
   ProductEntity,
-} from '../entities';
+} from '../entities/index.js';
 import type {
   CheckoutOrderItem,
   ClickAndCollect,
@@ -40,8 +39,11 @@ import type {
   ItemDeliveryOption,
   ShippingOption,
 } from '@farfetch/blackout-client';
-import type { CheckoutOrderOperationsNormalized, CheckoutState } from './types';
-import type { StoreState } from '../types';
+import type {
+  CheckoutOrderOperationsNormalized,
+  CheckoutState,
+} from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 export type DeliveryBundleWindow = {
   minEstimatedDeliveryDate: string;

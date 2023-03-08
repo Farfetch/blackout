@@ -1,1 +1,1 @@
-export * from './getUserReturns.types';
+export * from './getUserReturns.types.js';

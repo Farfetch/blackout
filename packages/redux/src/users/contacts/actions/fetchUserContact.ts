@@ -1,4 +1,4 @@
-import { fetchUserContactFactory } from './factories';
+import { fetchUserContactFactory } from './factories/index.js';
 import { getUserContact } from '@farfetch/blackout-client';
 
 /**

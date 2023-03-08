@@ -1,4 +1,4 @@
-import type { MerchantEntity } from './merchant.types';
+import type { MerchantEntity } from './merchant.types.js';
 import type {
   MerchantOrderReturnOptions,
   ReturnOption,

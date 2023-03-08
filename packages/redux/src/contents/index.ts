@@ -1,15 +1,15 @@
-export * as contentsActionTypes from './actionTypes';
-export { default as contentsServerInitialState } from './serverInitialState';
+export * as contentsActionTypes from './actionTypes.js';
+export { default as contentsServerInitialState } from './serverInitialState.js';
 
-export * from './actions';
-export * from './selectors';
+export * from './actions/index.js';
+export * from './selectors.js';
 
-export { default as contentsReducer } from './reducer';
+export { default as contentsReducer } from './reducer.js';
 
-export * from './types';
+export * from './types/index.js';
 export {
   ENVIRONMENT_CODES,
   generateContentHash,
   generateSEOPathname,
   getRankedCommercePage,
-} from './utils';
+} from './utils.js';

@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { DeleteUserAddress } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { DeleteUserAddress } from './types/index.js';
 
 /**
  * Responsible for removing the address with the specified 'id'.

@@ -1,6 +1,6 @@
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { StateWithoutResult } from '../../types';
+import type { StateWithoutResult } from '../../types/index.js';
 
 export type LocaleState = CombinedState<{
   countryCode: string;

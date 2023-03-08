@@ -1,13 +1,13 @@
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
-import * as utils from '../utils';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
+import * as utils from '../utils.js';
 import {
   mockBrandsIds,
   mockCategories,
   mockQuery,
   mockSizeGuides,
   mockState,
-} from 'tests/__fixtures__/sizeGuides';
+} from 'tests/__fixtures__/sizeGuides/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 beforeEach(() => {

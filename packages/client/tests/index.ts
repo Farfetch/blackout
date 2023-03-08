@@ -1,1 +1,1 @@
-export * from './mswServer';
+export * from './mswServer.js';

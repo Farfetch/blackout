@@ -1,7 +1,7 @@
-import { postRefreshEmailToken } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postRefreshEmailToken.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postRefreshEmailToken } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postRefreshEmailToken.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postRefreshEmailToken', () => {
   const spy = jest.spyOn(client, 'post');

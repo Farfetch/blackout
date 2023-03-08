@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type Order,
@@ -7,7 +7,7 @@ import {
   type PostOrderItemActivityData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { AddOrderItemActivityAction } from '../../types/actions.types';
+import type { AddOrderItemActivityAction } from '../../types/actions.types.js';
 import type { Dispatch } from 'redux';
 
 /**

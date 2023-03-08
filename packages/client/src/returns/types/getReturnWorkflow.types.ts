@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { Return } from './return.types';
+import type { Config } from '../../index.js';
+import type { Return } from './return.types.js';
 
 export enum ReturnWorkflowStatus {
   WaitingExternalApproval = 'WaitingExternalApproval',

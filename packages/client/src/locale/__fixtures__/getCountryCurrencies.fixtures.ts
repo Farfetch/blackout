@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Currency } from '../types';
+import type { Currency } from '../types/index.js';
 
 const path = '/api/settings/v1/countries/:countryCode/currencies';
 

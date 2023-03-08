@@ -1,8 +1,8 @@
-import { postUser } from '..';
-import { mockResponse as response } from '../__fixtures__/login.fixtures';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postUser.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postUser } from '../index.js';
+import { mockResponse as response } from '../__fixtures__/login.fixtures.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postUser.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postUser', () => {
   const spy = jest.spyOn(client, 'post');

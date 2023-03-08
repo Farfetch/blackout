@@ -1,14 +1,14 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
 import {
   expectedOrderReturnOptionsNormalizedPayload,
   mockOrderReturnOptionsResponse,
   orderId,
-} from 'tests/__fixtures__/orders';
-import { fetchOrderReturnOptions } from '..';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { fetchOrderReturnOptions } from '../index.js';
 import { getOrderReturnOptions } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import thunk from 'redux-thunk';
 
 jest.mock('@farfetch/blackout-client', () => ({

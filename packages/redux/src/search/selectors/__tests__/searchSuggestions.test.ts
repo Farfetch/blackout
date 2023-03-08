@@ -1,4 +1,4 @@
-import * as selectors from '../../selectors/searchSuggestions';
+import * as selectors from '../../selectors/searchSuggestions.js';
 import {
   mockSearchSuggestionsErrorState,
   mockSearchSuggestionsHash,
@@ -6,7 +6,7 @@ import {
   mockSearchSuggestionsLoadingState,
   mockSearchSuggestionsResponse,
   mockSearchSuggestionsState,
-} from 'tests/__fixtures__/search';
+} from 'tests/__fixtures__/search/index.mjs';
 
 beforeEach(() => {
   jest.clearAllMocks();

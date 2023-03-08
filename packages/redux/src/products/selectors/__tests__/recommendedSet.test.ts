@@ -1,9 +1,9 @@
-import * as selectors from '../recommendedSet';
+import * as selectors from '../recommendedSet.js';
 import {
   mockProductsState,
   mockRecommendedSet,
   mockRecommendedSetId,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Recommended set', () => {
   describe('isRecommendedSetLoading()', () => {

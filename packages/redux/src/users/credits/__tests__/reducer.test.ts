@@ -1,8 +1,8 @@
-import * as actionTypes from '../actionTypes';
-import { mockBaseState } from '../../__fixtures__/state.fixtures';
+import * as actionTypes from '../actionTypes.js';
+import { mockBaseState } from '../../__fixtures__/state.fixtures.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducers, { entitiesMapper, INITIAL_STATE } from '../reducer';
-import type { StoreState } from '../../../types';
+import reducers, { entitiesMapper, INITIAL_STATE } from '../reducer.js';
+import type { StoreState } from '../../../types/index.js';
 
 const creditsReducer = reducers.credits;
 const creditMovementsReducer = reducers.creditMovements;

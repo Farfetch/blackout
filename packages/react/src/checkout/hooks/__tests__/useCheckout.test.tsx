@@ -11,7 +11,7 @@ import {
   mockInitialStateWithGuestUser,
   mockInitialStateWithoutUser,
   mockLoadingState,
-} from 'tests/__fixtures__/checkout';
+} from 'tests/__fixtures__/checkout/index.mjs';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   createCheckoutOrder,
@@ -34,12 +34,12 @@ import {
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
 import { headers, PaymentMethod } from '@farfetch/blackout-client';
-import { withStore } from '../../../../tests/helpers';
-import useCheckout from '../useCheckout';
-import useCheckoutOrderCharge from '../useCheckoutOrderCharge';
-import useCheckoutOrderDetails from '../useCheckoutOrderDetails';
-import useCollectPoints from '../useCollectPoints';
-import usePaymentIntentInstruments from '../../../payments/hooks/usePaymentIntentInstruments';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCheckout from '../useCheckout.js';
+import useCheckoutOrderCharge from '../useCheckoutOrderCharge.js';
+import useCheckoutOrderDetails from '../useCheckoutOrderDetails.js';
+import useCollectPoints from '../useCollectPoints.js';
+import usePaymentIntentInstruments from '../../../payments/hooks/usePaymentIntentInstruments.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

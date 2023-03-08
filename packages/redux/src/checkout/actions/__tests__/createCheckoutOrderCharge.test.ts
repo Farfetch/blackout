@@ -1,10 +1,10 @@
-import { checkoutActionTypes } from '../..';
-import { createCheckoutOrderCharge } from '..';
-import { INITIAL_STATE } from '../../reducer';
-import { mockCharges } from 'tests/__fixtures__/checkout';
-import { mockStore } from '../../../../tests';
+import { checkoutActionTypes } from '../../index.js';
+import { createCheckoutOrderCharge } from '../index.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockCharges } from 'tests/__fixtures__/checkout/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { postCheckoutOrderCharge } from '@farfetch/blackout-client';
-import find from 'lodash/find';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

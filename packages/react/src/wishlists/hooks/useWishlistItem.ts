@@ -10,9 +10,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import useWishlist from './useWishlist';
+import useWishlist from './useWishlist.js';
 import type { PatchWishlistItemData } from '@farfetch/blackout-client';
-import type { WishlistItemId } from './types/useWishlistItem.types';
+import type { WishlistItemId } from './types/useWishlistItem.types.js';
 
 /**
  * Provides Redux actions and state access for dealing with wishlist item business

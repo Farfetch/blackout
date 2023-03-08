@@ -1,7 +1,7 @@
 import createDefaultEntitiesReducer, {
   defaultEntitiesReducers,
-} from './createDefaultEntitiesReducer';
-import createEntitiesReducer from './createEntities';
+} from './createDefaultEntitiesReducer.js';
+import createEntitiesReducer from './createEntities.js';
 
 export {
   createDefaultEntitiesReducer,

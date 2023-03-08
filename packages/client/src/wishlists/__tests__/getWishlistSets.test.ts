@@ -1,11 +1,11 @@
-import { getWishlistSets } from '..';
+import { getWishlistSets } from '../index.js';
 import {
   mockWishlistId,
   mockWishlistsSetResponse,
-} from 'tests/__fixtures__/wishlists';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getWishlistSets.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getWishlistSets.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getWishlistSets', () => {
   const expectedConfig = undefined;

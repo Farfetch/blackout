@@ -1,4 +1,4 @@
-import { addBagItemFactory } from './factories';
+import { addBagItemFactory } from './factories/index.js';
 import { postBagItem } from '@farfetch/blackout-client';
 
 /**

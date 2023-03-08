@@ -1,4 +1,4 @@
-import type { Storage } from './types';
+import type { Storage } from './types/index.js';
 
 /**
  * Validates if the passed in storage to be used in analytics is valid. For now, we

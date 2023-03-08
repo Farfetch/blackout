@@ -1,11 +1,11 @@
-import { getProgramUsersMembership } from '..';
+import { getProgramUsersMembership } from '../index.js';
 import {
   mockResponseProgramUsersMembership,
   programId,
-} from 'tests/__fixtures__/loyalty';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getProgramUsersMembership.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/loyalty/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getProgramUsersMembership.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('program users client', () => {
   const expectedConfig = undefined;

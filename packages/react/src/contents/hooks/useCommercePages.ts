@@ -10,9 +10,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { ComponentType } from '@farfetch/blackout-client';
-import type { UseCommercePagesOptions } from './types/useCommercePages.types';
+import type { UseCommercePagesOptions } from './types/useCommercePages.types.js';
 
 const useCommercePages = <T = ComponentType[]>(
   options: UseCommercePagesOptions,

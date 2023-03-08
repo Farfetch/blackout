@@ -1,6 +1,9 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { AnyAction } from 'redux';
-import type { SearchHash as Hash, SearchDidYouMeanState } from '../types';
+import type {
+  SearchHash as Hash,
+  SearchDidYouMeanState,
+} from '../types/index.js';
 
 export const INITIAL_STATE: Record<Hash, SearchDidYouMeanState> = {};
 

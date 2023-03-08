@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetAddressPredictionsAction } from '../types';
+import type { ResetAddressPredictionsAction } from '../types/index.js';
 
 /**
  * Method responsible for resetting predictions.

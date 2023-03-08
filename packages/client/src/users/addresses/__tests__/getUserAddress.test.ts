@@ -2,11 +2,11 @@ import {
   address1,
   addressId as id,
   userId,
-} from 'tests/__fixtures__/addresses';
-import { getUserAddress } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getUserAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/addresses/index.mjs';
+import { getUserAddress } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getUserAddress', () => {
   const expectedConfig = undefined;

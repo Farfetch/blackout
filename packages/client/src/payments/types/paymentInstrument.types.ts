@@ -4,7 +4,7 @@ import type {
   PaymentInstrumentData,
   PaymentMethod,
   ShopperInteraction,
-} from '.';
+} from './index.js';
 
 export enum PaymentInstrumentStatus {
   Created,

@@ -11,7 +11,7 @@ import {
   LoginWithoutDataError,
   NotLoggedInError,
   PendingUserOperationError,
-} from '../errors';
+} from '../errors/index.js';
 import { useCallback, useMemo, useReducer } from 'react';
 
 export const ActionTypes = {

@@ -1,6 +1,6 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import type { GetCountryAddressSchemas } from './types';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import type { GetCountryAddressSchemas } from './types/index.js';
 
 /**
  * Obtains the address schema for a country specified with 'id'.

@@ -1,10 +1,10 @@
-import { buildBagItem } from '../';
+import { buildBagItem } from '..//index.js';
 import {
   mockBagItem,
   mockBagItemEntity,
   mockBagItemHydrated,
   mockProductAggregatorId,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 
 describe('buildBagItem()', () => {
   it('should return a valid bag item object', () => {

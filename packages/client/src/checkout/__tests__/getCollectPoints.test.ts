@@ -1,9 +1,9 @@
-import * as checkoutClient from '..';
-import { type CollectPoint, Weekday } from '../types';
-import { id } from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCollectPoints.fixtures';
-import mswServer from '../../../tests/mswServer';
+import * as checkoutClient from '../index.js';
+import { type CollectPoint, Weekday } from '../types/index.js';
+import { id } from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCollectPoints.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('checkout client', () => {
   const expectedConfig = undefined;

@@ -4,6 +4,8 @@ Clients to connect to the Farfetch Platform Solutions' services.
 
 ## Installation
 
+The current version (2.x) requires at least Node 14.
+
 **yarn**
 
 ```sh
@@ -19,45 +21,53 @@ npm i @farfetch/blackout-client
 Make sure that you have installed the correct peer dependencies of this package:
 
 - [`axios`](https://www.npmjs.com/package/axios)
-- [`lodash`](https://www.npmjs.com/package/lodash)
+- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
 
 ## Usage
 
-You just need to import and use what you need
+You just need to import and use what you need. All imports should be done from the root of the package like in the following example:
 
 ```js
-import { getBag } from '@farfetch/blackout-client/bags';
+import { getBag } from '@farfetch/blackout-client';
 
 const fetchBag = myFetchBagAction(getBag);
 ```
 
-### Additional configuration
+### Configuration
 
-Since this package is published in its original structure, all the source code is contained in a `src` folder. This means you might need additional configurations:
+**IMPORTANT** This package is a Pure ESM package which means it cannot be `require()`'d from CommonJS. If you cannot change to ESM or want to keep using Commonjs, consider using the `import()` function to load the modules from this package asynchronously.
 
-- In order to have friendly imports (`@farfetch/blackout-client` vs `@farfetch/blackout-client/src`), you probably want to add aliases
+#### Webpack
 
-  ```js
-  // Webpack example
-  config.resolve.alias = {
-    '@farfetch/blackout-client': '@farfetch/blackout-client/src',
-  };
-  ```
+- If it is necessary to transpile the package, add a specific loader for it:
 
-- In order to have your project running, you probably need a specific loader
   ```js
   // Webpack example
   config.module.rules.push({
     test: /\.jsx?$/,
-    include: [/node_modules\/@farfetch\/blackout-client/],
+    // This will add all @farfetch packages, lodash-es and crypto-es packages which are ESM only
+    include: [/node_modules\/(@farfetch|lodash-es|crypto-es)/],
     use: [
       {
         loader: 'babel-loader',
         options: myBabelConfig,
       },
     ],
+    // If using webpack 5, you might need this depending on the transformations used
+    resolve: { fullySpecified: false },
   });
   ```
+
+#### Jest
+
+- In order to support unit tests via jest, it is necessary to transpile the package to Commonjs by adding the following value to the `transformIgnorePatterns` option in Jest configuration:
+
+```js
+// jest.config.js
+transformIgnorePatterns: [
+  '/node_modules/(?!(@farfetch|lodash-es|crypto-es)).+\\.js$',
+];
+```
 
 ### Using `fetch` with axios
 

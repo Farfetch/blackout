@@ -1,4 +1,4 @@
-import { PACKAGE_NAME_VERSION } from './constants';
+import { PACKAGE_NAME_VERSION } from './constants.js';
 
 /* eslint-disable no-console */
 

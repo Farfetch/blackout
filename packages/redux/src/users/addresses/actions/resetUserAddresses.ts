@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetUserAddressesAction } from '../types';
+import type { ResetUserAddressesAction } from '../types/index.js';
 
 /**
  * Reset state to its initial value.

@@ -1,11 +1,11 @@
-import { buildIconLinks, buildLinks, buildMetas } from '../seoMetadata';
+import { buildIconLinks, buildLinks, buildMetas } from '../seoMetadata.js';
 import {
   mockBuildIconLinksResult,
   mockBuildLinksResult,
   mockDefaultAppLinks,
   mockedBuildMetasResult,
   mockSeo,
-} from './__fixtures__/metadata';
+} from './__fixtures__/metadata.js';
 
 describe('buildMetas()', () => {
   it('should build metas with only seo', () => {

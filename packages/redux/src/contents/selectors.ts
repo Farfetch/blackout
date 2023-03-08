@@ -1,16 +1,20 @@
 /**
  * Contents selectors.
  */
-import { type ContentsEntity, getEntityById } from '../entities';
-import { generateContentHash, generateSEOPathname } from './utils';
-import { getContentResult, getContentTypes, getSEOmetadata } from './reducer';
-import type { ContentsState, Hash } from './types';
+import { type ContentsEntity, getEntityById } from '../entities/index.js';
+import { generateContentHash, generateSEOPathname } from './utils.js';
+import {
+  getContentResult,
+  getContentTypes,
+  getSEOmetadata,
+} from './reducer.js';
+import type { ContentsState, Hash } from './types/index.js';
 import type {
   GetSEOMetadataQuery,
   QueryCommercePages,
   QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { StoreState } from '../types';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves the content result from a specific hash.

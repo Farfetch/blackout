@@ -1,11 +1,11 @@
 import type {
   BagItemEntity,
   ProductEntityDenormalized,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 
 type BuildBagItemParams = {
   // Authorization code (for SMS restrictions, for example).

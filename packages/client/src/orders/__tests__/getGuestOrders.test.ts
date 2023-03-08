@@ -1,8 +1,8 @@
-import { getGuestOrders } from '..';
-import { mockGuestOrdersResponse } from 'tests/__fixtures__/orders';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getGuestOrders.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getGuestOrders } from '../index.js';
+import { mockGuestOrdersResponse } from 'tests/__fixtures__/orders/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getGuestOrders.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 

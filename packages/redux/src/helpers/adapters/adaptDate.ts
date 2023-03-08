@@ -1,4 +1,4 @@
-import type { AdaptDate } from './types';
+import type { AdaptDate } from './types/index.js';
 
 /**
  * Checks if the given timestamp has the additional property for the timezone.

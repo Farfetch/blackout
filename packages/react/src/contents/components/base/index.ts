@@ -1,15 +1,15 @@
-import Boolean from './boolean/Boolean';
-import CallToAction from './callToAction/CallToAction';
-import Color from './color/Color';
-import ComponentsList from './componentsList/ComponentsList';
-import ContentList from './contentList/ContentList';
-import DateTime from './dateTime/DateTime';
-import Html from './html/Html';
-import LongText from './longText/LongText';
-import Media from './media/Media';
-import Number from './number/Number';
-import Text from './text/Text';
-import type { DefaultMedia } from '../../types';
+import Boolean from './boolean/Boolean.js';
+import CallToAction from './callToAction/CallToAction.js';
+import Color from './color/Color.js';
+import ComponentsList from './componentsList/ComponentsList.js';
+import ContentList from './contentList/ContentList.js';
+import DateTime from './dateTime/DateTime.js';
+import Html from './html/Html.js';
+import LongText from './longText/LongText.js';
+import Media from './media/Media.js';
+import Number from './number/Number.js';
+import Text from './text/Text.js';
+import type { DefaultMedia } from '../../types/index.js';
 
 export const DEFAULT_MEDIA: DefaultMedia = {
   Xs: '480px',

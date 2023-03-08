@@ -4,6 +4,8 @@ Centralized and agnostic way of tracking data with built-in integrations.
 
 ## Installation
 
+The current version (1.x) requires at least Node 14.
+
 **yarn**
 
 ```sh
@@ -21,45 +23,53 @@ npm i @farfetch/blackout-analytics
 Make sure that you have installed the correct peer dependencies of this package:
 
 - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
-- [`lodash`](https://www.npmjs.com/package/lodash)
+- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
 
-## Usage
+### Configuration
 
-You just need to import and use what you need
+**IMPORTANT** This package is a Pure ESM package which means it cannot be `require()`'d from CommonJS. If you cannot change to ESM or want to keep using Commonjs, consider using the `import()` function to load the modules from this package asynchronously.
 
-```js
-import { FromParameterTypes } from '@farfetch/analytics';
+#### Webpack
 
-console.log(FromParameterTypes.BAG);
-```
+- If it is necessary to transpile the package, add a specific loader for it:
 
-### Additional configuration
-
-Since this package is published in its original structure, all the source code is contained in a `src` folder. This means you might need additional configurations:
-
-- In order to have friendly imports (`@farfetch/blackout-analytics` vs `@farfetch/blackout-analytics/src`), you probably want to add aliases
-
-  ```js
-  // Webpack example
-  config.resolve.alias = {
-    '@farfetch/blackout-analytics': '@farfetch/blackout-analytics/src',
-  };
-  ```
-
-- In order to have your project running, you probably need a specific loader
   ```js
   // Webpack example
   config.module.rules.push({
     test: /\.jsx?$/,
-    include: [/node_modules\/@farfetch\/blackout-analytics/],
+    // This will add all @farfetch packages, lodash-es and crypto-es packages which are ESM only
+    include: [/node_modules\/(@farfetch|lodash-es|crypto-es)/],
     use: [
       {
         loader: 'babel-loader',
         options: myBabelConfig,
       },
     ],
+    // If using webpack 5, you might need this depending on the transformations used
+    resolve: { fullySpecified: false },
   });
   ```
+
+#### Jest
+
+- In order to support unit tests via jest, it is necessary to transpile the package to Commonjs by adding the following value to the `transformIgnorePatterns` option in Jest configuration:
+
+```js
+// jest.config.js
+transformIgnorePatterns: [
+  '/node_modules/(?!(@farfetch|lodash-es|crypto-es)).+\\.js$',
+];
+```
+
+## Usage
+
+You just need to import and use what you need. All imports should be done from the root of the package like in the following example:
+
+```js
+import { FromParameterTypes } from '@farfetch/blackout-analytics';
+
+console.log(FromParameterTypes.BAG);
+```
 
 ## Contributing
 

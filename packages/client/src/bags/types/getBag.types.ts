@@ -1,6 +1,6 @@
-import type { Bag } from './bag.types';
-import type { Config } from '../..';
-import type { GetBagQuery } from './query.types';
+import type { Bag } from './bag.types.js';
+import type { Config } from '../../index.js';
+import type { GetBagQuery } from './query.types.js';
 
 export type GetBag = (
   id: Bag['id'] | null,

@@ -8,9 +8,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { CheckoutOrder, Config } from '@farfetch/blackout-client';
-import type { UseCheckoutOrderDetailsOptions } from './types';
+import type { UseCheckoutOrderDetailsOptions } from './types/index.js';
 
 function useCheckoutOrderDetails(
   checkoutOrderId?: CheckoutOrder['id'],

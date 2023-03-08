@@ -1,10 +1,10 @@
-import { generateProductsListHash, getSlug } from '../utils';
-import { INITIAL_STATE } from '../reducer/lists';
+import { generateProductsListHash, getSlug } from '../utils/index.js';
+import { get } from 'lodash-es';
+import { INITIAL_STATE } from '../reducer/lists.js';
 import { normalize } from 'normalizr';
-import get from 'lodash/get';
 import parse from 'url-parse';
-import productsList from '../../entities/schemas/productsList';
-import type { ListsServerInitialState } from './types';
+import productsList from '../../entities/schemas/productsList.js';
+import type { ListsServerInitialState } from './types/index.js';
 
 /**
  * Converts server data for a products list (listing or sets) to store state.

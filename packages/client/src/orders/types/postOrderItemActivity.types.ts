@@ -1,7 +1,7 @@
-import type { Config } from '../../types';
-import type { Order } from './order.types';
-import type { OrderItem } from './orderItem.types';
-import type { OrderItemActivityType } from './getOrderAvailableItemsActivities.types';
+import type { Config } from '../../types/index.js';
+import type { Order } from './order.types.js';
+import type { OrderItem } from './orderItem.types.js';
+import type { OrderItemActivityType } from './getOrderAvailableItemsActivities.types.js';
 
 export type PostOrderItemActivity = (
   id: Order['id'],

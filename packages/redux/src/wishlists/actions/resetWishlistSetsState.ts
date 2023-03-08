@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetWishlistSetsStateAction } from '../types';
+import type { ResetWishlistSetsStateAction } from '../types/index.js';
 
 /**
  * Reset wishlist sets state to its initial value.

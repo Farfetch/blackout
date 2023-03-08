@@ -1,4 +1,4 @@
-import type { Config, Order, OrderItem } from '../..';
+import type { Config, Order, OrderItem } from '../../index.js';
 
 export enum OrderItemActivityType {
   None = 'None',

@@ -1,5 +1,9 @@
-import type { Config, PostReturnItemData, ReturnOptionType } from '../..';
-import type { Return, ReturnPickupSchedule } from './return.types';
+import type {
+  Config,
+  PostReturnItemData,
+  ReturnOptionType,
+} from '../../index.js';
+import type { Return, ReturnPickupSchedule } from './return.types.js';
 
 export type PostReturnData = Omit<
   Return,

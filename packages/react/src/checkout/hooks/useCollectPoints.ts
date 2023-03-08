@@ -9,9 +9,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { Config, GetCollectPointsQuery } from '@farfetch/blackout-client';
-import type { UseCollectPointsOptions } from './types';
+import type { UseCollectPointsOptions } from './types/index.js';
 
 function useCollectPoints(
   query?: GetCollectPointsQuery,

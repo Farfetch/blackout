@@ -1,9 +1,9 @@
-import { getSubscriptions } from '..';
-import { mockGetSubscriptions } from 'tests/__fixtures__/subscriptions';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSubscriptions.fixtures';
+import { getSubscriptions } from '../index.js';
+import { mockGetSubscriptions } from 'tests/__fixtures__/subscriptions/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSubscriptions.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getSubscriptions', () => {
   const expectedConfig = undefined;

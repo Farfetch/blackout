@@ -1,5 +1,5 @@
 import { postRefreshEmailToken } from '@farfetch/blackout-client';
-import { refreshEmailTokenFactory } from './factories';
+import { refreshEmailTokenFactory } from './factories/index.js';
 
 /**
  * Refreshes the user's validation token. To be used when the user went past the

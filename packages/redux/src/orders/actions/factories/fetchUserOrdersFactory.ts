@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetUserOrders,
@@ -6,9 +6,9 @@ import {
   type Orders,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import normalizeFetchOrdersResponse from './helpers/normalizeFetchOrdersResponse';
+import normalizeFetchOrdersResponse from './helpers/normalizeFetchOrdersResponse.js';
 import type { Dispatch } from 'redux';
-import type { FetchOrdersAction } from '../../types/actions.types';
+import type { FetchOrdersAction } from '../../types/actions.types.js';
 
 /**
  * Fetches orders.

@@ -1,4 +1,4 @@
-import { createPaymentIntentInstrumentFactory } from './factories';
+import { createPaymentIntentInstrumentFactory } from './factories/index.js';
 import { postPaymentIntentInstrument } from '@farfetch/blackout-client';
 
 /**

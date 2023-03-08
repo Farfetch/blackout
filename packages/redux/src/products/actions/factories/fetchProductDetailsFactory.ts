@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProduct,
@@ -6,11 +6,11 @@ import {
   type ProductDetailsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { isProductHydrated } from '../../selectors';
+import { isProductHydrated } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
-import productSchema from '../../../entities/schemas/product';
+import productSchema from '../../../entities/schemas/product.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product

@@ -1,9 +1,9 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { mockImage, mockVideo } from 'tests/__fixtures__/contents';
+import { mockImage, mockVideo } from 'tests/__fixtures__/contents/index.mjs';
 import React from 'react';
-import Video from '../components/video';
+import Video from '../components/video/index.js';
 
-jest.mock('react-player', () => () => 'React Player');
+jest.mock('react-player', () => ({ default: () => 'React Player' }));
 
 describe('<Video />', () => {
   afterEach(cleanup);

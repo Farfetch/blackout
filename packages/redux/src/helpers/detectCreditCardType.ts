@@ -1,4 +1,4 @@
-import { NON_DIGIT } from './regex';
+import { NON_DIGIT } from './regex.js';
 import creditCardType from 'credit-card-type';
 
 /**

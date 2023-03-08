@@ -1,7 +1,7 @@
-import type { Bag } from './bag.types';
-import type { BagItemMetadata, Config } from '../..';
-import type { PostBagItemQuery } from './query.types';
-import type { Product } from '../../products/types';
+import type { Bag } from './bag.types.js';
+import type { BagItemMetadata, Config } from '../../index.js';
+import type { PostBagItemQuery } from './query.types.js';
+import type { Product } from '../../products/types/index.js';
 
 export type PostBagItemData = {
   // Product identifier.

@@ -1,4 +1,4 @@
-import { fetchCountryCurrenciesFactory } from './factories';
+import { fetchCountryCurrenciesFactory } from './factories/index.js';
 import { getCountryCurrencies } from '@farfetch/blackout-client';
 
 /**

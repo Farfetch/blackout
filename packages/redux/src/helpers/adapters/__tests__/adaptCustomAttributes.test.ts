@@ -1,4 +1,4 @@
-import { adaptCustomAttributes } from '..';
+import { adaptCustomAttributes } from '../index.js';
 
 describe('adaptCustomAttributes()', () => {
   it('should return custom attributes adapted correctly', () => {

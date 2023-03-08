@@ -1,1 +1,1 @@
-export { default } from './GA4';
+export { default } from './GA4.js';

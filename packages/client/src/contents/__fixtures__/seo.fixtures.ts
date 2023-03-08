@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { SEOMetadata } from '../types';
+import type { SEOMetadata } from '../types/index.js';
 
 const path = '/api/content/v1/seometadata';
 

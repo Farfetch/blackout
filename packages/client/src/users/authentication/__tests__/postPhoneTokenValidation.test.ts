@@ -1,7 +1,7 @@
-import { postPhoneTokenValidation } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postPhoneTokenValidation.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postPhoneTokenValidation } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPhoneTokenValidation.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postPhoneTokenValidation', () => {
   const expectedConfig = undefined;

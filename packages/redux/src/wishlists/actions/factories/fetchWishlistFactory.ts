@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetWishlist,
@@ -6,10 +6,10 @@ import {
   type Wishlist,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
+import wishlistItemSchema from '../../../entities/schemas/wishlistItem.js';
 import type { Dispatch } from 'redux';
-import type { FetchWishlistAction } from '../../types';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { FetchWishlistAction } from '../../types/index.js';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch wishlist

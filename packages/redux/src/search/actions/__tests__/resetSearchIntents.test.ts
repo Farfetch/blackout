@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer/searchIntents';
-import { mockStore } from '../../../../tests';
-import { resetSearchIntents } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer/searchIntents.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetSearchIntents } from '../index.js';
 
 describe('resetSearchIntents() action creator', () => {
   let store: ReturnType<typeof mockStore>;

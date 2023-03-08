@@ -1,4 +1,4 @@
-import * as selectors from '../../selectors/searchDidYouMean';
+import * as selectors from '../../selectors/searchDidYouMean.js';
 import {
   mockSearchDidYouMeanErrorState,
   mockSearchDidYouMeanHash,
@@ -6,7 +6,7 @@ import {
   mockSearchDidYouMeanLoadingState,
   mockSearchDidYouMeanResponse,
   mockSearchDidYouMeanState,
-} from 'tests/__fixtures__/search';
+} from 'tests/__fixtures__/search/index.mjs';
 
 beforeEach(() => {
   jest.clearAllMocks();

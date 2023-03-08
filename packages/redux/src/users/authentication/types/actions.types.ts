@@ -1,8 +1,8 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type { BlackoutError, Config } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
-import type { UserEntity } from '../../../entities';
+import type { UserEntity } from '../../../entities/index.js';
 
 //
 // Fetch user

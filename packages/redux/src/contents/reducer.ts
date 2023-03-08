@@ -1,6 +1,6 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import type { ContentsState } from './types';
+import type { ContentsState } from './types/index.js';
 
 export const INITIAL_STATE_CONTENT: ContentsState = {
   searchResults: {},

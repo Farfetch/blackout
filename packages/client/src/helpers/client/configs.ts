@@ -1,4 +1,4 @@
-import * as headers from './headers';
+import * as headers from './headers.js';
 
 /**
  * Config to create an axios instance to the api.blackandwhite-ff endpoints.

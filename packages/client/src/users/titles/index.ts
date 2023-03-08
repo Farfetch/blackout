@@ -1,2 +1,2 @@
-export { default as getUserTitles } from './getUserTitles';
-export * from './types';
+export { default as getUserTitles } from './getUserTitles.js';
+export * from './types/index.js';

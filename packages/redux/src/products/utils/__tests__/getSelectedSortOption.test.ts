@@ -1,5 +1,5 @@
-import { getSelectedSortOption } from '..';
-import { mockSortOptions } from 'tests/__fixtures__/products';
+import { getSelectedSortOption } from '../index.js';
+import { mockSortOptions } from 'tests/__fixtures__/products/index.mjs';
 
 describe('getSelectedSortOption', () => {
   it('should correctly return the correct value', () => {

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type CommercePages,
   type CommercePagesStrategy,
@@ -7,9 +7,12 @@ import {
   type QueryCommercePages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { contentEntries } from '../../../entities/schemas/content';
-import { ContentTypeCode, type FetchCommercePagesAction } from '../../types';
-import { generateContentHash, getRankedCommercePage } from '../../utils';
+import { contentEntries } from '../../../entities/schemas/content.js';
+import {
+  ContentTypeCode,
+  type FetchCommercePagesAction,
+} from '../../types/index.js';
+import { generateContentHash, getRankedCommercePage } from '../../utils.js';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
 

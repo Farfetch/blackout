@@ -1,3 +1,3 @@
-export * from './sizeGuides.types';
-export * from './sizeGuidesQuery.types';
-export * from './getSizeGuides.types';
+export * from './sizeGuides.types.js';
+export * from './sizeGuidesQuery.types.js';
+export * from './getSizeGuides.types.js';

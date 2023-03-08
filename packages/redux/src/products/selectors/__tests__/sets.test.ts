@@ -1,9 +1,9 @@
-import * as selectors from '../sets';
+import * as selectors from '../sets.js';
 import {
   mockProductId,
   mockProductsState,
   mockSetId,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Sets', () => {
   describe('getProductRelatedSetsIdsByType()', () => {

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type Country,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import country from '../../../entities/schemas/country';
+import country from '../../../entities/schemas/country.js';
 import type { Dispatch } from 'redux';
-import type { FetchCountryAction } from '../../types';
+import type { FetchCountryAction } from '../../types/index.js';
 
 /**
  * Fetch a specific country, by its country code.

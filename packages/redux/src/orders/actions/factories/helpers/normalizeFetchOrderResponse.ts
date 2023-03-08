@@ -1,12 +1,12 @@
 import { normalize } from 'normalizr';
-import orderSchema from '../../../../entities/schemas/order';
+import orderSchema from '../../../../entities/schemas/order.js';
 import type { Brand, Order, OrderLegacy } from '@farfetch/blackout-client';
 import type {
   CategoryEntity,
   OrderEntity,
   OrderItemEntity,
-} from '../../../../entities';
-import type { MerchantEntity } from '../../../../entities/types/merchant.types';
+} from '../../../../entities/index.js';
+import type { MerchantEntity } from '../../../../entities/types/merchant.types.js';
 
 const generateByMerchantPropertyFromOrderItems = (
   order: OrderEntity,

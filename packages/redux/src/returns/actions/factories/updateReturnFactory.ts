@@ -1,5 +1,5 @@
-import * as actionTypes from '../../actionTypes';
-import { adaptDate, adaptTimestamp } from '../../../helpers/adapters';
+import * as actionTypes from '../../actionTypes.js';
+import { adaptDate, adaptTimestamp } from '../../../helpers/adapters/index.js';
 import {
   type Config,
   type PatchReturn,

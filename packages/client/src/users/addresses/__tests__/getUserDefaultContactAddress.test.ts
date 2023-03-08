@@ -1,8 +1,8 @@
-import { address1, userId } from 'tests/__fixtures__/addresses';
-import { getUserDefaultContactAddress } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getUserDefaultContactAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { address1, userId } from 'tests/__fixtures__/addresses/index.mjs';
+import { getUserDefaultContactAddress } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserDefaultContactAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getUserDefaultContactAddress', () => {
   const spy = jest.spyOn(client, 'get');

@@ -1,8 +1,8 @@
-import { getOrderReturns } from '..';
-import { mockOrderId, responses } from 'tests/__fixtures__/returns';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getOrderReturns.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getOrderReturns } from '../index.js';
+import { mockOrderId, responses } from 'tests/__fixtures__/returns/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getOrderReturns.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getOrderReturns', () => {
   const spy = jest.spyOn(client, 'get');

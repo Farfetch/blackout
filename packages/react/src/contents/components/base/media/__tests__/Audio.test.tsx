@@ -1,9 +1,9 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { mockAudio, mockImage } from 'tests/__fixtures__/contents';
-import Audio from '../components/audio';
+import { mockAudio, mockImage } from 'tests/__fixtures__/contents/index.mjs';
+import Audio from '../components/audio/index.js';
 import React from 'react';
 
-jest.mock('react-player', () => () => 'React Player');
+jest.mock('react-player', () => ({ default: () => 'React Player' }));
 
 describe('<Audio />', () => {
   afterEach(cleanup);

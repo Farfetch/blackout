@@ -8,8 +8,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseTopCategoriesOptions } from './types/useTopCategories';
+import useAction from '../../helpers/useAction.js';
+import type { UseTopCategoriesOptions } from './types/useTopCategories.js';
 
 const useTopCategories = (options: UseTopCategoriesOptions = {}) => {
   const { enableAutoFetch = true, fetchConfig } = options;

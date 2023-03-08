@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetUserDefaultContactAddress,
@@ -7,7 +7,7 @@ import {
   type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchUserDefaultContactAddressAction } from '../../types';
+import type { FetchUserDefaultContactAddressAction } from '../../types/index.js';
 
 /**
  * Responsible for obtaining the default contact address of the user.

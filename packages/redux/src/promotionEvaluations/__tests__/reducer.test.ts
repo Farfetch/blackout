@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   mockPromotionEvaluationId,
   mockPromotionEvaluationItemId,
   mockPromotionEvaluationsItemsResponse,
-} from 'tests/__fixtures__/promotionEvaluations';
-import reducer, * as fromReducer from '../reducer';
-import type { PromotionEvaluationsState } from '../types';
+} from 'tests/__fixtures__/promotionEvaluations/index.mjs';
+import reducer, * as fromReducer from '../reducer.js';
+import type { PromotionEvaluationsState } from '../types/index.js';
 
 let initialState: PromotionEvaluationsState;
 const mockAction = { type: 'foo' };

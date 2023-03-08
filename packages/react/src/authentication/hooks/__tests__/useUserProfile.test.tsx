@@ -7,12 +7,12 @@ import {
   postToken,
   type UserToken,
 } from '@farfetch/blackout-client';
-import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures';
-import { ProfileChangedError } from '../../errors';
-import AuthenticationProvider from '../../contexts/AuthenticationProvider';
+import { mockDefaultActiveTokenData } from '../../contexts/__fixtures__/AuthenticationProvider.fixtures.js';
+import { ProfileChangedError } from '../../errors/index.js';
+import AuthenticationProvider from '../../contexts/AuthenticationProvider.js';
 import React from 'react';
-import UserProfileProvider from '../../contexts/UserProfileProvider';
-import useUserProfile from '../useUserProfile';
+import UserProfileProvider from '../../contexts/UserProfileProvider.js';
+import useUserProfile from '../useUserProfile.js';
 
 interface Props {
   children?: React.ReactNode;

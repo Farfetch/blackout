@@ -1,10 +1,10 @@
-import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products';
-import { getRecentlyViewedProducts } from '../';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getRecentlyViewedProducts.fixtures';
+import { expectedRecentlyViewedRemotePayload } from 'tests/__fixtures__/products/index.mjs';
+import { getRecentlyViewedProducts } from '..//index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getRecentlyViewedProducts.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
-import type { RecentlyViewedProducts } from '../types';
+import mswServer from '../../../tests/mswServer.js';
+import type { RecentlyViewedProducts } from '../types/index.js';
 
 describe('getRecentlyViewedProducts', () => {
   const query = { page: 1, pageSize: 10 };

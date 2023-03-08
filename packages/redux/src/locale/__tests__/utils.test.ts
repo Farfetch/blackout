@@ -1,5 +1,5 @@
-import { createContinentsList } from '../utils';
-import { mockCountry } from 'tests/__fixtures__/locale';
+import { createContinentsList } from '../utils.js';
+import { mockCountry } from 'tests/__fixtures__/locale/index.mjs';
 
 describe('createContinentsList', () => {
   it('shoud build an array of continents with id and countries', () => {

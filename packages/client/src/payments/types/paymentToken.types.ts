@@ -1,7 +1,7 @@
 import type {
   AddressWithOptionalLocation,
   AddressWithRecipient,
-} from '../../types/common/address.types';
+} from '../../types/common/address.types.js';
 
 export type PaymentToken = {
   id: string;

@@ -1,10 +1,10 @@
-import type { ClickAndCollect } from '../../checkout';
-import type { OrderItem, OrderItemLegacy } from './orderItem.types';
-import type { PaymentIntent } from '../../payments';
+import type { ClickAndCollect } from '../../checkout/index.js';
+import type { OrderItem, OrderItemLegacy } from './orderItem.types.js';
+import type { PaymentIntent } from '../../payments/index.js';
 import type {
   UserAddress,
   UserAddressLegacy,
-} from '../../types/common/address.types';
+} from '../../types/common/address.types.js';
 
 export type Order = {
   id: string;

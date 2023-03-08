@@ -1,7 +1,7 @@
-import { getEntities, getEntityById } from '../../entities';
-import { getUserTitles as getUserTitlesFromReducer } from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types';
+import { getEntities, getEntityById } from '../../entities/index.js';
+import { getUserTitles as getUserTitlesFromReducer } from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/index.js';
 
 /**
  * Returns the loading status for the titles operation.

@@ -5,10 +5,10 @@ import {
   contentQuery,
   mockContentsInitialState,
   mockContentsWithDataState,
-} from 'tests/__fixtures__/contents';
+} from 'tests/__fixtures__/contents/index.mjs';
 import { fetchContents } from '@farfetch/blackout-redux';
-import { withStore } from '../../../../tests/helpers';
-import useContentType from '../useContentType';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useContentType from '../useContentType.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

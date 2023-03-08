@@ -1,2 +1,2 @@
-export * from './getPromotionEvaluationItems.types';
-export * from './promotionEvaluationItems.types';
+export * from './getPromotionEvaluationItems.types.js';
+export * from './promotionEvaluationItems.types.js';

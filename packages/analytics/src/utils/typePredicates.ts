@@ -3,9 +3,9 @@
  * using typescript.
  */
 
-import get from 'lodash/get';
-import TrackTypes from '../types/TrackTypes';
-import type { EventData, TrackTypesValues } from '..';
+import { get } from 'lodash-es';
+import TrackTypes from '../types/TrackTypes.js';
+import type { EventData, TrackTypesValues } from '../index.js';
 
 export const isScreenEventType = (
   data: EventData<TrackTypesValues>,

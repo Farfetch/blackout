@@ -1,14 +1,14 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   attributeId,
   mockDeleteUserAttributeResponse,
   userId,
-} from 'tests/__fixtures__/users';
+} from 'tests/__fixtures__/users/index.mjs';
 import { deleteUserAttribute } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../../reducer';
-import { mockStore } from '../../../../../tests';
-import { removeUserAttribute } from '../';
-import find from 'lodash/find';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
+import { removeUserAttribute } from '..//index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -4,7 +4,7 @@ import type {
   WishlistSet,
 } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { WishlistItemEntity } from '../../entities/types';
+import type { WishlistItemEntity } from '../../entities/types/index.js';
 
 export type WishlistNormalized = Omit<Wishlist, 'items'> & {
   items: Array<WishlistItemEntity['id']>;

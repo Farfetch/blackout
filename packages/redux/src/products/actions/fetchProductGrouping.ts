@@ -1,4 +1,4 @@
-import { fetchProductGroupingFactory } from './factories';
+import { fetchProductGroupingFactory } from './factories/index.js';
 import { getProductGrouping } from '@farfetch/blackout-client';
 
 /**

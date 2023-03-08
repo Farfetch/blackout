@@ -1,12 +1,12 @@
-import * as profileClient from '..';
+import * as profileClient from '../index.js';
 import {
   attributeId,
   mockUserAttributesData,
   userId,
-} from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/putUserAttribute.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putUserAttribute.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('putUserAttribute', () => {
   const expectedConfig = undefined;

@@ -1,9 +1,9 @@
 import {
   getUserCreditMovements as getUserCreditMovementsFromReducer,
   getUserCredits as getUserCreditsFromReducer,
-} from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+} from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status for the credit operation.

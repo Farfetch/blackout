@@ -1,6 +1,10 @@
 import { cleanup, render } from '@testing-library/react';
-import { mockAudio, mockImage, mockVideo } from 'tests/__fixtures__/contents';
-import Media from '../media/Media';
+import {
+  mockAudio,
+  mockImage,
+  mockVideo,
+} from 'tests/__fixtures__/contents/index.mjs';
+import Media from '../media/Media.js';
 import React from 'react';
 
 jest.mock('../media/components/audio', () => () => 'Audio');

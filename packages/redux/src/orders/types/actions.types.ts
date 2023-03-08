@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type { BlackoutError, Brand, Order } from '@farfetch/blackout-client';
 import type {
@@ -14,7 +14,7 @@ import type {
   ReturnItemEntity,
   ReturnOptionEntity,
   ShipmentTrackingsNormalized,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
 
 type OrderPayload = NormalizedSchema<

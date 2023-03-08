@@ -1,9 +1,9 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import flattenObject from '../utils/flattenObject';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import flattenObject from '../utils/flattenObject.js';
 import join from 'proper-url-join';
-import type { Config } from '../types';
-import type { GetSEOMetadataQuery, SEOMetadata } from './types';
+import type { Config } from '../types/index.js';
+import type { GetSEOMetadataQuery, SEOMetadata } from './types/index.js';
 
 /**
  * Method responsible for searching the seo metadata for a specific page type.

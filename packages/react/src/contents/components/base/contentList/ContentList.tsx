@@ -1,10 +1,10 @@
 import { getCountryCode, getCountryCulture } from '@farfetch/blackout-redux';
-import { sortContentType } from '../../../utils';
-import { useContentType } from '../../../hooks';
+import { sortContentType } from '../../../utils/index.js';
+import { useContentType } from '../../../hooks/index.js';
 import { useSelector } from 'react-redux';
 import React, { type ReactElement } from 'react';
-import renderContent from '../../../helpers/renderContent';
-import type { ContentListComponent } from '../../../types';
+import renderContent from '../../../helpers/renderContent.js';
+import type { ContentListComponent } from '../../../types/index.js';
 
 const ContentList = ({
   data,

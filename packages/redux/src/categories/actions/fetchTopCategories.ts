@@ -1,4 +1,4 @@
-import { fetchTopCategoriesFactory } from './factories';
+import { fetchTopCategoriesFactory } from './factories/index.js';
 import { getTopCategories } from '@farfetch/blackout-client';
 
 /**

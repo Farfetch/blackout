@@ -1,14 +1,14 @@
-import type { Brand } from '../../brands/types';
-import type { Category } from '../../categories';
-import type { GenderCode, Image, Label } from '../../types';
-import type { ProductGroup } from './productGroup.types';
+import type { Brand } from '../../brands/types/index.js';
+import type { Category } from '../../categories/index.js';
+import type { GenderCode, Image, Label } from '../../types/index.js';
+import type { ProductGroup } from './productGroup.types.js';
 import type {
   ProductSummaryPrice,
   ProductSummaryTypedPrice,
-} from './price.types';
-import type { ProductTag } from './productTagEnum.types';
-import type { ProductType } from './productTypeEnum.types';
-import type { Promotion, Video } from './product.types';
+} from './price.types.js';
+import type { ProductTag } from './productTagEnum.types.js';
+import type { ProductType } from './productTypeEnum.types.js';
+import type { Promotion, Video } from './product.types.js';
 
 /**
  * Normally used on listing page entries.

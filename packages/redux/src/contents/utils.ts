@@ -2,8 +2,7 @@
  * Contents utils.
  */
 
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
+import { get, isEmpty } from 'lodash-es';
 import type {
   CommercePages,
   CommercePagesContent,
@@ -12,7 +11,7 @@ import type {
   QueryCommercePages,
   QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { GenerateSEOPathnameQuery } from './types';
+import type { GenerateSEOPathnameQuery } from './types/index.js';
 
 /**
  * Constant that represent all possible static values to apply to an environment

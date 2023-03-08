@@ -1,11 +1,11 @@
-import { generateWishlistItemHash } from '../';
+import { generateWishlistItemHash } from '..//index.js';
 import {
   mockBrandId,
   mockMerchantId,
   mockProduct,
   mockProductId,
   mockProductSizesAdapted,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 const mockSize = mockProductSizesAdapted[0]!;
 const mockFromBuildWishlistItemUtil = {

@@ -1,7 +1,7 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import type { Dispatch } from 'redux';
-import type { ProductEntity } from '../../entities/types';
-import type { ResetProductDetailsStateAction } from '../types';
+import type { ProductEntity } from '../../entities/types/index.js';
+import type { ResetProductDetailsStateAction } from '../types/index.js';
 
 /**
  * Reset details state to its initial value.

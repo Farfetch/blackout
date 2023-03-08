@@ -1,5 +1,6 @@
-import * as actionTypes from '../actionTypes';
-import { LOGOUT_SUCCESS } from '../../users/actionTypes';
+import * as actionTypes from '../actionTypes.js';
+import { cloneDeep } from 'lodash-es';
+import { LOGOUT_SUCCESS } from '../../users/actionTypes.js';
 import {
   mockCreateRaffleParticipationsNormalizedPayload,
   mockFetchRafflesNormalizedPayload,
@@ -8,9 +9,8 @@ import {
   mockRaffleResponse,
   participationId,
   raffleId,
-} from 'tests/__fixtures__/raffles';
+} from 'tests/__fixtures__/raffles/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import cloneDeep from 'lodash/cloneDeep';
 import reducer, {
   entitiesMapper,
   getAllRaffles,
@@ -19,8 +19,8 @@ import reducer, {
   getParticipations,
   getRaffles,
   INITIAL_STATE,
-} from '../reducer';
-import type { RafflesState } from '../types';
+} from '../reducer.js';
+import type { RafflesState } from '../types/index.js';
 
 let initialState: RafflesState;
 

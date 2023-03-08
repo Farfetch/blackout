@@ -1,4 +1,4 @@
-import type { ITokenData } from './TokenData.types';
+import type { ITokenData } from './TokenData.types.js';
 
 export interface TokenChangesListeners {
   id: number;

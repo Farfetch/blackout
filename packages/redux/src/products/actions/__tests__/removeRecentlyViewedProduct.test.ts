@@ -1,8 +1,8 @@
 import { deleteRecentlyViewedProduct } from '@farfetch/blackout-client';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../..';
-import { removeRecentlyViewedProduct } from '..';
-import reducer from '../../reducer';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../../index.js';
+import { removeRecentlyViewedProduct } from '../index.js';
+import reducer from '../../reducer/index.js';
 
 jest.mock('@farfetch/blackout-client', () => {
   return {

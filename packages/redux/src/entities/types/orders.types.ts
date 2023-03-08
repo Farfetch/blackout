@@ -1,4 +1,4 @@
-import type { MerchantEntity } from './merchant.types';
+import type { MerchantEntity } from './merchant.types.js';
 import type {
   Order,
   OrderLegacy,
@@ -8,12 +8,12 @@ import type {
 import type {
   OrderItemEntity,
   OrderItemEntityDenormalized,
-} from './orderItems.types';
-import type { ReturnEntity } from './returns.types';
+} from './orderItems.types.js';
+import type { ReturnEntity } from './returns.types.js';
 import type {
   ReturnOptionEntity,
   ReturnOptionEntityDenormalized,
-} from './returnOptions.types';
+} from './returnOptions.types.js';
 
 export type OrderNormalized = Omit<
   Order | OrderLegacy,

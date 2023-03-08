@@ -3,8 +3,8 @@ import type {
   DeliveryBundle,
   DeliveryBundleUpgrade,
   ItemDeliveryProvisioning,
-} from '.';
-import type { Config } from '../../types';
+} from './index.js';
+import type { Config } from '../../types/index.js';
 
 export type GetCheckoutOrderDeliveryBundleUpgradeProvisioning = (
   checkoutOrderId: CheckoutOrder['id'],

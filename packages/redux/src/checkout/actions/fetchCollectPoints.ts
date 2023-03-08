@@ -1,4 +1,4 @@
-import { fetchCollectPointsFactory } from './factories';
+import { fetchCollectPointsFactory } from './factories/index.js';
 import { getCollectPoints } from '@farfetch/blackout-client';
 
 /**

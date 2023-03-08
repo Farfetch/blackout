@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetPaymentInstrumentsAction } from '../types';
+import type { ResetPaymentInstrumentsAction } from '../types/index.js';
 
 /**
  * Method responsible for resetting the payment intent instruments state.

@@ -11,10 +11,9 @@ import {
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-} from '../constants';
-import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
-import type { GA4IntegrationOptions } from '../types';
+} from '../constants.js';
+import { isEmpty, isNil } from 'lodash-es';
+import type { GA4IntegrationOptions } from '../types/index.js';
 
 const optionsInterface: {
   [optionName: keyof GA4IntegrationOptions]: {

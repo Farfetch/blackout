@@ -2,11 +2,11 @@ import {
   attributeId,
   mockUserAttributeResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import { getUserAttribute } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getUserAttribute.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/users/index.mjs';
+import { getUserAttribute } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserAttribute.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getUserAttribute', () => {
   const expectedConfig = undefined;

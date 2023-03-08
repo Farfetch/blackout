@@ -1,4 +1,4 @@
-import { dateFormatTokens } from '../';
+import { dateFormatTokens } from '..//index.js';
 
 describe('dateFormatTokens', () => {
   it('default (dateFormatTokens)', () => {

@@ -1,10 +1,10 @@
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   mockStaffMember,
   mockStaffMemberId,
   mockState,
-} from 'tests/__fixtures__/staffMembers';
+} from 'tests/__fixtures__/staffMembers/index.mjs';
 
 describe('Staff members selectors', () => {
   beforeEach(jest.clearAllMocks);

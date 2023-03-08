@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchPromotionEvaluationItems } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchPromotionEvaluationItems } from '../index.js';
 import { getPromotionEvaluationItems } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockPromotionEvaluationId,
   mockPromotionEvaluationsItemsResponse,
-} from 'tests/__fixtures__/promotionEvaluations';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/promotionEvaluations/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

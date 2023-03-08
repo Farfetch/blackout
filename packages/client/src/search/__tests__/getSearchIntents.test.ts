@@ -1,11 +1,11 @@
-import { getSearchIntents } from '../';
+import { getSearchIntents } from '..//index.js';
 import {
   mockSearchIntentsQuery as query,
   mockSearchIntentsResponse as response,
-} from 'tests/__fixtures__/search';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getSearchIntents.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/search/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getSearchIntents.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('search intents client', () => {
   const expectedConfig = undefined;

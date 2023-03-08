@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostSharedWishlist,
@@ -7,10 +7,10 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import sharedWishlistSchema from '../../../entities/schemas/sharedWishlist';
-import type { CreateSharedWishlistAction } from '../../types';
+import sharedWishlistSchema from '../../../entities/schemas/sharedWishlist.js';
+import type { CreateSharedWishlistAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to create a new

@@ -6,7 +6,7 @@
  * @returns - Object with the sources grouped by size.
  */
 
-import type { Assets } from '../../../../../types/base.types';
+import type { Assets } from '../../../../../types/base.types.js';
 
 const imageArrToObj = (array: Array<Assets>) => {
   if (!array) {

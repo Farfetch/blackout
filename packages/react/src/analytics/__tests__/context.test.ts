@@ -1,5 +1,5 @@
-import context from '../context';
-import merge from 'lodash/merge';
+import { merge } from 'lodash-es';
+import context from '../context.js';
 import parse from 'url-parse';
 
 describe('context', () => {

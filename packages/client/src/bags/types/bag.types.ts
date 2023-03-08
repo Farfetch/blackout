@@ -1,5 +1,5 @@
-import type { BagItem } from './bagItem.types';
-import type { HypermediaLink } from './hypermediaLink.types';
+import type { BagItem } from './bagItem.types.js';
+import type { HypermediaLink } from './hypermediaLink.types.js';
 
 export type Bag = {
   bagSummary: {

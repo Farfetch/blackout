@@ -1,8 +1,11 @@
-import { getCategory } from '../';
-import { mockCategory, mockCategoryId } from 'tests/__fixtures__/categories';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCategory.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getCategory } from '..//index.js';
+import {
+  mockCategory,
+  mockCategoryId,
+} from 'tests/__fixtures__/categories/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCategory.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getCategory()', () => {
   const expectedConfig = undefined;

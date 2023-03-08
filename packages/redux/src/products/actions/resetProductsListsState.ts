@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import type { Dispatch } from 'redux';
-import type { ResetProductsListsStateAction } from '../types';
+import type { ResetProductsListsStateAction } from '../types/index.js';
 
 /**
  * Reset products lists state to its initial value.

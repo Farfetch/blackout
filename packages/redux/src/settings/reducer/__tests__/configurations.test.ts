@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../configurations';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../configurations.js';
 import {
   mockConfiguration,
   mockConfigurationCode,
-} from 'tests/__fixtures__/settings';
-import { settingsReducer as reducer } from '../';
+} from 'tests/__fixtures__/settings/index.mjs';
+import { settingsReducer as reducer } from '..//index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import type { ConfigurationsState } from '../../types';
+import type { ConfigurationsState } from '../../types/index.js';
 
 let initialState: ConfigurationsState;
 const randomAction = { type: 'this_is_a_random_action' };

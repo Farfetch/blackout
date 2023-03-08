@@ -1,8 +1,11 @@
-import * as actionTypes from '../../actionTypes';
-import resetUserState from './resetUserState';
+import * as actionTypes from '../../actionTypes.js';
+import resetUserState from './resetUserState.js';
 import type { Dispatch } from 'redux';
-import type { ResetUserAction, ResetUserEntitiesAction } from '../../types';
-import type { StoreState } from '../../../types';
+import type {
+  ResetUserAction,
+  ResetUserEntitiesAction,
+} from '../../types/index.js';
+import type { StoreState } from '../../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**

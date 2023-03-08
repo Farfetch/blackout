@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
@@ -7,7 +7,7 @@ import type {
   ReturnPickupCapability,
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
-import type { ReturnEntity } from '../../entities';
+import type { ReturnEntity } from '../../entities/index.js';
 
 type ReturnPayload = NormalizedSchema<
   {

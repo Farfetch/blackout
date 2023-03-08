@@ -1,7 +1,7 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
-import { mockState } from 'tests/__fixtures__/loyalty';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
+import { mockState } from 'tests/__fixtures__/loyalty/index.mjs';
 
 const assertEntitySelector = (
   selector: (n: any) => unknown,

@@ -1,6 +1,6 @@
-import type { Config } from '../..';
+import type { Config } from '../../index.js';
 import type { OpPatch } from 'json-patch';
-import type { Raffle, RaffleParticipation } from './raffles.types';
+import type { Raffle, RaffleParticipation } from './raffles.types.js';
 
 export type PatchRaffleParticipationOperation = OpPatch;
 

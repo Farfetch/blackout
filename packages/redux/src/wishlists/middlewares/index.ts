@@ -1,4 +1,4 @@
 /**
  * Wishlists middlewares.
  */
-export { default as updateWishlistSetsUponItemDeletion } from './updateWishlistSetsUponItemDeletion';
+export { default as updateWishlistSetsUponItemDeletion } from './updateWishlistSetsUponItemDeletion.js';

@@ -4,11 +4,11 @@ import {
   type GuestUser,
   type User,
 } from '@farfetch/blackout-client';
-import { ProfileChangedError } from '../errors';
-import noop from 'lodash/noop';
+import { noop } from 'lodash-es';
+import { ProfileChangedError } from '../errors/index.js';
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
-import useAuthentication from '../hooks/useAuthentication';
-import UserProfileContext from './UserProfileContext';
+import useAuthentication from '../hooks/useAuthentication.js';
+import UserProfileContext from './UserProfileContext.js';
 
 interface Props {
   children: React.ReactNode;

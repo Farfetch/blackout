@@ -3,7 +3,10 @@
   "compilerOptions": {
     "rootDir": ".", // Set root dir to the root of the monorepo so we can import from 'tests' folder in test files
     "paths": {
-      "tests": ["tests"],
+      // These paths are relative from the `baseUrl` which is a dummy value so that
+      // vscode does not suggest invalid imports like importing from modules outside the
+      // package boundaries (check tsconfig.release.base.json baseUrl definition).
+      "tests": ["../tests"],
       "tests/*": ["../tests/*"]
     },
     "noEmit": true,

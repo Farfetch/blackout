@@ -1,7 +1,10 @@
 import type { BlackoutError, UserAddress } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { Nullable } from '../../../types/nullable.types';
-import type { StateWithoutResult, StateWithResult } from '../../../types';
+import type { Nullable } from '../../../types/nullable.types.js';
+import type {
+  StateWithoutResult,
+  StateWithResult,
+} from '../../../types/index.js';
 
 export type UserAddressSliceState = CombinedState<{
   error: Record<UserAddress['id'], Nullable<BlackoutError>>;

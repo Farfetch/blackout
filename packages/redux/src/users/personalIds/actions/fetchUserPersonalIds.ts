@@ -1,4 +1,4 @@
-import { fetchUserPersonalIdsFactory } from './factories';
+import { fetchUserPersonalIdsFactory } from './factories/index.js';
 import { getUserPersonalIds } from '@farfetch/blackout-client';
 
 /**

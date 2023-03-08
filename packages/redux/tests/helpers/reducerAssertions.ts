@@ -3,7 +3,7 @@
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable jest/no-export */
 
-import { getInitialState } from '..';
+import { getInitialState } from '../index.js';
 import type { AnyAction } from 'redux';
 
 export const defaultProps = {

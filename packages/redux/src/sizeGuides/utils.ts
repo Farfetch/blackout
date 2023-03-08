@@ -1,6 +1,6 @@
-import findIndex from 'lodash/findIndex';
+import { findIndex } from 'lodash-es';
 import type { Brand, SizeGuide } from '@farfetch/blackout-client';
-import type { CategoryEntity } from '../entities';
+import type { CategoryEntity } from '../entities/index.js';
 
 type FindSpecificSizeGuideParams = {
   // All size guides to find the most specific.

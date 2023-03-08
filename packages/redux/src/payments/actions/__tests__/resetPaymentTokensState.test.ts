@@ -1,6 +1,6 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import resetPaymentTokensState from '../resetPaymentTokensState';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import resetPaymentTokensState from '../resetPaymentTokensState.js';
 
 const paymentsMockStore = (state = {}) => mockStore(null, state);
 

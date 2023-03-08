@@ -1,1 +1,1 @@
-export { default as getSearchRedirectUrl } from './getSearchRedirectUrl';
+export { default as getSearchRedirectUrl } from './getSearchRedirectUrl.js';

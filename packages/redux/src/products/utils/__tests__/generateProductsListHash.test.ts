@@ -1,5 +1,8 @@
-import { generateProductsListHash } from '..';
-import { mockProductsListSlug, mockQuery } from 'tests/__fixtures__/products';
+import { generateProductsListHash } from '../index.js';
+import {
+  mockProductsListSlug,
+  mockQuery,
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('generateProductsListHash', () => {
   it('should correctly construct the products list hash - with a listing scope', () => {

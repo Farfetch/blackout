@@ -1,7 +1,7 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetUserDefaultContactAddress } from './types';
+import type { GetUserDefaultContactAddress } from './types/index.js';
 
 /**
  * Responsible for obtaining the user's default contact address.

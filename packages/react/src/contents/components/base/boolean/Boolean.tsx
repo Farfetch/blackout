@@ -1,6 +1,6 @@
-import isBoolean from 'lodash/isBoolean';
+import { isBoolean } from 'lodash-es';
 import React from 'react';
-import type { BoolComponent } from '../../../types';
+import type { BoolComponent } from '../../../types/index.js';
 
 const Boolean = ({
   data: { value: bool },

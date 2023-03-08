@@ -1,4 +1,4 @@
-import * as constants from '../constants';
+import * as constants from '../constants.js';
 
 describe('constants', () => {
   it('Should export PACKAGE_NAME', () => {

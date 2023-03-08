@@ -1,8 +1,8 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash-es';
 import type { BlackoutError } from '@farfetch/blackout-client';
-import type { SizeScalesState } from './types';
+import type { SizeScalesState } from './types/index.js';
 
 export const INITIAL_STATE: SizeScalesState = {
   error: null,

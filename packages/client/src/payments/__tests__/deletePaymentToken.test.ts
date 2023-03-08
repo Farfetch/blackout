@@ -1,8 +1,8 @@
-import { deletePaymentToken } from '..';
-import { id } from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deletePaymentToken.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { deletePaymentToken } from '../index.js';
+import { id } from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deletePaymentToken.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deletePaymentToken', () => {
   const expectedConfig = undefined;

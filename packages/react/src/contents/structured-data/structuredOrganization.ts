@@ -1,7 +1,7 @@
-import * as schemaProperties from './schemas/schemaProperties';
-import { getMetatag } from '../utils';
-import { renderScriptTag } from '../helpers';
-import type { Address, Contact } from '../types';
+import * as schemaProperties from './schemas/schemaProperties.js';
+import { getMetatag } from '../utils/index.js';
+import { renderScriptTag } from '../helpers/index.js';
+import type { Address, Contact } from '../types/index.js';
 import type { Organization, WithContext } from 'schema-dts';
 import type { ReactElement } from 'react';
 import type { SEOMetadata } from '@farfetch/blackout-client';

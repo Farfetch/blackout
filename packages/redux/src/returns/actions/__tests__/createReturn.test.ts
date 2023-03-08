@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { createReturn } from '..';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { createReturn } from '../index.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { postReturn } from '@farfetch/blackout-client';
 import {
   responses,
   returnsNormalizedPayload,
-} from 'tests/__fixtures__/returns';
-import find from 'lodash/find';
+} from 'tests/__fixtures__/returns/index.mjs';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

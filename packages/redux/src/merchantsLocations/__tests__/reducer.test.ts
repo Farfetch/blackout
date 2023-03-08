@@ -1,8 +1,8 @@
-import * as actionTypes from '../actionTypes';
-import { mockMerchantLocation } from 'tests/__fixtures__/merchantsLocations';
+import * as actionTypes from '../actionTypes.js';
+import { mockMerchantLocation } from 'tests/__fixtures__/merchantsLocations/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { MerchantsLocationsState } from '../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { MerchantsLocationsState } from '../types/index.js';
 
 describe('merchants locations redux reducer', () => {
   let initialState: MerchantsLocationsState;

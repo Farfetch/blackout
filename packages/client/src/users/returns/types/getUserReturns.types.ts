@@ -1,6 +1,6 @@
-import type { Config, PagedResponse } from '../../../types';
-import type { Return } from '../../../returns/types';
-import type { User } from '../../authentication/types/user.types';
+import type { Config, PagedResponse } from '../../../types/index.js';
+import type { Return } from '../../../returns/types/index.js';
+import type { User } from '../../authentication/types/user.types.js';
 
 export type UserReturns = PagedResponse<Return>;
 

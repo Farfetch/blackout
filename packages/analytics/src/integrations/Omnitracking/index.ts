@@ -1,1 +1,1 @@
-export { default } from './Omnitracking';
+export { default } from './Omnitracking.js';

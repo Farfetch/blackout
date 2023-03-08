@@ -1,14 +1,14 @@
-export * as bagsActionTypes from './actionTypes';
+export * as bagsActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * as bagMiddlewares from './middlewares';
-export * from './selectors';
-export * from './utils';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * as bagMiddlewares from './middlewares/index.js';
+export * from './selectors.js';
+export * from './utils/index.js';
 
 export {
   default as bagsReducer,
   entitiesMapper as bagsEntitiesMapper,
-} from './reducer';
+} from './reducer.js';
 
-export * from './types';
+export * from './types/index.js';

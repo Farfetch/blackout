@@ -1,4 +1,4 @@
-import memoize from 'lodash/memoize';
+import { memoize } from 'lodash-es';
 import type { Metatag } from '@farfetch/blackout-client';
 
 /**

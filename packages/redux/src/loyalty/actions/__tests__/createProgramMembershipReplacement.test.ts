@@ -1,15 +1,15 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   mockResponseProgramMembershipReplacement as data,
   expectedNormalizedPayloadProgramMembershipReplacement,
   membershipId,
   programId,
-} from 'tests/__fixtures__/loyalty/loyalty.fixtures';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/loyalty/loyalty.fixtures.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { postProgramMembershipReplacement } from '@farfetch/blackout-client';
-import createProgramMembershipReplacement from '../createProgramMembershipReplacement';
-import find from 'lodash/find';
+import createProgramMembershipReplacement from '../createProgramMembershipReplacement.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

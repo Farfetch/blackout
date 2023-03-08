@@ -1,5 +1,5 @@
-import type { CheckoutOrderOperationChange } from './checkoutOrderOperationChange.types';
-import type { CheckoutViolation } from './checkoutViolation.types';
+import type { CheckoutOrderOperationChange } from './checkoutOrderOperationChange.types.js';
+import type { CheckoutViolation } from './checkoutViolation.types.js';
 
 export type CheckoutOrderOperation = {
   id: string;

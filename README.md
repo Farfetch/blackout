@@ -10,7 +10,7 @@ Useful to build e-commerce applications using the FPS APIs and integrating busin
 
 ## What's inside
 
-Each package has its own `package.json` file and defines its dependencies, having full autonomy to publish a new version into the registry when needed.
+Each package has its own `package.json` file and defines its dependencies, having full autonomy to publish a new version into the registry when needed. Click on each package link below to find instructions on how to install, configure and use each of them.
 
 [**@farfetch/blackout-analytics**](packages/analytics)
 

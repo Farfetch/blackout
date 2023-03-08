@@ -7,9 +7,9 @@ import {
   mockCountryNormalized,
   mockLocaleState,
   mockStatesEntities,
-} from 'tests/__fixtures__/locale';
-import { withStore } from '../../../../tests/helpers';
-import useCountryStates from '../useCountryStates';
+} from 'tests/__fixtures__/locale/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCountryStates from '../useCountryStates.js';
 
 const stateMockData: StoreState = {
   ...mockLocaleState,

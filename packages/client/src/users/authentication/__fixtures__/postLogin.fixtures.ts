@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { LoginResponse } from '../types';
+import type { LoginResponse } from '../types/index.js';
 
 const path = '/api/legacy/v1/account/login';
 

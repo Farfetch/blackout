@@ -1,10 +1,10 @@
-import { fetchBag } from '../../actions';
-import { fetchBagOnSetPromocodesRequestSuccess } from '..';
-import { mockBagId, mockState } from 'tests/__fixtures__/bags';
-import { mockStore } from '../../../../tests';
-import { SET_BAG_PROMOCODES_SUCCESS } from '../../actionTypes';
+import { fetchBag } from '../../actions/index.js';
+import { fetchBagOnSetPromocodesRequestSuccess } from '../index.js';
+import { mockBagId, mockState } from 'tests/__fixtures__/bags/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { SET_BAG_PROMOCODES_SUCCESS } from '../../actionTypes.js';
 import thunk from 'redux-thunk';
-import type { BagsState } from '../../types';
+import type { BagsState } from '../../types/index.js';
 
 const getOptions = () => ({ productImgQueryParam: '?c=2' });
 const mockMiddlewares = [

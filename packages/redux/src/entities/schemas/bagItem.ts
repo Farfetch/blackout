@@ -4,10 +4,10 @@ import {
   adaptDate,
   adaptMerchant,
   adaptPrice,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
-import merchant from './merchant';
-import product from './product';
+import merchant from './merchant.js';
+import product from './product.js';
 
 export default new schema.Entity(
   'bagItems',

@@ -11,8 +11,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { ProductId, UseProductDetailsOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { ProductId, UseProductDetailsOptions } from './types/index.js';
 
 const useProductDetails = (
   productId: ProductId,

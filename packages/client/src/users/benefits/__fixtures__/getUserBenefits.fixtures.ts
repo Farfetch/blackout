@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { UserBenefit } from '../types';
+import type { UserBenefit } from '../types/index.js';
 
 const path = '/api/account/v1/users/:id/benefits';
 

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetPaymentMethodsByCountryAndCurrency,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types';
+import type { FetchPaymentMethodsByCountryAndCurrencyAction } from '../../types/index.js';
 
 /**
  * Obtains all the payment methods available for the current country and currency

@@ -1,4 +1,4 @@
-import type GA from './GA';
+import type GA from './GA.js';
 
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 export const loadGaScript = function (

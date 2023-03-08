@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type DeleteUserDefaultContactAddress,
@@ -7,7 +7,7 @@ import {
   type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { RemoveUserDefaultContactAddressAction } from '../../types';
+import type { RemoveUserDefaultContactAddressAction } from '../../types/index.js';
 
 /**
  * Responsible for deleting the users default contact address.

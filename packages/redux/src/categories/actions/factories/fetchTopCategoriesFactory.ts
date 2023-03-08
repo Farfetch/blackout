@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Category,
   type Config,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import categorySchema from '../../../entities/schemas/category';
+import categorySchema from '../../../entities/schemas/category.js';
 import type { Dispatch } from 'redux';
-import type { FetchTopCategoriesAction } from '../../types';
+import type { FetchTopCategoriesAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch all top

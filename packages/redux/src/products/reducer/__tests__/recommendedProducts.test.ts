@@ -1,7 +1,7 @@
-import { productsActionTypes as actionTypes } from '../..';
-import { mockRecommendedProductsStrategy } from 'tests/__fixtures__/products';
-import reducer from '../recommendedProducts';
-import type { RecommendedProductsState } from '../../types';
+import { productsActionTypes as actionTypes } from '../../index.js';
+import { mockRecommendedProductsStrategy } from 'tests/__fixtures__/products/index.mjs';
+import reducer from '../recommendedProducts.js';
+import type { RecommendedProductsState } from '../../types/index.js';
 
 let initialState: RecommendedProductsState;
 const mockAction = { type: 'this_is_a_mock_action' };

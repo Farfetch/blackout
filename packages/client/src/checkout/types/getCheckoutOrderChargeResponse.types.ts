@@ -1,3 +1,3 @@
-import type { Charge } from '../../payments';
+import type { Charge } from '../../payments/index.js';
 
 export type CheckoutOrderCharge = Charge;

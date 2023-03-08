@@ -1,12 +1,12 @@
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { patchCheckoutOrderItem } from '@farfetch/blackout-client';
 import {
   UPDATE_CHECKOUT_ORDER_ITEM_FAILURE,
   UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
   UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS,
-} from '../../actionTypes';
-import { updateCheckoutOrderItem } from '../';
+} from '../../actionTypes.js';
+import { updateCheckoutOrderItem } from '..//index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

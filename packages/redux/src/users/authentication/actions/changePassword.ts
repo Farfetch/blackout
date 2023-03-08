@@ -1,4 +1,4 @@
-import { changePasswordFactory } from './factories';
+import { changePasswordFactory } from './factories/index.js';
 import { postPasswordChange } from '@farfetch/blackout-client';
 
 /**

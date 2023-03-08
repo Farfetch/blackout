@@ -1,8 +1,11 @@
-import { address2 as data, userId } from 'tests/__fixtures__/addresses';
-import { postUserAddress } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postUserAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import {
+  address2 as data,
+  userId,
+} from 'tests/__fixtures__/addresses/index.mjs';
+import { postUserAddress } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postUserAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postUserAddress', () => {
   const expectedConfig = undefined;

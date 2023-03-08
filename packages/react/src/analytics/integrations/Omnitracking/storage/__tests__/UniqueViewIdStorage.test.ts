@@ -1,6 +1,6 @@
 import { utils } from '@farfetch/blackout-analytics';
-import UniqueViewIdStorage from '../UniqueViewIdStorage';
-import UniqueViewIdStorageOptions from '../UniqueViewIdStorageOptions';
+import UniqueViewIdStorage from '../UniqueViewIdStorage.js';
+import UniqueViewIdStorageOptions from '../UniqueViewIdStorageOptions.js';
 
 jest.mock('@farfetch/blackout-analytics', () => {
   return {

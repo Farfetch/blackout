@@ -1,6 +1,6 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import type { PatchCheckoutOrderDeliveryBundleUpgrades } from './types';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import type { PatchCheckoutOrderDeliveryBundleUpgrades } from './types/index.js';
 
 /**
  * Method responsible for applying the selected delivery bundle upgrade for the

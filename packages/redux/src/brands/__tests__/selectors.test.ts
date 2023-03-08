@@ -1,13 +1,13 @@
-import * as fromBrands from '../reducer';
-import * as selectors from '../selectors';
-import { generateBrandsHash } from '../utils';
+import * as fromBrands from '../reducer.js';
+import * as selectors from '../selectors.js';
+import { generateBrandsHash } from '../utils/index.js';
 import {
   mockBrandId,
   mockBrandsResponse,
   mockErrorState,
   mockQuery,
   mockState,
-} from 'tests/__fixtures__/brands';
+} from 'tests/__fixtures__/brands/index.mjs';
 
 const hash = generateBrandsHash(mockQuery);
 

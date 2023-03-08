@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { CountryAddressSchema } from '../types';
+import type { CountryAddressSchema } from '../types/index.js';
 
 const path = '/api/account/v1/countries/:isoCode/addressSchemas';
 

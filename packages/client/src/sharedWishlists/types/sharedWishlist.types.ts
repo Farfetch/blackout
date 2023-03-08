@@ -1,4 +1,4 @@
-import type { SharedWishlistItem } from './sharedWishlistItem.types';
+import type { SharedWishlistItem } from './sharedWishlistItem.types.js';
 
 export type SharedWishlist = {
   id: string;

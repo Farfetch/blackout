@@ -1,7 +1,7 @@
-import { postPhoneNumberValidation } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postPhoneNumberValidation.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postPhoneNumberValidation } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPhoneNumberValidation.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postPhoneNumberValidation', () => {
   const expectedConfig = undefined;

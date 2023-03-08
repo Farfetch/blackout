@@ -1,4 +1,4 @@
-import { fetchSizeGuidesFactory } from './factories';
+import { fetchSizeGuidesFactory } from './factories/index.js';
 import { getSizeGuides } from '@farfetch/blackout-client';
 
 /**

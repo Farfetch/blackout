@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSearchDidYouMean,
@@ -6,9 +6,9 @@ import {
   type SearchDidYouMeanSuggestion,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateSearchDidYouMeanHash } from '../../helpers';
+import { generateSearchDidYouMeanHash } from '../../helpers/index.js';
 import type { Dispatch } from 'redux';
-import type { FetchSearchDidYouMeanAction } from '../../types';
+import type { FetchSearchDidYouMeanAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch the facets

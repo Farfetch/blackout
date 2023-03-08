@@ -2,12 +2,12 @@ import {
   adaptCustomAttributes,
   adaptPrice,
   adaptProductImages,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
+import { get } from 'lodash-es';
 import { schema } from 'normalizr';
-import category from './category';
-import get from 'lodash/get';
-import merchant from './merchant';
-import type { AdaptVariants } from '../types';
+import category from './category.js';
+import merchant from './merchant.js';
+import type { AdaptVariants } from '../types/index.js';
 
 const adaptVariants: AdaptVariants = variants =>
   variants &&

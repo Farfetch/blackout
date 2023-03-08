@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { PaymentIntent, PaymentMethods } from '.';
+import type { Config } from '../../types/index.js';
+import type { PaymentIntent, PaymentMethods } from './index.js';
 
 export type GetPaymentMethodsByIntent = (
   paymentIntentId: PaymentIntent['id'],

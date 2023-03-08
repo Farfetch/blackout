@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../topCategories';
-import { INITIAL_STATE } from '../categories';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../topCategories.js';
+import { INITIAL_STATE } from '../categories.js';
 import {
   mockCategories,
   mockTopCategories,
-} from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/categories/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import type { TopCategoriesState } from '../../types';
+import type { TopCategoriesState } from '../../types/index.js';
 
 let initialState: TopCategoriesState;
 const reducer = fromReducer.default;

@@ -1,11 +1,11 @@
-import { getCheckoutOrderPaymentMethods } from '../..';
+import { getCheckoutOrderPaymentMethods } from '../../index.js';
 import {
   orderId as id,
   mockFetchPaymentMethodsResponse,
-} from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderPaymentMethods.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderPaymentMethods.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getCheckoutOrderPaymentMethods', () => {
   const expectedConfig = undefined;

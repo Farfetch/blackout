@@ -12,12 +12,12 @@ import {
   resetOrders,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { usePrevious } from '../../helpers';
+import { usePrevious } from '../../helpers/index.js';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import useUser from '../../users/hooks/useUser';
+import useAction from '../../helpers/useAction.js';
+import useUser from '../../users/hooks/useUser.js';
 import type { Config, Order, User } from '@farfetch/blackout-client';
-import type { UseOrdersOptions } from './types';
+import type { UseOrdersOptions } from './types/index.js';
 
 /**
  * Obtains the user orders and actions to perform on them.

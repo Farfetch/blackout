@@ -1,5 +1,5 @@
-import type { Model, StoreState } from '../../../types';
-import type { ProductsListsState } from '../../types';
+import type { Model, StoreState } from '../../../types/index.js';
+import type { ProductsListsState } from '../../types/index.js';
 
 export type ListsServerInitialState = (data: {
   // Page model with products list (listing or sets) data.

@@ -1,21 +1,20 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { createReducerWithResult } from '../helpers/reducerFactory';
+import { createReducerWithResult } from '../helpers/reducerFactory.js';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../users/authentication/actionTypes';
-import get from 'lodash/get';
-import omit from 'lodash/omit';
-import type * as T from './types';
+} from '../users/authentication/actionTypes.js';
+import { get, omit } from 'lodash-es';
+import type * as T from './types/index.js';
 import type {
   PaymentInstrument,
   PaymentToken,
 } from '@farfetch/blackout-client';
-import type { PaymentsState } from './types';
-import type { StoreState } from '../types';
+import type { PaymentsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: T.PaymentsState = {
   paymentIntentCharge: {

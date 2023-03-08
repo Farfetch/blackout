@@ -1,5 +1,5 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as selectors from '../selectors.js';
 import {
   mockState,
   pickupDay,
@@ -8,7 +8,7 @@ import {
   returnItem,
   returnItemId,
   returnPickupCapabilityId,
-} from 'tests/__fixtures__/returns';
+} from 'tests/__fixtures__/returns/index.mjs';
 
 describe('returns redux selectors', () => {
   beforeEach(jest.clearAllMocks);

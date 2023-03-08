@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
-import { addOrderItemActivity } from '..';
-import { INITIAL_STATE } from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { addOrderItemActivity } from '../index.js';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   itemId,
   mockOrderItemActivityPayload,
   orderId,
-} from 'tests/__fixtures__/orders';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { postOrderItemActivity } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-client', () => ({

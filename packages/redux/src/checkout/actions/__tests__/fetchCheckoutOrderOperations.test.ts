@@ -3,18 +3,18 @@ import {
   FETCH_CHECKOUT_ORDER_OPERATIONS_FAILURE,
   FETCH_CHECKOUT_ORDER_OPERATIONS_REQUEST,
   FETCH_CHECKOUT_ORDER_OPERATIONS_SUCCESS,
-} from '../../actionTypes';
-import { fetchCheckoutOrderOperations } from '..';
+} from '../../actionTypes.js';
+import { fetchCheckoutOrderOperations } from '../index.js';
 import {
   getCheckoutOrderOperations,
   type GetCheckoutOrderOperationsQuery,
 } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockGetOperationsActionPayload,
   mockGetOperationsResponse,
-} from 'tests/__fixtures__/checkout';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/checkout/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

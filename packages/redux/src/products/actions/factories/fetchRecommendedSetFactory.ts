@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProductRecommendedSet,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchRecommendedSetAction } from '../../types';
+import type { FetchRecommendedSetAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch product

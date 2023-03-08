@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
-import resetBagState from './resetBagState';
+import * as actionTypes from '../actionTypes.js';
+import resetBagState from './resetBagState.js';
 import type { Dispatch } from 'redux';
 import type {
   ResetBagAction,
   ResetBagEntitiesAction,
   ResetBagOperationsEntitiesAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**

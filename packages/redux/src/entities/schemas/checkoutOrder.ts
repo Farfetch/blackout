@@ -1,7 +1,7 @@
 import { schema } from 'normalizr';
-import checkoutOrderItem from './checkoutOrderItem';
-import merchant from './merchant';
-import preprocessOrder from '../../helpers/preprocessOrder';
+import checkoutOrderItem from './checkoutOrderItem.js';
+import merchant from './merchant.js';
+import preprocessOrder from '../../helpers/preprocessOrder.js';
 
 export default new schema.Entity(
   'checkoutOrders',

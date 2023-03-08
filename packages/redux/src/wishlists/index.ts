@@ -1,13 +1,13 @@
-export * as wishlistsActionTypes from './actionTypes';
-export * as wishlistsMiddlewares from './middlewares';
+export * as wishlistsActionTypes from './actionTypes.js';
+export * as wishlistsMiddlewares from './middlewares/index.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * from './selectors';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * from './selectors/index.js';
 
 export {
   default as wishlistsReducer,
   entitiesMapper as wishlistsEntitiesMapper,
-} from './reducer';
+} from './reducer/index.js';
 
-export * from './types';
+export * from './types/index.js';

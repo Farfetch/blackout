@@ -1,7 +1,7 @@
-import { mockProductId } from 'tests/__fixtures__/products';
-import { productsActionTypes, type ProductsSizesState } from '../..';
+import { mockProductId } from 'tests/__fixtures__/products/index.mjs';
+import { productsActionTypes, type ProductsSizesState } from '../../index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { getError, getIsLoading, INITIAL_STATE } from '../sizes';
+import reducer, { getError, getIsLoading, INITIAL_STATE } from '../sizes.js';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };

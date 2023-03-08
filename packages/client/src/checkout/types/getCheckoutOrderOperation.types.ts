@@ -1,6 +1,6 @@
-import type { CheckoutOrder } from './checkoutOrder.types';
-import type { CheckoutOrderOperation } from './checkoutOrderOperation.types';
-import type { Config } from '../../types';
+import type { CheckoutOrder } from './checkoutOrder.types.js';
+import type { CheckoutOrderOperation } from './checkoutOrderOperation.types.js';
+import type { Config } from '../../types/index.js';
 
 export type GetCheckoutOrderOperation = (
   checkoutOrderId: CheckoutOrder['id'],

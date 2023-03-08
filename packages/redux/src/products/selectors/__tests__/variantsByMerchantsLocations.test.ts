@@ -1,10 +1,10 @@
-import * as selectors from '../variantsByMerchantsLocations';
+import * as selectors from '../variantsByMerchantsLocations.js';
 import {
   mockProductId,
   mockProductsState,
   mockProductVariantsMerchantsLocations,
   mockVariantId,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Merchants Locations', () => {
   describe('getProductVariantsByMerchantsLocations()', () => {

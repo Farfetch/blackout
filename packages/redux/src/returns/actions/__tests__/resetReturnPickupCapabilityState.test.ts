@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import { pickupDay, returnId } from 'tests/__fixtures__/returns';
-import { resetReturnPickupCapabilityState } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import { pickupDay, returnId } from 'tests/__fixtures__/returns/index.mjs';
+import { resetReturnPickupCapabilityState } from '../index.js';
 
 describe('resetReturnPickupCapabilityState() action creator', () => {
   let store: ReturnType<typeof mockStore>;

@@ -1,8 +1,8 @@
-import { adaptMerchant } from '..';
+import { adaptMerchant } from '../index.js';
 import {
   merchantAdapted,
   merchantNotAdapted,
-} from '../__fixtures__/adapters.fixtures';
+} from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptMerchant()', () => {
   it('should return a valid merchant from a provided data', () => {

@@ -4,7 +4,7 @@ import {
   getProductPromotions,
   isProductOneSize,
   isProductOutOfStock,
-} from '..';
+} from '../index.js';
 import {
   mockOneSizeSizes,
   mockProduct,
@@ -12,7 +12,7 @@ import {
   mockProductSizeAdapted,
   mockProductsState,
   mockPromotions,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 beforeEach(() => {
   jest.clearAllMocks();

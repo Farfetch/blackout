@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type Currency,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import country from '../../../entities/schemas/country';
+import country from '../../../entities/schemas/country.js';
 import type { Dispatch } from 'redux';
-import type { FetchCountryCurrenciesAction } from '../../types';
+import type { FetchCountryCurrenciesAction } from '../../types/index.js';
 
 /**
  * Fetch all currencies from a specific country.

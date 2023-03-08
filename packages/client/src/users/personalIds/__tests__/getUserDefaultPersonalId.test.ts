@@ -1,11 +1,11 @@
-import { getUserDefaultPersonalId } from '..';
+import { getUserDefaultPersonalId } from '../index.js';
 import {
   mockGetUserDefaultPersonalIdResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getUserDefaultPersonalId.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserDefaultPersonalId.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getUserDefaultPersonalId', () => {
   const expectedConfig = {

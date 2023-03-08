@@ -14,7 +14,7 @@ import type {
   RecentlyViewedState,
   RecommendedProductsState,
   RecommendedSetState,
-} from './state';
+} from './state/index.js';
 
 export type ProductsState = CombinedState<{
   attributes: ProductsAttributesState;

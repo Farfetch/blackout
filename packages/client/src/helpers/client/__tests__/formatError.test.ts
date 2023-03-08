@@ -1,4 +1,4 @@
-import { adaptError, defaultError, toBlackoutError } from '../formatError';
+import { adaptError, defaultError, toBlackoutError } from '../formatError.js';
 import {
   ApiErrorData,
   ApiErrorDataNoMessage,
@@ -9,14 +9,14 @@ import {
   APIListErrorData,
   errorAxios,
   legacyApiErrorData,
-} from '../__fixtures__/errors.fixtures';
+} from '../__fixtures__/errors.fixtures.js';
 import type {
   DefaultErrorAdapterData,
   LegacyErrorAdapterData,
   ListErrorData,
   MockAxiosRequest,
   MockAxiosResponse,
-} from '../types';
+} from '../types/index.js';
 
 describe('formatError()', () => {
   beforeEach(jest.clearAllMocks);

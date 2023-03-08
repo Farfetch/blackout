@@ -1,9 +1,9 @@
-import { findSpecificSizeGuide } from './utils';
-import { getCategory } from '../categories/selectors';
-import { getError, getIsLoading, getResult } from './reducer';
+import { findSpecificSizeGuide } from './utils.js';
+import { getCategory } from '../categories/selectors/index.js';
+import { getError, getIsLoading, getResult } from './reducer.js';
 import type { Brand, Category } from '@farfetch/blackout-client';
-import type { SizeGuidesState } from './types';
-import type { StoreState } from '../types';
+import type { SizeGuidesState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 type GetSpecificSizeGuideParams = {
   // Brand ids to search for size guides.

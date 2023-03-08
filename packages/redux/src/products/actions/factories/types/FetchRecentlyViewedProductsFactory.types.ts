@@ -1,7 +1,7 @@
 import type { Dispatch } from 'redux';
-import type { FetchRecentlyViewedProductsAction } from '../../../types';
+import type { FetchRecentlyViewedProductsAction } from '../../../types/index.js';
 import type { GetRecentlyViewedProducts } from '@farfetch/blackout-client';
-import type { StoreState } from '../../../../types';
+import type { StoreState } from '../../../../types/index.js';
 
 export type FetchRecentlyViewedProductsFactory<
   T extends GetRecentlyViewedProducts,

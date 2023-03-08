@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type DocumentData,
   type PostOrderDocument,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { AddOrderDocumentAction } from '../../types/actions.types';
+import type { AddOrderDocumentAction } from '../../types/actions.types.js';
 import type { Dispatch } from 'redux';
 
 /**

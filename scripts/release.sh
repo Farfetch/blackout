@@ -15,7 +15,7 @@ if [[ ${SOURCE_BRANCH_NAME} = main || ${SOURCE_BRANCH_NAME} = next ]]; then
 
     npx lerna version --conventional-commits --yes --message "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE} --loglevel=verbose
 
-    yarn release:build
+    yarn build
 
     npx lerna publish from-package --no-verify-access --yes ${CONTENTS} ${PRE_DIST_TAG} --loglevel=verbose
 fi

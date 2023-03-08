@@ -1,9 +1,9 @@
-import * as selectors from '../groupingProperties';
+import * as selectors from '../groupingProperties.js';
 import {
   mockProductGroupingPropertiesAdapted,
   mockProductId,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('GroupingProperties', () => {
   describe('getProductGroupingProperties()', () => {

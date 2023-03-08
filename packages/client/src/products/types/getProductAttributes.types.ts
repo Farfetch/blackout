@@ -1,6 +1,6 @@
-import type { Config } from '../..';
-import type { Product } from './product.types';
-import type { ProductAttribute } from './productAttribute.types';
+import type { Config } from '../../index.js';
+import type { Product } from './product.types.js';
+import type { ProductAttribute } from './productAttribute.types.js';
 
 export type GetProductAttributes = (
   id: Product['result']['id'],

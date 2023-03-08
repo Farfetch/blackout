@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type City,
   type Config,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import state from '../../../entities/schemas/state';
+import state from '../../../entities/schemas/state.js';
 import type { Dispatch } from 'redux';
-import type { FetchCountryStateCitiesAction } from '../../types';
+import type { FetchCountryStateCitiesAction } from '../../types/index.js';
 
 /**
  * Fetch all cities from an specific country and state.

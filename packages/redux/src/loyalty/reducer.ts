@@ -1,8 +1,8 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { createReducerWithResult } from '../helpers/reducerFactory';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
-import type * as T from './types';
+import { createReducerWithResult } from '../helpers/reducerFactory.js';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes.js';
+import type * as T from './types/index.js';
 
 const isNormalized = true;
 

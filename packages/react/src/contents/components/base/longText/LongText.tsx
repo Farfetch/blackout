@@ -1,5 +1,5 @@
 import React, { type ReactElement } from 'react';
-import type { TextComponent as LongTextComponent } from '../../../types';
+import type { TextComponent as LongTextComponent } from '../../../types/index.js';
 
 const LongText = ({
   data: { value: longtext },

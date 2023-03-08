@@ -2,10 +2,10 @@
  * Contents clients.
  */
 
-export { default as getCommercePages } from './getCommercePages';
-export { default as getContentPage } from './getContentPage';
-export { default as getContentTypes } from './getContentTypes';
-export { default as getSearchContents } from './getSearchContents';
-export { default as getSEOMetadata } from './getSEOMetadata';
+export { default as getCommercePages } from './getCommercePages.js';
+export { default as getContentPage } from './getContentPage.js';
+export { default as getContentTypes } from './getContentTypes.js';
+export { default as getSearchContents } from './getSearchContents.js';
+export { default as getSEOMetadata } from './getSEOMetadata.js';
 
-export * from './types';
+export * from './types/index.js';

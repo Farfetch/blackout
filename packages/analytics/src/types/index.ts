@@ -1,11 +1,11 @@
-import EventTypes from './EventTypes';
-import FromParameterTypes from './FromParameterTypes';
-import InteractionTypes from './InteractionTypes';
-import LoginMethodParameterTypes from './LoginMethodParameterTypes';
-import PageTypes from './PageTypes';
-import PlatformTypes from './PlatformTypes';
-import SignupNewsletterGenderTypes from './SignupNewsletterGenderTypes';
-import TrackTypes from './TrackTypes';
+import EventTypes from './EventTypes.js';
+import FromParameterTypes from './FromParameterTypes.js';
+import InteractionTypes from './InteractionTypes.js';
+import LoginMethodParameterTypes from './LoginMethodParameterTypes.js';
+import PageTypes from './PageTypes.js';
+import PlatformTypes from './PlatformTypes.js';
+import SignupNewsletterGenderTypes from './SignupNewsletterGenderTypes.js';
+import TrackTypes from './TrackTypes.js';
 
 // Type modules
 export {
@@ -20,6 +20,6 @@ export {
 };
 
 // Typescript types
-export * from './analytics.types';
-export * from '../utils/types';
-export * from '../integrations/Omnitracking/types/Omnitracking.types';
+export * from './analytics.types.js';
+export * from '../utils/types/index.js';
+export * from '../integrations/Omnitracking/types/Omnitracking.types.js';

@@ -1,4 +1,4 @@
-import type { ProductEntity } from './product.types';
+import type { ProductEntityDenormalized } from './product.types.js';
 import type { WishlistSet, WishlistSetItem } from '@farfetch/blackout-client';
 
 export type WishlistSetEntity = Omit<WishlistSet, 'setId'> & {
@@ -10,15 +10,15 @@ export type WishlistSetEntities = Record<
   WishlistSetEntity
 >;
 
+export type WishlistSetItemDenormalized = WishlistSetItem & {
+  product: ProductEntityDenormalized | undefined;
+};
+
 export type WishlistSetDenormalized = Omit<
   WishlistSetEntity,
   'wishlistSetItems'
 > & {
-  wishlistSetItems: Array<
-    WishlistSetItem & {
-      product: ProductEntity | undefined;
-    }
-  >;
+  wishlistSetItems: Array<WishlistSetItemDenormalized>;
 };
 
 export type WishlistSetsDenormalized =

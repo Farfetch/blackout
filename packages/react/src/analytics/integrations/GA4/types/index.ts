@@ -18,8 +18,8 @@ import type {
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-} from '../constants';
-import type { Schema } from '../../shared/types/shared.types';
+} from '../constants.js';
+import type { Schema } from '../../shared/types/shared.types.js';
 
 export type Schemas = Record<string, Schema>;
 

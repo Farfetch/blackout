@@ -3,7 +3,7 @@ import type {
   AddressPredictionDetails,
 } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { StateWithResult } from '../../types';
+import type { StateWithResult } from '../../types/index.js';
 
 export type AddressesState = CombinedState<{
   predictions: StateWithResult<AddressPrediction[]>;

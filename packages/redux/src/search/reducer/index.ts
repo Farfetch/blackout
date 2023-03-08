@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import searchDidYouMeanReducer from './searchDidYouMean';
-import searchIntentsReducer from './searchIntents';
-import searchSuggestionsReducer from './searchSuggestions';
+import searchDidYouMeanReducer from './searchDidYouMean.js';
+import searchIntentsReducer from './searchIntents.js';
+import searchSuggestionsReducer from './searchSuggestions.js';
 
 export default combineReducers({
   didYouMean: searchDidYouMeanReducer,

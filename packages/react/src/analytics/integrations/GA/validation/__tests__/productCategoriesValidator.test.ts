@@ -3,10 +3,10 @@ import {
   ADD_PRODUCT_COMMAND,
   MAX_PRODUCT_CATEGORIES,
   SET_ACTION_COMMAND,
-} from '../../constants';
+} from '../../constants.js';
 import { utils } from '@farfetch/blackout-analytics';
-import productCategoriesValidator from '../productCategoriesValidator';
-import type { GACommandList } from '../../types';
+import productCategoriesValidator from '../productCategoriesValidator.js';
+import type { GACommandList } from '../../types/index.js';
 
 utils.logger.warn = jest.fn();
 

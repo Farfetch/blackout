@@ -6,7 +6,10 @@ import {
   resetBag,
   updateBagItem,
 } from '@farfetch/blackout-redux';
-import { AddUpdateItemBagError, BagItemNotFoundError } from '../errors';
+import {
+  AddUpdateItemBagError,
+  BagItemNotFoundError,
+} from '../errors/index.js';
 import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import { cleanup, renderHook } from '@testing-library/react';
 import {
@@ -15,16 +18,16 @@ import {
   mockState,
   mockStateWithSizeWithoutStock,
   mockStateWithUnavailableStock,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 import {
   mockBrandId,
   mockMerchantId,
   mockProductId,
   mockSizeScaleId,
-} from 'tests/__fixtures__/products/ids.fixtures';
-import { mockCategoryId } from 'tests/__fixtures__/categories';
-import { withStore } from '../../../../tests/helpers';
-import useBag from '../useBag';
+} from 'tests/__fixtures__/products/ids.fixtures.mjs';
+import { mockCategoryId } from 'tests/__fixtures__/categories/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useBag from '../useBag.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

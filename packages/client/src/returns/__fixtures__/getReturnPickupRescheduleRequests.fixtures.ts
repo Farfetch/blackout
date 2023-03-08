@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { PickupRescheduleRequests } from '../types';
+import type { PickupRescheduleRequests } from '../types/index.js';
 
 const path = '/api/account/v1/returns/:id/pickupRescheduleRequests';
 

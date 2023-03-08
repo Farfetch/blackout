@@ -1,7 +1,7 @@
-export { default as GuestTokenProvider } from './GuestTokenProvider';
-export { default as TokenData } from './TokenData';
-export { default as TokenKinds } from './TokenKinds';
-export { default as TokenProvider } from './TokenProvider';
-export { default as UserTokenProvider } from './UserTokenProvider';
+export { default as GuestTokenProvider } from './GuestTokenProvider.js';
+export { default as TokenData } from './TokenData.js';
+export { default as TokenKinds } from './TokenKinds.js';
+export { default as TokenProvider } from './TokenProvider.js';
+export { default as UserTokenProvider } from './UserTokenProvider.js';
 
-export * from './types';
+export * from './types/index.js';

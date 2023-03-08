@@ -1,1 +1,1 @@
-export * from './mockStore.types';
+export * from './mockStore.types.js';

@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
-import createMergedObject from '../../helpers/createMergedObject';
-import isFunction from 'lodash/isFunction';
+import * as actionTypes from '../actionTypes.js';
+import { isFunction } from 'lodash-es';
+import createMergedObject from '../../helpers/createMergedObject.js';
 import type { AnyAction } from 'redux';
 import type {
   CustomEntitiesReducer,
   CustomEntitiesReducerByAction,
-} from './createDefaultEntitiesReducer';
-import type { StoreState } from '../../types';
+} from './createDefaultEntitiesReducer.js';
+import type { StoreState } from '../../types/index.js';
 
 const isFunctionTypePredicate = (
   arg: unknown,

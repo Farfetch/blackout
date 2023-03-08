@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { PaymentToken } from '.';
+import type { Config } from '../../types/index.js';
+import type { PaymentToken } from './index.js';
 
 export type DeletePaymentToken = (
   paymentTokenId: PaymentToken['id'],

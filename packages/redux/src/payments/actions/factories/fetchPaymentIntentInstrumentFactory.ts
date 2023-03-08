@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetPaymentIntentInstrument,
@@ -7,9 +7,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import paymentInstrumentSchema from '../../../entities/schemas/paymentInstrument';
+import paymentInstrumentSchema from '../../../entities/schemas/paymentInstrument.js';
 import type { Dispatch } from 'redux';
-import type { FetchPaymentIntentInstrumentAction } from '../../types';
+import type { FetchPaymentIntentInstrumentAction } from '../../types/index.js';
 
 /**
  * Action responsible for fetching an instrument.

@@ -25,11 +25,11 @@ import {
   BagItemNotFoundError,
   ProductError,
   SizeError,
-} from './errors';
+} from './errors/index.js';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { HandleAddOrUpdateItem, UseBagOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { HandleAddOrUpdateItem, UseBagOptions } from './types/index.js';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with

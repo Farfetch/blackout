@@ -1,4 +1,4 @@
-import { getSlug } from '..';
+import { getSlug } from '../index.js';
 
 describe('getSlug', () => {
   it('should correctly construct the correct url for a given pathname', () => {

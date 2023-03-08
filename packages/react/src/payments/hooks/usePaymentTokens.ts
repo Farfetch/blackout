@@ -8,8 +8,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UsePaymentTokensOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { UsePaymentTokensOptions } from './types/index.js';
 
 function usePaymentTokens(options: UsePaymentTokensOptions = {}) {
   const { enableAutoFetch = true, fetchQuery, fetchConfig } = options;

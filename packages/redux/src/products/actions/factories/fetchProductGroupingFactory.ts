@@ -1,5 +1,5 @@
-import { adaptGrouping } from '../../../helpers/adapters';
-import { buildQueryStringFromObject } from '../../../helpers';
+import { adaptGrouping } from '../../../helpers/adapters/index.js';
+import { buildQueryStringFromObject } from '../../../helpers/index.js';
 import {
   type Config,
   type GetProductGrouping,
@@ -12,7 +12,7 @@ import {
   FETCH_PRODUCT_GROUPING_FAILURE,
   FETCH_PRODUCT_GROUPING_REQUEST,
   FETCH_PRODUCT_GROUPING_SUCCESS,
-} from '../../actionTypes';
+} from '../../actionTypes/index.js';
 import type { Dispatch } from 'redux';
 
 /**

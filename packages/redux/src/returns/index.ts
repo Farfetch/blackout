@@ -1,12 +1,12 @@
-export * as returnsActionTypes from './actionTypes';
+export * as returnsActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * from './selectors';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * from './selectors.js';
 
 export {
   default as returnsReducer,
   entitiesMapper as returnsEntitiesMapper,
-} from './reducer';
+} from './reducer.js';
 
-export * from './types';
+export * from './types/index.js';

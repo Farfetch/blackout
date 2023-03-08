@@ -3,16 +3,16 @@ import {
   mockBagItemHydrated,
   mockBagItemId,
   mockState,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 import {
   mockMerchantId,
   mockProductId,
   mockSizeScaleId,
-} from 'tests/__fixtures__/products/ids.fixtures';
+} from 'tests/__fixtures__/products/ids.fixtures.mjs';
 import { removeBagItem, updateBagItem } from '@farfetch/blackout-redux';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { useBagItem } from '../..';
-import { withStore } from '../../../../tests/helpers';
+import { useBagItem } from '../../index.js';
+import { withStore } from '../../../../tests/helpers/index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

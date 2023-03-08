@@ -1,5 +1,5 @@
 import { deleteUserContact } from '@farfetch/blackout-client';
-import { removeUserContactFactory } from './factories';
+import { removeUserContactFactory } from './factories/index.js';
 
 /**
  * Remove a user contact.

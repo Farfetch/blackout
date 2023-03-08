@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ProductVariantMerchantLocation } from '../types';
+import type { ProductVariantMerchantLocation } from '../types/index.js';
 
 const path =
   '/api/commerce/v1/products/:productId/variants/:variantId/merchantsLocations';

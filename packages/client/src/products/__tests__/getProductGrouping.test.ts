@@ -1,11 +1,11 @@
-import { getProductGrouping } from '..';
+import { getProductGrouping } from '../index.js';
 import {
   mockProductGrouping,
   mockProductId,
-} from 'tests/__fixtures__/products';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getProductGrouping.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/products/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getProductGrouping.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getProductGrouping', () => {
   const expectedConfig = undefined;

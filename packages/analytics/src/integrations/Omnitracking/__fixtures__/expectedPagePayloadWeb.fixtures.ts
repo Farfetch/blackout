@@ -1,7 +1,11 @@
-import { type EventData, PageTypes, type TrackTypesValues } from '../../..';
-import { pageEventsData } from 'tests/__fixtures__/analytics/';
-import { userGenderValuesMapper } from '../definitions';
-import mockedUuid from './mocked_uuid';
+import {
+  type EventData,
+  PageTypes,
+  type TrackTypesValues,
+} from '../../../index.js';
+import { pageEventsData } from 'tests/__fixtures__/analytics/index.mjs';
+import { userGenderValuesMapper } from '../definitions.js';
+import mockedUuid from './mocked_uuid.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PageMockData = EventData<TrackTypesValues> & { context: { web: any } };

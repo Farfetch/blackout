@@ -2,6 +2,6 @@
  * Staff Members clients.
  */
 
-export { default as getStaffMember } from './getStaffMember';
+export { default as getStaffMember } from './getStaffMember.js';
 
-export * from './types';
+export * from './types/index.js';

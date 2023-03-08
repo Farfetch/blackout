@@ -1,7 +1,7 @@
-import { getEntities } from '../../entities';
-import { getUserContacts as getUserContactsFromReducer } from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+import { getEntities } from '../../entities/index.js';
+import { getUserContacts as getUserContactsFromReducer } from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status for the contacts operation.

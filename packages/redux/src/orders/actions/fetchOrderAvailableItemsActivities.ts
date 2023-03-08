@@ -1,4 +1,4 @@
-import { fetchOrderAvailableItemsActivitiesFactory } from './factories';
+import { fetchOrderAvailableItemsActivitiesFactory } from './factories/index.js';
 import { getOrderAvailableItemsActivities } from '@farfetch/blackout-client';
 
 /**

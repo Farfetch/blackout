@@ -1,7 +1,7 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { AnyAction } from 'redux';
-import type { StoreState } from '../../types';
-import type { SubscriptionsState } from '../types';
+import type { StoreState } from '../../types/index.js';
+import type { SubscriptionsState } from '../types/index.js';
 
 export const INITIAL_STATE: Record<
   string,

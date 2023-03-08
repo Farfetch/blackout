@@ -1,12 +1,12 @@
 import { deleteCheckoutOrderItem } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import {
   REMOVE_CHECKOUT_ORDER_ITEM_FAILURE,
   REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,
   REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS,
-} from '../../actionTypes';
-import removeCheckoutOrderItem from '../removeCheckoutOrderItem';
+} from '../../actionTypes.js';
+import removeCheckoutOrderItem from '../removeCheckoutOrderItem.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

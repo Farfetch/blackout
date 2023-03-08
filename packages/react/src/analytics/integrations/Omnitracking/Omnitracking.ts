@@ -26,10 +26,10 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { getCLientCountryFromSubfolder } from './omnitracking-web-helper';
-import get from 'lodash/get';
-import UniqueViewIdStorage from './storage/UniqueViewIdStorage';
-import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions';
+import { get } from 'lodash-es';
+import { getCLientCountryFromSubfolder } from './omnitracking-web-helper.js';
+import UniqueViewIdStorage from './storage/UniqueViewIdStorage.js';
+import UniqueViewIdStorageOptions from './storage/UniqueViewIdStorageOptions.js';
 
 /**
  * Omnitracking integration.

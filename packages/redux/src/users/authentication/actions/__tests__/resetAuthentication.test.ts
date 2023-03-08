@@ -1,8 +1,8 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../../tests';
-import reducer from '../../reducer';
-import reset from '../resetAuthentication';
-import type { SubAreaType } from '../../types/subArea.types';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../../tests/index.js';
+import reducer from '../../reducer.js';
+import reset from '../resetAuthentication.js';
+import type { SubAreaType } from '../../types/subArea.types.js';
 
 const mockAction = { type: 'this_is_a_mock_action' };
 

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { User } from '../types';
+import type { User } from '../types/index.js';
 
 const path = '/api/account/v1/users/me';
 

@@ -1,5 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
-import type { AdaptPrice, PlpPrice } from './types/adaptPrice.types';
+import { isEmpty } from 'lodash-es';
+import type { AdaptPrice, PlpPrice } from './types/adaptPrice.types.js';
 import type {
   Price,
   ProductSummaryPrice,

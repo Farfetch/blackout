@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Brand,
   type Config,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import brand from '../../../entities/schemas/brand';
+import brand from '../../../entities/schemas/brand.js';
 import type { Dispatch } from 'redux';
-import type { FetchBrandAction } from '../../types';
+import type { FetchBrandAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch a brand

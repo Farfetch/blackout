@@ -12,7 +12,7 @@ import type {
   ProductCategoryWithGenderDescription,
   ProductImageGroup,
   ProductType,
-} from '../..';
+} from '../../index.js';
 
 export type ShippingService = {
   description: string;

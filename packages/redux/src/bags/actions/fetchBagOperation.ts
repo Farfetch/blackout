@@ -1,4 +1,4 @@
-import { fetchBagOperationFactory } from './factories';
+import { fetchBagOperationFactory } from './factories/index.js';
 import { getBagOperation } from '@farfetch/blackout-client';
 
 /**

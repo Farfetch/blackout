@@ -1,4 +1,4 @@
-import { fetchShipmentTrackingsFactory } from './factories';
+import { fetchShipmentTrackingsFactory } from './factories/index.js';
 import { getShipmentTrackings } from '@farfetch/blackout-client';
 
 /**

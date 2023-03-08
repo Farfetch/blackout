@@ -1,6 +1,6 @@
-import type { Config } from '../../types';
-import type { FormSchema } from './formSchema.types';
-import type { FormSchemaQuery } from './formSchemaQuery.types';
+import type { Config } from '../../types/index.js';
+import type { FormSchema } from './formSchema.types.js';
+import type { FormSchemaQuery } from './formSchemaQuery.types.js';
 
 export type GetFormSchema = (
   schemaCode: string,

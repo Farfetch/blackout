@@ -2,6 +2,6 @@
  * Configurations actions.
  */
 
-export { default as fetchConfigurations } from './fetchConfigurations';
-export { default as fetchConfiguration } from './fetchConfiguration';
-export { default as resetConfigurationsState } from './resetConfigurationsState';
+export { default as fetchConfigurations } from './fetchConfigurations.js';
+export { default as fetchConfiguration } from './fetchConfiguration.js';
+export { default as resetConfigurationsState } from './resetConfigurationsState.js';

@@ -1,16 +1,19 @@
-import * as bagActionTypes from '../../../bags/actionTypes';
-import { analyticsBagMiddleware } from '../bag';
-import { bagMockData } from 'tests/__fixtures__/analytics/bag';
-import { getBagItem } from '../../../bags/selectors';
-import { getBrand } from '../../../brands/selectors';
-import { getCategory } from '../../../categories/selectors';
-import { getProduct } from '../../../products/selectors/product';
-import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore';
-import { mockStore } from '../../../../tests';
+import * as bagActionTypes from '../../../bags/actionTypes.js';
+import { analyticsBagMiddleware } from '../bag.js';
+import { bagMockData } from 'tests/__fixtures__/analytics/bag/bag.fixtures.mjs';
+import { getBagItem } from '../../../bags/selectors.js';
+import { getBrand } from '../../../brands/selectors.js';
+import { getCategory } from '../../../categories/selectors/index.js';
+import { getProduct } from '../../../products/selectors/product.js';
+import { merge } from 'lodash-es';
+import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore.js';
+import { mockStore } from '../../../../tests/index.js';
 import Analytics, { EventTypes, utils } from '@farfetch/blackout-analytics';
-import merge from 'lodash/merge';
-import type { BagItemEntity, ProductEntity } from '../../../entities/types';
-import type { StoreState } from '../../../types';
+import type {
+  BagItemEntity,
+  ProductEntity,
+} from '../../../entities/types/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({

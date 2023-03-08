@@ -1,4 +1,4 @@
-import { fetchAddressPredictionDetailsFactory } from './factories';
+import { fetchAddressPredictionDetailsFactory } from './factories/index.js';
 import { getAddressPredictionDetails } from '@farfetch/blackout-client';
 
 /**

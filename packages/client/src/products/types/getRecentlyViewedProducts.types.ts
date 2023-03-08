@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { RecentlyViewedProducts } from './recentlyViewedProducts.types';
+import type { Config } from '../../types/index.js';
+import type { RecentlyViewedProducts } from './recentlyViewedProducts.types.js';
 
 export type GetRecentlyViewedProductsQuery = {
   page: number;

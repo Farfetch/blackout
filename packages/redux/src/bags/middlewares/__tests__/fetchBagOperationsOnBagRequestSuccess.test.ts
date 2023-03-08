@@ -3,19 +3,19 @@ import {
   FETCH_BAG_SUCCESS,
   REMOVE_BAG_ITEM_SUCCESS,
   UPDATE_BAG_ITEM_SUCCESS,
-} from '../../actionTypes';
+} from '../../actionTypes.js';
 import {
   fetchBagOperation,
   resetBagOperationsEntities,
   resetBagState,
-} from '../../actions';
-import { fetchBagOperationsOnBagRequestSuccess } from '../';
+} from '../../actions/index.js';
+import { fetchBagOperationsOnBagRequestSuccess } from '..//index.js';
 import {
   mockBagId,
   mockBagOperationId,
   mockState,
-} from 'tests/__fixtures__/bags';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/bags/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('../../actions', () => ({
   ...jest.requireActual('../../actions'),

@@ -1,5 +1,5 @@
-import * as authenticationActionTypes from '../../../users/authentication/actionTypes';
-import * as usersActionTypes from '../../../users/actionTypes';
+import * as authenticationActionTypes from '../../../users/authentication/actionTypes.js';
+import * as usersActionTypes from '../../../users/actionTypes.js';
 import {
   type default as Analytics,
   EventTypes,
@@ -15,12 +15,12 @@ import {
   OPTION_TRIGGER_ANONYMIZE_ACTIONS,
   OPTION_TRIGGER_SET_USER_ACTIONS,
   OPTION_USER_TRAITS_PICKER,
-} from '../setUser';
-import { getUser, getUserId } from '../../../users/selectors';
-import { mockStore } from './../tests/simplifiedStore';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
+} from '../setUser.js';
+import { getUser, getUserId } from '../../../users/selectors.js';
+import { mockStore } from './../tests/simplifiedStore.js';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import { pick } from 'lodash-es';
 import { UserGender } from '@farfetch/blackout-client';
-import pick from 'lodash/pick';
 import TestStorage from 'test-storage';
 
 jest.mock('@farfetch/blackout-analytics/utils', () => {

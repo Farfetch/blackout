@@ -1,8 +1,8 @@
-import * as actionTypes from './actionTypes';
-import reducerFactory from '../../helpers/reducerFactory';
+import * as actionTypes from './actionTypes.js';
+import reducerFactory from '../../helpers/reducerFactory.js';
 import type { AnyAction } from 'redux';
-import type { StoreState } from '../../types/storeState.types';
-import type { UserEntity } from '../../entities';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UserEntity } from '../../entities/index.js';
 
 export const INITIAL_STATE = {
   credits: {

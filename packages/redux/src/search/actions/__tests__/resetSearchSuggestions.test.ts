@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer/searchSuggestions';
-import { mockStore } from '../../../../tests';
-import { resetSearchSuggestions } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { INITIAL_STATE } from '../../reducer/searchSuggestions.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetSearchSuggestions } from '../index.js';
 
 describe('resetSearchSuggestions() action creator', () => {
   let store: ReturnType<typeof mockStore>;

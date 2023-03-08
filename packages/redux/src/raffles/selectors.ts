@@ -1,21 +1,21 @@
 import { createSelector } from 'reselect';
-import { buildQueryStringFromObject as generateRafflesHash } from '../helpers';
+import { buildQueryStringFromObject as generateRafflesHash } from '../helpers/index.js';
 import {
   getAllRaffles as getAllRafflesFromReducer,
   getEstimations,
   getParticipationCreations,
   getParticipations,
   getRaffles as getRafflesFromReducer,
-} from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
-import type { DetailedRaffle } from './types/raffles.types';
+} from './reducer.js';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
+import type { DetailedRaffle } from './types/raffles.types.js';
 import type {
   Raffle,
   RaffleParticipation,
   RafflesQuery,
 } from '@farfetch/blackout-client';
-import type { RafflesState } from './types';
-import type { StoreState } from '../types/storeState.types';
+import type { RafflesState } from './types/index.js';
+import type { StoreState } from '../types/storeState.types.js';
 
 const getRaffleEntities = (state: StoreState) => getEntities(state, 'raffles');
 const getRaffleParticipationEntities = (state: StoreState) =>

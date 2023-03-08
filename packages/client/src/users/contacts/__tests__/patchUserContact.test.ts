@@ -2,11 +2,11 @@ import {
   contactId,
   mockGetContactResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import { patchUserContact, type PatchUserContactOperation } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/patchUserContact.fixtures';
-import mswServer from '../../../../tests/mswServer';
+} from 'tests/__fixtures__/users/index.mjs';
+import { patchUserContact, type PatchUserContactOperation } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchUserContact.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('patchUserContact', () => {
   const expectedConfig = undefined;

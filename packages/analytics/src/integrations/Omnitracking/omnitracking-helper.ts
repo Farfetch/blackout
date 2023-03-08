@@ -1,29 +1,31 @@
-import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants';
+import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants.js';
 import {
   type AnalyticsProduct,
   type EventData,
   SignupNewsletterGenderTypes,
   type TrackTypes,
   type TrackTypesValues,
-} from '../..';
+} from '../../index.js';
 import {
   CLIENT_LANGUAGES_LIST,
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
-} from './constants';
-import { getProductId, logger } from '../../utils';
-import { isPageEventType, isScreenEventType } from '../../utils/typePredicates';
+} from './constants.js';
+import { get, pick } from 'lodash-es';
+import { getProductId, logger } from '../../utils/index.js';
+import {
+  isPageEventType,
+  isScreenEventType,
+} from '../../utils/typePredicates.js';
 import {
   pageActionEventTypes,
   pageDefinitions,
   pageEventsFilter,
   pageViewEventTypes,
   trackDefinitions,
-} from './definitions';
-import { v4 as uuidV4 } from 'uuid';
-import get from 'lodash/get';
-import pick from 'lodash/pick';
-import PlatformTypes from '../../types/PlatformTypes';
+} from './definitions.js';
+import PlatformTypes from '../../types/PlatformTypes.js';
+import uuid from 'uuid';
 import type {
   OmnitrackingCommonEventParameters,
   OmnitrackingPageEventParameters,
@@ -35,7 +37,8 @@ import type {
   SpecificParametersBuilderByPlatform,
   SpecificParametersForEventType,
   ValParameter,
-} from './types/Omnitracking.types';
+} from './types/Omnitracking.types.js';
+import type URLParse from 'url-parse';
 
 /**
  * Adds common parameters to all kinds of message types.
@@ -68,7 +71,7 @@ export const getUniqueViewIdParameter = (
 ): string => {
   const uniqueViewId = get(data, 'properties.uniqueViewId');
 
-  return typeof uniqueViewId === 'string' ? uniqueViewId : uuidV4();
+  return typeof uniqueViewId === 'string' ? uniqueViewId : uuid();
 };
 
 /**
@@ -104,7 +107,7 @@ export const getPageEventFromPageType = (
  * @returns The event for the page.
  */
 export const getPageEventFromLocation = (
-  location?: Location,
+  location?: URLParse<Record<string, string | undefined>>,
 ): PageViewEvents | null => {
   if (!location || !location.href) {
     return null;
@@ -137,7 +140,9 @@ export const getPageEventFromLocation = (
 export const getPageEvent = (
   data: EventData<TrackTypesValues>,
 ): PageViewEvents => {
-  const location = get(data, 'context.web.window.location', {});
+  const location = get(data, 'context.web.window.location', {}) as URLParse<
+    Record<string, string | undefined>
+  >;
   const event =
     getPageEventFromPageType(data.event) || getPageEventFromLocation(location);
 
@@ -158,19 +163,28 @@ function getSpecificWebParameters<T extends EventData<TrackTypesValues>>(
     {} as SpecificParametersForEventType<T>;
 
   if (isPageEventType(data)) {
-    const referrer = get(data, 'context.web.pageLocationReferrer', '');
-    const location = get(data, 'context.web.window.location', {});
-    const query = get(location, 'query', {});
+    const referrer = get(
+      data,
+      'context.web.pageLocationReferrer',
+      '',
+    ) as string;
+    const location = get(data, 'context.web.window.location', {}) as URLParse<
+      Record<string, string | undefined>
+    >;
+    const query = get(location, 'query', {}) as Record<string, string>;
     const internalRequest =
       referrer.indexOf(`${location.protocol}//${location.host}`) === 0;
+    const pathname = get(
+      data,
+      'context.web.window.location.pathname',
+      '',
+    ) as string;
 
-    const url = get(data, 'context.web.window.location.pathname', '').split(
-      '/',
-    );
-    const subfolder = url[1].split('-');
+    const url = pathname.split('/');
+    const subfolder = url[1]?.split('-');
     const userCountryLocation = (
-      subfolder[1] ? subfolder[1] : subfolder[0]
-    ).toLowerCase();
+      subfolder?.[1] ? subfolder?.[1] : subfolder?.[0]
+    )?.toLowerCase();
 
     commonParameters = {
       referrer,
@@ -244,7 +258,7 @@ export const getPlatformSpecificParameters = (
 
   const specificPlatformParametersBuilder =
     specificParametersBuilderByPlatform[
-      platform as typeof PlatformTypes[keyof typeof PlatformTypes]
+      platform as (typeof PlatformTypes)[keyof typeof PlatformTypes]
     ];
 
   if (!specificPlatformParametersBuilder) {
@@ -425,7 +439,7 @@ export const getSearchQuery = (
     const searchQuery = get(
       data,
       `context.web.window.location.query.${searchQueryParams[i]}`,
-    ) as string;
+    );
 
     if (searchQuery) {
       return searchQuery;

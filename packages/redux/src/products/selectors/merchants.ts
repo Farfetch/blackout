@@ -1,6 +1,6 @@
-import { getEntities, getEntityById } from '../../entities/selectors/entity';
-import type { MerchantEntity } from '../../entities/types';
-import type { StoreState } from '../../types';
+import { getEntities, getEntityById } from '../../entities/selectors/entity.js';
+import type { MerchantEntity } from '../../entities/types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns a specific merchant by its id.

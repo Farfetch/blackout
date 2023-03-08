@@ -1,8 +1,7 @@
 import { createSelector } from 'reselect';
-import { getEntities } from '../../entities';
-import defaultTo from 'lodash/defaultTo';
-import get from 'lodash/get';
-import type { StoreState } from '../../types';
+import { defaultTo, get } from 'lodash-es';
+import { getEntities } from '../../entities/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { SubscriptionPackage } from '@farfetch/blackout-client';
 
 /*

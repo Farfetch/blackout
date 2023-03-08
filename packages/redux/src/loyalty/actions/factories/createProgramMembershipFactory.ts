@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostProgramMembership,
@@ -7,8 +7,8 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import membershipSchema from '../../../entities/schemas/membership';
-import type { CreateProgramMembershipAction } from '../../types';
+import membershipSchema from '../../../entities/schemas/membership.js';
+import type { CreateProgramMembershipAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
 
 /**

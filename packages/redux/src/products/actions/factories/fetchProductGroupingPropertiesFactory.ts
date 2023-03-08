@@ -1,5 +1,5 @@
-import { adaptGroupingProperties } from '../../../helpers/adapters';
-import { buildQueryStringFromObject } from '../../../helpers';
+import { adaptGroupingProperties } from '../../../helpers/adapters/index.js';
+import { buildQueryStringFromObject } from '../../../helpers/index.js';
 import {
   type Config,
   type GetProductGroupingProperties,
@@ -12,7 +12,7 @@ import {
   FETCH_PRODUCT_GROUPING_PROPERTIES_FAILURE,
   FETCH_PRODUCT_GROUPING_PROPERTIES_REQUEST,
   FETCH_PRODUCT_GROUPING_PROPERTIES_SUCCESS,
-} from '../../actionTypes';
+} from '../../actionTypes/index.js';
 import type { Dispatch } from 'redux';
 
 /**

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetOrderReturns,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import returnSchema from '../../../entities/schemas/return';
+import returnSchema from '../../../entities/schemas/return.js';
 import type { Dispatch } from 'redux';
-import type { FetchOrderReturnsAction } from '../../types/actions.types';
+import type { FetchOrderReturnsAction } from '../../types/actions.types.js';
 
 /**
  * Method responsible for returns from a specific order.

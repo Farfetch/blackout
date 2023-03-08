@@ -1,11 +1,11 @@
-import * as recommendedProductsReducer from '../../reducer/recommendedProducts';
-import * as selectors from '../recommendedProducts';
+import * as recommendedProductsReducer from '../../reducer/recommendedProducts.js';
+import * as selectors from '../recommendedProducts.js';
+import { merge } from 'lodash-es';
 import {
   mockProductsState,
   mockRecommendedProductsStrategy,
-} from 'tests/__fixtures__/products';
-import merge from 'lodash/merge';
-import type { StoreState } from '../../../types';
+} from 'tests/__fixtures__/products/index.mjs';
+import type { StoreState } from '../../../types/index.js';
 
 const mockStore: StoreState = merge({} as StoreState, mockProductsState);
 

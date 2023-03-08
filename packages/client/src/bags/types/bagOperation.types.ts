@@ -1,5 +1,5 @@
-import type { BagItem } from './bagItem.types';
-import type { Product } from '../../products';
+import type { BagItem } from './bagItem.types.js';
+import type { Product } from '../../products/index.js';
 
 export enum BagChangeReason {
   BetterPromotionApplied = 'BetterPromotionApplied',

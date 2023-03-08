@@ -1,14 +1,14 @@
-import { adaptProductSizes } from '..';
+import { adaptProductSizes } from '../index.js';
 import {
   composePurchaseChannels,
   getAttributesBySizeId,
-} from '../adaptProductSizes';
+} from '../adaptProductSizes.js';
 import {
   oneSizeProduct,
   outOfStockProduct,
   productWithTwoSizes,
   twoSizesProductVariants,
-} from '../__fixtures__/adapters.fixtures';
+} from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptProductSizes()', () => {
   it('should not return anything if no sizes are provided', () => {

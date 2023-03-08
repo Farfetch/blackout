@@ -1,6 +1,6 @@
 import { rest, type RestHandler } from 'msw';
-import type { Country } from '../types';
-import type { PagedResponse } from '../../types/common/pagedResponse.types';
+import type { Country } from '../types/index.js';
+import type { PagedResponse } from '../../types/common/pagedResponse.types.js';
 
 const path = '/api/settings/v1/countries';
 

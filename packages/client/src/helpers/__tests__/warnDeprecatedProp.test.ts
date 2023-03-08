@@ -1,4 +1,4 @@
-import warnDeprecatedProp from '../warnDeprecatedProp';
+import warnDeprecatedProp from '../warnDeprecatedProp.js';
 
 describe('warnDeprecatedProp()', () => {
   const spy = jest.fn();

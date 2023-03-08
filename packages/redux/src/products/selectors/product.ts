@@ -1,17 +1,15 @@
 import { createSelector } from 'reselect';
-import { getBrands } from '../../brands';
-import { getCategories } from '../../categories';
-import { getEntityById } from '../../entities/selectors/entity';
-import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
-import orderBy from 'lodash/orderBy';
+import { get, isEmpty, orderBy } from 'lodash-es';
+import { getBrands } from '../../brands/index.js';
+import { getCategories } from '../../categories/index.js';
+import { getEntityById } from '../../entities/selectors/entity.js';
 import type {
   CategoryEntity,
   ProductEntity,
   ProductEntityDenormalized,
-} from '../../entities/types';
+} from '../../entities/types/index.js';
 import type { Label, Promotion } from '@farfetch/blackout-client';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns a specific product by its id.
