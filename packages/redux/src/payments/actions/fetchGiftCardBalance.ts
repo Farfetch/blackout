@@ -1,4 +1,4 @@
-import { fetchGiftCardBalanceFactory } from './factories';
+import { fetchGiftCardBalanceFactory } from './factories/index.js';
 import { getGiftCardBalance } from '@farfetch/blackout-client';
 
 /**

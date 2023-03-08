@@ -1,14 +1,14 @@
 import * as normalizr from 'normalizr';
-import { fetchProductSizes } from '..';
+import { fetchProductSizes } from '../index.js';
 import { getProductSizes } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/sizes';
+import { INITIAL_STATE } from '../../reducer/sizes.js';
 import {
   mockProductId,
   mockProductSizes,
   mockProductSizesNormalizedResponse,
-} from 'tests/__fixtures__/products';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../..';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -1,1 +1,1 @@
-export { default as imageArrToObj } from './imageArrToObj';
+export { default as imageArrToObj } from './imageArrToObj.js';

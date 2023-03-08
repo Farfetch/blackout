@@ -1,13 +1,13 @@
-import isEqual from 'lodash/isEqual';
-import TokenData from './TokenData';
+import { isEqual } from 'lodash-es';
+import TokenData from './TokenData.js';
 import type {
   GuestTokenRequester,
   OptionsStorageProvider,
   OptionsStorageSerializer,
   UserTokenRequester,
-} from '../types/TokenManagerOptions.types';
-import type { ITokenData } from './types/TokenData.types';
-import type { TokenChangesListeners } from './types/TokenChangesListeners.types';
+} from '../types/TokenManagerOptions.types.js';
+import type { ITokenData } from './types/TokenData.types.js';
+import type { TokenChangesListeners } from './types/TokenChangesListeners.types.js';
 
 let TokenListenerIdInternalCount = 0;
 

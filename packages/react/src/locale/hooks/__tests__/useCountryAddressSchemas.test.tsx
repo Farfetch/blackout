@@ -9,9 +9,9 @@ import {
   mockCountryNormalized,
   mockGetAddressSchemaResponse,
   mockLocaleState,
-} from 'tests/__fixtures__/locale';
-import { withStore } from '../../../../tests/helpers';
-import useCountryAddressSchemas from '../useCountryAddressSchemas';
+} from 'tests/__fixtures__/locale/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCountryAddressSchemas from '../useCountryAddressSchemas.js';
 
 const stateMockData: StoreState = {
   ...mockLocaleState,

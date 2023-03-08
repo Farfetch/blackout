@@ -1,7 +1,7 @@
-import { getSearchContents } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/contents.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getSearchContents } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/contents.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('contents client', () => {
   const expectedConfig = undefined;

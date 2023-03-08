@@ -1,4 +1,4 @@
-import { buildLinks, buildMetas } from '../utils';
+import { buildLinks, buildMetas } from '../utils/index.js';
 import {
   fetchSEOMetadata,
   getSEOMetadataError,
@@ -14,9 +14,9 @@ import {
 } from '@farfetch/blackout-client';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { AppIconLinks, Link, Meta } from '../types';
-import type { UseSeoMetadataOptions } from './types/useSeoMetadataOptions.types';
+import useAction from '../../helpers/useAction.js';
+import type { AppIconLinks, Link, Meta } from '../types/index.js';
+import type { UseSeoMetadataOptions } from './types/useSeoMetadataOptions.types.js';
 
 /**
  * Hook to return seo metadata to populate document head.

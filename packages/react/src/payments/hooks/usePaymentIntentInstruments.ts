@@ -11,7 +11,7 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type {
   Config,
   PaymentInstrument,
@@ -19,7 +19,7 @@ import type {
   PostPaymentIntentInstrumentData,
   PutPaymentIntentInstrumentData,
 } from '@farfetch/blackout-client';
-import type { UsePaymentIntentInstrumentsOptions } from './types';
+import type { UsePaymentIntentInstrumentsOptions } from './types/index.js';
 
 function usePaymentIntentInstruments(
   paymentIntentId?: PaymentIntent['id'],

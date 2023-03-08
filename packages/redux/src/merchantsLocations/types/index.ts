@@ -1,2 +1,2 @@
-export * from './merchantsLocationsActions.types';
-export * from './merchantsLocationsState.types';
+export * from './merchantsLocationsActions.types.js';
+export * from './merchantsLocationsState.types.js';

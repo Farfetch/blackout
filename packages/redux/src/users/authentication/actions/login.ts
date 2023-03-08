@@ -1,4 +1,4 @@
-import { loginFactory } from './factories';
+import { loginFactory } from './factories/index.js';
 import { postLogin } from '@farfetch/blackout-client';
 
 /**

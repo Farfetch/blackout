@@ -1,7 +1,7 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import type { BlackoutError, SizeGuide } from '@farfetch/blackout-client';
-import type { SizeGuidesState } from './types';
+import type { SizeGuidesState } from './types/index.js';
 
 export const INITIAL_STATE: SizeGuidesState = {
   error: null,

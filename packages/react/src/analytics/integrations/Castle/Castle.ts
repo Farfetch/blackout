@@ -39,18 +39,20 @@ import {
   type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
-import identity from 'lodash/identity';
-import isString from 'lodash/isString';
-import pickBy from 'lodash/pickBy';
-import type { AxiosInstance, AxiosRequestConfig } from 'axios';
-import type { CastleIntegrationOptions } from './types';
+import { identity, isString, pickBy } from 'lodash-es';
+import type {
+  AxiosInstance,
+  AxiosRequestHeaders,
+  InternalAxiosRequestConfig,
+} from 'axios';
+import type { CastleIntegrationOptions } from './types/index.js';
 import type {
   ConfigureOptions,
   FormParams,
   PageParams,
   UserParams,
 } from '@castleio/castle-js';
-import type { WebContextType } from '../../context';
+import type { WebContextType } from '../../context.js';
 
 export const CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
@@ -175,12 +177,12 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    * @returns - The modified Axios config object.
    */
   onBeforeRequestFullfil = async (
-    config: AxiosRequestConfig,
-  ): Promise<AxiosRequestConfig> => {
+    config: InternalAxiosRequestConfig, // We have to use `InternalAxiosRequestConfig` since axios is using it as the public type...
+  ): Promise<InternalAxiosRequestConfig> => {
     const requestTokenValue = await this.castleJS.createRequestToken();
 
     if (!config.headers) {
-      config.headers = {};
+      config.headers = {} as AxiosRequestHeaders;
     }
 
     config.headers[this.clientIdHeaderName] = requestTokenValue;

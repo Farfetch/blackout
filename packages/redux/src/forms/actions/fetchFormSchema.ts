@@ -1,4 +1,4 @@
-import { fetchFormSchemaFactory } from './factories';
+import { fetchFormSchemaFactory } from './factories/index.js';
 import { getFormSchema } from '@farfetch/blackout-client';
 
 /**

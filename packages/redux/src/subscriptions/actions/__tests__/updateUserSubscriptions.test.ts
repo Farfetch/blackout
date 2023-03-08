@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
-import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions';
-import { mockStore } from '../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
+import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { putSubscriptions } from '@farfetch/blackout-client';
-import { updateUserSubscriptions } from '..';
-import find from 'lodash/find';
-import reducer from '../../reducer';
+import { updateUserSubscriptions } from '../index.js';
+import reducer from '../../reducer/index.js';
 
 jest.mock('@farfetch/blackout-client', () => {
   return {

@@ -1,5 +1,5 @@
 /**
  * Bags utils.
  */
-export { default as generateBagItemHash } from './generateBagItemHash';
-export { default as buildBagItem } from './buildBagItem';
+export { default as generateBagItemHash } from './generateBagItemHash.js';
+export { default as buildBagItem } from './buildBagItem.js';

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostWishlistItem,
@@ -6,15 +6,15 @@ import {
   toBlackoutError,
   type Wishlist,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors';
+import { getWishlistId } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
-import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
+import wishlistItemSchema from '../../../entities/schemas/wishlistItem.js';
 import type {
   AddWishlistItemAction,
   WishlistItemActionMetadata,
-} from '../../types';
+} from '../../types/index.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to add an item with

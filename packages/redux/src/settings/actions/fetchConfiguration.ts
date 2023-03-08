@@ -1,4 +1,4 @@
-import { fetchConfigurationFactory } from './factories';
+import { fetchConfigurationFactory } from './factories/index.js';
 import { getConfiguration } from '@farfetch/blackout-client';
 
 /**

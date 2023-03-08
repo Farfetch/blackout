@@ -1,9 +1,9 @@
 import {
   customContentTypeWithEventDate,
   customContentTypeWithMultipleCodes,
-} from 'tests/__fixtures__/contents';
-import { SortContentOption } from '../../types/base.types';
-import sortContentType from '../sortContentType';
+} from 'tests/__fixtures__/contents/index.mjs';
+import { SortContentOption } from '../../types/base.types.js';
+import sortContentType from '../sortContentType.js';
 
 describe('sortContentType', () => {
   it('should sort by the most recent publication', () => {

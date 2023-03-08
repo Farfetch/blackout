@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Configurations } from '../types';
+import type { Configurations } from '../types/index.js';
 
 const path = '/api/settings/v1/configurations';
 

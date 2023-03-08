@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostUserPersonalId,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
   type UserPersonalIdPartial,
 } from '@farfetch/blackout-client';
-import type { CreateUserPersonalIdAction } from '../../types/actions.types';
+import type { CreateUserPersonalIdAction } from '../../types/actions.types.js';
 import type { Dispatch } from 'redux';
 
 /**

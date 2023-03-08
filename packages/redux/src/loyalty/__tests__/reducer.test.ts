@@ -1,7 +1,7 @@
-import * as actionTypes from '../actionTypes';
-import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes';
-import reducer, * as fromReducer from '../reducer';
-import type { LoyaltyState } from '../types';
+import * as actionTypes from '../actionTypes.js';
+import { LOGOUT_SUCCESS } from '../../users/authentication/actionTypes.js';
+import reducer, * as fromReducer from '../reducer.js';
+import type { LoyaltyState } from '../types/index.js';
 
 let initialState: LoyaltyState;
 const subAreas = {

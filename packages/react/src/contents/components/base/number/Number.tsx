@@ -1,5 +1,5 @@
 import React, { type ReactElement } from 'react';
-import type { NumberComponent } from '../../../types';
+import type { NumberComponent } from '../../../types/index.js';
 
 const Number = ({
   data: { value: number },

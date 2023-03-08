@@ -1,13 +1,12 @@
-import { buildQueryStringFromObject } from '../helpers';
-import { contentEntries } from '../entities/schemas/content';
-import { generateContentHash } from './utils';
-import { INITIAL_STATE_CONTENT } from './reducer';
+import { buildQueryStringFromObject } from '../helpers/index.js';
+import { contentEntries } from '../entities/schemas/content.js';
+import { generateContentHash } from './utils.js';
+import { get, merge } from 'lodash-es';
+import { INITIAL_STATE_CONTENT } from './reducer.js';
 import { normalize } from 'normalizr';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
 import parse from 'url-parse';
-import type { ContentsState } from './types';
-import type { ServerInitialState } from '../types/serverInitialState.types';
+import type { ContentsState } from './types/index.js';
+import type { ServerInitialState } from '../types/serverInitialState.types.js';
 
 /**
  * Converts server data from searchContents to store state.

@@ -1,5 +1,5 @@
-import { isEmpty } from 'lodash';
-import type { AppIconLinks, Link, Meta } from '../types';
+import { isEmpty } from 'lodash-es';
+import type { AppIconLinks, Link, Meta } from '../types/index.js';
 import type {
   HrefLangs,
   Metatag,

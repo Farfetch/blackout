@@ -1,4 +1,4 @@
-import { fetchProductAttributesFactory } from './factories';
+import { fetchProductAttributesFactory } from './factories/index.js';
 import { getProductAttributes } from '@farfetch/blackout-client';
 
 /**

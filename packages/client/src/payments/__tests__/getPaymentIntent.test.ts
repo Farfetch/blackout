@@ -1,8 +1,11 @@
-import { getPaymentIntent } from '..';
-import { id, mockFetchIntentResponse } from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPaymentIntent.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getPaymentIntent } from '../index.js';
+import {
+  id,
+  mockFetchIntentResponse,
+} from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPaymentIntent.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getPaymentIntent', () => {
   const expectedConfig = undefined;

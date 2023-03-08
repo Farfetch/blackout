@@ -1,11 +1,11 @@
-import { buildWishlistItem } from '../';
+import { buildWishlistItem } from '..//index.js';
 import {
   mockMerchantId,
   mockProduct,
   mockProductEntity,
   mockProductId,
   mockProductSizeAdapted,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('buildWishlistItem()', () => {
   it('should return a valid wishlist item object with merchantId and size', () => {

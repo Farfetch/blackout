@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BagItem,
@@ -9,8 +9,11 @@ import type {
   PostBagItemData,
   ProductCategory,
 } from '@farfetch/blackout-client';
-import type { BagNormalized } from '../types';
-import type { MerchantEntity, ProductEntity } from '../../entities/types';
+import type { BagNormalized } from '../types/index.js';
+import type {
+  MerchantEntity,
+  ProductEntity,
+} from '../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
 
 export type BagItemActionMetadata = {

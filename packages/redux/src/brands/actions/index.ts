@@ -2,6 +2,6 @@
  * Brands actions.
  */
 
-export { default as fetchBrand } from './fetchBrand';
-export { default as fetchBrands } from './fetchBrands';
-export { default as resetBrandsState } from './resetBrandsState';
+export { default as fetchBrand } from './fetchBrand.js';
+export { default as fetchBrands } from './fetchBrands.js';
+export { default as resetBrandsState } from './resetBrandsState.js';

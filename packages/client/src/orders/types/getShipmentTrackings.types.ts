@@ -1,5 +1,5 @@
-import type { Config } from '../..';
-import type { ShipmentTrackings } from './tracking.types';
+import type { Config } from '../../index.js';
+import type { ShipmentTrackings } from './tracking.types.js';
 
 export type GetShipmentTrackings = (
   trackingCodes: string,

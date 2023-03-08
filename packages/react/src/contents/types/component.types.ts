@@ -1,5 +1,5 @@
 import type { ComponentType } from '@farfetch/blackout-client';
-import type { DefaultMedia } from './base.types';
+import type { DefaultMedia } from './base.types.js';
 
 export interface ComponentProps {
   component: ComponentType;

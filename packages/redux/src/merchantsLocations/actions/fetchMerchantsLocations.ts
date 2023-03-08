@@ -1,4 +1,4 @@
-import { fetchMerchantsLocationsFactory } from './factories';
+import { fetchMerchantsLocationsFactory } from './factories/index.js';
 import { getMerchantsLocations } from '@farfetch/blackout-client';
 
 /**

@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { Currency } from './currencies';
+import type { Config } from '../../types/index.js';
+import type { Currency } from './currencies.js';
 
 export type Country = {
   code: string;

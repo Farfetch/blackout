@@ -34,13 +34,13 @@ import {
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useUser } from '../../users';
-import useAction from '../../helpers/useAction';
-import useCheckoutOrderCharge from './useCheckoutOrderCharge';
-import useCheckoutOrderDetails from './useCheckoutOrderDetails';
-import useCollectPoints from './useCollectPoints';
-import usePaymentIntentInstruments from '../../payments/hooks/usePaymentIntentInstruments';
-import type { UseCheckoutOptions } from './types';
+import { useUser } from '../../users/index.js';
+import useAction from '../../helpers/useAction.js';
+import useCheckoutOrderCharge from './useCheckoutOrderCharge.js';
+import useCheckoutOrderDetails from './useCheckoutOrderDetails.js';
+import useCollectPoints from './useCollectPoints.js';
+import usePaymentIntentInstruments from '../../payments/hooks/usePaymentIntentInstruments.js';
+import type { UseCheckoutOptions } from './types/index.js';
 
 /**
  * Provides facilities to manage a checkout order.

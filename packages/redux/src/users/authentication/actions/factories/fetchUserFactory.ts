@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetUser,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchUserAction } from '../../types';
+import type { FetchUserAction } from '../../types/index.js';
 
 /**
  * Fetch the user data.

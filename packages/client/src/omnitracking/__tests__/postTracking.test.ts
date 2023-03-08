@@ -1,7 +1,7 @@
-import { postTracking } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postTracking.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { postTracking } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postTracking.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('postTracking()', () => {
   const expectedConfig = undefined;

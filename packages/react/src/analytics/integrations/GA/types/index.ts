@@ -6,7 +6,7 @@ import type {
   TrackTypes,
   TrackTypesValues,
 } from '@farfetch/blackout-analytics';
-import type { Schema } from '../../shared/types/shared.types';
+import type { Schema } from '../../shared/types/shared.types.js';
 
 export type GACommand = [command: string, ...args: unknown[]];
 export type GACommandList = GACommand[];

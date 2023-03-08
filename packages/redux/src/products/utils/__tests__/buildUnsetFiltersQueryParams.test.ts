@@ -1,6 +1,6 @@
 import buildUnsetFiltersQueryParams, {
   PRICE_FACET_KEY,
-} from '../buildUnsetFiltersQueryParams';
+} from '../buildUnsetFiltersQueryParams.js';
 
 describe('buildUnsetFiltersQueryParams', () => {
   it('should build the result when removing a filter', () => {

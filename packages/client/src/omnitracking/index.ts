@@ -1,7 +1,7 @@
 /**
  * Trackings client.
  */
-export { default as postTracking } from './postTracking';
-export { default as postBatchTrackings } from './postBatchTrackings';
+export { default as postTracking } from './postTracking.js';
+export { default as postBatchTrackings } from './postBatchTrackings.js';
 
-export * from './types';
+export * from './types/index.js';

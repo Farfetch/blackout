@@ -1,4 +1,4 @@
-import { fetchCheckoutOrderDetailsFactory } from './factories';
+import { fetchCheckoutOrderDetailsFactory } from './factories/index.js';
 import { getCheckoutOrderDetails } from '@farfetch/blackout-client';
 
 /**

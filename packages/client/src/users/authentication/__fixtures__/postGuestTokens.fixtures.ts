@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { GuestToken } from '../types';
+import type { GuestToken } from '../types/index.js';
 
 const path = '/api/authentication/v1/guestTokens';
 

@@ -1,5 +1,5 @@
 import { deleteSubscription } from '@farfetch/blackout-client';
-import { unsubscribeSubscriptionFactory } from './factories';
+import { unsubscribeSubscriptionFactory } from './factories/index.js';
 
 /**
  * Method responsible for unsubscribing from subscription that was made for the

@@ -1,4 +1,4 @@
-import type { Product } from './product.types';
+import type { Product } from './product.types.js';
 
 export enum OnlineState {
   NotOnline,

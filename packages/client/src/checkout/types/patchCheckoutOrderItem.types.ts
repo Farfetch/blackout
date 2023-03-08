@@ -1,6 +1,6 @@
-import type { CheckoutOrder } from './checkoutOrder.types';
-import type { CheckoutOrderItem } from './checkoutOrderItem.types';
-import type { Config } from '../../types';
+import type { CheckoutOrder } from './checkoutOrder.types.js';
+import type { CheckoutOrderItem } from './checkoutOrderItem.types.js';
+import type { Config } from '../../types/index.js';
 
 export type PatchCheckoutOrderItemData = {
   /** Checkout order item quantity */

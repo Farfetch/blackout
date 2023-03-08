@@ -1,6 +1,6 @@
-import type { CheckoutOrder } from './checkoutOrder.types';
-import type { CheckoutOrderOperation } from './checkoutOrderOperation.types';
-import type { Config, PagedResponse } from '../../types';
+import type { CheckoutOrder } from './checkoutOrder.types.js';
+import type { CheckoutOrderOperation } from './checkoutOrderOperation.types.js';
+import type { Config, PagedResponse } from '../../types/index.js';
 
 export type GetCheckoutOrderOperationsQuerySort =
   | 'createdDate:desc'

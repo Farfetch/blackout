@@ -1,12 +1,12 @@
-import type { CategorisedAddress } from '../../types/common/address.types';
+import type { CategorisedAddress } from '../../types/common/address.types.js';
 import type {
   Order,
   OrderItem,
   RefundPaymentType,
   ReturnOptionType,
-} from '../../orders';
-import type { ReturnItem } from './returnItem.types';
-import type { User } from '../../users/authentication/types/user.types';
+} from '../../orders/index.js';
+import type { ReturnItem } from './returnItem.types.js';
+import type { User } from '../../users/authentication/types/user.types.js';
 
 export enum ReturnReferenceName {
   ReturnNote = 'ReturnNote',

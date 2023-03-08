@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { PutBagPromocodes } from './types';
+import type { PutBagPromocodes } from './types/index.js';
 
 /**
  * Method responsible for set list of promocodes in the bag.

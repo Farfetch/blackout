@@ -6,7 +6,7 @@ import type {
   TokenContext,
   UserToken,
 } from '@farfetch/blackout-client';
-import type { ErrorData } from '../hooks/useUserAuthState';
+import type { ErrorData } from '../hooks/useUserAuthState.js';
 
 export interface AuthenticationContextProps {
   activeTokenData?: UserToken | null;

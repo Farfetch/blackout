@@ -1,8 +1,8 @@
-import { getEntityById } from '../../entities/selectors';
-import { getError, getIsLoading } from '../reducer/category';
+import { getEntityById } from '../../entities/selectors/index.js';
+import { getError, getIsLoading } from '../reducer/category.js';
 import type { Category } from '@farfetch/blackout-client';
-import type { CategoryState } from '../types';
-import type { StoreState } from '../../types';
+import type { CategoryState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Retrieves the error status of a category by its id.

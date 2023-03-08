@@ -8,10 +8,10 @@ import {
   rescheduleRequestId,
   responses,
   returnId,
-} from 'tests/__fixtures__/returns';
-import { useReturnPickupRescheduleRequest } from '../../..';
-import flushPromises from 'tests/flushPromises';
-import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests';
+} from 'tests/__fixtures__/returns/index.mjs';
+import { useReturnPickupRescheduleRequest } from '../../../index.js';
+import flushPromises from 'tests/flushPromises.mjs';
+import useReturnPickupRescheduleRequests from '../useReturnPickupRescheduleRequests.js';
 
 const mockReturnPickupRescheduleResponse =
   responses.getReturnPickupRescheduleRequest.success;

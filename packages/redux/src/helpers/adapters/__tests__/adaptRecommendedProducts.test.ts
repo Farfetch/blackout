@@ -1,4 +1,4 @@
-import adaptRecommendedProducts from '../adaptRecommendedProducts';
+import adaptRecommendedProducts from '../adaptRecommendedProducts.js';
 
 describe('adaptRecommendedProducts()', () => {
   it('should get product adapted with no values', () => {

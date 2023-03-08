@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetProductAttributes } from './types';
+import type { GetProductAttributes } from './types/index.js';
 
 /**
  * Method responsible for loading the product attributes for a specific product id.

@@ -1,18 +1,17 @@
-import { ANALYTICS_UNIQUE_EVENT_ID } from './utils/constants';
+import { ANALYTICS_UNIQUE_EVENT_ID } from './utils/constants.js';
+import { get, merge } from 'lodash-es';
 import {
   getContextDefaults,
   LOAD_INTEGRATION_TRACK_TYPE,
   logger,
   ON_SET_USER_TRACK_TYPE,
   StorageWrapper,
-} from './utils';
-import { Integration } from './integrations';
-import { v4 as uuidv4 } from 'uuid';
-import Consent from './Consent';
-import get from 'lodash/get';
-import merge from 'lodash/merge';
-import TrackTypes from './types/TrackTypes';
-import User from './User';
+} from './utils/index.js';
+import { Integration } from './integrations/index.js';
+import Consent from './Consent.js';
+import TrackTypes from './types/TrackTypes.js';
+import User from './User.js';
+import uuid from 'uuid';
 import type {
   ConsentData,
   ContextData,
@@ -30,8 +29,8 @@ import type {
   UseContextFn,
   UserData,
   UserTraits,
-} from './types/analytics.types';
-import type { Storage } from './utils/types';
+} from './types/analytics.types.js';
+import type { Storage } from './utils/types/index.js';
 
 /**
  * Track user's journey across websites.
@@ -687,7 +686,7 @@ class Analytics {
     Object.assign(context, {
       event: {
         ...eventContext,
-        [ANALYTICS_UNIQUE_EVENT_ID]: uuidv4(),
+        [ANALYTICS_UNIQUE_EVENT_ID]: uuid(),
       },
     });
 

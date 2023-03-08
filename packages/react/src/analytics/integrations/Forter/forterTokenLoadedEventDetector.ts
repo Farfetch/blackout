@@ -1,5 +1,5 @@
-import { ForterTokenReadyEvent } from './constants';
-import get from 'lodash/get';
+import { ForterTokenReadyEvent } from './constants.js';
+import { get } from 'lodash-es';
 
 /**
  * Class that represents a detector for the forter token loaded event.
@@ -60,7 +60,7 @@ export default class ForterTokenLoadedEventDetector {
       );
     } else {
       document.addEventListener(ForterTokenReadyEvent, function (event) {
-        const eventDetail = get(event, 'detail', {});
+        const eventDetail = get(event, 'detail', '');
 
         callback(eventDetail);
       });

@@ -5,8 +5,8 @@ import {
   productResult,
   productResultWithStock,
   productWithQuantity,
-} from './__fixtures__';
-import structuredProduct from '../structuredProduct';
+} from './__fixtures__/index.js';
+import structuredProduct from '../structuredProduct.js';
 
 const seller = 'Seller';
 

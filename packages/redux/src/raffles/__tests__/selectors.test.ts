@@ -1,5 +1,5 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as selectors from '../selectors.js';
 import {
   mockFetchRaffleNormalizedPayload,
   mockFetchRaffleParticipationsNormalizedPayload,
@@ -10,9 +10,9 @@ import {
   mockRafflesState,
   participationId,
   raffleId,
-} from 'tests/__fixtures__/raffles';
+} from 'tests/__fixtures__/raffles/index.mjs';
 import { type RafflesQuery, RaffleStatus } from '@farfetch/blackout-client';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 describe('Raffles redux selectors', () => {
   afterEach(() => {

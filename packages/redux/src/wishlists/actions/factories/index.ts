@@ -3,14 +3,14 @@
  */
 
 // Wishlists
-export { default as fetchWishlistFactory } from './fetchWishlistFactory';
-export { default as addWishlistItemFactory } from './addWishlistItemFactory';
-export { default as removeWishlistItemFactory } from './removeWishlistItemFactory';
-export { default as updateWishlistItemFactory } from './updateWishlistItemFactory';
+export { default as fetchWishlistFactory } from './fetchWishlistFactory.js';
+export { default as addWishlistItemFactory } from './addWishlistItemFactory.js';
+export { default as removeWishlistItemFactory } from './removeWishlistItemFactory.js';
+export { default as updateWishlistItemFactory } from './updateWishlistItemFactory.js';
 
 // Wishlists sets
-export { default as fetchWishlistSetsFactory } from './fetchWishlistSetsFactory';
-export { default as addWishlistSetFactory } from './addWishlistSetFactory';
-export { default as removeWishlistSetFactory } from './removeWishlistSetFactory';
-export { default as fetchWishlistSetFactory } from './fetchWishlistSetFactory';
-export { default as updateWishlistSetFactory } from './updateWishlistSetFactory';
+export { default as fetchWishlistSetsFactory } from './fetchWishlistSetsFactory.js';
+export { default as addWishlistSetFactory } from './addWishlistSetFactory.js';
+export { default as removeWishlistSetFactory } from './removeWishlistSetFactory.js';
+export { default as fetchWishlistSetFactory } from './fetchWishlistSetFactory.js';
+export { default as updateWishlistSetFactory } from './updateWishlistSetFactory.js';

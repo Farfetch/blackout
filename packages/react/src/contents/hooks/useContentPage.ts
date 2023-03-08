@@ -9,13 +9,13 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type {
   ComponentType,
   ContentPageType,
   QueryContentPage,
 } from '@farfetch/blackout-client';
-import type { UseContentPageOptions } from './types/useContentPage.types';
+import type { UseContentPageOptions } from './types/useContentPage.types.js';
 
 const useContentPage = <T = [ComponentType]>(
   contentPagesType: ContentPageType,

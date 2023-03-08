@@ -1,10 +1,10 @@
-import type { Config } from '../../types';
+import type { Config } from '../../types/index.js';
 import type {
   Program,
   ProgramMembership,
   ProgramMembershipStatement,
   ProgramMembershipStatementCategory,
-} from '.';
+} from './index.js';
 
 export type GetProgramMembershipStatementsQuery = {
   category?: ProgramMembershipStatementCategory;

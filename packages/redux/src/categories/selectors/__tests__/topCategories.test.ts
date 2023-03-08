@@ -1,11 +1,11 @@
-import * as fromTopCategories from '../../reducer/topCategories';
-import * as selectors from '../topCategories';
+import * as fromTopCategories from '../../reducer/topCategories.js';
+import * as selectors from '../topCategories.js';
 import {
   mockCategoriesLoadingState,
   mockCategoriesState,
   mockChildrenCategories,
   mockTopCategories,
-} from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/categories/index.mjs';
 import type { Category } from '@farfetch/blackout-client';
 
 describe('categories redux selectors', () => {

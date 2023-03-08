@@ -1,7 +1,7 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { Config } from '../../types';
-import type { GetUser } from './types/getUser.types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { Config } from '../../types/index.js';
+import type { GetUser } from './types/getUser.types.js';
 
 /**
  * Method responsible for fetching the logged user data.

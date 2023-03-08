@@ -1,19 +1,19 @@
-import * as actionTypes from '../../actionTypes';
-import { addBagItem } from '..';
-import { getCallError } from 'tests/getCallError';
-import { INITIAL_STATE } from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { addBagItem } from '../index.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockBagId,
   mockBagItemData,
   mockNormalizedPayload,
   mockResponse,
   mockState,
-} from 'tests/__fixtures__/bags';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/bags/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { postBagItem } from '@farfetch/blackout-client';
-import find from 'lodash/find';
+import getCallError from 'tests/getCallError.mjs';
 import thunk from 'redux-thunk';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

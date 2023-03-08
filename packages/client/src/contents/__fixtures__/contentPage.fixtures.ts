@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ContentPage } from '../types';
+import type { ContentPage } from '../types/index.js';
 
 const path = '/api/wl/v1/content/pages/LISTING';
 

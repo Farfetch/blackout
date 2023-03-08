@@ -1,5 +1,5 @@
-import type { FacetType } from './facetTypeEnum.types';
-import type { FacetValue } from './facetValue.types';
+import type { FacetType } from './facetTypeEnum.types.js';
+import type { FacetValue } from './facetValue.types.js';
 
 export enum FacetGroupFormat {
   Autocomplete = 'autocomplete',

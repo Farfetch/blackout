@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
-import { mockPasswordRecoverData } from 'tests/__fixtures__/users';
-import { mockStore } from '../../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
+import { mockPasswordRecoverData } from 'tests/__fixtures__/users/index.mjs';
+import { mockStore } from '../../../../../tests/index.js';
 import { postPasswordRecover } from '@farfetch/blackout-client';
-import { recoverPassword } from '../..';
-import find from 'lodash/find';
-import reducer from '../../reducer';
+import { recoverPassword } from '../../index.js';
+import reducer from '../../reducer.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

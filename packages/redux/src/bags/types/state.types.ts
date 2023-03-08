@@ -3,7 +3,7 @@ import type {
   BagOperation,
   BlackoutError,
 } from '@farfetch/blackout-client';
-import type { BagNormalized } from '../types';
+import type { BagNormalized } from '../types/index.js';
 import type { CombinedState } from 'redux';
 
 export type BagItemsState = CombinedState<{

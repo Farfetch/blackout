@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   mockStaffMember,
   mockStaffMemberId,
-} from 'tests/__fixtures__/staffMembers';
+} from 'tests/__fixtures__/staffMembers/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { INITIAL_STATE } from '../reducer';
-import type { StaffMembersState } from '../types';
+import reducer, { INITIAL_STATE } from '../reducer.js';
+import type { StaffMembersState } from '../types/index.js';
 
 const mockAction = { type: 'foo' };
 const meta = { id: mockStaffMemberId };

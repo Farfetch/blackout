@@ -1,4 +1,4 @@
-import type { TokenKinds } from '../token-providers';
+import type { TokenKinds } from '../token-providers/index.js';
 
 /**
  * Options that can be applied to the axios config object and will be used by the

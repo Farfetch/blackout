@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetRaffleEstimation,
@@ -8,7 +8,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import raffleEstimationsSchema from '../../../entities/schemas/raffleEstimations';
+import raffleEstimationsSchema from '../../../entities/schemas/raffleEstimations.js';
 import type { Dispatch } from 'redux';
 
 /**

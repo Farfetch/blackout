@@ -1,4 +1,4 @@
-import type { CountryAddress } from '../../types';
+import type { CountryAddress } from '../../types/index.js';
 
 export enum ReturnOptionType {
   Courier = 'Courier',

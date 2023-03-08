@@ -3,12 +3,12 @@ import {
   type IntegrationOptions,
   type LoadIntegrationEventData,
   type StrippedDownAnalytics,
-} from '../..';
-import { Integration } from '..';
+} from '../../index.js';
+import { Integration } from '../index.js';
 import {
   loadIntegrationData as loadData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
+} from 'tests/__fixtures__/analytics/index.mjs';
 
 const constructorSpy = jest.fn();
 

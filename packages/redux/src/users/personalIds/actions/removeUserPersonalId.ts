@@ -1,5 +1,5 @@
 import { deleteUserPersonalId } from '@farfetch/blackout-client';
-import { removeUserPersonalIdFactory } from './factories';
+import { removeUserPersonalIdFactory } from './factories/index.js';
 
 /**
  * Removes a personal id.

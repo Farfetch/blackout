@@ -1,1 +1,1 @@
-export * from './getUserBenefits.types';
+export * from './getUserBenefits.types.js';

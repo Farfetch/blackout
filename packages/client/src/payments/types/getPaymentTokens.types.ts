@@ -1,5 +1,5 @@
-import type { Config, IndexSignature } from '../../types';
-import type { PaymentTokens } from '.';
+import type { Config, IndexSignature } from '../../types/index.js';
+import type { PaymentTokens } from './index.js';
 
 export type GetPaymentTokensQuery = IndexSignature<
   number | boolean | undefined

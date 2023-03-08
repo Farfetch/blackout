@@ -1,14 +1,17 @@
 import { createSelector } from 'reselect';
-import { getEntities, getEntityById } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
 import {
   getReturnDetails as getReturnDetailsFromReducer,
   getReturnPickupCapabilities as getReturnPickupCapabilitiesFromReducer,
-} from './reducer';
-import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash';
+} from './reducer.js';
+import generateReturnPickupCapabilityHash from './helpers/generateReturnPickupCapabilityHash.js';
 import type { Return, ReturnItem } from '@farfetch/blackout-client';
-import type { ReturnEntityDenormalized, ReturnItemEntity } from '../entities';
-import type { ReturnsState } from './types';
-import type { StoreState } from '../types';
+import type {
+  ReturnEntityDenormalized,
+  ReturnItemEntity,
+} from '../entities/index.js';
+import type { ReturnsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the 'returns' entities from the application state.

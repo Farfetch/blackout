@@ -1,4 +1,4 @@
-import type { Config, Order, OrderDocument } from '../..';
+import type { Config, Order, OrderDocument } from '../../index.js';
 
 export type GetOrderDocument = (
   id: Order['id'],

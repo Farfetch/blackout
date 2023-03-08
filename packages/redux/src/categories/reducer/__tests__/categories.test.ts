@@ -1,8 +1,8 @@
-import * as actionTypes from '../../actionTypes';
-import * as fromReducer from '../categories';
+import * as actionTypes from '../../actionTypes.js';
+import * as fromReducer from '../categories.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer from '../../reducer';
-import type { CategoriesState } from '../../types';
+import reducer from '../../reducer/index.js';
+import type { CategoriesState } from '../../types/index.js';
 
 let initialState: CategoriesState;
 const randomAction = { type: 'this_is_a_random_action' };

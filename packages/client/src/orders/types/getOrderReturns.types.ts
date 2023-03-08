@@ -1,5 +1,5 @@
-import type { Config, Order } from '../..';
-import type { Return } from '../../returns/types';
+import type { Config, Order } from '../../index.js';
+import type { Return } from '../../returns/types/index.js';
 
 export type GetOrderReturns = (
   id: Order['id'],

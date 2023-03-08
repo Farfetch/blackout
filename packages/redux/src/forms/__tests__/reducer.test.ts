@@ -1,6 +1,6 @@
-import * as fromReducer from '../reducer';
-import { formsActionTypes, formsReducer } from '..';
-import type { FormsState } from '../types';
+import * as fromReducer from '../reducer.js';
+import { formsActionTypes, formsReducer } from '../index.js';
+import type { FormsState } from '../types/index.js';
 
 let initialState: FormsState;
 const randomAction = { type: 'this_is_a_random_action' };

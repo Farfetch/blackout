@@ -1,9 +1,12 @@
-import { mockGetContactResponse, userId } from 'tests/__fixtures__/users';
-import { postUserContact } from '..';
-import { UserContactType } from '../types';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postUserContact.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import {
+  mockGetContactResponse,
+  userId,
+} from 'tests/__fixtures__/users/index.mjs';
+import { postUserContact } from '../index.js';
+import { UserContactType } from '../types/index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postUserContact.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postUserContact', () => {
   const expectedConfig = undefined;

@@ -2,9 +2,12 @@ import type {
   AttributesAdapted,
   DateCreatedAdapted,
   PriceAdapted,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 import type { SharedWishlistItem as OriginalSharedWishlistItem } from '@farfetch/blackout-client';
-import type { ProductEntity, ProductEntityDenormalized } from './product.types';
+import type {
+  ProductEntity,
+  ProductEntityDenormalized,
+} from './product.types.js';
 
 export type SharedWishlistItemEntity = {
   attributes?: OriginalSharedWishlistItem['attributes'];

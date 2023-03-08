@@ -2,12 +2,12 @@
  * Bags clients.
  */
 
-export { default as getBag } from './getBag';
-export { default as deleteBagItem } from './deleteBagItem';
-export { default as patchBagItem } from './patchBagItem';
-export { default as postBagItem } from './postBagItem';
-export { default as getBagOperation } from './getBagOperation';
-export { default as getBagOperations } from './getBagOperations';
-export { default as putBagPromocodes } from './putBagPromocodes';
+export { default as getBag } from './getBag.js';
+export { default as deleteBagItem } from './deleteBagItem.js';
+export { default as patchBagItem } from './patchBagItem.js';
+export { default as postBagItem } from './postBagItem.js';
+export { default as getBagOperation } from './getBagOperation.js';
+export { default as getBagOperations } from './getBagOperations.js';
+export { default as putBagPromocodes } from './putBagPromocodes.js';
 
-export * from './types';
+export * from './types/index.js';

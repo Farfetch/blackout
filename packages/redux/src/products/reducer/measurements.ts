@@ -1,9 +1,9 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import createMergedObject from '../../helpers/createMergedObject';
-import type { ProductEntity } from '../../entities';
-import type { ProductsMeasurementsState } from '../types';
-import type { StoreState } from '../../types';
+import createMergedObject from '../../helpers/createMergedObject.js';
+import type { ProductEntity } from '../../entities/index.js';
+import type { ProductsMeasurementsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 export const INITIAL_STATE: ProductsMeasurementsState = {
   error: {},

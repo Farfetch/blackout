@@ -1,5 +1,5 @@
-import * as fromWishlist from '../../reducer/wishlists';
-import * as selectors from '..';
+import * as fromWishlist from '../../reducer/wishlists.js';
+import * as selectors from '../index.js';
 import {
   mockProductId,
   mockWishlistId,
@@ -7,10 +7,10 @@ import {
   mockWishlistNormalizedPayload,
   mockWishlistSetId,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
-import { mockProductsEntity } from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import { mockProductsEntity } from 'tests/__fixtures__/products/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import type { ProductEntity } from '../../../entities';
+import type { ProductEntity } from '../../../entities/index.js';
 
 describe('wishlists redux selectors', () => {
   const wishlistItemEntity =

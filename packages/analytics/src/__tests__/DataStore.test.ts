@@ -1,4 +1,4 @@
-import DataStore from '../DataStore';
+import DataStore from '../DataStore.js';
 
 describe('DataStore', () => {
   const dataStore = new DataStore();

@@ -1,12 +1,12 @@
-import { getStaffMember } from '../';
+import { getStaffMember } from '..//index.js';
 import {
   mockStaffMember,
   mockStaffMemberId,
-} from 'tests/__fixtures__/staffMembers';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getStaffMember.fixtures';
+} from 'tests/__fixtures__/staffMembers/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getStaffMember.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getStaffMember', () => {
   const spy = jest.spyOn(client, 'get');

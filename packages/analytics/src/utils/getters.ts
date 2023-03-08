@@ -1,4 +1,4 @@
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import type {
   AnalyticsProduct,
   EventData,
@@ -6,7 +6,7 @@ import type {
   LoadIntegrationEventData,
   SetUserEventData,
   TrackTypesValues,
-} from '../types/analytics.types';
+} from '../types/analytics.types.js';
 import type URLParse from 'url-parse';
 
 export const getEvent = (data: EventData<TrackTypesValues>): string => {
@@ -106,5 +106,7 @@ export const getLocation = (
     | SetUserEventData
     | LoadIntegrationEventData,
 ): URLParse<Record<string, string | undefined>> => {
-  return get(data, 'context.web.window.location', {});
+  return get(data, 'context.web.window.location', {}) as URLParse<
+    Record<string, string | undefined>
+  >;
 };

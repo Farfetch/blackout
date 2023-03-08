@@ -1,6 +1,6 @@
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { ProductsListEntity } from '../../../entities/types';
+import type { ProductsListEntity } from '../../../entities/types/index.js';
 
 export type ProductsListsState = CombinedState<{
   error: Record<ProductsListEntity['hash'], BlackoutError | undefined>;

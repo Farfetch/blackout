@@ -1,10 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { contentTypesResult, types } from 'tests/__fixtures__/contents';
-import { fetchContentTypes } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import {
+  contentTypesResult,
+  types,
+} from 'tests/__fixtures__/contents/index.mjs';
+import { fetchContentTypes } from '../index.js';
+import { find } from 'lodash-es';
 import { getContentTypes } from '@farfetch/blackout-client';
-import { INITIAL_STATE_CONTENT } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE_CONTENT } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

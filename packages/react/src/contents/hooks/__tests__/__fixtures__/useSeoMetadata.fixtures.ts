@@ -1,4 +1,4 @@
-import { mockBuildIconLinksResult } from '../../../utils/__tests__/__fixtures__/metadata';
+import { mockBuildIconLinksResult } from '../../../utils/__tests__/__fixtures__/metadata.js';
 import { SeoPageType, SeoSubPageType } from '@farfetch/blackout-client';
 
 export const mockInitialState = {

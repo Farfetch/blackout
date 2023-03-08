@@ -6,8 +6,8 @@ import {
   TrackTypes,
   type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
-import get from 'lodash/get';
-import type { RiskifiedIntegrationOptions } from './types';
+import { get } from 'lodash-es';
+import type { RiskifiedIntegrationOptions } from './types/index.js';
 
 class Riskified extends integrations.Integration<RiskifiedIntegrationOptions> {
   baseUrl!: string;
@@ -84,7 +84,7 @@ class Riskified extends integrations.Integration<RiskifiedIntegrationOptions> {
   override track(data: EventData<TrackTypesValues>) {
     switch (data.type) {
       case TrackTypes.PAGE:
-        this.trackPage(get(data, 'context.web.window.location.href'));
+        this.trackPage(get(data, 'context.web.window.location.href', ''));
     }
   }
 

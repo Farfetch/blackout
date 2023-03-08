@@ -1,21 +1,21 @@
-import { ANALYTICS_UNIQUE_EVENT_ID, logger } from '../utils';
-import { Integration } from '../integrations';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
-import { PACKAGE_NAME } from '../utils/constants';
-import Analytics from '../';
-import EventTypes from '../types/EventTypes';
-import flushPromises from 'tests/flushPromises';
-import PageTypes from '../types/PageTypes';
+import { ANALYTICS_UNIQUE_EVENT_ID, logger } from '../utils/index.js';
+import { Integration } from '../integrations/index.js';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import { PACKAGE_NAME } from '../utils/constants.js';
+import Analytics from '..//index.js';
+import EventTypes from '../types/EventTypes.js';
+import flushPromises from 'tests/flushPromises.mjs';
+import PageTypes from '../types/PageTypes.js';
 import TestStorage from 'test-storage';
-import TrackTypes from '../types/TrackTypes';
+import TrackTypes from '../types/TrackTypes.js';
 import type {
   ConsentData,
   IntegrationOptions,
   LoadIntegrationEventData,
   StrippedDownAnalytics,
   UserData,
-} from '../types/analytics.types';
-import type { Storage } from '../utils/types';
+} from '../types/analytics.types.js';
+import type { Storage } from '../utils/types/index.js';
 
 // Example integration that overrides the createInstance method
 class MyIntegration<T extends IntegrationOptions> extends Integration<T> {

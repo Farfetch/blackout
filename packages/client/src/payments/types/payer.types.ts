@@ -1,7 +1,7 @@
 import type {
   AddressBase,
   PaymentAddress,
-} from '../../types/common/address.types';
+} from '../../types/common/address.types.js';
 
 export type Payer = {
   id: string;

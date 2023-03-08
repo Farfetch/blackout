@@ -1,4 +1,4 @@
-import type { SearchSuggestionType } from './searchSuggestion.types';
+import type { SearchSuggestionType } from './searchSuggestion.types.js';
 
 export type SearchDidYouMeanSuggestion = {
   suggestion: string;

@@ -1,10 +1,10 @@
-import type { BreadCrumb } from './breadCrumb.types';
-import type { FacetGroup } from './facetGroup.types';
-import type { FacetType } from './facetTypeEnum.types';
-import type { FilterSegment } from './filterSegment.types';
-import type { GenderCode, PagedResponse } from '../../types';
-import type { ProductSummary } from './productSummary.types';
-import type { ShoppingConfig } from './shoppingConfig.types';
+import type { BreadCrumb } from './breadCrumb.types.js';
+import type { FacetGroup } from './facetGroup.types.js';
+import type { FacetType } from './facetTypeEnum.types.js';
+import type { FilterSegment } from './filterSegment.types.js';
+import type { GenderCode, PagedResponse } from '../../types/index.js';
+import type { ProductSummary } from './productSummary.types.js';
+import type { ShoppingConfig } from './shoppingConfig.types.js';
 
 export enum SearchRedirect {
   Stopwords = 0,

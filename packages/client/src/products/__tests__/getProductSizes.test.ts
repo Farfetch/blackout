@@ -1,8 +1,11 @@
-import { getProductSizes } from '..';
-import { mockProductId, mockProductSizes } from 'tests/__fixtures__/products';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getProductSizes.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getProductSizes } from '../index.js';
+import {
+  mockProductId,
+  mockProductSizes,
+} from 'tests/__fixtures__/products/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getProductSizes.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getProductSizes', () => {
   const expectedConfig = undefined;

@@ -1,5 +1,5 @@
-import { buildFacetTree } from '..';
-import { mockFacetsNormalized } from 'tests/__fixtures__/products';
+import { buildFacetTree } from '../index.js';
+import { mockFacetsNormalized } from 'tests/__fixtures__/products/index.mjs';
 
 const mockFacets = Object.values(mockFacetsNormalized);
 

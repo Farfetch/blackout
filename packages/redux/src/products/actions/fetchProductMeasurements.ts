@@ -1,4 +1,4 @@
-import { fetchProductMeasurementsFactory } from './factories';
+import { fetchProductMeasurementsFactory } from './factories/index.js';
 import { getProductVariantsMeasurements } from '@farfetch/blackout-client';
 
 /**

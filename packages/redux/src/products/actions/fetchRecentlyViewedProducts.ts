@@ -1,4 +1,4 @@
-import { fetchRecentlyViewedProductsFactory } from './factories';
+import { fetchRecentlyViewedProductsFactory } from './factories/index.js';
 import { getRecentlyViewedProducts } from '@farfetch/blackout-client';
 
 /**

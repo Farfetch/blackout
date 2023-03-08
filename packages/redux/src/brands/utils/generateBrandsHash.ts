@@ -1,4 +1,4 @@
-import { buildQueryStringFromObject } from '../../helpers';
+import { buildQueryStringFromObject } from '../../helpers/index.js';
 import type { BrandsQuery } from '@farfetch/blackout-client';
 
 /**

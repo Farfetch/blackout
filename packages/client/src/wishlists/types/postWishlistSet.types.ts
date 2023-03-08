@@ -1,7 +1,7 @@
-import type { Config } from '../..';
-import type { Wishlist } from './wishlist.types';
-import type { WishlistItem } from './wishlistItem.types';
-import type { WishlistSet } from './wishlistSet.types';
+import type { Config } from '../../index.js';
+import type { Wishlist } from './wishlist.types.js';
+import type { WishlistItem } from './wishlistItem.types.js';
+import type { WishlistSet } from './wishlistSet.types.js';
 
 export type PostWishlistSetData = {
   name: string;

@@ -11,9 +11,9 @@ import {
   mockSearchIntentsQuery,
   mockSearchIntentsResponse,
   mockSearchIntentsState,
-} from 'tests/__fixtures__/search';
-import { withStore } from '../../../../tests/helpers';
-import useSearchIntents from '../useSearchIntents';
+} from 'tests/__fixtures__/search/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useSearchIntents from '../useSearchIntents.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

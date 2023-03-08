@@ -1,9 +1,9 @@
 import {
   getAddressPrediction as getAddressPredictionFromReducer,
   getAddressPredictions as getAddressPredictionsFromReducer,
-} from './reducer';
-import type { AddressesState } from './types';
-import type { StoreState } from '../types';
+} from './reducer.js';
+import type { AddressesState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns address predictions.

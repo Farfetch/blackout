@@ -1,8 +1,8 @@
-import { ConfigurationSchemaFieldType } from '../types';
-import { getConfigurations } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getConfigurations.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { ConfigurationSchemaFieldType } from '../types/index.js';
+import { getConfigurations } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getConfigurations.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getConfigurations', () => {
   const expectedConfig = undefined;

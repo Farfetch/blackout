@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type Configurations,
@@ -7,9 +7,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import configurationSchema from '../../../entities/schemas/configuration';
+import configurationSchema from '../../../entities/schemas/configuration.js';
 import type { Dispatch } from 'redux';
-import type { FetchConfigurationsAction } from '../../types';
+import type { FetchConfigurationsAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch all

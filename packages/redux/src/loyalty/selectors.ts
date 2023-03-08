@@ -1,7 +1,7 @@
-import * as fromReducer from './reducer';
-import { getEntities } from '../entities/selectors';
-import type { LoyaltyState } from './types';
-import type { StoreState } from '../types';
+import * as fromReducer from './reducer.js';
+import { getEntities } from '../entities/selectors/index.js';
+import type { LoyaltyState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the user's programs.

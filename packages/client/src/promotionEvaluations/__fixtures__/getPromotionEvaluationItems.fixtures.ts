@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { PromotionEvaluationItem } from '../types';
+import type { PromotionEvaluationItem } from '../types/index.js';
 
 const path =
   '/api/commerce/v1/promotionEvaluations/:promotionEvaluationId/promotionEvaluationItems';

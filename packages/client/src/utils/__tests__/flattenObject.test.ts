@@ -1,4 +1,4 @@
-import flattenObject from '../flattenObject';
+import flattenObject from '../flattenObject.js';
 
 describe('flattenObject', () => {
   beforeEach(jest.clearAllMocks);

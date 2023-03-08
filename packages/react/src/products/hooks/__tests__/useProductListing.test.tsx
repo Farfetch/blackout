@@ -4,8 +4,8 @@ import {
   getSlug,
   resetProductsLists,
 } from '@farfetch/blackout-redux';
-import { mockBrandResponse } from 'tests/__fixtures__/brands';
-import { mockCategory } from 'tests/__fixtures__/categories';
+import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
+import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
 import {
   mockProductsListDenormalizedFacetGroups,
   mockProductsListHash,
@@ -14,11 +14,11 @@ import {
   mockProductsListPathname,
   mockProductsState,
   mockQuery,
-} from 'tests/__fixtures__/products';
-import { ProductListingTypes } from '../types';
+} from 'tests/__fixtures__/products/index.mjs';
+import { ProductListingTypes } from '../types/index.js';
 import { renderHook } from '@testing-library/react';
-import { withStore } from '../../../../tests/helpers';
-import useProductListing from '../useProductListing';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useProductListing from '../useProductListing.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

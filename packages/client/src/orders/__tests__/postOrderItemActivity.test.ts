@@ -1,8 +1,8 @@
-import { orderId, orderItemId } from 'tests/__fixtures__/orders';
-import { OrderItemActivityType, postOrderItemActivity } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postOrderItemActivity.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { orderId, orderItemId } from 'tests/__fixtures__/orders/index.mjs';
+import { OrderItemActivityType, postOrderItemActivity } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postOrderItemActivity.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 

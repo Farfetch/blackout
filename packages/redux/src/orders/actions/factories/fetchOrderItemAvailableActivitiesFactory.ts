@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetOrderItemAvailableActivities,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchOrderItemAvailableActivitiesAction } from '../../types/actions.types';
+import type { FetchOrderItemAvailableActivitiesAction } from '../../types/actions.types.js';
 
 /**
  * Method responsible for fetching order item available activities.

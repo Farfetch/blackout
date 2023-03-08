@@ -1,5 +1,8 @@
-import type { CheckoutOrder, DeliveryBundle, ShippingOption } from '.';
-import type { PaymentMethods, PaymentToken } from '../../payments/types';
+import type { CheckoutOrder, DeliveryBundle, ShippingOption } from './index.js';
+import type {
+  PaymentMethods,
+  PaymentToken,
+} from '../../payments/types/index.js';
 
 export enum OrderStatusError {
   NoError,

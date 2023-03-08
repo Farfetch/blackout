@@ -1,4 +1,4 @@
-import type { GenderCode } from '../../types';
+import type { GenderCode } from '../../types/index.js';
 
 export enum SearchSuggestionType {
   Category = 1,

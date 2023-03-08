@@ -1,9 +1,9 @@
-import { adaptAttributes } from '..';
+import { adaptAttributes } from '../index.js';
 import {
   oneSizeProduct,
   productWithTwoSizes,
   sizeAttributes,
-} from '../__fixtures__/adapters.fixtures';
+} from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptAttributes()', () => {
   it("should return an empty object when doesn't receive sizes", () => {

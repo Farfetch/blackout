@@ -1,4 +1,4 @@
-import type { FacetGroupsNormalized } from '../../entities/types';
+import type { FacetGroupsNormalized } from '../../entities/types/index.js';
 
 /**
  * Get the maximum depth in a bundle of facetGroups.

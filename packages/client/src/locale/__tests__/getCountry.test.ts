@@ -1,12 +1,12 @@
 import {
   mockCountryCode as countryCode,
   mockCountry,
-} from 'tests/__fixtures__/locale';
-import { getCountry } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCountry.fixtures';
+} from 'tests/__fixtures__/locale/index.mjs';
+import { getCountry } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCountry.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('locale client', () => {
   const expectedConfig = undefined;

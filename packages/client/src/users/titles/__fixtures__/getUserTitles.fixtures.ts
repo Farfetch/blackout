@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { UserTitles } from '../types';
+import type { UserTitles } from '../types/index.js';
 
 const path = '/api/account/v1/titles';
 

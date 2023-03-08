@@ -1,3 +1,3 @@
-export * from './searchDidYouMean';
-export * from './searchIntents';
-export * from './searchSuggestions';
+export * from './searchDidYouMean.js';
+export * from './searchIntents.js';
+export * from './searchSuggestions.js';

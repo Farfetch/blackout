@@ -1,6 +1,6 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import { fetchSEOMetadata } from '@farfetch/blackout-redux';
-import { mockDefaultAppLinks } from '../../utils/__tests__/__fixtures__/metadata';
+import { mockDefaultAppLinks } from '../../utils/__tests__/__fixtures__/metadata.js';
 import {
   mockInitialState,
   mockState,
@@ -8,9 +8,9 @@ import {
   query,
   result,
   resultNoSocialMeta,
-} from './__fixtures__/useSeoMetadata.fixtures';
-import { useSeoMetadata } from '..';
-import { withStore } from '../../../../tests/helpers';
+} from './__fixtures__/useSeoMetadata.fixtures.js';
+import { useSeoMetadata } from '../index.js';
+import { withStore } from '../../../../tests/helpers/index.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');

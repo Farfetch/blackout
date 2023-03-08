@@ -8,9 +8,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
+import useAction from '../../helpers/useAction.js';
 import type { Configuration } from '@farfetch/blackout-client';
-import type { UseConfigurationOptions } from './types';
+import type { UseConfigurationOptions } from './types/index.js';
 
 const useConfiguration = (
   configurationCode: Configuration['code'],

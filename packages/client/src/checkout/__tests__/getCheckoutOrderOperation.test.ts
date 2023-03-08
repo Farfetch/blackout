@@ -1,12 +1,12 @@
-import * as checkoutClient from '..';
+import * as checkoutClient from '../index.js';
 import {
   operationId,
   checkoutOrderId as orderId,
-} from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderOperation.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { CheckoutOrderOperation } from '../types';
+} from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderOperation.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { CheckoutOrderOperation } from '../types/index.js';
 
 describe('checkout client', () => {
   beforeEach(() => jest.clearAllMocks());

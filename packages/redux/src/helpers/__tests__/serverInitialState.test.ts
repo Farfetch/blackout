@@ -1,4 +1,4 @@
-import serverInitialState from '../serverInitialState';
+import serverInitialState from '../serverInitialState.js';
 
 describe('serverInitialState()', () => {
   it('should initialise server state', () => {

@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
-import { mockCta, mockImage } from 'tests/__fixtures__/contents';
-import Image from '../components/image';
+import { mockCta, mockImage } from 'tests/__fixtures__/contents/index.mjs';
+import Image from '../components/image/index.js';
 import React from 'react';
 
 describe('<Image />', () => {

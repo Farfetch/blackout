@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ShipmentTrackings } from '../types';
+import type { ShipmentTrackings } from '../types/index.js';
 
 const path = '/api/account/v1/trackings';
 

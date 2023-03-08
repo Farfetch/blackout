@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
-import { returnTimeWindowData as data } from 'tests/__fixtures__/returns';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { returnTimeWindowData as data } from 'tests/__fixtures__/returns/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { patchReturn } from '@farfetch/blackout-client';
-import { updateReturn } from '..';
-import find from 'lodash/find';
+import { updateReturn } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

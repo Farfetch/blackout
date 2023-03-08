@@ -1,13 +1,13 @@
-import type { Attribute, Color, ProductImageGroup } from '../..';
-import type { Brand } from '../../brands/types';
-import type { Label } from '../../types/items/label.types';
+import type { Attribute, Color, ProductImageGroup } from '../../index.js';
+import type { Brand } from '../../brands/types/index.js';
+import type { Label } from '../../types/items/label.types.js';
 import type {
   Price,
   Product,
   ProductVariant,
   Size,
-} from '../../products/types';
-import type { ProductCategory } from '../../categories/types';
+} from '../../products/types/index.js';
+import type { ProductCategory } from '../../categories/types/index.js';
 
 export type SharedWishlistItem = {
   id: number;

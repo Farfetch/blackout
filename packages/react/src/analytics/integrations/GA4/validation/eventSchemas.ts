@@ -25,15 +25,14 @@ import {
   totalSchema,
   valueSchema,
   wishlistIdSchema,
-} from '../../shared/validation/eventSchemas';
+} from '../../shared/validation/eventSchemas.js';
 import {
   EventTypes,
   InteractionTypes,
   PageTypes,
   SignupNewsletterGenderTypes,
 } from '@farfetch/blackout-analytics';
-import isElement from 'lodash/isElement';
-import type { AnySchema } from 'yup';
+import { isElement } from 'lodash-es';
 
 // Error codes
 export const errorCodes = {
@@ -272,7 +271,11 @@ const signupNewsletterSchema = yup.object({
       'gender_invalid_parameter',
       "invalid 'gender' parameter for 'sign_up newsletter' event type. It accepts string or array of strings, but only if one is of Gender Mappings valid value.",
       value => {
-        const validationResult = (schema: AnySchema) => {
+        const schemas = Object.values(
+          signupNewsletterSchemaGenderValidationList,
+        );
+
+        const validationResult = (schema: (typeof schemas)[number]) => {
           try {
             schema.validateSync(value);
 
@@ -282,9 +285,7 @@ const signupNewsletterSchema = yup.object({
           }
         };
 
-        return Object.values(signupNewsletterSchemaGenderValidationList).some(
-          validationResult,
-        );
+        return schemas.some(validationResult);
       },
     ),
 });

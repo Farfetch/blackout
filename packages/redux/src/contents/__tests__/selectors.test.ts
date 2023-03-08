@@ -1,5 +1,5 @@
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   contentHash,
   contentNormalizedPayload,
@@ -9,7 +9,7 @@ import {
   pathname,
   seoQuery,
   seoResponse,
-} from 'tests/__fixtures__/contents';
+} from 'tests/__fixtures__/contents/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 beforeEach(() => {

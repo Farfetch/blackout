@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetShipmentTrackings,
@@ -6,9 +6,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import labelTracking from '../../../entities/schemas/labelTracking';
+import labelTracking from '../../../entities/schemas/labelTracking.js';
 import type { Dispatch } from 'redux';
-import type { FetchShipmentTrackingsAction } from '../../types/actions.types';
+import type { FetchShipmentTrackingsAction } from '../../types/actions.types.js';
 
 /**
  * Fetch all tracking events for the tracking numbers.

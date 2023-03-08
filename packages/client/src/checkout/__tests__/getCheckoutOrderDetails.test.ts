@@ -1,4 +1,4 @@
-import * as checkoutClient from '..';
+import * as checkoutClient from '../index.js';
 import {
   AttributeType,
   type CheckoutOrderDetails,
@@ -11,11 +11,11 @@ import {
   PurchaseChannel,
   ShippingCostType,
   ShippingMode,
-} from '../..';
-import { id } from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderDetails.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from '../../index.js';
+import { id } from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderDetails.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('checkout client', () => {
   const expectedConfig = undefined;

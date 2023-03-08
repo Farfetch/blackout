@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type DeleteRecentlyViewedProduct,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { RemoveRecentlyViewedProductAction } from '../../types';
-import type { RemoveRecentlyViewedProductFactory } from './types';
+import type { RemoveRecentlyViewedProductAction } from '../../types/index.js';
+import type { RemoveRecentlyViewedProductFactory } from './types/index.js';
 
 /**
  * Method to create a thunk factory configured with the specified client for

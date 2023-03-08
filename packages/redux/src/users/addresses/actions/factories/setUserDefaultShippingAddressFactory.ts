@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PutUserDefaultShippingAddress,
@@ -7,7 +7,7 @@ import {
   type UserAddress,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { SetUserDefaultShippingAddressAction } from '../../types';
+import type { SetUserDefaultShippingAddressAction } from '../../types/index.js';
 
 /**
  * Sets the address specified with 'addressId', as the default shipping address.

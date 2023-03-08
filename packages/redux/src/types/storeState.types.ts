@@ -45,8 +45,8 @@ import type {
   UserPreferenceEntity,
   WishlistItemEntity,
   WishlistSetEntity,
-} from '../entities/types';
-import type { AddressesState } from '../addresses/types';
+} from '../entities/types/index.js';
+import type { AddressesState } from '../addresses/types/index.js';
 import type {
   Bag,
   Brand,
@@ -59,32 +59,32 @@ import type {
   ProgramMembership,
   SizeScale,
 } from '@farfetch/blackout-client';
-import type { BagsState } from '../bags/types';
-import type { BrandsState } from '../brands/types';
-import type { CategoriesState } from '../categories/types';
-import type { CheckoutState } from '../checkout/types';
-import type { ConfigurationEntity } from '../entities/types/configurations.types';
-import type { ContentsState } from '../contents/types';
-import type { FormsState } from '../forms/types';
-import type { LocaleState } from '../locale/types';
-import type { LoyaltyState } from '../loyalty/types';
-import type { MerchantsLocationsState } from '../merchantsLocations/types';
-import type { OrdersState } from '../orders/types';
-import type { PaymentsState } from '../payments/types';
-import type { ProductsState } from '../products/types';
-import type { PromotionEvaluationsState } from '../promotionEvaluations/types';
-import type { RaffleEstimationEntity } from '../entities/types/raffleEstimation.types';
-import type { RafflesState } from '../raffles/types';
-import type { ReturnsState } from '../returns/types';
-import type { SearchState } from '../search/types';
-import type { SettingsState } from '../settings/types';
-import type { SharedWishlistState } from '../sharedWishlists/types';
-import type { SizeGuidesState } from '../sizeGuides/types';
-import type { SizeScalesState } from '../sizeScales/types';
-import type { StaffMembersState } from '../staffMembers/types';
-import type { SubscriptionsState } from '../subscriptions';
-import type { UsersState } from '../users/types';
-import type { WishlistsState } from '../wishlists/types';
+import type { BagsState } from '../bags/types/index.js';
+import type { BrandsState } from '../brands/types/index.js';
+import type { CategoriesState } from '../categories/types/index.js';
+import type { CheckoutState } from '../checkout/types/index.js';
+import type { ConfigurationEntity } from '../entities/types/configurations.types.js';
+import type { ContentsState } from '../contents/types/index.js';
+import type { FormsState } from '../forms/types/index.js';
+import type { LocaleState } from '../locale/types/index.js';
+import type { LoyaltyState } from '../loyalty/types/index.js';
+import type { MerchantsLocationsState } from '../merchantsLocations/types/index.js';
+import type { OrdersState } from '../orders/types/index.js';
+import type { PaymentsState } from '../payments/types/index.js';
+import type { ProductsState } from '../products/types/index.js';
+import type { PromotionEvaluationsState } from '../promotionEvaluations/types/index.js';
+import type { RaffleEstimationEntity } from '../entities/types/raffleEstimation.types.js';
+import type { RafflesState } from '../raffles/types/index.js';
+import type { ReturnsState } from '../returns/types/index.js';
+import type { SearchState } from '../search/types/index.js';
+import type { SettingsState } from '../settings/types/index.js';
+import type { SharedWishlistState } from '../sharedWishlists/types/index.js';
+import type { SizeGuidesState } from '../sizeGuides/types/index.js';
+import type { SizeScalesState } from '../sizeScales/types/index.js';
+import type { StaffMembersState } from '../staffMembers/types/index.js';
+import type { SubscriptionsState } from '../subscriptions/index.js';
+import type { UsersState } from '../users/types/index.js';
+import type { WishlistsState } from '../wishlists/types/index.js';
 
 export type StoreState = Partial<{
   // Keep adding/changing here as we migrate chunks

@@ -1,4 +1,4 @@
-import { mockStore } from './redux';
+import { mockStore } from './redux.js';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import React, { type ReactElement, type ReactNode } from 'react';

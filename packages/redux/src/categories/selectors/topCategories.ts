@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { getCategories } from '../../categories';
-import { getError, getIsLoading, getResult } from '../reducer/topCategories';
-import type { CategoriesState } from '../types';
-import type { CategoryEntity } from '../../entities';
-import type { StoreState } from '../../types';
+import { getCategories } from '../../categories/index.js';
+import { getError, getIsLoading, getResult } from '../reducer/topCategories.js';
+import type { CategoriesState } from '../types/index.js';
+import type { CategoryEntity } from '../../entities/index.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Retrieves the error status of top categories.

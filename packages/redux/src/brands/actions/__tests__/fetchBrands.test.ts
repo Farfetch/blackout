@@ -1,17 +1,17 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
-import { fetchBrands } from '../';
+import { fetchBrands } from '..//index.js';
 import { getBrands } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockBrandsNormalizedResponse,
   mockBrandsResponse,
   mockHash,
   mockQuery,
   mockState,
-} from 'tests/__fixtures__/brands';
-import { mockStore } from '../../../../tests';
-import type { StoreState } from '../../../types';
+} from 'tests/__fixtures__/brands/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -1,11 +1,11 @@
-import type * as actionTypes from '../../actionTypes';
+import type * as actionTypes from '../../actionTypes/index.js';
 import type { Action } from 'redux';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type {
   FacetEntity,
   ProductEntity,
   ProductsListEntity,
-} from '../../../entities/types';
+} from '../../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
 
 export type ProductsListActionOptions = {

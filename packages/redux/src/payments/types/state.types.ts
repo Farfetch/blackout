@@ -7,7 +7,10 @@ import type {
   PaymentToken,
 } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { StateWithResult, StateWithResultArray } from '../../types';
+import type {
+  StateWithResult,
+  StateWithResultArray,
+} from '../../types/index.js';
 
 export type PaymentIntentChargeState = PaymentIntentCharge & {
   chargeId: string | null;

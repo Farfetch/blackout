@@ -6,8 +6,8 @@ import {
   type Return,
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
-import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests';
-import type { UseReturnPickupRescheduleRequestOptions } from './types';
+import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests.js';
+import type { UseReturnPickupRescheduleRequestOptions } from './types/index.js';
 
 const actionTypes = {
   FetchPickupRescheduleRequestRequest:

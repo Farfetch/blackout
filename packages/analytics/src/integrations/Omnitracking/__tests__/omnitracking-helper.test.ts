@@ -1,4 +1,7 @@
-import { EventTypes, SignupNewsletterGenderTypes } from '../../../types';
+import {
+  EventTypes,
+  SignupNewsletterGenderTypes,
+} from '../../../types/index.js';
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
@@ -9,14 +12,15 @@ import {
   getPlatformSpecificParameters,
   getProductLineItemsQuantity,
   getValParameterForEvent,
-} from '../omnitracking-helper';
-import { logger } from '../../../utils';
-import PlatformTypes from '../../../types/PlatformTypes';
-import TrackTypes from '../../../types/TrackTypes';
+} from '../omnitracking-helper.js';
+import { logger } from '../../../utils/index.js';
+import PlatformTypes from '../../../types/PlatformTypes.js';
+import TrackTypes from '../../../types/TrackTypes.js';
 import type {
   EventData,
   TrackTypesValues,
-} from '../../../types/analytics.types';
+} from '../../../types/analytics.types.js';
+import type URLParse from 'url-parse';
 
 logger.error = jest.fn();
 
@@ -26,7 +30,11 @@ describe('getPageEventFromLocation', () => {
   });
 
   it('should return null location.href is not set', () => {
-    expect(getPageEventFromLocation({} as Location)).toBeNull();
+    expect(
+      getPageEventFromLocation(
+        {} as URLParse<Record<string, string | undefined>>,
+      ),
+    ).toBeNull();
   });
 });
 

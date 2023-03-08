@@ -1,6 +1,6 @@
 import type { CombinedState } from 'redux';
-import type { RecommendedProductsResultNormalized } from '../../../helpers/adapters';
-import type { StateWithoutResult } from '../../../types';
+import type { RecommendedProductsResultNormalized } from '../../../helpers/adapters/index.js';
+import type { StateWithoutResult } from '../../../types/index.js';
 
 type RecommendedProductsResultsByStrategy = Record<
   string,

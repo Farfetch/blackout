@@ -1,18 +1,15 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes';
+import { assignWith, get, isEqual, mergeWith } from 'lodash-es';
+import { LOGOUT_SUCCESS } from '../users/authentication/actionTypes.js';
 import { produce } from 'immer';
-import assignWith from 'lodash/assignWith';
-import createMergedObject from '../helpers/createMergedObject';
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import mergeWith from 'lodash/mergeWith';
+import createMergedObject from '../helpers/createMergedObject.js';
 import reducerFactory, {
   createReducerWithResult,
-} from '../helpers/reducerFactory';
-import type { CheckoutOrderEntity } from '../entities';
-import type { CheckoutState } from './types';
-import type { StoreState } from '../types';
+} from '../helpers/reducerFactory.js';
+import type { CheckoutEntity, CheckoutOrderEntity } from '../entities/index.js';
+import type { CheckoutState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 export const INITIAL_STATE: CheckoutState = {
   error: null,
@@ -244,7 +241,7 @@ const mergeCheckoutOrder = (
   action: AnyAction,
 ) => {
   const { id } = action.meta;
-  const currentCheckoutOrder = get(state, `checkoutOrders[${id}]`);
+  const currentCheckoutOrder = get(state, `checkoutOrders[${id}]`, {});
 
   return {
     ...state,
@@ -295,7 +292,7 @@ export const entitiesMapper = {
     action: AnyAction,
   ) => {
     const { id } = action.meta;
-    const currentCheckout = get(state, `checkout[${id}]`);
+    const currentCheckout = get(state, `checkout[${id}]`, {}) as CheckoutEntity;
     const { entities } = action.payload;
     const mergedState = createMergedObject(
       state as NonNullable<StoreState['entities']>,

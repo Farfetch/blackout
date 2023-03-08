@@ -1,4 +1,4 @@
-import * as selectors from '../../selectors/searchIntents';
+import * as selectors from '../../selectors/searchIntents.js';
 import {
   mockSearchIntentsErrorState,
   mockSearchIntentsHash,
@@ -6,7 +6,7 @@ import {
   mockSearchIntentsLoadingState,
   mockSearchIntentsResponse,
   mockSearchIntentsState,
-} from 'tests/__fixtures__/search';
+} from 'tests/__fixtures__/search/index.mjs';
 
 beforeEach(() => {
   jest.clearAllMocks();

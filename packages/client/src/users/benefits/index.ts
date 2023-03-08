@@ -1,2 +1,2 @@
-export { default as getUserBenefits } from './getUserBenefits';
-export * from './types';
+export { default as getUserBenefits } from './getUserBenefits.js';
+export * from './types/index.js';

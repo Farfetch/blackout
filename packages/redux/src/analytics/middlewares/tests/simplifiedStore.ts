@@ -4,7 +4,7 @@ import {
   type Middleware,
   type MiddlewareAPI,
 } from 'redux';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 // This is a simplified version of our createEntitiesReducer()
 // This version was used instead, because createEntitiesReducer

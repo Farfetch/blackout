@@ -1,10 +1,10 @@
+import { get } from 'lodash-es';
 import {
   getAreRecommendedProductsLoading,
   getRecommendedProductsErrors,
   getRecommendedProductsResult,
-} from '../reducer/recommendedProducts';
-import get from 'lodash/get';
-import type { StoreState } from '../../types';
+} from '../reducer/recommendedProducts.js';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Checks if product recommendations has error by strategy name.

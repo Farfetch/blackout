@@ -2,8 +2,8 @@ import type {
   CheckoutOrder,
   CheckoutOrderItem,
   GetCheckoutOrderResponse,
-} from '.';
-import type { Config } from '../../types';
+} from './index.js';
+import type { Config } from '../../types/index.js';
 
 export type PutCheckoutOrderItemTags = (
   checkoutOrderId: CheckoutOrder['id'],

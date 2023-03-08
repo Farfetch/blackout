@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { CollectPoint } from '../types';
+import type { CollectPoint } from '../types/index.js';
 
 const path = '/api/checkout/v1/collectpoints';
 

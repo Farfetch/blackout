@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   mockSearchDidYouMeanHash,
   mockSearchDidYouMeanQuery,
   mockSearchDidYouMeanResponse,
-} from 'tests/__fixtures__/search';
-import reducer, { INITIAL_STATE } from '../searchDidYouMean';
+} from 'tests/__fixtures__/search/index.mjs';
+import reducer, { INITIAL_STATE } from '../searchDidYouMean.js';
 
 const randomAction = { type: 'this_is_a_random_action' };
 const hash = mockSearchDidYouMeanHash;

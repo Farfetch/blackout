@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { GuestToken } from './tokens.types';
+import type { Config } from '../../../types/index.js';
+import type { GuestToken } from './tokens.types.js';
 
 interface Data {
   guestUserId?: number;

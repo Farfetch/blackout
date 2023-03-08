@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { GuestUser } from '../types';
+import type { GuestUser } from '../types/index.js';
 
 const path = '/api/account/v1/guestUsers';
 

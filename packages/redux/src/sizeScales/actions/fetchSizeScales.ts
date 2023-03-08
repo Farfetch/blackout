@@ -1,4 +1,4 @@
-import { fetchSizeScalesFactory } from './factories';
+import { fetchSizeScalesFactory } from './factories/index.js';
 import { getSizeScales } from '@farfetch/blackout-client';
 
 /**

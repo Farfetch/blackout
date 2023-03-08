@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { SubmittedFormData } from './submittedFormData.types';
+import type { Config } from '../../types/index.js';
+import type { SubmittedFormData } from './submittedFormData.types.js';
 
 export type PostFormData = (
   schemaCode: string,

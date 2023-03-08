@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProductVariantMerchantsLocations,
@@ -6,11 +6,11 @@ import {
   type ProductVariantMerchantLocation,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { getProduct } from '../../selectors/product';
+import { getProduct } from '../../selectors/product.js';
 import { normalize } from 'normalizr';
-import productSchema from '../../../entities/schemas/product';
+import productSchema from '../../../entities/schemas/product.js';
 import type { Dispatch } from 'redux';
-import type { StoreState } from '../../../types';
+import type { StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch the

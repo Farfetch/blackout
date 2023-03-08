@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type CheckoutOrder,
   type Config,
@@ -8,10 +8,10 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import checkoutSchema from '../../../entities/schemas/checkout';
+import checkoutSchema from '../../../entities/schemas/checkout.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument } from '../../../types/getOptionsArgument.types';
-import type { StoreState } from '../../../types/storeState.types';
+import type { GetOptionsArgument } from '../../../types/getOptionsArgument.types.js';
+import type { StoreState } from '../../../types/storeState.types.js';
 
 /**
  * Method responsible for changing the checkout information. This is used for any

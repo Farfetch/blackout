@@ -1,4 +1,4 @@
-import { buildBagItem, generateBagItemHash } from './utils';
+import { buildBagItem, generateBagItemHash } from './utils/index.js';
 import { createSelector } from 'reselect';
 import {
   getAreBagPromocodesLoading,
@@ -12,10 +12,9 @@ import {
   getBagOperationError as getOperationError,
   getBagPromocodesError as getPromocodesError,
   getResult,
-} from './reducer';
-import { getEntities, getEntityById } from '../entities/selectors';
-import isEqual from 'lodash/isEqual';
-import omit from 'lodash/omit';
+} from './reducer.js';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
+import { isEqual, omit } from 'lodash-es';
 import type {
   BagItem,
   BagOperation,
@@ -28,10 +27,13 @@ import type {
   CategoryEntity,
   ProductEntity,
   ProductEntityDenormalized,
-} from '../entities/types';
-import type { BagsState } from './types';
-import type { CustomAttributesAdapted, SizeAdapted } from '../helpers/adapters';
-import type { StoreState } from '../types';
+} from '../entities/types/index.js';
+import type { BagsState } from './types/index.js';
+import type {
+  CustomAttributesAdapted,
+  SizeAdapted,
+} from '../helpers/adapters/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves current user's bag.

@@ -12,14 +12,14 @@ import {
   mockState,
   orderEntityDenormalized,
   orderId,
-} from 'tests/__fixtures__/orders/orders.fixtures';
+} from 'tests/__fixtures__/orders/orders.fixtures.mjs';
 import {
   mockUserInitialState,
   mockUsersResponse,
-} from 'tests/__fixtures__/users';
-import { Orders } from './__fixtures__/Orders.fixtures';
-import { withStore, wrap } from '../../../../tests/helpers';
-import useOrders from '../useOrders';
+} from 'tests/__fixtures__/users/index.mjs';
+import { Orders } from './__fixtures__/Orders.fixtures.js';
+import { withStore, wrap } from '../../../../tests/helpers/index.js';
+import useOrders from '../useOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => {

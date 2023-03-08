@@ -32,7 +32,7 @@ import {
   SET_USER_FN_KEY,
   SET_USER_KEY,
   SET_USER_TYPE,
-} from './constants';
+} from './constants.js';
 import {
   type ConsentData,
   utils as coreUtils,
@@ -44,21 +44,18 @@ import {
   type StrippedDownAnalytics,
   type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
-import { getContextParameters, getUserParameters } from './utils';
-import eventSchemas from '../shared/validation/eventSchemas';
-import eventsMapper from './eventsMapper';
-import eventValidator from '../shared/validation/eventValidator';
-import get from 'lodash/get';
-import gtmTag from './gtmTag';
-import isEqual from 'lodash/isEqual';
-import isPlainObject from 'lodash/isPlainObject';
-import merge from 'lodash/merge';
+import { get, isEqual, isPlainObject, merge } from 'lodash-es';
+import { getContextParameters, getUserParameters } from './utils.js';
+import eventSchemas from '../shared/validation/eventSchemas.js';
+import eventsMapper from './eventsMapper.js';
+import eventValidator from '../shared/validation/eventValidator.js';
+import gtmTag from './gtmTag.js';
 import type {
   EventMappers,
   GTMEventData,
   GTMIntegrationOptions,
-} from './types';
-import type { Schemas } from '../GA';
+} from './types/index.js';
+import type { Schemas } from '../GA/index.js';
 
 /**
  * GTM Integration.

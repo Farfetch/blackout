@@ -1,5 +1,5 @@
-import type { Config, Return } from '../..';
-import type { ReturnPickupCapability } from './returnPickupCapability.types';
+import type { Config, Return } from '../../index.js';
+import type { ReturnPickupCapability } from './returnPickupCapability.types.js';
 
 export type GetReturnPickupCapability = (
   returnId: Return['id'],

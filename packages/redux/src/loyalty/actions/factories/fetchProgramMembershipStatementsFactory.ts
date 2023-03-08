@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetProgramMembershipStatements,
@@ -9,9 +9,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import statementSchema from '../../../entities/schemas/statement';
+import statementSchema from '../../../entities/schemas/statement.js';
 import type { Dispatch } from 'redux';
-import type { FetchProgramMembershipStatementsAction } from '../../types';
+import type { FetchProgramMembershipStatementsAction } from '../../types/index.js';
 
 /**
  * Load program membership statements.

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetReturn,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import returnSchema from '../../../entities/schemas/return';
+import returnSchema from '../../../entities/schemas/return.js';
 import type { Dispatch } from 'redux';
 
 /**

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Translations } from '../types';
+import type { Translations } from '../types/index.js';
 
 const path = '/api/language/v1/search/translations';
 

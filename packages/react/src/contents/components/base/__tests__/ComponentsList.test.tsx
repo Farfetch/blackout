@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import ComponentsList from '../componentsList/ComponentsList';
+import ComponentsList from '../componentsList/ComponentsList.js';
 import React from 'react';
 
 const location = {

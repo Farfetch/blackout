@@ -10,7 +10,7 @@
  * split the tests in different files for different environments.
  */
 
-import * as defaults from '../defaults';
+import * as defaults from '../defaults.js';
 
 describe('Defaults', () => {
   it('Should export an empty object when calling getContextDefaults() if window is not defined', () => {

@@ -1,8 +1,8 @@
-import { getTopCategories } from '..';
-import { mockTopCategories } from 'tests/__fixtures__/categories';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getTopCategories.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getTopCategories } from '../index.js';
+import { mockTopCategories } from 'tests/__fixtures__/categories/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getTopCategories.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getTopCategories()', () => {
   const expectedConfig = undefined;

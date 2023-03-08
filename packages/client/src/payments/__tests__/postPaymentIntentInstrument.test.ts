@@ -2,7 +2,7 @@ import {
   address,
   id,
   mockPaymentIntentInstrumentResponse as response,
-} from 'tests/__fixtures__/payments';
+} from 'tests/__fixtures__/payments/index.mjs';
 import {
   type Amounts,
   type CreatePaymentInstrumentData,
@@ -10,11 +10,12 @@ import {
   PayerAddressType,
   PaymentMethod,
   ShopperInteraction,
-} from '../types';
-import { postPaymentIntentInstrument } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/postPaymentIntentInstrument.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from '../types/index.js';
+import { postPaymentIntentInstrument } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postPaymentIntentInstrument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { AxiosResponse } from 'axios';
 
 describe('postPaymentIntentInstrument', () => {
   const expectedConfig = undefined;
@@ -59,7 +60,7 @@ describe('postPaymentIntentInstrument', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(response));
+    mswServer.use(fixtures.success(response as unknown as AxiosResponse));
 
     await expect(postPaymentIntentInstrument(id, data)).resolves.toMatchObject(
       response,

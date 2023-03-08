@@ -1,6 +1,6 @@
 import { ChargeStatus } from '@farfetch/blackout-client/src/payments';
 import { CheckoutOrderStatus } from '@farfetch/blackout-client/src/checkout/types';
-import isCheckoutOrderConfirmed from '../isCheckoutOrderConfirmed';
+import isCheckoutOrderConfirmed from '../isCheckoutOrderConfirmed.js';
 
 describe('isCheckoutOrderConfirmed', () => {
   it('should return true when either order charge status is completed or order status is created', () => {

@@ -4,6 +4,8 @@ Modules to manage the application global state.
 
 ## Installation
 
+The current version (1.x) requires at least Node 14.
+
 **yarn**
 
 ```sh
@@ -22,11 +24,45 @@ Make sure that you have installed the correct peer dependencies of this package:
 
 - [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
 - [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
-- [`lodash`](https://www.npmjs.com/package/lodash)
+- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
 - [`redux`](https://www.npmjs.com/package/redux)
 - [`redux-thunk`](https://www.npmjs.com/package/redux-thunk)
 - [`immer`](https://www.npmjs.com/package/immer)
 - [`reselect`](https://www.npmjs.com/package/reselect)
+
+### Configuration
+
+**IMPORTANT** This package is a Pure ESM package which means it cannot be `require()`'d from CommonJS. If you cannot change to ESM or want to keep using Commonjs, consider using the `import()` function to load the modules from this package asynchronously.
+
+#### Webpack
+
+- If it is necessary to transpile the package, add a specific loader for it:
+
+  ```js
+  // Webpack example
+  config.module.rules.push({
+    test: /\.jsx?$/,
+    // This will add all @farfetch packages and lodash-es package which are ESM only
+    include: [/node_modules\/(@farfetch|lodash-es)/],
+    use: [
+      {
+        loader: 'babel-loader',
+        options: myBabelConfig,
+      },
+    ],
+    // If using webpack 5, you might need this depending on the transformations used
+    resolve: { fullySpecified: false },
+  });
+  ```
+
+#### Jest
+
+- In order to support unit tests via jest, it is necessary to transpile the package to Commonjs by adding the following value to the `transformIgnorePatterns` option in Jest configuration:
+
+```js
+// jest.config.js
+transformIgnorePatterns: ['/node_modules/(?!(@farfetch|lodash-es)).+\\.js$'];
+```
 
 ## Usage
 
@@ -35,59 +71,40 @@ Update your store to include the reducers and entities, like the example below:
 ```js
 // Typically in `store/buildStore.js`
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { bagMiddleware } from '@farfetch/blackout-redux/analytics/middlewares';
-import { entitiesMapperReducer } from '@farfetch/blackout-redux/entities';
-import bag from '@farfetch/blackout-redux/bags';
+import {
+  analyticsMiddlewares,
+  bagsReducer,
+  createDefaultEntitiesReducer,
+  productsReducer,
+} from '@farfetch/blackout-redux';
+import { analytics } from '@farfetch/blackout-react';
 import otherScopeReducer from './other-scope';
-import products from '@farfetch/blackout-redux';
 
 // Create your reducer based on a combination of other reducers and entities
 const reducers = combineReducers({
-  bag,
-  entities: entitiesMapperReducer(),
-  products,
+  bags: bagsReducer,
+  entities: createDefaultEntitiesReducer([]),
+  products: productsReducer,
   otherScope: otherScopeReducer,
 });
-const middlewares = [bagMiddleware()];
+
+const middlewares = [
+  analyticsMiddlewares.setUser(analytics),
+  analyticsMiddlewares.bag(analytics),
+  analyticsMiddlewares.wishlist(analytics),
+];
+
 const store = createStore(reducers, applyMiddleware(...middlewares));
 ```
 
-With the store configured, you just need to import and use what you need
+With the store configured, you just need to import and use what you need. All imports should be done from the root of the package like in the following example:
 
 ```js
 // Fetching the bag
-import { fetchBag } from '@farfetch/blackout-redux/bags';
+import { fetchBag } from '@farfetch/blackout-redux';
 
 fetchBag(bagId);
 ```
-
-### Additional configuration
-
-Since this package is published in its original structure, all the source code is contained in a `src` folder. This means you might need additional configurations:
-
-- In order to have friendly imports (`@farfetch/blackout-redux` vs `@farfetch/blackout-redux/src`), you probably want to add aliases
-
-  ```js
-  // Webpack example
-  config.resolve.alias = {
-    '@farfetch/blackout-redux': '@farfetch/blackout-redux/src',
-  };
-  ```
-
-- In order to have your project running, you probably need a specific loader
-  ```js
-  // Webpack example
-  config.module.rules.push({
-    test: /\.jsx?$/,
-    include: [/node_modules\/@farfetch\/blackout-redux/],
-    use: [
-      {
-        loader: 'babel-loader',
-        options: myBabelConfig,
-      },
-    ],
-  });
-  ```
 
 ## Contributing
 

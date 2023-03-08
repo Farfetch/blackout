@@ -1,6 +1,6 @@
-import type { Config } from '../../types';
-import type { GetTranslationsQuery } from './getTranslationsQuery.type';
-import type { Translations } from './translations.type';
+import type { Config } from '../../types/index.js';
+import type { GetTranslationsQuery } from './getTranslationsQuery.type.js';
+import type { Translations } from './translations.type.js';
 
 export type GetTranslations = (
   query: GetTranslationsQuery,

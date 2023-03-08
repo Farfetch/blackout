@@ -1,4 +1,4 @@
-import type { RaffleStatus } from './raffles.types';
+import type { RaffleStatus } from './raffles.types.js';
 
 export type RafflesQuery = {
   status?: RaffleStatus;

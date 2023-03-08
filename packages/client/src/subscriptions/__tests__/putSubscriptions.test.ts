@@ -1,8 +1,8 @@
-import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions';
-import { putSubscriptions } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/putSubscriptions.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { mockPutSubscriptions } from 'tests/__fixtures__/subscriptions/index.mjs';
+import { putSubscriptions } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putSubscriptions.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('putSubscriptions', () => {
   const spy = jest.spyOn(client, 'put');

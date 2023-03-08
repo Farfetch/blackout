@@ -2,12 +2,12 @@ import type {
   AttributesAdapted,
   PriceAdapted,
   ProductImagesAdapted,
-} from '../../helpers/adapters';
+} from '../../helpers/adapters/index.js';
 import type { CheckoutOrderItem } from '@farfetch/blackout-client';
 import type {
   CheckoutOrderItemProductEntityDenormalized,
   MerchantEntity,
-} from '..';
+} from '../index.js';
 
 export type CheckoutOrderItemEntity = Omit<
   CheckoutOrderItem,

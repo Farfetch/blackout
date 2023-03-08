@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import {
   type BlackoutError,
   toBlackoutError,
   type UserAttribute,
 } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { UserAttributesState } from '../../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { UserAttributesState } from '../../types/index.js';
 
 let initialState: UserAttributesState;
 

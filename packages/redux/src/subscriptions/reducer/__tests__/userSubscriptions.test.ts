@@ -1,5 +1,5 @@
-import * as actionTypes from '../../actionTypes';
-import { authenticationActionTypes } from '../../../users/authentication';
+import * as actionTypes from '../../actionTypes.js';
+import { authenticationActionTypes } from '../../../users/authentication/index.js';
 import {
   mockRecipientId1TopicId1,
   mockRecipientId2,
@@ -8,7 +8,7 @@ import {
   mockTopicId1,
   mockTopicId2,
   mockUserSubscriptionsState,
-} from 'tests/__fixtures__/subscriptions';
+} from 'tests/__fixtures__/subscriptions/index.mjs';
 import reducer, {
   getUnsubscribeRecipientFromTopicRequests,
   getUpdateSubscriptionsError,
@@ -16,9 +16,9 @@ import reducer, {
   getUserSubscriptionsError,
   getUserSubscriptionsIsLoading,
   INITIAL_STATE,
-} from '../userSubscriptions';
+} from '../userSubscriptions.js';
 import type { BlackoutError, Subscription } from '@farfetch/blackout-client';
-import type { SubscriptionsState } from '../../types';
+import type { SubscriptionsState } from '../../types/index.js';
 
 const initialState: SubscriptionsState['user'] = INITIAL_STATE;
 const randomAction = { type: 'this_is_a_random_action' };

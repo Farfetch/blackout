@@ -1,4 +1,4 @@
-import TokenProvider from '../TokenProvider';
+import TokenProvider from '../TokenProvider.js';
 
 class MyTokenProvider extends TokenProvider {}
 

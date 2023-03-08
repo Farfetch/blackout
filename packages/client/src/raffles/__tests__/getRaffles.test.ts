@@ -1,8 +1,8 @@
-import { mockRafflesResponse } from 'tests/__fixtures__/raffles';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getRaffles.fixtures';
-import getRaffles from '../getRaffles';
-import mswServer from '../../../tests/mswServer';
+import { mockRafflesResponse } from 'tests/__fixtures__/raffles/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getRaffles.fixtures.js';
+import getRaffles from '../getRaffles.js';
+import mswServer from '../../../tests/mswServer.js';
 
 const expectedConfig = undefined;
 

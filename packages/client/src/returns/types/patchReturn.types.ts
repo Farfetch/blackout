@@ -1,4 +1,4 @@
-import type { Config, Return } from '../..';
+import type { Config, Return } from '../../index.js';
 
 export type PatchReturnData = {
   start: string;

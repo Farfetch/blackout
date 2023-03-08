@@ -1,8 +1,8 @@
-import { adaptGroupingProperties } from '..';
+import { adaptGroupingProperties } from '../index.js';
 import {
   mockProductGroupingProperties,
   mockProductGroupingPropertiesAdapted,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('adaptGroupingProperties()', () => {
   it("should return undefined when doesn't receive groupingProperties", () => {

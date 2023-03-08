@@ -1,5 +1,5 @@
-import * as fromUsers from '../reducer';
-import * as selectors from '../selectors';
+import * as fromUsers from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   addressId2,
   expectedBenefitsNormalizedPayload,
@@ -11,7 +11,7 @@ import {
   expectedPreferencesNormalizedPayload,
   expectedTitlesNormalizedPayload,
   mockUserInitialState,
-} from 'tests/__fixtures__/users';
+} from 'tests/__fixtures__/users/index.mjs';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 describe('users redux selectors', () => {

@@ -1,11 +1,11 @@
-import { getPromotionEvaluationItems } from '..';
+import { getPromotionEvaluationItems } from '../index.js';
 import {
   mockPromotionEvaluationId,
   mockPromotionEvaluationsItemsResponse,
-} from 'tests/__fixtures__/promotionEvaluations';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPromotionEvaluationItems.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/promotionEvaluations/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPromotionEvaluationItems.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getPromotionEvaluationItems()', () => {
   const expectedConfig = undefined;

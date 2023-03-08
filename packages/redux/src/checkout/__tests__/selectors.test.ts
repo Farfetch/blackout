@@ -1,6 +1,6 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   type BlackoutError,
   DeliveryWindowType,
@@ -21,7 +21,7 @@ import {
   operation,
   productId,
   shippingOption,
-} from 'tests/__fixtures__/checkout';
+} from 'tests/__fixtures__/checkout/index.mjs';
 import type { Nullable, StoreState } from '@farfetch/blackout-redux';
 
 describe('checkout redux selectors', () => {

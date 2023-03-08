@@ -1,5 +1,5 @@
-import { generateSearchIntentsHash } from '..';
-import { mockSearchIntentsQuery } from 'tests/__fixtures__/search';
+import { generateSearchIntentsHash } from '../index.js';
+import { mockSearchIntentsQuery } from 'tests/__fixtures__/search/index.mjs';
 
 describe('generateSearchIntentsHash()', () => {
   it('should generate an hash', () => {

@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type FormSchema,
   type GetFormSchema,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchFormSchemaAction } from '../../types';
-import type { FetchFormSchemaFactory } from './types';
+import type { FetchFormSchemaAction } from '../../types/index.js';
+import type { FetchFormSchemaFactory } from './types/index.js';
 
 /**
  * Method to create a thunk factory configured with the specified client fo fetch

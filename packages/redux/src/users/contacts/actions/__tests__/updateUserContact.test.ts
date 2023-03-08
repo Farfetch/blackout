@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { contactId, userId } from 'tests/__fixtures__/users';
-import { INITIAL_STATE } from '../../../reducer';
-import { mockStore } from '../../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { contactId, userId } from 'tests/__fixtures__/users/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import {
   patchUserContact,
   type PatchUserContactOperation,
 } from '@farfetch/blackout-client';
-import { updateUserContact } from '..';
-import find from 'lodash/find';
+import { updateUserContact } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

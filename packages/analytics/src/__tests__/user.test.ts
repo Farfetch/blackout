@@ -1,7 +1,7 @@
-import { mockUsersResponse } from 'tests/__fixtures__/users';
-import { StorageWrapper } from '../utils';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import { StorageWrapper } from '../utils/index.js';
 import TestStorage from 'test-storage';
-import User from '../User';
+import User from '../User.js';
 
 describe('User', () => {
   let userInstance: User;

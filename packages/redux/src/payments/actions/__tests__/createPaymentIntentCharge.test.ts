@@ -1,16 +1,16 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   chargeId,
   paymentIntentChargeData as data,
   intentId,
   mockCharge,
   mockChargeWithoutHeaders,
-} from 'tests/__fixtures__/payments';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/payments/index.mjs';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { postPaymentIntentCharge } from '@farfetch/blackout-client';
-import createPaymentIntentCharge from '../createPaymentIntentCharge';
-import find from 'lodash/find';
+import createPaymentIntentCharge from '../createPaymentIntentCharge.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

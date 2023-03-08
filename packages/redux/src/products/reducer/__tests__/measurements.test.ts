@@ -1,17 +1,20 @@
 import {
   mockProductId,
   mockProductVariantsMeasurements,
-} from 'tests/__fixtures__/products';
-import { productsActionTypes, type ProductsMeasurementsState } from '../..';
+} from 'tests/__fixtures__/products/index.mjs';
+import {
+  productsActionTypes,
+  type ProductsMeasurementsState,
+} from '../../index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
   getError,
   getIsLoading,
   INITIAL_STATE,
-} from '../measurements';
-import type { ProductEntity } from '../../../entities';
-import type { StoreState } from '../../../types';
+} from '../measurements.js';
+import type { ProductEntity } from '../../../entities/index.js';
+import type { StoreState } from '../../../types/index.js';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };

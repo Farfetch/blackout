@@ -1,5 +1,5 @@
-import EventTypes from '../EventTypes';
-import PageTypes from '../PageTypes';
+import EventTypes from '../EventTypes.js';
+import PageTypes from '../PageTypes.js';
 
 it('Should validate if event and page do not have same values', () => {
   const eventValues = Object.values(EventTypes);

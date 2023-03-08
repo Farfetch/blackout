@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import { deleteSharedWishlist } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockSharedWishlistId,
   mockSharedWishlistState,
-} from 'tests/__fixtures__/sharedWishlists';
-import { mockStore } from '../../../../tests';
-import { removeSharedWishlist } from '..';
+} from 'tests/__fixtures__/sharedWishlists/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { removeSharedWishlist } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

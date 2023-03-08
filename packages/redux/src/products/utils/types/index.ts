@@ -1,2 +1,2 @@
-export * from './generateProductsListHash.types';
-export * from './getSelectedSortOption.types';
+export * from './generateProductsListHash.types.js';
+export * from './getSelectedSortOption.types.js';

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PutUserPreferences,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import userPreferencesSchema from '../../../../entities/schemas/preference';
+import userPreferencesSchema from '../../../../entities/schemas/preference.js';
 import type { Dispatch } from 'redux';
 
 /**

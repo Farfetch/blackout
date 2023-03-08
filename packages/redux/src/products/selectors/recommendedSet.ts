@@ -1,7 +1,11 @@
-import { getError, getIsLoading, getResult } from '../reducer/recommendedSet';
-import type { ProductsState } from '../types';
+import {
+  getError,
+  getIsLoading,
+  getResult,
+} from '../reducer/recommendedSet.js';
+import type { ProductsState } from '../types/index.js';
 import type { RecommendedSet } from '@farfetch/blackout-client';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 
 /**
  * Returns the recommended set with out of stock loading condition.

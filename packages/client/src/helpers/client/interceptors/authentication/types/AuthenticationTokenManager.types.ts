@@ -1,5 +1,5 @@
-import type { AuthenticationConfigOptions } from './AuthenticationConfigOptions.types';
-import type { Config } from '../../../../../types';
+import type { AuthenticationConfigOptions } from './AuthenticationConfigOptions.types.js';
+import type { Config } from '../../../../../types/index.js';
 
 interface CurrentRetry {
   currentRetry?: number;

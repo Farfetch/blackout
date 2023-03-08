@@ -1,8 +1,8 @@
-import { getTranslations } from '../';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getTranslations.fixtures';
+import { getTranslations } from '..//index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getTranslations.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getTranslations', () => {
   const expectedConfig = undefined;

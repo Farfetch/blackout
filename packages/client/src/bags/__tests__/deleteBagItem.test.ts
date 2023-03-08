@@ -1,12 +1,12 @@
-import { deleteBagItem } from '../';
+import { deleteBagItem } from '..//index.js';
 import {
   mockBagId,
   mockBagItemId,
   mockResponse,
-} from 'tests/__fixtures__/bags';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deleteBagItem.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/bags/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteBagItem.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deleteBagItem', () => {
   const expectedConfig = undefined;

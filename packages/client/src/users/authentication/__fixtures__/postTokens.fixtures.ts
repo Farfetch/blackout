@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Token } from '../types';
+import type { Token } from '../types/index.js';
 
 const path = '/api/authentication/v1/tokens';
 

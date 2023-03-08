@@ -1,4 +1,4 @@
-import type { OrderItem } from '../../orders';
+import type { OrderItem } from '../../orders/index.js';
 
 export enum ReturnItemStatus {
   Created = 'Created',

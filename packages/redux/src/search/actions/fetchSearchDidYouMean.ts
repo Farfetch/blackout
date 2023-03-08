@@ -1,4 +1,4 @@
-import { fetchSearchDidYouMeanFactory } from './factories';
+import { fetchSearchDidYouMeanFactory } from './factories/index.js';
 import { getSearchDidYouMean } from '@farfetch/blackout-client';
 
 /**

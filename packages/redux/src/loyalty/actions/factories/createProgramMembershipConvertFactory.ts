@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type PostProgramMembershipConvert,
@@ -8,8 +8,8 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import convertSchema from '../../../entities/schemas/convert';
-import type { CreateProgramMembershipConvertAction } from '../../types';
+import convertSchema from '../../../entities/schemas/convert.js';
+import type { CreateProgramMembershipConvertAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
 
 /**

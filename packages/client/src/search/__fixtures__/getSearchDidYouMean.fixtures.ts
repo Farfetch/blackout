@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { SearchDidYouMeanSuggestion } from '../types';
+import type { SearchDidYouMeanSuggestion } from '../types/index.js';
 
 const path = '/api/commerce/v1/search/didyoumean';
 

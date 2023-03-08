@@ -1,9 +1,9 @@
-import * as checkoutClient from '..';
-import { deliveryBundleId, id } from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleProvisioning.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { ItemDeliveryProvisioning } from '../types';
+import * as checkoutClient from '../index.js';
+import { deliveryBundleId, id } from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleProvisioning.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { ItemDeliveryProvisioning } from '../types/index.js';
 
 describe('getCheckoutOrderDeliveryBundleProvisioning', () => {
   beforeEach(() => jest.clearAllMocks());

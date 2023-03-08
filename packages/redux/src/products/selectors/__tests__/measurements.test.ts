@@ -1,9 +1,9 @@
-import * as selectors from '../measurements';
+import * as selectors from '../measurements.js';
 import {
   mockProductId,
   mockProductsState,
   mockProductVariantsMeasurements,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Measurements', () => {
   describe('getProductMeasurements()', () => {

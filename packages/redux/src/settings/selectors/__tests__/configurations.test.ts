@@ -1,9 +1,9 @@
-import * as fromConfigurations from '../../reducer/configurations';
-import * as selectors from '../configurations';
+import * as fromConfigurations from '../../reducer/configurations.js';
+import * as selectors from '../configurations.js';
 import {
   mockConfigurationsLoadingState,
   mockConfigurationsState,
-} from 'tests/__fixtures__/settings';
+} from 'tests/__fixtures__/settings/index.mjs';
 
 describe('configurations redux selectors', () => {
   const mockState = mockConfigurationsState;

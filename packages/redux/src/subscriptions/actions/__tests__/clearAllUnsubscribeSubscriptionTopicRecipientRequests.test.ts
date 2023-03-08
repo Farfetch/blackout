@@ -1,7 +1,7 @@
-import * as subscriptionsActionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import clearAllUnsubscribeSubscriptionTopicRecipientRequests from '../clearAllUnsubscribeSubscriptionTopicRecipientRequests';
-import reducer from '../../reducer';
+import * as subscriptionsActionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import clearAllUnsubscribeSubscriptionTopicRecipientRequests from '../clearAllUnsubscribeSubscriptionTopicRecipientRequests.js';
+import reducer from '../../reducer/index.js';
 
 describe('reset()', () => {
   let store: ReturnType<typeof mockStore>;

@@ -1,10 +1,14 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchSEOMetadata } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchSEOMetadata } from '../index.js';
+import { find } from 'lodash-es';
 import { getSEOMetadata } from '@farfetch/blackout-client';
-import { INITIAL_STATE_CONTENT } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import { pathname, seoQuery, seoResponse } from 'tests/__fixtures__/contents';
-import find from 'lodash/find';
+import { INITIAL_STATE_CONTENT } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
+import {
+  pathname,
+  seoQuery,
+  seoResponse,
+} from 'tests/__fixtures__/contents/index.mjs';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { UserPersonalIdPartial } from './userPersonalId.types';
+import type { Config } from '../../../types/index.js';
+import type { UserPersonalIdPartial } from './userPersonalId.types.js';
 
 export type PutUserDefaultPersonalIdData = {
   id: string;

@@ -1,8 +1,8 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import { client, headers } from '@farfetch/blackout-client';
-import { mockLocaleState } from 'tests/__fixtures__/locale';
-import { mockStore } from '../../../../tests';
-import { setCountryCodeMiddleware } from '..';
+import { mockLocaleState } from 'tests/__fixtures__/locale/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { setCountryCodeMiddleware } from '../index.js';
 
 const mockCountryCode = 'US';
 const mockCurrencyCode = 'USD';

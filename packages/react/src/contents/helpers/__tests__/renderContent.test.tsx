@@ -1,8 +1,8 @@
 import { cleanup, render } from '@testing-library/react';
-import { mockLegacyData } from 'tests/__fixtures__/contents';
-import { registerComponent } from '../..';
+import { mockLegacyData } from 'tests/__fixtures__/contents/index.mjs';
+import { registerComponent } from '../../index.js';
 import React, { type ReactElement } from 'react';
-import renderContent from '../renderContent';
+import renderContent from '../renderContent.js';
 
 const MockTextComponent = (): ReactElement => {
   return <p data-test="textElement">Content</p>;

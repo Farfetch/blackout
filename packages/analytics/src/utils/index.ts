@@ -5,12 +5,12 @@ export {
   ANALYTICS_UNIQUE_EVENT_ID,
   DefaultConsentKeys,
   CONSENT_CATEGORIES_PROPERTY,
-} from './constants';
-export * from './defaults';
-export * from './getters';
-export * from './typePredicates';
-export { default as logger } from './logger';
-export { default as StorageWrapper } from './StorageWrapper';
-export { default as validateStorage } from './validateStorage';
-export { default as hashUserData } from './hashUserData';
-export { default as getCustomerIdFromUser } from './getCustomerIdFromUser';
+} from './constants.js';
+export * from './defaults.js';
+export * from './getters.js';
+export * from './typePredicates.js';
+export { default as logger } from './logger.js';
+export { default as StorageWrapper } from './StorageWrapper.js';
+export { default as validateStorage } from './validateStorage.js';
+export { default as hashUserData } from './hashUserData.js';
+export { default as getCustomerIdFromUser } from './getCustomerIdFromUser.js';

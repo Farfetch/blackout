@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { Token } from './tokens.types';
+import type { Config } from '../../../types/index.js';
+import type { Token } from './tokens.types.js';
 
 export interface PostTokenData {
   username?: string;

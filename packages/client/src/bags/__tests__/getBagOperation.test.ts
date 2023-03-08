@@ -1,12 +1,12 @@
-import { getBagOperation } from '../';
+import { getBagOperation } from '..//index.js';
 import {
   mockBagId,
   mockBagOperation,
   mockBagOperationId,
-} from 'tests/__fixtures__/bags';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getBagOperation.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/bags/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getBagOperation.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getBagOperation', () => {
   const expectedConfig = undefined;

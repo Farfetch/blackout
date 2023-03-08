@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { DeleteSharedWishlist } from './types';
+import type { DeleteSharedWishlist } from './types/index.js';
 
 /**
  * Method responsible for deleting a shared wishlist.

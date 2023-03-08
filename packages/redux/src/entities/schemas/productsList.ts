@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
-import facet, { getId } from './facet';
-import product from './product';
+import facet, { getId } from './facet.js';
+import product from './product.js';
 import type {
   FacetGroup,
   FilterSegment,

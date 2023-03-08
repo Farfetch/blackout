@@ -1,5 +1,5 @@
-import type { Config } from '../../types';
-import type { OrderLegacy } from '.';
+import type { Config } from '../../types/index.js';
+import type { OrderLegacy } from './index.js';
 
 export type GetGuestOrderLegacy = (
   id: string,

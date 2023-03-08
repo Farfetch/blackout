@@ -1,5 +1,5 @@
-import type { Attribute, PurchaseChannel } from '../../types';
-import type { Price } from './price.types';
+import type { Attribute, PurchaseChannel } from '../../types/index.js';
+import type { Price } from './price.types.js';
 
 export type ProductVariant = {
   id: string;

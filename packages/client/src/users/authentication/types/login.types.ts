@@ -1,6 +1,6 @@
-import type { Title } from '../../../users';
-import type { User } from './user.types';
-import type { UserGenderLogin } from '../../../types';
+import type { Title } from '../../../users/index.js';
+import type { User } from './user.types.js';
+import type { UserGenderLogin } from '../../../types/index.js';
 
 export enum UserStatusLogin {
   Inactive,

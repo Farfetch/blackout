@@ -1,4 +1,4 @@
-import type { ProductMeasurement } from '../..';
+import type { ProductMeasurement } from '../../index.js';
 
 export type Image = {
   displayOrder?: number;

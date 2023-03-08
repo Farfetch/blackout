@@ -1,11 +1,11 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetGuestUser,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchGuestUserAction } from '../../types';
+import type { FetchGuestUserAction } from '../../types/index.js';
 
 /**
  * Fetch the guest user details with the specified id.

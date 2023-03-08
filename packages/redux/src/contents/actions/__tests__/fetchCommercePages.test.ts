@@ -1,15 +1,15 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
 import {
   commercePagesQuery,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
-} from 'tests/__fixtures__/contents';
-import { fetchCommercePages } from '..';
+} from 'tests/__fixtures__/contents/index.mjs';
+import { fetchCommercePages } from '../index.js';
+import { find } from 'lodash-es';
 import { getCommercePages } from '@farfetch/blackout-client';
-import { INITIAL_STATE_CONTENT } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE_CONTENT } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'commerce_pages!woman',

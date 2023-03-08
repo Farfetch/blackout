@@ -13,9 +13,9 @@ import {
   mockLocaleState,
   mockStateId,
   mockStatesEntities,
-} from 'tests/__fixtures__/locale';
-import { withStore } from '../../../../tests/helpers';
-import useCountryStateCities from '../useCountryStateCities';
+} from 'tests/__fixtures__/locale/index.mjs';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useCountryStateCities from '../useCountryStateCities.js';
 
 const stateMockData: StoreState = {
   ...mockLocaleState,

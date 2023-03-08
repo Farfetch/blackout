@@ -1,7 +1,7 @@
-import * as selectors from '../selectors';
-import { address1 } from 'tests/__fixtures__/addresses';
-import { mockBaseState } from '../../__fixtures__/state.fixtures';
-import merge from 'lodash/merge';
+import * as selectors from '../selectors.js';
+import { address1 } from 'tests/__fixtures__/addresses/index.mjs';
+import { merge } from 'lodash-es';
+import { mockBaseState } from '../../__fixtures__/state.fixtures.js';
 import type { UserAddress } from '@farfetch/blackout-client';
 
 describe('redux selectors', () => {

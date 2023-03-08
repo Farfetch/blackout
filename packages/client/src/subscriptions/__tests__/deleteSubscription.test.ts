@@ -1,9 +1,9 @@
-import { deleteSubscription } from '..';
-import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deleteSubscription.fixtures';
+import { deleteSubscription } from '../index.js';
+import { mockDeleteSubscription } from 'tests/__fixtures__/subscriptions/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteSubscription.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deleteSubscription', () => {
   const expectedConfig = undefined;

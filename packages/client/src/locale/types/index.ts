@@ -2,10 +2,10 @@
  * Locale types.
  */
 
-export * from './cities';
-export * from './countries';
-export * from './country';
-export * from './currencies';
-export * from './getCountryAddressSchemas.types';
-export * from './query';
-export * from './states';
+export * from './cities.js';
+export * from './countries.js';
+export * from './country.js';
+export * from './currencies.js';
+export * from './getCountryAddressSchemas.types.js';
+export * from './query.js';
+export * from './states.js';

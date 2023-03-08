@@ -1,4 +1,4 @@
-import { getEntities, getEntityById } from '../';
+import { getEntities, getEntityById } from '..//index.js';
 
 const mockBrandId = 6326412;
 const mockCategoryId = 0;

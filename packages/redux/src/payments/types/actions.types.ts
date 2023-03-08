@@ -1,4 +1,4 @@
-import type * as actionTypes from '../actionTypes';
+import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   Balance,

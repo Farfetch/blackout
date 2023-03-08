@@ -1,6 +1,6 @@
-import { adaptDate } from '../../helpers/adapters';
+import { adaptDate } from '../../helpers/adapters/index.js';
 import { schema } from 'normalizr';
-import merchant from './merchant';
+import merchant from './merchant.js';
 
 export default new schema.Entity(
   'orders',

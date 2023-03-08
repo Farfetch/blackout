@@ -2,7 +2,7 @@ import type {
   RecentlyViewedProducts,
   RecentlyViewedProductsPaginationData,
 } from '@farfetch/blackout-client';
-import type { StateWithResult } from '../../../types';
+import type { StateWithResult } from '../../../types/index.js';
 
 export type RecentlyViewedProductsResult = {
   remote: RecentlyViewedProducts | null | undefined;

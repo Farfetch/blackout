@@ -9,10 +9,10 @@ import {
   isBagItemLoading,
   type StoreState,
 } from '@farfetch/blackout-redux';
-import { useBag } from './';
+import { useBag } from './/index.js';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import type { BagItemId, HandleUpdateBagItemData } from './types';
+import type { BagItemId, HandleUpdateBagItemData } from './types/index.js';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with

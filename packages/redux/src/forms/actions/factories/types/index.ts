@@ -1,2 +1,2 @@
-export * from './FetchFormSchemaFactory.types';
-export * from './SubmitFormDataFactory.types';
+export * from './FetchFormSchemaFactory.types.js';
+export * from './SubmitFormDataFactory.types.js';

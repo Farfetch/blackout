@@ -1,8 +1,8 @@
-import { adaptGrouping } from '..';
+import { adaptGrouping } from '../index.js';
 import {
   mockProductGrouping,
   mockProductGroupingAdapted,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('adaptGrouping()', () => {
   it("should return undefined when doesn't receive grouping", () => {

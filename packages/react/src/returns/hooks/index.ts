@@ -1,7 +1,7 @@
-export { default as useReturn } from './useReturn';
-export { default as useReturnPickupCapability } from './useReturnPickupCapability';
-export { default as useReturnPickupRescheduleRequest } from './useReturnPickupRescheduleRequest';
-export { default as useReturnPickupRescheduleRequests } from './useReturnPickupRescheduleRequests';
-export { default as useReturns } from './useReturns';
+export { default as useReturn } from './useReturn.js';
+export { default as useReturnPickupCapability } from './useReturnPickupCapability.js';
+export { default as useReturnPickupRescheduleRequest } from './useReturnPickupRescheduleRequest.js';
+export { default as useReturnPickupRescheduleRequests } from './useReturnPickupRescheduleRequests.js';
+export { default as useReturns } from './useReturns.js';
 
-export * from './types';
+export * from './types/index.js';

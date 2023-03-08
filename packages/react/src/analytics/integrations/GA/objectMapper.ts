@@ -1,6 +1,4 @@
-import each from 'lodash/each';
-import get from 'lodash/get';
-import set from 'lodash/set';
+import { each, get, set } from 'lodash-es';
 
 /**
  * Obtain a new object by applying the specified mappings to a source object.

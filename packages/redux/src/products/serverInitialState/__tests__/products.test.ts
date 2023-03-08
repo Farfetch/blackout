@@ -1,6 +1,6 @@
-import { mockDetailsModel } from 'tests/__fixtures__/products';
-import productsServerInitialState from '../products';
-import type { Model } from '../../../types';
+import { mockDetailsModel } from 'tests/__fixtures__/products/index.mjs';
+import productsServerInitialState from '../products.js';
+import type { Model } from '../../../types/index.js';
 
 describe('products serverInitialState()', () => {
   it('should initialize server state for products', () => {

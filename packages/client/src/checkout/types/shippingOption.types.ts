@@ -1,4 +1,4 @@
-import type { ShippingCostType } from '.';
+import type { ShippingCostType } from './index.js';
 
 export type ShippingOption = {
   currency: string;

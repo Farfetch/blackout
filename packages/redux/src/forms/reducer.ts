@@ -1,6 +1,6 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import type { FormsResult, FormsState } from './types';
+import type { FormsResult, FormsState } from './types/index.js';
 
 export const INITIAL_STATE: FormsState = {
   result: {},

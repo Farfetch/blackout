@@ -1,6 +1,6 @@
-import type { ITokenData } from '../token-providers/types/TokenData.types';
-import type { RequestConfig } from './AuthenticationTokenManager.types';
-import type { TokenContext } from '../token-providers/types/TokenContext.types';
+import type { ITokenData } from '../token-providers/types/TokenData.types.js';
+import type { RequestConfig } from './AuthenticationTokenManager.types.js';
+import type { TokenContext } from '../token-providers/types/TokenContext.types.js';
 
 export interface OptionsStorageProvider {
   getItem(key: string): Promise<string | null>;
@@ -30,12 +30,12 @@ type ClientCredentialsParams = {
 
 export type GuestTokenRequester = (
   data: TokenContext,
-  config?: RequestConfig,
+  config?: Partial<RequestConfig>,
 ) => Promise<ITokenData>;
 
 export type UserTokenRequester = (
   data: UserParams,
-  config?: RequestConfig,
+  config?: Partial<RequestConfig>,
 ) => Promise<ITokenData>;
 
 // This type is not used right now

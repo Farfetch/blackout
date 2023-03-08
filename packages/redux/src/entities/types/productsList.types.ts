@@ -1,11 +1,11 @@
-import type { FacetEntity } from './facet.types';
+import type { FacetEntity } from './facet.types.js';
 import type {
   FacetGroup,
   FilterSegment,
   ProductListing,
   ProductSet,
 } from '@farfetch/blackout-client';
-import type { ProductEntity } from './product.types';
+import type { ProductEntity } from './product.types.js';
 
 export type FacetGroupsNormalized = Array<
   Omit<FacetGroup, 'values'> & {

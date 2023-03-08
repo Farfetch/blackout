@@ -2,6 +2,6 @@
  * Language clients.
  */
 
-export { default as getTranslations } from './getTranslations';
+export { default as getTranslations } from './getTranslations.js';
 
-export * from './types';
+export * from './types/index.js';

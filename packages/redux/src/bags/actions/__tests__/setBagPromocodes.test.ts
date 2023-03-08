@@ -1,15 +1,15 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockBagId,
   mockBagPromocodesData,
   mockBagPromocodesResponse,
   mockState,
-} from 'tests/__fixtures__/bags';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/bags/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 import { putBagPromocodes } from '@farfetch/blackout-client';
-import { setBagPromocodes } from '..';
-import find from 'lodash/find';
+import { setBagPromocodes } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

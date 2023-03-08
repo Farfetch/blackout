@@ -6,10 +6,10 @@ import {
   orderEntityDenormalized,
   orderId,
   orderId2,
-} from 'tests/__fixtures__/orders/orders.fixtures';
+} from 'tests/__fixtures__/orders/orders.fixtures.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { useOrderReturns } from '../../..';
-import { withStore } from '../../../../tests/helpers';
+import { useOrderReturns } from '../../../index.js';
+import { withStore } from '../../../../tests/helpers/index.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');

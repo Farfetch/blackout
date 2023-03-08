@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Number from '../number/Number';
+import Number from '../number/Number.js';
 import React from 'react';
 
 describe('<Number />', () => {

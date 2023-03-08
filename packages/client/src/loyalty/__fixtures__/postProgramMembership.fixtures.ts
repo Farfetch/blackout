@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { ProgramMembership } from '../types';
+import type { ProgramMembership } from '../types/index.js';
 
 const path = '/api/loyalty/v1/programs/:programId/memberships';
 

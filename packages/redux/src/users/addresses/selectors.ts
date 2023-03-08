@@ -1,4 +1,8 @@
-import { type AddressEntity, getEntities, getEntityById } from '../../entities';
+import {
+  type AddressEntity,
+  getEntities,
+  getEntityById,
+} from '../../entities/index.js';
 import {
   getAddresses as getAddressesFromReducer,
   getAddress as getAddressFromReducer,
@@ -6,10 +10,10 @@ import {
   getError as getErrorFromReducer,
   getIsLoading as getIsLoadingFromReducer,
   getResult as getResultFromReducer,
-} from './reducer';
-import { getAddresses as getAddressesFromUsersReducer } from '../reducer';
-import type { StoreState } from '../../types';
-import type { UsersState } from '../types';
+} from './reducer.js';
+import { getAddresses as getAddressesFromUsersReducer } from '../reducer.js';
+import type { StoreState } from '../../types/index.js';
+import type { UsersState } from '../types/index.js';
 
 /**
  * Returns the result of the user addresses area.

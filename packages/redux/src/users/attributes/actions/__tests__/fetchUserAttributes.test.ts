@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchUserAttributes } from '../';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchUserAttributes } from '..//index.js';
+import { find } from 'lodash-es';
 import { getUserAttributes } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../../reducer';
+import { INITIAL_STATE } from '../../../reducer.js';
 import {
   mockGetUserAttributesResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import { mockStore } from '../../../../../tests';
-import find from 'lodash/find';
+} from 'tests/__fixtures__/users/index.mjs';
+import { mockStore } from '../../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

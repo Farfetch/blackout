@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { PostPasswordReset } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { PostPasswordReset } from './types/index.js';
 
 /**
  * Resets the user password with the new password.

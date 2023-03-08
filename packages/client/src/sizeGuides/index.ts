@@ -2,6 +2,6 @@
  * Size guides clients.
  */
 
-export { default as getSizeGuides } from './getSizeGuides';
+export { default as getSizeGuides } from './getSizeGuides.js';
 
-export * from './types';
+export * from './types/index.js';

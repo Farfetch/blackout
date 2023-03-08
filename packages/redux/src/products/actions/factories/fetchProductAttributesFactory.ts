@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProductAttributes,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import productSchema from '../../../entities/schemas/product';
+import productSchema from '../../../entities/schemas/product.js';
 import type { Dispatch } from 'redux';
 
 /**

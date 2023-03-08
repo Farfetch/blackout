@@ -1,4 +1,4 @@
-import { createPhoneNumberValidationsFactory } from './factories';
+import { createPhoneNumberValidationsFactory } from './factories/index.js';
 import { postPhoneNumberValidation } from '@farfetch/blackout-client';
 
 /**

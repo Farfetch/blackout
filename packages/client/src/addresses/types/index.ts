@@ -1,2 +1,2 @@
-export * from './getAddressPredictionDetails.types';
-export * from './getAddressPredictions.types';
+export * from './getAddressPredictionDetails.types.js';
+export * from './getAddressPredictions.types.js';

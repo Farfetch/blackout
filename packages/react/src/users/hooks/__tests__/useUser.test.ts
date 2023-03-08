@@ -13,10 +13,10 @@ import {
   mockAuthenticatedUserEntities,
   mockGuestUserEntities,
   mockUserInitialState,
-} from 'tests/__fixtures__/users';
+} from 'tests/__fixtures__/users/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import { withStore } from '../../../../tests/helpers';
-import useUser from '../useUser';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useUser from '../useUser.js';
 
 const capitalizeFirstLetter = (string: string) => {
   const firstLetter = string[0]?.toUpperCase();

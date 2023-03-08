@@ -1,5 +1,5 @@
 import React, { type ReactElement } from 'react';
-import type { DateTimeComponent } from '../../../types';
+import type { DateTimeComponent } from '../../../types/index.js';
 
 const DateTime = ({
   data: { utcDate: date },

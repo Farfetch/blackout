@@ -1,6 +1,6 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromOrders from '../reducer';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromOrders from '../reducer.js';
+import * as selectors from '../selectors.js';
 import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import {
   courierEntity,
@@ -21,8 +21,8 @@ import {
   returnOptionEntity,
   returnOptionId,
   trackingNumber,
-} from 'tests/__fixtures__/orders';
-import omit from 'lodash/omit';
+} from 'tests/__fixtures__/orders/index.mjs';
+import { omit } from 'lodash-es';
 
 describe('orders redux selectors', () => {
   beforeEach(jest.clearAllMocks);

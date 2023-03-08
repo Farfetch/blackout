@@ -1,15 +1,15 @@
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
-import isEqual from 'lodash/isEqual';
-import TokenData from './TokenData';
-import TokenKinds from './TokenKinds';
-import TokenProvider from './TokenProvider';
+import { isEqual } from 'lodash-es';
+import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import TokenData from './TokenData.js';
+import TokenKinds from './TokenKinds.js';
+import TokenProvider from './TokenProvider.js';
 import type { AxiosError, AxiosResponse } from 'axios';
 import type {
   GuestTokenRequester,
   OptionsStorageProvider,
   OptionsStorageSerializer,
-} from '../types/TokenManagerOptions.types';
-import type { TokenContext } from './types/TokenContext.types';
+} from '../types/TokenManagerOptions.types.js';
+import type { TokenContext } from './types/TokenContext.types.js';
 
 export const DEFAULT_STORAGE_KEY = 'GuestToken';
 

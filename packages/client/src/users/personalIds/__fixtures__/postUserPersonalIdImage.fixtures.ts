@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { UserPersonalIdImage } from '../types';
+import type { UserPersonalIdImage } from '../types/index.js';
 
 const path = '/api/account/v1/users/:userId/personalIds/images';
 

@@ -1,5 +1,4 @@
-import merge from 'lodash/merge';
-import reduce from 'lodash/reduce';
+import { merge, reduce } from 'lodash-es';
 
 const serverInitialState = (...reducers: any[]) =>
   reduce(

@@ -4,11 +4,16 @@ import type {
   GenderCode,
   Label,
   ProductImageGroup,
-} from '../../types';
-import type { Brand } from '../../brands/types';
-import type { Metadata } from '../../types/common/metadata.types';
-import type { Price, Product, ProductVariant, Size } from '../../products';
-import type { ProductCategory } from '../../categories/types';
+} from '../../types/index.js';
+import type { Brand } from '../../brands/types/index.js';
+import type { Metadata } from '../../types/common/metadata.types.js';
+import type {
+  Price,
+  Product,
+  ProductVariant,
+  Size,
+} from '../../products/index.js';
+import type { ProductCategory } from '../../categories/types/index.js';
 
 export type BagItemMetadata = Metadata;
 

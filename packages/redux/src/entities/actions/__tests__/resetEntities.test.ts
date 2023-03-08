@@ -1,6 +1,6 @@
-import * as actions from '..';
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
+import * as actions from '../index.js';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
 
 describe('reset() action creator', () => {
   it('should dispatch the correct action type', () => {

@@ -2,11 +2,11 @@ import {
   chargeId,
   id,
   mockFetchPaymentIntentChargeResponse,
-} from 'tests/__fixtures__/payments';
-import { getPaymentIntentCharge } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPaymentIntentCharge.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/payments/index.mjs';
+import { getPaymentIntentCharge } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPaymentIntentCharge.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getPaymentIntentCharge', () => {
   const expectedConfig = undefined;

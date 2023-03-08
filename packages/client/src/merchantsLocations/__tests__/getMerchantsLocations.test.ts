@@ -1,11 +1,11 @@
-import { getMerchantsLocations } from '..';
+import { getMerchantsLocations } from '../index.js';
 import {
   mockMerchantLocation,
   mockQuery,
-} from 'tests/__fixtures__/merchantsLocations';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getMerchantsLocations.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/merchantsLocations/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getMerchantsLocations.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getMerchantsLocations', () => {
   const expectedConfig = undefined;

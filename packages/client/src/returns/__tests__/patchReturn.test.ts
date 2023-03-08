@@ -1,8 +1,12 @@
-import { id, mockPatchData, responses } from 'tests/__fixtures__/returns';
-import { patchReturn } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/patchReturn.fixtures';
-import mswServer from '../../../tests/mswServer';
+import {
+  id,
+  mockPatchData,
+  responses,
+} from 'tests/__fixtures__/returns/index.mjs';
+import { patchReturn } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchReturn.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('patchReturn', () => {
   const spy = jest.spyOn(client, 'patch');

@@ -1,5 +1,5 @@
-import type { CheckoutOrder, CollectPoint } from '.';
-import type { Config } from '../../types';
+import type { CheckoutOrder, CollectPoint } from './index.js';
+import type { Config } from '../../types/index.js';
 
 export type GetCollectPointsQuery = {
   orderId?: CheckoutOrder['id'];

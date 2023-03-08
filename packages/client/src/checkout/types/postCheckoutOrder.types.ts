@@ -1,8 +1,8 @@
-import type { Bag } from '../../bags';
-import type { Config } from '../../types';
-import type { GetCheckoutOrderResponse, ShippingMode } from '.';
-import type { Metadata } from '../../types/common/metadata.types';
-import type { Product } from '../../products/types';
+import type { Bag } from '../../bags/index.js';
+import type { Config } from '../../types/index.js';
+import type { GetCheckoutOrderResponse, ShippingMode } from './index.js';
+import type { Metadata } from '../../types/common/metadata.types.js';
+import type { Product } from '../../products/types/index.js';
 
 export type PostCheckoutOrderMetadata = Metadata;
 

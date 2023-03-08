@@ -1,4 +1,4 @@
-import type { CategoryEntity, MerchantEntity, ProductEntity } from '.';
+import type { CategoryEntity, MerchantEntity, ProductEntity } from './index.js';
 
 export type CheckoutOrderItemProductEntity = Pick<
   ProductEntity,

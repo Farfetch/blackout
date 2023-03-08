@@ -1,5 +1,5 @@
-import * as actionTypes from '../actionTypes';
-import * as selectors from '../selectors';
+import * as actionTypes from '../actionTypes.js';
+import * as selectors from '../selectors.js';
 import { client, headers } from '@farfetch/blackout-client';
 import type { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 

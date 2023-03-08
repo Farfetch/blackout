@@ -1,14 +1,14 @@
-import { MediaContainer } from './styles';
-import Audio from './components/audio';
-import Image from './components/image';
+import { MediaContainer } from './styles.js';
+import Audio from './components/audio/index.js';
+import Image from './components/image/index.js';
 import React, { type ReactElement } from 'react';
-import Video from './components/video';
+import Video from './components/video/index.js';
 import type {
   AudioComponent,
   ImageComponent,
   MediaComponent,
   VideoComponent,
-} from '../../../types';
+} from '../../../types/index.js';
 
 const Media = ({
   data: { fields },

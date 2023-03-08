@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
-import { fetchWishlistSets } from '../actions';
-import { getUser, getUserIsGuest } from '../../users/selectors';
+import * as actionTypes from '../actionTypes.js';
+import { fetchWishlistSets } from '../actions/index.js';
+import { getUser, getUserIsGuest } from '../../users/selectors.js';
 import type {
   FetchWishlistSetsAction,
   RemoveWishlistItemAction,
-} from '../types';
+} from '../types/index.js';
 import type { Middleware } from 'redux';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 type UpdateWishlistSetsUponItemDeletionParams = {

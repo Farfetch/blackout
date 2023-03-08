@@ -1,6 +1,6 @@
-export { default as createUserAttributes } from './createUserAttributes';
-export { default as fetchUserAttribute } from './fetchUserAttribute';
-export { default as fetchUserAttributes } from './fetchUserAttributes';
-export { default as removeUserAttribute } from './removeUserAttribute';
-export { default as setUserAttribute } from './setUserAttribute';
-export { default as updateUserAttribute } from './updateUserAttribute';
+export { default as createUserAttributes } from './createUserAttributes.js';
+export { default as fetchUserAttribute } from './fetchUserAttribute.js';
+export { default as fetchUserAttributes } from './fetchUserAttributes.js';
+export { default as removeUserAttribute } from './removeUserAttribute.js';
+export { default as setUserAttribute } from './setUserAttribute.js';
+export { default as updateUserAttribute } from './updateUserAttribute.js';

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type DeleteWishlistItem,
@@ -6,16 +6,16 @@ import {
   type Wishlist,
   type WishlistItem,
 } from '@farfetch/blackout-client';
-import { getWishlistId, getWishlistItem } from '../../selectors';
+import { getWishlistId, getWishlistItem } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
-import wishlistItemSchema from '../../../entities/schemas/wishlistItem';
+import wishlistItemSchema from '../../../entities/schemas/wishlistItem.js';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 import type {
   RemoveWishlistItemAction,
   WishlistItemActionMetadata,
-} from '../../types';
-import type { WishlistItemDenormalized } from '../../../entities/types';
+} from '../../types/index.js';
+import type { WishlistItemDenormalized } from '../../../entities/types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to remove a

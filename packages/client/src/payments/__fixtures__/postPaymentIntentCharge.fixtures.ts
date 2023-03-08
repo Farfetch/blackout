@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { PostPaymentIntentChargeResponse } from '../types';
+import type { PostPaymentIntentChargeResponse } from '../types/index.js';
 
 const path = '/api/payment/v1/intents/:id/charges';
 

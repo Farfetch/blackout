@@ -14,8 +14,8 @@ import {
   resetWishlistSetsState as resetWishlistSetsStateAction,
 } from '@farfetch/blackout-redux';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseWishlistSets } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { UseWishlistSets } from './types/index.js';
 
 /**
  * Provides Redux actions and state access for dealing with wishlist sets business

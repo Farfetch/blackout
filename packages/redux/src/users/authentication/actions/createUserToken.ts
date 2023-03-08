@@ -1,4 +1,4 @@
-import { createUserTokenFactory } from './factories';
+import { createUserTokenFactory } from './factories/index.js';
 import { postToken } from '@farfetch/blackout-client';
 
 /**

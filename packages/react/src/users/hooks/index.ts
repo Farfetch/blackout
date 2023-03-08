@@ -1,8 +1,8 @@
 /**
  * User hooks.
  */
-export { default as useUser } from './useUser';
-export { default as useUserAddresses } from './useUserAddresses';
-export { default as useUserAddress } from './useUserAddress';
+export { default as useUser } from './useUser.js';
+export { default as useUserAddresses } from './useUserAddresses.js';
+export { default as useUserAddress } from './useUserAddress.js';
 
-export * from './types';
+export * from './types/index.js';

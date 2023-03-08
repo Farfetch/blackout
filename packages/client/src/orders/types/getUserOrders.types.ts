@@ -1,6 +1,6 @@
-import type { Config } from '../../types';
-import type { Orders } from '../../orders/types';
-import type { User } from '../../users/authentication/types/user.types';
+import type { Config } from '../../types/index.js';
+import type { Orders } from '../../orders/types/index.js';
+import type { User } from '../../users/authentication/types/user.types.js';
 
 export type GetUserOrders = (
   id: User['id'],

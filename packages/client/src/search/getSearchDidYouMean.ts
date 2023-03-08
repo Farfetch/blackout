@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetSearchDidYouMean } from './types';
+import type { GetSearchDidYouMean } from './types/index.js';
 
 /**
  * Method responsible for returning the facets available to a given search.

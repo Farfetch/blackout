@@ -1,4 +1,4 @@
-import type { AdaptCustomAttributes } from './types';
+import type { AdaptCustomAttributes } from './types/index.js';
 
 /**
  * Adapts a string with custom attributes to a JSON object.

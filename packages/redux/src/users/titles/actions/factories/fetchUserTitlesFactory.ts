@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetUserTitles,
@@ -6,7 +6,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import titlesSchema from '../../../../entities/schemas/titles';
+import titlesSchema from '../../../../entities/schemas/titles.js';
 import type { Dispatch } from 'redux';
 
 /**

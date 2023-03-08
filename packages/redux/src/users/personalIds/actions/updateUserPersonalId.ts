@@ -1,5 +1,5 @@
 import { patchUserPersonalId } from '@farfetch/blackout-client';
-import { updateUserPersonalIdFactory } from './factories';
+import { updateUserPersonalIdFactory } from './factories/index.js';
 
 /**
  * Updates a specific personal id.

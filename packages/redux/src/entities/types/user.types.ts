@@ -6,7 +6,7 @@ import type {
 import type {
   UserCreditEntity,
   UserCreditMovementsEntity,
-} from './credit.types';
+} from './credit.types.js';
 
 export type UserEntity = User & {
   credits?: UserCreditEntity;

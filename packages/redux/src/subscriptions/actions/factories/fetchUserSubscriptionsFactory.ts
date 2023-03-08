@@ -1,9 +1,9 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type GetSubscriptions,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { FetchUserSubscriptionsFactory } from './types';
+import type { FetchUserSubscriptionsFactory } from './types/index.js';
 
 /**
  * Method to create a thunk factory configured with the specified client.

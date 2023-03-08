@@ -2,9 +2,9 @@ import {
   expectedResult,
   source,
   target,
-} from '../__fixtures__/createMergedObject.fixtures';
-import createMergedObject from '../createMergedObject';
-import isPlainObject from 'lodash/isPlainObject';
+} from '../__fixtures__/createMergedObject.fixtures.js';
+import { isPlainObject } from 'lodash-es';
+import createMergedObject from '../createMergedObject.js';
 
 /**
  * Test deep references of mergedObject to ensure that only the props that came

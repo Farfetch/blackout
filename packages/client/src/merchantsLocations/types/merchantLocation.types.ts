@@ -1,4 +1,4 @@
-import type { CategorisedAddress } from '../../types/common/address.types';
+import type { CategorisedAddress } from '../../types/common/address.types.js';
 
 export enum MerchantLocationWeekday {
   Sunday,

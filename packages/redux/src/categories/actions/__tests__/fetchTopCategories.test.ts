@@ -1,12 +1,12 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchTopCategories } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchTopCategories } from '../index.js';
 import { getTopCategories } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/topCategories';
-import { mockStore } from '../../../../tests';
+import { INITIAL_STATE } from '../../reducer/topCategories.js';
+import { mockStore } from '../../../../tests/index.js';
 import {
   mockTopCategories,
   normalizedTopResponse,
-} from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/categories/index.mjs';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

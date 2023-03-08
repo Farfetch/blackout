@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
-import resetSharedWishlistState from './resetSharedWishlistState';
+import * as actionTypes from '../actionTypes.js';
+import resetSharedWishlistState from './resetSharedWishlistState.js';
 import type { Dispatch } from 'redux';
 import type {
   ResetSharedWishlistEntitiesAction,
   ResetSharedWishlistStateAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**

@@ -1,4 +1,8 @@
-import { ForterTokenLoadedAnalyticsEvent, ForterTokenTid } from './constants';
+import { defaultTo, get } from 'lodash-es';
+import {
+  ForterTokenLoadedAnalyticsEvent,
+  ForterTokenTid,
+} from './constants.js';
 import {
   integrations,
   type LoadIntegrationEventData,
@@ -8,11 +12,9 @@ import {
   utils,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
-import defaultTo from 'lodash/defaultTo';
-import ForterTokenLoadedDetector from './forterTokenLoadedEventDetector';
-import get from 'lodash/get';
-import loadForterScriptForSiteId from './loadForterScriptForSiteId';
-import type { ForterIntegrationOptions } from './types';
+import ForterTokenLoadedDetector from './forterTokenLoadedEventDetector.js';
+import loadForterScriptForSiteId from './loadForterScriptForSiteId.js';
+import type { ForterIntegrationOptions } from './types/index.js';
 
 class Forter extends integrations.Integration<ForterIntegrationOptions> {
   private onSetUserPromise!: Promise<SetUserEventData>;

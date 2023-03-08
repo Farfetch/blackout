@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { PostRefreshEmailToken } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { PostRefreshEmailToken } from './types/index.js';
 
 /**
  * Refreshes the user's validation email token. To be used when the user went past

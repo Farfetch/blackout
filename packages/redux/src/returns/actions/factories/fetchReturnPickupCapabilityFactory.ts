@@ -1,5 +1,5 @@
-import * as actionTypes from '../../actionTypes';
-import { adaptDate } from '../../../helpers/adapters';
+import * as actionTypes from '../../actionTypes.js';
+import { adaptDate } from '../../../helpers/adapters/index.js';
 import {
   type Config,
   type GetReturnPickupCapability,
@@ -7,7 +7,7 @@ import {
   type ReturnPickupCapability,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import generateReturnPickupCapabilityHash from '../../helpers/generateReturnPickupCapabilityHash';
+import generateReturnPickupCapabilityHash from '../../helpers/generateReturnPickupCapabilityHash.js';
 import type { Dispatch } from 'redux';
 
 /**

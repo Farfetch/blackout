@@ -1,4 +1,4 @@
-import { fetchCategoryFactory } from './factories';
+import { fetchCategoryFactory } from './factories/index.js';
 import { getCategory } from '@farfetch/blackout-client';
 
 /**

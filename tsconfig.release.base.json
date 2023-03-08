@@ -17,8 +17,8 @@
     // like this "import { postTracking } from 'packages/client'" instead of suggesting
     // "import { postTracking } from '@farfetch/blackout-client'".
     "baseUrl": "./dummy",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "resolveJsonModule": true,
     "typeRoots": ["node_modules/@types", "types"],
 
@@ -39,7 +39,7 @@
     "emitDeclarationOnly": true,
 
     /* Completeness */
-    "skipLibCheck": false,
+    "skipLibCheck": true,
 
     /* Type checking */
     "noImplicitOverride": true,

@@ -1,8 +1,11 @@
-import { addressId as id, userId } from 'tests/__fixtures__/addresses';
-import { putUserDefaultShippingAddress } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/putUserDefaultShippingAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import {
+  addressId as id,
+  userId,
+} from 'tests/__fixtures__/addresses/index.mjs';
+import { putUserDefaultShippingAddress } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/putUserDefaultShippingAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('putUserDefaultShippingAddress', () => {
   const expectedConfig = undefined;

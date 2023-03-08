@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetMerchantsLocations,
@@ -7,9 +7,9 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import merchantLocationSchema from '../../../entities/schemas/merchantLocation';
-import type { FetchMerchantsLocationsAction } from '../../types';
-import type { StoreState } from '../../../types';
+import merchantLocationSchema from '../../../entities/schemas/merchantLocation.js';
+import type { FetchMerchantsLocationsAction } from '../../types/index.js';
+import type { StoreState } from '../../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 /**

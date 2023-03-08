@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Brand } from '../types';
+import type { Brand } from '../types/index.js';
 
 const path = '/api/commerce/v1/brands/:id';
 

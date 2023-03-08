@@ -1,4 +1,4 @@
-import { validatePassword } from '..';
+import { validatePassword } from '../index.js';
 
 describe('validatePassword', () => {
   it('Should return no errors', () => {

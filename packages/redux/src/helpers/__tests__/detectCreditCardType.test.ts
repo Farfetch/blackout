@@ -1,4 +1,4 @@
-import { detectCreditCardType } from '../';
+import { detectCreditCardType } from '..//index.js';
 
 const mockVisaCard = {
   withSpaces: '4111 1111 4555 1142',

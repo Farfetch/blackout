@@ -1,8 +1,8 @@
-import { deletePaymentIntentInstrument } from '..';
-import { id, instrumentId } from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deletePaymentIntentInstrument.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { deletePaymentIntentInstrument } from '../index.js';
+import { id, instrumentId } from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deletePaymentIntentInstrument.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deletePaymentIntentInstrument', () => {
   const expectedConfig = undefined;

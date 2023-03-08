@@ -1,7 +1,7 @@
-import { getError, getIsLoading, getResult } from './reducer';
+import { getError, getIsLoading, getResult } from './reducer.js';
 import type { StaffMember } from '@farfetch/blackout-client';
-import type { StaffMembersState } from './types';
-import type { StoreState } from '../types';
+import type { StaffMembersState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Checks if a staff member is loading.

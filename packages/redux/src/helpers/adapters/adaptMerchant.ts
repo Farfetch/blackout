@@ -1,4 +1,4 @@
-import type { AdaptMerchant } from './types';
+import type { AdaptMerchant } from './types/index.js';
 
 /**
  * Adapt merchant to a structure that allows to create an entity.

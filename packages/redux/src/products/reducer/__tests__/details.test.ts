@@ -1,5 +1,8 @@
-import { mockProductId, mockProductsEntity } from 'tests/__fixtures__/products';
-import { productsActionTypes, type ProductsDetailsState } from '../..';
+import {
+  mockProductId,
+  mockProductsEntity,
+} from 'tests/__fixtures__/products/index.mjs';
+import { productsActionTypes, type ProductsDetailsState } from '../../index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   entitiesMapper,
@@ -7,7 +10,7 @@ import reducer, {
   getIsHydrated,
   getIsLoading,
   INITIAL_STATE,
-} from '../details';
+} from '../details.js';
 
 const mockAction = { type: 'foo' };
 const meta = { productId: mockProductId };

@@ -1,8 +1,11 @@
-import * as actionTypes from '../actionTypes';
-import { mockQuery, mockScaleId } from 'tests/__fixtures__/sizeScales';
+import * as actionTypes from '../actionTypes.js';
+import {
+  mockQuery,
+  mockScaleId,
+} from 'tests/__fixtures__/sizeScales/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { SizeScalesState } from '../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { SizeScalesState } from '../types/index.js';
 
 const randomAction = { type: 'this_is_a_random_action' };
 let initialState: SizeScalesState;

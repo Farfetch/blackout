@@ -3,10 +3,10 @@ import {
   getError as getErrorFromReducer,
   getIsLoading as getIsLoadingFromReducer,
   getResult as getResultFromReducer,
-} from './reducer';
-import { getPersonalIds as getPersonalIdsFromReducer } from '../reducer';
-import type { StoreState } from '../../types/storeState.types';
-import type { UsersState } from '../types/state.types';
+} from './reducer.js';
+import { getPersonalIds as getPersonalIdsFromReducer } from '../reducer.js';
+import type { StoreState } from '../../types/storeState.types.js';
+import type { UsersState } from '../types/state.types.js';
 
 /**
  * Returns the loading status of the personal ids area.

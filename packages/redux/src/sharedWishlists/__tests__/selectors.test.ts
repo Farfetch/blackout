@@ -1,13 +1,13 @@
-import * as fromEntities from '../../entities/selectors/entity';
-import * as fromSharedWishlist from '../reducer';
-import * as selectors from '../selectors';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as fromSharedWishlist from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   mockProductId,
   mockSharedWishlistId,
   mockSharedWishlistItemId,
   mockSharedWishlistState,
-} from 'tests/__fixtures__/sharedWishlists';
-import { mockProductsEntity } from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/sharedWishlists/index.mjs';
+import { mockProductsEntity } from 'tests/__fixtures__/products/index.mjs';
 
 describe('shared wishlists redux selectors', () => {
   const sharedWishlistItemEntity =

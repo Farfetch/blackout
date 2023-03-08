@@ -10,9 +10,9 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import useProductListing from './useProductListing';
-import type { UseRecentlyViewedProductsOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import useProductListing from './useProductListing.js';
+import type { UseRecentlyViewedProductsOptions } from './types/index.js';
 
 const useRecentlyViewedProducts = (
   options: UseRecentlyViewedProductsOptions = {},

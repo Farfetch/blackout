@@ -1,6 +1,7 @@
-import * as fromBag from '../reducer';
-import * as fromEntities from '../../entities/selectors/entity';
-import * as selectors from '../selectors';
+import * as fromBag from '../reducer.js';
+import * as fromEntities from '../../entities/selectors/entity.js';
+import * as selectors from '../selectors.js';
+import { cloneDeep } from 'lodash-es';
 import {
   mockBagId,
   mockBagItemEntity,
@@ -9,17 +10,16 @@ import {
   mockBagOperationId,
   mockBagPromocodesResponse,
   mockState,
-} from 'tests/__fixtures__/bags';
+} from 'tests/__fixtures__/bags/index.mjs';
 import {
   mockBrandId,
   mockProductEntity,
   mockProductEntityDenormalized,
   mockProductId,
   mockProductTypeToExclude,
-} from 'tests/__fixtures__/products';
-import { mockCategoryId } from 'tests/__fixtures__/categories';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockCategoryId } from 'tests/__fixtures__/categories/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import cloneDeep from 'lodash/cloneDeep';
 
 describe('bags redux selectors', () => {
   beforeEach(jest.clearAllMocks);

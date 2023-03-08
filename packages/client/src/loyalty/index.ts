@@ -2,11 +2,11 @@
  * Loyalty clients.
  */
 
-export { default as getProgramMembershipStatements } from './getProgramMembershipStatements';
-export { default as getPrograms } from './getPrograms';
-export { default as getProgramUsersMembership } from './getProgramUsersMembership';
-export { default as postProgramMembership } from './postProgramMembership';
-export { default as postProgramMembershipConvert } from './postProgramMembershipConvert';
-export { default as postProgramMembershipReplacement } from './postProgramMembershipReplacement';
+export { default as getProgramMembershipStatements } from './getProgramMembershipStatements.js';
+export { default as getPrograms } from './getPrograms.js';
+export { default as getProgramUsersMembership } from './getProgramUsersMembership.js';
+export { default as postProgramMembership } from './postProgramMembership.js';
+export { default as postProgramMembershipConvert } from './postProgramMembershipConvert.js';
+export { default as postProgramMembershipReplacement } from './postProgramMembershipReplacement.js';
 
-export * from './types';
+export * from './types/index.js';

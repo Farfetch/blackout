@@ -1,8 +1,11 @@
-import { getBrands } from '../';
-import { mockBrandsResponse, mockQuery } from 'tests/__fixtures__/brands';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getBrands.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getBrands } from '..//index.js';
+import {
+  mockBrandsResponse,
+  mockQuery,
+} from 'tests/__fixtures__/brands/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getBrands.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('brands client', () => {
   const expectedConfig = undefined;

@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { SearchIntents } from '../types';
+import type { SearchIntents } from '../types/index.js';
 
 const path = '/api/commerce/v1/search/intent';
 

@@ -1,16 +1,16 @@
 import * as normalizr from 'normalizr';
-import { contentsActionTypes as actionTypes } from '../..';
+import { contentsActionTypes as actionTypes } from '../../index.js';
 import {
   contentPagesType,
   expectedContentPageNormalizedPayload,
   mockContentPage,
   slugContent,
-} from 'tests/__fixtures__/contents';
-import { fetchContentPage } from '..';
+} from 'tests/__fixtures__/contents/index.mjs';
+import { fetchContentPage } from '../index.js';
+import { find } from 'lodash-es';
 import { getContentPage } from '@farfetch/blackout-client';
-import { INITIAL_STATE_CONTENT } from '../../reducer';
-import { mockStore } from '../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE_CONTENT } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'content_pages!woman/gucci',

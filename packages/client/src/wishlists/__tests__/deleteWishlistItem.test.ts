@@ -1,12 +1,12 @@
-import { deleteWishlistItem } from '..';
+import { deleteWishlistItem } from '../index.js';
 import {
   mockWishlistId,
   mockWishlistItemId,
   mockWishlistsResponse,
-} from 'tests/__fixtures__/wishlists';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/deleteWishlistItem.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/wishlists/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteWishlistItem.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('deleteWishlistItem', () => {
   const expectedConfig = undefined;

@@ -1,5 +1,5 @@
 import { act, cleanup, renderHook, waitFor } from '@testing-library/react';
-import { ActionTypes } from '../useUserAuthState';
+import { ActionTypes } from '../useUserAuthState.js';
 import {
   AuthenticationTokenManager,
   type AxiosAuthenticationTokenManagerOptions,
@@ -13,14 +13,17 @@ import {
   TokenKinds,
   type UserToken,
 } from '@farfetch/blackout-client';
-import { NotLoggedInError, PendingUserOperationError } from '../../errors';
+import {
+  NotLoggedInError,
+  PendingUserOperationError,
+} from '../../errors/index.js';
 import { rest } from 'msw';
 import AuthenticationProvider, {
   CallbackNames,
-} from '../../contexts/AuthenticationProvider';
-import mswServer from '../../../../tests/mswServer';
+} from '../../contexts/AuthenticationProvider.js';
+import mswServer from '../../../../tests/mswServer.js';
 import React from 'react';
-import useAuthentication from '../useAuthentication';
+import useAuthentication from '../useAuthentication.js';
 
 interface Props {
   children?: React.ReactNode;

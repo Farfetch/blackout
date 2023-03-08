@@ -1,5 +1,5 @@
-import { generateSearchDidYouMeanHash } from '..';
-import { mockSearchDidYouMeanQuery } from 'tests/__fixtures__/search';
+import { generateSearchDidYouMeanHash } from '../index.js';
+import { mockSearchDidYouMeanQuery } from 'tests/__fixtures__/search/index.mjs';
 
 describe('generateSearchDidYouMeanHash()', () => {
   it('should generate an hash', () => {

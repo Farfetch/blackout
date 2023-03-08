@@ -3,10 +3,10 @@ import {
   ADD_PRODUCT_COMMAND,
   MAX_PRODUCT_CATEGORIES,
   PRODUCT_CATEGORY_FIELD,
-} from '../constants';
+} from '../constants.js';
+import { get } from 'lodash-es';
 import { utils } from '@farfetch/blackout-analytics';
-import get from 'lodash/get';
-import type { GACommandList } from '../types';
+import type { GACommandList } from '../types/index.js';
 
 /**
  * Gets the category hierarchy for a product category field.

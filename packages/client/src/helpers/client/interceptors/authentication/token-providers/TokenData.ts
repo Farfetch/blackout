@@ -1,4 +1,4 @@
-import type { ITokenData } from './types/TokenData.types';
+import type { ITokenData } from './types/TokenData.types.js';
 
 /**
  * Represents token data.

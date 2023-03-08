@@ -1,10 +1,10 @@
-import resetSubscriptionPackages from './resetSubscriptionPackages';
-import resetUserSubscriptions from './resetUserSubscriptions';
+import resetSubscriptionPackages from './resetSubscriptionPackages.js';
+import resetUserSubscriptions from './resetUserSubscriptions.js';
 import type {
   ResetSubscriptionPackagesAction,
   ResetUserSubscriptionsAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
 
 const resetSubscriptions =

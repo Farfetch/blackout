@@ -1,5 +1,5 @@
-import type { Config } from '../../../types';
-import type { LoginResponse } from './login.types';
+import type { Config } from '../../../types/index.js';
+import type { LoginResponse } from './login.types.js';
 
 export interface LoginData {
   username: string;

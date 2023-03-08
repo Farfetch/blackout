@@ -7,17 +7,17 @@ import type {
   Label,
   LiveModel,
   ProductImageGroup,
-} from '../..';
-import type { Brand } from '../../brands/types';
-import type { BreadCrumb } from './breadCrumb.types';
-import type { DigitalAsset } from './common.types';
-import type { Price } from './price.types';
-import type { ProductCategory } from '../../categories/types';
-import type { ProductMeasurement } from './productMeasurement.types';
-import type { ProductTag } from './productTagEnum.types';
-import type { ProductType } from './productTypeEnum.types';
-import type { ProductVariant } from './productVariant.types';
-import type { Size } from './size.types';
+} from '../../index.js';
+import type { Brand } from '../../brands/types/index.js';
+import type { BreadCrumb } from './breadCrumb.types.js';
+import type { DigitalAsset } from './common.types.js';
+import type { Price } from './price.types.js';
+import type { ProductCategory } from '../../categories/types/index.js';
+import type { ProductMeasurement } from './productMeasurement.types.js';
+import type { ProductTag } from './productTagEnum.types.js';
+import type { ProductType } from './productTypeEnum.types.js';
+import type { ProductVariant } from './productVariant.types.js';
+import type { Size } from './size.types.js';
 
 export type ProductResult = {
   associations: ProductAssociation | null;

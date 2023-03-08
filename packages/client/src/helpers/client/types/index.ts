@@ -1,1 +1,1 @@
-export * from './formatError.types';
+export * from './formatError.types.js';

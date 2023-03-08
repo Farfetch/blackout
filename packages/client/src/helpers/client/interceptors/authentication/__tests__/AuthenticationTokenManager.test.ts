@@ -1,35 +1,35 @@
-import { AuthenticationTokenManager } from '..';
+import { AuthenticationTokenManager } from '../index.js';
 import {
   defaultAuthorizationHeaderFormatter,
   getDefaultTokenDataSerializer,
-} from '../defaults';
-import { getCallError } from 'tests/getCallError';
-import { getUser } from '../../../../../users';
-import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider';
+} from '../defaults.js';
+import { getUser } from '../../../../../users/index.js';
+import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider.js';
 import {
   MisconfiguredTokenProviderError,
   RefreshGuestUserAccessTokenError,
   RefreshUserAccessTokenError,
   TokenManagerNotLoadedException,
   UserSessionExpiredError,
-} from '../errors';
-import { postGuestToken } from '../../../../../users/authentication';
-import { postTracking } from '../../../../../omnitracking';
+} from '../errors.js';
+import { postGuestToken } from '../../../../../users/authentication/index.js';
+import { postTracking } from '../../../../../omnitracking/index.js';
 import { rest } from 'msw';
-import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider';
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
-import client from '../../..';
-import mswServer from '../../../../../../tests/mswServer';
-import TokenData from '../token-providers/TokenData';
-import TokenKinds from '../token-providers/TokenKinds';
+import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider.js';
+import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import client from '../../../index.js';
+import getCallError from 'tests/getCallError.mjs';
+import mswServer from '../../../../../../tests/mswServer.js';
+import TokenData from '../token-providers/TokenData.js';
+import TokenKinds from '../token-providers/TokenKinds.js';
 import type {
   AxiosAuthenticationTokenManagerOptions,
   UserParams,
-} from '../types/TokenManagerOptions.types';
+} from '../types/TokenManagerOptions.types.js';
 import type { AxiosError } from 'axios';
-import type { ITokenData } from '../token-providers/types/TokenData.types';
-import type { RequestConfig } from '../types/AuthenticationTokenManager.types';
-import type { TokenContext } from '../token-providers/types/TokenContext.types';
+import type { ITokenData } from '../token-providers/types/TokenData.types.js';
+import type { RequestConfig } from '../types/AuthenticationTokenManager.types.js';
+import type { TokenContext } from '../token-providers/types/TokenContext.types.js';
 
 jest.useFakeTimers();
 

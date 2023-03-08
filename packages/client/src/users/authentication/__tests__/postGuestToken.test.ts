@@ -1,7 +1,7 @@
-import { postGuestToken } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postGuestTokens.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postGuestToken } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postGuestTokens.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postGuestToken', () => {
   const expectedConfig = undefined;

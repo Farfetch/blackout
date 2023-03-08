@@ -1,7 +1,7 @@
-import { postValidateEmail } from '..';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/postValidateEmail.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { postValidateEmail } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postValidateEmail.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('postEmailTokenValidate', () => {
   const spy = jest.spyOn(client, 'post');

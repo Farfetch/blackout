@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CallToActionComponent } from '../../../types';
+import type { CallToActionComponent } from '../../../types/index.js';
 
 const CallToAction = ({
   children,

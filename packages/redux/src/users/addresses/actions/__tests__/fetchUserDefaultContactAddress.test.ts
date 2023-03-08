@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchUserDefaultContactAddress } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchUserDefaultContactAddress } from '../index.js';
+import { find } from 'lodash-es';
 import { getUserDefaultContactAddress } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockGetAddressResponse } from 'tests/__fixtures__/users';
-import { mockStore } from '../../../../../tests';
-import find from 'lodash/find';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockGetAddressResponse } from 'tests/__fixtures__/users/index.mjs';
+import { mockStore } from '../../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

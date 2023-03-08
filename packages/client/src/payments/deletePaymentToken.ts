@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { DeletePaymentToken } from './types';
+import type { DeletePaymentToken } from './types/index.js';
 
 /**
  * Method responsible for deleting a user payment token. This is used for deleting

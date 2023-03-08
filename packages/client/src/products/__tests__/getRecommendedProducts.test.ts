@@ -1,12 +1,12 @@
-import { getRecommendedProducts } from '../';
+import { getRecommendedProducts } from '..//index.js';
 import {
   mockRecommendedProductsProductId as productId,
   mockRecommendedProductsStrategy as strategyName,
-} from 'tests/__fixtures__/products';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getRecommendedProducts.fixtures';
+} from 'tests/__fixtures__/products/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getRecommendedProducts.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getRecommendedProducts', () => {
   const query = { strategyName, productId };

@@ -1,5 +1,5 @@
-import type { CheckoutOrder, CheckoutOrderCharge } from '.';
-import type { Config } from '../../types';
+import type { CheckoutOrder, CheckoutOrderCharge } from './index.js';
+import type { Config } from '../../types/index.js';
 
 export type PostCheckoutOrderChargeData = {
   returnUrl: string;

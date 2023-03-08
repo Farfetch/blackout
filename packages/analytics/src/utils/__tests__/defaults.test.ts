@@ -1,5 +1,5 @@
-import * as defaults from '../defaults';
-import { PACKAGE_VERSION } from '../constants';
+import * as defaults from '../defaults.js';
+import { PACKAGE_VERSION } from '../constants.js';
 
 describe('Defaults', () => {
   // Try to match object instead of snapshot. We have a reference to `version` from package.json

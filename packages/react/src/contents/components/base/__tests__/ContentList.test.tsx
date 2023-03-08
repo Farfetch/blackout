@@ -1,11 +1,11 @@
 import {
   contentListData,
   customContentType,
-} from 'tests/__fixtures__/contents';
+} from 'tests/__fixtures__/contents/index.mjs';
 import { render } from '@testing-library/react';
-import { sortContentType } from '../../../utils';
-import { useContentType } from '../../../hooks';
-import ContentList from '../contentList/ContentList';
+import { sortContentType } from '../../../utils/index.js';
+import { useContentType } from '../../../hooks/index.js';
+import ContentList from '../contentList/ContentList.js';
 import React from 'react';
 
 jest.mock('react-redux', () => ({

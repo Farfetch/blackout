@@ -6,16 +6,16 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import { ForterTokenTid } from '../constants';
-import { getCallError } from 'tests/getCallError';
+import { ForterTokenTid } from '../constants.js';
 import {
   loadIntegrationData,
   onSetUserEventData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
+} from 'tests/__fixtures__/analytics/index.mjs';
 import { postTracking } from '@farfetch/blackout-client';
-import flushPromises from 'tests/flushPromises';
-import Forter from '..';
+import flushPromises from 'tests/flushPromises.mjs';
+import Forter from '../index.js';
+import getCallError from 'tests/getCallError.mjs';
 
 const eventData = trackEventsData[EventTypes.CHECKOUT_STARTED];
 

@@ -1,9 +1,12 @@
-import * as formReducer from '../reducer';
-import * as selectors from '../selectors';
-import { formSchemaResponse, mockState } from 'tests/__fixtures__/forms';
-import merge from 'lodash/merge';
-import type { FormsResult } from '../types';
-import type { StoreState } from '../../types';
+import * as formReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
+import {
+  formSchemaResponse,
+  mockState,
+} from 'tests/__fixtures__/forms/index.mjs';
+import { merge } from 'lodash-es';
+import type { FormsResult } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 const mockStore = merge({} as StoreState, mockState);
 

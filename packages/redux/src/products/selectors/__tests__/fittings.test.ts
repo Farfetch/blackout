@@ -1,9 +1,9 @@
-import * as selectors from '../fittings';
+import * as selectors from '../fittings.js';
 import {
   mockProductFittings,
   mockProductId,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 
 describe('Fittings', () => {
   describe('getProductFittings()', () => {

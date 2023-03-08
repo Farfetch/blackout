@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import type { Dispatch } from 'redux';
 
 /**

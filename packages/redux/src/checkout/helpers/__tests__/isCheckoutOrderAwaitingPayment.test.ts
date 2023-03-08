@@ -1,5 +1,5 @@
 import { ChargeStatus } from '@farfetch/blackout-client/src/payments';
-import isCheckoutOrderAwaitingPayment from '../isCheckoutOrderAwaitingPayment';
+import isCheckoutOrderAwaitingPayment from '../isCheckoutOrderAwaitingPayment.js';
 
 describe('isCheckoutOrderAwaitingPayment', () => {
   it('should return true when either charge status is processing and redirect url is defined', () => {

@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
 import { getPaymentMethodsByIntent } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   intentId,
   mockFetchPaymentMethodsResponse,
-} from 'tests/__fixtures__/payments';
-import { mockStore } from '../../../../tests';
-import fetchPaymentMethodsByIntent from '../fetchPaymentMethodsByIntent';
-import find from 'lodash/find';
+} from 'tests/__fixtures__/payments/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import fetchPaymentMethodsByIntent from '../fetchPaymentMethodsByIntent.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

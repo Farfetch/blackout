@@ -12,6 +12,7 @@ import {
   TrackTypes,
   utils,
 } from '@farfetch/blackout-analytics';
+import { cloneDeep, get } from 'lodash-es';
 import {
   DEFAULT_DATA_LAYER_NAME,
   INIT_ERROR,
@@ -26,25 +27,23 @@ import {
   OPTION_ON_PRE_PROCESS_COMMANDS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-} from '../constants';
-import { GA4 } from '../..';
+} from '../constants.js';
+import { GA4 } from '../../index.js';
 import {
   loadIntegrationData,
   onSetUserEventData,
   pageEventsData,
   trackEventsData,
-} from 'tests/__fixtures__/analytics';
-import { mockUsersResponse } from 'tests/__fixtures__/users';
-import cloneDeep from 'lodash/cloneDeep';
-import eventMapping from '../eventMapping';
-import get from 'lodash/get';
+} from 'tests/__fixtures__/analytics/index.mjs';
+import { mockUsersResponse } from 'tests/__fixtures__/users/index.mjs';
+import eventMapping from '../eventMapping.js';
 import type {
   GA4CommandList,
   GA4IntegrationOptions,
   OnPreProcessCommandsHandler,
   ScopeCommands,
   UserScopeCommandsHandler,
-} from '../types';
+} from '../types/index.js';
 
 const mockedPageData = pageEventsData[PageTypes.HOMEPAGE] as PageviewEventData;
 const defaultTrackEventData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
@@ -324,7 +323,7 @@ describe('GA4 Integration', () => {
         const query = get(
           mockedPageData,
           'context.web.window.location.query',
-          '',
+          {},
         );
 
         const expectedCalls = [
@@ -1584,10 +1583,16 @@ describe('GA4 Integration', () => {
             clonedEvent.properties.category =
               'Category_1/Category_2/Category_3/Category_4/Category_5/Category_6';
 
+            const category = get(
+              clonedEvent,
+              'properties.category',
+              '',
+            ) as string;
+
             // Make sure our dummy categories exceed the max length
-            expect(
-              get(clonedEvent, 'properties.category', '').split('/').length,
-            ).toBeGreaterThan(MAX_PRODUCT_CATEGORIES);
+            expect(category.split('/').length).toBeGreaterThan(
+              MAX_PRODUCT_CATEGORIES,
+            );
 
             // We want the first + last 4 categories
             const expectedCategories = {

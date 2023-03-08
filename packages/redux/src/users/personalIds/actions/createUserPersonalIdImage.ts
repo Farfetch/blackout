@@ -1,4 +1,4 @@
-import { createUserPersonalIdImageFactory } from './factories';
+import { createUserPersonalIdImageFactory } from './factories/index.js';
 import { postUserPersonalIdImage } from '@farfetch/blackout-client';
 
 /**

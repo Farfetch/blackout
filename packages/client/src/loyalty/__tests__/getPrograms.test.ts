@@ -1,8 +1,8 @@
-import { getPrograms } from '..';
-import { mockResponsePrograms } from 'tests/__fixtures__/loyalty';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPrograms.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getPrograms } from '../index.js';
+import { mockResponsePrograms } from 'tests/__fixtures__/loyalty/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPrograms.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('programs client', () => {
   const expectedConfig = undefined;

@@ -23,6 +23,26 @@ module.exports = {
         allowNew: true,
       },
     ],
+    'no-restricted-imports': 'off',
+    '@typescript-eslint/no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['url-parse'],
+            importNames: ['qs', 'extractProtocol', 'location', 'trimLeft'],
+            message:
+              "Named exports from url-parse do not work under node's ESM/CJS interop. You will need to import the default export and access the property you want from there, like this: `import urlparse from 'url-parse'; urlparse.qs.parse(...)`",
+          },
+          {
+            group: ['uuid'],
+            importNames: ['v1', 'v4'],
+            message:
+              "Named exports from uuid do not work under node's ESM/CJS interop. You will need to import the default export and use that export as a function, like this: `import uuid from 'uuid'; uuid(...)`",
+          },
+        ],
+      },
+    ],
     'require-await': 'error',
     'no-duplicate-imports': 'error',
     '@typescript-eslint/consistent-type-imports': [

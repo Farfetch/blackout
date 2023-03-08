@@ -2,12 +2,12 @@ import {
   mockCountryCode as countryCode,
   mockCities,
   mockStateId as stateId,
-} from 'tests/__fixtures__/locale';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCountryStateCities.fixtures';
-import getCountryStateCities from '../getCountryStateCities';
+} from 'tests/__fixtures__/locale/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCountryStateCities.fixtures.js';
+import getCountryStateCities from '../getCountryStateCities.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('locale client', () => {
   const expectedConfig = undefined;

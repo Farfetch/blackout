@@ -1,12 +1,12 @@
-import * as checkoutClient from '..';
+import * as checkoutClient from '../index.js';
 import {
   id,
   mockResponsePatchOrderItemsGiftMessage,
-} from 'tests/__fixtures__/checkout';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/patchCheckoutOrderItems.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { PatchCheckoutOrderItemsData } from '../types';
+} from 'tests/__fixtures__/checkout/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/patchCheckoutOrderItems.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { PatchCheckoutOrderItemsData } from '../types/index.js';
 
 describe('checkout client', () => {
   const expectedConfig = undefined;

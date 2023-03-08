@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
-import reducer, * as fromReducer from '../reducer';
-import type { AuthenticationState } from '../types';
+import * as actionTypes from '../actionTypes.js';
+import reducer, * as fromReducer from '../reducer.js';
+import type { AuthenticationState } from '../types/index.js';
 
 let initialState: AuthenticationState;
 const mockAction = { type: 'this_is_a_mock_action' };
@@ -160,7 +160,7 @@ describe('authentication reducer', () => {
       keyof typeof fromReducer
     >;
 
-    type ReducerSubAreaSelector = typeof fromReducer[ReducerSubAreaSelectors];
+    type ReducerSubAreaSelector = (typeof fromReducer)[ReducerSubAreaSelectors];
 
     function assertSubAreaSelector(
       selector: ReducerSubAreaSelector,

@@ -1,4 +1,4 @@
-import { CONSENT_CATEGORIES_PROPERTY } from '../utils';
+import { CONSENT_CATEGORIES_PROPERTY } from '../utils/index.js';
 import type {
   ConsentData,
   EventData,
@@ -8,7 +8,7 @@ import type {
   SetUserEventData,
   StrippedDownAnalytics,
   TrackTypesValues,
-} from '../types/analytics.types';
+} from '../types/analytics.types.js';
 
 /**
  * Base class for integrations. It ensures the base functionality in order to work

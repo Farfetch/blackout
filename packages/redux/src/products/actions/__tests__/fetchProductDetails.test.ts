@@ -1,18 +1,18 @@
 import * as normalizr from 'normalizr';
-import { fetchProductDetails } from '..';
+import { fetchProductDetails } from '../index.js';
 import { getProduct } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer/details';
+import { INITIAL_STATE } from '../../reducer/details.js';
 import {
   mockMerchantId,
   mockProductDetails,
   mockProductId,
   mockProductResponseNormalized,
   mockProductResponseNormalizedWithoutImageOptions,
-} from 'tests/__fixtures__/products';
-import { mockStore } from '../../../../tests';
-import { productsActionTypes } from '../..';
+} from 'tests/__fixtures__/products/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import { productsActionTypes } from '../../index.js';
 import thunk from 'redux-thunk';
-import type { GetOptionsArgument, StoreState } from '../../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

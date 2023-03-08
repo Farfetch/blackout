@@ -1,10 +1,10 @@
-import { chargeId, id } from 'tests/__fixtures__/checkout';
-import { ChargeStatus, DeclineCode } from '../../payments/types';
-import { getCheckoutOrderCharge } from '..';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCheckoutOrderCharge.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { CheckoutOrderCharge } from '../types';
+import { chargeId, id } from 'tests/__fixtures__/checkout/index.mjs';
+import { ChargeStatus, DeclineCode } from '../../payments/types/index.js';
+import { getCheckoutOrderCharge } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCheckoutOrderCharge.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { CheckoutOrderCharge } from '../types/index.js';
 
 describe('checkout client', () => {
   const expectedConfig = undefined;

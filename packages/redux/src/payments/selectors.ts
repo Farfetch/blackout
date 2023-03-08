@@ -1,4 +1,4 @@
-import { getEntities, getEntityById } from '../entities/selectors';
+import { getEntities, getEntityById } from '../entities/selectors/index.js';
 import {
   getGiftCardBalance,
   getPaymentIntent,
@@ -7,13 +7,13 @@ import {
   getPaymentMethods,
   getPaymentTokens as getPaymentTokensReducer,
   getUserCreditBalance,
-} from './reducer';
+} from './reducer.js';
 import type {
   PaymentInstrumentEntity,
   PaymentTokenEntity,
-} from '../entities/types';
-import type { PaymentsState } from './types';
-import type { StoreState } from '../types';
+} from '../entities/types/index.js';
+import type { PaymentsState } from './types/index.js';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Returns the payment tokens.

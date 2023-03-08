@@ -1,14 +1,14 @@
-import * as actionTypes from '../actionTypes';
-import { generateBrandsHash } from '../utils';
+import * as actionTypes from '../actionTypes.js';
+import { generateBrandsHash } from '../utils/index.js';
 import {
   mockBrandId,
   mockBrandResponse,
   mockBrandsResponse,
   mockQuery,
-} from 'tests/__fixtures__/brands';
+} from 'tests/__fixtures__/brands/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, * as fromReducer from '../reducer';
-import type { BrandsState } from '../types';
+import reducer, * as fromReducer from '../reducer.js';
+import type { BrandsState } from '../types/index.js';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };

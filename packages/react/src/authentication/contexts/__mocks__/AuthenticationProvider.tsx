@@ -1,5 +1,5 @@
-import { mockDefaultActiveTokenData } from '../__fixtures__/AuthenticationProvider.fixtures';
-import AuthenticationContext from '../AuthenticationContext';
+import { mockDefaultActiveTokenData } from '../__fixtures__/AuthenticationProvider.fixtures.js';
+import AuthenticationContext from '../AuthenticationContext.js';
 import React from 'react';
 import type { AuthenticationTokenManager } from '@farfetch/blackout-client';
 

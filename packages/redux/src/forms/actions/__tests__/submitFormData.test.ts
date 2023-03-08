@@ -1,13 +1,13 @@
-import { formsActionTypes } from '../..';
+import { find } from 'lodash-es';
+import { formsActionTypes } from '../../index.js';
 import {
   formSchemaResponse,
   postFormDataPayload,
-} from 'tests/__fixtures__/forms';
-import { INITIAL_STATE } from '../../reducer';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/forms/index.mjs';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockStore } from '../../../../tests/index.js';
 import { postFormData } from '@farfetch/blackout-client';
-import { submitFormData } from '..';
-import find from 'lodash/find';
+import { submitFormData } from '../index.js';
 
 const formsMockStore = (state = {}) =>
   mockStore({ forms: INITIAL_STATE }, state);

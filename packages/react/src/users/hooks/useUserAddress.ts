@@ -8,15 +8,15 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useUser, useUserAddresses } from '../..';
-import useAction from '../../helpers/useAction';
+import { useUser, useUserAddresses } from '../../index.js';
+import useAction from '../../helpers/useAction.js';
 import type {
   Config,
   User,
   UserAddress,
   UserAddressInput,
 } from '@farfetch/blackout-client';
-import type { UseUserAddressOptions } from './types';
+import type { UseUserAddressOptions } from './types/index.js';
 
 function useUserAddress(
   addressId: UserAddress['id'],

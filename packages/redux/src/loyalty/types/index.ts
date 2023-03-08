@@ -1,2 +1,2 @@
-export * from './actions.types';
-export * from './state.types';
+export * from './actions.types.js';
+export * from './state.types.js';

@@ -1,15 +1,18 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   expectedNormalizedPayload,
   mockResponse,
   mockUnverifiedUserResponse,
-} from 'tests/__fixtures__/authentication';
-import { mockErrorObject, mockRegisterData } from 'tests/__fixtures__/users';
-import { mockStore } from '../../../../../tests';
+} from 'tests/__fixtures__/authentication/index.mjs';
+import { find } from 'lodash-es';
+import {
+  mockErrorObject,
+  mockRegisterData,
+} from 'tests/__fixtures__/users/index.mjs';
+import { mockStore } from '../../../../../tests/index.js';
 import { postUser, toBlackoutError } from '@farfetch/blackout-client';
-import { register } from '../..';
-import find from 'lodash/find';
-import reducer from '../../reducer';
+import { register } from '../../index.js';
+import reducer from '../../reducer.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

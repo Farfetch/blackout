@@ -1,4 +1,4 @@
-import { fetchUserAttributeFactory } from './factories';
+import { fetchUserAttributeFactory } from './factories/index.js';
 import { getUserAttribute } from '@farfetch/blackout-client';
 
 /**

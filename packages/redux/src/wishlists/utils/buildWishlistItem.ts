@@ -1,4 +1,4 @@
-import type { ProductEntity } from '../../entities/types';
+import type { ProductEntity } from '../../entities/types/index.js';
 
 export type BuildWishlistItemData = {
   // Product with all its information.

@@ -1,8 +1,8 @@
-import { deleteToken } from '..';
-import { id } from 'tests/__fixtures__/authentication';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteTokens.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { deleteToken } from '../index.js';
+import { id } from 'tests/__fixtures__/authentication/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteTokens.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteToken', () => {
   const expectedConfig = undefined;

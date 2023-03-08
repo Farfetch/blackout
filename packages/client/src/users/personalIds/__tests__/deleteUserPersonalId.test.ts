@@ -1,8 +1,8 @@
-import { deleteUserPersonalId } from '..';
-import { personalId, userId } from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteUserPersonalId.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { deleteUserPersonalId } from '../index.js';
+import { personalId, userId } from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteUserPersonalId.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteUserPersonalId', () => {
   const expectedConfig = {

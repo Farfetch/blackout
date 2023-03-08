@@ -1,11 +1,11 @@
-import * as fromReducer from '../reducer';
-import * as selectors from '../selectors';
+import * as fromReducer from '../reducer.js';
+import * as selectors from '../selectors.js';
 import {
   mockMerchantLocation,
   mockMerchantLocationId,
   mockMerchantLocationId1,
   mockState,
-} from 'tests/__fixtures__/merchantsLocations';
+} from 'tests/__fixtures__/merchantsLocations/index.mjs';
 
 describe('merchants locations redux selectors', () => {
   beforeEach(jest.clearAllMocks);

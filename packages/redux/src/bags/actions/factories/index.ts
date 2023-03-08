@@ -2,9 +2,9 @@
  * Bags actions factories.
  */
 
-export { default as addBagItemFactory } from './addBagItemFactory';
-export { default as removeBagItemFactory } from './removeBagItemFactory';
-export { default as fetchBagFactory } from './fetchBagFactory';
-export { default as fetchBagOperationFactory } from './fetchBagOperationFactory';
-export { default as updateBagItemFactory } from './updateBagItemFactory';
-export { default as setBagPromocodesFactory } from './setBagPromocodesFactory';
+export { default as addBagItemFactory } from './addBagItemFactory.js';
+export { default as removeBagItemFactory } from './removeBagItemFactory.js';
+export { default as fetchBagFactory } from './fetchBagFactory.js';
+export { default as fetchBagOperationFactory } from './fetchBagOperationFactory.js';
+export { default as updateBagItemFactory } from './updateBagItemFactory.js';
+export { default as setBagPromocodesFactory } from './setBagPromocodesFactory.js';

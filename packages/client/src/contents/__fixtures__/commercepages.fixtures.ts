@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { CommercePages } from '../types';
+import type { CommercePages } from '../types/index.js';
 
 const path = '/api/content/v2/commercepages';
 

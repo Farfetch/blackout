@@ -1,12 +1,12 @@
-import { getUserCreditMovements } from '..';
+import { getUserCreditMovements } from '../index.js';
 import {
   mockGetCreditMovementsResponse,
   userId,
-} from 'tests/__fixtures__/users';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/getUserCreditMovements.fixtures';
+} from 'tests/__fixtures__/users/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getUserCreditMovements.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../../tests/mswServer';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('getUserCreditMovements', () => {
   const expectedConfig = undefined;

@@ -1,6 +1,6 @@
-import isEmpty from 'lodash/isEmpty';
-import sha256 from 'crypto-js/sha256';
-import type { UserData, UserTraits } from '../types/analytics.types';
+import { isEmpty } from 'lodash-es';
+import cryptoes from 'crypto-es';
+import type { UserData, UserTraits } from '../types/analytics.types.js';
 
 /**
  * Hashes a string with SHA-256 encryption.
@@ -10,7 +10,7 @@ import type { UserData, UserTraits } from '../types/analytics.types';
  * @returns The hashed result.
  */
 function hashPlainTextString(plainString: string | undefined) {
-  return plainString ? sha256(plainString).toString() : plainString;
+  return plainString ? cryptoes.SHA256(plainString).toString() : plainString;
 }
 
 /**

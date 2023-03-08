@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { entitiesMapper } from '../';
-import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes';
+import * as actionTypes from '../../actionTypes.js';
+import { entitiesMapper } from '..//index.js';
+import { LOGOUT_SUCCESS } from '../../../users/authentication/actionTypes.js';
 import {
   mockWishlistItem,
   mockWishlistItemId,
   mockWishlistSetId,
   mockWishlistSets,
   mockWishlistState,
-} from 'tests/__fixtures__/wishlists';
+} from 'tests/__fixtures__/wishlists/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, {
   getError,
@@ -16,9 +16,9 @@ import reducer, {
   getIsSetLoading,
   getSetError,
   INITIAL_STATE,
-} from '../wishlistsSets';
-import type { StoreState } from '../../../types';
-import type { WishlistSetsState } from '../../types';
+} from '../wishlistsSets.js';
+import type { StoreState } from '../../../types/index.js';
+import type { WishlistSetsState } from '../../types/index.js';
 
 const mockError = toBlackoutError(new Error('Dummy Error'));
 const mockAction = { type: 'foo' };

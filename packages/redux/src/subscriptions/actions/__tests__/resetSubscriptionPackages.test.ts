@@ -1,7 +1,7 @@
-import * as actionTypes from '../../actionTypes';
-import { mockStore } from '../../../../tests';
-import { resetSubscriptionPackages } from '..';
-import reducer from '../../reducer';
+import * as actionTypes from '../../actionTypes.js';
+import { mockStore } from '../../../../tests/index.js';
+import { resetSubscriptionPackages } from '../index.js';
+import reducer from '../../reducer/index.js';
 
 let store: ReturnType<typeof mockStore>;
 const randomAction = { type: 'this_is_a_random_action' };

@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetRaffles,
@@ -6,11 +6,11 @@ import {
   type RafflesQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { buildQueryStringFromObject as generateRafflesHash } from '../../../helpers';
+import { buildQueryStringFromObject as generateRafflesHash } from '../../../helpers/index.js';
 import { normalize } from 'normalizr';
-import raffleSchema from '../../../entities/schemas/raffles';
+import raffleSchema from '../../../entities/schemas/raffles.js';
 import type { Dispatch } from 'redux';
-import type { Nullable } from '../../../types';
+import type { Nullable } from '../../../types/index.js';
 
 /**
  * Method responsible for fetching raffles.

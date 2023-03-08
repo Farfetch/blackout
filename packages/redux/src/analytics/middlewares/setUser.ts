@@ -1,20 +1,19 @@
-import { authenticationActionTypes } from '../../users/authentication';
-import { getUser, getUserId, usersActionTypes } from '../../users';
-import { USER_ID_PROPERTY } from '../../users/constants';
+import { authenticationActionTypes } from '../../users/authentication/index.js';
+import { get, isPlainObject } from 'lodash-es';
+import { getUser, getUserId, usersActionTypes } from '../../users/index.js';
+import { USER_ID_PROPERTY } from '../../users/constants.js';
 import Analytics, {
   EventTypes,
   type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
-import get from 'lodash/get';
-import isPlainObject from 'lodash/isPlainObject';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
 import type {
   SetUserActionOptions,
   SetUserActionTypes,
   SetUserMiddlewareOptions,
-} from './types';
-import type { UserEntity } from '../../entities';
+} from './types/index.js';
+import type { UserEntity } from '../../entities/index.js';
 
 export const DEFAULT_TRIGGER_SET_USER_ACTION_TYPES = new Set([
   authenticationActionTypes.LOGIN_SUCCESS,

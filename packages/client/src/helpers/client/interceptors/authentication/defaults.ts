@@ -1,5 +1,5 @@
-import CryptoJS from 'crypto-js';
-import type { ITokenData } from './token-providers/types/TokenData.types';
+import CryptoES from 'crypto-es';
+import type { ITokenData } from './token-providers/types/TokenData.types.js';
 
 /**
  * Formats the authorization request header with the passed in access token.
@@ -38,15 +38,15 @@ export const getDefaultTokenDataSerializer = (
 } => {
   return {
     serializeTokenData: (tokenData: ITokenData): string => {
-      return CryptoJS.AES.encrypt(
+      return CryptoES.AES.encrypt(
         JSON.stringify(tokenData),
         secretKey,
       ).toString();
     },
     deserializeTokenData: (rawData: string): ITokenData => {
-      const bytes = CryptoJS.AES.decrypt(rawData, secretKey);
+      const bytes = CryptoES.AES.decrypt(rawData, secretKey);
 
-      return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      return JSON.parse(bytes.toString(CryptoES.enc.Utf8));
     },
   };
 };

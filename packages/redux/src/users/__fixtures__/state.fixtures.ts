@@ -7,9 +7,9 @@ import {
   expectedNormalizedUserPayload,
   expectedPreferencesNormalizedPayload,
   expectedTitlesNormalizedPayload,
-} from 'tests/__fixtures__/users';
-import { INITIAL_STATE } from '../reducer';
-import type { StoreState } from '../../types';
+} from 'tests/__fixtures__/users/index.mjs';
+import { INITIAL_STATE } from '../reducer.js';
+import type { StoreState } from '../../types/index.js';
 
 export const userId = 29538482;
 export const mockBaseState: NonNullable<StoreState> = {

@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import type { Dispatch } from 'redux';
-import type { ResetPaymentsAction } from '../types';
+import type { ResetPaymentsAction } from '../types/index.js';
 
 /**
  * Reset payments state and related entities to its initial value.

@@ -1,8 +1,8 @@
-import { deleteGuestToken } from '..';
-import { id } from 'tests/__fixtures__/authentication';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteGuestToken.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { deleteGuestToken } from '../index.js';
+import { id } from 'tests/__fixtures__/authentication/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteGuestToken.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteGuestToken', () => {
   const expectedConfig = undefined;

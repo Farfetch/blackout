@@ -1,7 +1,7 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import reducerFactory from '../../helpers/reducerFactory';
-import type { AuthenticationState } from './types';
+import reducerFactory from '../../helpers/reducerFactory.js';
+import type { AuthenticationState } from './types/index.js';
 
 export const INITIAL_STATE: AuthenticationState = {
   login: {

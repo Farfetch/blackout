@@ -1,4 +1,4 @@
-import { fetchSEOMetadataFactory } from './factories';
+import { fetchSEOMetadataFactory } from './factories/index.js';
 import { getSEOMetadata } from '@farfetch/blackout-client';
 
 /**

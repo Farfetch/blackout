@@ -1,2 +1,2 @@
-export * from './searchActions.types';
-export * from './searchState.types';
+export * from './searchActions.types.js';
+export * from './searchState.types.js';

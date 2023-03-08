@@ -2,13 +2,14 @@ import {
   assertOption,
   assertOptionType,
   getRequestUrlWithoutBase,
-} from './utils';
+} from './utils.js';
 import {
   GuestTokenProvider,
   TokenData,
   type TokenKinds,
   UserTokenProvider,
-} from './token-providers';
+} from './token-providers/index.js';
+import { isNil } from 'lodash-es';
 import {
   MisconfiguredTokenProviderError,
   RefreshClientCredentialsAccessTokenError,
@@ -16,24 +17,23 @@ import {
   RefreshUserAccessTokenError,
   TokenManagerNotLoadedException,
   UserSessionExpiredError,
-} from './errors';
-import AuthenticationConfigOptions from './AuthenticationConfigOptions';
+} from './errors.js';
+import AuthenticationConfigOptions from './AuthenticationConfigOptions.js';
 import axios, {
   type AxiosError,
   type AxiosInstance,
-  type AxiosRequestConfig,
   type AxiosResponse,
+  type InternalAxiosRequestConfig,
 } from 'axios';
-import isNil from 'lodash/isNil';
 import type {
   AxiosAuthenticationTokenManagerOptions,
   OptionsStorageProvider,
   OptionsStorageSerializer,
-} from './types/TokenManagerOptions.types';
-import type { ITokenData } from './token-providers/types/TokenData.types';
-import type { RequestConfig } from './types/AuthenticationTokenManager.types';
-import type { TokenContext } from './token-providers/types/TokenContext.types';
-import type { UserToken } from './types';
+} from './types/TokenManagerOptions.types.js';
+import type { ITokenData } from './token-providers/types/TokenData.types.js';
+import type { RequestConfig } from './types/AuthenticationTokenManager.types.js';
+import type { TokenContext } from './token-providers/types/TokenContext.types.js';
+import type { UserToken } from './types/index.js';
 
 type TokenDataChangedListener = (
   activeToken: { kind: TokenKinds; data: ITokenData | null } | null,
@@ -573,7 +573,7 @@ class AuthenticationTokenManager {
    *
    * @returns Promise that will be resolved with the final config object.
    */
-  async onBeforeRequestInterceptor(config: AxiosRequestConfig) {
+  async onBeforeRequestInterceptor(config: InternalAxiosRequestConfig) {
     const configAsRequestConfig = config as RequestConfig;
     const needsAuthentication = this.requestNeedsAccessTokenMatcher(
       configAsRequestConfig,
@@ -614,8 +614,9 @@ class AuthenticationTokenManager {
         accessToken = await this.currentTokenProvider?.getAccessToken();
       }
 
-      configAsRequestConfig.headers.Authorization =
-        this.authorizationHeaderFormatter(accessToken);
+      (
+        configAsRequestConfig as InternalAxiosRequestConfig
+      ).headers.Authorization = this.authorizationHeaderFormatter(accessToken);
 
       configAsRequestConfig[AuthenticationConfigOptions.UsedAccessToken] =
         accessToken;
@@ -630,7 +631,7 @@ class AuthenticationTokenManager {
       }
     }
 
-    return configAsRequestConfig;
+    return configAsRequestConfig as InternalAxiosRequestConfig;
   }
 
   /**
@@ -701,12 +702,19 @@ class AuthenticationTokenManager {
    * @returns Promise that will be rejected with the original error if the retry for the 401 error was
    * not successful or resolved with the data from the request if the retry is successful.
    */
-  async onRequestFailedInterceptor(error: AxiosError) {
+  // Due to a bug with axios' types, we had to change the output of this function
+  // to `Promise<unknown>` to avoid having a typescript
+  async onRequestFailedInterceptor(error: AxiosError): Promise<unknown> {
     if (!axios.isAxiosError(error)) {
       return Promise.reject(error);
     }
 
     const { config } = error;
+
+    if (!config) {
+      return Promise.reject(error);
+    }
+
     const configAsRequestConfig = config as RequestConfig;
     const responseStatus = error.response?.status;
     let forceRetry = false;
@@ -844,7 +852,8 @@ class AuthenticationTokenManager {
 
       // Clear used access token values of the request so they can be
       // refreshed.
-      delete configAsRequestConfig.headers.Authorization;
+      delete (configAsRequestConfig as InternalAxiosRequestConfig).headers
+        .Authorization;
       delete configAsRequestConfig[AuthenticationConfigOptions.UsedAccessToken];
       delete configAsRequestConfig[
         AuthenticationConfigOptions.NeedsAuthentication

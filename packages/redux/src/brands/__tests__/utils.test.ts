@@ -1,5 +1,5 @@
-import { generateBrandsHash } from '../utils';
-import { mockQuery } from 'tests/__fixtures__/brands';
+import { generateBrandsHash } from '../utils/index.js';
+import { mockQuery } from 'tests/__fixtures__/brands/index.mjs';
 
 describe('generateBrandsHash', () => {
   it('should correctly construct the brands hash - with query object', () => {

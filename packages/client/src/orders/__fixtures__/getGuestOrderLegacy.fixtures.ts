@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { Order } from '../types';
+import type { Order } from '../types/index.js';
 
 const path = '/api/legacy/v1/guestorders/:id';
 

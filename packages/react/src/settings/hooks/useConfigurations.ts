@@ -8,8 +8,8 @@ import {
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import useAction from '../../helpers/useAction';
-import type { UseConfigurationsOptions } from './types';
+import useAction from '../../helpers/useAction.js';
+import type { UseConfigurationsOptions } from './types/index.js';
 
 const useConfigurations = (options: UseConfigurationsOptions = {}) => {
   const { enableAutoFetch = true, fetchQuery, fetchConfig } = options;

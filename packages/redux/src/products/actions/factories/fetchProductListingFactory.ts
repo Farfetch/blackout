@@ -1,4 +1,4 @@
-import fetchProductsListFactory from './fetchProductsListFactory';
+import fetchProductsListFactory from './fetchProductsListFactory.js';
 import type {
   Config,
   GetProductListing,
@@ -6,8 +6,8 @@ import type {
   ProductListing,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { GetOptionsArgument, StoreState } from '../../../types';
-import type { ProductsListActionOptions } from '../../types';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
+import type { ProductsListActionOptions } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch a product

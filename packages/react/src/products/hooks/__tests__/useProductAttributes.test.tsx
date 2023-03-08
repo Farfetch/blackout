@@ -3,10 +3,10 @@ import {
   mockProductAttributes,
   mockProductId,
   mockProductsState,
-} from 'tests/__fixtures__/products';
+} from 'tests/__fixtures__/products/index.mjs';
 import { renderHook } from '@testing-library/react';
-import { withStore } from '../../../../tests/helpers';
-import useProductAttributes from '../useProductAttributes';
+import { withStore } from '../../../../tests/helpers/index.js';
+import useProductAttributes from '../useProductAttributes.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({

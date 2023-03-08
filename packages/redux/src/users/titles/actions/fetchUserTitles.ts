@@ -1,4 +1,4 @@
-import { fetchUserTitlesFactory } from './factories';
+import { fetchUserTitlesFactory } from './factories/index.js';
 import { getUserTitles } from '@farfetch/blackout-client';
 
 /**

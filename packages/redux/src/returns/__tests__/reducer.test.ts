@@ -1,22 +1,22 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
 import {
   FETCH_USER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-} from '../../users/authentication/actionTypes';
+} from '../../users/authentication/actionTypes.js';
 import {
   mockState,
   pickupDay,
   returnId,
   returnPickupCapabilityId,
-} from 'tests/__fixtures__/returns';
+} from 'tests/__fixtures__/returns/index.mjs';
+import { omit } from 'lodash-es';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import omit from 'lodash/omit';
-import reducer, { entitiesMapper } from '../reducer';
-import type { ReturnsState } from '../types';
-import type { StoreState } from '../../types';
+import reducer, { entitiesMapper } from '../reducer.js';
+import type { ReturnsState } from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 let initialState: ReturnsState;
 const randomAction = { type: 'this_is_a_random_action' };

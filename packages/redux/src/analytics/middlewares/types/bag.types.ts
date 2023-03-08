@@ -2,7 +2,7 @@ import type {
   BagItemEntity,
   MerchantEntity,
   ProductEntity,
-} from '../../../entities/types';
+} from '../../../entities/types/index.js';
 
 export type BagProductActionMetadata = {
   authCode: string;

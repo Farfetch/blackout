@@ -2,7 +2,7 @@ import type {
   GetProductListingQuery,
   GetProductSetQuery,
 } from '@farfetch/blackout-client';
-import type { ProductsListEntity } from '../../../entities/types';
+import type { ProductsListEntity } from '../../../entities/types/index.js';
 
 export type GenerateProductsListHash = (
   // Slug from pathname.

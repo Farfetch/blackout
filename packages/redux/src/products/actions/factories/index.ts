@@ -1,24 +1,24 @@
 /**
  * Products actions factories.
  */
-export * from './types';
+export * from './types/index.js';
 
-export { default as fetchProductListingFactory } from './fetchProductListingFactory';
-export { default as fetchProductAttributesFactory } from './fetchProductAttributesFactory';
-export { default as fetchProductDetailsFactory } from './fetchProductDetailsFactory';
-export { default as fetchProductFittingsFactory } from './fetchProductFittingsFactory';
-export { default as fetchProductGroupingFactory } from './fetchProductGroupingFactory';
-export { default as fetchProductGroupingPropertiesFactory } from './fetchProductGroupingPropertiesFactory';
-export { default as fetchProductMeasurementsFactory } from './fetchProductMeasurementsFactory';
-export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuidesFactory';
-export { default as fetchProductOutfitsFactory } from './fetchProductOutfitsFactory';
-export { default as fetchProductSizesFactory } from './fetchProductSizesFactory';
-export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory';
-export { default as fetchRecommendedSetFactory } from './fetchRecommendedSetFactory';
-export { default as fetchProductSetFactory } from './fetchProductSetFactory';
+export { default as fetchProductListingFactory } from './fetchProductListingFactory.js';
+export { default as fetchProductAttributesFactory } from './fetchProductAttributesFactory.js';
+export { default as fetchProductDetailsFactory } from './fetchProductDetailsFactory.js';
+export { default as fetchProductFittingsFactory } from './fetchProductFittingsFactory.js';
+export { default as fetchProductGroupingFactory } from './fetchProductGroupingFactory.js';
+export { default as fetchProductGroupingPropertiesFactory } from './fetchProductGroupingPropertiesFactory.js';
+export { default as fetchProductMeasurementsFactory } from './fetchProductMeasurementsFactory.js';
+export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuidesFactory.js';
+export { default as fetchProductOutfitsFactory } from './fetchProductOutfitsFactory.js';
+export { default as fetchProductSizesFactory } from './fetchProductSizesFactory.js';
+export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory.js';
+export { default as fetchRecommendedSetFactory } from './fetchRecommendedSetFactory.js';
+export { default as fetchProductSetFactory } from './fetchProductSetFactory.js';
 
 // Recently Viewed Products
-export { default as fetchRecentlyViewedProductsFactory } from './fetchRecentlyViewedProductsFactory';
-export { default as removeRecentlyViewedProductFactory } from './removeRecentlyViewedProductFactory';
+export { default as fetchRecentlyViewedProductsFactory } from './fetchRecentlyViewedProductsFactory.js';
+export { default as removeRecentlyViewedProductFactory } from './removeRecentlyViewedProductFactory.js';
 
-export { default as fetchRecommendedProductsFactory } from './fetchRecommendedProductsFactory';
+export { default as fetchRecommendedProductsFactory } from './fetchRecommendedProductsFactory.js';

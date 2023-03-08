@@ -1,5 +1,5 @@
-import { adaptDate } from '..';
-import { mockDateStructure } from '../__fixtures__/adapters.fixtures';
+import { adaptDate } from '../index.js';
+import { mockDateStructure } from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptDate()', () => {
   it('should return a valid timestamp by providing a JSON date string', () => {

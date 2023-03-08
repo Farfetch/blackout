@@ -1,13 +1,13 @@
+import { get } from 'lodash-es';
 import {
   getFormsError,
   getFormsIsLoading,
   getFormsSchemas,
   getSubmitFormDataError as getSubmitFormDataErrorFromReducer,
   getSubmitFormDataIsLoading,
-} from './reducer';
-import get from 'lodash/get';
+} from './reducer.js';
 import type { FormSchema } from '@farfetch/blackout-client';
-import type { StoreState } from '../types';
+import type { StoreState } from '../types/index.js';
 
 /**
  * Retrieves the error thrown by the fetchFormSchema request, by schemaCode.

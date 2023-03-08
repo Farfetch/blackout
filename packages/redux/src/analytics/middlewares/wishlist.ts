@@ -4,31 +4,32 @@ import {
   getCurrency,
   getSizeFullInformation,
   getVariant,
-} from './helpers';
+} from './helpers.js';
+import { get, isNil } from 'lodash-es';
 import {
   getWishlistId,
   getWishlistItem,
   getWishlistSet,
   wishlistsActionTypes,
-} from '../../wishlists';
+} from '../../wishlists/index.js';
 import Analytics, {
   EventTypes,
   FromParameterTypes,
   utils,
 } from '@farfetch/blackout-analytics';
-import get from 'lodash/get';
-import isNil from 'lodash/isNil';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
-import type { StoreState } from '../../types';
+import type { StoreState } from '../../types/index.js';
 import type {
   WishlistActionMiddlewareOptions,
   WishlistActionProcessedOptions,
   WishlistProductUpdateSetActionMetadata,
-} from './types';
+} from './types/index.js';
 import type {
   WishlistItemDenormalized,
   WishlistItemEntity,
-} from '../../entities/types';
+  WishlistSetDenormalized,
+  WishlistSetItemDenormalized,
+} from '../../entities/types/index.js';
 
 /**
  * Extends the default action types with the ones passed to the middleware.
@@ -108,7 +109,10 @@ const getWishlistItemIdFromAction = (action: AnyAction, searchMeta = true) => {
  */
 const getWishlistData = (
   action: AnyAction,
-  wishlistItem: WishlistItemDenormalized | undefined,
+  wishlistItem:
+    | WishlistItemDenormalized
+    | WishlistSetItemDenormalized
+    | undefined,
 ) => {
   return {
     affiliation: get(action, 'meta.affiliation'),
@@ -134,21 +138,25 @@ const getWishlistData = (
 const getProductData = async (
   analyticsInstance: Analytics,
   state: StoreState,
-  wishlistItem: WishlistItemDenormalized | undefined,
+  wishlistItem:
+    | WishlistItemDenormalized
+    | WishlistSetItemDenormalized
+    | undefined,
 ) => {
   const product = get(wishlistItem, 'product');
-  const priceWithDiscount = get(wishlistItem, 'price.includingTaxes');
+  const priceWithDiscount = get(wishlistItem, 'price.includingTaxes', 0);
   const quantity = get(wishlistItem, 'quantity');
   const size = get(wishlistItem, 'size.name');
   const sizeId = get(wishlistItem, 'size.id');
 
   const sizeScale =
     get(wishlistItem, 'size.scale') ||
-    get(getSizeFullInformation(product, sizeId), 'scale'); // size might be defined only on wishlistItem on a hard-refresh of the bag page
+    (sizeId && get(getSizeFullInformation(product, sizeId), 'scale')); // size might be defined only on wishlistItem on a hard-refresh of the bag page
 
   const priceWithoutDiscount = get(
     wishlistItem,
     'price.includingTaxesWithoutDiscount',
+    0,
   );
   const discount = calculatePriceDiscount(
     priceWithDiscount,
@@ -376,7 +384,9 @@ export function analyticsWishlistMiddleware(
 
             return get(wishlistSet, `wishlistSetItems[${wishlistItemIndex}]`);
           })
-          .filter(Boolean);
+          .filter(Boolean) as Array<
+          WishlistSetDenormalized['wishlistSetItems'][number]
+        >;
 
         await Promise.all(
           removedItems.map(async wishlistItem => {

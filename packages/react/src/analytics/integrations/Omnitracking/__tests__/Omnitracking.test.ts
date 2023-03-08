@@ -2,7 +2,7 @@ import {
   pageEventsData as analyticsPageData,
   trackEventsData as analyticsTrackData,
   loadIntegrationData,
-} from 'tests/__fixtures__/analytics';
+} from 'tests/__fixtures__/analytics/index.mjs';
 import {
   integrations as coreIntegrations,
   EventTypes,
@@ -11,9 +11,9 @@ import {
   type StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
-import Omnitracking from '..';
-import UniqueViewIdStorage from '../storage/UniqueViewIdStorage';
-import UniqueViewIdStorageOptions from '../storage/UniqueViewIdStorageOptions';
+import Omnitracking from '../index.js';
+import UniqueViewIdStorage from '../storage/UniqueViewIdStorage.js';
+import UniqueViewIdStorageOptions from '../storage/UniqueViewIdStorageOptions.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

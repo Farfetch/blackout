@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Brand,
   type Config,
@@ -6,14 +6,17 @@ import {
   type Order,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import merge from 'lodash/merge';
-import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse';
-import type { CategoryEntity, MerchantEntity } from '../../../entities';
+import { merge } from 'lodash-es';
+import normalizeFetchOrderResponse from './helpers/normalizeFetchOrderResponse.js';
+import type {
+  CategoryEntity,
+  MerchantEntity,
+} from '../../../entities/index.js';
 import type { Dispatch } from 'redux';
-import type { FetchGuestOrdersAction } from '../../types/actions.types';
-import type { GetOptionsArgument, StoreState } from '../../../types';
-import type { OrderEntity } from '../../../entities/types/orders.types';
-import type { OrderItemEntity } from '../../../entities/types/orderItems.types';
+import type { FetchGuestOrdersAction } from '../../types/actions.types.js';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
+import type { OrderEntity } from '../../../entities/types/orders.types.js';
+import type { OrderItemEntity } from '../../../entities/types/orderItems.types.js';
 
 /**
  * Fetches guest user orders.

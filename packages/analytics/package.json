@@ -8,21 +8,21 @@
   "sideEffects": false,
   "scripts": {
     "build": "yarn build:transpile && yarn build:types",
+    "build:watch": "../../scripts/transpile.sh --skip-initial-build --watch --verbose",
     "build:transpile": "../../scripts/transpile.sh",
     "build:types": "tsc -p tsconfig.release.json",
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
-    "prebuild": "yarn clean",
     "clean": "rimraf dist tsconfig.release.tsbuildinfo",
     "ci:types": "tsc -p tsconfig.ci.runtime.json",
-    "prepack": "yarn build:copy-package-json"
+    "prepack": "yarn build:copy-package-json",
+    "dev:link": "yarn build && yarn build:copy-package-json && cd dist && yarn link"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
-    "@types/crypto-js": "3.1.47",
-    "crypto-js": "3.1.9-1",
+    "crypto-es": "^1.2.7",
     "url-parse": "^1.4.4",
     "uuid": "^3.3.2"
   },
@@ -32,7 +32,7 @@
   },
   "peerDependencies": {
     "@farfetch/blackout-client": "^2.0.0-next.182",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

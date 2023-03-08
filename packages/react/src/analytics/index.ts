@@ -1,7 +1,7 @@
 /**
  * Analytics for web applications.
  */
-import * as integrations from './integrations';
+import * as integrations from './integrations/index.js';
 import {
   EventTypes,
   FromParameterTypes,
@@ -11,7 +11,7 @@ import {
   PlatformTypes,
 } from '@farfetch/blackout-analytics';
 
-export { default as analytics } from './analytics';
+export { default as analytics } from './analytics.js';
 export {
   integrations,
   EventTypes,
@@ -21,4 +21,4 @@ export {
   PageTypes,
   PlatformTypes,
 };
-export { default as webContext } from './context';
+export { default as webContext } from './context.js';

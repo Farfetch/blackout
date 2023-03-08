@@ -1,4 +1,4 @@
-import { fetchSubscriptionPackagesFactory } from './factories';
+import { fetchSubscriptionPackagesFactory } from './factories/index.js';
 import { getSubscriptionPackages } from '@farfetch/blackout-client';
 
 /**

@@ -1,9 +1,9 @@
-import { getPaymentMethodsByCountryAndCurrency } from '..';
-import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getPaymentMethodsByCountryAndCurrency.fixtures';
-import mswServer from '../../../tests/mswServer';
-import type { PaymentMethods } from '../types';
+import { getPaymentMethodsByCountryAndCurrency } from '../index.js';
+import { mockFetchPaymentMethodsResponse } from 'tests/__fixtures__/payments/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getPaymentMethodsByCountryAndCurrency.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
+import type { PaymentMethods } from '../types/index.js';
 
 describe('getPaymentMethodsByCountryAndCurrency', () => {
   const expectedConfig = undefined;

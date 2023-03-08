@@ -1,11 +1,11 @@
-import * as actionTypes from '../actionTypes';
-import * as fromReducer from '../reducer';
-import { address1 } from 'tests/__fixtures__/users/addresses.fixtures';
+import * as actionTypes from '../actionTypes.js';
+import * as fromReducer from '../reducer.js';
+import { address1 } from 'tests/__fixtures__/users/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
-import reducer, { entitiesMapper } from '../reducer';
-import type { AddressesEntity } from '../../../entities/types';
-import type { StoreState } from '../../../types/storeState.types';
-import type { UserAddressesState } from '../types';
+import reducer, { entitiesMapper } from '../reducer.js';
+import type { AddressesEntity } from '../../../entities/types/index.js';
+import type { StoreState } from '../../../types/storeState.types.js';
+import type { UserAddressesState } from '../types/index.js';
 
 let initialState: UserAddressesState;
 

@@ -3,11 +3,11 @@ import { getUserReturns, toBlackoutError } from '@farfetch/blackout-client';
 import {
   mockAuthenticatedUserEntities,
   mockUserInitialState,
-} from 'tests/__fixtures__/users';
-import { mockUserReturnsResponse } from 'tests/__fixtures__/users/userReturns.fixtures';
-import { useReturns } from '../../..';
-import { withStore } from '../../../../tests/helpers';
-import flushPromises from 'tests/flushPromises';
+} from 'tests/__fixtures__/users/index.mjs';
+import { mockUserReturnsResponse } from 'tests/__fixtures__/users/userReturns.fixtures.mjs';
+import { useReturns } from '../../../index.js';
+import { withStore } from '../../../../tests/helpers/index.js';
+import flushPromises from 'tests/flushPromises.mjs';
 
 jest.mock('@farfetch/blackout-client', () => {
   const original = jest.requireActual('@farfetch/blackout-client');

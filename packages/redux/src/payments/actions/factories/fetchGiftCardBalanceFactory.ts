@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Balance,
   type Config,
@@ -7,7 +7,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchGiftCardBalanceAction } from '../../types';
+import type { FetchGiftCardBalanceAction } from '../../types/index.js';
 
 /**
  * Method responsible for getting the gift card balance.

@@ -1,13 +1,13 @@
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions';
-import TokenData from './TokenData';
-import TokenKinds from './TokenKinds';
-import TokenProvider from './TokenProvider';
-import type { ITokenData } from './types';
+import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import TokenData from './TokenData.js';
+import TokenKinds from './TokenKinds.js';
+import TokenProvider from './TokenProvider.js';
+import type { ITokenData } from './types/index.js';
 import type {
   OptionsStorageProvider,
   OptionsStorageSerializer,
   UserTokenRequester,
-} from '../types/TokenManagerOptions.types';
+} from '../types/TokenManagerOptions.types.js';
 
 export const DEFAULT_STORAGE_KEY = 'UserToken';
 

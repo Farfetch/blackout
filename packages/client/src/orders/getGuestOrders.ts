@@ -1,6 +1,6 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
-import type { GetGuestOrders } from './types';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
+import type { GetGuestOrders } from './types/index.js';
 
 /**
  * Method responsible for fetching the details of a guest user order list.

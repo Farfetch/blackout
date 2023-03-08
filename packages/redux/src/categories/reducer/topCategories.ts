@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import type { CategoriesState, TopCategoriesState } from '../types';
+import type { CategoriesState, TopCategoriesState } from '../types/index.js';
 import type { Category } from '@farfetch/blackout-client';
 
 export const INITIAL_STATE: TopCategoriesState = {

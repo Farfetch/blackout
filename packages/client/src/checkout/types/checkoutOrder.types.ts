@@ -1,8 +1,8 @@
-import type { CheckoutAddress } from '../../types/common/address.types';
-import type { CheckoutOrderItem, CheckoutOrderMerchant } from '.';
-import type { CustomerType } from '../../orders/types/order.types';
-import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types';
-import type { PaymentIntent } from '../../payments';
+import type { CheckoutAddress } from '../../types/common/address.types.js';
+import type { CheckoutOrderItem, CheckoutOrderMerchant } from './index.js';
+import type { CustomerType } from '../../orders/types/order.types.js';
+import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types.js';
+import type { PaymentIntent } from '../../payments/index.js';
 
 export enum ShippingMode {
   ByMerchant = 'ByMerchant',

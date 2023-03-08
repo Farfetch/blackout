@@ -1,6 +1,6 @@
-import { adaptError } from '../../helpers/client/formatError';
-import client from '../../helpers/client';
-import type { PutUserAddress } from './types';
+import { adaptError } from '../../helpers/client/formatError.js';
+import client from '../../helpers/client/index.js';
+import type { PutUserAddress } from './types/index.js';
 
 /**
  * Responsible for updating the address information with the specified 'id'.

@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.dev.base.json",
-  "include": ["packages/**/*.ts*", "tests/**/*.ts*"],
+  "include": ["packages/**/*.ts*", "tests/**/*.*ts"],
   "exclude": ["**/dist"]
 }

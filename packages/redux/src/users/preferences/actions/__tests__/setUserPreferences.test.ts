@@ -1,9 +1,9 @@
-import * as actionTypes from '../../actionTypes';
-import { INITIAL_STATE } from '../../../reducer';
-import { mockStore } from '../../../../../tests';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
+import { INITIAL_STATE } from '../../../reducer.js';
+import { mockStore } from '../../../../../tests/index.js';
 import { putUserPreferences } from '@farfetch/blackout-client';
-import { setUserPreferences } from '..';
-import find from 'lodash/find';
+import { setUserPreferences } from '../index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

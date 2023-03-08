@@ -1,11 +1,11 @@
-import { getCountryAddressSchemas } from '..';
+import { getCountryAddressSchemas } from '../index.js';
 import {
   isoCode,
   mockGetAddressSchemaResponse,
-} from 'tests/__fixtures__/locale';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getCountryAddressSchemas.fixtures';
-import mswServer from '../../../tests/mswServer';
+} from 'tests/__fixtures__/locale/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getCountryAddressSchemas.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getCountryAddressSchemas', () => {
   const expectedConfig = undefined;

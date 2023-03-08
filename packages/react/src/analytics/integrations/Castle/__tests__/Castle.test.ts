@@ -2,7 +2,7 @@ import {
   pageEventsData as analyticsPageData,
   trackEventsData as analyticsTrackData,
   loadIntegrationData,
-} from 'tests/__fixtures__/analytics';
+} from 'tests/__fixtures__/analytics/index.mjs';
 import {
   type EventData,
   EventTypes,
@@ -15,12 +15,12 @@ import {
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
-import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle';
-import flushPromises from 'tests/flushPromises';
-import isString from 'lodash/isString';
-import pickBy from 'lodash/pickBy';
-import type { CastleIntegrationOptions } from '../types';
-import type { WebContextType } from '../../../context';
+import { isString, pickBy } from 'lodash-es';
+import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle.js';
+import flushPromises from 'tests/flushPromises.mjs';
+import type { CastleIntegrationOptions } from '../types/index.js';
+import type { InternalAxiosRequestConfig } from 'axios';
+import type { WebContextType } from '../../../context.js';
 
 const mockRequestHeaderValue = '12342342345241342423424';
 const publishableKey = 'pk_mock_111111111111111111111111111';
@@ -134,7 +134,9 @@ describe('Castle integration', () => {
 
       expect(instance.httpClientInterceptor).toBeDefined();
 
-      const config = await instance.onBeforeRequestFullfil({ headers: {} });
+      const config = await instance.onBeforeRequestFullfil({
+        headers: {},
+      } as InternalAxiosRequestConfig);
 
       // request success interceptor
       expect(config).toEqual({

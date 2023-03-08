@@ -1,8 +1,8 @@
-export * as settingsActionTypes from './actionTypes';
+export * as settingsActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './actions/factories';
-export * from './selectors';
-export * from './reducer';
+export * from './actions/index.js';
+export * from './actions/factories/index.js';
+export * from './selectors/index.js';
+export * from './reducer/index.js';
 
-export * from './types';
+export * from './types/index.js';

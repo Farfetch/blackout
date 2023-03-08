@@ -1,13 +1,13 @@
-import * as actionTypes from '../../actionTypes';
-import { fetchMerchantsLocations } from '..';
+import * as actionTypes from '../../actionTypes.js';
+import { fetchMerchantsLocations } from '../index.js';
 import { getMerchantsLocations } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
+import { INITIAL_STATE } from '../../reducer.js';
 import {
   mockMerchantLocation,
   mockMerchantsLocationsNormalizedResponse,
   mockQuery,
-} from 'tests/__fixtures__/merchantsLocations';
-import { mockStore } from '../../../../tests';
+} from 'tests/__fixtures__/merchantsLocations/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

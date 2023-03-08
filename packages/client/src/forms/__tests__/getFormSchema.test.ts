@@ -1,13 +1,13 @@
-import { getFormSchema } from '../';
+import { getFormSchema } from '..//index.js';
 import {
   query,
   schemaCode,
   formSchemaResponse as successResponse,
-} from 'tests/__fixtures__/forms';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getFormSchema.fixtures';
+} from 'tests/__fixtures__/forms/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getFormSchema.fixtures.js';
 import join from 'proper-url-join';
-import mswServer from '../../../tests/mswServer';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('schemas client', () => {
   const expectedConfig = undefined;

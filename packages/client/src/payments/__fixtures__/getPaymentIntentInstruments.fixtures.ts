@@ -1,5 +1,5 @@
 import { rest, type RestHandler } from 'msw';
-import type { PaymentInstrument } from '../types';
+import type { PaymentInstrument } from '../types/index.js';
 
 const path = '/api/payment/v1/intents/:id/instruments';
 

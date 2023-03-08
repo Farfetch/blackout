@@ -1,11 +1,11 @@
-import { adaptPrice } from '..';
+import { adaptPrice } from '../index.js';
 import {
   basePrice,
   priceForFreeItem,
   priceNoInclTaxesKeys,
   pricesForPriceRange,
   priceWithPromotionPercentage,
-} from '../__fixtures__/adapters.fixtures';
+} from '../__fixtures__/adapters.fixtures.js';
 
 describe('adaptPrice()', () => {
   it('should return undefined when the price is invalid', () => {

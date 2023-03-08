@@ -1,10 +1,9 @@
-import * as actionTypes from '../actionTypes';
-import * as authenticationActionTypes from '../../users/authentication/actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
+import * as authenticationActionTypes from '../../users/authentication/actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import omit from 'lodash/omit';
-import uniqBy from 'lodash/uniqBy';
+import { omit, uniqBy } from 'lodash-es';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
-import type { RecentlyViewedState } from '../types';
+import type { RecentlyViewedState } from '../types/index.js';
 
 export const INITIAL_STATE: RecentlyViewedState = {
   error: null,

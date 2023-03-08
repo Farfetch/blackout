@@ -1,7 +1,7 @@
-import * as selectors from '../selectors';
-import { mockResponse as mockUserEntity } from 'tests/__fixtures__/authentication';
-import { mockUserInitialState } from 'tests/__fixtures__/users';
-import type { AuthenticationState, UserData } from '../types';
+import * as selectors from '../selectors.js';
+import { mockResponse as mockUserEntity } from 'tests/__fixtures__/authentication/index.mjs';
+import { mockUserInitialState } from 'tests/__fixtures__/users/index.mjs';
+import type { AuthenticationState, UserData } from '../types/index.js';
 
 describe('authentication redux selectors', () => {
   const mockUserId = 29556478;

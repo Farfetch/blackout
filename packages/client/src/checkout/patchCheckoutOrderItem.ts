@@ -1,7 +1,7 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import urlJoin from 'proper-url-join';
-import type { PatchCheckoutOrderItem } from './types/patchCheckoutOrderItem.types';
+import type { PatchCheckoutOrderItem } from './types/patchCheckoutOrderItem.types.js';
 
 /**
  * Method responsible for updating a checkout order item

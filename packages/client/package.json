@@ -8,13 +8,14 @@
   "sideEffects": false,
   "scripts": {
     "build": "yarn build:transpile && yarn build:types",
+    "build:watch": "../../scripts/transpile.sh --skip-initial-build --watch --verbose",
     "build:transpile": "../../scripts/transpile.sh",
     "build:types": "tsc -p tsconfig.release.json",
     "build:copy-package-json": "node ../../scripts/copy-package-json.js",
-    "prebuild": "yarn clean",
     "clean": "rimraf dist tsconfig.release.tsbuildinfo",
     "ci:types": "tsc -p tsconfig.ci.runtime.json",
-    "prepack": "yarn build:copy-package-json"
+    "prepack": "yarn build:copy-package-json",
+    "dev:link": "yarn build && yarn build:copy-package-json && cd dist && yarn link"
   },
   "repository": {
     "type": "git",
@@ -24,16 +25,16 @@
     "@types/json-patch": "^0.0.30",
     "@types/json-schema": "^7.0.11",
     "@types/proper-url-join": "2.1.1",
-    "crypto-js": "3.1.9-1",
+    "crypto-es": "^1.2.7",
     "proper-url-join": "^2.1.1"
   },
   "devDependencies": {
-    "axios": "^0.21.4",
+    "axios": "1.3.1",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "axios": "^0.21.4",
-    "lodash": "^4.17.21"
+    "axios": "1.3.1",
+    "lodash-es": "^4.17.21"
   },
   "publishConfig": {
     "access": "public"

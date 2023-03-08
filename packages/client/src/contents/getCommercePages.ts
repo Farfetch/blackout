@@ -1,8 +1,8 @@
-import { adaptError } from '../helpers/client/formatError';
-import client from '../helpers/client';
+import { adaptError } from '../helpers/client/formatError.js';
+import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { CommercePages, QueryCommercePages } from './types';
-import type { Config } from '../types';
+import type { CommercePages, QueryCommercePages } from './types/index.js';
+import type { Config } from '../types/index.js';
 
 /**
  * Method to receive all the commerce pages corresponding to the query object

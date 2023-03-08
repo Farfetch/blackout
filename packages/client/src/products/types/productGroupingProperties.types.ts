@@ -1,5 +1,5 @@
-import type { DigitalAsset } from './common.types';
-import type { VariationPropertyType } from './productGrouping.types';
+import type { DigitalAsset } from './common.types.js';
+import type { VariationPropertyType } from './productGrouping.types.js';
 
 export type ProductGroupingPropertiesValue = {
   id: string;

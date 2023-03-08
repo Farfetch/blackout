@@ -1,4 +1,4 @@
-import type { CheckoutOrder, DeliveryBundle, ShippingOption } from '.';
+import type { CheckoutOrder, DeliveryBundle, ShippingOption } from './index.js';
 
 export type CheckoutOrderDetails = {
   checkoutOrder: CheckoutOrder;

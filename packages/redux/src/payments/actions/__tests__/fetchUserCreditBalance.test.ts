@@ -1,10 +1,10 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
+import { find } from 'lodash-es';
 import { getUserCreditBalance } from '@farfetch/blackout-client';
-import { INITIAL_STATE } from '../../reducer';
-import { mockCreditBalanceResponse } from 'tests/__fixtures__/payments';
-import { mockStore } from '../../../../tests';
-import fetchCreditBalance from '../fetchUserCreditBalance';
-import find from 'lodash/find';
+import { INITIAL_STATE } from '../../reducer.js';
+import { mockCreditBalanceResponse } from 'tests/__fixtures__/payments/index.mjs';
+import { mockStore } from '../../../../tests/index.js';
+import fetchCreditBalance from '../fetchUserCreditBalance.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),

@@ -1,8 +1,8 @@
-import { getAddressPredictionDetails } from '..';
-import { mockPredictionResponse } from 'tests/__fixtures__/addresses';
-import client from '../../helpers/client';
-import fixtures from '../__fixtures__/getAddressPredictionDetails.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { getAddressPredictionDetails } from '../index.js';
+import { mockPredictionResponse } from 'tests/__fixtures__/addresses/index.mjs';
+import client from '../../helpers/client/index.js';
+import fixtures from '../__fixtures__/getAddressPredictionDetails.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getAddressPredictionDetails', () => {
   const predictionId = '123456789';

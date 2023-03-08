@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSearchSuggestions,
@@ -6,9 +6,9 @@ import {
   type SearchSuggestionsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateSearchSuggestionsHash } from '../../helpers';
+import { generateSearchSuggestionsHash } from '../../helpers/index.js';
 import type { Dispatch } from 'redux';
-import type { FetchSearchSuggestionsAction } from '../../types';
+import type { FetchSearchSuggestionsAction } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch the

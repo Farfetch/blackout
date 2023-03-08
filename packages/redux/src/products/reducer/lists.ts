@@ -1,12 +1,12 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../actionTypes/index.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import type {
   ProductsListsState,
   ResetProductsListsEntitiesAction,
   ResetProductsListsStateAction,
-} from '../types';
-import type { StoreState } from '../../types';
+} from '../types/index.js';
+import type { StoreState } from '../../types/index.js';
 
 export const INITIAL_STATE: ProductsListsState = {
   error: {},

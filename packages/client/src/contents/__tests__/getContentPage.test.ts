@@ -1,8 +1,8 @@
-import { type ContentPage, ContentPageType } from '../types';
-import { getContentPage } from '..';
-import client from '../../helpers/client';
-import fixture from '../__fixtures__/contentPage.fixtures';
-import mswServer from '../../../tests/mswServer';
+import { type ContentPage, ContentPageType } from '../types/index.js';
+import { getContentPage } from '../index.js';
+import client from '../../helpers/client/index.js';
+import fixture from '../__fixtures__/contentPage.fixtures.js';
+import mswServer from '../../../tests/mswServer.js';
 
 describe('getContentPage()', () => {
   const expectedConfig = undefined;

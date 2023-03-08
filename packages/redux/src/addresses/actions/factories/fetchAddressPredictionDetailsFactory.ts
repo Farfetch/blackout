@@ -1,4 +1,4 @@
-import * as actionTypes from '../../actionTypes';
+import * as actionTypes from '../../actionTypes.js';
 import {
   type AddressPredictionDetails,
   type Config,
@@ -8,7 +8,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
-import type { FetchAddressPredictionDetailsAction } from '../../types';
+import type { FetchAddressPredictionDetailsAction } from '../../types/index.js';
 
 /**
  * Load address prediction details based in the prediction id.

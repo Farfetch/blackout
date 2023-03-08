@@ -1,8 +1,8 @@
-export * as promotionEvaluationsActionTypes from './actionTypes';
+export * as promotionEvaluationsActionTypes from './actionTypes.js';
 
-export * from './actions';
-export * from './selectors';
+export * from './actions/index.js';
+export * from './selectors.js';
 
-export { default as promotionEvaluationsReducer } from './reducer';
+export { default as promotionEvaluationsReducer } from './reducer.js';
 
-export * from './types';
+export * from './types/index.js';

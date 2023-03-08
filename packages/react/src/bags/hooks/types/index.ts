@@ -1,2 +1,2 @@
-export * from './useBagItem';
-export * from './useBag';
+export * from './useBagItem.js';
+export * from './useBag.js';

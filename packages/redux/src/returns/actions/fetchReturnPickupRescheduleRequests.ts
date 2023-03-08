@@ -1,4 +1,4 @@
-import { fetchReturnPickupRescheduleRequestsFactory } from './factories';
+import { fetchReturnPickupRescheduleRequestsFactory } from './factories/index.js';
 import { getReturnPickupRescheduleRequests } from '@farfetch/blackout-client';
 
 /**

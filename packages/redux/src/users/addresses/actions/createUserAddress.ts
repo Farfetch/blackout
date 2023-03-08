@@ -1,4 +1,4 @@
-import { createUserAddressFactory } from './factories';
+import { createUserAddressFactory } from './factories/index.js';
 import { postUserAddress } from '@farfetch/blackout-client';
 
 /**

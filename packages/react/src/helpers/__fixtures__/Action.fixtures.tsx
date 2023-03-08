@@ -1,5 +1,5 @@
 import React from 'react';
-import useAction from '../useAction';
+import useAction from '../useAction.js';
 import type { AnyAction } from 'redux';
 
 type ActionFixture = (props: { mockAction: () => AnyAction }) => JSX.Element;

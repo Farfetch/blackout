@@ -14,10 +14,10 @@ import {
   mockPaymentInstrumentsErrorState,
   mockPaymentInstrumentsLoadingState,
   mockPaymentInstrumentsWithDataState,
-} from 'tests/__fixtures__/payments';
+} from 'tests/__fixtures__/payments/index.mjs';
 import { PaymentMethod } from '@farfetch/blackout-client';
-import { withStore } from '../../../../tests/helpers';
-import usePaymentIntentInstruments from '../usePaymentIntentInstruments';
+import { withStore } from '../../../../tests/helpers/index.js';
+import usePaymentIntentInstruments from '../usePaymentIntentInstruments.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),

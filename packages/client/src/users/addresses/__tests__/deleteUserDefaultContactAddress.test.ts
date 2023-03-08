@@ -1,8 +1,8 @@
-import { deleteUserDefaultContactAddress } from '..';
-import { userId } from 'tests/__fixtures__/addresses';
-import client from '../../../helpers/client';
-import fixtures from '../__fixtures__/deleteUserDefaultContactAddress.fixtures';
-import mswServer from '../../../../tests/mswServer';
+import { deleteUserDefaultContactAddress } from '../index.js';
+import { userId } from 'tests/__fixtures__/addresses/index.mjs';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/deleteUserDefaultContactAddress.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
 
 describe('deleteUserDefaultContactAddress', () => {
   const expectedConfig = undefined;

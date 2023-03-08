@@ -1,7 +1,7 @@
 /**
  * Brands hooks.
  */
-export { default as useBrand } from './useBrand';
-export { default as useBrands } from './useBrands';
+export { default as useBrand } from './useBrand.js';
+export { default as useBrands } from './useBrands.js';
 
-export * from './types';
+export * from './types/index.js';
