@@ -43,7 +43,6 @@ import {
   OPTION_SCHEMAS,
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
-  OPTION_UNIQUE_EVENT_ID_KEY,
 } from './constants';
 import { validateFields } from './validation/optionsValidator';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
@@ -402,7 +401,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
         `context.event.${utils.ANALYTICS_UNIQUE_EVENT_ID}`,
       ) as string;
 
-      eventProperties[OPTION_UNIQUE_EVENT_ID_KEY] = uniqueEventId;
+      eventProperties[utils.ANALYTICS_UNIQUE_EVENT_ID] = uniqueEventId;
 
       if (data.type === analyticsTrackTypes.TRACK) {
         eventProperties['page_path'] =
