@@ -9,3 +9,4 @@ export * from './postReturnPickupRescheduleRequests.types';
 export * from './return.types';
 export * from './returnItem.types';
 export * from './returnPickupCapability.types';
+export * from './getReturnWorkflow.types';

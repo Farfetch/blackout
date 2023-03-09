@@ -8,6 +8,7 @@ import {
   ReturnReferenceName,
   ReturnStatus,
   ReturnStatusCode,
+  ReturnWorkflowStatus,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 
@@ -25,6 +26,24 @@ export const getReturnPickupRescheduleRequestsData = {
   timeWindow: returnTimeWindowData,
   status: RescheduleStatus.InProgress,
 };
+
+export const getReturnWorkflowResponse = [
+  {
+    isCompleted: true,
+    sort: 1,
+    status: {
+      code: ReturnWorkflowStatus.Booked,
+    },
+    statusDateUTC: '2023-02-27T10:36:58.047',
+  },
+  {
+    isCompleted: false,
+    sort: 2,
+    status: {
+      code: ReturnWorkflowStatus.InTransit,
+    },
+  },
+];
 
 export const responses = {
   post: {

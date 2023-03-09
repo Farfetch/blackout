@@ -3,6 +3,7 @@
  */
 
 export { default as getReturn } from './getReturn';
+export { default as getReturnWorkflow } from './getReturnWorkflow';
 export { default as patchReturn } from './patchReturn';
 export { default as postReturn } from './postReturn';
 export { default as getReturnPickupCapability } from './getReturnPickupCapability';
