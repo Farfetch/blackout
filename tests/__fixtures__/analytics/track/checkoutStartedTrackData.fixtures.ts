@@ -5,12 +5,17 @@ const fixtures = {
   ...baseTrackData,
   event: EventTypes.CHECKOUT_STARTED,
   properties: {
-    orderId: '50314b8e9bcf000000000000',
-    total: 24.64,
-    shipping: 3.6,
-    tax: 2.04,
+    checkoutOrderId: 12345678,
     coupon: 'ACME2019',
     currency: 'USD',
+    deliveryType: 'Standard/standard',
+    orderId: '50314b8e9bcf000000000000',
+    paymentType: 'credit card',
+    shipping: 3.6,
+    shippingTier: 'Next Day',
+    step: 1,
+    tax: 2.04,
+    total: 24.64,
     products: [
       {
         id: '507f1f77bcf86cd799439011',
