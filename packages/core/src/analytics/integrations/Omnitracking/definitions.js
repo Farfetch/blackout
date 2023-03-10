@@ -457,9 +457,16 @@ export const trackEventsMapper = {
   }),
   [eventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,
+    ...getCheckoutEventGenericProperties(data, true),
     basketValue: data.properties.total,
     basketCurrency: data.properties.currency,
     lineItems: getProductLineItems(data),
+    checkoutStep: data.properties?.step,
+    deliveryType: data.properties?.deliveryType,
+    paymentType: data.properties?.paymentType,
+    shipping: data.properties?.shipping,
+    shippingTier: data.properties?.shippingTier,
+    orderVAT: data.properties?.tax,
   }),
   [eventTypes.SHARE]: data => ({
     tid: 1205,

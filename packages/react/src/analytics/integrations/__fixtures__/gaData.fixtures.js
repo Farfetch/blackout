@@ -238,6 +238,9 @@ const validTrackEvents = {
     context: mockedContext,
     properties: {
       orderId: '50314b8e9bcf000000000000',
+      shippingTier: 'Next Day',
+      paymentType: 'credit card',
+      step: 1,
       total: 24.64,
       shipping: 3.6,
       tax: 2.04,
