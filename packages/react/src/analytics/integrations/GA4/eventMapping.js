@@ -300,6 +300,27 @@ const getCheckoutParametersFromEvent = eventProperties => {
 };
 
 /**
+ * Returns checkout started event properties formatted to GA4 events.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Common properties formatted to GA4's checkout started event.
+ */
+const getCheckoutStartedParametersFromEvent = eventProperties => {
+  return {
+    ...getCheckoutParametersFromEvent(eventProperties),
+    checkout_step: eventProperties.step,
+    delivery_type: eventProperties.deliveryType,
+    transaction_id: eventProperties.orderId,
+    payment_type: eventProperties.paymentType,
+    packaging_type: eventProperties.packagingType,
+    shipping: eventProperties.shipping,
+    shipping_tier: eventProperties.shippingTier,
+    tax: eventProperties.tax,
+  };
+};
+
+/**
  * Returns checkout event properties formatted to GA4 ecommerce events.
  *
  * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
@@ -652,7 +673,7 @@ export function getEventProperties(event, data) {
 
   switch (event) {
     case eventTypes.CHECKOUT_STARTED:
-      return getCheckoutParametersFromEvent(eventProperties);
+      return getCheckoutStartedParametersFromEvent(eventProperties);
 
     case eventTypes.PAYMENT_INFO_ADDED:
       return getCheckoutPaymentStepParametersFromEvent(eventProperties);
