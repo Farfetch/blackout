@@ -248,8 +248,10 @@ Array [
     "begin_checkout",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "checkout_step": 1,
       "coupon": "ACME2019",
       "currency": "USD",
+      "delivery_type": "Standard/standard",
       "items": Array [
         Object {
           "affiliation": undefined,
@@ -272,8 +274,14 @@ Array [
           "size": "L",
         },
       ],
+      "packaging_type": undefined,
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
+      "payment_type": "credit card",
+      "shipping": 3.6,
+      "shipping_tier": "Next Day",
+      "tax": 2.04,
+      "transaction_id": "50314b8e9bcf000000000000",
       "value": 24.64,
     },
   ],
