@@ -45,6 +45,13 @@ export const customTrackMockData = {
   },
   [eventTypes.CHECKOUT_STARTED]: {
     currency: 'USD',
+    orderId: 'ABC12',
+    checkoutOrderId: 12345678,
+    deliveryType: 'Standard/Standard',
+    paymentType: 'credit',
+    step: 1,
+    tax: 1.23,
+    shippingTier: 'Next Day',
   },
   [eventTypes.PROMOCODE_APPLIED]: {
     coupon: 'PROMO_ABC',

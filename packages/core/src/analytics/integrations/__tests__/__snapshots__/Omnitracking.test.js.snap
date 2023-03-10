@@ -19,7 +19,15 @@ exports[`Omnitracking definitions \`Checkout Started\` return should match the s
 Object {
   "basketCurrency": "USD",
   "basketValue": 100,
+  "checkoutStep": 1,
+  "deliveryType": "Standard/Standard",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
+  "orderVAT": 1.23,
+  "paymentType": "credit",
+  "shipping": 10,
+  "shippingTier": "Next Day",
   "tid": 2918,
 }
 `;
