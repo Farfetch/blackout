@@ -9,6 +9,7 @@ import type { StoreState } from '../types';
 export const INITIAL_STATE_LOCALE: LocaleState = {
   countryCode: '',
   sourceCountryCode: null,
+  subfolder: null,
   cities: {
     error: null,
     isLoading: false,
@@ -42,6 +43,18 @@ const countryCode = (
         'payload.countryCode',
         INITIAL_STATE_LOCALE.countryCode,
       );
+    default:
+      return state;
+  }
+};
+
+const subfolder = (
+  state = INITIAL_STATE_LOCALE.subfolder,
+  action: AnyAction,
+): LocaleState['subfolder'] => {
+  switch (action.type) {
+    case actionTypes.SET_SUBFOLDER:
+      return get(action, 'payload.subfolder', INITIAL_STATE_LOCALE.subfolder);
     default:
       return state;
   }
@@ -184,6 +197,8 @@ export const getCountriesError = (
 export const getCountryCode = (
   state: LocaleState,
 ): LocaleState['countryCode'] => state.countryCode;
+export const getSubfolder = (state: LocaleState): LocaleState['subfolder'] =>
+  state.subfolder;
 export const getSourceCountryCode = (
   state: LocaleState,
 ): LocaleState['sourceCountryCode'] => state.sourceCountryCode;
@@ -205,6 +220,7 @@ const reducers = combineReducers({
   states,
   sourceCountryCode,
   countriesAddressSchemas,
+  subfolder,
 });
 
 export const entitiesMapper = {

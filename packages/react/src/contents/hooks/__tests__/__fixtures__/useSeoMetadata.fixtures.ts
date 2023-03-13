@@ -15,6 +15,7 @@ export const mockInitialState = {
     },
   },
   locale: {
+    subfolder: 'en-GB',
     countryCode: 'GB',
     sourceCountryCode: 'GB',
     cities: { isLoading: false, error: null },

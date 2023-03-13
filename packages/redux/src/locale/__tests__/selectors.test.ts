@@ -44,6 +44,7 @@ describe('locale redux selectors', () => {
         isLoading: false,
         error: null,
       },
+      subfolder: 'en-US',
       sourceCountryCode: 'US',
     },
     entities: {

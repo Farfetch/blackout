@@ -35,7 +35,7 @@ describe('useLocale', () => {
 
     expect(current).toStrictEqual({
       data: {
-        subfolder: mockCountry.defaultSubfolder.replace('/', ''),
+        subfolder: mockLocaleState.locale.subfolder,
         countryCultureCode: mockCountry.defaultCulture,
         countryCode: mockCountry.code,
         country: mockCountryNormalized,

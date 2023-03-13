@@ -4,6 +4,7 @@ import type { StateWithoutResult } from '../../types';
 
 export type LocaleState = CombinedState<{
   countryCode: string;
+  subfolder: string | null;
   sourceCountryCode: string | null;
   cities: {
     error: BlackoutError | null;

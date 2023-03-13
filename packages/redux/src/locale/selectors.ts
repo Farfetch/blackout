@@ -14,6 +14,7 @@ import {
   getCountryStateCitiesError as getCountryStateCitiesErrorFromReducer,
   getCountryStatesError as getCountryStatesErrorFromReducer,
   getSourceCountryCode as getSourceCountryCodeFromReducer,
+  getSubfolder as getSubfolderFromReducer,
 } from './reducer';
 import { getEntities, getEntityById } from '../entities/selectors/entity';
 import get from 'lodash/get';
@@ -674,3 +675,13 @@ export const areCountryAddressSchemasFetched = (
     !areCountriesAddressSchemasLoading(state)
   );
 };
+
+/**
+ * Returns the locale subfolder.
+ *
+ * @param state - Application state.
+ *
+ * @returns - The subfolder for the locale state received.
+ */
+export const getSubfolder = (state: StoreState) =>
+  getSubfolderFromReducer(state.locale as LocaleState);
