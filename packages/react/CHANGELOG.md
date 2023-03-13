@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.395](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.394...@farfetch/blackout-react@1.0.0-next.395) (2023-03-13)
+
+
+### Features
+
+* **analytics|react:** add unique id to GTM integration ([05885bb](https://github.com/Farfetch/blackout/commit/05885bb2714c5fd9bcf5ec501f7c3e85654d5727))
+
+
+
+
+
 # [1.0.0-next.394](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.393...@farfetch/blackout-react@1.0.0-next.394) (2023-03-03)
 
 
