@@ -50,6 +50,7 @@ const localeServerInitialState: ServerInitialState = ({ model }) => {
     locale: {
       countryCode,
       sourceCountryCode: requestSourceCountryCode,
+      subfolder,
     },
     entities,
   };

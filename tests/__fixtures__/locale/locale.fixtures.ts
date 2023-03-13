@@ -297,6 +297,7 @@ export const mockLocaleState = {
       isLoading: false,
     },
     sourceCountryCode: null,
+    subfolder: '/en-pt',
     countriesAddressSchemas: {
       error: null,
       isLoading: false,

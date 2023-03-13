@@ -13,6 +13,10 @@ export interface ActionSetCountryCode extends Action {
   type: typeof actionTypes.SET_COUNTRY_CODE;
 }
 
+export interface ActionSetSubFolder extends Action {
+  type: typeof actionTypes.SET_SUBFOLDER;
+}
+
 export interface ActionFetchCountriesFailure extends Action {
   type: typeof actionTypes.FETCH_COUNTRIES_FAILURE;
   payload: { error: BlackoutError | null };
