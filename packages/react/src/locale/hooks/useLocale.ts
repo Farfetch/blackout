@@ -2,8 +2,8 @@ import {
   getCountry,
   getCountryCode,
   getCountryCulture,
-  getCountryStructure,
   getSourceCountryCode,
+  getSubfolder,
 } from '@farfetch/blackout-redux';
 import { useSelector } from 'react-redux';
 
@@ -12,10 +12,9 @@ export function useLocale() {
   const countryCode = useSelector(getCountryCode);
   const countryCultureCode = useSelector(getCountryCulture);
   const sourceCountryCode = useSelector(getSourceCountryCode);
-  const countryStructure = useSelector(getCountryStructure);
   const country = useSelector(getCountry);
+  const subfolder = useSelector(getSubfolder);
   // Custom logic
-  const subfolder = countryStructure?.replace(/(\/)/, '');
   const currency = country?.currencies?.[0];
 
   return {

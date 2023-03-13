@@ -12,6 +12,7 @@ describe('local serverInitialState()', () => {
       locale: {
         countryCode: 'US',
         sourceCountryCode: 'PT',
+        subfolder: '/en-us',
       },
       entities: {
         countries: {
@@ -42,6 +43,7 @@ describe('local serverInitialState()', () => {
       locale: {
         countryCode: '',
         sourceCountryCode: null,
+        subfolder: null,
         cities: {
           error: null,
           isLoading: false,

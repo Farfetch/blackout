@@ -100,6 +100,11 @@ export const FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS =
 export const SET_COUNTRY_CODE = '@farfetch/blackout-redux/SET_COUNTRY_CODE';
 
 /**
+ * Action type dispatched when set subfolder.
+ */
+export const SET_SUBFOLDER = '@farfetch/blackout-redux/SET_COUNTRY_CODE';
+
+/**
  * Action type dispatched when reset locale.
  */
 export const RESET_LOCALE_STATE = '@farfetch/blackout-redux/RESET_LOCALE_STATE';
