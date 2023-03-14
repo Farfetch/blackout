@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.245](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.244...@farfetch/blackout-client@2.0.0-next.245) (2023-03-14)
+
+
+### Features
+
+* **client:** add get return workflow endpoint ([dce3535](https://github.com/Farfetch/blackout/commit/dce35351851613487216c8898389d0a5932839fa))
+
+
+
+
+
 # [2.0.0-next.244](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.243...@farfetch/blackout-client@2.0.0-next.244) (2023-03-03)
 
 
