@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.398](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.397...@farfetch/blackout-react@1.0.0-next.398) (2023-03-14)
+
+
+### Bug Fixes
+
+* subfolder on useLocale & serverInitialState ([da52aa6](https://github.com/Farfetch/blackout/commit/da52aa65eb34c85a61c0a39d50166740f2d446d6))
+
+
+
+
+
 # [1.0.0-next.397](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.396...@farfetch/blackout-react@1.0.0-next.397) (2023-03-14)
 
 **Note:** Version bump only for package @farfetch/blackout-react

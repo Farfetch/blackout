@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.386](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.385...@farfetch/blackout-redux@1.0.0-next.386) (2023-03-14)
+
+
+### Bug Fixes
+
+* subfolder on useLocale & serverInitialState ([da52aa6](https://github.com/Farfetch/blackout/commit/da52aa65eb34c85a61c0a39d50166740f2d446d6))
+
+
+
+
+
 # [1.0.0-next.385](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.384...@farfetch/blackout-redux@1.0.0-next.385) (2023-03-14)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
