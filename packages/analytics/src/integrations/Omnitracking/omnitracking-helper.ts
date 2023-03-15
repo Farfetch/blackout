@@ -562,10 +562,15 @@ export const getProductLineItemsQuantity = (
 export const getDeliveryInformationDetails = (
   data: EventData<TrackTypesValues>,
 ) => {
-  if (data.properties?.deliveryType || data.properties?.shippingTier) {
+  if (
+    data.properties?.deliveryType ||
+    data.properties?.shippingTier ||
+    data.properties?.packagingType
+  ) {
     return JSON.stringify({
       deliveryType: data.properties.deliveryType,
       courierType: data.properties.shippingTier,
+      packagingType: data.properties.packagingType,
     });
   }
 

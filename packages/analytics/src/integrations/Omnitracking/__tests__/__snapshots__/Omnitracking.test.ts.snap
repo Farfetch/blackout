@@ -11,6 +11,13 @@ Object {
 
 exports[`Omnitracking track events definitions \`Checkout Abandoned\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 12345678,
+  "checkoutStep": 2,
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
+  "orderCode": "50314b8e9bcf000000000000",
+  "orderVAT": 2.04,
+  "paymentType": "credit",
+  "shipping": 10,
   "tid": 2084,
 }
 `;
@@ -21,13 +28,12 @@ Object {
   "basketValue": 24.64,
   "checkoutOrderId": 12345678,
   "checkoutStep": 1,
-  "deliveryType": "Standard/standard",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/standard\\",\\"courierType\\":\\"Next Day\\"}",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
   "orderCode": "50314b8e9bcf000000000000",
   "orderVAT": 2.04,
   "paymentType": "credit card",
   "shipping": 3.6,
-  "shippingTier": "Next Day",
   "tid": 2918,
 }
 `;
