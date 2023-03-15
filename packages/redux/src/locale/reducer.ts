@@ -50,14 +50,8 @@ const countryCode = (
 
 const subfolder = (
   state = INITIAL_STATE_LOCALE.subfolder,
-  action: AnyAction,
 ): LocaleState['subfolder'] => {
-  switch (action.type) {
-    case actionTypes.SET_SUBFOLDER:
-      return get(action, 'payload.subfolder', INITIAL_STATE_LOCALE.subfolder);
-    default:
-      return state;
-  }
+  return state;
 };
 
 const cities = (

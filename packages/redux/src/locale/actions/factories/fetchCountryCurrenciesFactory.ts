@@ -8,6 +8,7 @@ import {
 import { normalize } from 'normalizr';
 import country from '../../../entities/schemas/country';
 import type { Dispatch } from 'redux';
+import type { FetchCountryCurrenciesAction } from '../../types';
 
 /**
  * Fetch all currencies from a specific country.
@@ -19,7 +20,9 @@ import type { Dispatch } from 'redux';
 const fetchCountryCurrenciesFactory =
   (getCountryCurrencies: GetCountryCurrencies) =>
   (countryCode: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Currency[]> => {
+  async (
+    dispatch: Dispatch<FetchCountryCurrenciesAction>,
+  ): Promise<Currency[]> => {
     try {
       dispatch({
         meta: { countryCode },
