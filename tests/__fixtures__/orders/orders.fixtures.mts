@@ -429,6 +429,7 @@ export const mockOrderItem = {
     },
   },
   shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+  shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
   gift: {
     to: 'to',
     from: 'from',
@@ -615,6 +616,7 @@ export const mockOrderItem2 = {
     },
   },
   shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+  shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
   gift: {
     to: 'to',
     from: 'from',
@@ -776,6 +778,7 @@ export const mockOrderItem3 = {
     },
   },
   shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+  shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
   gift: {
     to: 'to',
     from: 'from',
@@ -1669,6 +1672,7 @@ export const mockOrderDetailsResponse2 = {
       tags: [],
       isPreOrder: false,
       shippingOrderId: '00000000-0000-0000-0000-000000000000',
+      shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
     },
   ],
   totalQuantity: 1,
@@ -2204,6 +2208,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             type: 'Express',
           },
           shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+          shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
           gift: {
             to: 'to',
             from: 'from',
@@ -2325,6 +2330,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             type: 'Express',
           },
           shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+          shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
           gift: {
             to: 'to',
             from: 'from',
@@ -2430,6 +2436,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
             type: 'Express',
           },
           shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+          shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
           gift: {
             to: 'to',
             from: 'from',
@@ -2867,6 +2874,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           status: { type: 'string' },
         },
         shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+        shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
         gift: { to: 'to', from: 'from', message: 'message' },
       },
       [orderItemId2]: {
@@ -2994,6 +3002,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           status: { type: 'string' },
         },
         shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+        shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
         gift: { to: 'to', from: 'from', message: 'message' },
       },
       [orderItemId3]: {
@@ -3103,6 +3112,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           status: { type: 'string' },
         },
         shippingOrderId: 'e04db551-23fb-43c4-8950-6aaee1dbae73',
+        shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
         gift: { to: 'to', from: 'from', message: 'message' },
       },
       '36898703': {
@@ -3424,6 +3434,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         tags: [],
         isPreOrder: false,
         shippingOrderId: '00000000-0000-0000-0000-000000000000',
+        shippingOrderLineId: '380709f9-2ce0-4a22-8ea9-d01666088fb8',
       },
     },
     orders: {

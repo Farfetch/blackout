@@ -62,6 +62,7 @@ export type OrderItem = {
     productAggregator?: string;
   };
   shippingOrderId: string;
+  shippingOrderLineId: string;
   isCustomizable: boolean;
   gift?: {
     to: string;

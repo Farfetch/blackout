@@ -65,6 +65,7 @@ import type { CategoriesState } from '../categories/types/index.js';
 import type { CheckoutState } from '../checkout/types/index.js';
 import type { ConfigurationEntity } from '../entities/types/configurations.types.js';
 import type { ContentsState } from '../contents/types/index.js';
+import type { ExchangesState } from '../exchanges/index.js';
 import type { FormsState } from '../forms/types/index.js';
 import type { LocaleState } from '../locale/types/index.js';
 import type { LoyaltyState } from '../loyalty/types/index.js';
@@ -178,6 +179,7 @@ export type StoreState = Partial<{
   categories: CategoriesState;
   checkout: CheckoutState;
   contents: ContentsState;
+  exchanges: ExchangesState;
   forms: FormsState;
   locale: LocaleState;
   loyalty: LoyaltyState;
@@ -188,9 +190,9 @@ export type StoreState = Partial<{
   promotionEvaluations: PromotionEvaluationsState;
   raffles: RafflesState;
   returns: ReturnsState;
-  sharedWishlist: SharedWishlistState;
   search: SearchState;
   settings: SettingsState;
+  sharedWishlist: SharedWishlistState;
   sizeGuides: SizeGuidesState;
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;

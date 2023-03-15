@@ -1,3 +1,4 @@
+import type { Exchange } from '../../index.js';
 import type { OrderItem } from '../../orders/index.js';
 
 export enum ReturnItemStatus {
@@ -15,6 +16,7 @@ export type ReturnItem = {
   reason: string;
   description?: string;
   status: ReturnItemStatus;
+  exchangeId?: Exchange['id'];
   itemStatus: {
     code: string;
   };
