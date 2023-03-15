@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchExchangeBookRequest() action creator should create the correct actions for when the fetch exchange book request procedure is successful: fetch exchange book request success payload 1`] = `
+Object {
+  "payload": Object {
+    "exchangeReturnAssociations": Array [
+      Object {
+        "exchangeReturnItemId": "123456",
+        "returnId": 123456,
+      },
+    ],
+    "faults": null,
+    "id": "a1c46d6c-c411-11ed-afa1-0242ac120002",
+    "status": "Success",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_EXCHANGE_BOOK_REQUEST_SUCCESS",
+}
+`;
