@@ -11,6 +11,14 @@ Object {
 
 exports[`Omnitracking definitions \`Checkout Abandoned\` return should match the snapshot 1`] = `
 Object {
+  "checkoutStep": 2,
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
+  "interactionType": "click",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
+  "orderVAT": 1.24,
+  "paymentType": "credit",
+  "shipping": 10,
   "tid": 2084,
 }
 `;
@@ -20,14 +28,14 @@ Object {
   "basketCurrency": "USD",
   "basketValue": 100,
   "checkoutStep": 1,
-  "deliveryType": "Standard/Standard",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
+  "interactionType": "click",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
   "orderCode": "ABC12",
   "orderId": 12345678,
   "orderVAT": 1.23,
   "paymentType": "credit",
   "shipping": 10,
-  "shippingTier": "Next Day",
   "tid": 2918,
 }
 `;

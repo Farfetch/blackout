@@ -46,7 +46,7 @@ export default {
   [eventTypes.FILTERS_APPLIED]: 'apply_filters',
   [eventTypes.FILTERS_CLEARED]: 'clear_filters',
   [eventTypes.SHARE]: 'share',
-  [eventTypes.CHECKOUT_ABANDONED]: 'abandon_confirmation_checkout',
+  [eventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
   [eventTypes.PLACE_ORDER_STARTED]: 'place_order',
   [eventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [eventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
@@ -401,8 +401,16 @@ const getShippingInfoAddedParametersFromEvent = eventProperties => {
  */
 const getCheckoutAbandonedParametersFromEvent = eventProperties => {
   return {
-    currency: eventProperties.currency,
+    checkout_step: eventProperties.step,
     coupon: eventProperties.coupon,
+    currency: eventProperties.currency,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    payment_type: eventProperties.paymentType,
+    shipping_tier: eventProperties.shippingTier,
+    shipping: eventProperties.shipping,
+    tax: eventProperties.tax,
+    transaction_id: eventProperties.orderId,
     value: eventProperties.total,
   };
 };
