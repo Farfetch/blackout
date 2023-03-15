@@ -448,8 +448,13 @@ export const trackEventsMapper = {
     tid: 2832,
     lineItems: getProductLineItems(data),
   }),
-  [eventTypes.CHECKOUT_ABANDONED]: () => ({
+  [eventTypes.CHECKOUT_ABANDONED]: data => ({
     tid: 2084,
+    ...getCheckoutEventGenericProperties(data, true),
+    ...getCommonCheckoutStepTrackingData(data),
+    paymentType: data.properties?.paymentType,
+    shipping: data.properties?.shipping,
+    orderVAT: data.properties?.tax,
   }),
   [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
@@ -458,14 +463,12 @@ export const trackEventsMapper = {
   [eventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,
     ...getCheckoutEventGenericProperties(data, true),
+    ...getCommonCheckoutStepTrackingData(data),
     basketValue: data.properties.total,
     basketCurrency: data.properties.currency,
     lineItems: getProductLineItems(data),
-    checkoutStep: data.properties?.step,
-    deliveryType: data.properties?.deliveryType,
     paymentType: data.properties?.paymentType,
     shipping: data.properties?.shipping,
-    shippingTier: data.properties?.shippingTier,
     orderVAT: data.properties?.tax,
   }),
   [eventTypes.SHARE]: data => ({

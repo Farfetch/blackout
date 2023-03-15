@@ -587,10 +587,15 @@ export const getGenderValueFromProperties = data => {
  * @returns {string|undefined} - Delivery Information Details in Json Format.
  */
 export const getDeliveryInformationDetails = data => {
-  if (data.properties?.deliveryType || data.properties?.shippingTier) {
+  if (
+    data.properties?.deliveryType ||
+    data.properties?.shippingTier ||
+    data.properties?.packagingType
+  ) {
     return JSON.stringify({
       deliveryType: data.properties.deliveryType,
       courierType: data.properties.shippingTier,
+      packagingType: data.properties.packagingType,
     });
   }
 
