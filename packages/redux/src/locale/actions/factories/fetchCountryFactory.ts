@@ -8,6 +8,7 @@ import {
 import { normalize } from 'normalizr';
 import country from '../../../entities/schemas/country';
 import type { Dispatch } from 'redux';
+import type { FetchCountryAction } from '../../types';
 
 /**
  * Fetch a specific country, by its country code.
@@ -19,7 +20,7 @@ import type { Dispatch } from 'redux';
 const fetchCountryFactory =
   (getCountry: GetCountry) =>
   (countryCode: string, config?: Config) =>
-  async (dispatch: Dispatch): Promise<Country> => {
+  async (dispatch: Dispatch<FetchCountryAction>): Promise<Country> => {
     try {
       dispatch({
         meta: { countryCode },
