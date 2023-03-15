@@ -228,13 +228,21 @@ exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Ma
 Array [
   Array [
     "event",
-    "abandon_confirmation_checkout",
+    "view_checkout_abandon_confirmation",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "checkout_step": 2,
       "coupon": "ACME2019",
       "currency": "USD",
+      "delivery_type": "Standard/Standard",
+      "packaging_type": "foo",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
+      "payment_type": "credit",
+      "shipping": 10,
+      "shipping_tier": "Next Day",
+      "tax": 2.04,
+      "transaction_id": "50314b8e9bcf000000000000",
       "value": 24.64,
     },
   ],

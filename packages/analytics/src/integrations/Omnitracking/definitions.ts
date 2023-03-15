@@ -444,14 +444,13 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventTypes.CHECKOUT_STARTED]: data => ({
     tid: 2918,
     ...getCheckoutEventGenericProperties(data),
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
     basketCurrency: data.properties?.currency,
     basketValue: data.properties?.total,
     checkoutStep: data.properties?.step,
-    deliveryType: data.properties?.deliveryType,
     lineItems: getProductLineItems(data),
     paymentType: data.properties?.paymentType,
     shipping: data.properties?.shipping,
-    shippingTier: data.properties?.shippingTier,
     orderVAT: data.properties?.tax,
   }),
   [EventTypes.CHECKOUT_STEP_EDITING]: data => ({
@@ -503,8 +502,14 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 2832,
     lineItems: getProductLineItems(data),
   }),
-  [EventTypes.CHECKOUT_ABANDONED]: () => ({
+  [EventTypes.CHECKOUT_ABANDONED]: data => ({
     tid: 2084,
+    ...getCheckoutEventGenericProperties(data),
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
+    checkoutStep: data.properties?.step,
+    paymentType: data.properties?.paymentType,
+    shipping: data.properties?.shipping,
+    orderVAT: data.properties?.tax,
   }),
   [EventTypes.PROMOCODE_APPLIED]: data => ({
     tid: 311,

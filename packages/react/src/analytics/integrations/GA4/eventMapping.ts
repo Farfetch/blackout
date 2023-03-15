@@ -44,7 +44,7 @@ const eventMapping = {
   [EventTypes.FILTERS_APPLIED]: 'apply_filters',
   [EventTypes.FILTERS_CLEARED]: 'clear_filters',
   [EventTypes.SHARE]: 'share',
-  [EventTypes.CHECKOUT_ABANDONED]: 'abandon_confirmation_checkout',
+  [EventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
   [EventTypes.PLACE_ORDER_STARTED]: 'place_order',
   [EventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [EventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
@@ -443,8 +443,16 @@ const getCheckoutAbandonedParametersFromEvent = (
   eventProperties: EventProperties,
 ) => {
   return {
-    currency: eventProperties.currency,
+    checkout_step: eventProperties.step,
     coupon: eventProperties.coupon,
+    currency: eventProperties.currency,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    payment_type: eventProperties.paymentType,
+    shipping_tier: eventProperties.shippingTier,
+    shipping: eventProperties.shipping,
+    tax: eventProperties.tax,
+    transaction_id: eventProperties.orderId,
     value: eventProperties.total,
   };
 };
