@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.53.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.52.0...@farfetch/blackout-react@0.53.0) (2023-03-15)
+
+
+### Bug Fixes
+
+* fix ga4 events ([266f694](https://github.com/Farfetch/blackout/commit/266f6948a2077ccd7753c4dc6ae9e4816a8b7be2))
+
+
+### Features
+
+* **core|react:** add parameters checkout started event ([82eb362](https://github.com/Farfetch/blackout/commit/82eb362ba887af387c31fa1685f5742969e5df98))
+* **core|react:** add unique id to GTM integration ([0e535e9](https://github.com/Farfetch/blackout/commit/0e535e9c5cd233edffef6ee9371c6c3b70daaeee))
+
+
+
+
+
 # [0.52.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.51.0...@farfetch/blackout-react@0.52.0) (2023-02-21)
 
 
