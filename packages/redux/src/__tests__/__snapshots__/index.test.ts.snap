@@ -1228,7 +1228,6 @@ Object {
     "FETCH_COUNTRY_SUCCESS": "@farfetch/blackout-redux/FETCH_COUNTRY_SUCCESS",
     "RESET_LOCALE_STATE": "@farfetch/blackout-redux/RESET_LOCALE_STATE",
     "SET_COUNTRY_CODE": "@farfetch/blackout-redux/SET_COUNTRY_CODE",
-    "SET_SUBFOLDER": "@farfetch/blackout-redux/SET_COUNTRY_CODE",
   },
   "localeEntitiesMapper": Object {
     "@farfetch/blackout-redux/FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS": [Function],

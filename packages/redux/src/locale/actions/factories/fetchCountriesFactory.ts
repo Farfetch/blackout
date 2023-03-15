@@ -8,6 +8,7 @@ import {
 import { normalize } from 'normalizr';
 import country from '../../../entities/schemas/country';
 import type { Dispatch } from 'redux';
+import type { FetchCountriesAction } from '../../types';
 
 /**
  * Fetch all countries.
@@ -19,7 +20,7 @@ import type { Dispatch } from 'redux';
 const fetchCountriesFactory =
   (getCountries: GetCountries) =>
   (config?: Config) =>
-  async (dispatch: Dispatch): Promise<Country[]> => {
+  async (dispatch: Dispatch<FetchCountriesAction>): Promise<Country[]> => {
     try {
       dispatch({
         type: actionTypes.FETCH_COUNTRIES_REQUEST,

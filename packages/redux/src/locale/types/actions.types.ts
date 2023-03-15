@@ -9,42 +9,38 @@ import type {
   State,
 } from '@farfetch/blackout-client';
 
-export interface ActionSetCountryCode extends Action {
+export interface SetCountryCodeAction extends Action {
   type: typeof actionTypes.SET_COUNTRY_CODE;
 }
 
-export interface ActionSetSubFolder extends Action {
-  type: typeof actionTypes.SET_SUBFOLDER;
-}
-
-export interface ActionFetchCountriesFailure extends Action {
+export interface FetchCountriesFailureAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRIES_FAILURE;
   payload: { error: BlackoutError | null };
 }
-export interface ActionFetchCountriesRequest extends Action {
+export interface FetchCountriesRequestAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRIES_REQUEST;
 }
 
-export interface ActionFetchCountriesSuccess extends Action {
+export interface FetchCountriesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRIES_SUCCESS;
   payload: { result: Country[] };
 }
 
-export interface ActionFetchCountryFailure extends Action {
+export interface FetchCountryFailureAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_FAILURE;
   payload: { error: BlackoutError | null };
 }
 
-export interface ActionFetchCountryRequest extends Action {
+export interface FetchCountryRequestAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_REQUEST;
 }
 
-export interface ActionFetchCountrySuccess extends Action {
+export interface FetchCountrySuccessAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_SUCCESS;
   payload: { result: Country };
 }
 
-export interface ActionFetchCountryStateCitiesFailure extends Action {
+export interface FetchCountryStateCitiesFailureAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_FAILURE;
   payload: { error: BlackoutError };
   meta: {
@@ -53,7 +49,7 @@ export interface ActionFetchCountryStateCitiesFailure extends Action {
   };
 }
 
-export interface ActionFetchCountryStateCitiesRequest extends Action {
+export interface FetchCountryStateCitiesRequestAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_REQUEST;
   meta: {
     countryCode: string;
@@ -61,27 +57,27 @@ export interface ActionFetchCountryStateCitiesRequest extends Action {
   };
 }
 
-export interface ActionFetchCountryStateCitiesSuccess extends Action {
+export interface FetchCountryStateCitiesSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_STATE_CITIES_SUCCESS;
-  payload: City[];
+  payload: { result: City[] };
   meta: {
     countryCode: string;
     stateId: number;
   };
 }
 
-export interface ActionFetchCountryCurrenciesFailure extends Action {
+export interface FetchCountryCurrenciesFailureAction extends Action {
   meta: { countryCode: string };
   payload: { error: BlackoutError | null };
   type: typeof actionTypes.FETCH_COUNTRY_CURRENCIES_FAILURE;
 }
 
-export interface ActionFetchCountryCurrenciesRequest extends Action {
+export interface FetchCountryCurrenciesRequestAction extends Action {
   meta: { countryCode: string };
   type: typeof actionTypes.FETCH_COUNTRY_CURRENCIES_REQUEST;
 }
 
-export interface ActionFetchCountryCurrenciesSuccess extends Action {
+export interface FetchCountryCurrenciesSuccessAction extends Action {
   meta: { countryCode: string };
   payload: {
     result: Currency[];
@@ -89,18 +85,18 @@ export interface ActionFetchCountryCurrenciesSuccess extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_CURRENCIES_SUCCESS;
 }
 
-export interface ActionFetchCountryStatesFailure extends Action {
+export interface FetchCountryStatesFailureAction extends Action {
   meta: { countryCode: string };
   payload: { error: BlackoutError | null };
   type: typeof actionTypes.FETCH_COUNTRY_STATES_FAILURE;
 }
 
-export interface ActionFetchCountryStatesRequest extends Action {
+export interface FetchCountryStatesRequestAction extends Action {
   meta: { countryCode: string };
   type: typeof actionTypes.FETCH_COUNTRY_STATES_REQUEST;
 }
 
-export interface ActionFetchCountryStatesSuccess extends Action {
+export interface FetchCountryStatesSuccessAction extends Action {
   meta: { countryCode: string };
   payload: {
     result: State[];
@@ -128,30 +124,30 @@ export interface FetchCountryAddressSchemaSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COUNTRY_ADDRESS_SCHEMA_SUCCESS;
 }
 
-export type ActionFetchCountry =
-  | ActionFetchCountryFailure
-  | ActionFetchCountryRequest
-  | ActionFetchCountrySuccess;
+export type FetchCountryAction =
+  | FetchCountryFailureAction
+  | FetchCountryRequestAction
+  | FetchCountrySuccessAction;
 
-export type ActionFetchCountries =
-  | ActionFetchCountriesFailure
-  | ActionFetchCountriesRequest
-  | ActionFetchCountriesSuccess;
+export type FetchCountriesAction =
+  | FetchCountriesFailureAction
+  | FetchCountriesRequestAction
+  | FetchCountriesSuccessAction;
 
-export type ActionFetchCountryStateCities =
-  | ActionFetchCountryStateCitiesFailure
-  | ActionFetchCountryStateCitiesRequest
-  | ActionFetchCountryStateCitiesSuccess;
+export type FetchCountryStateCitiesAction =
+  | FetchCountryStateCitiesFailureAction
+  | FetchCountryStateCitiesRequestAction
+  | FetchCountryStateCitiesSuccessAction;
 
-export type ActionFetchCountryCurrencies =
-  | ActionFetchCountryCurrenciesFailure
-  | ActionFetchCountryCurrenciesRequest
-  | ActionFetchCountryCurrenciesSuccess;
+export type FetchCountryCurrenciesAction =
+  | FetchCountryCurrenciesFailureAction
+  | FetchCountryCurrenciesRequestAction
+  | FetchCountryCurrenciesSuccessAction;
 
-export type ActionFetchCountryStates =
-  | ActionFetchCountryStatesFailure
-  | ActionFetchCountryStatesRequest
-  | ActionFetchCountryStatesSuccess;
+export type FetchCountryStatesAction =
+  | FetchCountryStatesFailureAction
+  | FetchCountryStatesRequestAction
+  | FetchCountryStatesSuccessAction;
 
 export type FetchCountryAddressSchemaAction =
   | FetchCountryAddressSchemaFailureAction
