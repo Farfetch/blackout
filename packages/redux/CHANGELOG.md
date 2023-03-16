@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.387](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.386...@farfetch/blackout-redux@1.0.0-next.387) (2023-03-16)
+
+
+### Bug Fixes
+
+* wrong actionType for the subfolder ([6b04e59](https://github.com/Farfetch/blackout/commit/6b04e596eb5fcb53c71c2f2b05555dc5873f1755))
+
+
+
+
+
 # [1.0.0-next.386](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.385...@farfetch/blackout-redux@1.0.0-next.386) (2023-03-14)
 
 
