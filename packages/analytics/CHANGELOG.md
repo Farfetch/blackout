@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.132](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.131...@farfetch/blackout-analytics@1.0.0-next.132) (2023-03-17)
+
+### Features
+
+- **analytics|react:** add parameters checkout abandoned event next ([e42f5bb](https://github.com/Farfetch/blackout/commit/e42f5bbe52c3d7ed0adc0da072d0d54537588716))
+
 # [1.0.0-next.131](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.130...@farfetch/blackout-analytics@1.0.0-next.131) (2023-03-16)
 
 ### Features
