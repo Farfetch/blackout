@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.83.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.82.0...@farfetch/blackout-core@1.83.0) (2023-03-21)
+
+
+### Bug Fixes
+
+* refactor serverInitialState ([f1a1f87](https://github.com/Farfetch/blackout/commit/f1a1f878ff98833e0fe818f51a0eb9368e601dd8))
+
+
+### Features
+
+* add parameters checkout abandoned event ([b4aae5c](https://github.com/Farfetch/blackout/commit/b4aae5c4a5e5bcf6ac4cb524293e96a59fcfacf1))
+
+
+
+
+
 # [1.82.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.81.0...@farfetch/blackout-core@1.82.0) (2023-03-15)
 
 
