@@ -13,11 +13,15 @@ export type Designers = {
   slug: string;
   gender: GenderDescription;
   list: {
-    title: string;
-    description: string;
-    image: string;
+    contentSlug: string | null;
+    description: string | null;
+    id: number;
+    image: string | null;
+    overrideUrl: string | null;
     slug: string;
-    slugSuffix: null;
+    slugSuffix: string | null;
+    tags: Array<string>;
+    title: string;
   }[];
 }[];
 
@@ -41,6 +45,14 @@ type Common = {
   ];
   slug: string;
   subfolder: string;
+  dataLayer?: {
+    general?: {
+      type: string;
+      currency: string;
+      country: string;
+      culture: string;
+    } | null;
+  };
 };
 
 export type Model = ProductListing &
