@@ -1,13 +1,19 @@
+import {
+  type FacetGroup,
+  FacetType,
+  type FacetValue,
+} from '@farfetch/blackout-client';
 import { schema } from 'normalizr';
-import type { FacetGroup, FacetValue } from '@farfetch/blackout-client';
 
 export const getId = (
   { value, valueUpperBound, groupsOn }: FacetValue,
-  { description, type: parentType }: FacetGroup,
+  { key, type: parentType }: FacetGroup,
 ) =>
-  `${description.toLowerCase()}_${value}${
+  `${key.toLowerCase()}_${value}${
     // Special scenario when the facet type is "sizes" or "size by category"
-    parentType === 9 || parentType === 24 ? `_${groupsOn}` : ''
+    parentType === FacetType.Sizes || parentType === FacetType.SizesByCategory
+      ? `_${groupsOn}`
+      : ''
   }${valueUpperBound > 0 ? `_${valueUpperBound}` : ''}`;
 
 export default new schema.Entity(
@@ -20,7 +26,7 @@ export default new schema.Entity(
       id: getId(entity, parent),
       // Since the id is in the format "facetKey_9999999", it's only natural that the parent id is in the same format
       // (it represents an id)
-      parentId: `${parent.description.toLowerCase()}_${entity.parentId}`,
+      parentId: `${parent.key.toLowerCase()}_${entity.parentId}`,
     }),
   },
 );
