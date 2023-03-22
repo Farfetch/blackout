@@ -65,6 +65,18 @@ export const customTrackMockData = {
     shippingTier: 'Next Day',
     tax: 1.24,
   },
+  [eventTypes.DELIVERY_METHOD_ADDED]: {
+    checkoutOrderId: 12345678,
+    coupon: 'PROMO_ABC',
+    currency: 'USD',
+    deliveryType: 'Standard/Standard',
+    interactionType: 'click',
+    orderId: 'ABC12',
+    packagingType: 'foo',
+    paymentType: 'credit',
+    shippingTier: 'Next Day',
+    step: 2,
+  },
   [eventTypes.PROMOCODE_APPLIED]: {
     coupon: 'PROMO_ABC',
     orderId: 'ABC12',

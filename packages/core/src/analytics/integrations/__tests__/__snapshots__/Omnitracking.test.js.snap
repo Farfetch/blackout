@@ -54,6 +54,21 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Delivery Method Added\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 100,
+  "checkoutStep": 2,
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
+  "interactionType": "click",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
+  "promoCode": "PROMO_ABC",
+  "tid": 3654,
+}
+`;
+
 exports[`Omnitracking definitions \`Filters Applied\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PLP",

@@ -471,6 +471,15 @@ export const trackEventsMapper = {
     shipping: data.properties?.shipping,
     orderVAT: data.properties?.tax,
   }),
+  [eventTypes.DELIVERY_METHOD_ADDED]: data => ({
+    tid: 3654,
+    ...getCheckoutEventGenericProperties(data, true),
+    ...getCommonCheckoutStepTrackingData(data),
+    basketValue: data.properties.total,
+    basketCurrency: data.properties.currency,
+    promoCode: data.properties.coupon,
+    lineItems: getProductLineItems(data),
+  }),
   [eventTypes.SHARE]: data => ({
     tid: 1205,
     actionArea: data.properties?.method,
