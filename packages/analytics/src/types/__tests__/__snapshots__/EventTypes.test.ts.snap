@@ -8,6 +8,7 @@ Object {
   "CHECKOUT_STEP_COMPLETED": "Checkout Step Completed",
   "CHECKOUT_STEP_EDITING": "Checkout Step Editing",
   "CHECKOUT_STEP_VIEWED": "Checkout Step Viewed",
+  "DELIVERY_METHOD_ADDED": "Delivery Method Added",
   "FILTERS_APPLIED": "Filters Applied",
   "FILTERS_CLEARED": "Filters Cleared",
   "INTERACT_CONTENT": "Interact Content",

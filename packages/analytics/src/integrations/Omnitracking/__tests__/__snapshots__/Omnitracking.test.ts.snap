@@ -45,6 +45,22 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Delivery Method Added\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 24.64,
+  "checkoutOrderId": 12345678,
+  "checkoutStep": 2,
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
+  "interactionType": "click",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "orderCode": "50314b8e9bcf000000000000",
+  "promoCode": "ACME2019",
+  "selectedPaymentMethod": "credit",
+  "tid": 3654,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Filters Applied\` return should match the snapshot 1`] = `
 Object {
   "filtersApplied": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",

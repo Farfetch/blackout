@@ -30,6 +30,10 @@ enum EventTypes {
    */
   CHECKOUT_STEP_VIEWED = 'Checkout Step Viewed',
   /**
+   * Delivery Method Added should be tracked when a delivery method is added.
+   */
+  DELIVERY_METHOD_ADDED = 'Delivery Method Added',
+  /**
    * Filters Applied should be tracked when the user actively changed filters.
    */
   FILTERS_APPLIED = 'Filters Applied',

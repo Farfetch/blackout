@@ -453,6 +453,15 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     shipping: data.properties?.shipping,
     orderVAT: data.properties?.tax,
   }),
+  [EventTypes.DELIVERY_METHOD_ADDED]: data => ({
+    tid: 3654,
+    ...getCheckoutEventGenericProperties(data),
+    ...getCommonCheckoutStepTrackingData(data),
+    basketValue: data.properties.total,
+    basketCurrency: data.properties.currency,
+    promoCode: data.properties?.coupon,
+    lineItems: getProductLineItems(data),
+  }),
   [EventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
     checkoutStep: data.properties?.step,
