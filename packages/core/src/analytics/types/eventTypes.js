@@ -21,6 +21,8 @@ export default {
   CHECKOUT_STEP_EDITING: 'Checkout Step Editing',
   /** Checkout Step Viewed should be tracked when a new step of a checkout has begun. */
   CHECKOUT_STEP_VIEWED: 'Checkout Step Viewed',
+  /** Delivery Method Added should be tracked when a delivery method is added. */
+  DELIVERY_METHOD_ADDED: 'Delivery Method Added',
   /** Filters Applied should be tracked when the user actively changed filters. */
   FILTERS_APPLIED: 'Filters Applied',
   /** Filters Cleared should be tracked when the user actively clears all filters by interacting with a specific UI element for the effect. */
