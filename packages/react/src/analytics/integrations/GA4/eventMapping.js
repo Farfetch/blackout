@@ -51,6 +51,7 @@ export default {
   [eventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [eventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
   [eventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
+  [eventTypes.DELIVERY_METHOD_ADDED]: 'add_delivery_method',
   [eventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
   [eventTypes.INTERACT_CONTENT]: 'interact_content',
   [eventTypes.SIGNUP_NEWSLETTER]: 'sign_up_newsletter',
@@ -354,6 +355,17 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
     address_finder: eventProperties.addressFinder,
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
+  };
+};
+
+const getDeliveryMethodAddedParametersFromEvent = eventProperties => {
+  return {
+    ...getCheckoutParametersFromEvent(eventProperties),
+    transaction_id: eventProperties.orderId,
+    shipping_tier: eventProperties.shippingTier,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    checkout_step: eventProperties.step,
   };
 };
 
@@ -728,6 +740,9 @@ export function getEventProperties(event, data) {
     case eventTypes.ADDRESS_INFO_ADDED:
     case eventTypes.SHIPPING_METHOD_ADDED:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
+
+    case eventTypes.DELIVERY_METHOD_ADDED:
+      return getDeliveryMethodAddedParametersFromEvent(eventProperties);
 
     case eventTypes.PROMOCODE_APPLIED:
       return getPromocodeAppliedParametersFromEvent(eventProperties);

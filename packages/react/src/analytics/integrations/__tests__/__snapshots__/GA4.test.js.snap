@@ -220,6 +220,50 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Delivery Method Added event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "add_delivery_method",
+    Object {
+      "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "checkout_step": 2,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": "Standard/Standard",
+      "items": Array [
+        Object {
+          "affiliation": undefined,
+          "coupon": undefined,
+          "currency": "USD",
+          "discount": 6,
+          "index": undefined,
+          "item_brand": "Just A T-Shirt",
+          "item_category": "Clothing",
+          "item_category2": "Tops",
+          "item_category3": "T-shirts",
+          "item_id": "507f1f77bcf86cd799439011",
+          "item_list_id": undefined,
+          "item_list_name": undefined,
+          "item_name": "Gareth McConnell Dreamscape T-Shirt",
+          "item_variant": "Black",
+          "location_id": undefined,
+          "price": 25,
+          "quantity": 1,
+          "size": "L",
+        },
+      ],
+      "packaging_type": "foo",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
+      "shipping_tier": "Next Day",
+      "transaction_id": "50314b8e9bcf000000000000",
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Filters Applied event correctly 1`] = `
 Array [
   Array [

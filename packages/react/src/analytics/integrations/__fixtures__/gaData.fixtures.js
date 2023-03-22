@@ -495,6 +495,39 @@ const validTrackEvents = {
     },
   },
 
+  [eventTypes.DELIVERY_METHOD_ADDED]: {
+    type: analyticsTrackTypes.TRACK,
+    event: eventTypes.DELIVERY_METHOD_ADDED,
+    context: mockedContext,
+    properties: {
+      orderId: '50314b8e9bcf000000000000',
+      total: 24.64,
+      shipping: 3.6,
+      coupon: 'HARRODS2019',
+      currency: 'USD',
+      step: 2,
+      checkoutOrderId: 12345678,
+      deliveryType: 'Standard/Standard',
+      packagingType: 'foo',
+      shippingTier: 'Next Day',
+      products: [
+        {
+          id: '507f1f77bcf86cd799439011',
+          category: 'Clothing/Tops/T-shirts/',
+          name: 'Gareth McConnell Dreamscape T-Shirt',
+          brand: 'Just A T-Shirt',
+          currency: 'USD',
+          variant: 'Black',
+          size: 'L',
+          discountValue: 6,
+          price: 19,
+          priceWithoutDiscount: 25,
+          quantity: 1,
+        },
+      ],
+    },
+  },
+
   [eventTypes.LOGIN]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.LOGIN,
