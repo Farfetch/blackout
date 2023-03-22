@@ -49,6 +49,7 @@ const eventMapping = {
   [EventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [EventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
   [EventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
+  [EventTypes.DELIVERY_METHOD_ADDED]: 'add_delivery_method',
   [EventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
   [EventTypes.INTERACT_CONTENT]: 'interact_content',
   [EventTypes.SIGNUP_NEWSLETTER]: 'sign_up_newsletter',
@@ -389,6 +390,26 @@ const getCheckoutShippingStepParametersFromEvent = (
     address_finder: eventProperties.addressFinder,
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
+  };
+};
+
+/**
+ * Returns the delivery method added event properties formatted for the GA4 event.
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Properties formatted for the GA4's delivery method added event.
+ */
+const getDeliveryMethodAddedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  return {
+    ...getCheckoutParametersFromEvent(eventProperties),
+    transaction_id: eventProperties.orderId,
+    shipping_tier: eventProperties.shippingTier,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    checkout_step: eventProperties.step,
   };
 };
 
@@ -788,6 +809,9 @@ export function getEventProperties(
     case EventTypes.ADDRESS_INFO_ADDED:
     case EventTypes.SHIPPING_METHOD_ADDED:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
+
+    case EventTypes.DELIVERY_METHOD_ADDED:
+      return getDeliveryMethodAddedParametersFromEvent(eventProperties);
 
     case EventTypes.PROMOCODE_APPLIED:
       return getPromocodeAppliedParametersFromEvent(eventProperties);
