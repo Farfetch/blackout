@@ -95,7 +95,8 @@ const useProductListing = (
     ],
   );
 
-  const shouldLoadListing = enableAutoFetch && !isLoading && !listing;
+  const shouldLoadListing =
+    enableAutoFetch && !isLoading && !isFetched && !listing;
 
   useEffect(() => {
     shouldLoadListing && fetch();
