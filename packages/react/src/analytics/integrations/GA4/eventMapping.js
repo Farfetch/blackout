@@ -44,7 +44,7 @@ export default {
   [eventTypes.LOGIN]: 'login',
   [eventTypes.SIGNUP_FORM_COMPLETED]: 'sign_up',
   [eventTypes.FILTERS_APPLIED]: 'apply_filters',
-  [eventTypes.FILTERS_CLEARED]: 'clear_filters',
+  [eventTypes.FILTERS_CLEARED]: 'clear_all_filters',
   [eventTypes.SHARE]: 'share',
   [eventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
   [eventTypes.PLACE_ORDER_STARTED]: 'place_order',
