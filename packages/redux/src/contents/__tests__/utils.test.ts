@@ -131,7 +131,6 @@ describe('generateContentHash', () => {
       'target.language': 'en_US',
     };
     const expectedResult = 'all!abc!en_US';
-    // @ts-expect-error Force contentTypeCode to be undefined for test
     const result = generateContentHash(mockQuery);
 
     expect(result).toBe(expectedResult);

@@ -11,23 +11,14 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { ComponentType } from '@farfetch/blackout-client';
-import type { UseContentTypeOptions } from './types/useContentType.types.js';
+import type { UseContentsOptions } from './types/useContents.types.js';
 
-function useContentType<T = ComponentType[]>(
-  contentTypeCode: string,
-  {
-    enableAutoFetch = true,
-    fetchConfig,
-    ...queryParams
-  }: UseContentTypeOptions,
-) {
-  const query = useMemo(
-    () => ({
-      ...queryParams,
-      contentTypeCode,
-    }),
-    [contentTypeCode, queryParams],
-  );
+function useContents<T = ComponentType[]>({
+  enableAutoFetch = true,
+  fetchConfig,
+  ...queryParams
+}: UseContentsOptions) {
+  const query = queryParams;
 
   const error = useSelector((state: StoreState) =>
     getContentError(state, query),
@@ -82,4 +73,4 @@ function useContentType<T = ComponentType[]>(
   };
 }
 
-export default useContentType;
+export default useContents;

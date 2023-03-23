@@ -13,7 +13,7 @@ import type { GetSearchContents, QuerySearchContents } from './types/index.js';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSearchContents: GetSearchContents = (query, config?) => {
+const getSearchContents: GetSearchContents = (query, config) => {
   const payload = merge({}, query) as Record<string, unknown>;
   const targets = query?.target || {};
 

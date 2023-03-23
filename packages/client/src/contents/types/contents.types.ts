@@ -15,7 +15,7 @@ export type QuerySearchContents = {
   // The environment identifier (live | preview).
   environmentCode?: string;
   // The content type unique code (page|post|menu|pages|posts|widgets|waterproof...).
-  contentTypeCode: string;
+  contentTypeCode?: string;
   // List of codes that representing the content code (about-us|today-news|header|productId...).
   codes?: string | string[];
   // The targets and respective values that a content type is configured (contentzone:ROW | country:GB | language:en-GB | benefits:test | segments: 'private-sale,private-sale-guest-user').  // The segments list should contain less than 10 strings. They should separated by a comma (,).
@@ -73,6 +73,6 @@ export interface ContentEntry<T = ComponentType[]> {
 export type Contents = PagedResponse<ContentEntry>;
 
 export type GetSearchContents = (
-  query: QuerySearchContents,
+  query?: QuerySearchContents,
   config?: Config,
 ) => Promise<Contents>;
