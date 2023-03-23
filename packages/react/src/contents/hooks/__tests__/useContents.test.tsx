@@ -8,7 +8,7 @@ import {
 } from 'tests/__fixtures__/contents/index.mjs';
 import { fetchContents } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers/index.js';
-import useContentType from '../useContentType.js';
+import useContents from '../useContents.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
 jest.mock('@farfetch/blackout-redux', () => ({
@@ -16,7 +16,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchContents: jest.fn(() => () => Promise.resolve()),
 }));
 
-describe('useContentType', () => {
+describe('useContents', () => {
   beforeEach(jest.clearAllMocks);
 
   afterEach(cleanup);
@@ -24,8 +24,9 @@ describe('useContentType', () => {
   it('should return values correctly with initial state', () => {
     const { result } = renderHook(
       () =>
-        useContentType(contentQuery.contentTypeCode, {
+        useContents({
           codes: contentQuery.codes,
+          contentTypeCode: contentQuery.contentTypeCode,
         }),
       {
         wrapper: withStore(mockContentsWithDataState),
@@ -51,8 +52,9 @@ describe('useContentType', () => {
   it('should return in loading state', () => {
     const { result } = renderHook(
       () =>
-        useContentType(contentQuery.contentTypeCode, {
+        useContents({
           codes: contentQuery.codes,
+          contentTypeCode: contentQuery.contentTypeCode,
         }),
       {
         wrapper: withStore({
@@ -83,8 +85,9 @@ describe('useContentType', () => {
   it('should return in error state', () => {
     const { result } = renderHook(
       () =>
-        useContentType(contentQuery.contentTypeCode, {
+        useContents({
           codes: contentQuery.codes,
+          contentTypeCode: contentQuery.contentTypeCode,
         }),
       {
         wrapper: withStore({
@@ -115,8 +118,9 @@ describe('useContentType', () => {
     it('should call `fetch` action if `enableAutoFetch` option is true', () => {
       renderHook(
         () =>
-          useContentType(contentQuery.contentTypeCode, {
+          useContents({
             codes: contentQuery.codes,
+            contentTypeCode: contentQuery.contentTypeCode,
           }),
         {
           wrapper: withStore(mockContentsInitialState),
@@ -135,8 +139,9 @@ describe('useContentType', () => {
     it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
       renderHook(
         () =>
-          useContentType(contentQuery.contentTypeCode, {
+          useContents({
             codes: contentQuery.codes,
+            contentTypeCode: contentQuery.contentTypeCode,
             enableAutoFetch: false,
           }),
         {
@@ -158,8 +163,9 @@ describe('useContentType', () => {
         },
       } = renderHook(
         () =>
-          useContentType(contentQuery.contentTypeCode, {
+          useContents({
             codes: contentQuery.codes,
+            contentTypeCode: contentQuery.contentTypeCode,
             enableAutoFetch: false,
           }),
         {

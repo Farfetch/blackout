@@ -248,7 +248,7 @@ export const getRankedCommercePage = (
  * @returns - Hash built to identify a content.
  */
 export const generateContentHash = (
-  query: QuerySearchContents | QueryCommercePages,
+  query: QuerySearchContents | QueryCommercePages | undefined,
 ): string => {
   if (
     isEmpty(query) ||
