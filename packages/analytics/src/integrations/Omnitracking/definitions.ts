@@ -574,11 +574,11 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     } as OmnitrackingTrackEventParameters;
   },
   [EventTypes.FILTERS_APPLIED]: (data: EventData<TrackTypesValues>) => ({
-    tid: 2921,
+    tid: 2917,
     filtersApplied: getFilterParametersFromEvent(data.properties),
   }),
   [EventTypes.FILTERS_CLEARED]: (data: EventData<TrackTypesValues>) => ({
-    tid: 2917,
+    tid: 2921,
     filtersApplied: getFilterParametersFromEvent(data.properties),
   }),
   [EventTypes.INTERACT_CONTENT]: (data: EventData<TrackTypesValues>) => {

@@ -42,7 +42,7 @@ const eventMapping = {
   [EventTypes.LOGIN]: 'login',
   [EventTypes.SIGNUP_FORM_COMPLETED]: 'sign_up',
   [EventTypes.FILTERS_APPLIED]: 'apply_filters',
-  [EventTypes.FILTERS_CLEARED]: 'clear_filters',
+  [EventTypes.FILTERS_CLEARED]: 'clear_all_filters',
   [EventTypes.SHARE]: 'share',
   [EventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
   [EventTypes.PLACE_ORDER_STARTED]: 'place_order',

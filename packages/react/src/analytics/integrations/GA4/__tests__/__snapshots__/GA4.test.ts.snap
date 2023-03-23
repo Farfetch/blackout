@@ -330,7 +330,7 @@ exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Ma
 Array [
   Array [
     "event",
-    "clear_filters",
+    "clear_all_filters",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
