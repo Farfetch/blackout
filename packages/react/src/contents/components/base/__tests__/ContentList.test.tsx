@@ -4,7 +4,7 @@ import {
 } from 'tests/__fixtures__/contents/index.mjs';
 import { render } from '@testing-library/react';
 import { sortContentType } from '../../../utils/index.js';
-import { useContentType } from '../../../hooks/index.js';
+import { useContents } from '../../../hooks/index.js';
 import ContentList from '../contentList/ContentList.js';
 import React from 'react';
 
@@ -17,7 +17,7 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock('../../../hooks', () => ({
-  useContentType: jest.fn(),
+  useContents: jest.fn(),
 }));
 
 jest.mock('../../../helpers', () => ({
@@ -36,7 +36,7 @@ const location = {
 
 describe('<ContentList />', () => {
   it('should render properly', () => {
-    (useContentType as jest.Mock).mockImplementation(() => ({
+    (useContents as jest.Mock).mockImplementation(() => ({
       data: { entries: customContentType },
       isLoading: false,
     }));
@@ -54,7 +54,7 @@ describe('<ContentList />', () => {
   });
 
   it('should render null if no contentType is returned', () => {
-    (useContentType as jest.Mock).mockImplementation(() => ({
+    (useContents as jest.Mock).mockImplementation(() => ({
       data: undefined,
       isLoading: false,
     }));
@@ -72,7 +72,7 @@ describe('<ContentList />', () => {
   });
 
   it('should render null if loading is true', () => {
-    (useContentType as jest.Mock).mockImplementation(() => ({
+    (useContents as jest.Mock).mockImplementation(() => ({
       data: undefined,
       isLoading: true,
     }));

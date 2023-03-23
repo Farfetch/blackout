@@ -313,7 +313,7 @@ Object {
   "useConfiguration": [Function],
   "useConfigurations": [Function],
   "useContentPage": [Function],
-  "useContentType": [Function],
+  "useContents": [Function],
   "useCountries": [Function],
   "useCountryAddressSchemas": [Function],
   "useCountryStateCities": [Function],

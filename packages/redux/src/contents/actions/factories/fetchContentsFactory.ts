@@ -21,7 +21,7 @@ import type { FetchContentsAction } from '../../types/index.js';
  */
 const fetchContentsFactory =
   (getContent: GetSearchContents) =>
-  (query: QuerySearchContents, config?: Config) =>
+  (query?: QuerySearchContents, config?: Config) =>
   async (dispatch: Dispatch<FetchContentsAction>): Promise<Contents> => {
     let hash: string | undefined = undefined;
 
