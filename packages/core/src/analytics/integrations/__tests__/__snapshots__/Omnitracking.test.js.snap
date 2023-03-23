@@ -73,7 +73,7 @@ exports[`Omnitracking definitions \`Filters Applied\` return should match the sn
 Object {
   "actionArea": "PLP",
   "filtersApplied": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
-  "tid": 2921,
+  "tid": 2917,
 }
 `;
 
@@ -81,7 +81,7 @@ exports[`Omnitracking definitions \`Filters Cleared\` return should match the sn
 Object {
   "actionArea": "PLP",
   "filtersApplied": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
-  "tid": 2917,
+  "tid": 2921,
 }
 `;
 

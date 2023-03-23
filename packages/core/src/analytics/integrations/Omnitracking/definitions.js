@@ -552,14 +552,14 @@ export const trackEventsMapper = {
     lineItems: getProductLineItems(data),
   }),
   [eventTypes.FILTERS_APPLIED]: data => ({
-    tid: 2921,
+    tid: 2917,
     actionArea: data.properties?.from,
     filtersApplied: data.properties?.filters
       ? JSON.stringify(data.properties?.filters)
       : undefined,
   }),
   [eventTypes.FILTERS_CLEARED]: data => ({
-    tid: 2917,
+    tid: 2921,
     actionArea: data.properties?.from,
     filtersApplied: data.properties?.filters
       ? JSON.stringify(data.properties?.filters)
