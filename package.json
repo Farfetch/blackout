@@ -40,7 +40,8 @@
     "ci:types:tests": "tsc -p tsconfig.ci.tests.json",
     "ci:release": "scripts/release.sh",
     "dev:link": "lerna run --concurrency 1 --stream --scope \"@farfetch/*\" dev:link",
-    "dev:unlink": "lerna exec --concurrency 1 --stream --scope \"@farfetch/*\" 'cd dist && yarn unlink'"
+    "dev:unlink": "lerna exec --concurrency 1 --stream --scope \"@farfetch/*\" 'cd dist && yarn unlink'",
+    "release:git": "scripts/release-git.sh"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.6",
@@ -79,6 +80,7 @@
     "eslint-plugin-tsdoc": "^0.2.16",
     "faker": "^5.5.3",
     "fs-extra": "^10.1.0",
+    "gitpkg": "^1.0.0-beta.4",
     "husky": "^7.0.4",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",

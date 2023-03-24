@@ -143,5 +143,11 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
       },
     },
+    {
+      files: ['gitpkg.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
   ],
 };
