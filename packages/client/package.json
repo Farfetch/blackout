@@ -15,7 +15,8 @@
     "clean": "rimraf dist tsconfig.release.tsbuildinfo",
     "ci:types": "tsc -p tsconfig.ci.runtime.json",
     "prepack": "yarn build:copy-package-json",
-    "dev:link": "yarn build && yarn build:copy-package-json && cd dist && yarn link"
+    "dev:link": "yarn build && yarn build:copy-package-json && cd dist && yarn link",
+    "release:git": "yarn build && yarn build:copy-package-json && cd dist && npx gitpkg publish --registry"
   },
   "repository": {
     "type": "git",
