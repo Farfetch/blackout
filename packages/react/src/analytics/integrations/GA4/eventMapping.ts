@@ -50,6 +50,7 @@ const eventMapping = {
   [EventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
   [EventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
   [EventTypes.DELIVERY_METHOD_ADDED]: 'add_delivery_method',
+  [EventTypes.BILLING_INFO_ADDED]: 'add_billing_info',
   [EventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
   [EventTypes.INTERACT_CONTENT]: 'interact_content',
   [EventTypes.SIGNUP_NEWSLETTER]: 'sign_up_newsletter',
@@ -453,6 +454,26 @@ const getShippingInfoAddedParametersFromEvent = (
 };
 
 /**
+ * Returns the billing info added event parameters for the GA4 ecommerce event.
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Parameters for the GA4's add_billing_info event.
+ */
+const getBillingInfoAddedParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  return {
+    address_finder: eventProperties.addressFinder,
+    checkout_step: eventProperties.step,
+    coupon: eventProperties.coupon,
+    currency: eventProperties.currency,
+    transaction_id: eventProperties.orderId,
+    value: eventProperties.total,
+  };
+};
+
+/**
  * Returns the checkout abandoned custom event parameters formatted for the GA4
  * event.
  *
@@ -812,6 +833,9 @@ export function getEventProperties(
 
     case EventTypes.DELIVERY_METHOD_ADDED:
       return getDeliveryMethodAddedParametersFromEvent(eventProperties);
+
+    case EventTypes.BILLING_INFO_ADDED:
+      return getBillingInfoAddedParametersFromEvent(eventProperties);
 
     case EventTypes.PROMOCODE_APPLIED:
       return getPromocodeAppliedParametersFromEvent(eventProperties);

@@ -8,6 +8,10 @@ enum EventTypes {
    */
   ADDRESS_INFO_ADDED = 'Address Info Added',
   /**
+   * Billing Info Added should be tracked when an billing info is added.
+   */
+  BILLING_INFO_ADDED = 'Billing Info Added',
+  /**
    * Checkout Abandoned should be tracked when the user abandons the checkout.
    */
   CHECKOUT_ABANDONED = 'Checkout Abandoned',

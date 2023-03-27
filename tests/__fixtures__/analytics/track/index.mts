@@ -37,6 +37,7 @@ import signupFormCompletedTrackData from './signupFormCompletedTrackData.fixture
 import signupFormViewedTrackData from './signupFormViewedTrackData.fixtures.mjs';
 import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures.mjs';
 import deliveryMethodAddedTrackData from './deliveryMethodAddedTrackData.fixtures.mjs';
+import billingInfoAddedTrackData from './billingInfoAddedTrackData.fixtures.mjs';
 
 export type TrackFixtures = {
   [eventType in EventTypes]: EventData<TrackTypes> & {
@@ -47,6 +48,7 @@ export type TrackFixtures = {
 const allFixtures: TrackFixtures = {
   [EventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedTrackData,
   [EventTypes.DELIVERY_METHOD_ADDED]: deliveryMethodAddedTrackData,
+  [EventTypes.BILLING_INFO_ADDED]: billingInfoAddedTrackData,
   [EventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedTrackData,
   [EventTypes.CHECKOUT_STARTED]: checkoutStartedTrackData,
   [EventTypes.CHECKOUT_STEP_COMPLETED]: checkoutStepCompletedTrackData,
