@@ -24,6 +24,7 @@ Object {
   "Component": [Function],
   "EventTypes": Object {
     "ADDRESS_INFO_ADDED": "Address Info Added",
+    "BILLING_INFO_ADDED": "Billing Info Added",
     "CHECKOUT_ABANDONED": "Checkout Abandoned",
     "CHECKOUT_STARTED": "Checkout Started",
     "CHECKOUT_STEP_COMPLETED": "Checkout Step Completed",
