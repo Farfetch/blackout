@@ -9,6 +9,18 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Billing Info Added\` return should match the snapshot 1`] = `
+Object {
+  "addressFinder": false,
+  "basketCurrency": "USD",
+  "basketValue": 100,
+  "checkoutStep": "1",
+  "orderCode": "ABC12",
+  "promocode": "promo",
+  "tid": 3647,
+}
+`;
+
 exports[`Omnitracking definitions \`Checkout Abandoned\` return should match the snapshot 1`] = `
 Object {
   "checkoutStep": 2,

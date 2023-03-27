@@ -11,6 +11,8 @@
 export default {
   /** Address Info Added should be tracked when an address info is added. */
   ADDRESS_INFO_ADDED: 'Address Info Added',
+  /** Billing Info Added should be tracked when a billing info is added. */
+  BILLING_INFO_ADDED: 'Billing Info Added',
   /** Checkout Abandoned should be tracked when the user abandons the checkout. */
   CHECKOUT_ABANDONED: 'Checkout Abandoned',
   /** Checkout Started should be tracked when a checkout is started. */
