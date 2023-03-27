@@ -350,6 +350,20 @@ const validTrackEvents = {
     },
   },
 
+  [eventTypes.BILLING_INFO_ADDED]: {
+    type: analyticsTrackTypes.TRACK,
+    event: eventTypes.BILLING_INFO_ADDED,
+    context: mockedContext,
+    properties: {
+      addressFinder: false,
+      coupon: 'HARRODS2019',
+      currency: 'USD',
+      orderId: '50314b8e9bcf000000000000',
+      step: 1,
+      total: 24.64,
+    },
+  },
+
   [eventTypes.ADDRESS_INFO_ADDED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ADDRESS_INFO_ADDED,
