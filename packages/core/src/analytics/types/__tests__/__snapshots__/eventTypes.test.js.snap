@@ -3,6 +3,7 @@
 exports[`Should export eventTypes 1`] = `
 Object {
   "ADDRESS_INFO_ADDED": "Address Info Added",
+  "BILLING_INFO_ADDED": "Billing Info Added",
   "CHECKOUT_ABANDONED": "Checkout Abandoned",
   "CHECKOUT_STARTED": "Checkout Started",
   "CHECKOUT_STEP_COMPLETED": "Checkout Step Completed",

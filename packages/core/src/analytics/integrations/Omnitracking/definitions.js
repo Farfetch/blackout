@@ -504,6 +504,15 @@ export const trackEventsMapper = {
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2911,
   }),
+  [eventTypes.BILLING_INFO_ADDED]: data => ({
+    tid: 3647,
+    ...getCheckoutEventGenericProperties(data),
+    addressFinder: data.properties.addressFinder,
+    basketCurrency: data.properties.currency,
+    basketValue: data.properties.total,
+    checkoutStep: data.properties.step,
+    promocode: data.properties.coupon,
+  }),
   [eventTypes.PAYMENT_INFO_ADDED]: data => ({
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2912,
