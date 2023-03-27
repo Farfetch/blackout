@@ -433,6 +433,15 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     deliveryInformationDetails: getDeliveryInformationDetails(data),
     interactionType: data.properties?.interactionType,
   }),
+  [EventTypes.BILLING_INFO_ADDED]: data => ({
+    tid: 3647,
+    ...getCheckoutEventGenericProperties(data),
+    checkoutStep: data.properties?.step,
+    promocode: data.properties?.coupon,
+    basketCurrency: data.properties?.currency,
+    basketValue: data.properties?.total,
+    addressFinder: data.properties?.addressFinder,
+  }),
   [EventTypes.PLACE_ORDER_STARTED]: data => {
     return {
       tid: 188,
