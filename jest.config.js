@@ -16,11 +16,14 @@ module.exports = {
   // Add crypto-es to transformIgnorePatterns as it is an ESM-only package
   transformIgnorePatterns: ['/node_modules/(?!(crypto-es)/)'],
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['./tests/setupReactTestingLibrary.ts', 'jest-localstorage-mock'],
+  setupFiles: [
+    './tests/setupReactTestingLibrary.mts',
+    'jest-localstorage-mock',
+  ],
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  setupFilesAfterEnv: ['./tests/setupAfterEnv.ts'],
+  setupFilesAfterEnv: ['./tests/setupAfterEnv.mts'],
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  snapshotSerializers: ['./tests/axiosErrorSerializer.ts'],
+  snapshotSerializers: ['./tests/axiosErrorSerializer.mts'],
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
   // The regexp pattern or array of patterns that Jest uses to detect test files
