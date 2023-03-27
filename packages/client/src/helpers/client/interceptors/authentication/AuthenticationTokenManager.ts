@@ -704,7 +704,7 @@ class AuthenticationTokenManager {
    */
   // Due to a bug with axios' types, we had to change the output of this function
   // to `Promise<unknown>` to avoid having a typescript
-  async onRequestFailedInterceptor(error: AxiosError): Promise<unknown> {
+  async onRequestFailedInterceptor(error: AxiosError<any>): Promise<unknown> {
     if (!axios.isAxiosError(error)) {
       return Promise.reject(error);
     }
