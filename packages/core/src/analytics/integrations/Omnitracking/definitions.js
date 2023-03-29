@@ -458,6 +458,7 @@ export const trackEventsMapper = {
   }),
   [eventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
+    ...getCheckoutEventGenericProperties(data, true),
     checkoutStep: data.properties.step,
   }),
   [eventTypes.CHECKOUT_STARTED]: data => ({
