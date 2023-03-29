@@ -12,7 +12,7 @@ import { MAX_PRODUCT_CATEGORIES } from './constants.js';
 
 export const InternalEventTypes = {
   PRODUCT_UPDATED: {
-    CHANGE_SIZE: 'change_size',
+    CHANGE_SIZE: 'select_size',
     CHANGE_QUANTITY: 'change_quantity',
     CHANGE_COLOUR: 'change_colour',
   },
@@ -668,6 +668,7 @@ const getCheckoutStepEditingParametersFromEvent = (
 ) => {
   return {
     checkout_step: eventProperties.step,
+    transaction_id: eventProperties.orderId,
   };
 };
 

@@ -455,6 +455,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [EventTypes.CHECKOUT_STEP_EDITING]: data => ({
     tid: 2923,
+    ...getCheckoutEventGenericProperties(data),
     checkoutStep: data.properties?.step,
   }),
   [EventTypes.PAYMENT_INFO_ADDED]: data => ({
