@@ -12,7 +12,7 @@ import snakeCase from 'lodash/snakeCase';
 
 export const InternalEventTypes = {
   PRODUCT_UPDATED: {
-    CHANGE_SIZE: 'change_size',
+    CHANGE_SIZE: 'select_size',
     CHANGE_QUANTITY: 'change_quantity',
     CHANGE_COLOUR: 'change_colour',
   },
@@ -616,6 +616,7 @@ const getViewItemListParametersFromEvent = eventProperties => ({
 const getCheckoutStepEditingParametersFromEvent = eventProperties => {
   return {
     checkout_step: eventProperties.step,
+    transaction_id: eventProperties.orderId,
   };
 };
 

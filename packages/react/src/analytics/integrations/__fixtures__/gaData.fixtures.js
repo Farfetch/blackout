@@ -610,6 +610,7 @@ const validTrackEvents = {
     event: eventTypes.CHECKOUT_STEP_EDITING,
     context: mockedContext,
     properties: {
+      orderId: '50314b8e9bcf000000000000',
       step: 1,
     },
   },

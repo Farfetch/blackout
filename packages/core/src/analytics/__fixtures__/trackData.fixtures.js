@@ -37,6 +37,8 @@ const trackMockData = {
 
 export const customTrackMockData = {
   [eventTypes.CHECKOUT_STEP_EDITING]: {
+    checkoutOrderId: 12345678,
+    orderId: 'ABC12',
     step: 2,
   },
   [eventTypes.SHARE]: {
