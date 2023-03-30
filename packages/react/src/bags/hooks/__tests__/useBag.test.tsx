@@ -39,6 +39,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
 }));
 
 const metadata = { from: 'plp' };
+const myConfig = { headers: { Accept: 'application/vnd.mason+json' } };
 
 describe('useBag', () => {
   beforeEach(jest.clearAllMocks);
@@ -254,7 +255,12 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await addItem(mockProductId, { quantity: 1, sizeId: 1 }, metadata);
+      await addItem(
+        mockProductId,
+        { quantity: 1, sizeId: 1 },
+        metadata,
+        myConfig,
+      );
 
       expect(addBagItem).toHaveBeenCalledWith(
         {
@@ -269,6 +275,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -283,9 +290,14 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await removeItem(mockBagItemId);
+      await removeItem(mockBagItemId, undefined, undefined, myConfig);
 
-      expect(removeBagItem).toHaveBeenCalledWith(mockBagItemId);
+      expect(removeBagItem).toHaveBeenCalledWith(
+        mockBagItemId,
+        undefined,
+        undefined,
+        myConfig,
+      );
     });
 
     it('should call `updateBagItem` action on quantity decrement', async () => {
@@ -299,7 +311,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { quantity: 1 }, metadata);
+      await updateItem(mockBagItemId, { quantity: 1 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
@@ -313,6 +325,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -327,7 +340,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { quantity: 6 }, metadata);
+      await updateItem(mockBagItemId, { quantity: 6 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
@@ -344,6 +357,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -358,7 +372,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 4 }, metadata);
+      await updateItem(mockBagItemId, { sizeId: 4 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).not.toHaveBeenCalled();
@@ -373,6 +387,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -387,7 +402,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2 }, metadata);
+      await updateItem(mockBagItemId, { sizeId: 2 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).toHaveBeenCalledTimes(1);
@@ -402,6 +417,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
       expect(addBagItem).toHaveBeenCalledWith(
         {
@@ -416,6 +432,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -430,7 +447,12 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await addItem(mockProductId, { sizeId: 23, quantity: 1 }, metadata);
+      await addItem(
+        mockProductId,
+        { sizeId: 23, quantity: 1 },
+        metadata,
+        myConfig,
+      );
 
       expect(addBagItem).not.toHaveBeenCalled();
       expect(updateBagItem).toHaveBeenCalledTimes(1);
@@ -448,6 +470,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -462,7 +485,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2 }, metadata);
+      await updateItem(mockBagItemId, { sizeId: 2 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
@@ -476,6 +499,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -490,7 +514,12 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 2, quantity: 2 }, metadata);
+      await updateItem(
+        mockBagItemId,
+        { sizeId: 2, quantity: 2 },
+        metadata,
+        myConfig,
+      );
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
@@ -507,6 +536,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 
@@ -521,7 +551,7 @@ describe('useBag', () => {
         wrapper: withStore(mockState),
       });
 
-      await updateItem(mockBagItemId, { sizeId: 24 }, metadata);
+      await updateItem(mockBagItemId, { sizeId: 24 }, metadata, myConfig);
 
       expect(removeBagItem).toHaveBeenCalledTimes(1);
       expect(addBagItem).toHaveBeenCalledTimes(1);
@@ -529,6 +559,7 @@ describe('useBag', () => {
         mockBagItemId,
         undefined,
         metadata,
+        myConfig,
       );
       expect(addBagItem).toHaveBeenCalledWith(
         {
@@ -543,6 +574,7 @@ describe('useBag', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
 

@@ -13,6 +13,7 @@ import { useBag } from './/index.js';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import type { BagItemId, HandleUpdateBagItemData } from './types/index.js';
+import type { Config } from '@farfetch/blackout-client';
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
@@ -37,14 +38,17 @@ const useBagItem = (bagItemId: BagItemId) => {
   );
 
   const update = useCallback(
-    (data: HandleUpdateBagItemData, metadata?: BagItemActionMetadata) =>
-      updateItem(bagItemId, data, metadata),
+    (
+      data: HandleUpdateBagItemData,
+      metadata?: BagItemActionMetadata,
+      config?: Config,
+    ) => updateItem(bagItemId, data, metadata, config),
     [updateItem, bagItemId],
   );
 
   const remove = useCallback(
-    (metadata?: BagItemActionMetadata) =>
-      removeItem(bagItemId, undefined, metadata),
+    (metadata?: BagItemActionMetadata, config?: Config) =>
+      removeItem(bagItemId, undefined, metadata, config),
     [removeItem, bagItemId],
   );
 
