@@ -20,6 +20,8 @@ jest.mock('@farfetch/blackout-redux', () => ({
   removeBagItem: jest.fn(() => () => Promise.resolve()),
 }));
 
+const myConfig = { headers: { Accept: 'application/vnd.mason+json' } };
+
 describe('useBagItem', () => {
   beforeEach(jest.clearAllMocks);
 
@@ -124,12 +126,13 @@ describe('useBagItem', () => {
         wrapper: withStore(mockState),
       });
 
-      await remove();
+      await remove(undefined, myConfig);
 
       expect(removeBagItem).toHaveBeenCalledWith(
         mockBagItemId,
         undefined,
         undefined,
+        myConfig,
       );
     });
 
@@ -146,7 +149,7 @@ describe('useBagItem', () => {
 
       const metadata = { from: 'bag' };
 
-      await update({ sizeId: 2, quantity: 2 }, metadata);
+      await update({ sizeId: 2, quantity: 2 }, metadata, myConfig);
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
@@ -163,6 +166,7 @@ describe('useBagItem', () => {
         },
         undefined,
         metadata,
+        myConfig,
       );
     });
   });

@@ -6,6 +6,7 @@ import {
   type BagItemActionMetadata,
   type BagItemDenormalized,
   buildBagItem,
+  type CustomAttributesAdapted,
   fetchBag as fetchBagAction,
   generateBagItemHash,
   getBag,
@@ -14,6 +15,7 @@ import {
   getProductDenormalized,
   isBagFetched,
   isBagLoading,
+  type ProductEntityDenormalized,
   removeBagItem as removeBagItemAction,
   resetBag as resetBagAction,
   type SizeAdapted,
@@ -26,10 +28,34 @@ import {
   ProductError,
   SizeError,
 } from './errors/index.js';
+import { type Config } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
-import type { HandleAddOrUpdateItem, UseBagOptions } from './types/index.js';
+import type { UseBagOptions } from './types/index.js';
+
+type HandleAddOrUpdateItem = (
+  {
+    customAttributes,
+    from,
+    product,
+    productAggregatorId,
+    quantity,
+    size,
+  }: {
+    customAttributes?: CustomAttributesAdapted | string;
+    from?: string;
+    product: ProductEntityDenormalized;
+    productAggregatorId?: Exclude<
+      BagItemDenormalized['productAggregator'],
+      null
+    >['id'];
+    quantity: number;
+    size: SizeAdapted;
+  },
+  metadata?: BagItemActionMetadata,
+  config?: Config,
+) => Promise<void>;
 
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
@@ -73,6 +99,7 @@ const useBag = (options: UseBagOptions = {}) => {
     async (
       { customAttributes, product, productAggregatorId, quantity, size },
       metadata,
+      config,
     ) => {
       let quantityToHandle = quantity;
 
@@ -126,6 +153,7 @@ const useBag = (options: UseBagOptions = {}) => {
                 },
                 undefined,
                 metadata,
+                config,
               );
 
               // Now we have less quantity to add to the next merchant
@@ -135,7 +163,7 @@ const useBag = (options: UseBagOptions = {}) => {
           }
         } else {
           // When the item is not in the bag, we add it
-          await addBagItem(requestData, undefined, metadata);
+          await addBagItem(requestData, undefined, metadata, config);
 
           // Now we have less quantity to add to the next merchant
           quantityToHandle -= quantityToAdd;
@@ -162,6 +190,7 @@ const useBag = (options: UseBagOptions = {}) => {
       productId: number,
       { quantity, sizeId }: { quantity: number; sizeId: number },
       metadata?: BagItemActionMetadata,
+      config?: Config,
     ) => {
       const state = getState();
       const product = getProductDenormalized(state, productId);
@@ -184,6 +213,7 @@ const useBag = (options: UseBagOptions = {}) => {
           size,
         },
         metadata,
+        config,
       );
     },
     [getState, handleAddOrUpdateItem],
@@ -194,6 +224,7 @@ const useBag = (options: UseBagOptions = {}) => {
       bagItem: BagItemDenormalized,
       newQuantity: number,
       metadata?: BagItemActionMetadata,
+      config?: Config,
     ) => {
       const quantityDelta = newQuantity - bagItem.quantity;
 
@@ -213,6 +244,7 @@ const useBag = (options: UseBagOptions = {}) => {
           },
           undefined,
           metadata,
+          config,
         );
       }
 
@@ -233,6 +265,7 @@ const useBag = (options: UseBagOptions = {}) => {
           size,
         },
         metadata,
+        config,
       );
     },
     [handleAddOrUpdateItem, updateBagItem],
@@ -252,12 +285,14 @@ const useBag = (options: UseBagOptions = {}) => {
    * @param bagItem  - Bag item to update the size.
    * @param newSize  - Size to update the bag item into.
    * @param metadata - Metadata to be added to the dispatched action. This metadata can be used by redux middlewares (e.g. analytics bag middleware)
+   * @param config   - Custom configurations to send to the client instance (axios).
    */
   const handleSizeChange = useCallback(
     async (
       bagItem: BagItemDenormalized,
       newSize: SizeAdapted['id'],
       metadata?: BagItemActionMetadata,
+      config?: Config,
     ) => {
       if (!bagItem.product) {
         throw new ProductError();
@@ -302,6 +337,7 @@ const useBag = (options: UseBagOptions = {}) => {
             },
             undefined,
             metadata,
+            config,
           );
 
           return;
@@ -317,6 +353,7 @@ const useBag = (options: UseBagOptions = {}) => {
           },
           undefined,
           metadata,
+          config,
         );
         quantityToHandle -= merchantQuantity;
         // Remove the merchant of the future possibilities to add to the bag for
@@ -330,7 +367,7 @@ const useBag = (options: UseBagOptions = {}) => {
             ) || [],
         };
       } else {
-        await removeItem(bagItem.id, undefined, metadata);
+        await removeItem(bagItem.id, undefined, metadata, config);
       }
 
       if (quantityToHandle) {
@@ -344,6 +381,7 @@ const useBag = (options: UseBagOptions = {}) => {
             size: sizeToHandle,
           },
           metadata,
+          config,
         );
       }
     },
@@ -365,6 +403,7 @@ const useBag = (options: UseBagOptions = {}) => {
    * @param newSizeId - Size to update the bag item into.
    * @param newQty    - Quantity to update the bag item into.
    * @param metadata  - Metadata to be added to the dispatched action. This metadata can be used by redux middlewares (e.g. analytics bag middleware)
+   * @param config    - Custom configurations to send to the client instance (axios).
    */
   const handleFullUpdate = useCallback(
     async (
@@ -372,6 +411,7 @@ const useBag = (options: UseBagOptions = {}) => {
       newSizeId: number,
       newQty: number,
       metadata?: BagItemActionMetadata,
+      config?: Config,
     ) => {
       // In this case, we really want to update the bagItem,
       // so we force it on the first time.
@@ -418,13 +458,14 @@ const useBag = (options: UseBagOptions = {}) => {
             },
             undefined,
             metadata,
+            config,
           );
 
           didFirstUpdate = true;
         } else {
           // When we did the first update, we add the remaining quantity
           // to the bag
-          await addBagItem(requestData, undefined, metadata);
+          await addBagItem(requestData, undefined, metadata, config);
         }
 
         quantityToHandle -= quantityToManage;
@@ -456,6 +497,7 @@ const useBag = (options: UseBagOptions = {}) => {
         sizeId?: number;
       },
       metadata?: BagItemActionMetadata,
+      config?: Config,
     ) => {
       const itemsRefreshed = getBagItems(getState());
 
@@ -469,15 +511,21 @@ const useBag = (options: UseBagOptions = {}) => {
       const newSizeId = sizeId || bagItem.size.id;
 
       if (newQuantity !== bagItem.quantity && newSizeId !== bagItem.size.id) {
-        return handleFullUpdate(bagItem, newQuantity, newSizeId, metadata);
+        return handleFullUpdate(
+          bagItem,
+          newQuantity,
+          newSizeId,
+          metadata,
+          config,
+        );
       }
 
       if (newQuantity !== bagItem.quantity) {
-        return handleQuantityChange(bagItem, newQuantity, metadata);
+        return handleQuantityChange(bagItem, newQuantity, metadata, config);
       }
 
       if (newSizeId !== bagItem.size.id) {
-        return handleSizeChange(bagItem, newSizeId, metadata);
+        return handleSizeChange(bagItem, newSizeId, metadata, config);
       }
 
       return;
