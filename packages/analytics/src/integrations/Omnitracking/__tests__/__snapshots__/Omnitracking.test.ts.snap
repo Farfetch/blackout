@@ -43,6 +43,7 @@ Object {
   "checkoutStep": 1,
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/standard\\",\\"courierType\\":\\"Next Day\\"}",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "loginType": "guest",
   "orderCode": "50314b8e9bcf000000000000",
   "orderVAT": 2.04,
   "paymentType": "credit card",
@@ -260,9 +261,11 @@ Object {
 
 exports[`Omnitracking track events definitions \`Shipping Method Added\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 15338048,
   "checkoutStep": "2",
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
   "interactionType": "click",
+  "orderCode": "50314b8e9bcf000000000000",
   "selectedPaymentMethod": "credit",
   "tid": 2913,
 }

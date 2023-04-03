@@ -349,6 +349,7 @@ const getCheckoutStartedParametersFromEvent = (
     shipping: eventProperties.shipping,
     shipping_tier: eventProperties.shippingTier,
     tax: eventProperties.tax,
+    method: eventProperties.method,
   };
 };
 
@@ -411,6 +412,29 @@ const getDeliveryMethodAddedParametersFromEvent = (
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
     checkout_step: eventProperties.step,
+  };
+};
+
+/**
+ * Returns the checkout shipping method event properties formatted for the GA4
+ * ecommerce event.
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Properties formatted for the GA4's shipping method checkout ecommerce event.
+ */
+const getCheckoutShippingMethodParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  return {
+    currency: eventProperties.currency,
+    coupon: eventProperties.coupon,
+    value: eventProperties.total,
+    shipping_tier: eventProperties.shippingTier,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    checkout_step: eventProperties.step,
+    transaction_id: eventProperties.orderId,
   };
 };
 
@@ -829,7 +853,6 @@ export function getEventProperties(
       return getShippingInfoAddedParametersFromEvent(eventProperties);
 
     case EventTypes.ADDRESS_INFO_ADDED:
-    case EventTypes.SHIPPING_METHOD_ADDED:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
 
     case EventTypes.DELIVERY_METHOD_ADDED:
@@ -837,6 +860,9 @@ export function getEventProperties(
 
     case EventTypes.BILLING_INFO_ADDED:
       return getBillingInfoAddedParametersFromEvent(eventProperties);
+
+    case EventTypes.SHIPPING_METHOD_ADDED:
+      return getCheckoutShippingMethodParametersFromEvent(eventProperties);
 
     case EventTypes.PROMOCODE_APPLIED:
       return getPromocodeAppliedParametersFromEvent(eventProperties);

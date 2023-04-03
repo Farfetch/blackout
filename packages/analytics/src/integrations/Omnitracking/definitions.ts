@@ -461,6 +461,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     paymentType: data.properties?.paymentType,
     shipping: data.properties?.shipping,
     orderVAT: data.properties?.tax,
+    loginType: data.properties?.method,
   }),
   [EventTypes.DELIVERY_METHOD_ADDED]: data => ({
     tid: 3654,
@@ -485,6 +486,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 2914,
   }),
   [EventTypes.SHIPPING_METHOD_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2913,
   }),
