@@ -3,7 +3,7 @@ import { bagMiddleware } from '../../';
 import { combineReducers } from 'redux';
 import { logger } from '../../../utils';
 import { mockStore } from '../../../../../tests';
-import Analytics, { eventTypes } from '../../../';
+import Analytics, { eventTypes, fromParameterTypes } from '../../../';
 import merge from 'lodash/merge';
 
 // Mock logger so it does not output to the console
@@ -446,11 +446,11 @@ describe('bagMiddleware()', () => {
       });
     });
 
-    it('Should track a remove and an add event if the product sizes changed', async () => {
+    it('should trigger only PRODUCT_UPDATED event when it changed size event, with sizeId property assigned on event payload.', async () => {
       const simplifiedStore = mockSimplifiedStore(baseMockState, [
         bagMiddleware(analytics),
       ]);
-
+      const size = { id: 999, name: 'XXL' };
       await simplifiedStore.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
@@ -458,57 +458,99 @@ describe('bagMiddleware()', () => {
           entities: {
             bagItems: {
               [bagItemId]: {
+                ...store.getState().entities.bagItems[bagItemId],
                 id: bagItemId,
-                product: productId,
-                size: { id: sizes[1].id },
+                size,
               },
             },
           },
-          bagItemId,
         },
         meta: {
-          bagItemId,
           productId,
-          quantity: 5,
-          size: sizes[1].id,
+          size: size.id,
+          from: fromParameterTypes.BAG,
         },
       });
 
-      const baseData = {
-        brand: brandName,
-        cartId: bagId,
-        category: categoryName,
-        currency: currencyCode,
-        discountValue: 0,
-        id: productId,
-        name: productDescription,
-        price: priceWithDiscount,
-        priceWithoutDiscount: 10,
-        sku,
-        oldSize: sizes[0].name,
-        oldSizeId: sizes[0].id,
-        variant: colorName,
-        oldQuantity: 5,
-        quantity: 5,
-        size: sizes[1].name,
-        sizeId: sizes[1].id,
-      };
+      // expect trigger analytics PRODUCT_UPDATED event
+      expect(trackSpy).toBeCalledWith(
+        eventTypes.PRODUCT_UPDATED,
+        expect.objectContaining({ sizeId: size.id }),
+      );
+    });
 
-      expect(trackSpy).nthCalledWith(1, eventTypes.PRODUCT_UPDATED, {
-        ...baseData,
+    it('should trigger PRODUCT_UPDATED and PRODUCT_ADDED_TO_CART when quantity changes on bag', async () => {
+      await store.dispatch({
+        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+        payload: {
+          result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                ...baseMockState.entities.bagItems[bagItemId],
+                id: bagItemId,
+                quantity:
+                  baseMockState.entities.bagItems[bagItemId].quantity + 1,
+              },
+            },
+          },
+        },
+        meta: {
+          productId,
+          quantity: baseMockState.entities.bagItems[bagItemId].quantity + 1,
+          from: fromParameterTypes.BAG,
+        },
       });
 
-      expect(trackSpy).nthCalledWith(2, eventTypes.PRODUCT_REMOVED_FROM_CART, {
-        ...baseData,
-        quantity: 5,
-        size: sizes[0].name,
-        sizeId: sizes[1].id,
+      // expect trigger analytics product updated event
+      expect(trackSpy).nthCalledWith(
+        1,
+        eventTypes.PRODUCT_UPDATED,
+        expect.objectContaining({
+          oldQuantity: baseMockState.entities.bagItems[bagItemId].quantity,
+          quantity: baseMockState.entities.bagItems[bagItemId].quantity + 1,
+        }),
+      );
+      expect(trackSpy).nthCalledWith(
+        2,
+        eventTypes.PRODUCT_ADDED_TO_CART,
+        expect.objectContaining({
+          quantity: 1,
+        }),
+      );
+    });
+
+    it('should trigger PRODUCT_ADDED_TO_CART when quantity changes from PDP', async () => {
+      await store.dispatch({
+        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+        payload: {
+          result: bagId,
+          entities: {
+            bagItems: {
+              [bagItemId]: {
+                ...baseMockState.entities.bagItems[bagItemId],
+                id: bagItemId,
+                quantity:
+                  baseMockState.entities.bagItems[bagItemId].quantity + 1,
+              },
+            },
+          },
+        },
+        meta: {
+          productId,
+          quantity: baseMockState.entities.bagItems[bagItemId].quantity + 1,
+          from: fromParameterTypes.PDP,
+        },
       });
 
-      expect(trackSpy).nthCalledWith(3, eventTypes.PRODUCT_ADDED_TO_CART, {
-        ...baseData,
-        oldQuantity: undefined,
-      });
+      // expect trigger analytics product updated event
+      expect(trackSpy).nthCalledWith(
+        1,
+        eventTypes.PRODUCT_ADDED_TO_CART,
+        expect.objectContaining({
+          quantity: 1,
+        }),
+      );
     });
   });
 
@@ -553,6 +595,7 @@ describe('bagMiddleware()', () => {
           oldQuantity,
           quantity,
           size: sizes[0].id,
+          from: fromParameterTypes.BAG,
         },
       });
 
@@ -571,16 +614,11 @@ describe('bagMiddleware()', () => {
         sizeId: sizes[0].id,
         sku,
         variant: colorName,
+        from: fromParameterTypes.BAG,
       };
 
       // expect trigger analytics product updated event
       expect(trackSpy).toBeCalledWith(eventTypes.PRODUCT_UPDATED, expectedData);
-
-      // expect trigger analytics product removed event
-      expect(trackSpy).toBeCalledWith(
-        eventTypes.PRODUCT_ADDED_TO_CART,
-        expectedData,
-      );
     });
 
     it('should handle a custom action type for remove from bag action', async () => {

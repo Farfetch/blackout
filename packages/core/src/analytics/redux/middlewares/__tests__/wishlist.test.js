@@ -1,4 +1,5 @@
 import { actionTypes } from '../../../../wishlists/redux';
+import { combineReducers } from 'redux';
 import { logger } from '../../../utils';
 import { mockStore } from '../../../../../tests';
 import { wishlistMiddleware } from '../../';
@@ -113,6 +114,57 @@ const getMockState = data => ({
   },
   ...data,
 });
+
+// This is a simplified version of our createEntitiesReducer()
+// This version was used instead, because createEntitiesReducer
+// does not override completely user data, so makes testing
+// a little more difficult. In runtime, that is not a problem.
+const entitiesReducer = (state = {}, action = {}) => {
+  if (action.payload && action.payload.entities) {
+    return Object.assign({}, state, action.payload.entities);
+  }
+
+  return state;
+};
+
+const wishlistReducer = (state = {}, action = {}) => {
+  if (action.payload && action.payload.wishlist) {
+    return Object.assign({}, state, action.payload.wishlist);
+  }
+
+  return state;
+};
+
+const reducer = combineReducers({
+  entities: entitiesReducer,
+  wishlist: wishlistReducer,
+});
+
+// This is a very simplified redux store implementation.
+// This was needed because our mockStore module that is based on
+// redux-mock-store package does not execute the reducers
+// which were needed for this test suite.
+const mockSimplifiedStore = (initialState, middlewares) => {
+  const store = {
+    state: initialState,
+
+    getState() {
+      return this.state;
+    },
+
+    async dispatch(action) {
+      const next = action => {
+        this.state = reducer(this.state, action);
+      };
+
+      await Promise.all(
+        middlewares.map(middleware => middleware(this)(next)(action)),
+      );
+    },
+  };
+
+  return store;
+};
 
 describe('wishlistMiddleware()', () => {
   let store;
@@ -724,6 +776,127 @@ describe('wishlistMiddleware()', () => {
         wishlistId,
       });
     });
+
+    it('should trigger PRODUCT_UPDATED, event when the product size is updated on wishlist, with sizeId property assigned on event payload.', async () => {
+      const size = { id: 999, name: 'XXL' };
+      const mockStore = mockSimplifiedStore(getMockState(), [
+        wishlistMiddleware(analytics),
+      ]);
+
+      await mockStore.dispatch({
+        type: actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
+        payload: {
+          entities: {
+            wishlistItems: {
+              [wishlistItemId]: {
+                ...getMockState().entities.wishlistItems[wishlistItemId],
+                id: wishlistItemId,
+                product: productId,
+                size,
+              },
+            },
+          },
+        },
+        meta: {
+          productId,
+          size: size.id,
+          from: fromParameterTypes.WISHLIST,
+        },
+      });
+
+      // expect trigger analytics product updated event
+      expect(trackSpy).nthCalledWith(
+        1,
+        eventTypes.PRODUCT_UPDATED,
+        expect.objectContaining({ sizeId: size.id }),
+      );
+    });
+
+    it('should trigger PRODUCT_UPDATED and PRODUCT_ADDED_TO_WISHLIST when product quantity is incremented on wishlist', async () => {
+      const mockStore = mockSimplifiedStore(getMockState(), [
+        wishlistMiddleware(analytics),
+      ]);
+
+      await mockStore.dispatch({
+        type: actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
+        payload: {
+          entities: {
+            wishlistItems: {
+              [wishlistItemId]: {
+                ...getMockState().entities.wishlistItems[wishlistItemId],
+                id: wishlistItemId,
+                product: productId,
+                quantity:
+                  getMockState().entities.wishlistItems[wishlistItemId]
+                    .quantity + 1,
+              },
+            },
+          },
+        },
+        meta: {
+          productId,
+          from: fromParameterTypes.WISHLIST,
+          quantity:
+            getMockState().entities.wishlistItems[wishlistItemId].quantity + 1,
+        },
+      });
+
+      // expect trigger analytics product updated event
+      expect(trackSpy).nthCalledWith(
+        1,
+        eventTypes.PRODUCT_UPDATED,
+        expect.objectContaining({
+          quantity:
+            getMockState().entities.wishlistItems[wishlistItemId].quantity + 1,
+        }),
+      );
+
+      expect(trackSpy).nthCalledWith(
+        3,
+        eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+        expect.objectContaining({
+          quantity: 1,
+        }),
+      );
+    });
+
+    it('should trigger PRODUCT_ADDED_TO_WISHLIST event when a product quantity is incremented on a PDP', async () => {
+      const mockStore = mockSimplifiedStore(getMockState(), [
+        wishlistMiddleware(analytics),
+      ]);
+
+      await mockStore.dispatch({
+        type: actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS,
+        payload: {
+          entities: {
+            wishlistItems: {
+              [wishlistItemId]: {
+                ...getMockState().entities.wishlistItems[wishlistItemId],
+                id: wishlistItemId,
+                product: productId,
+                quantity:
+                  getMockState().entities.wishlistItems[wishlistItemId]
+                    .quantity + 1,
+              },
+            },
+          },
+        },
+        meta: {
+          productId,
+          from: fromParameterTypes.PDP,
+          quantity:
+            getMockState().entities.wishlistItems[wishlistItemId].quantity + 1,
+        },
+      });
+
+      expect(trackSpy).nthCalledWith(
+        2,
+        eventTypes.PRODUCT_ADDED_TO_WISHLIST,
+        expect.objectContaining({
+          quantity: 1,
+        }),
+      );
+    });
   });
 
   describe('Custom action types', () => {
@@ -761,6 +934,7 @@ describe('wishlistMiddleware()', () => {
         payload: {},
         meta: {
           productId,
+          from: fromParameterTypes.WISHLIST,
         },
       });
 
