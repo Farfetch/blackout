@@ -13,7 +13,7 @@ import {
   actionTypes as wishlistActionTypes,
 } from '../../../wishlists/redux';
 import { logger } from '../../utils';
-import Analytics, { eventTypes, fromParameterTypes } from '../../';
+import Analytics, { eventTypes, fromParameterTypes } from '../..';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 
@@ -24,7 +24,7 @@ import isNil from 'lodash/isNil';
  *
  * @param {object} customActionTypes - Action types to extend/replace the ones from @farfetch/blackout-core/wishlists/redux.
  *
- * @returns {object} The final map for bag actions.
+ * @returns {object} The final map for wishlist actions.
  */
 const getActionTypes = customActionTypes => ({
   ADD_ITEM_TO_WISHLIST_SUCCESS:
@@ -124,7 +124,7 @@ const getProductData = async (analyticsInstance, state, wishlistItem) => {
 
   const sizeScale =
     get(wishlistItem, 'size.scale') ||
-    get(getSizeFullInformation(product, sizeId), 'scale'); // size might be defined only on wishlistItem on a hard-refresh of the bag page
+    get(getSizeFullInformation(product, sizeId), 'scale'); // size might be defined only on wishlistItem on a hard-refresh of the wishlist page
 
   const priceWithoutDiscount = get(
     wishlistItem,
@@ -246,12 +246,14 @@ export default (analyticsInstance, customActionTypes) => {
         // replacing the previous item so we pass false on the call to
         // getWishlistItemIdFromAction to not search
         // for a wishlistItemId on the action.meta.
+
         state = store.getState();
+
         const wishlistItemId = getWishlistItemIdFromAction(action, false);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
 
-        const analyticsData = {
+        const data = {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           oldSize: oldProductData.size,
           oldSizeId: oldProductData.sizeId,
@@ -261,15 +263,33 @@ export default (analyticsInstance, customActionTypes) => {
           wishlistId,
         };
 
-        analyticsInstance.track(eventTypes.PRODUCT_UPDATED, {
-          ...analyticsData,
-          from: fromParameterTypes.WISHLIST,
+        // product updated will only triggered if provenience is from WISHLIST
+        if (data.from === fromParameterTypes.WISHLIST) {
+          analyticsInstance.track(eventTypes.PRODUCT_UPDATED, { ...data });
+        }
+
+        analyticsInstance.track(eventTypes.PRODUCT_UPDATED_WISHLIST, {
+          ...data,
         });
 
-        analyticsInstance.track(
-          eventTypes.PRODUCT_UPDATED_WISHLIST,
-          analyticsData,
-        );
+        let eventType = null;
+
+        // Check if the quantity difference is less than it was in wishlist - use PRODUCT_REMOVED_FROM_WISHLIST in that case
+        if (data.oldQuantity && data.quantity < data.oldQuantity) {
+          eventType = eventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
+        } else if (data.oldQuantity && data.quantity > data.oldQuantity) {
+          eventType = eventTypes.PRODUCT_ADDED_TO_WISHLIST;
+        }
+
+        data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
+
+        // If eventType was set on previous ifs, then track
+        if (eventType !== null) {
+          analyticsInstance.track(eventType, {
+            ...data,
+            oldQuantity: undefined,
+          });
+        }
 
         return result;
       }
