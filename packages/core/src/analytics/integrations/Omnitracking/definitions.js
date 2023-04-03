@@ -471,6 +471,7 @@ export const trackEventsMapper = {
     paymentType: data.properties?.paymentType,
     shipping: data.properties?.shipping,
     orderVAT: data.properties?.tax,
+    loginType: data.properties?.method,
   }),
   [eventTypes.DELIVERY_METHOD_ADDED]: data => ({
     tid: 3654,
@@ -525,6 +526,7 @@ export const trackEventsMapper = {
     selectedPaymentMethod: data.properties?.paymentType,
   }),
   [eventTypes.SHIPPING_METHOD_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data, true),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2913,
     selectedPaymentMethod: data.properties?.paymentType,

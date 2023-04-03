@@ -247,6 +247,7 @@ const validTrackEvents = {
       tax: 2.04,
       coupon: 'HARRODS2019',
       currency: 'USD',
+      method: 'guest',
       products: [
         {
           id: '507f1f77bcf86cd799439011',
@@ -391,6 +392,7 @@ const validTrackEvents = {
       coupon: 'HARRODS2019',
       shippingTier: 'Next Day',
       currency: 'USD',
+      step: 2,
     },
   },
 
