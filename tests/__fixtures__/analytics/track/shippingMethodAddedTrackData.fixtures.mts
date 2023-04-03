@@ -6,6 +6,7 @@ const fixtures = {
   event: EventTypes.SHIPPING_METHOD_ADDED,
   properties: {
     orderId: '50314b8e9bcf000000000000',
+    checkoutOrderId: 15338048,
     total: 24.64,
     shipping: 3.6,
     tax: 2.04,
