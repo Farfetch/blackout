@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.405](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.404...@farfetch/blackout-react@1.0.0-next.405) (2023-04-03)
+
+### Features
+
+- **analytics|react:** add billing info added event next ([dcdabc9](https://github.com/Farfetch/blackout/commit/dcdabc9266e2d09c2e23e09a8586d6631e7b0a3b))
+
 # [1.0.0-next.404](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.403...@farfetch/blackout-react@1.0.0-next.404) (2023-04-03)
 
 ### Bug Fixes
