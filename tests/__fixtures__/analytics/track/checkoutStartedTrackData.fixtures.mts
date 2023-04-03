@@ -16,6 +16,7 @@ const fixtures = {
     step: 1,
     tax: 2.04,
     total: 24.64,
+    method: 'guest',
     products: [
       {
         id: '507f1f77bcf86cd799439011',
