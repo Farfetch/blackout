@@ -52,6 +52,7 @@ export const customTrackMockData = {
     deliveryType: 'Standard/Standard',
     paymentType: 'credit',
     interactionType: 'click',
+    method: 'guest',
     step: 1,
     tax: 1.23,
     shippingTier: 'Next Day',
@@ -119,6 +120,8 @@ export const customTrackMockData = {
     deliveryType: 'Standard/Standard',
     interactionType: 'click',
     paymentType: 'credit',
+    orderId: 'ABC12',
+    checkoutOrderId: 12345678,
   },
   [eventTypes.SHIPPING_INFO_ADDED]: {
     step: '2',

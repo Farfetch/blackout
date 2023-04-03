@@ -43,6 +43,7 @@ Object {
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
   "interactionType": "click",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "loginType": "guest",
   "orderCode": "ABC12",
   "orderId": 12345678,
   "orderVAT": 1.23,
@@ -277,6 +278,8 @@ Object {
   "checkoutStep": "2",
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
   "selectedPaymentMethod": "credit",
   "tid": 2913,
 }
