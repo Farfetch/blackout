@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.404](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.403...@farfetch/blackout-react@1.0.0-next.404) (2023-04-03)
+
+### Bug Fixes
+
+- **analytics|react:** fix filters events next ([14c1b18](https://github.com/Farfetch/blackout/commit/14c1b181340074f5e69bbc44834d76efc1688911))
+
+### Features
+
+- **analytics|react:** add delivery method added event next ([e493491](https://github.com/Farfetch/blackout/commit/e493491fbe0fa1fdc22230c1af6c1aff2599306e))
+
 # [1.0.0-next.403](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.402...@farfetch/blackout-react@1.0.0-next.403) (2023-03-28)
 
 **Note:** Version bump only for package @farfetch/blackout-react
