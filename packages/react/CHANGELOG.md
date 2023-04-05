@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.407](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.406...@farfetch/blackout-react@1.0.0-next.407) (2023-04-05)
+
+### Features
+
+- **analytics|react:** add parameters edit checkout step event next ([c795494](https://github.com/Farfetch/blackout/commit/c7954949775267ab970ba4fffc9e569e489e47cf))
+
 # [1.0.0-next.406](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.405...@farfetch/blackout-react@1.0.0-next.406) (2023-04-05)
 
 ### Features
