@@ -6,14 +6,17 @@ import { getBrand } from '../../../brands/selectors.js';
 import { getCategory } from '../../../categories/selectors/index.js';
 import { getProduct } from '../../../products/selectors/product.js';
 import { merge } from 'lodash-es';
-import { mockStore as mockSimplifiedStore } from './../tests/simplifiedStore.js';
 import { mockStore } from '../../../../tests/index.js';
-import Analytics, { EventTypes, utils } from '@farfetch/blackout-analytics';
+import Analytics, {
+  EventTypes,
+  FromParameterTypes,
+  utils,
+} from '@farfetch/blackout-analytics';
 import type {
   BagItemEntity,
   ProductEntity,
 } from '../../../entities/types/index.js';
-import type { StoreState } from '../../../types/index.js';
+import type { SizeAdapted, StoreState } from '../../../types/index.js';
 
 // Mock logger so it does not output to the console
 jest.mock('@farfetch/blackout-analytics/utils', () => ({
@@ -393,80 +396,116 @@ describe('analyticsBagMiddleware', () => {
       });
     });
 
-    it('Should track a remove and an add event if the product sizes changed', async () => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { analyticsBagMiddleware } = require('../bag');
+    it('should trigger only PRODUCT_UPDATED event when it changed size event, with sizeId property assigned on event payload.', async () => {
+      const size = {
+        ...(bagMockData.mockSizes[1] as SizeAdapted),
+        id: 999,
+        name: 'XXL',
+      };
 
-      const simplifiedStore = mockSimplifiedStore(bagMockData.mockState, [
-        analyticsBagMiddleware(analytics),
-      ]);
+      const bagItem = bagMockData.mockBagItem().getItem({ size });
 
-      await simplifiedStore.dispatch({
+      await store.dispatch({
         type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
         payload: {
           result: { id: bagMockData.mockBagId },
           entities: {
             bagItems: {
-              [bagMockData.mockBagItem().id]: bagMockData
-                .mockBagItem()
-                .getItem({ size: bagMockData.mockSizes[1] }),
+              [bagItem.id]: bagItem,
             },
           },
-          bagItemId: bagMockData.mockBagItemId,
         },
         meta: {
-          bagItemId: bagMockData.mockBagItemId,
-          productId: bagMockData.mockProductId,
-          quantity: 3,
-          size: sizes[1]?.id,
+          productId: bagItem.product,
+          size: size.id,
+          from: FromParameterTypes.BAG,
         },
       });
 
-      const baseData = {
-        brand: brandName,
-        cartId: bagMockData.mockBagId,
-        category: categoryName,
-        currency: currencyCode,
-        discountValue: discount,
-        id: bagMockData.mockProductId,
-        name: productDescription,
-        oldQuantity: 3,
-        oldSize: sizes[0]?.name,
-        oldSizeId: sizes[0]?.id,
-        oldSizeScaleId: sizes[0]?.scale,
-        price: priceWithDiscount,
-        priceWithoutDiscount,
-        quantity: 3,
-        size: sizes[1]?.name,
-        sizeId: sizes[1]?.id,
-        sizeScaleId: sizes[1]?.scale,
-        sku,
-        variant: colorName,
+      // expect analytics PRODUCT_UPDATED event to be triggered
+      expect(trackSpy).toHaveBeenCalledWith(
+        EventTypes.PRODUCT_UPDATED,
+        expect.objectContaining({ sizeId: size.id }),
+      );
+    });
+
+    it('should trigger PRODUCT_UPDATED and PRODUCT_ADDED_TO_CART when quantity changes on bag', async () => {
+      const size = {
+        ...(bagMockData.mockSizes[1] as SizeAdapted),
+        id: 999,
+        name: 'XXL',
       };
 
+      const bagItem = bagMockData.mockBagItem().getItem({ size });
+
+      await store.dispatch({
+        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+        payload: {
+          result: { id: bagMockData.mockBagId },
+          entities: {
+            bagItems: {
+              [bagItem.id]: { ...bagItem, quantity: bagItem.quantity + 1 },
+            },
+          },
+        },
+        meta: {
+          productId: bagItem.product,
+          quantity: bagItem.quantity + 1,
+          from: FromParameterTypes.BAG,
+        },
+      });
+
+      // expect trigger analytics product updated event
       expect(trackSpy).toHaveBeenNthCalledWith(
         1,
         EventTypes.PRODUCT_UPDATED,
-        baseData,
+        expect.objectContaining({
+          oldQuantity: bagItem.quantity,
+          quantity: bagItem.quantity + 1,
+        }),
       );
-
       expect(trackSpy).toHaveBeenNthCalledWith(
         2,
-        EventTypes.PRODUCT_REMOVED_FROM_CART,
-        {
-          ...baseData,
-          quantity: 3,
-          size: sizes[0]?.name,
-        },
-      );
-
-      expect(trackSpy).toHaveBeenNthCalledWith(
-        3,
         EventTypes.PRODUCT_ADDED_TO_CART,
-        {
-          ...baseData,
-          oldQuantity: undefined,
+        expect.objectContaining({
+          quantity: 1,
+        }),
+      );
+    });
+
+    it('should trigger PRODUCT_ADDED_TO_CART when quantity changes from PDP', async () => {
+      const size = {
+        ...(bagMockData.mockSizes[1] as SizeAdapted),
+        id: 999,
+        name: 'XXL',
+      };
+
+      const bagItem = bagMockData.mockBagItem().getItem({ size });
+
+      await store.dispatch({
+        type: bagActionTypes.UPDATE_BAG_ITEM_SUCCESS,
+        payload: {
+          result: { id: bagMockData.mockBagId },
+          entities: {
+            bagItems: {
+              [bagItem.id]: { ...bagItem, quantity: bagItem.quantity + 1 },
+            },
+          },
         },
+        meta: {
+          productId: bagItem.product,
+          quantity: bagItem.quantity + 1,
+          from: FromParameterTypes.PDP,
+        },
+      });
+
+      // expect trigger analytics product updated event
+      expect(trackSpy).toHaveBeenNthCalledWith(
+        1,
+        EventTypes.PRODUCT_ADDED_TO_CART,
+        expect.objectContaining({
+          quantity: 1,
+        }),
       );
     });
   });
@@ -516,6 +555,7 @@ describe('analyticsBagMiddleware', () => {
           productId: bagMockData.mockProductId,
           quantity: newQuantity,
           size: sizes[0]?.id,
+          from: FromParameterTypes.BAG,
         },
       });
 
@@ -539,6 +579,7 @@ describe('analyticsBagMiddleware', () => {
         sizeScaleId: sizes[0]?.scale,
         sku,
         variant: colorName,
+        from: FromParameterTypes.BAG,
       };
 
       // expect trigger analytics product updated event
