@@ -10,8 +10,8 @@ import {
 import { get, isNil } from 'lodash-es';
 import { getProductDenormalized } from '../../products/index.js';
 import Analytics, {
-  type EventProperties,
   EventTypes,
+  FromParameterTypes,
   utils,
 } from '@farfetch/blackout-analytics';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
@@ -296,34 +296,31 @@ export function analyticsBagMiddleware(
           ...getBagData(action),
         };
 
-        let eventType = null;
-
-        // Track ga4 update event - Track data is being cloned here because it will be mutated later
-        analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
-
-        if (data.oldSize && data.oldSize !== data.size) {
-          const removedProductData: EventProperties = { ...data };
-
-          removedProductData.size = data.oldSize;
-          removedProductData.quantity = data.oldQuantity;
-
-          analyticsInstance.track(
-            EventTypes.PRODUCT_REMOVED_FROM_CART,
-            removedProductData,
-          );
-
-          data.oldQuantity = 0;
+        // product updated will only be triggered if provenience is from BAG
+        if (data.from === FromParameterTypes.BAG) {
+          // Track update event
+          // Data is being cloned here because it will be mutated later
+          analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
         }
+
+        let eventType = null;
 
         // Check if the quantity difference is less than it was in bag - use PRODUCT_REMOVED_FROM_CART in that case
         if (data.oldQuantity && data.quantity < data.oldQuantity) {
           eventType = EventTypes.PRODUCT_REMOVED_FROM_CART;
-        } else {
+        } else if (data.oldQuantity && data.quantity > data.oldQuantity) {
           eventType = EventTypes.PRODUCT_ADDED_TO_CART;
         }
 
         data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
-        analyticsInstance.track(eventType, { ...data, oldQuantity: undefined });
+
+        // If eventType was set on previous ifs, then track
+        if (eventType !== null) {
+          analyticsInstance.track(eventType, {
+            ...data,
+            oldQuantity: undefined,
+          });
+        }
 
         return result;
       }

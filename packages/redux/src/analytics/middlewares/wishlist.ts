@@ -151,7 +151,7 @@ const getProductData = async (
 
   const sizeScale =
     get(wishlistItem, 'size.scale') ||
-    (sizeId && get(getSizeFullInformation(product, sizeId), 'scale')); // size might be defined only on wishlistItem on a hard-refresh of the bag page
+    (sizeId && get(getSizeFullInformation(product, sizeId), 'scale')); // size might be defined only on wishlistItem on a hard-refresh of the wishlist page
 
   const priceWithoutDiscount = get(
     wishlistItem,
@@ -283,27 +283,47 @@ export function analyticsWishlistMiddleware(
         const wishlistItemId = getWishlistItemIdFromAction(action, false);
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
-        const wishlistData = getWishlistData(action, wishlistItem);
 
-        const analyticsData = {
+        const data = {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           oldSize: oldProductData.size,
           oldSizeId: oldProductData.sizeId,
           oldSizeScaleId: oldProductData.sizeScaleId,
           oldQuantity: oldProductData.quantity,
-          ...wishlistData,
-          from: wishlistData?.from || FromParameterTypes.WISHLIST,
+          ...getWishlistData(action, wishlistItem),
           wishlistId,
         };
 
-        // Track analytics Product Updated Event (from Wishlist)
-        analyticsInstance.track(EventTypes.PRODUCT_UPDATED, analyticsData);
+        // product updated will only triggered if provenience is from WISHLIST
+        if (data.from === FromParameterTypes.WISHLIST) {
+          analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
+        }
 
         // Track analytics Wishlist Product Updated Event
-        analyticsInstance.track(
-          EventTypes.PRODUCT_UPDATED_WISHLIST,
-          analyticsData,
-        );
+        analyticsInstance.track(EventTypes.PRODUCT_UPDATED_WISHLIST, {
+          ...data,
+        });
+
+        let eventType = null;
+
+        // Check if the quantity difference is less than it was in wishlist - use PRODUCT_REMOVED_FROM_WISHLIST in that case
+        if (data.oldQuantity && data.quantity) {
+          if (data.quantity < data.oldQuantity) {
+            eventType = EventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
+          } else if (data.quantity > data.oldQuantity) {
+            eventType = EventTypes.PRODUCT_ADDED_TO_WISHLIST;
+          }
+
+          data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
+
+          // If eventType was set on previous ifs, then track
+          if (eventType !== null) {
+            analyticsInstance.track(eventType, {
+              ...data,
+              oldQuantity: undefined,
+            });
+          }
+        }
 
         return result;
       }
