@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.406](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.405...@farfetch/blackout-react@1.0.0-next.406) (2023-04-05)
+
+### Features
+
+- add config parameter to `useBag` and `useBagItem` actions ([3bcfca9](https://github.com/Farfetch/blackout/commit/3bcfca9a0824293e0dbb60aef4f701c821973ad7))
+
 # [1.0.0-next.405](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.404...@farfetch/blackout-react@1.0.0-next.405) (2023-04-03)
 
 ### Features
