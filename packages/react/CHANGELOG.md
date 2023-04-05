@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.55.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.54.0...@farfetch/blackout-react@0.55.0) (2023-04-05)
+
+
+### Bug Fixes
+
+* **core|react:** fix filters events ([5c64476](https://github.com/Farfetch/blackout/commit/5c64476c624cf21d2d0acc78acd749eb7bf1ca6e))
+
+
+### Features
+
+* **core|react:** add billing info added event ([8027181](https://github.com/Farfetch/blackout/commit/8027181700d05cf341a4401920bf5557b209f1c5))
+* **core|react:** add delivery method added event ([513b446](https://github.com/Farfetch/blackout/commit/513b44670f27d6b3b8ae75442e6b316ed98b048d))
+* **core|react:** add parameters edit checkout step event ([d6d5cad](https://github.com/Farfetch/blackout/commit/d6d5cada556cddafaa462310419908f7e87695b4))
+
+
+
+
+
 # [0.54.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.53.0...@farfetch/blackout-react@0.54.0) (2023-03-21)
 
 
