@@ -447,7 +447,7 @@ describe('checkout reducer', () => {
     });
 
     it.each([
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST,
       actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
       actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,
     ])('should handle %s action type', actionType => {
@@ -463,7 +463,7 @@ describe('checkout reducer', () => {
     });
 
     it.each([
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE,
       actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
       actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE,
     ])('should handle %s action type', actionType => {
@@ -478,7 +478,7 @@ describe('checkout reducer', () => {
     });
 
     it.each([
-      actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS,
+      actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS,
       actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(

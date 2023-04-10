@@ -185,7 +185,7 @@ export type CreateCheckoutOrderChargeAction =
 
 export interface UpdateDeliveryBundleSuccessAction extends Action {
   type:
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
 }
 
@@ -196,7 +196,7 @@ export interface FetchDeliveryBundleSuccessAction extends Action {
 
 export interface DeliveryBundleFailureAction extends Action {
   type:
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE
     | typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE;
   payload: { error: BlackoutError };
@@ -204,7 +204,7 @@ export interface DeliveryBundleFailureAction extends Action {
 
 export interface DeliveryBundleRequestAction extends Action {
   type:
-    | typeof actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST
+    | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST
     | typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST;
 }
