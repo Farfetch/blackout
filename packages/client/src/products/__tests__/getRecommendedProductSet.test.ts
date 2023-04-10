@@ -1,28 +1,28 @@
-import { getProductRecommendedSet } from '../index.js';
+import { getRecommendedProductSet } from '../index.js';
 import {
-  mockRecommendedSet,
-  mockRecommendedSetId,
+  mockRecommendedProductSet,
+  mockRecommendedProductSetId,
 } from 'tests/__fixtures__/products/index.mjs';
 import client from '../../helpers/client/index.js';
-import fixtures from '../__fixtures__/getProductRecommendedSet.fixtures.js';
+import fixtures from '../__fixtures__/getRecommendedProductSet.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
 
-describe('recommended sets client', () => {
+describe('recommended product set client', () => {
   const expectedConfig = undefined;
 
   beforeEach(jest.clearAllMocks);
 
-  describe('getProductRecommendedSet()', () => {
+  describe('getRecommendedProductSet()', () => {
     const spy = jest.spyOn(client, 'get');
 
     it('should handle a client request successfully', async () => {
-      mswServer.use(fixtures.success(mockRecommendedSet));
+      mswServer.use(fixtures.success(mockRecommendedProductSet));
 
       await expect(
-        getProductRecommendedSet(mockRecommendedSetId),
-      ).resolves.toEqual(mockRecommendedSet);
+        getRecommendedProductSet(mockRecommendedProductSetId),
+      ).resolves.toEqual(mockRecommendedProductSet);
       expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/recommendedsets/${mockRecommendedSetId}`,
+        `/commerce/v1/recommendedsets/${mockRecommendedProductSetId}`,
         expectedConfig,
       );
     });
@@ -31,10 +31,10 @@ describe('recommended sets client', () => {
       mswServer.use(fixtures.failure());
 
       await expect(
-        getProductRecommendedSet(mockRecommendedSetId),
+        getRecommendedProductSet(mockRecommendedProductSetId),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
-        `/commerce/v1/recommendedsets/${mockRecommendedSetId}`,
+        `/commerce/v1/recommendedsets/${mockRecommendedProductSetId}`,
         expectedConfig,
       );
     });

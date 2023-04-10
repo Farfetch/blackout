@@ -12,8 +12,8 @@ import type {
   ProductsSizesState,
   ProductsVariantsByMerchantsLocationsState,
   RecentlyViewedState,
+  RecommendedProductSetState,
   RecommendedProductsState,
-  RecommendedSetState,
 } from './state/index.js';
 
 export type ProductsState = CombinedState<{
@@ -27,7 +27,7 @@ export type ProductsState = CombinedState<{
   outfits: ProductsOutfitsState;
   recentlyViewed: RecentlyViewedState;
   recommendedProducts: RecommendedProductsState;
-  recommendedSets: RecommendedSetState;
+  recommendedProductSets: RecommendedProductSetState;
   sizeGuides: ProductsSizeGuidesState;
   sizes: ProductsSizesState;
   variantsByMerchantsLocations: ProductsVariantsByMerchantsLocationsState;

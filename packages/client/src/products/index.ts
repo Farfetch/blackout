@@ -11,7 +11,7 @@ export { default as getProductSizeGuides } from './getProductSizeGuides.js';
 export { default as getProductSizes } from './getProductSizes.js';
 export { default as getProductVariantsMerchantsLocations } from './getProductVariantMerchantsLocations.js';
 export { default as getProductVariantsMeasurements } from './getProductVariantsMeasurements.js';
-export { default as getProductRecommendedSet } from './getProductRecommendedSet.js';
+export { default as getRecommendedProductSet } from './getRecommendedProductSet.js';
 export { default as getProductSet } from './getProductSet.js';
 export { default as getProductOutfits } from './getProductOutfits.js';
 export { default as getRecentlyViewedProducts } from './getRecentlyViewedProducts.js';

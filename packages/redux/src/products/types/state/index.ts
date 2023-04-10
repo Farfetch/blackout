@@ -11,4 +11,4 @@ export * from './productSizes.state.types.js';
 export * from './productsLists.state.types.js';
 export * from './recentlyViewedProducts.state.types.js';
 export * from './recommendedProducts.state.types.js';
-export * from './recommendedSet.state.types.js';
+export * from './recommendedProductSet.state.types.js';

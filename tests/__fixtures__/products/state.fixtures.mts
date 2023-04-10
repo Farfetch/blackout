@@ -10,8 +10,8 @@ import {
   mockProductsListNormalizedPayload,
 } from './productsLists.fixtures.mjs';
 import { mockRecentlyViewedState } from './recentlyViewed.fixtures.mjs';
+import { mockRecommendedProductSetState } from './recommendedProductSet.fixtures.mjs';
 import { mockRecommendedProductsState } from './recommendedProducts.fixtures.mjs';
-import { mockRecommendedSetState } from './recommendedSet.fixtures.mjs';
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '@farfetch/blackout-redux';
 
@@ -171,7 +171,7 @@ export const mockProductsState = {
     ...mockMeasurementsState,
     ...mockOutfitsState,
     ...mockProductsListsState,
-    ...mockRecommendedSetState,
+    ...mockRecommendedProductSetState,
     ...mockSizeGuidesState,
     ...mockSizesState,
     ...mockVariantsByMerchantsLocationsState,
