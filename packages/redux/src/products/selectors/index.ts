@@ -10,7 +10,7 @@ export * from './outfits.js';
 export * from './product.js';
 export * from './recentlyViewedProducts.js';
 export * from './recommendedProducts.js';
-export * from './recommendedSet.js';
+export * from './recommendedProductSet.js';
 export * from './sets.js';
 export * from './sizeGuides.js';
 export * from './sizes.js';

@@ -1,7 +1,7 @@
 import * as actionTypes from '../../actionTypes/index.js';
 import {
-  mockRecommendedSet,
-  mockRecommendedSetId,
+  mockRecommendedProductSet,
+  mockRecommendedProductSetId,
 } from 'tests/__fixtures__/products/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import recommendedSetsReducer, {
@@ -9,11 +9,11 @@ import recommendedSetsReducer, {
   getIsLoading,
   getResult,
   INITIAL_STATE,
-} from '../recommendedSet.js';
-import type { RecommendedSetState } from '../../types/index.js';
+} from '../recommendedProductSet.js';
+import type { RecommendedProductSetState } from '../../types/index.js';
 
-describe('recommended sets redux recommendedSetsReducer', () => {
-  let initialState: RecommendedSetState;
+describe('recommended product set reducer', () => {
+  let initialState: RecommendedProductSetState;
   const randomAction = { type: 'this_is_a_random_action' };
 
   beforeEach(() => {
@@ -27,23 +27,23 @@ describe('recommended sets redux recommendedSetsReducer', () => {
       expect(state).toEqual(initialState.error);
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_REQUEST action type', () => {
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_REQUEST action type', () => {
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
-          type: actionTypes.FETCH_RECOMMENDED_SET_REQUEST,
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_REQUEST,
         }).error,
       ).toEqual(initialState.error);
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_FAILURE action type', () => {
-      const expectedResult = { [mockRecommendedSetId]: 'foo' };
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_FAILURE action type', () => {
+      const expectedResult = { [mockRecommendedProductSetId]: 'foo' };
 
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
           payload: { error: 'foo' },
-          type: actionTypes.FETCH_RECOMMENDED_SET_FAILURE,
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_FAILURE,
         }).error,
       ).toEqual(expectedResult);
     });
@@ -69,41 +69,41 @@ describe('recommended sets redux recommendedSetsReducer', () => {
       expect(state).toEqual(initialState.isLoading);
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_REQUEST action type', () => {
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_REQUEST action type', () => {
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
-          type: actionTypes.FETCH_RECOMMENDED_SET_REQUEST,
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_REQUEST,
         }).isLoading,
-      ).toEqual({ [mockRecommendedSetId]: true });
+      ).toEqual({ [mockRecommendedProductSetId]: true });
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_FAILURE action type', () => {
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_FAILURE action type', () => {
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
           payload: { error: '' },
-          type: actionTypes.FETCH_RECOMMENDED_SET_FAILURE,
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_FAILURE,
         }).isLoading,
-      ).toEqual({ [mockRecommendedSetId]: undefined });
+      ).toEqual({ [mockRecommendedProductSetId]: undefined });
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_SUCCESS action type', () => {
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_SUCCESS action type', () => {
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
           payload: {
-            result: mockRecommendedSetId,
+            result: mockRecommendedProductSetId,
           },
-          type: actionTypes.FETCH_RECOMMENDED_SET_SUCCESS,
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_SUCCESS,
         }).isLoading,
-      ).toEqual({ [mockRecommendedSetId]: false });
+      ).toEqual({ [mockRecommendedProductSetId]: false });
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        isLoading: { [mockRecommendedSetId]: false },
+        isLoading: { [mockRecommendedProductSetId]: false },
       };
 
       expect(recommendedSetsReducer(state, randomAction).isLoading).toEqual(
@@ -119,22 +119,22 @@ describe('recommended sets redux recommendedSetsReducer', () => {
       expect(state).toEqual(initialState.result);
     });
 
-    it('should handle FETCH_RECOMMENDED_SET_SUCCESS action type', () => {
+    it('should handle FETCH_RECOMMENDED_PRODUCT_SET_SUCCESS action type', () => {
       expect(
         recommendedSetsReducer(undefined, {
-          meta: { recommendedSetId: mockRecommendedSetId },
+          meta: { recommendedProductSetId: mockRecommendedProductSetId },
           payload: {
-            result: mockRecommendedSet,
+            result: mockRecommendedProductSet,
           },
-          type: actionTypes.FETCH_RECOMMENDED_SET_SUCCESS,
+          type: actionTypes.FETCH_RECOMMENDED_PRODUCT_SET_SUCCESS,
         }).result,
-      ).toEqual({ [mockRecommendedSetId]: mockRecommendedSet });
+      ).toEqual({ [mockRecommendedProductSetId]: mockRecommendedProductSet });
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        result: { [mockRecommendedSetId]: mockRecommendedSet },
+        result: { [mockRecommendedProductSetId]: mockRecommendedProductSet },
       };
 
       expect(recommendedSetsReducer(state, randomAction).result).toEqual(
@@ -147,7 +147,7 @@ describe('recommended sets redux recommendedSetsReducer', () => {
     describe('getError()', () => {
       it('should return the `error` property from a given state', () => {
         const error = {
-          [mockRecommendedSetId]: toBlackoutError(new Error('234-foo')),
+          [mockRecommendedProductSetId]: toBlackoutError(new Error('234-foo')),
         };
         const state = { ...initialState, error };
 
@@ -157,7 +157,7 @@ describe('recommended sets redux recommendedSetsReducer', () => {
 
     describe('getIsLoading()', () => {
       it('should return the `isLoading` property from a given state', () => {
-        const isLoading = { [mockRecommendedSetId]: true };
+        const isLoading = { [mockRecommendedProductSetId]: true };
         const state = { ...initialState, isLoading };
 
         expect(getIsLoading(state)).toEqual(isLoading);
@@ -166,7 +166,9 @@ describe('recommended sets redux recommendedSetsReducer', () => {
 
     describe('getResult()', () => {
       it('should return the `result` property from a given state', () => {
-        const result = { [mockRecommendedSetId]: mockRecommendedSet };
+        const result = {
+          [mockRecommendedProductSetId]: mockRecommendedProductSet,
+        };
         const state = { ...initialState, result };
 
         expect(getResult(state)).toEqual(result);

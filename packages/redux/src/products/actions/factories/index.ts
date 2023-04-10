@@ -14,8 +14,8 @@ export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuid
 export { default as fetchProductOutfitsFactory } from './fetchProductOutfitsFactory.js';
 export { default as fetchProductSizesFactory } from './fetchProductSizesFactory.js';
 export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory.js';
-export { default as fetchRecommendedSetFactory } from './fetchRecommendedSetFactory.js';
 export { default as fetchProductSetFactory } from './fetchProductSetFactory.js';
+export { default as fetchRecommendedProductSetFactory } from './fetchRecommendedProductSetFactory.js';
 
 // Recently Viewed Products
 export { default as fetchRecentlyViewedProductsFactory } from './fetchRecentlyViewedProductsFactory.js';

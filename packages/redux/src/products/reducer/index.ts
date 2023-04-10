@@ -15,7 +15,7 @@ import measurementsReducer, {
 import outfitsReducer from './outfits.js';
 import recentlyViewedProductsReducer from './recentlyViewedProducts.js';
 import recommendedProductsReducer from './recommendedProducts.js';
-import recommendedSetsReducer from './recommendedSet.js';
+import recommendedSetsReducer from './recommendedProductSet.js';
 import sizeGuidesReducer from './sizeGuides.js';
 import sizesReducer from './sizes.js';
 import variantsByMerchantsLocationsReducer from './variantsByMerchantsLocations.js';
