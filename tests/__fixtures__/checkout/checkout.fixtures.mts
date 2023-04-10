@@ -851,35 +851,31 @@ export const mockResponsePatchOrderItemsGiftMessage: PatchCheckoutOrderItemsData
   [
     {
       checkoutOrderItemId: 1,
-      checkoutItemPatchDocument: {
-        operations: [
-          {
-            value: {
-              from: 'string',
-              to: 'string',
-              message: 'string',
-            },
-            path: 'string',
-            op: 'replace',
+      checkoutItemPatchDocument: [
+        {
+          value: {
+            from: 'string',
+            to: 'string',
+            message: 'string',
           },
-        ],
-      },
+          path: 'string',
+          op: 'replace',
+        },
+      ],
     },
     {
       checkoutOrderItemId: 2,
-      checkoutItemPatchDocument: {
-        operations: [
-          {
-            value: {
-              from: 'string',
-              to: 'string',
-              message: 'string',
-            },
-            path: 'string',
-            op: 'add',
+      checkoutItemPatchDocument: [
+        {
+          value: {
+            from: 'string',
+            to: 'string',
+            message: 'string',
           },
-        ],
-      },
+          path: 'string',
+          op: 'add',
+        },
+      ],
     },
   ];
 
