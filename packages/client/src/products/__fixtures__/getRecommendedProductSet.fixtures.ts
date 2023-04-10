@@ -1,10 +1,10 @@
 import { rest, type RestHandler } from 'msw';
-import type { RecommendedSet } from '../types/index.js';
+import type { RecommendedProductSet } from '../types/index.js';
 
 const path = '/api/commerce/v1/recommendedsets/:id';
 
 const fixtures = {
-  success: (response: RecommendedSet): RestHandler =>
+  success: (response: RecommendedProductSet): RestHandler =>
     rest.get(path, (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

@@ -10,5 +10,5 @@ export * from './productSizeGuides.actionTypes.js';
 export * from './productSizes.actionTypes.js';
 export * from './productsLists.actionTypes.js';
 export * from './recentlyViewedProducts.actionTypes.js';
-export * from './recommendedSet.actionTypes.js';
 export * from './recommendedProducts.actionTypes.js';
+export * from './recommendedProductSet.actionTypes.js';

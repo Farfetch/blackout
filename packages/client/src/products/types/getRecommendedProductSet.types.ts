@@ -1,7 +1,7 @@
 import type { Config } from '../../index.js';
 import type { Product } from './product.types.js';
 
-export type RecommendedSet = {
+export type RecommendedProductSet = {
   id: number;
   platformSetId: number;
   name: string;
@@ -9,7 +9,7 @@ export type RecommendedSet = {
   products: Array<Product['result']['id']>;
 };
 
-export type GetProductRecommendedSet = (
+export type GetRecommendedProductSet = (
   id: number,
   config?: Config,
-) => Promise<RecommendedSet>;
+) => Promise<RecommendedProductSet>;

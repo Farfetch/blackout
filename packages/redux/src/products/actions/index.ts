@@ -15,7 +15,7 @@ export { default as fetchProductOutfits } from './fetchProductOutfits.js';
 export { default as fetchProductSizeGuides } from './fetchProductSizeGuides.js';
 export { default as fetchProductSizes } from './fetchProductSizes.js';
 export { default as fetchProductVariantsByMerchantsLocations } from './fetchProductVariantsByMerchantsLocations.js';
-export { default as fetchRecommendedSet } from './fetchRecommendedSet.js';
+export { default as fetchRecommendedProductSet } from './fetchRecommendedProductSet.js';
 export { default as fetchProductSet } from './fetchProductSet.js';
 export { default as resetProductDetails } from './resetProductDetails.js';
 export { default as resetProductDetailsState } from './resetProductDetailsState.js';

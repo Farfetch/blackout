@@ -12,7 +12,7 @@ export * from './productSizes.fixtures.mjs';
 export * from './productsLists.fixtures.mjs';
 export * from './productVariantsMerchantsLocations.fixtures.mjs';
 export * from './productVariantsMeasurements.fixtures.mjs';
-export * from './recommendedSet.fixtures.mjs';
+export * from './recommendedProductSet.fixtures.mjs';
 export * from './state.fixtures.mjs';
 export * from './recentlyViewed.fixtures.mjs';
 export * from './recommendedProducts.fixtures.mjs';
