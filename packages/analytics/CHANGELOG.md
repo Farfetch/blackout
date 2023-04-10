@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.138](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.137...@farfetch/blackout-analytics@1.0.0-next.138) (2023-04-10)
+
+### Features
+
+- add parameters add shipping method event next ([f9a811f](https://github.com/Farfetch/blackout/commit/f9a811f872f24005305193d81ae113ad8d980a39))
+
 # [1.0.0-next.137](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.136...@farfetch/blackout-analytics@1.0.0-next.137) (2023-04-05)
 
 ### Features

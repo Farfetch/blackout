@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.408](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.407...@farfetch/blackout-react@1.0.0-next.408) (2023-04-10)
+
+### Features
+
+- add parameters add shipping method event next ([f9a811f](https://github.com/Farfetch/blackout/commit/f9a811f872f24005305193d81ae113ad8d980a39))
+
 # [1.0.0-next.407](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.406...@farfetch/blackout-react@1.0.0-next.407) (2023-04-05)
 
 ### Features
