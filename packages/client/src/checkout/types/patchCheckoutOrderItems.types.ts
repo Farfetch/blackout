@@ -1,5 +1,6 @@
 import type { AddPatch, RemovePatch, ReplacePatch } from 'json-patch';
 import type { CheckoutOrder } from './checkoutOrder.types.js';
+import type { CheckoutOrderItem } from './checkoutOrderItem.types.js';
 import type { Config } from '../../types/index.js';
 
 export type GiftMessage = {
@@ -22,10 +23,8 @@ export type PatchCheckoutOrderItemsOperation =
   | RemovePatch;
 
 export type PatchCheckoutOrderItemsData = {
-  checkoutOrderItemId: number;
-  checkoutItemPatchDocument: {
-    operations: PatchCheckoutOrderItemsOperation[];
-  };
+  checkoutOrderItemId: CheckoutOrderItem['id'];
+  checkoutItemPatchDocument: PatchCheckoutOrderItemsOperation[];
 }[];
 
 export type PatchCheckoutOrderItems = (
