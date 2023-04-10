@@ -356,18 +356,18 @@ export const RESET_UPDATE_CHECKOUT_ORDER_ITEM_STATE =
 /**
  * Action type dispatched when the update delivery bundle upgrade request fails.
  */
-export const UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE =
-  '@farfetch/blackout-redux/UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE';
+export const UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE =
+  '@farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE';
 /**
  * Action type dispatched when the update delivery bundle upgrade request starts.
  */
-export const UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST =
-  '@farfetch/blackout-redux/UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST';
+export const UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST =
+  '@farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST';
 /**
  * Action type dispatched when the update delivery bundle upgrade request succeeds.
  */
-export const UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS =
-  '@farfetch/blackout-redux/UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS';
+export const UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS =
+  '@farfetch/blackout-redux/UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS';
 
 /**
  * Action type dispatched when the update delivery bundle upgrades request fails.
