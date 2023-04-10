@@ -165,7 +165,7 @@ const sourceCountryCode = (state = INITIAL_STATE_LOCALE.sourceCountryCode) => {
 };
 
 export const countriesAddressSchemas = reducerFactory(
-  'FETCH_COUNTRY_ADDRESS_SCHEMA',
+  'FETCH_COUNTRY_ADDRESS_SCHEMAS',
   INITIAL_STATE_LOCALE.countriesAddressSchemas,
   actionTypes,
 );

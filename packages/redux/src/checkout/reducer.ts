@@ -468,7 +468,7 @@ export const checkoutOrderDeliveryBundleUpgrades = (
   action: AnyAction,
 ): CheckoutState['checkoutOrderDeliveryBundleUpgrades'] => {
   switch (action?.type) {
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_REQUEST:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST:
     case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST:
     case actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST:
       return {
@@ -476,14 +476,14 @@ export const checkoutOrderDeliveryBundleUpgrades = (
         error: INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: true,
       };
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS:
     case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS:
       return {
         ...state,
         error: INITIAL_STATE.checkoutOrderDeliveryBundleUpgrades.error,
         isLoading: false,
       };
-    case actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE_FAILURE:
+    case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE:
     case actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE:
     case actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE:
       return {
