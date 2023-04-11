@@ -557,7 +557,6 @@ class Analytics {
    */
   async getEventData(type, additionalData, eventContext) {
     const context = await this.context(null, type);
-
     Object.assign(context, {
       event: {
         ...eventContext,

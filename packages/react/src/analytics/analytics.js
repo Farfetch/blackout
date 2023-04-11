@@ -1,7 +1,9 @@
+import { name as PCKG_NAME, version as PCKG_VERSION } from '../../package.json';
 import Analytics, {
   trackTypes as analyticsTrackTypes,
   platformTypes,
 } from '@farfetch/blackout-core/analytics';
+import get from 'lodash/get';
 import webContext from './context';
 
 /**
@@ -84,6 +86,51 @@ class AnalyticsWeb extends Analytics {
     );
 
     return this;
+  }
+
+  /**
+   * Gets event data for a track event.
+   *
+   * @param {string} type                      - Type of the event being called.
+   * @param {string} event                     - Name of the event from analytics.track call.
+   * @param {object} [properties]              - Event properties from analytics.track call.
+   * @param {object} [eventContext]            - Context data that is specific for this event.
+   *
+   * @returns {Promise<object>}                - Track event data to be sent to integrations.
+   * @private
+   */
+  async getTrackEventData(type, event, properties, eventContext) {
+    this.processContext(eventContext);
+    return super.getTrackEventData(type, event, properties, eventContext);
+  }
+
+  /**
+   * Process context to append context features related with this package.
+   *
+   * @param {object} context                    - The event context.
+   */
+  processContext(context) {
+    if (context) {
+      context.library = {
+        name: PCKG_NAME,
+        version: `${context.library.name}@${context.library.version};${PCKG_NAME}@${PCKG_VERSION};`,
+      };
+    }
+  }
+
+  /**
+   * Getter for the context object.
+   *
+   * @param {string} [key] - Key to retrieve from the context. If not specified, will return the whole data stored in the context.
+   * @param {string} eventType - The type of event being tracked. Ex: page, track, onSetUser.
+   *
+   * @returns {Promise<*>} Value for the key in context or the whole context data if key is not specified.
+   */
+  async context(key, eventType) {
+    const context = await super.context(undefined, eventType);
+    this.processContext(context);
+
+    return key ? get(context, key) : context;
   }
 
   /**
