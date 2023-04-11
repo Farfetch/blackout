@@ -4,9 +4,9 @@ import join from 'proper-url-join';
 import type { DeleteToken } from './types/index.js';
 
 /**
- * Deletes an user token.
+ * Deletes a token.
  *
- * @param id     - The user token id.
+ * @param id     - The token id.
  * @param config - Custom configurations to send to the client instance (axios).
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.

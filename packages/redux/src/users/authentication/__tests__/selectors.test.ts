@@ -1,7 +1,8 @@
 import * as selectors from '../selectors.js';
 import { mockResponse as mockUserEntity } from 'tests/__fixtures__/authentication/index.mjs';
 import { mockUserInitialState } from 'tests/__fixtures__/users/index.mjs';
-import type { AuthenticationState, UserData } from '../types/index.js';
+import type { AuthenticationState } from '../types/index.js';
+import type { CamelCase } from '../../../types/utils/camelCase.types.js';
 
 describe('authentication redux selectors', () => {
   const mockUserId = 29556478;
@@ -11,9 +12,6 @@ describe('authentication redux selectors', () => {
       isGuest: false,
       id: mockUserId,
       authentication: {
-        error: 'error: not loaded',
-        isLoading: false,
-        id: mockUserId,
         login: {
           error: null,
           isLoading: false,
@@ -46,7 +44,7 @@ describe('authentication redux selectors', () => {
           error: null,
           isLoading: false,
         },
-        userToken: {
+        token: {
           result: null,
           error: null,
           isLoading: false,
@@ -79,9 +77,9 @@ describe('authentication redux selectors', () => {
     'ResetPassword',
     'Register',
     'ValidateEmail',
-    'UserToken',
+    'Token',
     'RefreshEmailToken',
-  ];
+  ] as const;
 
   beforeEach(jest.clearAllMocks);
 
@@ -111,19 +109,24 @@ describe('authentication redux selectors', () => {
     });
   });
 
-  describe('sub-areas with result', () => {
-    it.each(['UserToken'])('should handle get%sResult selector', subArea => {
-      const selectorName = `get${subArea}Result`;
-      const reducerSubAreaName =
-        subArea.charAt(0).toLowerCase() + subArea.slice(1);
-      const expectedResult =
-        mockState.users.authentication[reducerSubAreaName as keyof UserData]
-          .result;
+  const subAreasWithResult = ['Token'] as const;
 
-      expect(selectors[selectorName as keyof typeof selectors](mockState)).toBe(
-        expectedResult,
-      );
-    });
+  describe('sub-areas with result', () => {
+    it.each(subAreasWithResult)(
+      'should handle get%sResult selector',
+      subArea => {
+        const selectorName = `get${subArea}Result` as const;
+        const reducerSubAreaName = `${subArea
+          .charAt(0)
+          .toLowerCase()}${subArea.slice(1)}` as CamelCase<typeof subArea>;
+        const expectedResult =
+          mockState.users.authentication[reducerSubAreaName].result;
+
+        expect(
+          selectors[selectorName as keyof typeof selectors](mockState),
+        ).toBe(expectedResult);
+      },
+    );
   });
 
   describe('isAuthenticated()', () => {

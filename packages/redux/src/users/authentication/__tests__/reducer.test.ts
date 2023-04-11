@@ -10,20 +10,20 @@ describe('authentication reducer', () => {
     initialState = fromReducer.INITIAL_STATE;
   });
 
-  describe('userToken() reducer', () => {
+  describe('token() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, mockAction).userToken;
+      const state = reducer(undefined, mockAction).token;
 
-      expect(state).toEqual(initialState.userToken);
+      expect(state).toEqual(initialState.token);
     });
 
     it.each([
-      actionTypes.DELETE_USER_TOKEN_REQUEST,
+      actionTypes.REMOVE_TOKEN_REQUEST,
       actionTypes.CREATE_USER_TOKEN_REQUEST,
       actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST,
-      actionTypes.REFRESH_USER_TOKEN_REQUEST,
+      actionTypes.REFRESH_TOKEN_REQUEST,
     ])('should handle %s action type', actionType => {
-      const userToken = {
+      const token = {
         result: null,
         error: null,
         isLoading: true,
@@ -32,18 +32,18 @@ describe('authentication reducer', () => {
       expect(
         reducer(undefined, {
           type: actionType,
-        }).userToken,
-      ).toEqual(userToken);
+        }).token,
+      ).toEqual(token);
     });
 
     it.each([
-      actionTypes.DELETE_USER_TOKEN_FAILURE,
+      actionTypes.REMOVE_TOKEN_FAILURE,
       actionTypes.CREATE_USER_TOKEN_FAILURE,
       actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE,
-      actionTypes.REFRESH_USER_TOKEN_FAILURE,
+      actionTypes.REFRESH_TOKEN_FAILURE,
     ])('should handle %s action type', actionType => {
       const mockError = 'mocked error';
-      const userToken = {
+      const token = {
         result: null,
         error: 'mocked error',
         isLoading: false,
@@ -53,14 +53,14 @@ describe('authentication reducer', () => {
         reducer(undefined, {
           type: actionType,
           payload: { error: mockError },
-        }).userToken,
-      ).toEqual(userToken);
+        }).token,
+      ).toEqual(token);
     });
 
     it.each([
       actionTypes.CREATE_USER_TOKEN_SUCCESS,
       actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS,
-      actionTypes.REFRESH_USER_TOKEN_SUCCESS,
+      actionTypes.REFRESH_TOKEN_SUCCESS,
     ])('should handle %s action type', actionType => {
       const result = {
         accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',
@@ -69,9 +69,9 @@ describe('authentication reducer', () => {
           'd5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d',
         error: null,
       };
-      const userToken = {
+      const token = {
         result,
-        error: initialState.userToken.error,
+        error: initialState.token.error,
         isLoading: false,
       };
 
@@ -79,13 +79,13 @@ describe('authentication reducer', () => {
         reducer(undefined, {
           type: actionType,
           payload: result,
-        }).userToken,
-      ).toEqual(userToken);
+        }).token,
+      ).toEqual(token);
     });
 
-    it(`should handle ${actionTypes.DELETE_USER_TOKEN_SUCCESS} action type`, () => {
+    it(`should handle ${actionTypes.REMOVE_TOKEN_SUCCESS} action type`, () => {
       const state = {
-        userToken: {
+        token: {
           result: {
             accessToken: '04b55bb7-f1af-4b45-aa10-5c4667a48936',
             expiresIn: '1200',
@@ -96,30 +96,28 @@ describe('authentication reducer', () => {
           isLoading: true,
         },
       };
-      const userToken = {
-        result: initialState.userToken.result,
-        error: initialState.userToken.error,
+      const token = {
+        result: initialState.token.result,
+        error: initialState.token.error,
         isLoading: false,
       };
       const reducerResult = reducer(state as AuthenticationState, {
-        type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
+        type: actionTypes.REMOVE_TOKEN_SUCCESS,
       });
 
-      expect(reducerResult.userToken).toEqual(userToken);
+      expect(reducerResult.token).toEqual(token);
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
-        userToken: {
+        token: {
           result: null,
           error: 'error',
           isLoading: false,
         },
-      };
+      } as unknown as AuthenticationState;
 
-      expect(reducer(state as AuthenticationState, mockAction).userToken).toBe(
-        state.userToken,
-      );
+      expect(reducer(state, mockAction).token).toBe(state.token);
     });
   });
 
@@ -138,10 +136,10 @@ describe('authentication reducer', () => {
       resetPassword: { ...subAreaResult },
       validateEmail: { ...subAreaResult },
       refreshEmailToken: { ...subAreaResult },
-      userToken: { ...subAreaResult, result: null },
+      token: { ...subAreaResult, result: null },
     };
 
-    const extendedSubAreasNames = ['UserToken'];
+    const extendedSubAreasNames = ['Token'];
     const subAreaNames = [
       'Login',
       'Logout',

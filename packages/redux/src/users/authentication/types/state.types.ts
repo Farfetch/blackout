@@ -1,51 +1,43 @@
-export type UserTokenResult = {
-  accessToken: string;
-  expiresIn: string;
-  refreshToken: string;
-};
+import type { BlackoutError, Token } from '@farfetch/blackout-client';
 
-export type UserToken = {
-  result: UserTokenResult | null;
-  error: string | null;
+export type TokenState = {
+  result: Token | null;
+  error: BlackoutError | null;
   isLoading: boolean;
-};
-
-export type UserData = {
-  userToken: UserToken;
 };
 
 export type AuthenticationState = {
   login: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   logout: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   register: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   changePassword: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   recoverPassword: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   resetPassword: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   validateEmail: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
   refreshEmailToken: {
-    error: string | null;
+    error: BlackoutError | null;
     isLoading: boolean;
   };
-  userToken: UserToken;
+  token: TokenState;
 };
