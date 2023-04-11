@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.56.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.55.0...@farfetch/blackout-react@0.56.0) (2023-04-11)
+
+
+### Features
+
+* add parameters add shipping method event ([037712c](https://github.com/Farfetch/blackout/commit/037712c1c3c17eaf0076042e0c0686beb79421cf))
+
+
+
+
+
 # [0.55.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.54.0...@farfetch/blackout-react@0.55.0) (2023-04-05)
 
 

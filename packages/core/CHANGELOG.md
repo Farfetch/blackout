@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.85.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.84.0...@farfetch/blackout-core@1.85.0) (2023-04-11)
+
+
+### Features
+
+* add parameters add shipping method event ([037712c](https://github.com/Farfetch/blackout/commit/037712c1c3c17eaf0076042e0c0686beb79421cf))
+
+
+
+
+
 # [1.84.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.83.0...@farfetch/blackout-core@1.84.0) (2023-04-05)
 
 
