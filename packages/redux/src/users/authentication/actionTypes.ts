@@ -118,20 +118,20 @@ export const REFRESH_EMAIL_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/REFRESH_EMAIL_TOKEN_SUCCESS';
 
 /**
- * Action type dispatched when the delete user token request fails.
+ * Action type dispatched when the remove token request fails.
  */
-export const DELETE_USER_TOKEN_FAILURE =
-  '@farfetch/blackout-redux/DELETE_USER_TOKEN_FAILURE';
+export const REMOVE_TOKEN_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_TOKEN_FAILURE';
 /**
- * Action type dispatched when the delete user token request starts.
+ * Action type dispatched when the remove token request starts.
  */
-export const DELETE_USER_TOKEN_REQUEST =
-  '@farfetch/blackout-redux/DELETE_USER_TOKEN_REQUEST';
+export const REMOVE_TOKEN_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_TOKEN_REQUEST';
 /**
- * Action type dispatched when the delete user token request succeeds.
+ * Action type dispatched when the remove token request succeeds.
  */
-export const DELETE_USER_TOKEN_SUCCESS =
-  '@farfetch/blackout-redux/DELETE_USER_TOKEN_SUCCESS';
+export const REMOVE_TOKEN_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_TOKEN_SUCCESS';
 
 /**
  * Action type dispatched when the create user token request fails.
@@ -166,20 +166,20 @@ export const CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS';
 
 /**
- * Action type dispatched when the refresh user token request fails.
+ * Action type dispatched when the refresh token request fails.
  */
-export const REFRESH_USER_TOKEN_FAILURE =
-  '@farfetch/blackout-redux/REFRESH_USER_TOKEN_FAILURE';
+export const REFRESH_TOKEN_FAILURE =
+  '@farfetch/blackout-redux/REFRESH_TOKEN_FAILURE';
 /**
- * Action type dispatched when the refresh user token request starts.
+ * Action type dispatched when the refresh token request starts.
  */
-export const REFRESH_USER_TOKEN_REQUEST =
-  '@farfetch/blackout-redux/REFRESH_USER_TOKEN_REQUEST';
+export const REFRESH_TOKEN_REQUEST =
+  '@farfetch/blackout-redux/REFRESH_TOKEN_REQUEST';
 /**
- * Action type dispatched when the refresh user token request succeeds.
+ * Action type dispatched when the refresh token request succeeds.
  */
-export const REFRESH_USER_TOKEN_SUCCESS =
-  '@farfetch/blackout-redux/REFRESH_USER_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_SUCCESS =
+  '@farfetch/blackout-redux/REFRESH_TOKEN_SUCCESS';
 
 /**
  * Action type dispatched when the fetch users request fails.
@@ -358,11 +358,10 @@ export const RESET_REFRESH_EMAIL_TOKEN =
   '@farfetch/blackout-redux/RESET_REFRESH_EMAIL_TOKEN';
 
 /**
- * Action type dispatched when the client wants to reset the delete user token
+ * Action type dispatched when the client wants to reset the delete token
  * request redux data.
  */
-export const RESET_DELETE_USER_TOKEN =
-  '@farfetch/blackout-redux/RESET_DELETE_USER_TOKEN';
+export const RESET_REMOVE_TOKEN = '@farfetch/blackout-redux/RESET_REMOVE_TOKEN';
 
 /**
  * Action type dispatched when the client wants to reset the delete user
@@ -393,11 +392,11 @@ export const RESET_CREATE_CLIENT_CREDENTIALS_TOKEN =
   '@farfetch/blackout-redux/RESET_CREATE_CLIENT_CREDENTIALS_TOKEN';
 
 /**
- * Action type dispatched when the client wants to reset the refresh user token
+ * Action type dispatched when the client wants to reset the refresh token
  * request redux data.
  */
-export const RESET_REFRESH_USER_TOKEN =
-  '@farfetch/blackout-redux/RESET_REFRESH_USER_TOKEN';
+export const RESET_REFRESH_TOKEN =
+  '@farfetch/blackout-redux/RESET_REFRESH_TOKEN';
 
 /** Action type dispatched when the reset user state occurs. */
 export const RESET_USER_STATE = '@farfetch/blackout-redux/RESET_USER_STATE';
