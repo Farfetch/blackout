@@ -7,26 +7,26 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * Deletes a user or client's token.
+ * Removes a user or client credentials token.
  *
- * @param deleteTokens - Delete user token client.
+ * @param deleteToken - Delete token client.
  *
  * @returns Thunk factory.
  */
-const removeUserTokenFactory =
-  (deleteTokens: DeleteToken) =>
-  (userTokenId: string, config?: Config) =>
+const removeTokenFactory =
+  (deleteToken: DeleteToken) =>
+  (tokenId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({
-        type: actionTypes.DELETE_USER_TOKEN_REQUEST,
+        type: actionTypes.REMOVE_TOKEN_REQUEST,
       });
 
-      const result = await deleteTokens(userTokenId, config);
+      const result = await deleteToken(tokenId, config);
 
       dispatch({
-        meta: { userTokenId },
-        type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
+        meta: { tokenId },
+        type: actionTypes.REMOVE_TOKEN_SUCCESS,
       });
 
       return result;
@@ -35,11 +35,11 @@ const removeUserTokenFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.DELETE_USER_TOKEN_FAILURE,
+        type: actionTypes.REMOVE_TOKEN_FAILURE,
       });
 
       throw errorAsBlackoutError;
     }
   };
 
-export default removeUserTokenFactory;
+export default removeTokenFactory;

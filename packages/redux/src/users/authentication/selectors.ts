@@ -7,7 +7,7 @@ import {
   getRefreshEmailToken,
   getRegister,
   getResetPassword,
-  getUserToken,
+  getToken,
   getValidateEmail,
 } from './reducer.js';
 import { getUser } from '../../users/selectors.js';
@@ -185,31 +185,31 @@ export const getRefreshEmailTokenError = (state: StoreState) =>
   getRefreshEmailToken(getAuthentication(state.users as UsersState)).error;
 
 /**
- * Returns the loading status for the user token operation.
+ * Returns the loading status for the create/refresh/delete token operations.
  *
  * @param state - Application state.
  *
- * @returns User token operation Loading status.
+ * @returns Create/refresh/delete token operations loading status.
  */
-export const isUserTokenLoading = (state: StoreState) =>
-  getUserToken(getAuthentication(state.users as UsersState)).isLoading;
+export const isTokenLoading = (state: StoreState) =>
+  getToken(getAuthentication(state.users as UsersState)).isLoading;
 
 /**
- * Returns the get user token error.
+ * Returns the create/refresh/delete token operations error.
  *
  * @param state - Application state.
  *
- * @returns Get user token operation error.
+ * @returns Create/refresh/delete token operations error.
  */
-export const getUserTokenError = (state: StoreState) =>
-  getUserToken(getAuthentication(state.users as UsersState)).error;
+export const getTokenError = (state: StoreState) =>
+  getToken(getAuthentication(state.users as UsersState)).error;
 
 /**
- * Returns the result for the get user token operation.
+ * Returns the result for the create/refresh/delete token operations.
  *
  * @param state - Application state.
  *
- * @returns Get user token operation result.
+ * @returns Create/refresh token operations result.
  */
-export const getUserTokenResult = (state: StoreState) =>
-  getUserToken(getAuthentication(state.users as UsersState)).result;
+export const getTokenResult = (state: StoreState) =>
+  getToken(getAuthentication(state.users as UsersState)).result;

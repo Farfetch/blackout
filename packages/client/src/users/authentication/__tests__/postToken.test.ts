@@ -10,7 +10,7 @@ describe('postToken', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('Create a valid guest user token', () => {
+  describe('Create a valid user token', () => {
     const data = {
       username: 'myusername',
       password: 'password00',

@@ -35,12 +35,12 @@ describe('resetAuthentication() action creator', () => {
     'REGISTER',
     'VALIDATE_EMAIL',
     'REFRESH_EMAIL_TOKEN',
-    'DELETE_USER_TOKEN',
+    'REMOVE_TOKEN',
     'DELETE_USER_IMPERSONATION',
     'CREATE_USER_IMPERSONATION',
     'CREATE_USER_TOKEN',
     'CREATE_CLIENT_CREDENTIALS_TOKEN',
-    'REFRESH_USER_TOKEN',
+    'REFRESH_TOKEN',
   ])(
     'should create the correct actions when the reset authentication area is called with the %s subarea',
     async subArea => {

@@ -10,7 +10,7 @@ export { default as recoverPassword } from './recoverPassword.js';
 export { default as refreshEmailToken } from './refreshEmailToken.js';
 export { default as refreshToken } from './refreshToken.js';
 export { default as register } from './register.js';
-export { default as removeUserToken } from './removeUserToken.js';
+export { default as removeToken } from './removeToken.js';
 export { default as resetAuthentication } from './resetAuthentication.js';
 export { default as resetPassword } from './resetPassword.js';
 export { default as validateEmail } from './validateEmail.js';

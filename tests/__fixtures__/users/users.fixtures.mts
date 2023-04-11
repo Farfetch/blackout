@@ -144,7 +144,7 @@ export const mockUserInitialState: UsersState = {
       error: null,
       isLoading: false,
     },
-    userToken: {
+    token: {
       result: null,
       error: null,
       isLoading: false,

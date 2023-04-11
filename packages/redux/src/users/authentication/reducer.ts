@@ -36,7 +36,7 @@ export const INITIAL_STATE: AuthenticationState = {
     error: null,
     isLoading: false,
   },
-  userToken: {
+  token: {
     result: null,
     error: null,
     isLoading: false,
@@ -79,40 +79,40 @@ export const refreshEmailToken = reducerFactory(
   INITIAL_STATE.refreshEmailToken,
   actionTypes,
 );
-export const userToken = (
-  state = INITIAL_STATE.userToken,
+export const token = (
+  state = INITIAL_STATE.token,
   action: AnyAction,
-): AuthenticationState['userToken'] => {
+): AuthenticationState['token'] => {
   switch (action?.type) {
-    case actionTypes.DELETE_USER_TOKEN_REQUEST:
+    case actionTypes.REMOVE_TOKEN_REQUEST:
     case actionTypes.CREATE_USER_TOKEN_REQUEST:
     case actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_REQUEST:
-    case actionTypes.REFRESH_USER_TOKEN_REQUEST:
+    case actionTypes.REFRESH_TOKEN_REQUEST:
       return {
         ...state,
-        error: INITIAL_STATE.userToken.error,
+        error: INITIAL_STATE.token.error,
         isLoading: true,
       };
-    case actionTypes.DELETE_USER_TOKEN_SUCCESS:
+    case actionTypes.REMOVE_TOKEN_SUCCESS:
       return {
-        result: INITIAL_STATE.userToken.result,
-        error: INITIAL_STATE.userToken.error,
+        result: INITIAL_STATE.token.result,
+        error: INITIAL_STATE.token.error,
         isLoading: false,
       };
 
     case actionTypes.CREATE_USER_TOKEN_SUCCESS:
     case actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_SUCCESS:
-    case actionTypes.REFRESH_USER_TOKEN_SUCCESS:
+    case actionTypes.REFRESH_TOKEN_SUCCESS:
       return {
         result: action?.payload,
-        error: INITIAL_STATE.userToken.error,
+        error: INITIAL_STATE.token.error,
         isLoading: false,
       };
 
-    case actionTypes.DELETE_USER_TOKEN_FAILURE:
+    case actionTypes.REMOVE_TOKEN_FAILURE:
     case actionTypes.CREATE_USER_TOKEN_FAILURE:
     case actionTypes.CREATE_CLIENT_CREDENTIALS_TOKEN_FAILURE:
-    case actionTypes.REFRESH_USER_TOKEN_FAILURE:
+    case actionTypes.REFRESH_TOKEN_FAILURE:
       return {
         ...state,
         error: action?.payload?.error,
@@ -137,7 +137,7 @@ export const getValidateEmail = (state: AuthenticationState) =>
   state.validateEmail;
 export const getRefreshEmailToken = (state: AuthenticationState) =>
   state.refreshEmailToken;
-export const getUserToken = (state: AuthenticationState) => state.userToken;
+export const getToken = (state: AuthenticationState) => state.token;
 
 /**
  * Reducer for authentication state.
@@ -156,7 +156,7 @@ const authenticationReducer: Reducer<AuthenticationState> = combineReducers({
   recoverPassword,
   validateEmail,
   refreshEmailToken,
-  userToken,
+  token,
 });
 
 export default authenticationReducer;

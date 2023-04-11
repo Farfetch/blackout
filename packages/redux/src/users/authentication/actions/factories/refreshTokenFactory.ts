@@ -19,7 +19,7 @@ const refreshTokenFactory =
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: actionTypes.REFRESH_USER_TOKEN_REQUEST,
+        type: actionTypes.REFRESH_TOKEN_REQUEST,
       });
 
       const result = await postToken(
@@ -29,7 +29,7 @@ const refreshTokenFactory =
 
       dispatch({
         payload: result,
-        type: actionTypes.REFRESH_USER_TOKEN_SUCCESS,
+        type: actionTypes.REFRESH_TOKEN_SUCCESS,
       });
 
       return result;
@@ -38,7 +38,7 @@ const refreshTokenFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.REFRESH_USER_TOKEN_FAILURE,
+        type: actionTypes.REFRESH_TOKEN_FAILURE,
       });
 
       throw errorAsBlackoutError;

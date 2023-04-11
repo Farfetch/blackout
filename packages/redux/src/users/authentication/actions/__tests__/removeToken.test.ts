@@ -6,7 +6,7 @@ import {
   userTokenId,
 } from 'tests/__fixtures__/users/index.mjs';
 import { mockStore } from '../../../../../tests/index.js';
-import { removeUserToken } from '../../index.js';
+import { removeToken } from '../../index.js';
 import reducer from '../../reducer.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
@@ -22,39 +22,39 @@ const authenticationMockStore = (state = {}) =>
 const expectedConfig = undefined;
 let store = authenticationMockStore();
 
-describe('removeUserToken() action creator', () => {
+describe('removeToken() action creator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     store = authenticationMockStore();
   });
 
-  it('should create the correct actions for when the delete user token procedure fails', async () => {
+  it('should create the correct actions for when the delete token procedure fails', async () => {
     (deleteToken as jest.Mock).mockRejectedValueOnce(mockErrorObject);
 
     await expect(
-      async () => await removeUserToken(userTokenId)(store.dispatch),
+      async () => await removeToken(userTokenId)(store.dispatch),
     ).rejects.toThrow(mockErrorObject);
 
     expect(deleteToken).toHaveBeenCalledTimes(1);
     expect(deleteToken).toHaveBeenCalledWith(userTokenId, expectedConfig);
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
+        { type: actionTypes.REMOVE_TOKEN_REQUEST },
         {
-          type: actionTypes.DELETE_USER_TOKEN_FAILURE,
+          type: actionTypes.REMOVE_TOKEN_FAILURE,
           payload: { error: toBlackoutError(mockErrorObject) },
         },
       ]),
     );
   });
 
-  it('should create the correct actions for when the delete user token procedure is successful', async () => {
+  it('should create the correct actions for when the delete token procedure is successful', async () => {
     const mockResponse = {
       status: 204,
     };
 
     (deleteToken as jest.Mock).mockResolvedValueOnce(mockResponse);
-    await removeUserToken(userTokenId)(store.dispatch);
+    await removeToken(userTokenId)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -62,15 +62,15 @@ describe('removeUserToken() action creator', () => {
     expect(deleteToken).toHaveBeenCalledWith(userTokenId, expectedConfig);
 
     expect(actionResults).toMatchObject([
-      { type: actionTypes.DELETE_USER_TOKEN_REQUEST },
+      { type: actionTypes.REMOVE_TOKEN_REQUEST },
       {
-        type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
+        type: actionTypes.REMOVE_TOKEN_SUCCESS,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.DELETE_USER_TOKEN_SUCCESS,
+        type: actionTypes.REMOVE_TOKEN_SUCCESS,
       }),
-    ).toMatchSnapshot('delete user token success payload');
+    ).toMatchSnapshot('delete token success payload');
   });
 });
