@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.249](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.248...@farfetch/blackout-client@2.0.0-next.249) (2023-04-11)
+
+### Bug Fixes
+
+- fix `patchCheckoutOrderItems` types ([8237eca](https://github.com/Farfetch/blackout/commit/8237eca2c30427980fb462b1514f7d34bee68623))
+
 # [2.0.0-next.248](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.247...@farfetch/blackout-client@2.0.0-next.248) (2023-03-28)
 
 **Note:** Version bump only for package @farfetch/blackout-client
