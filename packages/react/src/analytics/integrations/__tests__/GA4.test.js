@@ -298,6 +298,7 @@ describe('GA4 Integration', () => {
                   mockedPageData.context.web.window.location.query,
                 ),
               path_clean: mockedPageData.context.web.window.location.pathname,
+              analytics_package_version: expect.any(String),
               [utils.ANALYTICS_UNIQUE_EVENT_ID]:
                 mockedPageData.context.event[utils.ANALYTICS_UNIQUE_EVENT_ID],
             },

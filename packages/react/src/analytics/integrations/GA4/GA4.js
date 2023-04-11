@@ -372,10 +372,15 @@ class GA4 extends integrations.Integration {
       data,
       `context.event.${utils.ANALYTICS_UNIQUE_EVENT_ID}`,
     );
+
     const contextLocation = utils.getLocation(data);
 
     if (typeof eventProperties === 'object') {
       eventProperties[utils.ANALYTICS_UNIQUE_EVENT_ID] = uniqueEventId;
+      eventProperties['analytics_package_version'] = get(
+        data,
+        'context.library.version',
+      );
 
       if (data.type === analyticsTrackTypes.TRACK) {
         eventProperties['page_path'] =

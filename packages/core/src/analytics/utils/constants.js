@@ -16,3 +16,4 @@ export const CONSENT_KEYS = [
 export const CONSENT_CATEGORIES_PROPERTY = 'consentCategories';
 
 export const ANALYTICS_UNIQUE_EVENT_ID = '__blackoutAnalyticsEventId';
+export const ANALYTICS_PACKAGE_VERSION = '__blackoutAnalyticsPackageVersion';
