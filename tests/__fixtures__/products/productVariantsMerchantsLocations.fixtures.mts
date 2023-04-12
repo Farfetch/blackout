@@ -1,6 +1,9 @@
 import { mockPriceAdaptedEmpty } from './price.fixtures.mjs';
 import { mockProductId, mockVariantId } from './ids.fixtures.mjs';
-import { PurchaseChannel } from '@farfetch/blackout-client';
+import {
+  PublicationFeatureCode,
+  PurchaseChannel,
+} from '@farfetch/blackout-client';
 import type { VariantsAdapted } from '@farfetch/blackout-redux';
 
 export const mockProductVariantsMerchantsLocations = [
@@ -36,6 +39,11 @@ export const mockProductVariants: VariantsAdapted = [
     scaleAbbreviation: 'dummy_scale_abbreviation',
     sizeDescription: 'dummy_size_description',
     isOneSize: true,
+    publicationFeatures: [
+      {
+        code: PublicationFeatureCode.IMMEDIATE_FULFILMENT,
+      },
+    ],
   },
 ];
 
@@ -81,6 +89,11 @@ export const mockProductVariantsMerchantsLocationsNormalizedResponse = {
             scaleAbbreviation: 'dummy_scale_abbreviation',
             sizeDescription: 'dummy_size_description',
             purchaseChannel: PurchaseChannel.EmailOnly,
+            publicationFeatures: [
+              {
+                code: PublicationFeatureCode.IMMEDIATE_FULFILMENT,
+              },
+            ],
           },
         ],
       },
