@@ -555,6 +555,11 @@ Object {
     "Invalid": "Invalid",
     "Unverified": "Unverified",
   },
+  "PublicationFeatureCode": Object {
+    "BACKORDER": "BACKORDER",
+    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
+    "PREORDER": "PREORDER",
+  },
   "PurchaseChannel": Object {
     "0": "AddToBag",
     "1": "EmailOnly",
