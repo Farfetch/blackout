@@ -1,13 +1,11 @@
 import type {
   CheckoutOrder,
   CheckoutOrderItem,
-  CollectPoint,
 } from '@farfetch/blackout-client';
 import type { CheckoutOrderItemEntityDenormalized } from './checkoutOrderItem.types.js';
 
 export type CheckoutOrderEntity = Omit<CheckoutOrder, 'items'> & {
   items: Array<CheckoutOrderItem['id']>;
-  collectpoints?: Array<CollectPoint>;
 };
 
 export type CheckoutOrderEntityDenormalized = Omit<

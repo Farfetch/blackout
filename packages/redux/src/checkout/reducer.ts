@@ -19,10 +19,7 @@ export const INITIAL_STATE: CheckoutState = {
     error: null,
     isLoading: false,
   },
-  collectPoints: {
-    error: null,
-    isLoading: false,
-  },
+  collectPoints: {},
   checkoutOrderTags: {
     error: null,
     isLoading: false,
@@ -236,24 +233,6 @@ const convertCheckoutOrder = (
   });
 };
 
-const mergeCheckoutOrder = (
-  state: NonNullable<StoreState['entities']>,
-  action: AnyAction,
-) => {
-  const { id } = action.meta;
-  const currentCheckoutOrder = get(state, `checkoutOrders[${id}]`, {});
-
-  return {
-    ...state,
-    checkoutOrders: {
-      [id]: {
-        ...currentCheckoutOrder,
-        ...action.payload.entities,
-      },
-    },
-  };
-};
-
 const handleRemoveCheckoutOrderItemSuccess = produce<
   NonNullable<StoreState['entities']>,
   [AnyAction]
@@ -286,7 +265,6 @@ const handleUpdateCheckoutOrderItemSuccess = produce<
 });
 
 export const entitiesMapper = {
-  [actionTypes.FETCH_COLLECT_POINTS_SUCCESS]: mergeCheckoutOrder,
   [actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
@@ -390,13 +368,44 @@ export const checkoutOrderDetails = reducerFactory(
   actionTypes.RESET_CHECKOUT_ORDER_DETAILS_STATE,
 );
 
-export const collectPoints = reducerFactory(
-  'FETCH_COLLECT_POINTS',
-  INITIAL_STATE.collectPoints,
-  actionTypes,
-  false,
-  actionTypes.RESET_COLLECT_POINTS_STATE,
-);
+export const collectPoints = (
+  state = INITIAL_STATE.collectPoints,
+  action: AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.FETCH_COLLECT_POINTS_REQUEST:
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: true,
+          error: null,
+        },
+      };
+    case actionTypes.FETCH_COLLECT_POINTS_SUCCESS:
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: action.payload.result,
+          isLoading: false,
+          error: null,
+        },
+      };
+    case actionTypes.FETCH_COLLECT_POINTS_FAILURE:
+      return {
+        ...state,
+        [action.meta.hash]: {
+          result: null,
+          isLoading: false,
+          error: action.payload.error,
+        },
+      };
+    case actionTypes.RESET_COLLECT_POINTS_STATE:
+      return INITIAL_STATE.collectPoints;
+    default:
+      return state;
+  }
+};
 
 export const checkoutOrderTags = reducerFactory(
   'SET_CHECKOUT_ORDER_TAGS',

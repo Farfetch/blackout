@@ -572,14 +572,17 @@ describe('checkout reducer', () => {
   });
 
   describe('collectPoints() reducer', () => {
+    const hash = '';
+
     it('should handle @farfetch/blackout-redux/FETCH_COLLECT_POINTS_REQUEST action', () => {
       const action = {
         type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
+        meta: { hash },
       };
       const state = reducer(undefined, action);
 
-      expect(state.collectPoints.isLoading).toBe(true);
-      expect(state.collectPoints.error).toBeNull();
+      expect(state.collectPoints[hash]?.isLoading).toBe(true);
+      expect(state.collectPoints[hash]?.error).toBeNull();
     });
 
     it('should handle @farfetch/blackout-redux/FETCH_COLLECT_POINTS_FAILURE action', () => {
@@ -588,22 +591,24 @@ describe('checkout reducer', () => {
         payload: {
           error: 'error',
         },
+        meta: { hash },
       };
       const state = reducer(undefined, action);
 
-      expect(state.collectPoints.isLoading).toBe(false);
-      expect(state.collectPoints.error).toBe(action.payload.error);
+      expect(state.collectPoints[hash]?.isLoading).toBe(false);
+      expect(state.collectPoints[hash]?.error).toBe(action.payload.error);
     });
 
     it('should handle @farfetch/blackout-redux/FETCH_COLLECT_POINTS_SUCCESS action', () => {
       const action = {
         type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
         payload: {},
+        meta: { hash },
       };
       const state = reducer(undefined, action);
 
-      expect(state.collectPoints.isLoading).toBe(false);
-      expect(state.collectPoints.error).toBeNull();
+      expect(state.collectPoints[hash]?.isLoading).toBe(false);
+      expect(state.collectPoints[hash]?.error).toBeNull();
     });
 
     it('should handle @farfetch/blackout-redux/RESET_COLLECT_POINTS_STATE action', () => {
@@ -614,15 +619,17 @@ describe('checkout reducer', () => {
         {
           ...initialState,
           collectPoints: {
-            isLoading: true,
-            error: toBlackoutError(new Error('dummy error')),
+            '': {
+              isLoading: true,
+              error: toBlackoutError(new Error('dummy error')),
+              result: null,
+            },
           },
         },
         action,
       );
 
-      expect(state.collectPoints.isLoading).toBe(false);
-      expect(state.collectPoints.error).toBeNull();
+      expect(state.collectPoints).toStrictEqual({});
     });
   });
 
@@ -1234,27 +1241,6 @@ describe('checkout reducer', () => {
         checkoutOrders: mockCheckoutOrdersResponse,
         products: mockProductsEntity,
       };
-
-      const expectedResult = {
-        checkout: mockCheckoutResponse,
-        checkoutOrders: {
-          1: {
-            ...entities,
-            checkout: mockCheckoutResponse,
-          },
-        },
-        products: mockProductsEntity,
-      };
-
-      it(`should handle ${actionTypes.FETCH_COLLECT_POINTS_SUCCESS}`, () => {
-        expect(
-          entitiesMapper[actionTypes.FETCH_COLLECT_POINTS_SUCCESS](state, {
-            meta: { id: 1 },
-            payload: { entities },
-            type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
-          }),
-        ).toEqual(expectedResult);
-      });
 
       it(`should handle ${actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS}`, () => {
         const metaId = 1;

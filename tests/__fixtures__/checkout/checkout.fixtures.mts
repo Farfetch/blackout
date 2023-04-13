@@ -997,7 +997,6 @@ const selectedCollectPoint = { collectPointId, merchantLocationId };
 export const checkoutOrderEntity = {
   ...mockResponse.checkoutOrder,
   clickAndCollect: selectedCollectPoint,
-  collectpoints: [mockCollectPoint],
   id: checkoutOrderId,
   items: [mockCheckoutOrderItem['id']],
 };
@@ -1107,8 +1106,11 @@ export const mockInitialState = {
       isLoading: false,
     },
     collectPoints: {
-      error: null,
-      isLoading: false,
+      '': {
+        result: undefined,
+        isLoading: false,
+        error: null,
+      },
     },
     checkoutOrderTags: {
       error: null,
@@ -1362,6 +1364,13 @@ export const mockCheckoutState = {
         ],
       },
     },
+    collectPoints: {
+      [`${checkoutId}|false|false`]: {
+        result: [mockCollectPoint],
+        error: null,
+        isLoading: false,
+      },
+    },
   },
   payments: {
     ...mockInitialState.payments,
@@ -1422,8 +1431,11 @@ export const mockLoadingState = {
     ...mockInitialState.checkout,
     isLoading: true,
     collectPoints: {
-      ...mockInitialState.checkout.collectPoints,
-      isLoading: true,
+      '': {
+        isLoading: true,
+        error: null,
+        result: undefined,
+      },
     },
     checkoutOrderCharge: {
       ...mockInitialState.checkout.checkoutOrderCharge,
@@ -1442,8 +1454,11 @@ export const mockErrorState = {
     ...mockInitialState.checkout,
     error: new Error('dummy error') as BlackoutError,
     collectPoints: {
-      ...mockInitialState.checkout.collectPoints,
-      error: new Error('dummy error') as BlackoutError,
+      '': {
+        result: undefined,
+        isLoading: false,
+        error: new Error('dummy error') as BlackoutError,
+      },
     },
     checkoutOrderCharge: {
       ...mockInitialState.checkout.checkoutOrderCharge,

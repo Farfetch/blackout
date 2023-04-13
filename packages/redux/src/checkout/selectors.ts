@@ -20,6 +20,7 @@ import {
   getUpdateOrderItem,
 } from './reducer.js';
 import { getEntities, getEntityById } from '../entities/selectors/index.js';
+import buildCollectPointsQueryHash from './helpers/buildCollectPointsQueryHash.js';
 import type {
   CategoryEntity,
   CheckoutOrderEntityDenormalized,
@@ -33,9 +34,9 @@ import type {
 import type {
   CheckoutOrderItem,
   ClickAndCollect,
-  CollectPoint,
   DeliveryBundleUpgrade,
   DeliveryWindowType,
+  GetCollectPointsQuery,
   ItemDeliveryOption,
   ShippingOption,
 } from '@farfetch/blackout-client';
@@ -65,17 +66,18 @@ interface INITIAL_VALUE {
  *
  * @param state - Application state.
  *
- * @returns Checkout id.
+ * @returns Checkout order id.
  */
 export const getCheckoutOrderId = (state: StoreState) =>
   getId(state.checkout as CheckoutState);
 
 /**
- * Returns the checkout.
+ * Returns the checkout order result obtained by invoking the action
+ * `fetchCheckoutOrder`.
  *
  * @param state - Application state.
  *
- * @returns Checkout object.
+ * @returns Fetch checkout order result or undefined if no result is found.
  */
 export const getCheckoutOrderResult = (state: StoreState) => {
   const checkoutId = getCheckoutOrderId(state);
@@ -311,12 +313,15 @@ export const getCheckoutOrderItemProduct = (
  *
  * @returns List of checkout collect points.
  */
-export const getCollectPoints: (
+export const getCollectPoints = (
   state: StoreState,
-) => CollectPoint[] | undefined = createSelector(
-  [getCheckoutOrder],
-  checkoutOrder => checkoutOrder?.collectpoints,
-);
+  query?: GetCollectPointsQuery,
+) => {
+  const hash = buildCollectPointsQueryHash(query);
+
+  return getCollectPointsFromReducer(state.checkout as CheckoutState)[hash]
+    ?.result;
+};
 
 /**
  * Returns the selected collect point.
@@ -591,8 +596,15 @@ export const areCheckoutOrderDetailsFetched = (state: StoreState) =>
  *
  * @returns Collect points operation Loading status.
  */
-export const areCollectPointsLoading = (state: StoreState) =>
-  getCollectPointsFromReducer(state.checkout as CheckoutState).isLoading;
+export const areCollectPointsLoading = (
+  state: StoreState,
+  query?: GetCollectPointsQuery,
+) => {
+  const hash = buildCollectPointsQueryHash(query);
+
+  return !!getCollectPointsFromReducer(state.checkout as CheckoutState)[hash]
+    ?.isLoading;
+};
 
 /**
  * Returns the error for the collect points operation.
@@ -601,8 +613,15 @@ export const areCollectPointsLoading = (state: StoreState) =>
  *
  * @returns Collect points operation error.
  */
-export const getCollectPointsError = (state: StoreState) =>
-  getCollectPointsFromReducer(state.checkout as CheckoutState).error;
+export const getCollectPointsError = (
+  state: StoreState,
+  query?: GetCollectPointsQuery,
+) => {
+  const hash = buildCollectPointsQueryHash(query);
+
+  return getCollectPointsFromReducer(state.checkout as CheckoutState)[hash]
+    ?.error;
+};
 
 /**
  * Returns the fetched status for the collect points operation.
@@ -611,9 +630,12 @@ export const getCollectPointsError = (state: StoreState) =>
  *
  * @returns Collect points operation fetched status.
  */
-export const areCollectPointsFetched = (state: StoreState) =>
-  (!!getCollectPoints(state) || !!getCollectPointsError(state)) &&
-  !areCollectPointsLoading(state);
+export const areCollectPointsFetched = (
+  state: StoreState,
+  query?: GetCollectPointsQuery,
+) =>
+  (!!getCollectPoints(state, query) || !!getCollectPointsError(state, query)) &&
+  !areCollectPointsLoading(state, query);
 
 /**
  * Returns the loading status for the item tags operation.
