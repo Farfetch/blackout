@@ -487,6 +487,7 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
       itemQuantity: product.quantity,
       promoCode: product.coupon,
       storeID: product.locationId,
+      listIndex: product.position,
     }));
 
     return JSON.stringify(mappedProductList);
@@ -504,6 +505,7 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
         itemQuantity: properties.quantity,
         promoCode: properties.coupon,
         storeID: properties.locationId,
+        listIndex: properties.position,
       },
     ]);
   }

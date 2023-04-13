@@ -657,6 +657,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         tid: 2098,
         productId: getProductId(properties),
         actionArea: properties?.from,
+        listIndex: properties?.position,
       });
     }
 
@@ -694,6 +695,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         tid: 2920,
         productId: getProductId(properties),
         actionArea: properties?.from,
+        listIndex: properties?.position,
       });
     }
 
@@ -708,6 +710,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         productId: getProductId(properties),
         actionArea: properties?.from,
         itemQuantity: properties?.quantity,
+        listIndex: properties?.position,
       });
     }
 

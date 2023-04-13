@@ -16,6 +16,7 @@ const data = {
     size: 'L',
     discountValue: 6,
     price: 19,
+    position: 2,
     priceWithoutDiscount: 25,
     quantity: 1,
     currency: 'USD',
