@@ -400,6 +400,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       ) as string;
 
       eventProperties[utils.ANALYTICS_UNIQUE_EVENT_ID] = uniqueEventId;
+      eventProperties['analytics_package_version'] = get(
+        data,
+        'context.library.version',
+      );
 
       if (data.type === analyticsTrackTypes.TRACK) {
         eventProperties['page_path'] =

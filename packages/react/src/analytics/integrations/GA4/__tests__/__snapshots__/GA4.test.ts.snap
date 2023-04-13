@@ -7,6 +7,7 @@ Array [
     "scroll",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
       "percent_scrolled": 25,
@@ -22,6 +23,7 @@ Array [
     "sign_up_newsletter",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "newsletter_gender": "Woman,Man",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -32,6 +34,7 @@ Array [
     "sign_up_newsletter",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "newsletter_gender": "WOMAN,MAN",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -42,6 +45,7 @@ Array [
     "sign_up_newsletter",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "newsletter_gender": "Woman,Man",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -57,6 +61,7 @@ Array [
     "sign_up_newsletter",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "newsletter_gender": "Woman",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -72,6 +77,7 @@ Array [
     "view_cart",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "currency": "USD",
       "from": "Bag",
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
@@ -110,6 +116,7 @@ Array [
     "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
     },
@@ -124,6 +131,7 @@ Array [
     "search",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
       "search_term": "shoes",
@@ -134,6 +142,7 @@ Array [
     "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
     },
@@ -148,6 +157,7 @@ Array [
     "view_wishlist",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
       "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
@@ -158,6 +168,7 @@ Array [
     "page_view",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
     },
@@ -171,6 +182,7 @@ Array [
   "page_view",
   Object {
     "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+    "analytics_package_version": "0.1.0",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/en-pt/",
   },
@@ -183,6 +195,7 @@ Array [
   "search",
   Object {
     "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+    "analytics_package_version": "0.1.0",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/en-pt/",
     "search_term": "term",
@@ -196,6 +209,7 @@ Array [
   "search",
   Object {
     "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+    "analytics_package_version": "0.1.0",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/en-pt/",
     "search_term": "query",
@@ -211,6 +225,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "address_finder": undefined,
+      "analytics_package_version": "0.1.0",
       "coupon": "ACME2019",
       "currency": "USD",
       "delivery_type": "Standard/Standard",
@@ -233,6 +248,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "address_finder": false,
+      "analytics_package_version": "0.1.0",
       "checkout_step": "1",
       "coupon": "ACME2019",
       "currency": "USD",
@@ -252,6 +268,7 @@ Array [
     "view_checkout_abandon_confirmation",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": 2,
       "coupon": "ACME2019",
       "currency": "USD",
@@ -277,6 +294,7 @@ Array [
     "begin_checkout",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": 1,
       "coupon": "ACME2019",
       "currency": "USD",
@@ -325,6 +343,7 @@ Array [
     "edit_checkout_step",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": 1,
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -341,6 +360,7 @@ Array [
     "add_delivery_method",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": 2,
       "coupon": "ACME2019",
       "currency": "USD",
@@ -385,6 +405,7 @@ Array [
     "apply_filters",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -400,6 +421,7 @@ Array [
     "clear_all_filters",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "filters": "{\\"brands\\":[2765,4062],\\"categories\\":[135973],\\"colors\\":[1],\\"discount\\":[0],\\"gender\\":[0],\\"price\\":[0,1950],\\"sizes\\":[16]}",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -415,6 +437,7 @@ Array [
     "interact_content",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "content_type": "biz",
       "interaction_type": "Click",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -433,6 +456,7 @@ Array [
     "login",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "method": "Acme",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -449,6 +473,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "affiliation": undefined,
+      "analytics_package_version": "0.1.0",
       "coupon": "ACME2019",
       "currency": "USD",
       "items": Array [
@@ -492,6 +517,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "affiliation": undefined,
+      "analytics_package_version": "0.1.0",
       "coupon": undefined,
       "currency": "USD",
       "items": Array [
@@ -534,6 +560,7 @@ Array [
     "add_payment_info",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "coupon": "ACME2019",
       "currency": "USD",
       "items": Array [
@@ -575,6 +602,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "affiliation": undefined,
+      "analytics_package_version": "0.1.0",
       "coupon": "ACME2019",
       "currency": "USD",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -595,6 +623,7 @@ Array [
     "add_to_cart",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "currency": "USD",
       "from": "Wishlist",
       "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
@@ -636,6 +665,7 @@ Array [
     "add_to_wishlist",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "currency": "USD",
       "from": "PLP",
       "item_list_id": "/en-pt/shopping/woman",
@@ -677,6 +707,7 @@ Array [
     "select_item",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "from": "PLP",
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
@@ -711,6 +742,7 @@ Array [
     "view_item_list",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "error": undefined,
       "filters": undefined,
       "from": "PLP",
@@ -769,6 +801,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "affiliation": undefined,
+      "analytics_package_version": "0.1.0",
       "coupon": undefined,
       "currency": "USD",
       "discount": 6,
@@ -804,6 +837,7 @@ Array [
     "remove_from_cart",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "currency": "USD",
       "from": "Bag",
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
@@ -845,6 +879,7 @@ Array [
     "view_item",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "currency": "USD",
       "from": "PLP",
       "image_count": undefined,
@@ -884,6 +919,7 @@ Array [
     "apply_promo_code",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "coupon": "ACME2019",
       "currency": "USD",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -902,6 +938,7 @@ Array [
     "select_content",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "content_type": "biz",
       "item_id": 12312312,
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
@@ -918,6 +955,7 @@ Array [
     "share",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "content_type": "image",
       "item_id": "123456",
       "method": "Facebook",
@@ -935,6 +973,7 @@ Array [
     "add_shipping_info",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": "2",
       "coupon": "ACME2019",
       "currency": "USD",
@@ -979,6 +1018,7 @@ Array [
     "add_shipping_method",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "checkout_step": "2",
       "coupon": "ACME2019",
       "currency": "USD",
@@ -1001,6 +1041,7 @@ Array [
     "sign_up",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "method": "Acme",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -1016,6 +1057,7 @@ Array [
     "sign_up_newsletter",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "newsletter_gender": "Woman",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
@@ -1031,6 +1073,7 @@ Array [
     "change_colour",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "colour": "red",
       "from": "Bag",
       "index": 1,
@@ -1051,6 +1094,7 @@ Array [
     "change_quantity",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "from": "Bag",
       "index": 1,
       "item_id": "507f1f77bcf86cd799439011",
@@ -1071,6 +1115,7 @@ Array [
     "change_quantity",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "from": "Bag",
       "index": 1,
       "item_id": "507f1f77bcf86cd799439011",
@@ -1086,6 +1131,7 @@ Array [
     "select_size",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "from": "Bag",
       "index": 1,
       "item_id": "507f1f77bcf86cd799439011",
@@ -1101,6 +1147,7 @@ Array [
     "change_colour",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "colour": "red",
       "from": "Bag",
       "index": 1,
@@ -1121,6 +1168,7 @@ Array [
     "change_quantity",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "from": "Bag",
       "index": 1,
       "item_id": "507f1f77bcf86cd799439011",
@@ -1136,6 +1184,7 @@ Array [
     "change_colour",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "analytics_package_version": "0.1.0",
       "colour": "red",
       "from": "Bag",
       "index": 1,
