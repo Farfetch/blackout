@@ -31,6 +31,7 @@ const validTrackEvents = {
       currency: 'USD',
       list: 'my_wishlist',
       listId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+      position: 2,
     },
     user: {
       id: 680968743,
@@ -57,6 +58,7 @@ const validTrackEvents = {
       oldSize: undefined,
       quantity: 1,
       oldQuantity: undefined,
+      position: 2,
     },
     user: {
       id: 680968743,
@@ -113,6 +115,7 @@ const validTrackEvents = {
       list: 'Woman shopping',
       listId: '/en-pt/shopping/woman',
       wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+      position: 2,
     },
   },
 

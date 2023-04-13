@@ -490,6 +490,7 @@ export const getProductLineItems = data => {
       itemQuantity: product.quantity,
       promoCode: product.coupon,
       storeID: product.locationId,
+      listIndex: product.position,
     }));
 
     return JSON.stringify(mappedProductList);
@@ -507,6 +508,7 @@ export const getProductLineItems = data => {
         itemQuantity: properties.quantity,
         promoCode: properties.coupon,
         storeID: properties.locationId,
+        listIndex: properties.position,
       },
     ]);
   }

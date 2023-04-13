@@ -660,6 +660,7 @@ export const trackEventsMapper = {
         tid: 2098,
         productId: getProductId(properties),
         actionArea: properties?.from,
+        listIndex: data.properties?.position,
       });
     }
 
@@ -696,6 +697,7 @@ export const trackEventsMapper = {
         tid: 2920,
         productId: getProductId(properties),
         actionArea: properties?.from,
+        listIndex: data.properties?.position,
       });
     }
 
@@ -710,6 +712,7 @@ export const trackEventsMapper = {
         productId: getProductId(properties),
         actionArea: properties?.from,
         itemQuantity: properties?.quantity,
+        listIndex: data.properties?.position,
       });
     }
 

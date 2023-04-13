@@ -512,7 +512,7 @@ Array [
           "coupon": undefined,
           "currency": "USD",
           "discount": 6,
-          "index": undefined,
+          "index": 2,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
@@ -553,7 +553,7 @@ Array [
           "coupon": undefined,
           "currency": "USD",
           "discount": 6,
-          "index": undefined,
+          "index": 2,
           "item_brand": "Just A T-Shirt",
           "item_category": "Clothing",
           "item_category2": "Tops",
@@ -1054,6 +1054,7 @@ Array [
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "colour": "red",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_colour": undefined,
@@ -1072,6 +1073,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_quantity": undefined,
@@ -1086,6 +1088,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_size": undefined,
@@ -1101,6 +1104,7 @@ Array [
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "colour": "red",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_colour": undefined,
@@ -1119,6 +1123,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_quantity": undefined,
@@ -1138,6 +1143,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_quantity": undefined,
@@ -1157,6 +1163,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "Bag",
+      "index": 2,
       "item_id": "507f1f77bcf86cd799439011",
       "item_name": "Gareth McConnell Dreamscape T-Shirt",
       "old_size": undefined,
