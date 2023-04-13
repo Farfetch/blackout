@@ -14,7 +14,7 @@ export enum OrderStatusError {
 }
 
 export type GetCheckoutOrderResponse = {
-  id: number;
+  id: CheckoutOrder['id'];
   checkoutOrder?: CheckoutOrder;
   shippingOptions?: ShippingOption[];
   deliveryBundles?: DeliveryBundle[];

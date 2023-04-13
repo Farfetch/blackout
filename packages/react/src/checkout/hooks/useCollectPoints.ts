@@ -6,6 +6,7 @@ import {
   getCollectPoints,
   getCollectPointsError,
   resetCollectPointsState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -19,23 +20,27 @@ function useCollectPoints(
 ) {
   const queryHookParameter = query;
   const { enableAutoFetch = true, fetchConfig } = options;
-  const isLoading = useSelector(areCollectPointsLoading);
-  const error = useSelector(getCollectPointsError);
-  const isFetched = useSelector(areCollectPointsFetched);
-  const collectPoints = useSelector(getCollectPoints);
+  const isLoading = useSelector((state: StoreState) =>
+    areCollectPointsLoading(state, query),
+  );
+  const error = useSelector((state: StoreState) =>
+    getCollectPointsError(state, query),
+  );
+  const isFetched = useSelector((state: StoreState) =>
+    areCollectPointsFetched(state, query),
+  );
+  const collectPoints = useSelector((state: StoreState) =>
+    getCollectPoints(state, query),
+  );
   const checkoutOrderId = useSelector(getCheckoutOrderId);
   const fetchCollectPointsAction = useAction(fetchCollectPoints);
   const reset = useAction(resetCollectPointsState);
 
   const fetch = useCallback(
     (
-      query: GetCollectPointsQuery | undefined = queryHookParameter,
       config: Config | undefined = fetchConfig,
+      query: GetCollectPointsQuery | undefined = queryHookParameter,
     ) => {
-      if (!query) {
-        return Promise.reject(new Error('Invalid `query` value'));
-      }
-
       return fetchCollectPointsAction(query, config);
     },
     [fetchCollectPointsAction, fetchConfig, queryHookParameter],
@@ -49,10 +54,10 @@ function useCollectPoints(
   }
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && queryHookParameter) {
+    if (!isLoading && !isFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading, queryHookParameter]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading]);
 
   return {
     actions: {

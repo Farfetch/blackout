@@ -45,15 +45,8 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '__tests__/',
-    'packages/client/src/entities/schemas',
     'packages/react/src/analytics/integrations/Forter/loadForterScriptForSiteId.ts',
-    'packages/react/src/payments/components/constants.js',
-    'packages/react/src/checkout/hooks', // TODO - https://farfetch.atlassian.net/browse/FPSCH-1454
     'packages/redux/src/entities/schemas',
-    'packages/redux/src/search/utils.js',
-    // @TODO: remove these two client folders after the split
-    'packages/client/src/entities/redux',
-    'packages/client/src/helpers/redux',
     '__fixtures__',
   ],
   // A map from regular expressions to module names that allow to stub out resources with a single module

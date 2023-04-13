@@ -20,11 +20,10 @@ describe('fetchCollectPoints() action creator', () => {
   const query = {
     orderId: checkoutId,
   };
+  const hash = `${checkoutId}|false|false`;
 
   const expectedCollectPointsResult = {
-    entities: {
-      collectpoints: mockCollectPointsResponse,
-    },
+    result: mockCollectPointsResponse,
   };
   const expectedConfig = undefined;
   let store: ReturnType<typeof checkoutMockStore>;
@@ -47,10 +46,14 @@ describe('fetchCollectPoints() action creator', () => {
     expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        { type: actionTypes.FETCH_COLLECT_POINTS_REQUEST },
+        {
+          type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
+          meta: { hash },
+        },
         {
           type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
           payload: { error: expectedError },
+          meta: { hash },
         },
       ]),
     );
@@ -70,10 +73,13 @@ describe('fetchCollectPoints() action creator', () => {
     expect(getCollectPoints).toHaveBeenCalledTimes(1);
     expect(getCollectPoints).toHaveBeenCalledWith(query, expectedConfig);
     expect(actionResults).toMatchObject([
-      { type: actionTypes.FETCH_COLLECT_POINTS_REQUEST },
+      {
+        type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
+        meta: { hash },
+      },
       {
         type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
-        meta: { id: checkoutId },
+        meta: { hash },
         payload: expectedCollectPointsResult,
       },
     ]);
