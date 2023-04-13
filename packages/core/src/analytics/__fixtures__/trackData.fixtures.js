@@ -20,6 +20,7 @@ const trackMockData = {
         category: 'shoes',
         priceWithoutDiscount: 1,
         sizeId: 1,
+        position: 2,
       },
     ],
     total: 100,
@@ -170,6 +171,7 @@ export const customTrackMockData = {
     sizeScaleId: '12',
     quantity: 2,
     oldQuantity: 1,
+    position: 2,
   },
   [eventTypes.FILTERS_APPLIED]: {
     from: 'PLP',
