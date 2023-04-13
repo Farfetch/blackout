@@ -122,16 +122,22 @@ function useCheckout(
     enableAutoFetch: false,
   });
 
-  const defaultFetchCollectPointsQuery: GetCollectPointsQuery = useMemo(() => {
-    return {
-      orderId: implicitCheckoutOrderId,
-    };
-  }, [implicitCheckoutOrderId]);
+  const defaultFetchCollectPointsQuery: GetCollectPointsQuery | undefined =
+    useMemo(() => {
+      if (!implicitCheckoutOrderId) {
+        return undefined;
+      }
+
+      return {
+        orderId: implicitCheckoutOrderId,
+      };
+    }, [implicitCheckoutOrderId]);
 
   const {
     isLoading: areCollectPointsLoading,
     isFetched: areCollectPointsFetched,
     error: collectPointsError,
+    data: collectPoints,
     actions: {
       fetch: fetchCollectPointsAction,
       reset: resetCollectPointsState,
@@ -297,10 +303,10 @@ function useCheckout(
 
   const fetchCollectPoints = useCallback(
     (
-      query: GetCollectPointsQuery = defaultFetchCollectPointsQuery,
       config?: Config,
+      query: GetCollectPointsQuery | undefined = defaultFetchCollectPointsQuery,
     ) => {
-      return fetchCollectPointsAction(query, config);
+      return fetchCollectPointsAction(config, query);
     },
     [defaultFetchCollectPointsQuery, fetchCollectPointsAction],
   );
@@ -424,7 +430,8 @@ function useCheckout(
       !checkoutOrderResult &&
       !chargeResult &&
       !checkoutOrderDetails &&
-      !instruments
+      !instruments &&
+      !collectPoints
     ) {
       return undefined;
     }
@@ -434,8 +441,15 @@ function useCheckout(
       charge: chargeResult,
       details: checkoutOrderDetails,
       instruments,
+      collectPoints,
     };
-  }, [chargeResult, checkoutOrderDetails, checkoutOrderResult, instruments]);
+  }, [
+    chargeResult,
+    checkoutOrderDetails,
+    checkoutOrderResult,
+    collectPoints,
+    instruments,
+  ]);
 
   const orderStatus = data?.checkoutOrder?.checkoutOrder?.status;
   const checkoutOrderCharge = data?.charge;

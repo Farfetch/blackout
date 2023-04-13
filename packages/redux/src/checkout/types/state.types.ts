@@ -1,6 +1,7 @@
 import type {
   BlackoutError,
   CheckoutOrderCharge,
+  CollectPoint,
 } from '@farfetch/blackout-client';
 import type { CheckoutOrderOperationsNormalized } from './actions.types.js';
 import type { CombinedState } from 'redux';
@@ -10,11 +11,16 @@ import type {
   StateWithResult,
 } from '../../types/index.js';
 
+export type CollectPointsState = Record<
+  string,
+  StateWithResult<CollectPoint[] | undefined>
+>;
+
 export type CheckoutState = CombinedState<{
   error: Nullable<BlackoutError>;
   id: number | null;
   isLoading: boolean;
-  collectPoints: StateWithoutResult;
+  collectPoints: CollectPointsState;
   checkoutOrderTags: StateWithoutResult;
   checkoutOrderPromocode: StateWithoutResult;
   checkoutOrderItemTags: StateWithoutResult;

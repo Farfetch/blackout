@@ -1,5 +1,5 @@
 import {
-  checkoutId,
+  checkoutOrderId,
   mockCheckoutState,
   mockCollectPoint,
   mockErrorState,
@@ -31,7 +31,7 @@ const defaultReturn = {
   },
 };
 
-const query = { orderId: checkoutId };
+const query = { orderId: checkoutOrderId };
 const fetchConfig = { dummy: 'fetch' };
 
 describe('useCollectPoints', () => {
@@ -59,7 +59,7 @@ describe('useCollectPoints', () => {
     expect(current).toStrictEqual({
       ...defaultReturn,
       isFetched: true,
-      error: mockErrorState.checkout.collectPoints.error,
+      error: mockErrorState.checkout.collectPoints[''].error,
     });
   });
 
@@ -79,7 +79,7 @@ describe('useCollectPoints', () => {
   it('should return correctly when data is fetched', () => {
     const {
       result: { current },
-    } = renderHook(() => useCollectPoints(), {
+    } = renderHook(() => useCollectPoints(query), {
       wrapper: withStore(mockCheckoutState),
     });
 
@@ -92,7 +92,7 @@ describe('useCollectPoints', () => {
 
   describe('behaviour', () => {
     it('should call reset if the passed query.orderId differs from the checkoutOrderId that is in state', () => {
-      const dummyCheckoutOrderId = checkoutId + 10000;
+      const dummyCheckoutOrderId = checkoutOrderId + 10000;
 
       renderHook(() => useCollectPoints({ orderId: dummyCheckoutOrderId }), {
         wrapper: withStore(mockCheckoutState),
@@ -119,7 +119,7 @@ describe('useCollectPoints', () => {
   });
 
   describe('options', () => {
-    it('should fetch data if `enableAutoFetch` option is true and query is passed', () => {
+    it('should fetch data if `enableAutoFetch` option is true and query is passed and collect points are not fetched or loading', () => {
       renderHook(() => useCollectPoints(query, { fetchConfig }), {
         wrapper: withStore(mockInitialState),
       });
@@ -138,39 +138,35 @@ describe('useCollectPoints', () => {
       expect(fetchCollectPoints).toHaveBeenCalledWith(query, fetchConfig);
     });
 
-    it('should not fetch data if `enableAutoFetch` option is true and no query is passed', () => {
+    it('should fetch data if `enableAutoFetch` option is true and no query is passed and collect points are not fetched or loading', () => {
+      renderHook(() => useCollectPoints(undefined, { fetchConfig }), {
+        wrapper: withStore(mockInitialState),
+      });
+
+      expect(fetchCollectPoints).toHaveBeenCalledWith(undefined, fetchConfig);
+
+      jest.clearAllMocks();
+
+      renderHook(
+        () =>
+          useCollectPoints(undefined, { fetchConfig, enableAutoFetch: true }),
+        {
+          wrapper: withStore(mockInitialState),
+        },
+      );
+
+      expect(fetchCollectPoints).toHaveBeenCalledWith(undefined, fetchConfig);
+    });
+
+    it('should not fetch data if `enableAutoFetch` option is true and it is loading', () => {
       renderHook(() => useCollectPoints(), {
-        wrapper: withStore(mockInitialState),
-      });
-
-      expect(fetchCollectPoints).not.toHaveBeenCalled();
-
-      jest.clearAllMocks();
-
-      renderHook(() => useCollectPoints(undefined, { enableAutoFetch: true }), {
-        wrapper: withStore(mockInitialState),
-      });
-
-      expect(fetchCollectPoints).not.toHaveBeenCalled();
-    });
-
-    it('should not fetch data if `enableAutoFetch` option is true, query is passed and it is loading', () => {
-      renderHook(() => useCollectPoints(query), {
-        wrapper: withStore(mockLoadingState),
-      });
-
-      expect(fetchCollectPoints).not.toHaveBeenCalled();
-
-      jest.clearAllMocks();
-
-      renderHook(() => useCollectPoints(query, { enableAutoFetch: true }), {
         wrapper: withStore(mockLoadingState),
       });
 
       expect(fetchCollectPoints).not.toHaveBeenCalled();
     });
 
-    it('should not fetch data if `enableAutoFetch` option is true, query is passed and it is fetched', () => {
+    it('should not fetch data if `enableAutoFetch` option is true and it is fetched', () => {
       renderHook(() => useCollectPoints(query), {
         wrapper: withStore(mockCheckoutState),
       });
@@ -216,7 +212,7 @@ describe('useCollectPoints', () => {
           dummy: 'fetch',
         };
 
-        await fetch(undefined, requestConfig);
+        await fetch(requestConfig, undefined);
 
         expect(fetchCollectPoints).toHaveBeenCalledWith(query, requestConfig);
       });
@@ -244,29 +240,12 @@ describe('useCollectPoints', () => {
           orderId: 25,
         };
 
-        await fetch(anotherQuery, requestConfig);
+        await fetch(requestConfig, anotherQuery);
 
         expect(fetchCollectPoints).toHaveBeenCalledWith(
           anotherQuery,
           requestConfig,
         );
-      });
-
-      it('should throw an error when query is not passed to the hook nor the function', () => {
-        const {
-          result: {
-            current: {
-              actions: { fetch },
-            },
-          },
-        } = renderHook(
-          () => useCollectPoints(undefined, { enableAutoFetch: false }),
-          {
-            wrapper: withStore(mockInitialState),
-          },
-        );
-
-        return expect(fetch()).rejects.toThrow('Invalid `query` value');
       });
     });
 

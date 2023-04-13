@@ -188,7 +188,7 @@ describe('useCheckout', () => {
       isCheckoutOrderFetched: true,
       checkoutOrderError: mockErrorState.checkout.error,
       areCollectPointsFetched: true,
-      collectPointsError: mockErrorState.checkout.collectPoints.error,
+      collectPointsError: mockErrorState.checkout.collectPoints[''].error,
       isChargeFetched: true,
       chargeError: mockErrorState.checkout.checkoutOrderCharge.error,
       areDetailsFetched: true,
@@ -232,6 +232,9 @@ describe('useCheckout', () => {
         checkoutOrder: mockCheckoutOrderResultDenormalized,
         details: mockCheckoutDetailsEntityDenormalized,
         instruments: [],
+        collectPoints:
+          mockCheckoutState.checkout.collectPoints[`${checkoutId}|false|false`]
+            ?.result,
       },
     });
   });
@@ -1297,7 +1300,7 @@ describe('useCheckout', () => {
           dummy: 'fetchCollectPoints',
         };
 
-        await fetchCollectPoints(undefined, requestConfig);
+        await fetchCollectPoints(requestConfig, undefined);
 
         expect(fetchCollectPointsAction).toHaveBeenCalledWith(
           {

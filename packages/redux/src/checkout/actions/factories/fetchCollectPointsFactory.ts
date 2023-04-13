@@ -6,6 +6,7 @@ import {
   type GetCollectPointsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import buildCollectPointsQueryHash from '../../helpers/buildCollectPointsQueryHash.js';
 import type { Dispatch } from 'redux';
 
 /**
@@ -17,23 +18,24 @@ import type { Dispatch } from 'redux';
  */
 const fetchCollectPointsFactory =
   (getCollectPoints: GetCollectPoints) =>
-  (query: GetCollectPointsQuery, config?: Config) =>
+  (query?: GetCollectPointsQuery, config?: Config) =>
   async (dispatch: Dispatch): Promise<CollectPoint[]> => {
+    let hash: undefined | string = undefined;
+
     try {
+      hash = buildCollectPointsQueryHash(query);
+
       dispatch({
         type: actionTypes.FETCH_COLLECT_POINTS_REQUEST,
+        meta: { hash },
       });
 
       const result = await getCollectPoints(query, config);
 
       dispatch({
-        meta: { id: query.orderId },
-        payload: {
-          entities: {
-            collectpoints: result,
-          },
-        },
+        payload: { result },
         type: actionTypes.FETCH_COLLECT_POINTS_SUCCESS,
+        meta: { hash },
       });
 
       return result;
@@ -43,6 +45,7 @@ const fetchCollectPointsFactory =
       dispatch({
         payload: { error: errorAsBlackoutError },
         type: actionTypes.FETCH_COLLECT_POINTS_FAILURE,
+        meta: { hash },
       });
 
       throw errorAsBlackoutError;

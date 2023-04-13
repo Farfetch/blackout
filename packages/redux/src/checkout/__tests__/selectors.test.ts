@@ -7,6 +7,7 @@ import {
 } from '@farfetch/blackout-client';
 import {
   checkoutEntity,
+  checkoutId,
   checkoutOrderEntity,
   checkoutOrderItemId,
   deliveryBundleId,
@@ -18,6 +19,7 @@ import {
   mockCheckoutOrderItemEntity,
   mockCheckoutOrderResultDenormalized,
   mockCheckoutState,
+  mockCollectPointsResponse,
   operation,
   productId,
   shippingOption,
@@ -176,12 +178,63 @@ describe('checkout redux selectors', () => {
   });
 
   describe('getCollectPoints()', () => {
-    it('should return the collect points content from state', () => {
-      const expectedResult = checkoutOrderEntity.collectpoints;
+    it('should return the collect points content from state when a query containing an orderId is passed', () => {
+      const hash = `${checkoutId}|false|false`;
 
-      expect(selectors.getCollectPoints(mockCheckoutState)).toEqual(
-        expectedResult,
-      );
+      const expectedResult =
+        mockCheckoutState.checkout.collectPoints[hash]?.result;
+
+      expect(
+        selectors.getCollectPoints(mockCheckoutState, { orderId: checkoutId }),
+      ).toEqual(expectedResult);
+    });
+
+    it('should return the collect points content from state when no query is passed', () => {
+      const state = {
+        ...mockCheckoutState,
+        checkout: {
+          ...mockCheckoutState.checkout,
+          collectPoints: {
+            '': {
+              isLoading: false,
+              result: mockCollectPointsResponse,
+              error: null,
+            },
+          },
+        },
+      };
+
+      const expectedResult = state.checkout.collectPoints[''].result;
+
+      expect(selectors.getCollectPoints(state)).toEqual(expectedResult);
+    });
+
+    it('should return the collect points content from state when a query containing all values are passed', () => {
+      const hash = `${checkoutId}|true|true`;
+
+      const state = {
+        ...mockCheckoutState,
+        checkout: {
+          ...mockCheckoutState.checkout,
+          collectPoints: {
+            [hash]: {
+              isLoading: false,
+              result: mockCollectPointsResponse,
+              error: null,
+            },
+          },
+        },
+      };
+
+      const expectedResult = state.checkout.collectPoints[hash]?.result;
+
+      expect(
+        selectors.getCollectPoints(state, {
+          orderId: checkoutId,
+          isClickAndCollectAvailable: true,
+          isStockAvailable: true,
+        }),
+      ).toEqual(expectedResult);
     });
   });
 
