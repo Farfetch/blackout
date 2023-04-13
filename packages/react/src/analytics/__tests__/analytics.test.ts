@@ -66,7 +66,11 @@ describe('analytics web', () => {
 
       const event = 'myEvent';
       const properties = {};
-      const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
+      // Simulate that the event has a different culture associated with it.
+      const eventContext = {
+        culture: 'pt-PT',
+        library: { name: 'test', version: '1' },
+      };
 
       // This call will be held until the consent is given to the integration
       await analytics.page(event, properties, eventContext);
@@ -147,5 +151,23 @@ describe('analytics web', () => {
       properties,
       eventContext,
     );
+  });
+
+  it('Should append event package versions to eventContext', async () => {
+    const eventContext = {
+      library: { version: '1.0.0', name: '@farfech-package' },
+    };
+
+    // This call will be held until the consent is given to the integration
+    await analytics.processContext(eventContext);
+
+    expect(eventContext).toEqual({
+      library: expect.objectContaining({
+        name: '@farfetch/blackout-react',
+        version: expect.stringContaining(
+          '@farfech-package@1.0.0;@farfetch/blackout-react@',
+        ),
+      }),
+    });
   });
 });
