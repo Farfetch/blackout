@@ -51,8 +51,8 @@ export const FETCH_CONTENT_PAGES_FAILURE =
   '@farfetch/blackout-redux/FETCH_CONTENT_PAGES_FAILURE';
 
 /** Action type dispatched when the fetch content pages request starts. */
-export const FETCH_CONTENT_PAGES_REQUEST =
-  '@farfetch/blackout-redux/FETCH_CONTENT_PAGES_REQUEST';
+export const FETCH_CONTENT_PAGE_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CONTENT_PAGE_REQUEST';
 
 /** Action type dispatched when the fetch content pages request succeeds. */
 export const FETCH_CONTENT_PAGES_SUCCESS =

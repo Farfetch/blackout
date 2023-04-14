@@ -20,7 +20,7 @@ export type QueryContentPage = {
 export type ContentPage = PagedResponse<ContentEntry<[ComponentType]>>;
 
 export type GetContentPage = (
-  contentPagesType: ContentPageType,
+  contentPageType: ContentPageType,
   query: QueryContentPage,
   config?: Config,
 ) => Promise<ContentPage>;

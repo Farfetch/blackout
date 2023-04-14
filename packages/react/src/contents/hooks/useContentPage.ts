@@ -18,7 +18,7 @@ import type {
 import type { UseContentPageOptions } from './types/useContentPage.types.js';
 
 const useContentPage = <T = [ComponentType]>(
-  contentPagesType: ContentPageType,
+  contentPageType: ContentPageType,
   fetchQuery: QueryContentPage,
   options: UseContentPageOptions = {},
 ) => {
@@ -57,11 +57,11 @@ const useContentPage = <T = [ComponentType]>(
 
   const fetch = useCallback(() => {
     return fetchContentPage(
-      contentPagesType,
+      contentPageType,
       fetchQueryWithoutSlug,
       fetchConfig,
     );
-  }, [contentPagesType, fetchConfig, fetchContentPage, fetchQueryWithoutSlug]);
+  }, [contentPageType, fetchConfig, fetchContentPage, fetchQueryWithoutSlug]);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {
