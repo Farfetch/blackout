@@ -357,6 +357,7 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
     address_finder: eventProperties.addressFinder,
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
+    transaction_id: eventProperties.orderId,
   };
 };
 

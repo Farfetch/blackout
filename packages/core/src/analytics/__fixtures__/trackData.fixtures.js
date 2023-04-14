@@ -100,6 +100,8 @@ export const customTrackMockData = {
     step: '1',
     deliveryType: 'Standard/Standard',
     interactionType: 'click',
+    checkoutOrderId: 12345678,
+    orderId: 'ABC12',
   },
   [eventTypes.BILLING_INFO_ADDED]: {
     checkoutOrderId: 12345678,

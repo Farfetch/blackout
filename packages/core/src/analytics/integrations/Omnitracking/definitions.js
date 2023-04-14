@@ -503,6 +503,7 @@ export const trackEventsMapper = {
     gender: getGenderValueFromProperties(data),
   }),
   [eventTypes.ADDRESS_INFO_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data, true),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2911,
   }),
