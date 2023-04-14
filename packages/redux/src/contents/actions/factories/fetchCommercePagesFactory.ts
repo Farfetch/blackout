@@ -1,5 +1,9 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
+  applyCommercePagesRankingStrategy,
+  generateContentHash,
+} from '../../utils.js';
+import {
   type CommercePages,
   type Config,
   type GetCommercePages,
@@ -12,7 +16,6 @@ import {
   type FetchCommercePagesAction,
 } from '../../types/index.js';
 import { contentEntries } from '../../../entities/schemas/content.js';
-import { generateContentHash, getRankedCommercePage } from '../../utils.js';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
 
@@ -47,7 +50,7 @@ const fetchCommercePagesFactory =
       });
 
       const result = await getCommercePages(query, config);
-      const rankedResult = getRankedCommercePage(result, strategy);
+      const rankedResult = applyCommercePagesRankingStrategy(result, strategy);
 
       dispatch({
         payload: {

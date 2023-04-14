@@ -33,11 +33,6 @@ export type CommercePages = Contents;
 
 export type CommercePagesContent = CommercePages['entries'];
 
-export enum CommercePagesStrategy {
-  Default = 'default',
-  Merge = 'merge',
-}
-
 export type GetCommercePages = (
   query: QueryCommercePages,
   config?: Config,
