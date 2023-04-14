@@ -29,7 +29,7 @@ export * from './patchCheckoutOrderItem.types.js';
 export * from './postCheckoutOrder.types.js';
 export * from './postCheckoutOrderCharge.types.js';
 export * from './putCheckoutOrderItemTags.types.js';
-export * from './putCheckoutOrderPromocode.types.js';
+export * from './putCheckoutOrderPromocodes.types.js';
 export * from './putCheckoutOrderTags.types.js';
 export * from './shippingCostType.types.js';
 export * from './shippingOption.types.js';

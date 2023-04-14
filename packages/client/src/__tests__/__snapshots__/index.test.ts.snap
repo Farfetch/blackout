@@ -1174,7 +1174,7 @@ Object {
   "postWishlistSet": [Function],
   "putBagPromocodes": [Function],
   "putCheckoutOrderItemTags": [Function],
-  "putCheckoutOrderPromocode": [Function],
+  "putCheckoutOrderPromocodes": [Function],
   "putCheckoutOrderTags": [Function],
   "putPaymentIntentInstrument": [Function],
   "putSharedWishlist": [Function],

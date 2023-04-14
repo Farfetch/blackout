@@ -46,7 +46,7 @@ export interface GenericCheckoutRequestAction extends Action {
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST
     | typeof actionTypes.FETCH_CHECKOUT_ORDER_REQUEST
     | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_REQUEST
-    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_REQUEST
     | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_REQUEST;
 }
 export interface GenericCheckoutSuccessAction extends Action {
@@ -55,7 +55,7 @@ export interface GenericCheckoutSuccessAction extends Action {
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS
     | typeof actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS
     | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS
-    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS
     | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS;
   payload: Payload;
 }
@@ -65,7 +65,7 @@ export interface GenericCheckoutFailureAction extends Action {
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_FAILURE
     | typeof actionTypes.FETCH_CHECKOUT_ORDER_FAILURE
     | typeof actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_FAILURE
-    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE
+    | typeof actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_FAILURE
     | typeof actionTypes.SET_CHECKOUT_ORDER_TAGS_FAILURE;
   payload: { error: BlackoutError };
 }

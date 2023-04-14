@@ -206,13 +206,13 @@ describe('checkout reducer', () => {
       ).toBe(expectedResult);
     });
 
-    it('should handle SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS action type', () => {
+    it('should handle SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS action type', () => {
       const expectedResult = 'foo';
 
       expect(
         reducer(undefined, {
           payload: { result: expectedResult },
-          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
         }).id,
       ).toBe(expectedResult);
     });
@@ -743,49 +743,49 @@ describe('checkout reducer', () => {
     });
   });
 
-  describe('checkoutOrderPromocode() reducer', () => {
-    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_REQUEST action', () => {
+  describe('checkoutOrderPromocodes() reducer', () => {
+    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_REQUEST action', () => {
       const action = {
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_REQUEST,
       };
       const state = reducer(undefined, action);
 
-      expect(state.checkoutOrderPromocode.isLoading).toBe(true);
-      expect(state.checkoutOrderPromocode.error).toBeNull();
+      expect(state.checkoutOrderPromocodes.isLoading).toBe(true);
+      expect(state.checkoutOrderPromocodes.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_FAILURE action', () => {
+    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_FAILURE action', () => {
       const action = {
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_FAILURE,
         payload: {
           error: 'error',
         },
       };
       const state = reducer(undefined, action);
 
-      expect(state.checkoutOrderPromocode.isLoading).toBe(false);
-      expect(state.checkoutOrderPromocode.error).toBe(action.payload.error);
+      expect(state.checkoutOrderPromocodes.isLoading).toBe(false);
+      expect(state.checkoutOrderPromocodes.error).toBe(action.payload.error);
     });
 
-    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS action', () => {
+    it('should handle @farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS action', () => {
       const action = {
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
         payload: { result: 'foo' },
       };
       const state = reducer(undefined, action);
 
-      expect(state.checkoutOrderPromocode.isLoading).toBe(false);
-      expect(state.checkoutOrderPromocode.error).toBeNull();
+      expect(state.checkoutOrderPromocodes.isLoading).toBe(false);
+      expect(state.checkoutOrderPromocodes.error).toBeNull();
     });
 
-    it('should handle @farfetch/blackout-redux/RESET_CHECKOUT_ORDER_PROMOCODE_STATE action', () => {
+    it('should handle @farfetch/blackout-redux/RESET_CHECKOUT_ORDER_PROMOCODES_STATE action', () => {
       const action = {
-        type: actionTypes.RESET_CHECKOUT_ORDER_PROMOCODE_STATE,
+        type: actionTypes.RESET_CHECKOUT_ORDER_PROMOCODES_STATE,
       };
       const state = reducer(
         {
           ...initialState,
-          checkoutOrderPromocode: {
+          checkoutOrderPromocodes: {
             isLoading: true,
             error: toBlackoutError(new Error('dummy error')),
           },
@@ -793,8 +793,8 @@ describe('checkout reducer', () => {
         action,
       );
 
-      expect(state.checkoutOrderPromocode.isLoading).toBe(false);
-      expect(state.checkoutOrderPromocode.error).toBeNull();
+      expect(state.checkoutOrderPromocodes.isLoading).toBe(false);
+      expect(state.checkoutOrderPromocodes.error).toBeNull();
     });
   });
 
@@ -1358,7 +1358,7 @@ describe('checkout reducer', () => {
 
       it.each<keyof typeof entitiesMapper>([
         actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS,
-        actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
         actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS,
         actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS,
         actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
@@ -1671,7 +1671,7 @@ describe('checkout reducer', () => {
       checkoutOrderDetails: { ...subAreaResult },
       collectPoints: { ...subAreaResult },
       checkoutOrderItemTags: { ...subAreaResult },
-      checkoutOrderPromocode: { ...subAreaResult },
+      checkoutOrderPromocodes: { ...subAreaResult },
       checkoutOrderTags: { ...subAreaResult },
       checkoutOrderItems: { ...subAreaResult },
       checkoutOrderCharge: { ...subAreaResult },
@@ -1684,7 +1684,7 @@ describe('checkout reducer', () => {
       'CheckoutOrderDetails',
       'CollectPoints',
       'CheckoutOrderItemTags',
-      'CheckoutOrderPromocode',
+      'CheckoutOrderPromocodes',
       'CheckoutOrderTags',
       'CheckoutOrderItems',
       'CheckoutOrderCharge',

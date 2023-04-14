@@ -3,8 +3,8 @@ import {
   type CheckoutOrder,
   type Config,
   type GetCheckoutOrderResponse,
-  type PutCheckoutOrderPromocode,
-  type PutCheckoutOrderPromocodeData,
+  type PutCheckoutOrderPromocodes,
+  type PutCheckoutOrderPromocodesData,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
@@ -14,17 +14,17 @@ import type { GetOptionsArgument } from '../../../types/getOptionsArgument.types
 import type { StoreState } from '../../../types/storeState.types.js';
 
 /**
- * Method responsible for adding promo code information.
+ * Method responsible for adding promo code information to a checkout order.
  *
- * @param putCheckoutOrderPromocode - Put promocode client.
+ * @param putCheckoutOrderPromocodes - Put checkout order promocodes client.
  *
  * @returns Thunk factory.
  */
-const setCheckoutOrderPromocodeFactory =
-  (putCheckoutOrderPromocode: PutCheckoutOrderPromocode) =>
+const setCheckoutOrderPromocodesFactory =
+  (putCheckoutOrderPromocodes: PutCheckoutOrderPromocodes) =>
   (
     checkoutOrderId: CheckoutOrder['id'],
-    data: PutCheckoutOrderPromocodeData,
+    data: PutCheckoutOrderPromocodesData,
     config?: Config,
   ) =>
   async (
@@ -36,10 +36,10 @@ const setCheckoutOrderPromocodeFactory =
   ): Promise<GetCheckoutOrderResponse> => {
     try {
       dispatch({
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_REQUEST,
       });
 
-      const result = await putCheckoutOrderPromocode(
+      const result = await putCheckoutOrderPromocodes(
         checkoutOrderId,
         data,
         config,
@@ -66,7 +66,7 @@ const setCheckoutOrderPromocodeFactory =
 
       dispatch({
         payload: normalizedResult,
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
       });
 
       return result;
@@ -75,11 +75,11 @@ const setCheckoutOrderPromocodeFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_FAILURE,
       });
 
       throw errorAsBlackoutError;
     }
   };
 
-export default setCheckoutOrderPromocodeFactory;
+export default setCheckoutOrderPromocodesFactory;

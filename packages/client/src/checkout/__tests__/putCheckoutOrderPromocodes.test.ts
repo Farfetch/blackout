@@ -5,16 +5,17 @@ import {
 } from '../types/index.js';
 import { id } from 'tests/__fixtures__/checkout/index.mjs';
 import client from '../../helpers/client/index.js';
-import fixtures from '../__fixtures__/putCheckoutOrderPromocode.fixtures.js';
+import fixtures from '../__fixtures__/putCheckoutOrderPromocodes.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
 
 describe('checkout client', () => {
-  const data = { promocode: 'string' };
+  const data = { promocodes: ['promo1', 'promo2'] };
+  const expectedData = { ...data, promocode: data.promocodes[0] };
   const expectedConfig = undefined;
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('putCheckoutOrderPromocode', () => {
+  describe('putCheckoutOrderPromocodes', () => {
     const spy = jest.spyOn(client, 'put');
     const urlToBeCalled = `/checkout/v1/orders/${id}/promocodes`;
 
@@ -27,19 +28,27 @@ describe('checkout client', () => {
       mswServer.use(fixtures.success(response));
 
       await expect(
-        checkoutClient.putCheckoutOrderPromocode(id, data),
+        checkoutClient.putCheckoutOrderPromocodes(id, data),
       ).resolves.toStrictEqual(response);
-      expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
+      expect(spy).toHaveBeenCalledWith(
+        urlToBeCalled,
+        expectedData,
+        expectedConfig,
+      );
     });
 
     it('should receive a client request error', async () => {
       mswServer.use(fixtures.failure());
 
       await expect(
-        checkoutClient.putCheckoutOrderPromocode(id, data),
+        checkoutClient.putCheckoutOrderPromocodes(id, data),
       ).rejects.toMatchSnapshot();
 
-      expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
+      expect(spy).toHaveBeenCalledWith(
+        urlToBeCalled,
+        expectedData,
+        expectedConfig,
+      );
     });
   });
 });

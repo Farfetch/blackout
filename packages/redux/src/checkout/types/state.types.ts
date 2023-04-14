@@ -22,7 +22,7 @@ export type CheckoutState = CombinedState<{
   isLoading: boolean;
   collectPoints: CollectPointsState;
   checkoutOrderTags: StateWithoutResult;
-  checkoutOrderPromocode: StateWithoutResult;
+  checkoutOrderPromocodes: StateWithoutResult;
   checkoutOrderItemTags: StateWithoutResult;
   checkoutOrderDetails: StateWithoutResult;
   checkoutOrderItems: StateWithoutResult;

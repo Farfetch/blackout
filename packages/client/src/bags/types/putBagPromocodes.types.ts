@@ -1,7 +1,7 @@
 import type { Bag } from './bag.types.js';
 import type { Config } from '../../index.js';
 
-export type PromoCodeInformation = {
+export type PromocodeInformation = {
   promoCode: string;
   isValid: boolean;
   error?: {
@@ -11,7 +11,7 @@ export type PromoCodeInformation = {
 };
 
 export type BagPromocodesInformation = {
-  promoCodesInformation: PromoCodeInformation[];
+  promoCodesInformation: PromocodeInformation[];
 };
 
 export type PutBagPromocodesData = {

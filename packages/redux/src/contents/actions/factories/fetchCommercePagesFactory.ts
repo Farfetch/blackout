@@ -1,17 +1,17 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
   type CommercePages,
-  type CommercePagesStrategy,
   type Config,
   type GetCommercePages,
   type QueryCommercePages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { contentEntries } from '../../../entities/schemas/content.js';
 import {
+  type CommercePagesRankingStrategy,
   ContentTypeCode,
   type FetchCommercePagesAction,
 } from '../../types/index.js';
+import { contentEntries } from '../../../entities/schemas/content.js';
 import { generateContentHash, getRankedCommercePage } from '../../utils.js';
 import { normalize } from 'normalizr';
 import type { Dispatch } from 'redux';
@@ -27,7 +27,7 @@ const fetchCommercePagesFactory =
   (getCommercePages: GetCommercePages) =>
   (
     query: QueryCommercePages,
-    strategy?: CommercePagesStrategy,
+    strategy?: CommercePagesRankingStrategy,
     config?: Config,
   ) =>
   async (
