@@ -45,7 +45,7 @@ export interface ComponentType {
   displayOptions?: Record<string, string>;
 }
 
-export interface Metadata {
+export interface ContentMetadata {
   custom?: {
     id: string;
     gender: string;
@@ -61,7 +61,7 @@ export interface ContentEntry<T = ComponentType[]> {
   publicationDate: string;
   versionId: string;
   spaceCode: string;
-  metadata?: Metadata;
+  metadata?: ContentMetadata;
   target?: Targets;
   contentTypeCode: string;
   environmentCode: string;

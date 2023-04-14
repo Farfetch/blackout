@@ -1,5 +1,5 @@
 import { SortContentOption } from '../types/base.types.js';
-import type { ContentsEntity } from '@farfetch/blackout-redux';
+import type { ContentEntity } from '@farfetch/blackout-redux';
 
 /**
  * Sorts a content type by the most recent Publish or Event date.
@@ -14,7 +14,7 @@ import type { ContentsEntity } from '@farfetch/blackout-redux';
  * @returns Sorted list of content types.
  */
 const sortContentType = (
-  contentType: Array<ContentsEntity>,
+  contentType: Array<ContentEntity>,
   sortBy: SortContentOption,
 ) =>
   contentType.sort((a, b) => {

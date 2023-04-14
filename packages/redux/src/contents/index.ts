@@ -8,8 +8,8 @@ export { default as contentsReducer } from './reducer.js';
 
 export * from './types/index.js';
 export {
-  ENVIRONMENT_CODES,
+  ContentEnvironmentCode,
   generateContentHash,
   generateSEOPathname,
-  getRankedCommercePage,
+  applyCommercePagesRankingStrategy,
 } from './utils.js';

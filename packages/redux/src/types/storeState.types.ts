@@ -10,7 +10,7 @@ import type {
   CheckoutOrderItemProductEntity,
   CheckoutOrderOperationEntity,
   CityEntity,
-  ContentsEntity,
+  ContentEntity,
   ConvertEntity,
   CountryEntity,
   CourierEntity,
@@ -113,7 +113,7 @@ export type StoreState = Partial<{
     cities: Record<CityEntity['id'], CityEntity>;
     configurations: Record<ConfigurationEntity['code'], ConfigurationEntity>;
     contacts: Record<UserContactEntity['id'], UserContactEntity>;
-    contents: Record<ContentsEntity['publicationId'], ContentsEntity>;
+    contents: Record<ContentEntity['publicationId'], ContentEntity>;
     converts: Record<ConvertEntity['id'], ConvertEntity>;
     countries: Record<CountryEntity['code'], CountryEntity>;
     countriesAddressSchemas: Record<Country['code'], CountryAddressSchema[]>;
