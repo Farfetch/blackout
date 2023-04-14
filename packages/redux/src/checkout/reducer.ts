@@ -24,7 +24,7 @@ export const INITIAL_STATE: CheckoutState = {
     error: null,
     isLoading: false,
   },
-  checkoutOrderPromocode: {
+  checkoutOrderPromocodes: {
     error: null,
     isLoading: false,
   },
@@ -99,7 +99,7 @@ const id = (state = INITIAL_STATE.id, action: AnyAction) => {
     case actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS:
     case actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS:
-    case actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS:
+    case actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS:
       return action.payload.result;
     default:
@@ -348,7 +348,7 @@ export const entitiesMapper = {
     },
   [actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
-  [actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS]: convertCheckoutOrder,
   [actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS]: convertCheckoutOrder,
@@ -423,12 +423,12 @@ export const checkoutOrderItemTags = reducerFactory(
   actionTypes.RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE,
 );
 
-export const checkoutOrderPromocode = reducerFactory(
-  'SET_CHECKOUT_ORDER_PROMOCODE',
-  INITIAL_STATE.checkoutOrderPromocode,
+export const checkoutOrderPromocodes = reducerFactory(
+  'SET_CHECKOUT_ORDER_PROMOCODES',
+  INITIAL_STATE.checkoutOrderPromocodes,
   actionTypes,
   false,
-  actionTypes.RESET_CHECKOUT_ORDER_PROMOCODE_STATE,
+  actionTypes.RESET_CHECKOUT_ORDER_PROMOCODES_STATE,
 );
 
 export const checkoutOrderItems = reducerFactory(
@@ -578,9 +578,9 @@ export const getCollectPoints = (
 export const getCheckoutOrderItemTags = (
   state: CheckoutState,
 ): CheckoutState['checkoutOrderItemTags'] => state.checkoutOrderItemTags;
-export const getCheckoutOrderPromocode = (
+export const getCheckoutOrderPromocodes = (
   state: CheckoutState,
-): CheckoutState['checkoutOrderPromocode'] => state.checkoutOrderPromocode;
+): CheckoutState['checkoutOrderPromocodes'] => state.checkoutOrderPromocodes;
 export const getCheckoutOrderTags = (
   state: CheckoutState,
 ): CheckoutState['checkoutOrderTags'] => state.checkoutOrderTags;
@@ -622,7 +622,7 @@ const reducer: Reducer<CheckoutState> = combineReducers({
   checkoutOrderDetails,
   collectPoints,
   checkoutOrderTags,
-  checkoutOrderPromocode,
+  checkoutOrderPromocodes,
   checkoutOrderItemTags,
   checkoutOrderItems,
   checkoutOrderCharge,

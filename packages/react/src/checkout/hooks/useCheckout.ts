@@ -1,18 +1,18 @@
 import {
+  areCheckoutOrderPromocodesLoading as areCheckoutOrderPromocodesLoadingSelector,
   areCheckoutOrderTagsLoading as areCheckoutOrderTagsLoadingSelector,
   createCheckoutOrder,
   fetchCheckoutOrder,
   getCheckoutOrderError,
-  getCheckoutOrderPromocodeError,
+  getCheckoutOrderPromocodesError,
   getCheckoutOrderResult,
   getCheckoutOrderTagsError,
   isCheckoutOrderAwaitingPayment,
   isCheckoutOrderConfirmed,
   isCheckoutOrderFetched as isCheckoutOrderFetchedSelector,
   isCheckoutOrderLoading as isCheckoutOrderLoadingSelector,
-  isCheckoutOrderPromocodeLoading as isCheckoutOrderPromocodeLoadingSelector,
   resetCheckout,
-  setCheckoutOrderPromocode,
+  setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
   updateCheckoutOrder,
 } from '@farfetch/blackout-redux';
@@ -29,7 +29,7 @@ import {
   type PostCheckoutOrderDataWithBag,
   type PostCheckoutOrderDataWithItems,
   type PostPaymentIntentInstrumentData,
-  type PutCheckoutOrderPromocodeData,
+  type PutCheckoutOrderPromocodesData,
   type PutPaymentIntentInstrumentData,
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -65,17 +65,17 @@ function useCheckout(
   const checkoutOrderError = useSelector(getCheckoutOrderError);
   const checkoutOrderResult = useSelector(getCheckoutOrderResult);
   const isCheckoutOrderFetched = useSelector(isCheckoutOrderFetchedSelector);
-  const isPromocodeLoading = useSelector(
-    isCheckoutOrderPromocodeLoadingSelector,
+  const arePromocodesLoading = useSelector(
+    areCheckoutOrderPromocodesLoadingSelector,
   );
-  const promocodeError = useSelector(getCheckoutOrderPromocodeError);
+  const promocodesError = useSelector(getCheckoutOrderPromocodesError);
   const areTagsLoading = useSelector(areCheckoutOrderTagsLoadingSelector);
   const tagsError = useSelector(getCheckoutOrderTagsError);
   const fetchAction = useAction(fetchCheckoutOrder);
   const createAction = useAction(createCheckoutOrder);
   const updateAction = useAction(updateCheckoutOrder);
   const setTagsAction = useAction(setCheckoutOrderTags);
-  const setPromocodeAction = useAction(setCheckoutOrderPromocode);
+  const setPromocodesAction = useAction(setCheckoutOrderPromocodes);
   const resetCheckoutState = useAction(resetCheckout);
   const { data: user } = useUser();
 
@@ -209,15 +209,15 @@ function useCheckout(
     [implicitCheckoutOrderId, setTagsAction],
   );
 
-  const setPromocode = useCallback(
-    (data: PutCheckoutOrderPromocodeData, config?: Config) => {
+  const setPromocodes = useCallback(
+    (data: PutCheckoutOrderPromocodesData, config?: Config) => {
       if (!implicitCheckoutOrderId) {
         return Promise.reject(new Error('Missing checkout order id.'));
       }
 
-      return setPromocodeAction(implicitCheckoutOrderId, data, config);
+      return setPromocodesAction(implicitCheckoutOrderId, data, config);
     },
-    [implicitCheckoutOrderId, setPromocodeAction],
+    [implicitCheckoutOrderId, setPromocodesAction],
   );
 
   const create = useCallback(
@@ -413,7 +413,7 @@ function useCheckout(
       areInstrumentsLoading ||
       areCollectPointsLoading ||
       areTagsLoading ||
-      isPromocodeLoading
+      arePromocodesLoading
     );
   }, [
     areCollectPointsLoading,
@@ -422,7 +422,7 @@ function useCheckout(
     areTagsLoading,
     isChargeLoading,
     isCheckoutOrderLoading,
-    isPromocodeLoading,
+    arePromocodesLoading,
   ]);
 
   const data = useMemo(() => {
@@ -535,7 +535,7 @@ function useCheckout(
       updateInstrument,
       removeInstrument,
       setTags,
-      setPromocode,
+      setPromocodes,
       charge,
       reset,
       resetCheckoutState,
@@ -555,7 +555,7 @@ function useCheckout(
     isAnythingLoading,
     isCheckoutOrderLoading,
     isChargeLoading,
-    isPromocodeLoading,
+    arePromocodesLoading,
     areDetailsLoading,
     areInstrumentsLoading,
     areCollectPointsLoading,
@@ -570,7 +570,7 @@ function useCheckout(
     chargeError,
     detailsError,
     instrumentsError,
-    promocodeError,
+    promocodesError,
     tagsError,
   };
 }

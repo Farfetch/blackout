@@ -28,7 +28,7 @@ import {
   resetCheckoutOrderDetailsState,
   resetCollectPointsState,
   resetPaymentIntentInstrumentsState,
-  setCheckoutOrderPromocode,
+  setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
   updateCheckoutOrder,
   updatePaymentIntentInstrument,
@@ -74,8 +74,8 @@ jest.mock('@farfetch/blackout-redux', () => ({
   resetPaymentIntentInstrumentsState: jest.fn(() => ({
     type: 'reset_payment_intent_instruments_state',
   })),
-  setCheckoutOrderPromocode: jest.fn(() => ({
-    type: 'set_checkout_order_promocode',
+  setCheckoutOrderPromocodes: jest.fn(() => ({
+    type: 'set_checkout_order_promocodes',
   })),
   setCheckoutOrderTags: jest.fn(() => ({ type: 'set_checkout_order_tags' })),
   updateCheckoutOrder: jest.fn(() => ({ type: 'update_checkout_order' })),
@@ -114,7 +114,7 @@ const defaultReturn = {
   isAnythingLoading: false,
   isCheckoutOrderLoading: false,
   isChargeLoading: false,
-  isPromocodeLoading: false,
+  arePromocodesLoading: false,
   areDetailsLoading: false,
   areInstrumentsLoading: false,
   areCollectPointsLoading: false,
@@ -129,7 +129,7 @@ const defaultReturn = {
   chargeError: null,
   detailsError: null,
   instrumentsError: null,
-  promocodeError: null,
+  promocodesError: null,
   tagsError: null,
   actions: {
     fetch: expect.any(Function),
@@ -143,7 +143,7 @@ const defaultReturn = {
     updateInstrument: expect.any(Function),
     removeInstrument: expect.any(Function),
     setTags: expect.any(Function),
-    setPromocode: expect.any(Function),
+    setPromocodes: expect.any(Function),
     charge: expect.any(Function),
     reset: expect.any(Function),
     resetCheckoutState: expect.any(Function),
@@ -193,6 +193,7 @@ describe('useCheckout', () => {
       chargeError: mockErrorState.checkout.checkoutOrderCharge.error,
       areDetailsFetched: true,
       detailsError: mockErrorState.checkout.checkoutOrderDetails.error,
+      promocodesError: mockErrorState.checkout.checkoutOrderPromocodes.error,
     });
   });
 
@@ -210,6 +211,7 @@ describe('useCheckout', () => {
       areCollectPointsLoading: true,
       areDetailsLoading: true,
       isChargeLoading: true,
+      arePromocodesLoading: true,
     });
   });
 
@@ -962,16 +964,16 @@ describe('useCheckout', () => {
       });
     });
 
-    describe('setPromocode', () => {
-      const setPromocodeData = { promocode: 'code1' };
+    describe('setPromocodes', () => {
+      const setPromocodesData = { promocodes: ['code1'] };
 
-      it('should call `setCheckoutOrderPromocode` action with the passed in arguments if checkoutOrderId is passed', async () => {
+      it('should call `setCheckoutOrderPromocodes` action with the passed in arguments if checkoutOrderId is passed', async () => {
         const anotherCheckoutId = checkoutId + 1;
 
         const {
           result: {
             current: {
-              actions: { setPromocode },
+              actions: { setPromocodes },
             },
           },
         } = renderHook(
@@ -985,23 +987,23 @@ describe('useCheckout', () => {
         );
 
         const requestConfig = {
-          dummy: 'setPromocode',
+          dummy: 'setPromocodes',
         };
 
-        await setPromocode(setPromocodeData, requestConfig);
+        await setPromocodes(setPromocodesData, requestConfig);
 
-        expect(setCheckoutOrderPromocode).toHaveBeenCalledWith(
+        expect(setCheckoutOrderPromocodes).toHaveBeenCalledWith(
           anotherCheckoutId,
-          setPromocodeData,
+          setPromocodesData,
           requestConfig,
         );
       });
 
-      it('should call `setCheckoutOrderPromocode` action with the implicit order id if checkoutOrderId parameter is not passed and there is a checkout order in redux state', async () => {
+      it('should call `setCheckoutOrderPromocodes` action with the implicit order id if checkoutOrderId parameter is not passed and there is a checkout order in redux state', async () => {
         const {
           result: {
             current: {
-              actions: { setPromocode },
+              actions: { setPromocodes },
             },
           },
         } = renderHook(
@@ -1015,14 +1017,14 @@ describe('useCheckout', () => {
         );
 
         const requestConfig = {
-          dummy: 'setPromocode',
+          dummy: 'setPromocodes',
         };
 
-        await setPromocode(setPromocodeData, requestConfig);
+        await setPromocodes(setPromocodesData, requestConfig);
 
-        expect(setCheckoutOrderPromocode).toHaveBeenCalledWith(
+        expect(setCheckoutOrderPromocodes).toHaveBeenCalledWith(
           checkoutId,
-          setPromocodeData,
+          setPromocodesData,
           requestConfig,
         );
       });
@@ -1031,7 +1033,7 @@ describe('useCheckout', () => {
         const {
           result: {
             current: {
-              actions: { setPromocode },
+              actions: { setPromocodes },
             },
           },
         } = renderHook(
@@ -1044,7 +1046,7 @@ describe('useCheckout', () => {
           },
         );
 
-        return expect(setPromocode(setPromocodeData)).rejects.toThrow(
+        return expect(setPromocodes(setPromocodesData)).rejects.toThrow(
           'Missing checkout order id.',
         );
       });

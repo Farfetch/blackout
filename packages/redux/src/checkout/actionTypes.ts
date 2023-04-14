@@ -272,26 +272,26 @@ export const RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE =
   '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_ITEM_TAGS_STATE';
 
 /**
- * Action type dispatched when the set promocode request fails.
+ * Action type dispatched when the set checkout order promocodes request fails.
  */
-export const SET_CHECKOUT_ORDER_PROMOCODE_FAILURE =
-  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_FAILURE';
+export const SET_CHECKOUT_ORDER_PROMOCODES_FAILURE =
+  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_FAILURE';
 /**
- * Action type dispatched when the set promocode request starts.
+ * Action type dispatched when the set checkout order promocodes request starts.
  */
-export const SET_CHECKOUT_ORDER_PROMOCODE_REQUEST =
-  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_REQUEST';
+export const SET_CHECKOUT_ORDER_PROMOCODES_REQUEST =
+  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_REQUEST';
 /**
- * Action type dispatched when the set promocode request succeeds.
+ * Action type dispatched when the set checkout order promocodes request succeeds.
  */
-export const SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS =
-  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS';
+export const SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS =
+  '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS';
 
 /**
- * Action type dispatched when resetting the checkout order promocode state.
+ * Action type dispatched when resetting the checkout order promocodes state.
  */
-export const RESET_CHECKOUT_ORDER_PROMOCODE_STATE =
-  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_PROMOCODE_STATE';
+export const RESET_CHECKOUT_ORDER_PROMOCODES_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_PROMOCODES_STATE';
 
 /**
  * Action type dispatched when the set tags request fails.

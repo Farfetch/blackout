@@ -24,13 +24,13 @@ export { default as resetCheckoutOrderItemTagsState } from './resetCheckoutOrder
 export { default as resetCheckoutOrderOperationsState } from './resetCheckoutOrderOperationsState.js';
 export { default as resetCheckoutOrderOperationState } from './resetCheckoutOrderOperationState.js';
 export { default as fetchCheckoutOrderPaymentMethods } from './fetchCheckoutOrderPaymentMethods.js';
-export { default as resetCheckoutOrderPromocodeState } from './resetCheckoutOrderPromocodeState.js';
+export { default as resetCheckoutOrderPromocodesState } from './resetCheckoutOrderPromocodesState.js';
 export { default as resetCheckoutOrderTagsState } from './resetCheckoutOrderTagsState.js';
 export { default as resetCollectPointsState } from './resetCollectPointsState.js';
 export { default as resetRemoveCheckoutOrderItemState } from './resetRemoveCheckoutOrderItemState.js';
 export { default as resetUpdateCheckoutOrderItemState } from './resetUpdateCheckoutOrderItemState.js';
 export { default as setCheckoutOrderItemTags } from './setCheckoutOrderItemTags.js';
-export { default as setCheckoutOrderPromocode } from './setCheckoutOrderPromocode.js';
+export { default as setCheckoutOrderPromocodes } from './setCheckoutOrderPromocodes.js';
 export { default as setCheckoutOrderTags } from './setCheckoutOrderTags.js';
 export { default as updateCheckoutOrder } from './updateCheckoutOrder.js';
 export { default as updateCheckoutOrderItem } from './updateCheckoutOrderItem.js';

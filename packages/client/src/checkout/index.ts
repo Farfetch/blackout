@@ -19,7 +19,7 @@ export { default as patchCheckoutOrderItems } from './patchCheckoutOrderItems.js
 export { default as postCheckoutOrderCharge } from './postCheckoutOrderCharge.js';
 export { default as postCheckoutOrder } from './postCheckoutOrder.js';
 export { default as putCheckoutOrderItemTags } from './putCheckoutOrderItemTags.js';
-export { default as putCheckoutOrderPromocode } from './putCheckoutOrderPromocode.js';
+export { default as putCheckoutOrderPromocodes } from './putCheckoutOrderPromocodes.js';
 export { default as putCheckoutOrderTags } from './putCheckoutOrderTags.js';
 
 /**
