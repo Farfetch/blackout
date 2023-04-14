@@ -1116,7 +1116,7 @@ export const mockInitialState = {
       error: null,
       isLoading: false,
     },
-    checkoutOrderPromocode: {
+    checkoutOrderPromocodes: {
       error: null,
       isLoading: false,
     },
@@ -1445,6 +1445,10 @@ export const mockLoadingState = {
       ...mockInitialState.checkout.checkoutOrderDetails,
       isLoading: true,
     },
+    checkoutOrderPromocodes: {
+      ...mockInitialState.checkout.checkoutOrderPromocodes,
+      isLoading: true,
+    },
   },
 };
 
@@ -1466,6 +1470,10 @@ export const mockErrorState = {
     },
     checkoutOrderDetails: {
       ...mockInitialState.checkout.checkoutOrderDetails,
+      error: new Error('dummy error') as BlackoutError,
+    },
+    checkoutOrderPromocodes: {
+      ...mockInitialState.checkout.checkoutOrderPromocodes,
       error: new Error('dummy error') as BlackoutError,
     },
   },

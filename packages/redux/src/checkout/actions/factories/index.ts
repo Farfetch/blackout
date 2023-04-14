@@ -17,7 +17,7 @@ export { default as fetchCheckoutOrderPaymentMethodsFactory } from './fetchCheck
 export { default as removeCheckoutOrderItemFactory } from './removeCheckoutOrderItemFactory.js';
 export { default as resetCheckoutFactory } from '../resetCheckout.js';
 export { default as setCheckoutOrderItemTagsFactory } from './setCheckoutOrderItemTagsFactory.js';
-export { default as setCheckoutOrderPromocodeFactory } from './setCheckoutOrderPromocodeFactory.js';
+export { default as setCheckoutOrderPromocodesFactory } from './setCheckoutOrderPromocodesFactory.js';
 export { default as setCheckoutOrderTagsFactory } from './setCheckoutOrderTagsFactory.js';
 export { default as updateCheckoutOrderFactory } from './updateCheckoutOrderFactory.js';
 export { default as updateCheckoutOrderItemFactory } from './updateCheckoutOrderItemFactory.js';

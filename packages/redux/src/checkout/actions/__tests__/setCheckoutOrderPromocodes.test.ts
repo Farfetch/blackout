@@ -7,14 +7,14 @@ import {
 import { find } from 'lodash-es';
 import { INITIAL_STATE } from '../../reducer.js';
 import { mockStore } from '../../../../tests/index.js';
-import { putCheckoutOrderPromocode } from '@farfetch/blackout-client';
-import { setCheckoutOrderPromocode } from '../index.js';
+import { putCheckoutOrderPromocodes } from '@farfetch/blackout-client';
+import { setCheckoutOrderPromocodes } from '../index.js';
 import thunk from 'redux-thunk';
 import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
-  putCheckoutOrderPromocode: jest.fn(),
+  putCheckoutOrderPromocodes: jest.fn(),
 }));
 
 const mockProductImgQueryParam = '?c=2';
@@ -25,12 +25,12 @@ const mockMiddlewares = [
   }),
 ];
 
-describe('setCheckoutOrderPromocode() action creator', () => {
+describe('setCheckoutOrderPromocodes() action creator', () => {
   const checkoutMockStore = (state = {}) =>
     mockStore({ checkout: INITIAL_STATE }, state, mockMiddlewares);
 
   const data = {
-    promocode: 'something',
+    promocodes: ['something'],
   };
   const expectedConfig = undefined;
   let store: ReturnType<typeof checkoutMockStore>;
@@ -40,45 +40,45 @@ describe('setCheckoutOrderPromocode() action creator', () => {
     store = checkoutMockStore();
   });
 
-  it('should create the correct actions for when the set checkout order promocode procedure fails', async () => {
-    const expectedError = new Error('set checkout order promocode error');
+  it('should create the correct actions for when the set checkout order promocodes procedure fails', async () => {
+    const expectedError = new Error('set checkout order promocodes error');
 
-    (putCheckoutOrderPromocode as jest.Mock).mockRejectedValueOnce(
+    (putCheckoutOrderPromocodes as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
 
     await expect(
       async () =>
-        await setCheckoutOrderPromocode(checkoutId, data)(
+        await setCheckoutOrderPromocodes(checkoutId, data)(
           store.dispatch,
           store.getState as () => StoreState,
           { getOptions },
         ),
     ).rejects.toThrow(expectedError);
 
-    expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
-    expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
+    expect(putCheckoutOrderPromocodes).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderPromocodes).toHaveBeenCalledWith(
       checkoutId,
       data,
       expectedConfig,
     );
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST },
+        { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_REQUEST },
         {
-          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_FAILURE,
+          type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_FAILURE,
           payload: { error: expectedError },
         },
       ]),
     );
   });
 
-  it('should create the correct actions for when the set checkout order promocode procedure is successful', async () => {
-    (putCheckoutOrderPromocode as jest.Mock).mockResolvedValueOnce(
+  it('should create the correct actions for when the set checkout order promocodes procedure is successful', async () => {
+    (putCheckoutOrderPromocodes as jest.Mock).mockResolvedValueOnce(
       mockResponse,
     );
 
-    await setCheckoutOrderPromocode(checkoutId, data)(
+    await setCheckoutOrderPromocodes(checkoutId, data)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -88,23 +88,23 @@ describe('setCheckoutOrderPromocode() action creator', () => {
 
     const actionResults = store.getActions();
 
-    expect(putCheckoutOrderPromocode).toHaveBeenCalledTimes(1);
-    expect(putCheckoutOrderPromocode).toHaveBeenCalledWith(
+    expect(putCheckoutOrderPromocodes).toHaveBeenCalledTimes(1);
+    expect(putCheckoutOrderPromocodes).toHaveBeenCalledWith(
       checkoutId,
       data,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
-      { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_REQUEST },
+      { type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_REQUEST },
       {
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
         payload: expectedNormalizedPayload,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS,
+        type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
       }),
-    ).toMatchSnapshot('set checkout order promocode success payload');
+    ).toMatchSnapshot('set checkout order promocodes success payload');
   });
 });

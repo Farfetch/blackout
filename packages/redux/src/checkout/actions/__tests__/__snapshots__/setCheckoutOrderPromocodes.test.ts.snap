@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setCheckoutOrderPromocode() action creator should create the correct actions for when the set checkout order promocode procedure is successful: set checkout order promocode success payload 1`] = `
+exports[`setCheckoutOrderPromocodes() action creator should create the correct actions for when the set checkout order promocodes procedure is successful: set checkout order promocodes success payload 1`] = `
 Object {
   "payload": Object {
     "entities": Object {
@@ -434,6 +434,6 @@ Object {
     },
     "result": 15338048,
   },
-  "type": "@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODE_SUCCESS",
+  "type": "@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS",
 }
 `;

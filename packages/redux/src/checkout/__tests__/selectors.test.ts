@@ -518,7 +518,7 @@ describe('checkout redux selectors', () => {
       'CheckoutOrderDetails',
       'CollectPoints',
       'CheckoutOrderItemTags',
-      'CheckoutOrderPromocode',
+      'CheckoutOrderPromocodes',
       'CheckoutOrderTags',
       'CheckoutOrderItems',
       'CheckoutOrderCharge',
@@ -529,7 +529,7 @@ describe('checkout redux selectors', () => {
 
     describe('sub-areas loading selectors', () => {
       it.each(subAreaNames)(
-        'should handle is%sLoading|Updating selector',
+        'should handle (is|are)%sLoading|Updating selector',
         subArea => {
           let selectorName = `is${subArea}Loading`;
 

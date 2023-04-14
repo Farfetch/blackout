@@ -44,7 +44,10 @@ export type CheckoutOrder = {
   items: CheckoutOrderItem[];
   locale: string;
   orderId: string;
-  promocode: string;
+  // This is to be deprecated and removed in a future version
+  // in favour of the promocodes property.
+  promocode?: string;
+  promocodes?: string[];
   shippingAddress: CheckoutAddress;
   status: CheckoutOrderStatus;
   subTotalAmount: number;

@@ -8,7 +8,7 @@ import {
   getCheckoutOrderDetails as getCheckoutOrderDetailsFromReducer,
   getCheckoutOrderItems as getCheckoutOrderItemsFromReducer,
   getCheckoutOrderItemTags as getCheckoutOrderItemTagsFromReducer,
-  getCheckoutOrderPromocode as getCheckoutOrderPromocodeFromReducer,
+  getCheckoutOrderPromocodes as getCheckoutOrderPromocodesFromReducer,
   getCheckoutOrderTags as getCheckoutOrderTagsFromReducer,
   getCollectPoints as getCollectPointsFromReducer,
   getError,
@@ -659,25 +659,25 @@ export const getCheckoutOrderItemTagsError = (state: StoreState) =>
   getCheckoutOrderItemTagsFromReducer(state.checkout as CheckoutState).error;
 
 /**
- * Returns the loading status for the promocode operation.
+ * Returns the loading status for the checkout order promocodes operation.
  *
  * @param state - Application state.
  *
  * @returns Promocode operation Loading status.
  */
-export const isCheckoutOrderPromocodeLoading = (state: StoreState) =>
-  getCheckoutOrderPromocodeFromReducer(state.checkout as CheckoutState)
+export const areCheckoutOrderPromocodesLoading = (state: StoreState) =>
+  getCheckoutOrderPromocodesFromReducer(state.checkout as CheckoutState)
     .isLoading;
 
 /**
- * Returns the error for the promocode operation.
+ * Returns the error for the checkout order promocodes operation.
  *
  * @param state - Application state.
  *
  * @returns Promocode operation error.
  */
-export const getCheckoutOrderPromocodeError = (state: StoreState) =>
-  getCheckoutOrderPromocodeFromReducer(state.checkout as CheckoutState).error;
+export const getCheckoutOrderPromocodesError = (state: StoreState) =>
+  getCheckoutOrderPromocodesFromReducer(state.checkout as CheckoutState).error;
 
 /**
  * Returns the loading status for the tags operation.
