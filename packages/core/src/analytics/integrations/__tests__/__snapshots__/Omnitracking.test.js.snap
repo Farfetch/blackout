@@ -5,6 +5,8 @@ Object {
   "checkoutStep": "1",
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
   "tid": 2911,
 }
 `;
