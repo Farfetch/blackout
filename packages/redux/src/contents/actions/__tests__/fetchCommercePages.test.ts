@@ -14,7 +14,9 @@ import { mockStore } from '../../../../tests/index.js';
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'commerce_pages!woman',
   generateSEOPathname: jest.fn(),
-  getRankedCommercePage: jest.fn(() => mockCommercePages.entries[0]),
+  applyCommercePagesRankingStrategy: jest.fn(
+    () => mockCommercePages.entries[0],
+  ),
 }));
 
 jest.mock('@farfetch/blackout-client', () => ({

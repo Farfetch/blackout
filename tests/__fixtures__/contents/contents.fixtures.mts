@@ -1,11 +1,11 @@
 import {
+  type ContentEntity,
+  generateContentHash,
+} from '@farfetch/blackout-redux';
+import {
   type ContentListComponent,
   SortContentOption,
 } from '@farfetch/blackout-react';
-import {
-  type ContentsEntity,
-  generateContentHash,
-} from '@farfetch/blackout-redux';
 import type { ContentEntry } from '@farfetch/blackout-client';
 
 export const contentPublicationId = '1fa65fb0-49bf-43b3-902e-78d104f160a3';
@@ -266,7 +266,7 @@ export const contentNormalizedPayload = {
       [contentPublicationId]: {
         ...(mockContents.entries[0] as ContentEntry),
         publicationDate: 1606318282619,
-      } as ContentsEntity,
+      } as ContentEntity,
     },
   },
   result: {
@@ -450,15 +450,15 @@ export const expectedNormalizedPayload = {
       'daada313-7908-46c8-8ea8-ad2263b41b43': {
         ...(mockWidget.entries[0] as ContentEntry),
         publicationDate: 1596183958696,
-      } as ContentsEntity,
+      } as ContentEntity,
       '7317888f-c8ea-4770-98b3-232961af741b': {
         ...(mockNavbars.entries[0] as ContentEntry),
         publicationDate: 1613056226946,
-      } as ContentsEntity,
+      } as ContentEntity,
       '6fc6f3c1-ae2b-44d3-abec-54f0b679b19f': {
         ...(mockContentType.entries[0] as ContentEntry),
         publicationDate: 1589466373692,
-      } as ContentsEntity,
+      } as ContentEntity,
     },
   },
 };
@@ -631,7 +631,7 @@ export const customContentType = [
   },
 ];
 
-export const customContentTypeWithMultipleCodes: ContentsEntity[] = [
+export const customContentTypeWithMultipleCodes: ContentEntity[] = [
   ...customContentType,
   {
     publicationId: 'eced3dc3-6997-4353-8fa3-244aadfd59fd',
@@ -730,7 +730,7 @@ export const customContentTypeWithMultipleCodes: ContentsEntity[] = [
   },
 ];
 
-export const customContentTypeWithEventDate: ContentsEntity[] = [
+export const customContentTypeWithEventDate: ContentEntity[] = [
   {
     ...customContentTypeWithMultipleCodes[0]!,
     metadata: {

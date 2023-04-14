@@ -2,13 +2,17 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
+  "CommercePagesRankingStrategy": Object {
+    "Default": "default",
+    "Merge": "merge",
+  },
+  "ContentEnvironmentCode": Object {
+    "Live": "live",
+    "Preview": "preview",
+  },
   "ContentTypeCode": Object {
     "CommercePages": "commerce_pages",
     "ContentPage": "content_pages",
-  },
-  "ENVIRONMENT_CODES": Object {
-    "LIVE": "live",
-    "PREVIEW": "preview",
   },
   "TimeLimitType": Object {
     "0": "min",
@@ -41,6 +45,7 @@ Object {
     "setUser": [Function],
     "wishlist": [Function],
   },
+  "applyCommercePagesRankingStrategy": [Function],
   "areAddressPredictionDetailsLoading": [Function],
   "areAddressPredictionsLoading": [Function],
   "areBagPromocodesLoading": [Function],
@@ -1010,7 +1015,6 @@ Object {
   "getRaffleParticipationForRaffle": [Function],
   "getRafflesError": [Function],
   "getRafflesResult": [Function],
-  "getRankedCommercePage": [Function],
   "getRecentlyViewedProducts": [Function],
   "getRecentlyViewedProductsError": [Function],
   "getRecentlyViewedProductsPagination": [Function],

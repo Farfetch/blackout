@@ -143,10 +143,6 @@ Object {
     "International": 2,
     "Standard": 0,
   },
-  "CommercePagesStrategy": Object {
-    "Default": "default",
-    "Merge": "merge",
-  },
   "CommercePagesType": Object {
     "LISTING": "LISTING",
     "PRODUCT": "PRODUCT",

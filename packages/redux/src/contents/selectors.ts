@@ -1,7 +1,7 @@
 /**
  * Contents selectors.
  */
-import { type ContentsEntity, getEntityById } from '../entities/index.js';
+import { type ContentEntity, getEntityById } from '../entities/index.js';
 import { generateContentHash, generateSEOPathname } from './utils.js';
 import {
   getContentResult,
@@ -148,7 +148,7 @@ export const getContents = <T>(
     result &&
     (result.entries
       .map((hash: Hash) => getContent<T>(state, hash))
-      .filter(Boolean) as ContentsEntity<T>[])
+      .filter(Boolean) as ContentEntity<T>[])
   );
 };
 
@@ -320,4 +320,4 @@ export const getSEOMetadataResult = (
  * @returns Content normalized.
  */
 export const getContent = <T>(state: StoreState, hash: string) =>
-  getEntityById(state, 'contents', hash) as ContentsEntity<T> | undefined;
+  getEntityById(state, 'contents', hash) as ContentEntity<T> | undefined;

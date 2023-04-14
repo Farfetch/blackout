@@ -2,25 +2,28 @@
  * Contents utils.
  */
 
-import { get, isEmpty } from 'lodash-es';
-import type {
-  CommercePages,
-  CommercePagesContent,
-  ComponentType,
-  Metadata,
-  QueryCommercePages,
-  QuerySearchContents,
+import {
+  type CommercePages,
+  type CommercePagesContent,
+  type ComponentType,
+  type ContentMetadata,
+  type QueryCommercePages,
+  type QuerySearchContents,
 } from '@farfetch/blackout-client';
-import type { GenerateSEOPathnameQuery } from './types/index.js';
+import {
+  CommercePagesRankingStrategy,
+  type GenerateSEOPathnameQuery,
+} from './types/index.js';
+import { get, isEmpty } from 'lodash-es';
 
 /**
  * Constant that represent all possible static values to apply to an environment
  * code variable.
  */
-export const ENVIRONMENT_CODES = {
-  LIVE: 'live',
-  PREVIEW: 'preview',
-};
+export enum ContentEnvironmentCode {
+  Live = 'live',
+  Preview = 'preview',
+}
 
 /**
  * Generate a ranking number for each commerce page.
@@ -31,11 +34,11 @@ export const ENVIRONMENT_CODES = {
  * Result of pageRanking === 0;
  * ```
  *
- * @param metadata - Metadata object with custom attributes.
+ * @param metadata - Content metadata object with custom attributes.
  *
  * @returns Ranking number for a specific commerce page.
  */
-export const getPageRanking = (metadata: Metadata): number => {
+export const getPageRanking = (metadata: ContentMetadata): number => {
   let ranking = 0;
 
   const customMetadata = metadata.custom;
@@ -114,7 +117,7 @@ const getCommercePagesRanked = (
 ): CommercePagesContent => {
   const commercePagesWithRank = result.entries.map(page => ({
     ...page,
-    ranking: getPageRanking(page.metadata as Metadata),
+    ranking: getPageRanking(page.metadata as ContentMetadata),
   })) as CommercePages['entries'];
 
   return commercePagesWithRank.sort(
@@ -123,19 +126,21 @@ const getCommercePagesRanked = (
 };
 
 /**
- * Method to check each page ranking and return the better one.
+ * Method to check each page ranking and return the best one.
  *
  * @example
  * ```
- * const defaultStrategy = getDefaultStrategy({ entries: [...pages] });
- * Result of defaultStrategy === { entries: [...bestRankedPage] };
+ * const bestRankedCommercePage = getBestRankedCommercePageUsingDefaultStrategy({ entries: [...pages] });
+ * Result of bestRankedCommercePage === { entries: [bestRankedPage] };
  * ```
  *
  * @param result - Commerce page payload result.
  *
- * @returns Selected page with better ranking.
+ * @returns Selected page with best ranking using the default strategy.
  */
-export const getDefaultStrategy = (result: CommercePages): CommercePages => {
+export const getBestRankedCommercePageUsingDefaultStrategy = (
+  result: CommercePages,
+): CommercePages => {
   const bestRankedPage = getCommercePagesRanked(result)[0];
 
   if (!bestRankedPage) {
@@ -156,20 +161,22 @@ export const getDefaultStrategy = (result: CommercePages): CommercePages => {
 };
 
 /**
- * Method to return the main ranked commerce page with all components from other
+ * Method to return the best ranked commerce page with all components from other
  * pages without duplicates.
  *
  * @example
  * ```
- * const mergeStrategy = getMergeStrategy({ entries: [...pages] });
- * Result of mergeStrategy === { entries: [...mergedPages] };
+ * const bestRankedCommercePage = getBestRankedCommercePageUsingMergeStrategy({ entries: [...pages] });
+ * Result of bestRankedCommercePage === { entries: [{ components: [...componentsFromAllPagesMerged] }] };
  * ```
  *
  * @param result - Commerce page payload result.
  *
- * @returns Selected page with merged components.
+ * @returns Selected page with best ranking and the components of all commerce pages merged.
  */
-export const getMergeStrategy = (result: CommercePages): CommercePages => {
+export const getBestRankedCommercePageUsingMergeStrategy = (
+  result: CommercePages,
+): CommercePages => {
   const rankedCommercePages = getCommercePagesRanked(result);
   // Merge components inside the selected commerce page
   const mergedComponents: ComponentType[] = [];
@@ -187,7 +194,7 @@ export const getMergeStrategy = (result: CommercePages): CommercePages => {
     }),
   );
 
-  const firstEntry = result.entries[0];
+  const firstEntry = rankedCommercePages[0];
 
   if (!firstEntry) {
     return {
@@ -208,12 +215,11 @@ export const getMergeStrategy = (result: CommercePages): CommercePages => {
 
 /**
  * Method to calculate the ranking for commerce pages, according to the selected
- * strategy and returning only the selected one.
+ * strategy.
  *
  * @example
  * ```
- * const rankedPage = getRankedCommercePage({ entries: [...pages] }, 'merge');
- * Result of rankedPage === { entries: [...mergedPages] };
+ * const commercePagesRanked = applyCommercePagesStrategy({ entries: [...pages] }, 'merge');
  * ```
  *
  * @param result   - Commerce page payload result.
@@ -221,15 +227,15 @@ export const getMergeStrategy = (result: CommercePages): CommercePages => {
  *
  * @returns Selected page with best ranking.
  */
-export const getRankedCommercePage = (
+export const applyCommercePagesRankingStrategy = (
   result: CommercePages,
-  strategy?: string,
+  strategy?: CommercePagesRankingStrategy,
 ): CommercePages => {
   switch (strategy) {
-    case 'merge':
-      return getMergeStrategy(result);
+    case CommercePagesRankingStrategy.Merge:
+      return getBestRankedCommercePageUsingMergeStrategy(result);
     default:
-      return getDefaultStrategy(result);
+      return getBestRankedCommercePageUsingDefaultStrategy(result);
   }
 };
 

@@ -5,7 +5,7 @@ import {
   GenderCode,
 } from '@farfetch/blackout-client';
 import {
-  type ContentsEntity,
+  type ContentEntity,
   generateContentHash,
 } from '@farfetch/blackout-redux';
 
@@ -225,7 +225,7 @@ export const mockCommercePagesState = {
       [commercePageContentPublicationId]: {
         ...(mockCommercePages.entries[0] as ContentEntry),
         publicationDate: 1606318282619,
-      } as ContentsEntity,
+      } as ContentEntity,
     },
   },
   contents: {

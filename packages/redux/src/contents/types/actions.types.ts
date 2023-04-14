@@ -6,18 +6,18 @@ import type {
   ContentType,
   SEOMetadata,
 } from '@farfetch/blackout-client';
-import type { ContentsEntity } from '../../entities/index.js';
+import type { ContentEntity } from '../../entities/index.js';
 import type { Hash, Pathname } from './reducers.types.js';
 import type { NormalizedSchema } from 'normalizr';
 
 export type ContentsNormalized = Omit<Contents, 'entries'> & {
-  entries: ContentsEntity['publicationId'];
+  entries: ContentEntity['publicationId'];
   hash: Hash;
 };
 
 export type ContentsPayload = NormalizedSchema<
   {
-    contents: Record<ContentsEntity['publicationId'], ContentsEntity>;
+    contents: Record<ContentEntity['publicationId'], ContentEntity>;
   },
   ContentsNormalized
 > & { hash: Hash };

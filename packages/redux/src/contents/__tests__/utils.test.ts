@@ -1,17 +1,18 @@
 import {
+  applyCommercePagesRankingStrategy,
+  generateContentHash,
+  generateSEOPathname,
+  getBestRankedCommercePageUsingDefaultStrategy,
+  getBestRankedCommercePageUsingMergeStrategy,
+  getPageRanking,
+} from '../utils.js';
+import { CommercePagesRankingStrategy } from '../types/commercePagesRankingStrategy.types.js';
+import {
   defaultStrategyResult,
   mergeStrategyResult,
   mergeStrategyResultOneEntry,
   mockCommercePages,
 } from 'tests/__fixtures__/contents/index.mjs';
-import {
-  generateContentHash,
-  generateSEOPathname,
-  getDefaultStrategy,
-  getMergeStrategy,
-  getPageRanking,
-  getRankedCommercePage,
-} from '../utils.js';
 import { SeoPageType } from '@farfetch/blackout-client';
 
 describe('getPageRanking', () => {
@@ -48,23 +49,25 @@ describe('getPageRanking', () => {
   });
 });
 
-describe('getDefaultStrategy', () => {
+describe('getBestRankedCommercePageUsingDefaultStrategy', () => {
   it('should correctly apply commerce pages default strategy to the page result', () => {
-    const commercePagesResult = getDefaultStrategy(mockCommercePages);
+    const commercePagesResult =
+      getBestRankedCommercePageUsingDefaultStrategy(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
   });
 });
 
-describe('getMergeStrategy', () => {
+describe('getBestRankedCommercePageUsingMergeStrategy', () => {
   it('should correctly apply commerce pages merge strategy to the page result', () => {
-    const commercePagesResult = getMergeStrategy(mockCommercePages);
+    const commercePagesResult =
+      getBestRankedCommercePageUsingMergeStrategy(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(mergeStrategyResult);
   });
 
   it('should correctly apply commerce pages merge strategy to the page result when there is only one entry', () => {
-    const commercePagesResult = getMergeStrategy({
+    const commercePagesResult = getBestRankedCommercePageUsingMergeStrategy({
       number: 1,
       totalPages: 1,
       totalItems: 1,
@@ -75,13 +78,17 @@ describe('getMergeStrategy', () => {
   });
 });
 
-describe('getRankedCommercePage', () => {
+describe('applyCommercePagesRankingStrategy', () => {
   it('should correctly select the commerce pages strategy return the respective page result', () => {
-    const commercePagesResult = getRankedCommercePage(mockCommercePages);
+    const commercePagesResult =
+      applyCommercePagesRankingStrategy(mockCommercePages);
 
     expect(commercePagesResult).toMatchObject(defaultStrategyResult);
 
-    const mergeStrategy = getRankedCommercePage(mockCommercePages, 'merge');
+    const mergeStrategy = applyCommercePagesRankingStrategy(
+      mockCommercePages,
+      CommercePagesRankingStrategy.Merge,
+    );
 
     expect(mergeStrategy).toMatchObject(mergeStrategyResult);
   });
