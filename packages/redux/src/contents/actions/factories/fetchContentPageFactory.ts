@@ -26,7 +26,7 @@ import type { Dispatch } from 'redux';
 const fetchContentPageFactory =
   (getContentPage: GetContentPage) =>
   (
-    contentPagesType: ContentPageType,
+    contentPageType: ContentPageType,
     query: QueryContentPage,
     config?: Config,
   ) =>
@@ -41,12 +41,12 @@ const fetchContentPageFactory =
 
     dispatch({
       payload: { hash },
-      type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+      type: actionTypes.FETCH_CONTENT_PAGE_REQUEST,
     });
 
     try {
       const result = await getContentPage(
-        contentPagesType,
+        contentPageType,
         { ...query, slug: slugWithoutQueryString },
         config,
       );

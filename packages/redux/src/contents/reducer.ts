@@ -22,7 +22,7 @@ const searchResults = (
 ): ContentsState['searchResults'] => {
   switch (action.type) {
     case actionTypes.FETCH_CONTENTS_REQUEST:
-    case actionTypes.FETCH_CONTENT_PAGES_REQUEST:
+    case actionTypes.FETCH_CONTENT_PAGE_REQUEST:
     case actionTypes.FETCH_COMMERCE_PAGES_REQUEST:
       return {
         ...state,

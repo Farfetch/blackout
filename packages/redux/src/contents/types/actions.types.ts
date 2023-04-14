@@ -37,7 +37,7 @@ export interface FetchContentPageFailureAction extends Action {
 
 export interface FetchContentPageRequestAction extends Action {
   payload: { hash: Hash };
-  type: typeof actionTypes.FETCH_CONTENT_PAGES_REQUEST;
+  type: typeof actionTypes.FETCH_CONTENT_PAGE_REQUEST;
 }
 
 export interface FetchContentPageSuccessAction extends Action {

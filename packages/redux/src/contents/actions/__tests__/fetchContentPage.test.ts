@@ -1,7 +1,7 @@
 import * as normalizr from 'normalizr';
 import { contentsActionTypes as actionTypes } from '../../index.js';
 import {
-  contentPagesType,
+  contentPageType,
   expectedContentPageNormalizedPayload,
   mockContentPage,
   slugContent,
@@ -44,14 +44,14 @@ describe('fetchContentPage() action creator', () => {
 
     await expect(
       async () =>
-        await fetchContentPage(contentPagesType, { slug: slugContent })(
+        await fetchContentPage(contentPageType, { slug: slugContent })(
           store.dispatch,
         ),
     ).rejects.toThrow(expectedError);
 
     expect(getContentPage).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledWith(
-      contentPagesType,
+      contentPageType,
       { slug: slugContentWithoutQuery, strategy: undefined },
       expectedConfig,
     );
@@ -60,7 +60,7 @@ describe('fetchContentPage() action creator', () => {
         payload: {
           hash: 'content_pages!woman/gucci',
         },
-        type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+        type: actionTypes.FETCH_CONTENT_PAGE_REQUEST,
       },
       {
         payload: {
@@ -75,7 +75,7 @@ describe('fetchContentPage() action creator', () => {
   it('should create the correct actions for when the get content pages procedure is successful', async () => {
     (getContentPage as jest.Mock).mockResolvedValueOnce(mockContentPage);
 
-    await fetchContentPage(contentPagesType, { slug: slugContent })(
+    await fetchContentPage(contentPageType, { slug: slugContent })(
       store.dispatch,
     );
 
@@ -84,7 +84,7 @@ describe('fetchContentPage() action creator', () => {
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledTimes(1);
     expect(getContentPage).toHaveBeenCalledWith(
-      contentPagesType,
+      contentPageType,
       { slug: slugContentWithoutQuery, strategy: undefined },
       expectedConfig,
     );
@@ -93,7 +93,7 @@ describe('fetchContentPage() action creator', () => {
         payload: {
           hash: 'content_pages!woman/gucci',
         },
-        type: actionTypes.FETCH_CONTENT_PAGES_REQUEST,
+        type: actionTypes.FETCH_CONTENT_PAGE_REQUEST,
       },
       {
         payload: expectedContentPageNormalizedPayload,
