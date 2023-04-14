@@ -429,6 +429,7 @@ export const pageEventsFilter: {
 export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventTypes.ADDRESS_INFO_ADDED]: data => ({
     tid: 2911,
+    ...getCheckoutEventGenericProperties(data),
     checkoutStep: data.properties?.step,
     deliveryInformationDetails: getDeliveryInformationDetails(data),
     interactionType: data.properties?.interactionType,
