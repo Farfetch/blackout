@@ -5,7 +5,7 @@ import { type ContentEntity, getEntityById } from '../entities/index.js';
 import { generateContentHash, generateSEOPathname } from './utils.js';
 import {
   getContentResult,
-  getContentTypes,
+  getContentTypes as getContentTypesFromReducer,
   getSEOmetadata,
 } from './reducer.js';
 import type { ContentsState, Hash } from './types/index.js';
@@ -179,7 +179,8 @@ export const isContentFetched = (
   !isContentLoading(state, query);
 
 /**
- * Retrieves an array with the content types available.
+ * Retrieves an array with the content types available obtained
+ * from the `fetchContentTypes` action.
  *
  * @example
  * ```
@@ -194,8 +195,8 @@ export const isContentFetched = (
  *
  * @returns - All the content types.
  */
-export const getAllContentTypes = (state: StoreState) =>
-  getContentTypes(state.contents as ContentsState).result;
+export const getContentTypes = (state: StoreState) =>
+  getContentTypesFromReducer(state.contents as ContentsState).result;
 
 /**
  * Returns the error thrown to the getSEO request.

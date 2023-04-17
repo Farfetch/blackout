@@ -526,17 +526,17 @@ describe('returns redux selectors', () => {
     });
   });
 
-  describe('getReturnsEntities()', () => {
+  describe('getReturns()', () => {
     it('should get the returns entities from state', () => {
-      expect(selectors.getReturnsEntities(mockState)).toEqual(
+      expect(selectors.getReturns(mockState)).toEqual(
         mockState.entities.returns,
       );
     });
   });
 
-  describe('getReturnItemsEntities()', () => {
+  describe('getReturnItems()', () => {
     it('should get the returns entity from state', () => {
-      expect(selectors.getReturnItemsEntities(mockState)).toEqual(
+      expect(selectors.getReturnItems(mockState)).toEqual(
         mockState.entities.returnItems,
       );
     });

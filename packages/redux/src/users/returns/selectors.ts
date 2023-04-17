@@ -1,8 +1,5 @@
 import { createSelector } from 'reselect';
-import {
-  getReturnItemsEntities,
-  getReturnsEntities,
-} from '../../returns/index.js';
+import { getReturnItems, getReturns } from '../../returns/index.js';
 import { getUserReturns as getUserReturnsFromReducer } from '../reducer.js';
 import type { Return, ReturnItem } from '@farfetch/blackout-client';
 import type {
@@ -87,8 +84,8 @@ export const getUserReturns: (
   [
     (state: StoreState) =>
       getUserReturnsFromReducer(state.users as UsersState).result,
-    getReturnsEntities,
-    getReturnItemsEntities,
+    getReturns,
+    getReturnItems,
   ],
   (result, returns, returnItems) => {
     if (!result) {

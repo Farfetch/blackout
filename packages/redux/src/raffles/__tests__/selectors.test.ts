@@ -19,14 +19,14 @@ describe('Raffles redux selectors', () => {
     jest.clearAllMocks();
   });
 
-  describe('getAllRaffles', () => {
+  describe('getRaffles', () => {
     it('should return an array of raffles', () => {
       const expectedRaffles = Object.values(
         mockFetchRafflesNormalizedPayload.entities.raffles,
       );
       const spy = jest.spyOn(fromEntities, 'getEntities');
 
-      expect(selectors.getAllRaffles(mockRafflesState as StoreState)).toEqual(
+      expect(selectors.getRaffles(mockRafflesState as StoreState)).toEqual(
         expectedRaffles,
       );
       expect(spy).toHaveBeenCalledWith(mockRafflesState, 'raffles');
@@ -36,7 +36,7 @@ describe('Raffles redux selectors', () => {
       const spy = jest.spyOn(fromEntities, 'getEntities');
       const state = { entities: {} } as StoreState;
 
-      expect(selectors.getAllRaffles(state)).toEqual([]);
+      expect(selectors.getRaffles(state)).toEqual([]);
       expect(spy).toHaveBeenCalledWith(state, 'raffles');
     });
   });
