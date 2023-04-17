@@ -934,7 +934,7 @@ Array [
     "add_shipping_info",
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
-      "address_finder": undefined,
+      "checkout_step": "2",
       "coupon": "ACME2019",
       "currency": "USD",
       "delivery_type": "Standard/Standard",
@@ -964,6 +964,7 @@ Array [
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
       "shipping_tier": "Next Day",
+      "transaction_id": "50314b8e9bcf000000000000",
       "value": 24.64,
     },
   ],

@@ -482,6 +482,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     tid: 2912,
   }),
   [EventTypes.SHIPPING_INFO_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2914,
   }),

@@ -251,9 +251,11 @@ Object {
 
 exports[`Omnitracking track events definitions \`Shipping Info Added\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 15338048,
   "checkoutStep": "2",
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
   "interactionType": "click",
+  "orderCode": "50314b8e9bcf000000000000",
   "selectedPaymentMethod": "credit",
   "tid": 2914,
 }
