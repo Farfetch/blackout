@@ -251,22 +251,22 @@ export const FETCH_GUEST_USER_SUCCESS =
   '@farfetch/blackout-redux/FETCH_GUEST_USER_SUCCESS';
 
 /**
- * Action type dispatched when the post phone number validations request fails.
+ * Action type dispatched when the post phone number validation request fails.
  */
-export const CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE =
-  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE';
+export const CREATE_PHONE_NUMBER_VALIDATION_FAILURE =
+  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATION_FAILURE';
 
 /**
- * Action type dispatched when the post phone number validations request starts.
+ * Action type dispatched when the post phone number validation request starts.
  */
-export const CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST =
-  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST';
+export const CREATE_PHONE_NUMBER_VALIDATION_REQUEST =
+  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATION_REQUEST';
 
 /**
- * Action type dispatched when the post phone number validations request succeeds.
+ * Action type dispatched when the post phone number validation request succeeds.
  */
-export const CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS =
-  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS';
+export const CREATE_PHONE_NUMBER_VALIDATION_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_PHONE_NUMBER_VALIDATION_SUCCESS';
 
 /**
  * Action type dispatched when the post phone token request fails.
@@ -287,22 +287,22 @@ export const CREATE_PHONE_TOKEN_SUCCESS =
   '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_SUCCESS';
 
 /**
- * Action type dispatched when the post phone token validations request fails.
+ * Action type dispatched when the post phone token validation request fails.
  */
-export const CREATE_PHONE_TOKEN_VALIDATIONS_FAILURE =
-  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATIONS_FAILURE';
+export const CREATE_PHONE_TOKEN_VALIDATION_FAILURE =
+  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATION_FAILURE';
 
 /**
- * Action type dispatched when the post phone token validations request starts.
+ * Action type dispatched when the post phone token validation request starts.
  */
-export const CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST =
-  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST';
+export const CREATE_PHONE_TOKEN_VALIDATION_REQUEST =
+  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATION_REQUEST';
 
 /**
- * Action type dispatched when the post phone token validations request succeeds.
+ * Action type dispatched when the post phone token validation request succeeds.
  */
-export const CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS =
-  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS';
+export const CREATE_PHONE_TOKEN_VALIDATION_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATION_SUCCESS';
 
 /**
  * Action type dispatched when the client wants to reset the login request redux

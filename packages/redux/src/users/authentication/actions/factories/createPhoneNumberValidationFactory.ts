@@ -8,26 +8,26 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * Creates a new guest user.
+ * Creates a new phone number validation.
  *
- * @param postPhoneNumberValidations - Post guest user client.
+ * @param postPhoneNumberValidation - Post phone number validation.
  *
  * @returns Thunk factory.
  */
-const createPhoneNumberValidationsFactory =
-  (postPhoneNumberValidations: PostPhoneNumberValidation) =>
+const createPhoneNumberValidationFactory =
+  (postPhoneNumberValidation: PostPhoneNumberValidation) =>
   (data: PostPhoneNumberValidationData, config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({
-        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_REQUEST,
+        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATION_REQUEST,
       });
 
-      const result = await postPhoneNumberValidations(data, config);
+      const result = await postPhoneNumberValidation(data, config);
 
       dispatch({
         payload: result,
-        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_SUCCESS,
+        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATION_SUCCESS,
       });
 
       return result;
@@ -36,11 +36,11 @@ const createPhoneNumberValidationsFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATIONS_FAILURE,
+        type: actionTypes.CREATE_PHONE_NUMBER_VALIDATION_FAILURE,
       });
 
       throw errorAsBlackoutError;
     }
   };
 
-export default createPhoneNumberValidationsFactory;
+export default createPhoneNumberValidationFactory;
