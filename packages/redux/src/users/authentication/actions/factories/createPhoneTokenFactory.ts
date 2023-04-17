@@ -8,13 +8,13 @@ import {
 import type { Dispatch } from 'redux';
 
 /**
- * Creates a new guest user.
+ * Creates a new phone token.
  *
- * @param postPhoneToken - Post guest user client.
+ * @param postPhoneToken - Post phone token client.
  *
  * @returns Thunk factory.
  */
-const createPhoneTokensFactory =
+const createPhoneTokenFactory =
   (postPhoneToken: PostPhoneToken) =>
   (data: PostPhoneTokenData, config?: Config) =>
   async (dispatch: Dispatch) => {
@@ -43,4 +43,4 @@ const createPhoneTokensFactory =
     }
   };
 
-export default createPhoneTokensFactory;
+export default createPhoneTokenFactory;
