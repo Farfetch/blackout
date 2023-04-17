@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes.js';
-import { createPhoneTokens } from '../index.js';
+import { createPhoneToken } from '../index.js';
 import { find } from 'lodash-es';
 import { INITIAL_STATE } from '../../reducer.js';
 import { mockStore } from '../../../../../tests/index.js';
@@ -10,7 +10,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   postPhoneToken: jest.fn(),
 }));
 
-describe('createPhoneTokens action creator', () => {
+describe('createPhoneToken action creator', () => {
   const params = { phoneNumber: '987654321' };
   const expectedConfig = undefined;
   const usersMockStore = (state = {}) =>
@@ -29,7 +29,7 @@ describe('createPhoneTokens action creator', () => {
     (postPhoneToken as jest.Mock).mockRejectedValueOnce(expectedError);
 
     await expect(
-      async () => await createPhoneTokens(params)(store.dispatch),
+      async () => await createPhoneToken(params)(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(postPhoneToken).toHaveBeenCalledTimes(1);
@@ -47,7 +47,7 @@ describe('createPhoneTokens action creator', () => {
 
   it('should create the correct actions for when the create phone token procedure is successful', async () => {
     (postPhoneToken as jest.Mock).mockResolvedValueOnce({});
-    await createPhoneTokens(params)(store.dispatch);
+    await createPhoneToken(params)(store.dispatch);
 
     const actionResults = store.getActions();
 

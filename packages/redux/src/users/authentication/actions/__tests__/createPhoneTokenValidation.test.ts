@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes.js';
-import { createPhoneTokenValidations } from '../index.js';
+import { createPhoneTokenValidation } from '../index.js';
 import { find } from 'lodash-es';
 import { INITIAL_STATE } from '../../reducer.js';
 import { mockStore } from '../../../../../tests/index.js';
@@ -10,7 +10,7 @@ jest.mock('@farfetch/blackout-client', () => ({
   postPhoneTokenValidation: jest.fn(),
 }));
 
-describe('createPhoneTokenValidations action creator', () => {
+describe('createPhoneTokenValidation action creator', () => {
   const params = { phoneNumber: '987654321', token: 'q1w2e3' };
   const expectedConfig = undefined;
   const usersMockStore = (state = {}) =>
@@ -23,15 +23,15 @@ describe('createPhoneTokenValidations action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the create phone token validations procedure fails', async () => {
-    const expectedError = new Error('create phone token validations error');
+  it('should create the correct actions for when the create phone token validation procedure fails', async () => {
+    const expectedError = new Error('create phone token validation error');
 
     (postPhoneTokenValidation as jest.Mock).mockRejectedValueOnce(
       expectedError,
     );
 
     await expect(
-      async () => await createPhoneTokenValidations(params)(store.dispatch),
+      async () => await createPhoneTokenValidation(params)(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(postPhoneTokenValidation).toHaveBeenCalledTimes(1);
@@ -41,18 +41,18 @@ describe('createPhoneTokenValidations action creator', () => {
     );
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        { type: actionTypes.CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST },
+        { type: actionTypes.CREATE_PHONE_TOKEN_VALIDATION_REQUEST },
         {
-          type: actionTypes.CREATE_PHONE_TOKEN_VALIDATIONS_FAILURE,
+          type: actionTypes.CREATE_PHONE_TOKEN_VALIDATION_FAILURE,
           payload: { error: expectedError },
         },
       ]),
     );
   });
 
-  it('should create the correct actions for when the create phone token validations procedure is successful', async () => {
+  it('should create the correct actions for when the create phone token validation procedure is successful', async () => {
     (postPhoneTokenValidation as jest.Mock).mockResolvedValueOnce({});
-    await createPhoneTokenValidations(params)(store.dispatch);
+    await createPhoneTokenValidation(params)(store.dispatch);
 
     const actionResults = store.getActions();
 
@@ -63,16 +63,16 @@ describe('createPhoneTokenValidations action creator', () => {
     );
 
     expect(actionResults).toMatchObject([
-      { type: actionTypes.CREATE_PHONE_TOKEN_VALIDATIONS_REQUEST },
+      { type: actionTypes.CREATE_PHONE_TOKEN_VALIDATION_REQUEST },
       {
-        type: actionTypes.CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS,
+        type: actionTypes.CREATE_PHONE_TOKEN_VALIDATION_SUCCESS,
         payload: {},
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.CREATE_PHONE_TOKEN_VALIDATIONS_SUCCESS,
+        type: actionTypes.CREATE_PHONE_TOKEN_VALIDATION_SUCCESS,
       }),
-    ).toMatchSnapshot('create phone token validations success payload');
+    ).toMatchSnapshot('create phone token validation success payload');
   });
 });
