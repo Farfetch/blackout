@@ -42,7 +42,7 @@ const getRaffleParticipations: (state: StoreState) => RaffleParticipation[] =
  *
  * @returns All Raffle entities in the state.
  */
-export const getAllRaffles: (state: StoreState) => Raffle[] = createSelector(
+export const getRaffles: (state: StoreState) => Raffle[] = createSelector(
   [getRaffleEntities],
   raffles => Object.values(raffles || {}),
 );

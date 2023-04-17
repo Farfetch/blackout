@@ -105,11 +105,11 @@ describe('contents redux selectors', () => {
     });
   });
 
-  describe('getAllContentTypes()', () => {
+  describe('getContentTypes()', () => {
     it('should get all the content types', () => {
       const expected = contentTypesResult;
 
-      expect(selectors.getAllContentTypes(mockState)).toEqual(expected);
+      expect(selectors.getContentTypes(mockState)).toEqual(expected);
     });
   });
 

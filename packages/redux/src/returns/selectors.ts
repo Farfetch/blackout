@@ -14,23 +14,26 @@ import type { ReturnsState } from './types/index.js';
 import type { StoreState } from '../types/index.js';
 
 /**
- * Returns the 'returns' entities from the application state.
+ * Returns all return entities from the application state.
+ * Please note that this might include returns that were fetched
+ * from multiple requests.
  *
  * @param state - Application state.
  *
- * @returns Returns entities.
+ * @returns All return entities.
  */
-export const getReturnsEntities = (state: StoreState) =>
-  getEntities(state, 'returns');
+export const getReturns = (state: StoreState) => getEntities(state, 'returns');
 
 /**
- * Returns the 'returnItems' entities from the application state.
+ * Returns all return item entities from the application state.
+ * Please note that this might include return items that were fetched
+ * from multiple requests.
  *
  * @param state - Application state.
  *
- * @returns ReturnsItems entities.
+ * @returns All return item entities.
  */
-export const getReturnItemsEntities = (state: StoreState) =>
+export const getReturnItems = (state: StoreState) =>
   getEntities(state, 'returnItems');
 
 /**
@@ -48,7 +51,7 @@ export const getReturn: (
   [
     (state: StoreState, returnId: Return['id']) =>
       getEntityById(state, 'returns', returnId),
-    getReturnItemsEntities,
+    getReturnItems,
   ],
   (returnEntity, returnItems) => {
     if (!returnEntity || !returnItems) {
@@ -198,7 +201,7 @@ export const getOrderReturns: (
   state: StoreState,
   orderId: Order['id'],
 ) => Array<ReturnEntityDenormalized> | undefined = (state, orderId) => {
-  const returnEntities = getReturnsEntities(state);
+  const returnEntities = getReturns(state);
 
   if (!returnEntities) {
     return;
