@@ -420,9 +420,10 @@ const getShippingInfoAddedParametersFromEvent = eventProperties => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     shipping_tier: eventProperties.shippingTier,
-    address_finder: eventProperties.addressFinder,
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
+    checkout_step: eventProperties.step,
+    transaction_id: eventProperties.orderId,
   };
 };
 

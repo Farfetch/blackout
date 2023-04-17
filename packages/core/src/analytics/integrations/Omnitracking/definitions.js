@@ -521,6 +521,7 @@ export const trackEventsMapper = {
     selectedPaymentMethod: data.properties?.paymentType,
   }),
   [eventTypes.SHIPPING_INFO_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data, true),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2914,
     selectedPaymentMethod: data.properties?.paymentType,
