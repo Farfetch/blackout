@@ -1,7 +1,7 @@
 import {
   buildFacetTree,
   generateProductsListHash,
-  getMaxDepth,
+  getFacetGroupsMaxDepth,
 } from '../utils/index.js';
 import { createSelector } from 'reselect';
 import { flatten, flattenDeep, isEmpty, sortBy } from 'lodash-es';
@@ -14,7 +14,7 @@ import {
   getIsHydrated,
   getIsLoading,
 } from '../reducer/lists.js';
-import getShallowestDepth from '../utils/getShallowestDepth.js';
+import getShallowestDepth from '../utils/getFacetGroupsShallowestDepth.js';
 import type {
   FacetEntity,
   FacetEntityWithChildren,
@@ -691,7 +691,7 @@ export const getHierarchicalFacetsWithChildren: (
     const shallowestDepth = initialDepth
       ? Math.min(
           initialDepth,
-          getMaxDepth(facetGroupsWithType as FacetGroupsNormalized),
+          getFacetGroupsMaxDepth(facetGroupsWithType as FacetGroupsNormalized),
         )
       : getShallowestDepth(facetGroupsWithType as FacetGroupsNormalized);
     const firstFacetGroup = facetGroupsWithType?.find(
