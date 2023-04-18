@@ -8,7 +8,7 @@ export const mockBrandId = 211376;
 export const mockBrandId2 = 220127;
 export const mockHash = 'brands?id=211376, 220127';
 
-export const mockQuery = {
+export const mockBrandsQuery = {
   id: `${mockBrandId}, ${mockBrandId2}`,
 };
 
@@ -41,7 +41,6 @@ export const mockBrandsResponse = {
 
 export const mockState = {
   brands: {
-    hash: mockHash,
     isLoading: {
       [mockBrandId]: false,
       [mockHash]: false,
@@ -64,7 +63,6 @@ export const mockState = {
 
 export const mockInitialState = {
   brands: {
-    hash: mockHash,
     isLoading: {
       [mockBrandId]: false,
       [mockHash]: false,
@@ -79,7 +77,6 @@ export const mockInitialState = {
 
 export const mockLoadingState = {
   brands: {
-    hash: mockHash,
     isLoading: {
       [mockBrandId]: true,
       [mockHash]: true,
@@ -94,7 +91,6 @@ export const mockLoadingState = {
 
 export const mockErrorState = {
   brands: {
-    hash: mockHash,
     isLoading: {
       [mockHash]: false,
       [mockBrandId]: false,

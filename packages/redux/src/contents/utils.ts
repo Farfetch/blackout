@@ -320,7 +320,7 @@ export const generateContentHash = (
  * @returns - Hash built to identify the metadata for a specific page and pageType.
  */
 export const generateSEOPathname = (
-  query: GenerateSEOPathnameQuery,
+  query?: GenerateSEOPathnameQuery,
 ): string => {
   if (!query?.path) {
     return '';

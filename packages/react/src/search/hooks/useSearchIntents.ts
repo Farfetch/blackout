@@ -2,9 +2,7 @@ import {
   areSearchIntentsFetched,
   areSearchIntentsLoading,
   fetchSearchIntents,
-  generateSearchIntentsHash,
   getSearchIntentsError,
-  getSearchIntentsQuery,
   getSearchIntentsResult,
   resetSearchIntents,
   type StoreState,
@@ -12,30 +10,26 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
-import type { SearchIntentsQuery } from '@farfetch/blackout-client';
+import type { GetSearchIntentsQuery } from '@farfetch/blackout-client';
 import type { UseSearchIntentsOptions } from './types/index.js';
 
 const useSearchIntents = (
-  query: SearchIntentsQuery,
+  query: GetSearchIntentsQuery,
   options: UseSearchIntentsOptions = {},
 ) => {
   const { enableAutoFetch = true, fetchConfig } = options;
-  const hash = generateSearchIntentsHash(query);
 
   const error = useSelector((state: StoreState) =>
-    getSearchIntentsError(state, hash),
+    getSearchIntentsError(state, query),
   );
   const isLoading = useSelector((state: StoreState) =>
-    areSearchIntentsLoading(state, hash),
+    areSearchIntentsLoading(state, query),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areSearchIntentsFetched(state, hash),
+    areSearchIntentsFetched(state, query),
   );
   const searchIntents = useSelector((state: StoreState) =>
-    getSearchIntentsResult(state, hash),
-  );
-  const intentsQuery = useSelector((state: StoreState) =>
-    getSearchIntentsQuery(state, hash),
+    getSearchIntentsResult(state, query),
   );
 
   const fetch = useAction(fetchSearchIntents);
@@ -51,7 +45,7 @@ const useSearchIntents = (
     isLoading,
     error,
     isFetched,
-    data: { searchIntents, query: intentsQuery },
+    data: searchIntents,
     actions: {
       fetch,
       reset,

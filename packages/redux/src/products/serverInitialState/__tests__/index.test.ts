@@ -6,7 +6,7 @@ import serverInitialState from '../index.js';
 import type { Model } from '../../../types/index.js';
 
 describe('serverInitialState()', () => {
-  it('should initialize server state for a products list', () => {
+  it('should initialize server state for a product list', () => {
     const slug =
       '/en-pt/shopping/woman?pageIndex=1&sort=price&sortDirection=asc';
     // @ts-expect-error A lot of properties would need to be added to make the value comply with the type which are irrelevant for the test

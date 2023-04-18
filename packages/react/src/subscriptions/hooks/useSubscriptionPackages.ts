@@ -1,7 +1,6 @@
 import {
   areSubscriptionPackagesFetched,
   areSubscriptionPackagesLoading,
-  buildSubscriptionPackagesHash,
   fetchSubscriptionPackages,
   getSubscriptionPackages,
   getSubscriptionPackagesError,
@@ -18,30 +17,28 @@ function useSubscriptionPackages(
   options: UseSubscriptionPackagesOptions = {},
 ) {
   const { enableAutoFetch = true, fetchConfig } = options;
-  const hash = useMemo(
-    () => buildSubscriptionPackagesHash({ id: packagesIds }),
-    [packagesIds],
-  );
+  const query = useMemo(() => ({ id: packagesIds }), [packagesIds]);
+
   const isLoading = useSelector((state: StoreState) =>
-    areSubscriptionPackagesLoading(state, hash),
+    areSubscriptionPackagesLoading(state, query),
   );
   const error = useSelector((state: StoreState) =>
-    getSubscriptionPackagesError(state, hash),
+    getSubscriptionPackagesError(state, query),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areSubscriptionPackagesFetched(state, hash),
+    areSubscriptionPackagesFetched(state, query),
   );
   const subscriptionPackages = useSelector((state: StoreState) =>
-    getSubscriptionPackages(state, hash),
+    getSubscriptionPackages(state, query),
   );
   const fetch = useAction(fetchSubscriptionPackages);
   const reset = useAction(resetSubscriptionPackages);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {
-      fetch({ id: packagesIds }, fetchConfig);
+      fetch(query, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, packagesIds]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query]);
 
   return {
     isLoading,

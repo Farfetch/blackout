@@ -465,7 +465,7 @@ export const getClientLanguageFromCulture = (culture = '') => {
 };
 
 /**
- * Transforms the products list payload into `lineItems` omnitracking parameter.
+ * Transforms the product list payload into `lineItems` omnitracking parameter.
  *
  * @param data - The event tracking data.
  *

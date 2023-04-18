@@ -1,19 +1,10 @@
 import { createSelector } from 'reselect';
+import { generateBrandsHash } from './index.js';
 import { getEntities, getEntityById } from '../entities/selectors/index.js';
-import { getError, getHash, getIsLoading, getResult } from './reducer.js';
-import type { Brand, Brands } from '@farfetch/blackout-client';
+import { getError, getIsLoading, getResult } from './reducer.js';
+import type { Brand, Brands, GetBrandsQuery } from '@farfetch/blackout-client';
 import type { BrandsState } from './types/index.js';
 import type { StoreState } from '../types/index.js';
-
-/**
- * Retrieves the current brands hash.
- *
- * @param state - Application state.
- *
- * @returns Brands identifier to the last request for fetchBrands.
- */
-export const getBrandsHash = (state: StoreState) =>
-  getHash(state.brands as BrandsState);
 
 /**
  * Returns error for one brand - fetchBrand request.
@@ -30,14 +21,15 @@ export const getBrandError = (state: StoreState, id: Brand['id']) =>
  * Returns the error for brands - fetchBrands request.
  *
  * @param state - Application state.
- * @param hash  - Brands identifier for fetch brands request composed by query.
+ * @param query - Get brands request query.
  *
  * @returns Brands error.
  */
-export const getBrandsError = (
-  state: StoreState,
-  hash = getBrandsHash(state),
-) => (hash ? getError(state.brands as BrandsState)[hash] : undefined);
+export const getBrandsError = (state: StoreState, query?: GetBrandsQuery) => {
+  const hash = generateBrandsHash(query);
+
+  return hash ? getError(state.brands as BrandsState)[hash] : undefined;
+};
 
 /**
  * Returns the loading status for one brand - fetchBrand request.
@@ -54,14 +46,15 @@ export const isBrandLoading = (state: StoreState, id: Brand['id']) =>
  * Returns the loading status for brands - fetchBrands request.
  *
  * @param state - Application state.
- * @param hash  - Brands identifier for fetch brands request composed by query.
+ * @param query - Get brands request query.
  *
  * @returns Loading status corresponding to a fetchBrands request.
  */
-export const areBrandsLoading = (
-  state: StoreState,
-  hash = getBrandsHash(state),
-) => (hash ? getIsLoading(state.brands as BrandsState)?.[hash] : undefined);
+export const areBrandsLoading = (state: StoreState, query?: GetBrandsQuery) => {
+  const hash = generateBrandsHash(query);
+
+  return hash ? getIsLoading(state.brands as BrandsState)?.[hash] : undefined;
+};
 
 /**
  * Returns all brands from state.
@@ -87,19 +80,16 @@ export const getBrand = (state: StoreState, brandId: Brand['id']) =>
  * Returns the brands result descendant from the `fetchBrands` request.
  *
  * @param state - Application state.
- * @param hash  - Brands identifier for fetch brands request composed by query.
+ * @param query - Get brands request query.
  *
  * @returns Brands result with pagination.
  */
 export const getBrandsResult: (
   state: StoreState,
-  hash?: string | null,
+  query?: GetBrandsQuery,
 ) => Brands | undefined = createSelector(
   [
-    (
-      state: StoreState,
-      hash: string | null | undefined = getBrandsHash(state),
-    ) => hash,
+    (state: StoreState, query?: GetBrandsQuery) => generateBrandsHash(query),
     (state: StoreState) => getResult(state.brands as BrandsState),
     getBrands,
   ],
@@ -123,14 +113,18 @@ export const getBrandsResult: (
  * Retrieves if a brands result is cached by its hash.
  *
  * @param state - Application state.
- * @param hash  - Brands identifier for fetch brands request composed by query.
+ * @param query - Get brands request query.
  *
  * @returns Whether the brands result is cached or not.
  */
 export const isBrandsResultCached = (
   state: StoreState,
-  hash = getBrandsHash(state),
-) => (hash ? !!getResult(state.brands as BrandsState)[hash] : false);
+  query?: GetBrandsQuery,
+) => {
+  const hash = generateBrandsHash(query);
+
+  return hash ? !!getResult(state.brands as BrandsState)[hash] : false;
+};
 
 /**
  * Retrieves if a brand is fetched.
@@ -150,13 +144,13 @@ export const isBrandFetched = (state: StoreState, id: Brand['id']) => {
  * Retrieves if the brands result are fetched by its hash.
  *
  * @param state - Application state.
- * @param hash  - Brands identifier for fetch brands request composed by query.
+ * @param query - Get brands request query.
  *
  * @returns Whether the brands result is cached or not.
  */
-export const areBrandsFetched = (
-  state: StoreState,
-  hash = getBrandsHash(state),
-) =>
-  (!!getBrandsResult(state, hash) || !!getBrandsError(state, hash)) &&
-  !areBrandsLoading(state, hash);
+export const areBrandsFetched = (state: StoreState, query?: GetBrandsQuery) => {
+  return (
+    (!!getBrandsResult(state, query) || !!getBrandsError(state, query)) &&
+    !areBrandsLoading(state, query)
+  );
+};

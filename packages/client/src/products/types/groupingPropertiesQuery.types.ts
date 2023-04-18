@@ -1,3 +1,3 @@
-export type GroupingPropertiesQuery = {
+export type GetProductGroupingPropertiesQuery = {
   hasStock?: boolean;
 };

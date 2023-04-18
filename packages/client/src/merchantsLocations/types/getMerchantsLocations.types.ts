@@ -3,6 +3,6 @@ import type { GetMerchantsLocationsQuery } from './getMerchantsLocationsQuery.ty
 import type { MerchantLocation } from './merchantLocation.types.js';
 
 export type GetMerchantsLocations = (
-  query: GetMerchantsLocationsQuery,
+  query?: GetMerchantsLocationsQuery,
   config?: Config,
 ) => Promise<MerchantLocation[]>;

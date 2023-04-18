@@ -1,3 +1,5 @@
+import generateSearchDidYouMeanHash from '../helpers/generateSearchDidYouMeanHash.js';
+import type { GetSearchDidYouMeanQuery } from '@farfetch/blackout-client';
 import type { SearchHash as Hash } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 
@@ -18,17 +20,24 @@ const getContentByHash = (state: StoreState, hash: Hash) =>
  * import { getSearchDidYouMeanError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     error: getSearchDidYouMeanError(state, hash)
+ *     error: getSearchDidYouMeanError(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search did you mean query.
  *
- * @returns Search error.
+ * @returns Search did you mean request error.
  */
-export const getSearchDidYouMeanError = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.error;
+export const getSearchDidYouMeanError = (
+  state: StoreState,
+  query: GetSearchDidYouMeanQuery,
+) => {
+  const hash = generateSearchDidYouMeanHash(query);
+
+  return getContentByHash(state, hash)?.error;
+};
 
 /**
  * Retrieves the loading condition from current search term.
@@ -38,7 +47,7 @@ export const getSearchDidYouMeanError = (state: StoreState, hash: Hash) =>
  * import { isSearchDidYouMeanLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     isLoading: isSearchDidYouMeanLoading(state, hash)
+ *     isLoading: isSearchDidYouMeanLoading(state, query)
  * });
  *
  * ```
@@ -47,28 +56,14 @@ export const getSearchDidYouMeanError = (state: StoreState, hash: Hash) =>
  *
  * @returns Whether a search term response is loading or not.
  */
-export const isSearchDidYouMeanLoading = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.isLoading;
+export const isSearchDidYouMeanLoading = (
+  state: StoreState,
+  query: GetSearchDidYouMeanQuery,
+) => {
+  const hash = generateSearchDidYouMeanHash(query);
 
-/**
- * Retrieves the current query applied to get did you mean results.
- *
- * @example
- * ```
- * import { getSearchDidYouMeanQuery } from '@farfetch/blackout-redux';
- *
- * const mapStateToProps = state => ({
- *     query: getSearchDidYouMeanQuery(state, hash)
- * });
- *
- * ```
- *
- * @param state - Application state.
- *
- * @returns The current query.
- */
-export const getSearchDidYouMeanQuery = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.query;
+  return getContentByHash(state, hash)?.isLoading;
+};
 
 /**
  * Retrieves the facets of a specific search for did you mean.
@@ -78,17 +73,24 @@ export const getSearchDidYouMeanQuery = (state: StoreState, hash: Hash) =>
  * import { getSearchDidYouMeanResult } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     result: getSearchDidYouMeanResult(state, hash)
+ *     result: getSearchDidYouMeanResult(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search did you mean query.
  *
  * @returns Facets of a specific search.
  */
-export const getSearchDidYouMeanResult = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.result;
+export const getSearchDidYouMeanResult = (
+  state: StoreState,
+  query: GetSearchDidYouMeanQuery,
+) => {
+  const hash = generateSearchDidYouMeanHash(query);
+
+  return getContentByHash(state, hash)?.result;
+};
 
 /**
  * Retrieves if the search did you mean has been fetched.
@@ -106,10 +108,14 @@ export const getSearchDidYouMeanResult = (state: StoreState, hash: Hash) =>
  * });
  * ```
  * @param state - Application state.
+ * @param query - Get search did you mean query.
  *
  * @returns isFetched status of the search did you mean.
  */
-export const isSearchDidYouMeanFetched = (state: StoreState, hash: Hash) =>
-  (!!getSearchDidYouMeanResult(state, hash) ||
-    !!getSearchDidYouMeanError(state, hash)) &&
-  !isSearchDidYouMeanLoading(state, hash);
+export const isSearchDidYouMeanFetched = (
+  state: StoreState,
+  query: GetSearchDidYouMeanQuery,
+) =>
+  (!!getSearchDidYouMeanResult(state, query) ||
+    !!getSearchDidYouMeanError(state, query)) &&
+  !isSearchDidYouMeanLoading(state, query);

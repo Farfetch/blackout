@@ -1,7 +1,7 @@
 import type { Config } from '../../types/index.js';
 
 export type GetSEOMetadata = (
-  query: GetSEOMetadataQuery,
+  query?: GetSEOMetadataQuery,
   config?: Config,
 ) => Promise<SEOMetadata>;
 

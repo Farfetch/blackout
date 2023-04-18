@@ -37,10 +37,7 @@ describe('useSearchSuggestions', () => {
       error: null,
       isLoading: false,
       isFetched: true,
-      data: {
-        searchSuggestions: mockSearchSuggestionsResponse,
-        query: mockSearchSuggestionsQuery,
-      },
+      data: mockSearchSuggestionsResponse,
       actions: {
         fetch: expect.any(Function),
         reset: expect.any(Function),

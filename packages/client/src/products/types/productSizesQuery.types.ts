@@ -1,3 +1,3 @@
-export type ProductSizesQuery = {
+export type GetProductSizesQuery = {
   includeOutOfStock?: boolean;
 };

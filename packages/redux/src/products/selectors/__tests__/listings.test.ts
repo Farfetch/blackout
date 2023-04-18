@@ -1,5 +1,5 @@
 import * as fromReducer from '../../reducer/lists.js';
-import * as selectors from '../lists.js';
+import * as selectors from '../listings.js';
 import { cloneDeep } from 'lodash-es';
 import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
 import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
@@ -26,13 +26,13 @@ const mockFacet2 = mockFacetsNormalized[mockFacetId2];
 
 beforeEach(jest.clearAllMocks);
 
-describe('products list redux selectors', () => {
-  describe('isProductsListLoading()', () => {
+describe('product listing redux selectors', () => {
+  describe('isProductListingLoading()', () => {
     const spy = jest.spyOn(fromReducer, 'getIsLoading');
 
-    it('should get the loading status of a given products list', () => {
+    it('should get the loading status of a given product listing', () => {
       expect(
-        selectors.isProductsListLoading(
+        selectors.isProductListingLoading(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -40,73 +40,76 @@ describe('products list redux selectors', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the loading status of a given products list - hash is a number', () => {
+    it('should get the loading status of a given product listing - hash is a number', () => {
       expect(
-        selectors.isProductsListLoading(mockProductsState, mockSetId),
+        selectors.isProductListingLoading(mockProductsState, mockSetId),
       ).toBeUndefined();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the loading status of a given products list - without hash', () => {
-      expect(selectors.isProductsListLoading(mockProductsState)).toBe(false);
+    it('should get the loading status of a given product listing - without hash', () => {
+      expect(selectors.isProductListingLoading(mockProductsState)).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isProductsListFetched()', () => {
-    it('should get the set fetched status of a given products list', () => {
+  describe('isProductListingFetched()', () => {
+    it('should get the set fetched status of a given product listing', () => {
       expect(
-        selectors.isProductsListFetched(
+        selectors.isProductListingFetched(
           mockProductsState,
           mockProductsListHash,
         ),
       ).toBe(true);
     });
 
-    it('should get the set fetched status of a given products list - hash is a number', () => {
+    it('should get the set fetched status of a given product listing - hash is a number', () => {
       expect(
-        selectors.isProductsListFetched(mockProductsState, mockSetId),
+        selectors.isProductListingFetched(mockProductsState, mockSetId),
       ).toBe(false);
     });
 
-    it('should get the set fetched status of a given products list - without hash', () => {
-      expect(selectors.isProductsListFetched(mockProductsState)).toBe(true);
+    it('should get the set fetched status of a given product listing - without hash', () => {
+      expect(selectors.isProductListingFetched(mockProductsState)).toBe(true);
     });
   });
 
-  describe('getProductsListError()', () => {
+  describe('getProductListingError()', () => {
     const expectedResult =
       mockProductsState.products.lists.error[mockProductsListHash];
     const spy = jest.spyOn(fromReducer, 'getError');
 
-    it('should get the products list error property from state', () => {
+    it('should get the product listing error property from state', () => {
       expect(
-        selectors.getProductsListError(mockProductsState, mockProductsListHash),
+        selectors.getProductListingError(
+          mockProductsState,
+          mockProductsListHash,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the products list error property from state - hash is a number', () => {
+    it('should get the product listing error property from state - hash is a number', () => {
       expect(
-        selectors.getProductsListError(mockProductsState, mockSetId),
+        selectors.getProductListingError(mockProductsState, mockSetId),
       ).toBeUndefined();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the products list error property from state - without hash', () => {
-      expect(selectors.getProductsListError(mockProductsState)).toEqual(
+    it('should get the product listing error property from state - without hash', () => {
+      expect(selectors.getProductListingError(mockProductsState)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('isProductsListHydrated()', () => {
+  describe('isProductListingHydrated()', () => {
     const spy = jest.spyOn(fromReducer, 'getIsHydrated');
 
-    it('should get the products list hydrated status', () => {
+    it('should get the product listing hydrated status', () => {
       expect(
-        selectors.isProductsListHydrated(
+        selectors.isProductListingHydrated(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -114,64 +117,64 @@ describe('products list redux selectors', () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the products list hydrated status - hash is a number', () => {
+    it('should get the product listing hydrated status - hash is a number', () => {
       expect(
-        selectors.isProductsListHydrated(mockProductsState, mockSetId),
+        selectors.isProductListingHydrated(mockProductsState, mockSetId),
       ).toBeUndefined();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should get the products list hydrated status - without hash', () => {
-      expect(selectors.isProductsListHydrated(mockProductsState)).toBe(true);
+    it('should get the product listing hydrated status - without hash', () => {
+      expect(selectors.isProductListingHydrated(mockProductsState)).toBe(true);
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getProductsListProductsIds()', () => {
+  describe('getProductListingProductsIds()', () => {
     const expectedResult =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
       ].products.entries;
 
-    it('should get the products ids from a products list', () => {
+    it('should get the products ids from a product listing', () => {
       expect(
-        selectors.getProductsListProductsIds(
+        selectors.getProductListingProductsIds(
           mockProductsState,
           mockProductsListHash,
         ),
       ).toBe(expectedResult);
     });
 
-    it('should get the products ids from a products list without hash', () => {
-      expect(selectors.getProductsListProductsIds(mockProductsState)).toBe(
+    it('should get the products ids from a product listing without hash', () => {
+      expect(selectors.getProductListingProductsIds(mockProductsState)).toBe(
         expectedResult,
       );
     });
   });
 
-  describe('getProductsListResult()', () => {
+  describe('getProductListingResult()', () => {
     const expectedResult =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
       ];
 
-    it('should get the result of a given products list', () => {
+    it('should get the result of a given product listing', () => {
       expect(
-        selectors.getProductsListResult(
+        selectors.getProductListingResult(
           mockProductsState,
           mockProductsListHash,
         ),
       ).toEqual(expectedResult);
     });
 
-    it('should get the result of a given products list without hash', () => {
-      expect(selectors.getProductsListResult(mockProductsState)).toEqual(
+    it('should get the result of a given product listing without hash', () => {
+      expect(selectors.getProductListingResult(mockProductsState)).toEqual(
         expectedResult,
       );
     });
   });
 
-  describe('getProductsListProducts()', () => {
+  describe('getProductListingProducts()', () => {
     const expectedResult = [
       {
         id: 12913172,
@@ -188,23 +191,23 @@ describe('products list redux selectors', () => {
       },
     ];
 
-    it('should get the products from a products list', () => {
+    it('should get the products from a product listing', () => {
       expect(
-        selectors.getProductsListProducts(
+        selectors.getProductListingProducts(
           mockProductsState,
           mockProductsListHash,
         ),
       ).toEqual(expectedResult);
     });
 
-    it('should get the products from a products list without hash', () => {
-      expect(selectors.getProductsListProducts(mockProductsState)).toEqual(
+    it('should get the products from a product listing without hash', () => {
+      expect(selectors.getProductListingProducts(mockProductsState)).toEqual(
         expectedResult,
       );
     });
   });
 
-  describe('getProductsListProductsFromAllPages()', () => {
+  describe('getProductListingProductsFromAllPages()', () => {
     const expectedResult = [
       {
         ...mockProductsListNormalizedPayload.entities.products[12913172],
@@ -230,7 +233,7 @@ describe('products list redux selectors', () => {
 
     it('should return an empty array if there are no `productsLists', () => {
       expect(
-        selectors.getProductsListProductsFromAllPages(
+        selectors.getProductListingProductsFromAllPages(
           {
             ...mockProductsState,
             entities: {
@@ -245,7 +248,7 @@ describe('products list redux selectors', () => {
 
     it('should get the products from all pages, receiving a hash', () => {
       expect(
-        selectors.getProductsListProductsFromAllPages(
+        selectors.getProductListingProductsFromAllPages(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -254,13 +257,13 @@ describe('products list redux selectors', () => {
 
     it('should get the products from all pages, without receiving a hash', () => {
       expect(
-        selectors.getProductsListProductsFromAllPages(mockProductsState),
+        selectors.getProductListingProductsFromAllPages(mockProductsState),
       ).toEqual(expectedResult);
     });
 
     it('should get the products from all pages, when receiving a hash that ends with the page index parameter', () => {
       expect(
-        selectors.getProductsListProductsFromAllPages(
+        selectors.getProductListingProductsFromAllPages(
           mockProductsState,
           mockProductsListHashWithPageIndexParameter,
         ),
@@ -268,7 +271,7 @@ describe('products list redux selectors', () => {
     });
   });
 
-  describe('getProductsListPagination()', () => {
+  describe('getProductListingPagination()', () => {
     const expectedResult = {
       number: 1,
       pageSize: 20,
@@ -278,7 +281,7 @@ describe('products list redux selectors', () => {
 
     it('should get the pagination', () => {
       expect(
-        selectors.getProductsListPagination(
+        selectors.getProductListingPagination(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -286,7 +289,7 @@ describe('products list redux selectors', () => {
     });
 
     it('should get the pagination without hash', () => {
-      expect(selectors.getProductsListPagination(mockProductsState)).toEqual(
+      expect(selectors.getProductListingPagination(mockProductsState)).toEqual(
         expectedResult,
       );
     });
@@ -310,7 +313,7 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListPagination(
+        selectors.getProductListingPagination(
           mockStateWithoutLists,
           mockProductsListHash,
         ),
@@ -318,10 +321,10 @@ describe('products list redux selectors', () => {
     });
   });
 
-  describe('getProductsListBreadcrumbs()', () => {
+  describe('getProductListingBreadcrumbs()', () => {
     it('should get the breadCrumbs', () => {
       expect(
-        selectors.getProductsListBreadcrumbs(
+        selectors.getProductListingBreadcrumbs(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -329,32 +332,35 @@ describe('products list redux selectors', () => {
     });
 
     it('should get the breadCrumbs without hash', () => {
-      expect(selectors.getProductsListBreadcrumbs(mockProductsState)).toEqual(
+      expect(selectors.getProductListingBreadcrumbs(mockProductsState)).toEqual(
         mockBreadCrumbs,
       );
     });
   });
 
-  describe('isProductsListCached()', () => {
-    it('should return true if a products list result is cached', () => {
+  describe('isProductListingCached()', () => {
+    it('should return true if a product listing result is cached', () => {
       expect(
-        selectors.isProductsListCached(mockProductsState, mockProductsListHash),
+        selectors.isProductListingCached(
+          mockProductsState,
+          mockProductsListHash,
+        ),
       ).toBe(true);
     });
 
-    it('should return true if a products list result is cached - without hash', () => {
-      expect(selectors.isProductsListCached(mockProductsState)).toBe(true);
+    it('should return true if a product listing result is cached - without hash', () => {
+      expect(selectors.isProductListingCached(mockProductsState)).toBe(true);
     });
 
-    it('should return false if a products list result is not cached', () => {
-      expect(selectors.isProductsListCached(mockProductsState, 'foo')).toBe(
+    it('should return false if a product listing result is not cached', () => {
+      expect(selectors.isProductListingCached(mockProductsState, 'foo')).toBe(
         false,
       );
     });
   });
 
-  describe('getProductsListActiveFilters()', () => {
-    it('should return undefined if there is no available products list', () => {
+  describe('getProductListingActiveFilters()', () => {
+    it('should return undefined if there is no available product listing', () => {
       const mockStateWithoutHash = {
         ...mockProductsState,
         products: {
@@ -367,7 +373,7 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListActiveFilters(mockStateWithoutHash),
+        selectors.getProductListingActiveFilters(mockStateWithoutHash),
       ).toBeUndefined();
     });
 
@@ -377,7 +383,7 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListActiveFilters(
+        selectors.getProductListingActiveFilters(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -389,9 +395,9 @@ describe('products list redux selectors', () => {
         categories: [144307],
       };
 
-      expect(selectors.getProductsListActiveFilters(mockProductsState)).toEqual(
-        expectedResult,
-      );
+      expect(
+        selectors.getProductListingActiveFilters(mockProductsState),
+      ).toEqual(expectedResult);
     });
 
     it('should return the respective active filters with discount values', () => {
@@ -442,7 +448,7 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListActiveFilters(mockStateWithoutHash),
+        selectors.getProductListingActiveFilters(mockStateWithoutHash),
       ).toEqual(expectedResult);
     });
 
@@ -479,13 +485,13 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListActiveFilters(mockStateWithoutHash),
+        selectors.getProductListingActiveFilters(mockStateWithoutHash),
       ).toEqual(expectedResult);
     });
   });
 
-  describe('getProductsListSelectedFiltersCount()', () => {
-    it('should return undefined if there is no available products list', () => {
+  describe('getProductListingSelectedFiltersCount()', () => {
+    it('should return undefined if there is no available product listing', () => {
       const mockStateWithoutHash = {
         ...mockProductsState,
         products: {
@@ -498,13 +504,13 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListSelectedFiltersCount(mockStateWithoutHash),
+        selectors.getProductListingSelectedFiltersCount(mockStateWithoutHash),
       ).toBeUndefined();
     });
 
     it('should return the count of the selected filters', () => {
       expect(
-        selectors.getProductsListSelectedFiltersCount(
+        selectors.getProductListingSelectedFiltersCount(
           mockProductsState,
           mockProductsListHash,
         ),
@@ -513,24 +519,24 @@ describe('products list redux selectors', () => {
 
     it('should return the count of the selected filters without hash', () => {
       expect(
-        selectors.getProductsListSelectedFiltersCount(mockProductsState),
+        selectors.getProductListingSelectedFiltersCount(mockProductsState),
       ).toBe(1);
     });
   });
 
-  describe('getProductsListHash()', () => {
-    it('should get the products list hash property from state', () => {
+  describe('getProductListingHash()', () => {
+    it('should get the product listing hash property from state', () => {
       const spy = jest.spyOn(fromReducer, 'getHash');
       const expectedResult = mockProductsState.products.lists.hash;
 
-      expect(selectors.getProductsListHash(mockProductsState)).toEqual(
+      expect(selectors.getProductListingHash(mockProductsState)).toEqual(
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getProductsListSort()', () => {
+  describe('getProductListingSort()', () => {
     const productsList =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
@@ -540,20 +546,23 @@ describe('products list redux selectors', () => {
       sortDirection: productsList.config.sortDirection,
     };
 
-    it('should get the products list sort', () => {
+    it('should get the product listing sort', () => {
       expect(
-        selectors.getProductsListSort(mockProductsState, mockProductsListHash),
+        selectors.getProductListingSort(
+          mockProductsState,
+          mockProductsListHash,
+        ),
       ).toEqual(expectedResult);
     });
 
-    it('should get the products list sort without hash', () => {
-      expect(selectors.getProductsListSort(mockProductsState)).toEqual(
+    it('should get the product listing sort without hash', () => {
+      expect(selectors.getProductListingSort(mockProductsState)).toEqual(
         expectedResult,
       );
     });
   });
 
-  describe('getProductsListFacetsGroupsByType()', () => {
+  describe('getProductListingFacetsGroupsByType()', () => {
     const mockFacetGroup1 =
       mockProductsListNormalizedPayload.entities.productsLists[
         mockProductsListHash
@@ -567,14 +576,14 @@ describe('products list redux selectors', () => {
       const expectedResult = [mockFacetGroup1, mockFacetGroup2];
 
       expect(
-        selectors.getProductsListFacetsGroupsByType(
+        selectors.getProductListingFacetsGroupsByType(
           mockProductsState,
           mockFacetGroup1!.type,
         ),
       ).toEqual(expectedResult);
     });
 
-    it('should return undefined if products list results are not available', () => {
+    it('should return undefined if product listing results are not available', () => {
       const mockStateNoListAvailableForHash = {
         ...mockProductsState,
         products: {
@@ -587,7 +596,7 @@ describe('products list redux selectors', () => {
       };
 
       expect(
-        selectors.getProductsListFacetsGroupsByType(
+        selectors.getProductListingFacetsGroupsByType(
           mockStateNoListAvailableForHash,
           mockFacetGroup1!.type,
         ),
@@ -598,7 +607,7 @@ describe('products list redux selectors', () => {
       const expectedResult = [mockFacetGroup1, mockFacetGroup2];
 
       expect(
-        selectors.getProductsListFacetsGroupsByType(
+        selectors.getProductListingFacetsGroupsByType(
           mockProductsState,
           mockFacetGroup1!.type,
           mockProductsListHash,
@@ -607,7 +616,7 @@ describe('products list redux selectors', () => {
     });
   });
 
-  describe('getProductsListFacetsByFacetGroupType()', () => {
+  describe('getProductListingFacetsByFacetGroupType()', () => {
     const mockFacet1 =
       mockProductsListNormalizedPayload.entities.facets[mockFacets[0]!.id];
     const mockFacet2 =
@@ -621,7 +630,7 @@ describe('products list redux selectors', () => {
       const expectedResult = [mockFacet1, mockFacet2];
 
       expect(
-        selectors.getProductsListFacetsByFacetGroupType(
+        selectors.getProductListingFacetsByFacetGroupType(
           mockProductsState,
           mockFacetGroup!.type,
         ),
@@ -639,20 +648,20 @@ describe('products list redux selectors', () => {
       ].facetGroups![1]!.type = 5;
 
       expect(
-        selectors.getProductsListFacetsByFacetGroupType(
+        selectors.getProductListingFacetsByFacetGroupType(
           state,
           mockFacetGroup!.type,
         ),
       ).toBeUndefined();
     });
 
-    it('should return undefined if no products list results are available', () => {
+    it('should return undefined if no product listing results are available', () => {
       const state = cloneDeep(mockProductsState);
 
       state.products.lists.hash = 'foo';
 
       expect(
-        selectors.getProductsListFacetsByFacetGroupType(
+        selectors.getProductListingFacetsByFacetGroupType(
           state,
           mockFacetGroup!.type,
         ),
@@ -663,7 +672,7 @@ describe('products list redux selectors', () => {
       const expectedResult = [mockFacet1, mockFacet2];
 
       expect(
-        selectors.getProductsListFacetsByFacetGroupType(
+        selectors.getProductListingFacetsByFacetGroupType(
           mockProductsState,
           mockFacetGroup!.type,
           mockProductsListHash,
@@ -714,7 +723,7 @@ describe('products list redux selectors', () => {
       ).toBeUndefined();
     });
 
-    it('should return undefined if no products list results are available', () => {
+    it('should return undefined if no product listing results are available', () => {
       const state = cloneDeep(mockProductsState);
 
       state.products.lists.hash = 'foo';
@@ -969,13 +978,13 @@ describe('products list redux selectors', () => {
     });
   });
 
-  describe('getProductsListFacetGroups()', () => {
+  describe('getProductListingFacetGroups()', () => {
     it('should return all the facet groups correctly', () => {
       const expectedResult =
         mockProductsListDenormalizedFacetGroups[mockProductsListHash];
 
       expect(
-        selectors.getProductsListFacetGroups(
+        selectors.getProductListingFacetGroups(
           mockProductsState,
           mockProductsListHash,
         ),

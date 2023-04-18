@@ -1,1 +1,1 @@
-export { default as buildSubscriptionPackagesHash } from './buildSubscriptionPackagesHash.js';
+export { default as generateSubscriptionPackagesHash } from './generateSubscriptionPackagesHash.js';

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`serverInitialState() should initialize server state for a products list 1`] = `
+exports[`serverInitialState() should initialize server state for a product list 1`] = `
 Object {
   "entities": Object {
     "facets": Object {

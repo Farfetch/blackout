@@ -1,11 +1,11 @@
 import type {
   BlackoutError,
-  SearchDidYouMeanQuery,
+  GetSearchDidYouMeanQuery,
+  GetSearchIntentsQuery,
+  GetSearchSuggestionsQuery,
   SearchDidYouMeanSuggestion,
   SearchIntents,
-  SearchIntentsQuery,
   SearchSuggestion,
-  SearchSuggestionsQuery,
 } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
 
@@ -17,7 +17,7 @@ export type SearchDidYouMeanState = CombinedState<
     {
       error: BlackoutError | null;
       isLoading: boolean;
-      query: SearchDidYouMeanQuery | null;
+      query: GetSearchDidYouMeanQuery | null;
       result: SearchDidYouMeanSuggestion[] | null;
     }
   >
@@ -30,7 +30,7 @@ export type SearchIntentsState = CombinedState<
       error: BlackoutError | null;
       isLoading: boolean;
       result: SearchIntents | null;
-      query: SearchIntentsQuery;
+      query: GetSearchIntentsQuery;
     }
   >
 >;
@@ -41,7 +41,7 @@ export type SearchSuggestionsState = CombinedState<
     {
       error: BlackoutError | null;
       isLoading: boolean;
-      query: SearchSuggestionsQuery | null;
+      query: GetSearchSuggestionsQuery | null;
       result: SearchSuggestion[] | null;
     }
   >

@@ -1,5 +1,5 @@
 import { mockProductsListModel } from 'tests/__fixtures__/products/index.mjs';
-import listsServerInitialState from '../lists.js';
+import listsServerInitialState from '../listings.js';
 import type { Model } from '../../../types/index.js';
 
 describe('products lists serverInitialState()', () => {
@@ -61,7 +61,7 @@ describe('products lists serverInitialState()', () => {
     expect(state.lists.hash).toBe(expectedHash);
   });
 
-  it('should initialize server state for a non products list', () => {
+  it('should initialize server state for a non product list', () => {
     const model = {} as Model;
     const state = listsServerInitialState({ model });
 

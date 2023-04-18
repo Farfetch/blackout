@@ -1,14 +1,14 @@
 import {
   fetchProductListing,
   fetchProductSet,
-  generateProductsListHash,
-  getProductsListError,
-  getProductsListFacetGroups,
-  getProductsListPagination,
-  getProductsListProducts,
-  getProductsListResult,
-  isProductsListFetched,
-  isProductsListLoading,
+  generateProductListingHash,
+  getProductListingError,
+  getProductListingFacetGroups,
+  getProductListingPagination,
+  getProductListingProducts,
+  getProductListingResult,
+  isProductListingFetched,
+  isProductListingLoading,
   resetProductsLists,
   type StoreState,
 } from '@farfetch/blackout-redux';
@@ -35,7 +35,7 @@ const useProductListing = (
   } = options;
 
   const isSetPage = isSet(options);
-  const productListingHash = generateProductsListHash(slug, query, {
+  const productListingHash = generateProductListingHash(slug, query, {
     isSet: isSetPage,
   });
 
@@ -47,25 +47,25 @@ const useProductListing = (
   }, [resetAction, productListingHash]);
 
   const isLoading = useSelector((state: StoreState) =>
-    isProductsListLoading(state, productListingHash),
+    isProductListingLoading(state, productListingHash),
   );
   const error = useSelector((state: StoreState) =>
-    getProductsListError(state, productListingHash),
+    getProductListingError(state, productListingHash),
   );
   const isFetched = useSelector((state: StoreState) =>
-    isProductsListFetched(state, productListingHash),
+    isProductListingFetched(state, productListingHash),
   );
   const listing = useSelector((state: StoreState) =>
-    getProductsListResult(state, productListingHash),
+    getProductListingResult(state, productListingHash),
   );
   const pagination = useSelector((state: StoreState) =>
-    getProductsListPagination(state, productListingHash),
+    getProductListingPagination(state, productListingHash),
   );
   const products = useSelector((state: StoreState) =>
-    getProductsListProducts(state, productListingHash),
+    getProductListingProducts(state, productListingHash),
   );
   const facetGroups = useSelector((state: StoreState) =>
-    getProductsListFacetGroups(state, productListingHash),
+    getProductListingFacetGroups(state, productListingHash),
   );
 
   const fetch = useCallback(

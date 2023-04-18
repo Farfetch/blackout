@@ -5,15 +5,13 @@ import {
   mockProductsState,
 } from 'tests/__fixtures__/products/index.mjs';
 
+const query = { pageIndex: 1 };
+
 describe('Grouping', () => {
   describe('getProductGrouping()', () => {
     it('should get the grouping information', () => {
       expect(
-        selectors.getProductGrouping(
-          mockProductsState,
-          mockProductId,
-          '?pageindex=1',
-        ),
+        selectors.getProductGrouping(mockProductsState, mockProductId, query),
       ).toEqual(mockProductGroupingAdapted);
     });
   });
@@ -38,7 +36,7 @@ describe('Grouping', () => {
         selectors.isProductGroupingLoading(
           changedMockState,
           mockProductId,
-          '?pageindex=1',
+          query,
         ),
       ).toBe(true);
     });
@@ -55,7 +53,7 @@ describe('Grouping', () => {
         selectors.getProductGroupingError(
           mockProductsState,
           mockProductId,
-          '?pageindex=1',
+          query,
         ),
       ).toEqual(expectedResult);
     });
@@ -67,7 +65,7 @@ describe('Grouping', () => {
         selectors.isProductGroupingFetched(
           mockProductsState,
           mockProductId,
-          '?pageindex=1',
+          query,
         ),
       ).toBe(true);
     });

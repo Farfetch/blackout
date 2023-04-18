@@ -7,7 +7,6 @@ export type BrandsResultNormalized = Omit<Brands, 'entries'> & {
 
 export type BrandsState = {
   error: Record<Brand['id'] | string, BlackoutError | undefined>;
-  hash: string | null;
   isLoading: Record<Brand['id'] | string, boolean | undefined>;
   // A single brand has no result, as it's normalized and it's a single entity
   // Multiple brands have the `BrandsResultNormalized` structure under a `hash`

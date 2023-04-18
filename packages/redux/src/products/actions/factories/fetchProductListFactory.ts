@@ -9,10 +9,10 @@ import {
   type ProductSet,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { generateProductsListHash } from '../../utils/index.js';
+import { generateProductListingHash } from '../../utils/index.js';
 import {
-  isProductsListCached,
-  isProductsListHydrated,
+  isProductListingCached,
+  isProductListingHydrated,
 } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
 import productsListSchema from '../../../entities/schemas/productsList.js';
@@ -22,14 +22,14 @@ import type {
   Nullable,
   StoreState,
 } from '../../../types/index.js';
-import type { ProductsListActionOptions } from '../../types/index.js';
+import type { ProductListActionOptions } from '../../types/index.js';
 
 /**
  * Creates a thunk configured with the specified client to fetch a product listing
  * for a given slug with specific query parameters.
  *
  * @param client        - Get listing or sets client.
- * @param slug          - Slug to load products list for.
+ * @param slug          - Slug to load product list for.
  * @param query         - Query parameters to apply.
  * @param actionOptions - Additional options to apply to the action.
  * @param config        - Custom configurations to send to the client instance (axios).
@@ -40,14 +40,14 @@ import type { ProductsListActionOptions } from '../../types/index.js';
  *
  * @returns Thunk to be dispatched to the redux store.
  */
-const fetchProductsListFactory = async (
+const fetchProductListFactory = async (
   client: GetProductListing | GetProductSet,
   slug: string | number,
   query: GetProductListingQuery | GetProductSetQuery | Record<string, never>,
   {
     useCache = false,
     setProductsListHash = true,
-  }: ProductsListActionOptions | undefined = {},
+  }: ProductListActionOptions | undefined = {},
   config: Config | undefined,
   dispatch: Dispatch,
   getState: () => StoreState,
@@ -59,10 +59,10 @@ const fetchProductsListFactory = async (
   let hash: Nullable<string> = null;
 
   try {
-    hash = generateProductsListHash(slug, query, { isSet });
+    hash = generateProductListingHash(slug, query, { isSet });
 
     const { productImgQueryParam } = getOptions(getState);
-    const isHydrated = isProductsListHydrated(getState(), hash);
+    const isHydrated = isProductListingHydrated(getState(), hash);
 
     // Check if listing data is already fetched.
     // If it is, let the calling code know there's nothing to wait for.
@@ -77,7 +77,7 @@ const fetchProductsListFactory = async (
     }
 
     // Verify if this set already exists on the products lists
-    if (isProductsListCached(getState(), hash)) {
+    if (isProductListingCached(getState(), hash)) {
       if (useCache) {
         if (!setProductsListHash) {
           return;
@@ -139,4 +139,4 @@ const fetchProductsListFactory = async (
   }
 };
 
-export default fetchProductsListFactory;
+export default fetchProductListFactory;

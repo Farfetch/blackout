@@ -22,7 +22,7 @@ import type { ThunkDispatch } from 'redux-thunk';
  */
 const fetchMerchantsLocationsFactory =
   (getMerchantsLocations: GetMerchantsLocations) =>
-  (query: GetMerchantsLocationsQuery, config?: Config) =>
+  (query?: GetMerchantsLocationsQuery, config?: Config) =>
   async (
     dispatch: ThunkDispatch<StoreState, unknown, FetchMerchantsLocationsAction>,
   ): Promise<MerchantLocation[]> => {

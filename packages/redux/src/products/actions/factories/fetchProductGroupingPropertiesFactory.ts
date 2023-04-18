@@ -3,7 +3,7 @@ import { buildQueryStringFromObject } from '../../../helpers/index.js';
 import {
   type Config,
   type GetProductGroupingProperties,
-  type GroupingPropertiesQuery,
+  type GetProductGroupingPropertiesQuery,
   type Product,
   type ProductGroupingProperties,
   toBlackoutError,
@@ -34,7 +34,7 @@ const fetchProductGroupingFactory =
    */
   (
     productId: Product['result']['id'],
-    query: GroupingPropertiesQuery = {},
+    query: GetProductGroupingPropertiesQuery = {},
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<ProductGroupingProperties> => {

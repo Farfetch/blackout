@@ -1,8 +1,8 @@
 import * as actionTypes from '../actionTypes/index.js';
 import resetProductsListsState from './resetProductsListsState.js';
 import type {
-  ResetProductsListsEntitiesAction,
-  ResetProductsListsStateAction,
+  ResetProductListsEntitiesAction,
+  ResetProductListsStateAction,
 } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
@@ -33,7 +33,7 @@ const resetProductsListsEntities =
     dispatch: ThunkDispatch<
       StoreState,
       unknown,
-      ResetProductsListsEntitiesAction
+      ResetProductListsEntitiesAction
     >,
   ): void => {
     dispatch({
@@ -80,7 +80,7 @@ const resetProductsLists =
     dispatch: ThunkDispatch<
       StoreState,
       unknown,
-      ResetProductsListsStateAction | ResetProductsListsEntitiesAction
+      ResetProductListsStateAction | ResetProductListsEntitiesAction
     >,
   ): void => {
     dispatch(resetProductsListsState(productsListsHashes));

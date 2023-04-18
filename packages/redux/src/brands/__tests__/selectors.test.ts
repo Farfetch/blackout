@@ -1,27 +1,19 @@
 import * as fromBrands from '../reducer.js';
 import * as selectors from '../selectors.js';
+import { GenderCode } from '@farfetch/blackout-client';
 import { generateBrandsHash } from '../utils/index.js';
 import {
   mockBrandId,
+  mockBrandsQuery,
   mockBrandsResponse,
   mockErrorState,
-  mockQuery,
   mockState,
 } from 'tests/__fixtures__/brands/index.mjs';
 
-const hash = generateBrandsHash(mockQuery);
+const hash = generateBrandsHash(mockBrandsQuery);
 
 describe('brands redux selectors', () => {
   beforeEach(jest.clearAllMocks);
-
-  describe('getBrandsHash()', () => {
-    it('should get the brands hash property from state', () => {
-      const spy = jest.spyOn(fromBrands, 'getHash');
-
-      expect(selectors.getBrandsHash(mockState)).toEqual(hash);
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
 
   describe('isBrandLoading()', () => {
     it('should get the brand loading status by id', () => {
@@ -33,10 +25,12 @@ describe('brands redux selectors', () => {
   });
 
   describe('areBrandsLoading()', () => {
-    it('should get the brands loading status by hash', () => {
+    it('should get the brands loading status by query', () => {
       const spy = jest.spyOn(fromBrands, 'getIsLoading');
 
-      expect(selectors.areBrandsLoading(mockState)).toBe(false);
+      expect(selectors.areBrandsLoading(mockState, mockBrandsQuery)).toBe(
+        false,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
@@ -54,39 +48,45 @@ describe('brands redux selectors', () => {
   });
 
   describe('getBrandsError()', () => {
-    it('should get the brands error by hash', () => {
+    it('should get the brands error by query', () => {
       const expectedResult =
         mockState.brands.error[hash as keyof typeof mockState.brands.error];
       const spy = jest.spyOn(fromBrands, 'getError');
 
-      expect(selectors.getBrandsError(mockState)).toEqual(expectedResult);
+      expect(selectors.getBrandsError(mockState, mockBrandsQuery)).toEqual(
+        expectedResult,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('getBrandsResult()', () => {
-    it('should return an object with the result stored for hash received', () => {
-      const result = selectors.getBrandsResult(mockState);
+    it('should return an object with the result stored for query received', () => {
+      const result = selectors.getBrandsResult(mockState, mockBrandsQuery);
 
       expect(result).toEqual(mockBrandsResponse);
     });
 
-    it('should return undefined when no result is stored for the hash received', () => {
-      const result = selectors.getBrandsResult(mockState, 'brands?gender=1');
+    it('should return undefined when no result is stored for the query received', () => {
+      const result = selectors.getBrandsResult(mockState, {
+        gender: GenderCode.Man,
+      });
 
       expect(result).toBeUndefined();
     });
   });
 
   describe('isBrandsResultCached()', () => {
-    it('should return true if brands for a specific hash is already cached', () => {
-      expect(selectors.isBrandsResultCached(mockState)).toBe(true);
+    it('should return true if brands for a specific query is already cached', () => {
+      expect(selectors.isBrandsResultCached(mockState, mockBrandsQuery)).toBe(
+        true,
+      );
     });
 
     it('should return false if brands for a specific hash is not cached', () => {
-      expect(selectors.isBrandsResultCached(mockState, 'brands?gender=1')).toBe(
-        false,
-      );
+      expect(
+        selectors.isBrandsResultCached(mockState, { gender: GenderCode.Man }),
+      ).toBe(false);
     });
   });
 
