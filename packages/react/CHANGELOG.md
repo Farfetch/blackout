@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.411](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.410...@farfetch/blackout-react@1.0.0-next.411) (2023-04-18)
+
+### Features
+
+- add index parameter to events next ([f21b5fa](https://github.com/Farfetch/blackout/commit/f21b5fa5d664a8da05a83c8ad2a2d6dcd12ec895))
+- add parameters add address info event next ([20ca6a4](https://github.com/Farfetch/blackout/commit/20ca6a4377c26c51b56297c1ce02c445d2feec79))
+- add parameters add shipping info event next ([9373522](https://github.com/Farfetch/blackout/commit/9373522d7047c02164d86cf6531521bd447a207b))
+
 # [1.0.0-next.410](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.409...@farfetch/blackout-react@1.0.0-next.410) (2023-04-14)
 
 **Note:** Version bump only for package @farfetch/blackout-react
