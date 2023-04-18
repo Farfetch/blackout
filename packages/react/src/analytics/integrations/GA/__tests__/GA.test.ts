@@ -7,10 +7,10 @@ import {
 } from '../constants.js';
 import {
   type EventData,
-  EventTypes,
+  EventType,
   integrations,
   type LoadIntegrationEventData,
-  PageTypes,
+  PageType,
   type SetUserEventData,
   type StrippedDownAnalytics,
   type TrackTypesValues,
@@ -36,20 +36,18 @@ import type {
 import type { TrackFixtures } from 'tests/__fixtures__/analytics/track/index.mjs';
 
 const mockedPageData = pageEventsData[
-  PageTypes.HOMEPAGE
+  PageType.Homepage
 ] as DefaultPageFixturesResult;
 
 const nonSupportedByDefaultTrackEvent = merge(
   {},
-  trackEventsData[
-    EventTypes.PRODUCT_ADDED_TO_CART
-  ] as EventData<TrackTypesValues>, // This cast is needed to avoid a type error for the mismatch of the event property
-  { event: EventTypes.PAYMENT_INFO_ADDED }, // Non supported event by default in GA
+  trackEventsData[EventType.ProductAddedToCart] as EventData<TrackTypesValues>, // This cast is needed to avoid a type error for the mismatch of the event property
+  { event: EventType.PaymentInfoAdded }, // Non supported event by default in GA
 );
 
 const notValidTrackEvent = merge(
   {},
-  trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+  trackEventsData[EventType.ProductAddedToCart],
   { properties: { price: -120 } }, // Negative price is invalid
 );
 
@@ -226,9 +224,7 @@ describe('GA Integration', () => {
 
         const gaSpy = getWindowGaSpy(false);
 
-        await gaInstance.track(
-          trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
-        );
+        await gaInstance.track(trackEventsData[EventType.ProductAddedToCart]);
 
         expect(mockLoggerError).toHaveBeenCalled();
         expect(gaSpy).not.toHaveBeenCalled();
@@ -303,7 +299,7 @@ describe('GA Integration', () => {
 
             const event = merge(
               {},
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             const categoryWithTooManyLevels =
@@ -491,7 +487,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               await gaInstance.track(nonSupportedByDefaultTrackEvent);
@@ -519,7 +515,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -527,7 +523,7 @@ describe('GA Integration', () => {
               scopeCommands = {
                 hit: {
                   event: {
-                    [EventTypes.PRODUCT_ADDED_TO_CART]: {
+                    [EventType.ProductAddedToCart]: {
                       // @ts-expect-error
                       main: 'stringValue',
                     },
@@ -545,7 +541,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -573,7 +569,7 @@ describe('GA Integration', () => {
               const gaSpy = getWindowGaSpy();
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -587,7 +583,7 @@ describe('GA Integration', () => {
               const scopeCommands: ScopeCommands = {
                 hit: {
                   event: {
-                    [EventTypes.PRODUCT_ADDED_TO_CART]: {
+                    [EventType.ProductAddedToCart]: {
                       extras: (
                         data: EventData<TrackTypesValues>,
                       ): GACommandList => {
@@ -612,7 +608,7 @@ describe('GA Integration', () => {
               const gaSpy = getWindowGaSpy();
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(gaSpy.mock.calls).toContainEqual(
@@ -644,7 +640,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -652,7 +648,7 @@ describe('GA Integration', () => {
               scopeCommands = {
                 hit: {
                   event: {
-                    [EventTypes.PRODUCT_ADDED_TO_CART]: {
+                    [EventType.ProductAddedToCart]: {
                       // @ts-expect-error
                       extras: 'stringValue',
                     },
@@ -670,7 +666,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -696,7 +692,7 @@ describe('GA Integration', () => {
               gaInstance = await createGAInstanceAndLoad(options);
 
               await gaInstance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -801,7 +797,7 @@ describe('GA Integration', () => {
 
         describe('`schemas` option', () => {
           it('Should allow the user to override event schemas for validation', async () => {
-            const eventData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+            const eventData = trackEventsData[EventType.ProductAddedToCart];
 
             const schemas = {
               [eventData.event]: validationSchemaBuilder.object({
@@ -861,7 +857,7 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             expect(gaSpy.mock.calls).toEqual(newCommandList);
@@ -891,7 +887,7 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             expect(mockLoggerError).toHaveBeenCalled();
@@ -914,7 +910,7 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             const nonDefaultSupportedEvent = {
-              ...trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              ...trackEventsData[EventType.ProductAddedToCart],
               event: 'bogus event',
             };
 
@@ -942,7 +938,7 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             const validTrackEvent =
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+              trackEventsData[EventType.ProductAddedToCart];
 
             await gaInstance.track(validTrackEvent);
 
@@ -964,7 +960,7 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(trackEventsData[EventTypes.PRODUCT_VIEWED]);
+            await gaInstance.track(trackEventsData[EventType.ProductViewed]);
 
             const parameters = gaSpy.mock.calls[1]?.[1] as Record<
               string,
@@ -986,7 +982,7 @@ describe('GA Integration', () => {
 
             const gaSpy = getWindowGaSpy();
 
-            await gaInstance.track(trackEventsData[EventTypes.PRODUCT_VIEWED]);
+            await gaInstance.track(trackEventsData[EventType.ProductViewed]);
 
             const parameters = gaSpy.mock.calls[1]?.[1] as Record<
               string,
@@ -1001,7 +997,7 @@ describe('GA Integration', () => {
             gaInstance = await createGAInstanceAndLoad(validOptions);
 
             const gaSpy = getWindowGaSpy();
-            const trackData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+            const trackData = trackEventsData[EventType.ProductAddedToCart];
 
             await gaInstance.track(trackData);
 
@@ -1027,7 +1023,7 @@ describe('GA Integration', () => {
             const gaSpy = getWindowGaSpy();
 
             await gaInstance.track(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             const parameters = gaSpy.mock.calls[1]?.[1] as Record<

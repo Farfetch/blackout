@@ -10,7 +10,7 @@ import {
   postGuestToken,
   postToken,
   TokenData,
-  TokenKinds,
+  TokenKind,
   type UserToken,
 } from '@farfetch/blackout-client';
 import {
@@ -143,7 +143,7 @@ describe('useAuthentication', () => {
       callbacksValue[CallbackNames.OnUserSessionTerminated],
     ).toHaveBeenCalledWith({
       data: expect.objectContaining(mockUserTokenData),
-      kind: TokenKinds.User,
+      kind: TokenKind.User,
     });
   });
 
@@ -289,7 +289,7 @@ describe('useAuthentication', () => {
     const { result } = getRenderedHook();
 
     await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.Guest);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.Guest);
 
     const getAccessTokenSpy = jest.spyOn(
       result.current.tokenManager!,
@@ -317,7 +317,7 @@ describe('useAuthentication', () => {
     const { result } = getRenderedHook();
 
     await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.Guest);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.Guest);
 
     await expect(
       async () =>
@@ -354,7 +354,7 @@ describe('useAuthentication', () => {
       await result.current.login!(loginData);
     });
 
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.User);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.User);
     expect(result.current.isLoading).toBe(false);
 
     await expect(
@@ -398,13 +398,13 @@ describe('useAuthentication', () => {
     const { result } = getRenderedHook();
 
     await waitFor(() => expect(result.current.activeTokenData).toBeTruthy());
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.Guest);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.Guest);
 
     await act(async () => {
       await result.current.login!(loginData);
     });
 
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.User);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.User);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
@@ -419,7 +419,7 @@ describe('useAuthentication', () => {
       await result.current.login!(loginData);
     });
 
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.User);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.User);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isLoggedIn).toBe(true);
 
@@ -469,7 +469,7 @@ describe('useAuthentication', () => {
       await result.current.login!(loginData);
     });
 
-    expect(result.current.activeTokenData!.kind).toBe(TokenKinds.User);
+    expect(result.current.activeTokenData!.kind).toBe(TokenKind.User);
     expect(result.current.isLoading).toBe(false);
 
     const mockError = new Error(

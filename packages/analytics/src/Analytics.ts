@@ -9,7 +9,7 @@ import {
 } from './utils/index.js';
 import { Integration } from './integrations/index.js';
 import Consent from './Consent.js';
-import TrackTypes from './types/TrackTypes.js';
+import TrackType from './types/TrackType.js';
 import User from './User.js';
 import uuid from 'uuid';
 import type {
@@ -442,7 +442,7 @@ class Analytics {
     eventContext?: EventContextData,
   ): Promise<this> {
     return await this.trackInternal(
-      TrackTypes.TRACK,
+      TrackType.Track,
       event,
       properties,
       eventContext,
@@ -462,7 +462,7 @@ class Analytics {
    * chaining.
    */
   protected async trackInternal(
-    type: TrackTypesValues = TrackTypes.TRACK,
+    type: TrackTypesValues = TrackType.Track,
     event: string,
     properties?: EventProperties,
     eventContext?: EventContextData,

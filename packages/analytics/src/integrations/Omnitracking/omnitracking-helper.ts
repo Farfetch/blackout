@@ -2,8 +2,8 @@ import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants.js';
 import {
   type AnalyticsProduct,
   type EventData,
-  SignupNewsletterGenderTypes,
-  type TrackTypes,
+  SignupNewsletterGenderType,
+  type TrackType,
   type TrackTypesValues,
 } from '../../index.js';
 import {
@@ -24,7 +24,7 @@ import {
   pageViewEventTypes,
   trackDefinitions,
 } from './definitions.js';
-import PlatformTypes from '../../types/PlatformTypes.js';
+import PlatformType from '../../types/PlatformType.js';
 import uuid from 'uuid';
 import type {
   OmnitrackingCommonEventParameters,
@@ -222,7 +222,7 @@ function getSpecificMobileParameters<T extends EventData<TrackTypesValues>>(
 
   if (isScreenEventType(data)) {
     const screenParameters = commonParameters as SpecificParametersForEventType<
-      EventData<TrackTypes.SCREEN>
+      EventData<TrackType.Screen>
     >;
     // Referrer must be sent with an empty string when we don't have a value for it.
     const referrer = get(data, 'context.app.referrer', '');
@@ -238,8 +238,8 @@ function getSpecificMobileParameters<T extends EventData<TrackTypesValues>>(
  */
 const specificParametersBuilderByPlatform: SpecificParametersBuilderByPlatform =
   {
-    [PlatformTypes.Web]: getSpecificWebParameters,
-    [PlatformTypes.Mobile]: getSpecificMobileParameters,
+    [PlatformType.Web]: getSpecificWebParameters,
+    [PlatformType.Mobile]: getSpecificMobileParameters,
   } as const;
 
 /**
@@ -254,11 +254,11 @@ const specificParametersBuilderByPlatform: SpecificParametersBuilderByPlatform =
 export const getPlatformSpecificParameters = (
   data: EventData<TrackTypesValues>,
 ): SpecificParametersForEventType<typeof data> => {
-  const platform = get(data, 'platform', PlatformTypes.Web);
+  const platform = get(data, 'platform', PlatformType.Web);
 
   const specificPlatformParametersBuilder =
     specificParametersBuilderByPlatform[
-      platform as (typeof PlatformTypes)[keyof typeof PlatformTypes]
+      platform as (typeof PlatformType)[keyof typeof PlatformType]
     ];
 
   if (!specificPlatformParametersBuilder) {
@@ -605,16 +605,16 @@ export const getCommonCheckoutStepTrackingData = (
 export const getGenderValueFromProperties = (
   data: EventData<TrackTypesValues>,
 ) => {
-  type GenderObject = { id: SignupNewsletterGenderTypes; name?: string };
+  type GenderObject = { id: SignupNewsletterGenderType; name?: string };
 
   const genderArray: Array<string | undefined> = (
     Array.isArray(data.properties?.gender)
       ? data.properties?.gender
       : [data.properties?.gender]
-  ).map((gender: SignupNewsletterGenderTypes | GenderObject) => {
+  ).map((gender: SignupNewsletterGenderType | GenderObject) => {
     return (
       (gender as GenderObject).name ||
-      SignupNewsletterGenderTypes[(gender as GenderObject).id ?? gender]
+      SignupNewsletterGenderType[(gender as GenderObject).id ?? gender]
     );
   });
 

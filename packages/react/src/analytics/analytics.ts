@@ -1,12 +1,12 @@
 import { get } from 'lodash-es';
 import Analytics, {
-  TrackTypes as analyticsTrackTypes,
+  TrackType as analyticsTrackTypes,
   type ContextData,
   type EventContextData,
   type EventData,
   type EventProperties,
   type IntegrationRuntimeData,
-  PlatformTypes,
+  PlatformType,
   type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import webContext from './context.js';
@@ -29,7 +29,7 @@ class AnalyticsWeb extends Analytics {
   } | null;
 
   constructor() {
-    super(PlatformTypes.Web);
+    super(PlatformType.Web);
 
     // Stores the last page call
     this.currentPageCallData = null;
@@ -54,8 +54,8 @@ class AnalyticsWeb extends Analytics {
     if (this.currentPageCallData) {
       const { event, properties } = this.currentPageCallData;
 
-      const pageEventData = await this.getTrackEventData(
-        analyticsTrackTypes.PAGE,
+      const pageEventData = await super.getTrackEventData(
+        analyticsTrackTypes.Page,
         event,
         properties,
       );
@@ -142,7 +142,7 @@ class AnalyticsWeb extends Analytics {
     };
 
     await super.trackInternal(
-      analyticsTrackTypes.PAGE,
+      analyticsTrackTypes.Page,
       event,
       properties,
       eventContext,

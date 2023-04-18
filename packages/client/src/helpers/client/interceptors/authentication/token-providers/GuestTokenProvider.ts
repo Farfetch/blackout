@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash-es';
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import AuthenticationConfigOption from '../AuthenticationConfigOption.js';
 import TokenData from './TokenData.js';
-import TokenKinds from './TokenKinds.js';
+import TokenKind from './TokenKind.js';
 import TokenProvider from './TokenProvider.js';
 import type { AxiosError, AxiosResponse } from 'axios';
 import type {
@@ -59,8 +59,8 @@ class GuestTokenProvider extends TokenProvider {
    *
    * @returns Guest token kind.
    */
-  override getSupportedTokenKind(): TokenKinds {
-    return TokenKinds.Guest;
+  override getSupportedTokenKind(): TokenKind {
+    return TokenKind.Guest;
   }
 
   /**
@@ -89,8 +89,8 @@ class GuestTokenProvider extends TokenProvider {
       const usedTokenContext = this.getTokenContext();
 
       this.currentGetAccessTokenPromise = this.requester(usedTokenContext, {
-        [AuthenticationConfigOptions.NoAuthentication]: true,
-        [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
+        [AuthenticationConfigOption.NoAuthentication]: true,
+        [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
       }).then(
         async (response: AxiosResponse['data']) => {
           this.currentGetAccessTokenPromise = null;

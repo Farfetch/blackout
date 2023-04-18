@@ -84,7 +84,7 @@ export const isProductDuplicated = (
 };
 
 /**
- * Returns all the info about breadcrumbs at PDP.
+ * Returns all the info about breadcrumbs at Pdp.
  *
  * @param state - Application state.
  * @param id    - Product id.

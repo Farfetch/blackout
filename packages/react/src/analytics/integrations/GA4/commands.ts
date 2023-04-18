@@ -1,6 +1,6 @@
 import {
-  EventTypes,
-  InteractionTypes,
+  EventType,
+  InteractionType,
   type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -42,7 +42,7 @@ const getProductUpdatedEventList = (data: TrackEventData): Array<string> => {
     eventProperties.oldQuantity !== eventProperties.quantity
   ) {
     dispatchGA4EventList.push(
-      InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY,
+      InternalEventTypes.ProductUpdated.CHANGE_QUANTITY,
     );
   }
 
@@ -50,14 +50,14 @@ const getProductUpdatedEventList = (data: TrackEventData): Array<string> => {
     eventProperties.size &&
     eventProperties.oldSize !== eventProperties.size
   ) {
-    dispatchGA4EventList.push(InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE);
+    dispatchGA4EventList.push(InternalEventTypes.ProductUpdated.CHANGE_SIZE);
   }
 
   if (
     eventProperties.colour &&
     eventProperties.oldColour !== eventProperties.colour
   ) {
-    dispatchGA4EventList.push(InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR);
+    dispatchGA4EventList.push(InternalEventTypes.ProductUpdated.CHANGE_COLOUR);
   }
 
   // return list of events which will be triggered
@@ -96,7 +96,7 @@ const interactContentEventCommandsBuilder = (data: TrackEventData) => {
   const eventProperties = data.properties;
 
   if (
-    eventProperties.interactionType === InteractionTypes.SCROLL &&
+    eventProperties.interactionType === InteractionType.Scroll &&
     eventProperties.target === document.body
   ) {
     return genericCommandsBuilder({
@@ -112,8 +112,8 @@ const interactContentEventCommandsBuilder = (data: TrackEventData) => {
 const specializedCommandsBuilderByEvent: {
   [event: string]: (data: TrackEventData) => GA4CommandList;
 } = {
-  [EventTypes.PRODUCT_UPDATED]: productUpdatedEventCommandsBuilder,
-  [EventTypes.INTERACT_CONTENT]: interactContentEventCommandsBuilder,
+  [EventType.ProductUpdated]: productUpdatedEventCommandsBuilder,
+  [EventType.InteractContent]: interactContentEventCommandsBuilder,
 };
 
 // Schema used to validate the output of command functions
@@ -123,9 +123,9 @@ export const commandListSchema = validationSchemaBuilder
 
 // List of default non-interaction events
 export const nonInteractionEvents = {
-  [EventTypes.CHECKOUT_STEP_VIEWED]: true,
-  [EventTypes.PRODUCT_LIST_VIEWED]: true,
-  [EventTypes.PRODUCT_VIEWED]: true,
+  [EventType.CheckoutStepViewed]: true,
+  [EventType.ProductListViewed]: true,
+  [EventType.ProductViewed]: true,
 };
 
 /**

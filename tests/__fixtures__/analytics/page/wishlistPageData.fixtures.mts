@@ -1,12 +1,12 @@
-import { FromParameterTypes, PageTypes } from '@farfetch/blackout-analytics';
+import { FromParameterType, PageType } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures.mjs';
 
 const fixtures = {
   ...basePageData,
-  event: PageTypes.WISHLIST,
+  event: PageType.Wishlist,
   properties: {
     currency: 'USD',
-    from: FromParameterTypes.WISHLIST,
+    from: FromParameterType.Wishlist,
     wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
     products: [
       {

@@ -6,7 +6,7 @@
  * * 1201003 - The password should contain a special character
  * * 1201004 - The password should contain at least one number
  */
-export enum PasswordValidationErrors {
+export enum PasswordValidationError {
   MinSizeError = 1201000,
   NoLowerCaseLetterError = 1201001,
   NoUpperCaseLetterError = 1201002,
@@ -16,37 +16,37 @@ export enum PasswordValidationErrors {
 
 export type PasswordValidationResult = {
   isValid: boolean;
-  errors: Array<PasswordValidationErrors>;
+  errors: Array<PasswordValidationError>;
 };
 
 const PASSWORD_VALIDATIONS: Array<{
   validation: RegExp;
-  errorCode: PasswordValidationErrors;
+  errorCode: PasswordValidationError;
 }> = [
   {
     // Password length validation
     validation: /^[a-zA-Z0-9\W]{10,}$/,
-    errorCode: PasswordValidationErrors.MinSizeError,
+    errorCode: PasswordValidationError.MinSizeError,
   },
   {
     // Password lower case validation
     validation: /(?=.*[a-z])/,
-    errorCode: PasswordValidationErrors.NoLowerCaseLetterError,
+    errorCode: PasswordValidationError.NoLowerCaseLetterError,
   },
   {
     // Password upper case validation
     validation: /(?=.*[A-Z])/,
-    errorCode: PasswordValidationErrors.NoUpperCaseLetterError,
+    errorCode: PasswordValidationError.NoUpperCaseLetterError,
   },
   {
     // Password special character validation
     validation: /(?=.*\W)/,
-    errorCode: PasswordValidationErrors.NoSpecialCharacterError,
+    errorCode: PasswordValidationError.NoSpecialCharacterError,
   },
   {
     // Password numbers validation
     validation: /(?=.*\d)/,
-    errorCode: PasswordValidationErrors.NoNumberError,
+    errorCode: PasswordValidationError.NoNumberError,
   },
 ];
 

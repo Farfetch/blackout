@@ -1,8 +1,8 @@
 import {
-  EventTypes,
+  EventType,
   type SetUserEventData,
   type StrippedDownAnalytics,
-  type TrackTypes,
+  type TrackType,
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -17,7 +17,7 @@ import flushPromises from 'tests/flushPromises.mjs';
 import Forter from '../index.js';
 import getCallError from 'tests/getCallError.mjs';
 
-const eventData = trackEventsData[EventTypes.CHECKOUT_STARTED];
+const eventData = trackEventsData[EventType.CheckoutStarted];
 
 let mockPostTrackingsPromiseResolve: (value?: SetUserEventData) => void;
 const mockPostTrackingsPromise = new Promise(
@@ -30,7 +30,7 @@ const mockForterToken =
 const mockForterTokenLoadedPromise = Promise.resolve(mockForterToken);
 
 const strippedDownAnalytics: StrippedDownAnalytics = {
-  createEvent: (type: TrackTypes) =>
+  createEvent: (type: TrackType) =>
     Promise.resolve({ ...loadIntegrationData, type }),
 };
 

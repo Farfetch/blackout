@@ -27,13 +27,13 @@ import * as castleJS from '@castleio/castle-js';
 import { client as coreClient } from '@farfetch/blackout-client';
 import {
   type EventData,
-  EventTypes,
+  EventType,
   integrations,
   type LoadIntegrationEventData,
   type PageviewEventData,
   type StrippedDownAnalytics,
   type TrackEventData,
-  TrackTypes,
+  TrackType,
   type TrackTypesValues,
   type UserData,
   type UserTraits,
@@ -257,7 +257,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    * @returns - Promise that will resolve when the method finishes.
    */
   override track(data: EventData<TrackTypesValues>) {
-    if (data.type === TrackTypes.TRACK) {
+    if (data.type === TrackType.Track) {
       return this.trackEvent(data as TrackEventData);
     }
 
@@ -275,15 +275,15 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     const user = this.getUserData(data);
 
     switch (data.event) {
-      case EventTypes.ADDRESS_INFO_ADDED:
-      case EventTypes.CHECKOUT_STEP_COMPLETED:
-      case EventTypes.LOGIN:
-      case EventTypes.PAYMENT_INFO_ADDED:
-      case EventTypes.PROMOCODE_APPLIED:
-      case EventTypes.SHIPPING_INFO_ADDED:
-      case EventTypes.SHIPPING_METHOD_ADDED:
-      case EventTypes.SIGNUP_FORM_COMPLETED:
-      case EventTypes.SIGNUP_NEWSLETTER: {
+      case EventType.AddressInfoAdded:
+      case EventType.CheckoutStepCompleted:
+      case EventType.Login:
+      case EventType.PaymentInfoAdded:
+      case EventType.PromocodeApplied:
+      case EventType.ShippingInfoAdded:
+      case EventType.ShippingMethodAdded:
+      case EventType.SignupFormCompleted:
+      case EventType.SignupNewsletter: {
         const formData: FormParams = {
           user,
           name: data.event,

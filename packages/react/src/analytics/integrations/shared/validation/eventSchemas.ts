@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { EventTypes } from '@farfetch/blackout-analytics';
+import { EventType } from '@farfetch/blackout-analytics';
 
 /**
  * Schema definitions for each event. Defined using yup.
@@ -205,22 +205,22 @@ export const sizeSchema = yup.object({
  * Schemas map by event name.
  */
 const schemaEventsMap = {
-  [EventTypes.CHECKOUT_STEP_COMPLETED]: checkoutSchema,
-  [EventTypes.CHECKOUT_STEP_VIEWED]: checkoutStepViewedSchema,
-  [EventTypes.FILTERS_APPLIED]: filtersSchema,
-  [EventTypes.FILTERS_CLEARED]: filtersSchema,
-  [EventTypes.LOGIN]: loginSignUpSchema,
-  [EventTypes.ORDER_COMPLETED]: orderCompletedSchema,
-  [EventTypes.ORDER_REFUNDED]: productRefundSchema,
-  [EventTypes.PRODUCT_ADDED_TO_CART]: productAddedRemovedCartSchema,
-  [EventTypes.PRODUCT_CLICKED]: productClickedSchema,
-  [EventTypes.PRODUCT_LIST_VIEWED]: productListViewedSchema,
-  [EventTypes.PRODUCT_REMOVED_FROM_CART]: productAddedRemovedCartSchema,
-  [EventTypes.PRODUCT_VIEWED]: productViewedSchema,
-  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: productAddedRemovedWishlistSchema,
-  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: productAddedRemovedWishlistSchema,
-  [EventTypes.PRODUCT_UPDATED_WISHLIST]: productAddedRemovedWishlistSchema,
-  [EventTypes.SIGNUP_FORM_COMPLETED]: loginSignUpSchema,
+  [EventType.CheckoutStepCompleted]: checkoutSchema,
+  [EventType.CheckoutStepViewed]: checkoutStepViewedSchema,
+  [EventType.FiltersApplied]: filtersSchema,
+  [EventType.FiltersCleared]: filtersSchema,
+  [EventType.Login]: loginSignUpSchema,
+  [EventType.OrderCompleted]: orderCompletedSchema,
+  [EventType.OrderRefunded]: productRefundSchema,
+  [EventType.ProductAddedToCart]: productAddedRemovedCartSchema,
+  [EventType.ProductClicked]: productClickedSchema,
+  [EventType.ProductListViewed]: productListViewedSchema,
+  [EventType.ProductRemovedFromCart]: productAddedRemovedCartSchema,
+  [EventType.ProductViewed]: productViewedSchema,
+  [EventType.ProductAddedToWishlist]: productAddedRemovedWishlistSchema,
+  [EventType.ProductRemovedFromWishlist]: productAddedRemovedWishlistSchema,
+  [EventType.ProductUpdatedWishlist]: productAddedRemovedWishlistSchema,
+  [EventType.SignupFormCompleted]: loginSignUpSchema,
 };
 
 export default schemaEventsMap;

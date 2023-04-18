@@ -1,15 +1,15 @@
 import {
-  TrackTypes as analyticsTrackTypes,
-  EventTypes,
+  TrackType as analyticsTrackTypes,
+  EventType,
   integrations,
-  InteractionTypes,
+  InteractionType,
   type LoadIntegrationEventData,
-  PageTypes,
+  PageType,
   type PageviewEventData,
   type SetUserEventData,
   type StrippedDownAnalytics,
   type TrackEventData,
-  TrackTypes,
+  TrackType,
   utils,
 } from '@farfetch/blackout-analytics';
 import { cloneDeep, get } from 'lodash-es';
@@ -45,10 +45,10 @@ import type {
   UserScopeCommandsHandler,
 } from '../types/index.js';
 
-const mockedPageData = pageEventsData[PageTypes.HOMEPAGE] as PageviewEventData;
-const defaultTrackEventData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+const mockedPageData = pageEventsData[PageType.Homepage] as PageviewEventData;
+const defaultTrackEventData = trackEventsData[EventType.ProductAddedToCart];
 const nonSupportedByDefaultTrackEvent =
-  trackEventsData[EventTypes.PRODUCT_UPDATED_WISHLIST]; // Non supported event by default in GA
+  trackEventsData[EventType.ProductUpdatedWishlist]; // Non supported event by default in GA
 
 utils.logger.error = jest.fn();
 
@@ -196,9 +196,7 @@ describe('GA4 Integration', () => {
         ga4Instance = await createGA4InstanceAndLoad(options);
         // @ts-ignore
         window.gtag = undefined;
-        await ga4Instance.track(
-          trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
-        );
+        await ga4Instance.track(trackEventsData[EventType.ProductAddedToCart]);
       }).rejects.toThrow('[GA4] - Event track failed: GA4 is not loaded.');
     });
 
@@ -382,7 +380,7 @@ describe('GA4 Integration', () => {
         const options = {
           ...validOptions,
           [OPTION_NON_INTERACTION_EVENTS]: {
-            [EventTypes.PRODUCT_REMOVED_FROM_CART]: true,
+            [EventType.ProductRemovedFromCart]: true,
           },
         };
 
@@ -390,7 +388,7 @@ describe('GA4 Integration', () => {
 
         const expectedPayload = [
           'event',
-          eventMapping[EventTypes.PRODUCT_REMOVED_FROM_CART],
+          eventMapping[EventType.ProductRemovedFromCart],
           expect.objectContaining({
             [NON_INTERACTION_FLAG]: true,
           }),
@@ -399,7 +397,7 @@ describe('GA4 Integration', () => {
         const ga4Spy = getWindowGa4Spy();
 
         await ga4Instance.track(
-          trackEventsData[EventTypes.PRODUCT_REMOVED_FROM_CART],
+          trackEventsData[EventType.ProductRemovedFromCart],
         );
 
         expect(ga4Spy.mock.calls[0]).toEqual(expectedPayload);
@@ -409,7 +407,7 @@ describe('GA4 Integration', () => {
         const dummyEvent: TrackEventData = {
           ...defaultTrackEventData,
           event: 'dummy',
-          type: TrackTypes.TRACK,
+          type: TrackType.Track,
           properties: {},
         };
 
@@ -555,7 +553,7 @@ describe('GA4 Integration', () => {
               ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               await ga4Instance.track(nonSupportedByDefaultTrackEvent);
@@ -582,7 +580,7 @@ describe('GA4 Integration', () => {
 
               await ga4Instance.track({
                 ...defaultTrackEventData,
-                type: analyticsTrackTypes.TRACK,
+                type: analyticsTrackTypes.Track,
                 event: 'DUMMY_EVENT',
               });
 
@@ -608,7 +606,7 @@ describe('GA4 Integration', () => {
 
               await ga4Instance.track({
                 ...defaultTrackEventData,
-                type: analyticsTrackTypes.TRACK,
+                type: analyticsTrackTypes.Track,
                 event: 'DUMMY_EVENT',
               });
 
@@ -635,7 +633,7 @@ describe('GA4 Integration', () => {
               const ga4Spy = getWindowGa4Spy();
 
               await ga4Instance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -648,7 +646,7 @@ describe('GA4 Integration', () => {
 
               const scopeCommands: ScopeCommands = {
                 event: {
-                  [EventTypes.PRODUCT_ADDED_TO_CART]: {
+                  [EventType.ProductAddedToCart]: {
                     extras: (data: TrackEventData) => {
                       extraCommands = [
                         ['set', 'custom_attr', data.properties.size],
@@ -670,7 +668,7 @@ describe('GA4 Integration', () => {
               const ga4Spy = getWindowGa4Spy();
 
               await ga4Instance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(ga4Spy.mock.calls).toContainEqual(extraCommands[0]);
@@ -699,7 +697,7 @@ describe('GA4 Integration', () => {
 
               await ga4Instance.track({
                 ...defaultTrackEventData,
-                type: analyticsTrackTypes.TRACK,
+                type: analyticsTrackTypes.Track,
                 event: 'DUMMY_EVENT',
               });
 
@@ -725,7 +723,7 @@ describe('GA4 Integration', () => {
 
               await ga4Instance.track({
                 ...defaultTrackEventData,
-                type: analyticsTrackTypes.TRACK,
+                type: analyticsTrackTypes.Track,
                 event: 'DUMMY_EVENT',
               });
 
@@ -750,7 +748,7 @@ describe('GA4 Integration', () => {
               ga4Instance = await createGA4InstanceAndLoad(options, loadData);
 
               await ga4Instance.track(
-                trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+                trackEventsData[EventType.ProductAddedToCart],
               );
 
               expect(mockLoggerError).toHaveBeenCalled();
@@ -887,7 +885,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             await ga4Instance.track(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             expect(ga4Spy.mock.calls).toEqual(newCommandList);
@@ -917,7 +915,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             await ga4Instance.track(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             expect(mockLoggerError).toHaveBeenCalled();
@@ -940,7 +938,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             const nonDefaultSupportedEvent = {
-              ...trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              ...trackEventsData[EventType.ProductAddedToCart],
               event: 'bogus event',
             };
 
@@ -1177,7 +1175,7 @@ describe('GA4 Integration', () => {
 
             const expectedPayload = [
               'event',
-              eventMapping[EventTypes.PRODUCT_REMOVED_FROM_CART],
+              eventMapping[EventType.ProductRemovedFromCart],
               expect.objectContaining({
                 items: [
                   expect.objectContaining({
@@ -1191,7 +1189,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             const clonedEvent = {
-              ...trackEventsData[EventTypes.PRODUCT_REMOVED_FROM_CART],
+              ...trackEventsData[EventType.ProductRemovedFromCart],
             };
 
             clonedEvent.properties = {
@@ -1212,12 +1210,12 @@ describe('GA4 Integration', () => {
             );
 
             const expectedValue =
-              trackEventsData[EventTypes.PRODUCT_REMOVED_FROM_CART].properties
+              trackEventsData[EventType.ProductRemovedFromCart].properties
                 .price;
 
             const expectedPayload = [
               'event',
-              eventMapping[EventTypes.PRODUCT_REMOVED_FROM_CART],
+              eventMapping[EventType.ProductRemovedFromCart],
               expect.objectContaining({
                 value: expectedValue,
               }),
@@ -1226,7 +1224,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             const clonedEvent = {
-              ...trackEventsData[EventTypes.PRODUCT_REMOVED_FROM_CART],
+              ...trackEventsData[EventType.ProductRemovedFromCart],
             };
 
             delete clonedEvent.properties.value;
@@ -1243,7 +1241,7 @@ describe('GA4 Integration', () => {
             );
 
             const bagPageEventData = pageEventsData[
-              PageTypes.BAG
+              PageType.Bag
             ] as PageviewEventData;
 
             const ga4Spy = getWindowGa4Spy();
@@ -1280,7 +1278,7 @@ describe('GA4 Integration', () => {
 
         describe('Newsletter events', () => {
           const defaultEvent = {
-            ...trackEventsData[EventTypes.SIGNUP_NEWSLETTER],
+            ...trackEventsData[EventType.SignupNewsletter],
           };
 
           it('should track single gender event', async () => {
@@ -1368,7 +1366,7 @@ describe('GA4 Integration', () => {
 
         describe('Search events', () => {
           const defaultEvent = {
-            ...(pageEventsData[PageTypes.SEARCH] as PageviewEventData),
+            ...(pageEventsData[PageType.Search] as PageviewEventData),
           };
 
           it('should not track search event with invalid search term or query, only page event.', async () => {
@@ -1448,7 +1446,7 @@ describe('GA4 Integration', () => {
               const ga4Spy = getWindowGa4Spy();
 
               await ga4Instance.track(
-                trackEventsData[EventTypes.INTERACT_CONTENT],
+                trackEventsData[EventType.InteractContent],
               );
 
               expect(ga4Spy).toHaveBeenCalledWith(
@@ -1457,7 +1455,7 @@ describe('GA4 Integration', () => {
                 expect.objectContaining({
                   content_type: 'biz',
                   some_other_property: 12312312,
-                  interaction_type: InteractionTypes.CLICK,
+                  interaction_type: InteractionType.Click,
                 }),
               );
             });
@@ -1473,7 +1471,7 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_UPDATED],
+              trackEventsData[EventType.ProductUpdated],
             );
 
             // delete unwanted case scenarios
@@ -1496,7 +1494,7 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_UPDATED],
+              trackEventsData[EventType.ProductUpdated],
             );
 
             // delete unwanted case scenarios
@@ -1517,7 +1515,7 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_UPDATED],
+              trackEventsData[EventType.ProductUpdated],
             );
 
             // delete unwanted case scenarios
@@ -1537,7 +1535,7 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_UPDATED],
+              trackEventsData[EventType.ProductUpdated],
             );
 
             // delete unwanted case scenarios
@@ -1559,7 +1557,7 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_UPDATED],
+              trackEventsData[EventType.ProductUpdated],
             );
 
             await ga4Instance.track(clonedEvent);
@@ -1578,7 +1576,7 @@ describe('GA4 Integration', () => {
             const ga4Spy = getWindowGa4Spy();
 
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART],
+              trackEventsData[EventType.ProductAddedToCart],
             );
 
             clonedEvent.properties.category =
@@ -1631,10 +1629,10 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.INTERACT_CONTENT],
+              trackEventsData[EventType.InteractContent],
             );
 
-            clonedEvent.properties.interactionType = InteractionTypes.SCROLL;
+            clonedEvent.properties.interactionType = InteractionType.Scroll;
             clonedEvent.properties.target = document.body;
             clonedEvent.properties.percentageScrolled = 25;
 
@@ -1651,10 +1649,10 @@ describe('GA4 Integration', () => {
 
             const ga4Spy = getWindowGa4Spy();
             const clonedEvent = cloneDeep(
-              trackEventsData[EventTypes.INTERACT_CONTENT],
+              trackEventsData[EventType.InteractContent],
             );
 
-            clonedEvent.properties.interactionType = InteractionTypes.SCROLL;
+            clonedEvent.properties.interactionType = InteractionType.Scroll;
             clonedEvent.properties.target = document.createElement('ul'); // use other element instead of document
             clonedEvent.properties.percentageScrolled = 25;
 

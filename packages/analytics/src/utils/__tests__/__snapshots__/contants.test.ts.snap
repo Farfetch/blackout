@@ -10,9 +10,9 @@ Array [
 
 exports[`constants Should export DefaultConsentKeys 1`] = `
 Object {
-  "MARKETING": "marketing",
-  "PREFERENCES": "preferences",
-  "STATISTICS": "statistics",
+  "Marketing": "marketing",
+  "Preferences": "preferences",
+  "Statistics": "statistics",
 }
 `;
 

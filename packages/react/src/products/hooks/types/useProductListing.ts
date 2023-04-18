@@ -4,7 +4,7 @@ import type {
   GetProductSetQuery,
 } from '@farfetch/blackout-client';
 
-export enum ProductListingTypes {
+export enum ProductListingType {
   Listing = 'Listing',
   Set = 'Set',
 }
@@ -19,12 +19,12 @@ export interface UseProductListingCommonOptions {
 }
 
 export interface UseProductListingList extends UseProductListingCommonOptions {
-  type?: ProductListingTypes.Listing;
+  type?: ProductListingType.Listing;
   query?: GetProductListingQuery;
 }
 
 export interface UseProductListingSet extends UseProductListingCommonOptions {
-  type?: ProductListingTypes.Set;
+  type?: ProductListingType.Set;
   query?: GetProductSetQuery;
 }
 
@@ -34,4 +34,4 @@ export type UseProductListingOptions =
 
 export const isSet = (
   options: UseProductListingOptions,
-): options is UseProductListingSet => options.type === ProductListingTypes.Set;
+): options is UseProductListingSet => options.type === ProductListingType.Set;

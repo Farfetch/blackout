@@ -5,10 +5,10 @@ import {
 import { client } from '@farfetch/blackout-client';
 import {
   type EventData,
-  EventTypes,
+  EventType,
   integrations,
   type LoadIntegrationEventData,
-  PageTypes,
+  PageType,
   type StrippedDownAnalytics,
   type TrackTypesValues,
   utils,
@@ -17,7 +17,7 @@ import { isArray, omit } from 'lodash-es';
 
 export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiIntegrationOptions> {
   static override [utils.CONSENT_CATEGORIES_PROPERTY] =
-    utils.DefaultConsentKeys.MARKETING;
+    utils.DefaultConsentKeys.Marketing;
   private debugMode: boolean | undefined;
   private whitelisted: Array<string>;
 
@@ -56,8 +56,8 @@ export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiI
     this.debugMode =
       utils.getCookie('analyticsAPIDebug')?.toLowerCase() === 'true';
     this.whitelisted = this.options.whitelistedEvents || [
-      ...Object.values(PageTypes),
-      ...Object.values(EventTypes),
+      ...Object.values(PageType),
+      ...Object.values(EventType),
     ];
   }
 

@@ -8,7 +8,7 @@ import {
   SET_USER_TYPE,
 } from '../constants.js';
 import {
-  EventTypes,
+  EventType,
   integrations,
   type LoadIntegrationEventData,
   type TrackTypesValues,
@@ -34,8 +34,7 @@ utils.logger.error = jest.fn();
 
 const loggerErrorSpy = utils.logger.error;
 
-const analyticsTrackDataMock =
-  trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+const analyticsTrackDataMock = trackEventsData[EventType.ProductAddedToCart];
 
 const strippedDownAnalytics = {
   createEvent: (type: TrackTypesValues) =>
@@ -299,7 +298,7 @@ describe('GTM', () => {
     it('Should only track events mapped on the integration', () => {
       const analyticsEvent = {
         ...analyticsTrackDataMock,
-        event: EventTypes.PRODUCT_CLICKED,
+        event: EventType.ProductClicked,
         properties: {
           id: 123123,
         },
@@ -331,7 +330,7 @@ describe('GTM', () => {
     it('Should track with unique id on track result', () => {
       const analyticsEvent = {
         ...analyticsTrackDataMock,
-        event: EventTypes.PRODUCT_CLICKED,
+        event: EventType.ProductClicked,
         properties: {
           id: 123123,
         },
@@ -438,7 +437,7 @@ describe('GTM', () => {
       let dataLayerEntry;
       const myCustomProperty = 'myCustomProperty';
       const eventSchemas = {
-        [EventTypes.PRODUCT_CLICKED]: validationSchemaBuilder.object({
+        [EventType.ProductClicked]: validationSchemaBuilder.object({
           [myCustomProperty]: validationSchemaBuilder.string().required(),
         }),
       };
@@ -448,7 +447,7 @@ describe('GTM', () => {
 
       const analyticsEvent = {
         ...analyticsTrackDataMock,
-        event: EventTypes.PRODUCT_CLICKED,
+        event: EventType.ProductClicked,
         properties: {},
       };
 

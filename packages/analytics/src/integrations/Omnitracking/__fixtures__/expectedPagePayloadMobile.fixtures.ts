@@ -1,11 +1,11 @@
 import { pageEventsData } from 'tests/__fixtures__/analytics/index.mjs';
-import { PageTypes } from '../../../index.js';
+import { PageType } from '../../../index.js';
 import { userGenderValuesMapper } from '../definitions.js';
 import mockedUuid from './mocked_uuid.js';
 import type { DefaultPageFixturesResult } from 'tests/__fixtures__/analytics/page/index.mjs';
 
 const pageMockData = pageEventsData[
-  PageTypes.HOMEPAGE
+  PageType.Homepage
 ] as DefaultPageFixturesResult;
 
 const fixtures = {

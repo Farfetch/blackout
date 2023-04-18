@@ -1,6 +1,6 @@
 import {
   type EventData,
-  PageTypes,
+  PageType,
   type TrackTypesValues,
 } from '../../../index.js';
 import { pageEventsData } from 'tests/__fixtures__/analytics/index.mjs';
@@ -11,7 +11,7 @@ import mockedUuid from './mocked_uuid.js';
 type PageMockData = EventData<TrackTypesValues> & { context: { web: any } };
 
 const pageMockData: PageMockData = pageEventsData[
-  PageTypes.HOMEPAGE
+  PageType.Homepage
 ] as PageMockData;
 
 const fixtures = {

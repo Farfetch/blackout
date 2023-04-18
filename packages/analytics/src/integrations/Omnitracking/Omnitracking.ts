@@ -44,10 +44,10 @@ import {
   viewGenderValuesMapper,
 } from './definitions.js';
 import { postTracking, type User, UserGender } from '@farfetch/blackout-client';
-import analyticsTrackTypes from '../../types/TrackTypes.js';
+import analyticsTrackTypes from '../../types/TrackType.js';
 import Integration from '../Integration.js';
 import logger from '../../utils/logger.js';
-import PlatformTypes from '../../types/PlatformTypes.js';
+import PlatformType from '../../types/PlatformType.js';
 import type {
   EventContext,
   EventData,
@@ -192,7 +192,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         precalculatedParameters as OmnitrackingPageEventParameters;
 
       // Generate a new currentUniqueViewId to be used in all
-      // subsequent page actions (analyticsTrackTypes.TRACK events).
+      // subsequent page actions (analyticsTrackTypes.Track events).
       this.previousUniqueViewId = this.currentUniqueViewId;
       this.currentUniqueViewId = getUniqueViewIdParameter(data);
 
@@ -201,7 +201,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
       // in order to reduce the complexity of passing the options to the function
-      if (data.platform === PlatformTypes.Web) {
+      if (data.platform === PlatformType.Web) {
         const searchQuery = getSearchQuery(data, this.searchQueryParameters);
 
         if (searchQuery) {
@@ -272,15 +272,15 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
     switch (data.type) {
       // Screen is treated the same as a page in Omnitracking
-      case analyticsTrackTypes.PAGE:
-      case analyticsTrackTypes.SCREEN: {
+      case analyticsTrackTypes.Page:
+      case analyticsTrackTypes.Screen: {
         const eventMapperFn =
           pageEventsMapper[event as keyof OmnitrackingPageEventsMapper];
 
         await this.processEvent(data, eventMapperFn);
         break;
       }
-      case analyticsTrackTypes.TRACK: {
+      case analyticsTrackTypes.Track: {
         const eventMapperFn =
           trackEventsMapper[event as keyof OmnitrackingTrackEventsMapper];
 
@@ -349,8 +349,8 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     let formattedEventData;
 
     if (
-      data.type === analyticsTrackTypes.PAGE ||
-      data.type === analyticsTrackTypes.SCREEN
+      data.type === analyticsTrackTypes.Page ||
+      data.type === analyticsTrackTypes.Screen
     ) {
       formattedEventData = Omnitracking.formatPageEvent(
         data,

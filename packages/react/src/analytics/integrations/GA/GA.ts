@@ -16,7 +16,7 @@
  * ```
  */
 import {
-  TrackTypes as analyticsTrackTypes,
+  TrackType as analyticsTrackTypes,
   type EventData,
   integrations,
   type LoadIntegrationEventData,
@@ -86,7 +86,7 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
   }
 
   static override [utils.CONSENT_CATEGORIES_PROPERTY] =
-    utils.DefaultConsentKeys.STATISTICS;
+    utils.DefaultConsentKeys.Statistics;
 
   /**
    * Send page hits to GA.
@@ -143,10 +143,10 @@ class GA extends integrations.Integration<GAIntegrationOptions> {
    */
   override async track(data: EventData<TrackTypesValues>): Promise<void> {
     switch (data.type) {
-      case analyticsTrackTypes.PAGE:
+      case analyticsTrackTypes.Page:
         return await this.trackPage(data as PageviewEventData);
 
-      case analyticsTrackTypes.TRACK:
+      case analyticsTrackTypes.Track:
         return await this.trackEvent(data as TrackEventData);
 
       default:

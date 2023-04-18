@@ -1,4 +1,4 @@
-import { PageTypes } from '@farfetch/blackout-analytics';
+import { PageType } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures.mjs';
 
 const fixtures = {
@@ -8,7 +8,7 @@ const fixtures = {
     currency: 'EUR',
     products: [{ id: '10000' }, { id: '20000' }],
   },
-  event: PageTypes.SEARCH,
+  event: PageType.Search,
 };
 
 export default fixtures;

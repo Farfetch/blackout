@@ -1,4 +1,4 @@
-import type { AuthenticationConfigOptions } from './AuthenticationConfigOptions.types.js';
+import type { AuthenticationConfig } from './AuthenticationConfig.types.js';
 import type { Config } from '../../../../../types/index.js';
 
 interface CurrentRetry {
@@ -7,5 +7,5 @@ interface CurrentRetry {
 
 export interface RequestConfig
   extends Config,
-    AuthenticationConfigOptions,
+    AuthenticationConfig,
     CurrentRetry {}

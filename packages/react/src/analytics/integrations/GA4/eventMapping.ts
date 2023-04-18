@@ -1,9 +1,9 @@
 import {
   type AnalyticsProduct,
   type EventProperties,
-  EventTypes,
-  PageTypes,
-  SignupNewsletterGenderTypes,
+  EventType,
+  PageType,
+  SignupNewsletterGenderType,
   type TrackEventData,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -11,7 +11,7 @@ import { get, isObject, snakeCase } from 'lodash-es';
 import { MAX_PRODUCT_CATEGORIES } from './constants.js';
 
 export const InternalEventTypes = {
-  PRODUCT_UPDATED: {
+  ProductUpdated: {
     CHANGE_SIZE: 'select_size',
     CHANGE_QUANTITY: 'change_quantity',
     CHANGE_COLOUR: 'change_colour',
@@ -23,44 +23,44 @@ export const InternalEventTypes = {
  * Exports a map of core's events track names and GA4 events track names.
  */
 const eventMapping = {
-  [EventTypes.PRODUCT_ADDED_TO_CART]: 'add_to_cart',
-  [EventTypes.PRODUCT_REMOVED_FROM_CART]: 'remove_from_cart',
-  [EventTypes.PAYMENT_INFO_ADDED]: 'add_payment_info',
-  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: 'add_to_wishlist',
-  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: 'remove_from_wishlist',
-  [EventTypes.SHIPPING_INFO_ADDED]: 'add_shipping_info',
-  [EventTypes.CHECKOUT_STARTED]: 'begin_checkout',
-  [EventTypes.ORDER_COMPLETED]: 'purchase',
-  [EventTypes.ORDER_REFUNDED]: 'refund',
-  [PageTypes.SEARCH]: 'search',
-  [EventTypes.SELECT_CONTENT]: 'select_content',
-  [EventTypes.PRODUCT_CLICKED]: 'select_item',
-  [EventTypes.PRODUCT_VIEWED]: 'view_item',
-  [EventTypes.PRODUCT_LIST_VIEWED]: 'view_item_list',
-  [PageTypes.BAG]: 'view_cart',
-  [PageTypes.WISHLIST]: 'view_wishlist',
-  [EventTypes.LOGIN]: 'login',
-  [EventTypes.SIGNUP_FORM_COMPLETED]: 'sign_up',
-  [EventTypes.FILTERS_APPLIED]: 'apply_filters',
-  [EventTypes.FILTERS_CLEARED]: 'clear_all_filters',
-  [EventTypes.SHARE]: 'share',
-  [EventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
-  [EventTypes.PLACE_ORDER_STARTED]: 'place_order',
-  [EventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
-  [EventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
-  [EventTypes.ADDRESS_INFO_ADDED]: 'add_address_info',
-  [EventTypes.DELIVERY_METHOD_ADDED]: 'add_delivery_method',
-  [EventTypes.BILLING_INFO_ADDED]: 'add_billing_info',
-  [EventTypes.SHIPPING_METHOD_ADDED]: 'add_shipping_method',
-  [EventTypes.INTERACT_CONTENT]: 'interact_content',
-  [EventTypes.SIGNUP_NEWSLETTER]: 'sign_up_newsletter',
+  [EventType.ProductAddedToCart]: 'add_to_cart',
+  [EventType.ProductRemovedFromCart]: 'remove_from_cart',
+  [EventType.PaymentInfoAdded]: 'add_payment_info',
+  [EventType.ProductAddedToWishlist]: 'add_to_wishlist',
+  [EventType.ProductRemovedFromWishlist]: 'remove_from_wishlist',
+  [EventType.ShippingInfoAdded]: 'add_shipping_info',
+  [EventType.CheckoutStarted]: 'begin_checkout',
+  [EventType.OrderCompleted]: 'purchase',
+  [EventType.OrderRefunded]: 'refund',
+  [PageType.Search]: 'search',
+  [EventType.SelectContent]: 'select_content',
+  [EventType.ProductClicked]: 'select_item',
+  [EventType.ProductViewed]: 'view_item',
+  [EventType.ProductListViewed]: 'view_item_list',
+  [PageType.Bag]: 'view_cart',
+  [PageType.Wishlist]: 'view_wishlist',
+  [EventType.Login]: 'login',
+  [EventType.SignupFormCompleted]: 'sign_up',
+  [EventType.FiltersApplied]: 'apply_filters',
+  [EventType.FiltersCleared]: 'clear_all_filters',
+  [EventType.Share]: 'share',
+  [EventType.CheckoutAbandoned]: 'view_checkout_abandon_confirmation',
+  [EventType.PlaceOrderStarted]: 'place_order',
+  [EventType.PromocodeApplied]: 'apply_promo_code',
+  [EventType.CheckoutStepEditing]: 'edit_checkout_step',
+  [EventType.AddressInfoAdded]: 'add_address_info',
+  [EventType.DeliveryMethodAdded]: 'add_delivery_method',
+  [EventType.BillingInfoAdded]: 'add_billing_info',
+  [EventType.ShippingMethodAdded]: 'add_shipping_method',
+  [EventType.InteractContent]: 'interact_content',
+  [EventType.SignupNewsletter]: 'sign_up_newsletter',
   // internal ga4 cases
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY]:
-    InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY,
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE]:
-    InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE,
-  [InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR]:
-    InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR,
+  [InternalEventTypes.ProductUpdated.CHANGE_QUANTITY]:
+    InternalEventTypes.ProductUpdated.CHANGE_QUANTITY,
+  [InternalEventTypes.ProductUpdated.CHANGE_SIZE]:
+    InternalEventTypes.ProductUpdated.CHANGE_SIZE,
+  [InternalEventTypes.ProductUpdated.CHANGE_COLOUR]:
+    InternalEventTypes.ProductUpdated.CHANGE_COLOUR,
   [InternalEventTypes.PAGE_SCROLL]: InternalEventTypes.PAGE_SCROLL,
 };
 
@@ -174,7 +174,7 @@ const getProductParametersFromEvent = (
   };
 
   // addListParameters will be false for events that are single
-  // product (like PRODUCT_ADDED_TO_CART or PRODUCT_REMOVED_FROM_CART).
+  // product (like ProductAddedToCart or ProductRemovedFromCart).
   // This is an optimization to avoid having set item_list_id and item_list_name
   // inside the items array and outside the items array as it is wasteful, because
   // GA4 will use the item_list_id and item_list_name properties if they are
@@ -226,15 +226,15 @@ const getProductUpdatedParametersFromEvent = (
   };
 
   switch (event) {
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY:
+    case InternalEventTypes.ProductUpdated.CHANGE_QUANTITY:
       parameters.quantity = eventProperties.quantity;
       parameters.old_quantity = eventProperties.oldQuantity;
       break;
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE:
+    case InternalEventTypes.ProductUpdated.CHANGE_SIZE:
       parameters.size = eventProperties.size;
       parameters.old_size = eventProperties.oldSize;
       break;
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR:
+    case InternalEventTypes.ProductUpdated.CHANGE_COLOUR:
       parameters.colour = eventProperties.colour;
       parameters.old_colour = eventProperties.oldColour;
       break;
@@ -765,16 +765,16 @@ const getShareParametersFromEvent = (eventProperties: EventProperties) => ({
 const getSignupNewsletterParametersFromEvent = (
   eventProperties: EventProperties,
 ) => {
-  type GenderObject = { id: SignupNewsletterGenderTypes; name?: string };
+  type GenderObject = { id: SignupNewsletterGenderType; name?: string };
 
   const genderArray: Array<string | undefined> = (
     Array.isArray(eventProperties.gender)
       ? eventProperties.gender
       : [eventProperties?.gender]
-  ).map((gender: SignupNewsletterGenderTypes | GenderObject) => {
+  ).map((gender: SignupNewsletterGenderType | GenderObject) => {
     return (
       (gender as GenderObject).name ||
-      SignupNewsletterGenderTypes[(gender as GenderObject).id ?? gender]
+      SignupNewsletterGenderType[(gender as GenderObject).id ?? gender]
     );
   });
 
@@ -811,90 +811,90 @@ export function getEventProperties(
   const eventProperties = utils.getProperties(data);
 
   switch (event) {
-    case EventTypes.CHECKOUT_STARTED:
+    case EventType.CheckoutStarted:
       return getCheckoutStartedParametersFromEvent(eventProperties);
 
-    case EventTypes.PAYMENT_INFO_ADDED:
+    case EventType.PaymentInfoAdded:
       return getCheckoutPaymentStepParametersFromEvent(eventProperties);
 
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_QUANTITY:
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_SIZE:
-    case InternalEventTypes.PRODUCT_UPDATED.CHANGE_COLOUR:
+    case InternalEventTypes.ProductUpdated.CHANGE_QUANTITY:
+    case InternalEventTypes.ProductUpdated.CHANGE_SIZE:
+    case InternalEventTypes.ProductUpdated.CHANGE_COLOUR:
       return getProductUpdatedParametersFromEvent(event, eventProperties);
 
-    case PageTypes.BAG:
-    case EventTypes.PRODUCT_ADDED_TO_CART:
-    case EventTypes.PRODUCT_REMOVED_FROM_CART:
-    case EventTypes.PRODUCT_ADDED_TO_WISHLIST:
+    case PageType.Bag:
+    case EventType.ProductAddedToCart:
+    case EventType.ProductRemovedFromCart:
+    case EventType.ProductAddedToWishlist:
       return getPrePurchaseParametersFromEvent(eventProperties);
 
-    case PageTypes.WISHLIST:
+    case PageType.Wishlist:
       return getViewWishlistParametersFromEvent(eventProperties);
 
-    case EventTypes.PRODUCT_REMOVED_FROM_WISHLIST:
+    case EventType.ProductRemovedFromWishlist:
       return getProductRemovedFromWishlist(eventProperties);
 
-    case EventTypes.PRODUCT_CLICKED:
+    case EventType.ProductClicked:
       return getProductClickedParametersFromEvent(eventProperties);
 
-    case EventTypes.PRODUCT_LIST_VIEWED:
+    case EventType.ProductListViewed:
       return getViewItemListParametersFromEvent(eventProperties);
 
-    case EventTypes.PRODUCT_VIEWED:
+    case EventType.ProductViewed:
       return getViewItemParametersFromEvent(eventProperties);
 
-    case EventTypes.ORDER_COMPLETED:
-    case EventTypes.ORDER_REFUNDED:
+    case EventType.OrderCompleted:
+    case EventType.OrderRefunded:
       return getOrderPurchaseOrRefundParametersFromEvent(eventProperties);
 
-    case PageTypes.SEARCH:
+    case PageType.Search:
       return getSearchParametersFromEvent(eventProperties);
 
-    case EventTypes.SELECT_CONTENT:
+    case EventType.SelectContent:
       return getSelectContentParametersFromEvent(eventProperties);
 
-    case EventTypes.SHIPPING_INFO_ADDED:
+    case EventType.ShippingInfoAdded:
       return getShippingInfoAddedParametersFromEvent(eventProperties);
 
-    case EventTypes.ADDRESS_INFO_ADDED:
+    case EventType.AddressInfoAdded:
       return getCheckoutShippingStepParametersFromEvent(eventProperties);
 
-    case EventTypes.DELIVERY_METHOD_ADDED:
+    case EventType.DeliveryMethodAdded:
       return getDeliveryMethodAddedParametersFromEvent(eventProperties);
 
-    case EventTypes.BILLING_INFO_ADDED:
+    case EventType.BillingInfoAdded:
       return getBillingInfoAddedParametersFromEvent(eventProperties);
 
-    case EventTypes.SHIPPING_METHOD_ADDED:
+    case EventType.ShippingMethodAdded:
       return getCheckoutShippingMethodParametersFromEvent(eventProperties);
 
-    case EventTypes.PROMOCODE_APPLIED:
+    case EventType.PromocodeApplied:
       return getPromocodeAppliedParametersFromEvent(eventProperties);
 
-    case EventTypes.INTERACT_CONTENT:
+    case EventType.InteractContent:
       return getInteractContentParametersFromEvent(eventProperties);
 
-    case EventTypes.LOGIN:
-    case EventTypes.SIGNUP_FORM_COMPLETED:
+    case EventType.Login:
+    case EventType.SignupFormCompleted:
       return getLoginAndSignupParametersFromEvent(eventProperties);
 
-    case EventTypes.FILTERS_APPLIED:
-    case EventTypes.FILTERS_CLEARED:
+    case EventType.FiltersApplied:
+    case EventType.FiltersCleared:
       return getFilterParametersFromEvent(eventProperties);
 
-    case EventTypes.SHARE:
+    case EventType.Share:
       return getShareParametersFromEvent(eventProperties);
 
-    case EventTypes.CHECKOUT_ABANDONED:
+    case EventType.CheckoutAbandoned:
       return getCheckoutAbandonedParametersFromEvent(eventProperties);
 
-    case EventTypes.PLACE_ORDER_STARTED:
+    case EventType.PlaceOrderStarted:
       return getPlaceOrderStartedParametersFromEvent(eventProperties);
 
-    case EventTypes.CHECKOUT_STEP_EDITING:
+    case EventType.CheckoutStepEditing:
       return getCheckoutStepEditingParametersFromEvent(eventProperties);
 
-    case EventTypes.SIGNUP_NEWSLETTER:
+    case EventType.SignupNewsletter:
       return getSignupNewsletterParametersFromEvent(eventProperties);
 
     case InternalEventTypes.PAGE_SCROLL:

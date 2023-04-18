@@ -293,7 +293,7 @@ describe('useWishlist', () => {
           wrapper: withStore(stateMockData),
         });
 
-        addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'PDP' });
+        addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'Pdp' });
 
         expect(addWishlistItem).toHaveBeenCalledWith(
           {
@@ -301,7 +301,7 @@ describe('useWishlist', () => {
             quantity: 1,
             size: 17,
           },
-          { from: 'PDP' },
+          { from: 'Pdp' },
         );
       });
     });
