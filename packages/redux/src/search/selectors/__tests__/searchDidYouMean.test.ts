@@ -4,6 +4,7 @@ import {
   mockSearchDidYouMeanHash,
   mockSearchDidYouMeanInitialState,
   mockSearchDidYouMeanLoadingState,
+  mockSearchDidYouMeanQuery,
   mockSearchDidYouMeanResponse,
   mockSearchDidYouMeanState,
 } from 'tests/__fixtures__/search/index.mjs';
@@ -22,7 +23,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.isSearchDidYouMeanLoading(
           mockState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -36,7 +37,10 @@ describe('search intents redux selectors', () => {
       const spy = jest.spyOn(selectors, 'getSearchDidYouMeanError');
 
       expect(
-        selectors.getSearchDidYouMeanError(mockState, mockSearchDidYouMeanHash),
+        selectors.getSearchDidYouMeanError(
+          mockState,
+          mockSearchDidYouMeanQuery,
+        ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -47,7 +51,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.getSearchDidYouMeanResult(
           mockState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toEqual(mockSearchDidYouMeanResponse);
     });
@@ -58,7 +62,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.isSearchDidYouMeanFetched(
           mockState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toBe(true);
     });
@@ -67,7 +71,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.isSearchDidYouMeanFetched(
           mockSearchDidYouMeanErrorState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toBe(true);
     });
@@ -76,7 +80,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.isSearchDidYouMeanFetched(
           mockSearchDidYouMeanInitialState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toBe(false);
     });
@@ -85,7 +89,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.isSearchDidYouMeanFetched(
           mockSearchDidYouMeanLoadingState,
-          mockSearchDidYouMeanHash,
+          mockSearchDidYouMeanQuery,
         ),
       ).toBe(false);
     });

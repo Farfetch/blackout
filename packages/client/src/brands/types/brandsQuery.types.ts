@@ -2,7 +2,7 @@ import type { Brand } from './brand.types.js';
 import type { Category } from '../../categories/types/index.js';
 import type { GenderCode } from '../../types/index.js';
 
-export type BrandsQuery = {
+export type GetBrandsQuery = {
   page?: number;
   pageSize?: number;
   gender?: GenderCode;

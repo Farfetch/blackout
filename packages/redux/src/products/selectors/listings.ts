@@ -1,6 +1,6 @@
 import {
   buildFacetTree,
-  generateProductsListHash,
+  generateProductListingHash,
   getFacetGroupsMaxDepth,
 } from '../utils/index.js';
 import { createSelector } from 'reselect';
@@ -23,7 +23,7 @@ import type {
   HierarchicalFacet,
   ProductEntity,
   ProductEntityDenormalized,
-  ProductsListEntity,
+  ProductListingEntity,
 } from '../../entities/types/index.js';
 import type { FacetGroup } from '@farfetch/blackout-client';
 import type { ProductsState } from '../types/index.js';
@@ -31,141 +31,143 @@ import type { StoreState } from '../../types/index.js';
 
 /**
  * Checks if the type of the hash is a number or not. If it's a number, converts to
- * a final hash to make possible identify the products list entity.
+ * a final hash to make possible identify the product listing entity.
  *
- * @param hash - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash - product listing identifier composed by a list identifier (listing or sets), slug and
  *               query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns - Final hash to identify a products list entity.
+ * @returns - Final hash to identify a product listing entity.
  */
-const checkHash = (hash: string | number | null): ProductsListEntity['hash'] =>
+const checkHash = (
+  hash: string | number | null,
+): ProductListingEntity['hash'] =>
   typeof hash === 'number'
-    ? generateProductsListHash(hash, {}, { isSet: true })
+    ? generateProductListingHash(hash, {}, { isSet: true })
     : String(hash);
 
 /**
- * Retrieves the current products list hash.
+ * Retrieves the current product listing hash.
  *
  * @param state - Application state.
  *
- * @returns Products list identifier composed by a list identifier (listing or sets), slug and query.
+ * @returns product listing identifier composed by a list identifier (listing or sets), slug and query.
  */
-export const getProductsListHash = (state: StoreState) =>
+export const getProductListingHash = (state: StoreState) =>
   getHash((state.products as ProductsState).lists);
 
 /**
- * Retrieves the error thrown by current products list.
+ * Retrieves the error thrown by current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns Products list error.
+ * @returns Product list error.
  */
-export const getProductsListError = (
+export const getProductListingError = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => getError((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
- * Retrieves the hydration condition from current products list.
+ * Retrieves the hydration condition from current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns Whether a products list is hydrated or not.
+ * @returns Whether a product listing is hydrated or not.
  */
-export const isProductsListHydrated = (
+export const isProductListingHydrated = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => getIsHydrated((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
- * Retrieves the loading condition from current products list.
+ * Retrieves the loading condition from current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns Whether a products list is loading or not.
+ * @returns Whether a product listing is loading or not.
  */
-export const isProductsListLoading = (
+export const isProductListingLoading = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => getIsLoading((state.products as ProductsState).lists)[checkHash(hash)];
 
 /**
- * Retrieves the fetched status to a specific products list.
+ * Retrieves the fetched status to a specific product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns Whether a products list is fetched or not.
+ * @returns Whether a product listing is fetched or not.
  */
-export const isProductsListFetched = (
+export const isProductListingFetched = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) =>
   getIsLoading((state.products as ProductsState).lists).hasOwnProperty(
     checkHash(hash),
-  ) && isProductsListLoading(state, checkHash(hash)) === false;
+  ) && isProductListingLoading(state, checkHash(hash)) === false;
 
 /**
- * Retrieves the result of a specific products list identified by its hash or id.
+ * Retrieves the result of a specific product listing identified by its hash or id.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns - Products list result.
+ * @returns - Product list result.
  */
-export const getProductsListResult = (
+export const getProductListingResult = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => getEntityById(state, 'productsLists', checkHash(hash));
 
 /**
- * Retrieves product id's from the current products list.
+ * Retrieves product id's from the current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns List of products ids.
+ * @returns List of product ids.
  */
-export const getProductsListProductsIds: (
+export const getProductListingProductsIds: (
   state: StoreState,
   hash?: string | number | null,
 ) => ProductEntity['id'][] | undefined = createSelector(
   [
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListResult(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingResult(state, checkHash(hash)),
   ],
   result => result?.products.entries,
 );
 
 /**
- * Retrieves a list of products for the current products list.
+ * Retrieves a list of products for the current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Array of products.
  */
-export const getProductsListProducts: (
+export const getProductListingProducts: (
   state: StoreState,
   hash?: string | number | null,
 ) => ProductEntityDenormalized[] | undefined = createSelector(
   [
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListProductsIds(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingProductsIds(state, checkHash(hash)),
     state => getEntities(state, 'products'),
     getBrands,
     getCategories,
@@ -191,18 +193,18 @@ export const getProductsListProducts: (
 );
 
 /**
- * Retrieves a list of all products of multiple pages (of a single products list -
+ * Retrieves a list of all products of multiple pages (of a single product listing -
  * listings or sets) to allow the tenant to build an infinite scroll layout. This
- * join every products list with the same pathname/hash in the store, but with a
+ * join every product listing with the same pathname/hash in the store, but with a
  * different page index.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Array of products.
  */
-export const getProductsListProductsFromAllPages: (
+export const getProductListingProductsFromAllPages: (
   state: StoreState,
   hash?: string | number | null,
 ) => ProductEntityDenormalized[] = createSelector(
@@ -210,11 +212,11 @@ export const getProductsListProductsFromAllPages: (
     state => state,
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
+      hash: string | number | null | undefined = getProductListingHash(state),
     ) => checkHash(hash),
     state => getEntities(state, 'productsLists'),
   ],
-  (state, hash, productsLists) => {
+  (state, hash, productLists) => {
     /**
      * Auxiliary function to retrieve the final hash without the page index parameter.
      *
@@ -238,34 +240,34 @@ export const getProductsListProductsFromAllPages: (
     const hashWithoutPageIndex = getHashWithoutPageIndex(hash);
     // Find all listings related to the base hash
 
-    if (!productsLists) {
+    if (!productLists) {
       return [];
     }
 
-    const productsListPages = Object.keys(productsLists).reduce((acc, hash) => {
-      const productsListPageIndex = productsLists[hash]?.config
+    const productListsPages = Object.keys(productLists).reduce((acc, hash) => {
+      const productListPageIndex = productLists[hash]?.config
         .pageIndex as number;
 
-      // We can store a products list if it's hash without page index is equal to
+      // We can store a product listing if it's hash without page index is equal to
       // the initial hash encountered and if it's page index is not stored
-      // yet (removing the products list and products duplicated)
+      // yet (removing the product listing and products duplicated)
       if (
         getHashWithoutPageIndex(hash) === hashWithoutPageIndex &&
-        !acc.find(({ pageIndex }) => pageIndex === productsListPageIndex)
+        !acc.find(({ pageIndex }) => pageIndex === productListPageIndex)
       ) {
-        acc.push({ hash, pageIndex: productsListPageIndex });
+        acc.push({ hash, pageIndex: productListPageIndex });
       }
 
       // Returns an array of objects, where the objects only have the hash and
       // the page index parameters
       return acc;
     }, [] as Array<{ hash: string; pageIndex: number }>);
-    // Sort the products list pages related by the page index parameter to guarantee
+    // Sort the product listing pages related by the page index parameter to guarantee
     // the products order
-    const productsListPagesSorted = sortBy(productsListPages, 'pageIndex');
-    // Get all the products from the product list pages sorted
-    const allProducts = productsListPagesSorted
-      .map(({ hash }) => getProductsListProducts(state, hash))
+    const productListsPagesSorted = sortBy(productListsPages, 'pageIndex');
+    // Get all the products from the product listing pages sorted
+    const allProducts = productListsPagesSorted
+      .map(({ hash }) => getProductListingProducts(state, hash))
       .filter(Boolean) as ProductEntityDenormalized[][];
 
     return flatten(allProducts);
@@ -273,7 +275,7 @@ export const getProductsListProductsFromAllPages: (
 );
 
 /**
- * Retrieves pagination information about current products list.
+ * Retrieves pagination information about current product listing.
  *
  * @example
  * ```
@@ -287,27 +289,27 @@ export const getProductsListProductsFromAllPages: (
  * ```
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Pagination object.
  */
-export const getProductsListPagination: (
+export const getProductListingPagination: (
   state: StoreState,
   hash?: string | number | null,
 ) =>
   | {
-      number: ProductsListEntity['products']['number'];
-      pageSize: ProductsListEntity['config']['pageSize'];
-      totalItems: ProductsListEntity['products']['totalItems'];
-      totalPages: ProductsListEntity['products']['totalPages'];
+      number: ProductListingEntity['products']['number'];
+      pageSize: ProductListingEntity['config']['pageSize'];
+      totalItems: ProductListingEntity['products']['totalItems'];
+      totalPages: ProductListingEntity['products']['totalPages'];
     }
   | undefined = createSelector(
   [
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListResult(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingResult(state, checkHash(hash)),
   ],
   result => {
     if (!result) {
@@ -324,15 +326,15 @@ export const getProductsListPagination: (
 );
 
 /**
- * Retrieves breadcrumbs information about current products list.
+ * Retrieves breadcrumbs information about current product listing.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Breadcrumbs info.
  *
- * // Array returned for an accessories products list
+ * // Array returned for an accessories product listing
  * [
  *  \{
  *    text: "Woman",
@@ -348,32 +350,32 @@ export const getProductsListPagination: (
  *  \},
  * ].
  */
-export const getProductsListBreadcrumbs = (
+export const getProductListingBreadcrumbs = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
-) => getProductsListResult(state, checkHash(hash))?.breadCrumbs;
+  hash: string | number | null = getProductListingHash(state),
+) => getProductListingResult(state, checkHash(hash))?.breadCrumbs;
 
 /**
- * Retrieves if a products list is cached by its hash.
+ * Retrieves if a product listing is cached by its hash.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
- * @returns Whether the products list is cached or not.
+ * @returns Whether the product listing is cached or not.
  */
-export const isProductsListCached = (
+export const isProductListingCached = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
-) => !!getProductsListResult(state, checkHash(hash));
+  hash: string | number | null = getProductListingHash(state),
+) => !!getProductListingResult(state, checkHash(hash));
 
 /**
  * Retrieves the current applied filters (known as `filterSegments`) of the current
- * products list.
+ * product listing.
  *
  * @example
  * ```
- * // Array returned for a products list with active filters on colors and
+ * // Array returned for a product listing with active filters on colors and
  * // categories
  * {
  *   colors: [3, 11],
@@ -382,20 +384,20 @@ export const isProductsListCached = (
  * ```
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Applied filters in the format of `{ facetKey: [valueId] }`.
  */
-export const getProductsListActiveFilters: (
+export const getProductListingActiveFilters: (
   state: StoreState,
   hash?: string | number | null,
 ) => Record<string, Array<string | number>> | undefined = createSelector(
   [
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListResult(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingResult(state, checkHash(hash)),
   ],
   result =>
     result?.filterSegments?.reduce((acc, { key, value, valueUpperBound }) => {
@@ -427,21 +429,21 @@ export const getProductsListActiveFilters: (
 /**
  * Retrieves the count of the current selected filters by the user - i.e. Number of
  * filters applied that are also facets, meaning the user can select and unselect
- * them in the products list filters. This not only considers "fromQueryString"
+ * them in the product listing filters. This not only considers "fromQueryString"
  * filters, but also filter slugs. This may be useful to know when to show a "Clear
  * filters" button.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Total count of selected filters.
  */
-export const getProductsListSelectedFiltersCount = (
+export const getProductListingSelectedFiltersCount = (
   state: StoreState,
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => {
-  const result = getProductsListResult(state, checkHash(hash));
+  const result = getProductListingResult(state, checkHash(hash));
   const filterSegments = result?.filterSegments;
   const facetGroups = result?.facetGroups;
 
@@ -470,26 +472,26 @@ export const getProductsListSelectedFiltersCount = (
 };
 
 /**
- * Retrieves the current products list sorting order.
+ * Retrieves the current product listing sorting order.
  *
  * @param state - Application state.
- * @param hash  - Products list identifier composed by a list identifier (listing or sets), slug and
+ * @param hash  - Product list identifier composed by a list identifier (listing or sets), slug and
  *                query. Could be a string (listing or sets hash) or a number (set id).
  *
  * @returns Sort and sort direction.
  */
-export const getProductsListSort: (
+export const getProductListingSort: (
   state: StoreState,
   hash?: string | number | null,
 ) => {
-  sort: ProductsListEntity['config']['sort'] | undefined;
-  sortDirection: ProductsListEntity['config']['sortDirection'] | undefined;
+  sort: ProductListingEntity['config']['sort'] | undefined;
+  sortDirection: ProductListingEntity['config']['sortDirection'] | undefined;
 } = createSelector(
   [
     (
       state,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListResult(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingResult(state, checkHash(hash)),
   ],
   result => {
     const sort = result?.config.sort;
@@ -504,13 +506,13 @@ export const getProductsListSort: (
  *
  * @param state          - Application state.
  * @param facetGroupType - Facet group type to find.
- * @param hash           - Products list identifier composed by a list identifier (listing or sets),
+ * @param hash           - Product list identifier composed by a list identifier (listing or sets),
  *                         slug and query. Could be a string (listing or sets hash) or a number (set
  *                         id).
  *
  * @returns Array with all facets groups filtered by the type received, undefined otherwise.
  */
-export const getProductsListFacetsGroupsByType: (
+export const getProductListingFacetsGroupsByType: (
   state: StoreState,
   facetGroupType: FacetGroup['type'],
   hash?: string | number | null,
@@ -519,8 +521,8 @@ export const getProductsListFacetsGroupsByType: (
     (
       state,
       facetGroupType,
-      hash: string | number | null | undefined = getProductsListHash(state),
-    ) => getProductsListResult(state, checkHash(hash)),
+      hash: string | number | null | undefined = getProductListingHash(state),
+    ) => getProductListingResult(state, checkHash(hash)),
     (state: StoreState, facetGroupType: FacetGroup['type']) => facetGroupType,
   ],
   (result, facetGroupType) => {
@@ -580,18 +582,18 @@ export const getFacetsByIds: (
  *
  * @param state          - Application state.
  * @param facetGroupType - Facet group type to find.
- * @param hash           - Products list identifier composed by a list identifier (listing or sets),
+ * @param hash           - Product list identifier composed by a list identifier (listing or sets),
  *                         slug and query. Could be a string (listing or sets hash) or a number (set
  *                         id).
  *
  * @returns Array with all facets content filtered by the type received, undefined otherwise.
  */
-export const getProductsListFacetsByFacetGroupType = (
+export const getProductListingFacetsByFacetGroupType = (
   state: StoreState,
   facetGroupType: FacetGroup['type'],
-  hash: string | number | null = getProductsListHash(state),
+  hash: string | number | null = getProductListingHash(state),
 ) => {
-  const facetGroupsWithType = getProductsListFacetsGroupsByType(
+  const facetGroupsWithType = getProductListingFacetsGroupsByType(
     state,
     facetGroupType,
     checkHash(hash),
@@ -642,18 +644,22 @@ export const getHierarchicalFacetsWithChildren: (
       state: StoreState,
       facetGroupType: FacetGroup['type'],
       {
-        hash = getProductsListHash(state),
+        hash = getProductListingHash(state),
       }: { hash?: string | null | number } = {},
     ) =>
-      getProductsListFacetsGroupsByType(state, facetGroupType, checkHash(hash)),
+      getProductListingFacetsGroupsByType(
+        state,
+        facetGroupType,
+        checkHash(hash),
+      ),
     (
       state: StoreState,
       facetGroupType: FacetGroup['type'],
       {
-        hash = getProductsListHash(state),
+        hash = getProductListingHash(state),
       }: { hash?: string | null | number } = {},
     ) =>
-      getProductsListFacetsByFacetGroupType(
+      getProductListingFacetsByFacetGroupType(
         state,
         facetGroupType,
         checkHash(hash),
@@ -735,8 +741,8 @@ export const getHierarchicalFacetsWithChildren: (
   },
 );
 
-export const getProductsListFacetGroups = createSelector(
-  [getProductsListResult, getFacets],
+export const getProductListingFacetGroups = createSelector(
+  [getProductListingResult, getFacets],
   (listing, allFacets) =>
     listing?.facetGroups?.map(facetGroup => ({
       ...facetGroup,

@@ -1,9 +1,8 @@
 import { adaptGrouping } from '../../../helpers/adapters/index.js';
-import { buildQueryStringFromObject } from '../../../helpers/index.js';
 import {
   type Config,
   type GetProductGrouping,
-  type GroupingQuery,
+  type GetProductGroupingQuery,
   type Product,
   type ProductGrouping,
   toBlackoutError,
@@ -13,6 +12,7 @@ import {
   FETCH_PRODUCT_GROUPING_REQUEST,
   FETCH_PRODUCT_GROUPING_SUCCESS,
 } from '../../actionTypes/index.js';
+import generateProductGroupingHash from '../../utils/generateProductGroupingHash.js';
 import type { Dispatch } from 'redux';
 
 /**
@@ -34,12 +34,11 @@ const fetchProductGroupingFactory =
    */
   (
     productId: Product['result']['id'],
-    query: GroupingQuery = {},
+    query: GetProductGroupingQuery = {},
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<ProductGrouping> => {
-    const queryString = query && buildQueryStringFromObject(query);
-    const hash = queryString ? queryString : '!all';
+    const hash = generateProductGroupingHash(query);
 
     try {
       dispatch({

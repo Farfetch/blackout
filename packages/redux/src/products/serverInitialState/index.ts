@@ -1,7 +1,7 @@
 /**
  * Products serverInitialState.
  */
-import listsServerInitialState from './lists.js';
+import listsServerInitialState from './listings.js';
 import productsServerInitialState from './products.js';
 import type { ServerInitialState } from '../../types/serverInitialState.types.js';
 

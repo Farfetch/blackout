@@ -37,10 +37,7 @@ describe('useSearchIntents', () => {
       error: null,
       isLoading: false,
       isFetched: true,
-      data: {
-        searchIntents: mockSearchIntentsResponse,
-        query: mockSearchIntentsQuery,
-      },
+      data: mockSearchIntentsResponse,
       actions: {
         fetch: expect.any(Function),
         reset: expect.any(Function),

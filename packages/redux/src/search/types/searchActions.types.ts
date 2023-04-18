@@ -2,25 +2,25 @@ import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
 import type {
   BlackoutError,
-  SearchDidYouMeanQuery,
+  GetSearchDidYouMeanQuery,
+  GetSearchSuggestionsQuery,
   SearchDidYouMeanSuggestion,
   SearchIntents,
   SearchSuggestion,
-  SearchSuggestionsQuery,
 } from '@farfetch/blackout-client';
 
 // SEARCH DID YOU MEAN
 export interface FetchSearchDidYouMeanRequestAction extends Action {
-  meta: { query: SearchDidYouMeanQuery };
+  meta: { query: GetSearchDidYouMeanQuery };
   type: typeof actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST;
 }
 export interface FetchSearchDidYouMeanSuccessAction extends Action {
-  meta: { query: SearchDidYouMeanQuery };
+  meta: { query: GetSearchDidYouMeanQuery };
   type: typeof actionTypes.FETCH_SEARCH_DID_YOU_MEAN_SUCCESS;
   payload: { result: SearchDidYouMeanSuggestion[] };
 }
 export interface FetchSearchDidYouMeanFailureAction extends Action {
-  meta: { query: SearchDidYouMeanQuery };
+  meta: { query: GetSearchDidYouMeanQuery };
   type: typeof actionTypes.FETCH_SEARCH_DID_YOU_MEAN_FAILURE;
   payload: { error: BlackoutError };
 }
@@ -70,16 +70,16 @@ export interface ResetSearchIntentsAction extends Action {
 
 // SEARCH SUGGESTIONS
 export interface FetchSearchSuggestionsRequestAction extends Action {
-  meta: { query: SearchSuggestionsQuery };
+  meta: { query: GetSearchSuggestionsQuery };
   type: typeof actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST;
 }
 export interface FetchSearchSuggestionsSuccessAction extends Action {
-  meta: { query: SearchSuggestionsQuery };
+  meta: { query: GetSearchSuggestionsQuery };
   type: typeof actionTypes.FETCH_SEARCH_SUGGESTIONS_SUCCESS;
   payload: { result: SearchSuggestion[] };
 }
 export interface FetchSearchSuggestionsFailureAction extends Action {
-  meta: { query: SearchSuggestionsQuery };
+  meta: { query: GetSearchSuggestionsQuery };
   type: typeof actionTypes.FETCH_SEARCH_SUGGESTIONS_FAILURE;
   payload: { error: BlackoutError };
 }

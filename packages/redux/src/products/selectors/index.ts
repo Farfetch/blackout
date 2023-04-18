@@ -3,7 +3,7 @@ export * from './details.js';
 export * from './fittings.js';
 export * from './grouping.js';
 export * from './groupingProperties.js';
-export * from './lists.js';
+export * from './listings.js';
 export * from './measurements.js';
 export * from './merchants.js';
 export * from './outfits.js';

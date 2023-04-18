@@ -1,6 +1,6 @@
 import type { GenderCode } from '../../types/index.js';
 
-export type SearchSuggestionsQuery = {
+export type GetSearchSuggestionsQuery = {
   query: string;
   gender?: GenderCode;
   ignoreFilterExclusions?: boolean;

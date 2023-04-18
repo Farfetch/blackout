@@ -1,6 +1,6 @@
 import type { GenderCode } from '../../types/index.js';
 
-export type SearchDidYouMeanQuery = {
+export type GetSearchDidYouMeanQuery = {
   searchTerms: string;
   genders?: GenderCode[];
 };

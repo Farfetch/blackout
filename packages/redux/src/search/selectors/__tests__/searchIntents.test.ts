@@ -4,6 +4,7 @@ import {
   mockSearchIntentsHash,
   mockSearchIntentsInitialState,
   mockSearchIntentsLoadingState,
+  mockSearchIntentsQuery,
   mockSearchIntentsResponse,
   mockSearchIntentsState,
 } from 'tests/__fixtures__/search/index.mjs';
@@ -20,7 +21,7 @@ describe('search intents redux selectors', () => {
       const spy = jest.spyOn(selectors, 'areSearchIntentsLoading');
 
       expect(
-        selectors.areSearchIntentsLoading(mockState, mockSearchIntentsHash),
+        selectors.areSearchIntentsLoading(mockState, mockSearchIntentsQuery),
       ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -33,7 +34,7 @@ describe('search intents redux selectors', () => {
       const spy = jest.spyOn(selectors, 'getSearchIntentsError');
 
       expect(
-        selectors.getSearchIntentsError(mockState, mockSearchIntentsHash),
+        selectors.getSearchIntentsError(mockState, mockSearchIntentsQuery),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -42,7 +43,7 @@ describe('search intents redux selectors', () => {
   describe('getSearchIntentsResult()', () => {
     it('should get the result of a given search', () => {
       expect(
-        selectors.getSearchIntentsResult(mockState, mockSearchIntentsHash),
+        selectors.getSearchIntentsResult(mockState, mockSearchIntentsQuery),
       ).toEqual(mockSearchIntentsResponse);
     });
   });
@@ -50,7 +51,7 @@ describe('search intents redux selectors', () => {
   describe('areSearchIntentsFetched()', () => {
     it('should return true if fetched', () => {
       expect(
-        selectors.areSearchIntentsFetched(mockState, mockSearchIntentsHash),
+        selectors.areSearchIntentsFetched(mockState, mockSearchIntentsQuery),
       ).toBe(true);
     });
 
@@ -58,7 +59,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.areSearchIntentsFetched(
           mockSearchIntentsErrorState,
-          mockSearchIntentsHash,
+          mockSearchIntentsQuery,
         ),
       ).toBe(true);
     });
@@ -67,7 +68,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.areSearchIntentsFetched(
           mockSearchIntentsInitialState,
-          mockSearchIntentsHash,
+          mockSearchIntentsQuery,
         ),
       ).toBe(false);
     });
@@ -76,7 +77,7 @@ describe('search intents redux selectors', () => {
       expect(
         selectors.areSearchIntentsFetched(
           mockSearchIntentsLoadingState,
-          mockSearchIntentsHash,
+          mockSearchIntentsQuery,
         ),
       ).toBe(false);
     });

@@ -1,4 +1,4 @@
-import fetchProductsListFactory from './fetchProductsListFactory.js';
+import fetchProductListFactory from './fetchProductListFactory.js';
 import type {
   Config,
   GetProductSet,
@@ -7,7 +7,7 @@ import type {
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
-import type { ProductsListActionOptions } from '../../types/index.js';
+import type { ProductListActionOptions } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch a specific
@@ -22,7 +22,7 @@ const fetchProductSetFactory =
   (
     slug: string | number,
     query: GetProductSetQuery = {},
-    actionOptions?: ProductsListActionOptions,
+    actionOptions?: ProductListActionOptions,
     config?: Config,
   ) =>
   (
@@ -30,7 +30,7 @@ const fetchProductSetFactory =
     getState: () => StoreState,
     options: GetOptionsArgument,
   ): Promise<ProductSet | undefined> =>
-    fetchProductsListFactory(
+    fetchProductListFactory(
       getSet,
       slug,
       query,

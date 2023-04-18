@@ -7,6 +7,9 @@ export const mockRecipientId2TopicId1 = '6982fc3a-7837-abbc-91d3-4ade12b0d601';
 export const mockTopicId2 = 'e64cbd82-0ec8-4aec-9223-2918d68da81b';
 export const mockRecipientId2 = 'd33db931-a434-45fc-b343-218d4210d533';
 export const mockSubscriptionPackageId = 'Newsletter';
+export const mockSubscriptionPackagesQuery = {
+  id: [mockSubscriptionPackageId],
+};
 export const mockSubscriptionPackageHash = 'id=Newsletter';
 export const mockSmsAddress = '911111111';
 export const mockEmailAddress = 'test@test.com';

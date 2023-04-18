@@ -2,8 +2,8 @@ import * as actionTypes from '../../actionTypes/index.js';
 import {
   type Config,
   type GetProductSizes,
+  type GetProductSizesQuery,
   type Product,
-  type ProductSizesQuery,
   type Size,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -23,7 +23,7 @@ const fetchProductSizesFactory =
   (getProductSizes: GetProductSizes) =>
   (
     productId: Product['result']['id'],
-    query: ProductSizesQuery,
+    query?: GetProductSizesQuery,
     config?: Config,
   ) =>
   async (dispatch: Dispatch): Promise<Size[]> => {

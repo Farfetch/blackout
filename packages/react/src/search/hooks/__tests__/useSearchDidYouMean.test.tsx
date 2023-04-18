@@ -37,10 +37,7 @@ describe('useSearchDidYouMean', () => {
       error: null,
       isLoading: false,
       isFetched: true,
-      data: {
-        searchDidYouMean: mockSearchDidYouMeanResponse,
-        query: mockSearchDidYouMeanQuery,
-      },
+      data: mockSearchDidYouMeanResponse,
       actions: {
         fetch: expect.any(Function),
         reset: expect.any(Function),

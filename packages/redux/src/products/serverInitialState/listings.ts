@@ -1,20 +1,20 @@
-import { generateProductsListHash, getSlug } from '../utils/index.js';
+import { generateProductListingHash, getSlug } from '../utils/index.js';
 import { get } from 'lodash-es';
 import { INITIAL_STATE } from '../reducer/lists.js';
 import { normalize } from 'normalizr';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import parse from 'url-parse';
 import productsList from '../../entities/schemas/productsList.js';
-import type { ListsServerInitialState } from './types/index.js';
+import type { ProductListingsServerInitialState } from './types/index.js';
 
 /**
- * Converts server data for a products list (listing or sets) to store state.
+ * Converts server data for a product list (listing or sets) to store state.
  *
  * @param data - Params injected by the server.
  *
  * @returns Initial state for the products lists reducer.
  */
-const serverInitialState: ListsServerInitialState = ({
+const serverInitialState: ProductListingsServerInitialState = ({
   model,
   options: { productImgQueryParam } = {},
 }) => {
@@ -31,7 +31,7 @@ const serverInitialState: ListsServerInitialState = ({
   const builtSlug = getSlug(pathname);
   const isSetFallback = /\/sets\//.test(pathname) && isListing;
   const isSet = model?.pageType === 'set' || isSetFallback;
-  const hash = generateProductsListHash(builtSlug, query, {
+  const hash = generateProductListingHash(builtSlug, query, {
     isSet,
   });
 

@@ -4,7 +4,6 @@ import type { BrandsState } from './types/index.js';
 
 export const INITIAL_STATE: BrandsState = {
   error: {},
-  hash: null,
   isLoading: {},
   result: {},
 };
@@ -34,14 +33,6 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
     default:
       return state;
   }
-};
-
-const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
-  if (action.type === actionTypes.SET_BRANDS_HASH) {
-    return action.meta.hash;
-  }
-
-  return state;
 };
 
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
@@ -87,7 +78,6 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
 
 export const getError = (state: BrandsState): BrandsState['error'] =>
   state.error;
-export const getHash = (state: BrandsState): BrandsState['hash'] => state.hash;
 export const getIsLoading = (state: BrandsState): BrandsState['isLoading'] =>
   state.isLoading;
 export const getResult = (state: BrandsState): BrandsState['result'] =>
@@ -95,7 +85,6 @@ export const getResult = (state: BrandsState): BrandsState['result'] =>
 
 const reducers = combineReducers({
   error,
-  hash,
   isLoading,
   result,
 });

@@ -1,8 +1,12 @@
 import { createSelector } from 'reselect';
 import { defaultTo, get } from 'lodash-es';
 import { getEntities } from '../../entities/index.js';
+import generateSubscriptionPackagesHash from '../helpers/generateSubscriptionPackagesHash.js';
+import type {
+  GetSubscriptionPackagesQuery,
+  SubscriptionPackage,
+} from '@farfetch/blackout-client';
 import type { StoreState } from '../../types/index.js';
-import type { SubscriptionPackage } from '@farfetch/blackout-client';
 
 /*
  * @param state - Application state.
@@ -17,24 +21,33 @@ const getContentByHash = (state: StoreState, hash: string) =>
  * Returns the error given a subscription package action.
  *
  * @param state - Application state.
+ * @param query - Get subscription packages query.
  *
- * @returns Subscription package error.
+ * @returns Fetch subscription packages request error.
  */
-export const getSubscriptionPackagesError = (state: StoreState, hash: string) =>
-  defaultTo(getContentByHash(state, hash), null)?.error;
+export const getSubscriptionPackagesError = (
+  state: StoreState,
+  query?: GetSubscriptionPackagesQuery,
+) => {
+  const hash = generateSubscriptionPackagesHash(query);
+
+  return defaultTo(getContentByHash(state, hash), null)?.error;
+};
 
 /**
  * Returns the result of a subscription package.
  *
  * @param state - Application state.
+ * @param query - Get subscription packages query.
  *
- * @returns Subscription package result.
+ * @returns Fetch subscription packages result.
  */
 export const getSubscriptionPackages: (
   state: StoreState,
-  hash: string,
+  query?: GetSubscriptionPackagesQuery,
 ) => SubscriptionPackage[] | null | undefined = createSelector(
-  (state: StoreState, hash: string) => getContentByHash(state, hash)?.result,
+  (state: StoreState, query?: GetSubscriptionPackagesQuery) =>
+    getContentByHash(state, generateSubscriptionPackagesHash(query))?.result,
   (state: StoreState) => getEntities(state, 'subscriptionPackages'),
   (subscriptionPackagesResult, subscriptionPackagesEntity) => {
     return (
@@ -62,40 +75,49 @@ export const getSubscriptionPackages: (
  * });
  * ```
  * @param state - Application state.
+ * @param query - Get subscription packages query.
  *
  * @returns isFetched status of the subscription packages.
  */
 export const areSubscriptionPackagesFetched = (
   state: StoreState,
-  hash: string,
+  query?: GetSubscriptionPackagesQuery,
 ) =>
-  (!!getSubscriptionPackages(state, hash) ||
-    !!getSubscriptionPackagesError(state, hash)) &&
-  !areSubscriptionPackagesLoading(state, hash);
+  (!!getSubscriptionPackages(state, query) ||
+    !!getSubscriptionPackagesError(state, query)) &&
+  !areSubscriptionPackagesLoading(state, query);
 
 /**
  * Returns the loading status of a subscription package.
  *
  * @param state - Application state.
+ * @param query - Get subscription packages query.
  *
  * @returns Subscription package loading status.
  */
 export const areSubscriptionPackagesLoading = (
   state: StoreState,
-  hash: string,
-) => getContentByHash(state, hash)?.isLoading;
+  query?: GetSubscriptionPackagesQuery,
+) => {
+  const hash = generateSubscriptionPackagesHash(query);
+
+  return getContentByHash(state, hash)?.isLoading;
+};
 
 /**
  * Returns the supported delivery channels for all subscription packages.
  *
  * @param state - Application state.
+ * @param query - Get subscription packages query.
  *
  * @returns The supported delivery channels.
  */
 export const getSubscriptionPackagesSupportedChannels = (
   state: StoreState,
-  hash: string,
+  query?: GetSubscriptionPackagesQuery,
 ) => {
+  const hash = generateSubscriptionPackagesHash(query);
+
   const result = getContentByHash(state, hash)?.result;
 
   return (result && result.supportedChannels) || undefined;

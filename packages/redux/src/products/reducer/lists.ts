@@ -3,8 +3,8 @@ import { type AnyAction, combineReducers, type Reducer } from 'redux';
 import { omit } from 'lodash-es';
 import type {
   ProductsListsState,
-  ResetProductsListsEntitiesAction,
-  ResetProductsListsStateAction,
+  ResetProductListsEntitiesAction,
+  ResetProductListsStateAction,
 } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 
@@ -30,7 +30,7 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
     case actionTypes.RESET_PRODUCTS_LISTS_STATE:
       return partialResetStateReducer(
         state,
-        action as ResetProductsListsStateAction,
+        action as ResetProductListsStateAction,
       );
     default:
       return state;
@@ -55,7 +55,7 @@ const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
     case actionTypes.RESET_PRODUCTS_LISTS_STATE:
       return partialResetStateReducer(
         state,
-        action as ResetProductsListsStateAction,
+        action as ResetProductListsStateAction,
       );
     default:
       return state;
@@ -78,7 +78,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.RESET_PRODUCTS_LISTS_STATE:
       return partialResetStateReducer(
         state,
-        action as ResetProductsListsStateAction,
+        action as ResetProductListsStateAction,
       );
     default:
       return state;
@@ -94,7 +94,7 @@ export const entitiesMapper = {
       return state;
     }
 
-    const productsListsHashes = (action as ResetProductsListsEntitiesAction)
+    const productsListsHashes = (action as ResetProductListsEntitiesAction)
       .payload;
     const { productsLists, ...rest } = state;
 
@@ -113,7 +113,7 @@ export const entitiesMapper = {
 
 function partialResetStateReducer<T extends object | null | undefined>(
   state: T,
-  action: ResetProductsListsStateAction,
+  action: ResetProductListsStateAction,
 ): T {
   const productsListsHashes = action.payload;
 
@@ -155,7 +155,7 @@ const reducers = combineReducers({
 const productsListsReducer: Reducer<ProductsListsState> = (state, action) => {
   if (
     action.type === actionTypes.RESET_PRODUCTS_LISTS_STATE &&
-    !(action as ResetProductsListsStateAction).payload?.length
+    !(action as ResetProductListsStateAction).payload?.length
   ) {
     return INITIAL_STATE;
   }

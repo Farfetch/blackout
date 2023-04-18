@@ -1,10 +1,10 @@
 import type { BlackoutError } from '@farfetch/blackout-client';
 import type { CombinedState } from 'redux';
-import type { ProductsListEntity } from '../../../entities/types/index.js';
+import type { ProductListingEntity } from '../../../entities/types/index.js';
 
 export type ProductsListsState = CombinedState<{
-  error: Record<ProductsListEntity['hash'], BlackoutError | undefined>;
-  hash: ProductsListEntity['hash'] | null;
-  isHydrated: Record<ProductsListEntity['hash'], boolean | undefined>;
-  isLoading: Record<ProductsListEntity['hash'], boolean | undefined>;
+  error: Record<ProductListingEntity['hash'], BlackoutError | undefined>;
+  hash: ProductListingEntity['hash'] | null;
+  isHydrated: Record<ProductListingEntity['hash'], boolean | undefined>;
+  isLoading: Record<ProductListingEntity['hash'], boolean | undefined>;
 }>;

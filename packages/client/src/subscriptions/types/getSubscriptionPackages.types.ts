@@ -1,7 +1,7 @@
 import type { Config } from '../../types/index.js';
 
 export type GetSubscriptionPackages = (
-  query: GetSubscriptionPackagesQuery,
+  query?: GetSubscriptionPackagesQuery,
   config?: Config,
 ) => Promise<SubscriptionPackagesResult>;
 

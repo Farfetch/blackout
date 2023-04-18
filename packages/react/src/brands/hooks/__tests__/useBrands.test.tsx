@@ -1,6 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import { fetchBrands, resetBrandsState } from '@farfetch/blackout-redux';
 import {
+  mockBrandsQuery,
   mockErrorState,
   mockHash,
   mockInitialState,
@@ -20,9 +21,16 @@ jest.mock('@farfetch/blackout-redux', () => ({
 const getRenderedHook = (state = mockInitialState, config = {}) => {
   const {
     result: { current },
-  } = renderHook(() => useBrands(config), {
-    wrapper: props => <Provider store={mockStore(state)} {...props} />,
-  });
+  } = renderHook(
+    () =>
+      useBrands({
+        ...config,
+        query: mockBrandsQuery,
+      }),
+    {
+      wrapper: props => <Provider store={mockStore(state)} {...props} />,
+    },
+  );
 
   return current;
 };

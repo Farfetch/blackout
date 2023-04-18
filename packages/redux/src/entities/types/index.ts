@@ -30,7 +30,7 @@ export * from './paymentToken.types.js';
 export * from './paymentTokens.types.js';
 export * from './preference.types.js';
 export * from './product.types.js';
-export * from './productsList.types.js';
+export * from './productListing.types.js';
 export * from './program.types.js';
 export * from './replacement.types.js';
 export * from './returnItems.types.js';

@@ -1,9 +1,8 @@
-import type { BrandsQuery, Config } from '@farfetch/blackout-client';
+import type { Config, GetBrandsQuery } from '@farfetch/blackout-client';
 
 export type UseBrandsOptions = {
   enableAutoFetch?: boolean;
   useCache?: boolean;
-  setBrandsHash?: boolean;
-  query?: BrandsQuery;
+  query?: GetBrandsQuery;
   fetchConfig?: Config;
 };

@@ -2,7 +2,7 @@ import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSearchDidYouMean,
-  type SearchDidYouMeanQuery,
+  type GetSearchDidYouMeanQuery,
   type SearchDidYouMeanSuggestion,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -20,7 +20,7 @@ import type { FetchSearchDidYouMeanAction } from '../../types/index.js';
  */
 const fetchSearchDidYouMeanFactory =
   (getSearchDidYouMean: GetSearchDidYouMean) =>
-  (query: SearchDidYouMeanQuery, config?: Config) =>
+  (query: GetSearchDidYouMeanQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchSearchDidYouMeanAction>,
   ): Promise<SearchDidYouMeanSuggestion[]> => {

@@ -19,7 +19,7 @@ import type { FetchSEOMetadataAction } from '../../types/index.js';
  */
 const fetchSEOMetadataFactory =
   (getSEOMetadata: GetSEOMetadata) =>
-  (query: GetSEOMetadataQuery, config?: Config) =>
+  (query?: GetSEOMetadataQuery, config?: Config) =>
   async (dispatch: Dispatch<FetchSEOMetadataAction>): Promise<SEOMetadata> => {
     let pathname = '';
 

@@ -53,7 +53,7 @@ describe('fetchListing() action creator', () => {
     store = productsListsMockStore(state);
   });
 
-  it('should do nothing if listing in cache, cache is enabled but set products list hash is false', async () => {
+  it('should do nothing if listing in cache, cache is enabled but set product list hash is false', async () => {
     const mockUseCache = true;
     const mockSetProductsListHash = false;
 

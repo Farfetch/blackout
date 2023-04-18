@@ -1,7 +1,7 @@
 import { buildQueryStringFromObject } from '../../helpers/index.js';
 import { isObject, isString } from 'lodash-es';
 import parse from 'url-parse';
-import type { GenerateProductsListHash } from './types/index.js';
+import type { GenerateProductListingHash } from './types/index.js';
 
 /**
  * Build a hash with slug and query to identify products lists (listings or sets).
@@ -9,12 +9,12 @@ import type { GenerateProductsListHash } from './types/index.js';
  * @example
  * ```
  * const query = { sort: 'price' };
- * const productsListHash = generateProductsListHash(slug, query);
- * const productsListHash = generateProductsListHash(slug, query, {
+ * const productListHash = generateProductListingHash(slug, query);
+ * const productListHash = generateProductListingHash(slug, query, {
  *    isSet: true
  * });
  *
- * Result of productsListHash === 'listing/woman/clothing?sort=price';
+ * Result of productListHash === 'listing/woman/clothing?sort=price';
  *
  * ```
  *
@@ -22,9 +22,9 @@ import type { GenerateProductsListHash } from './types/index.js';
  * @param query       - Object or string with query parameters.
  * @param hashOptions - Options to generate the hash.
  *
- * @returns Hash builded to identify a products list.
+ * @returns Hash built to identify a product list.
  */
-const generateProductsListHash: GenerateProductsListHash = (
+const generateProductListingHash: GenerateProductListingHash = (
   slug,
   query,
   { isSet } = {},
@@ -61,4 +61,4 @@ const generateProductsListHash: GenerateProductsListHash = (
   return `${productsListScope}${parsedSlug}${parsedQueryString}`;
 };
 
-export default generateProductsListHash;
+export default generateProductListingHash;

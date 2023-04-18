@@ -40,7 +40,7 @@ describe('lists redux reducer', () => {
       ).toEqual(initialState);
     });
 
-    it('should return the same state if a payload with at least one products list hash is provided and it is not in state', () => {
+    it('should return the same state if a payload with at least one product list hash is provided and it is not in state', () => {
       const anotherProductsListHash = mockProductsListHash + '2';
 
       const state = {

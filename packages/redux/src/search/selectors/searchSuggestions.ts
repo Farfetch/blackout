@@ -1,3 +1,5 @@
+import generateSearchSuggestionsHash from '../helpers/generateSearchSuggestionsHash.js';
+import type { GetSearchSuggestionsQuery } from '@farfetch/blackout-client';
 import type { SearchHash as Hash } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 
@@ -18,17 +20,24 @@ const getContentByHash = (state: StoreState, hash: Hash) =>
  * import { getSearchSuggestionsError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     error: getSearchSuggestionsError(state)
+ *     error: getSearchSuggestionsError(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search suggestions query.
  *
  * @returns Search error.
  */
-export const getSearchSuggestionsError = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.error;
+export const getSearchSuggestionsError = (
+  state: StoreState,
+  query: GetSearchSuggestionsQuery,
+) => {
+  const hash = generateSearchSuggestionsHash(query);
+
+  return getContentByHash(state, hash)?.error;
+};
 
 /**
  * Retrieves the loading condition from current search term.
@@ -38,37 +47,25 @@ export const getSearchSuggestionsError = (state: StoreState, hash: Hash) =>
  * import { areSearchSuggestionsLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     isLoading: areSearchSuggestionsLoading(state, hash)
+ *     isLoading: areSearchSuggestionsLoading(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search suggestions query.
  *
  * @returns Whether a search term response is loading or not.
  */
-export const areSearchSuggestionsLoading = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.isLoading;
+export const areSearchSuggestionsLoading = (
+  state: StoreState,
+  query: GetSearchSuggestionsQuery,
+) => {
+  const hash = generateSearchSuggestionsHash(query);
 
-/**
- * Retrieves the current query applied to get suggestions.
- *
- * @example
- * ```
- * import { getSearchSuggestionsQuery } from '@farfetch/blackout-redux';
- *
- * const mapStateToProps = state => ({
- *     query: getSearchSuggestionsQuery(state, hash)
- * });
- *
- * ```
- *
- * @param state - Application state.
- *
- * @returns The current query.
- */
-export const getSearchSuggestionsQuery = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.query;
+  return getContentByHash(state, hash)?.isLoading;
+};
+
 /**
  * Retrieves the suggestions of a specific search.
  *
@@ -77,17 +74,24 @@ export const getSearchSuggestionsQuery = (state: StoreState, hash: Hash) =>
  * import { getSearchSuggestionsResult } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     suggestions: getSearchSuggestionsResult(state, hash)
+ *     suggestions: getSearchSuggestionsResult(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search suggestions query.
  *
  * @returns Search suggestions.
  */
-export const getSearchSuggestionsResult = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.result;
+export const getSearchSuggestionsResult = (
+  state: StoreState,
+  query: GetSearchSuggestionsQuery,
+) => {
+  const hash = generateSearchSuggestionsHash(query);
+
+  return getContentByHash(state, hash)?.result;
+};
 
 /**
  * Retrieves if the search suggestions has been fetched.
@@ -105,10 +109,14 @@ export const getSearchSuggestionsResult = (state: StoreState, hash: Hash) =>
  * });
  * ```
  * @param state - Application state.
+ * @param query - Get search suggestions query.
  *
  * @returns isFetched status of the search suggestions.
  */
-export const areSearchSuggestionsFetched = (state: StoreState, hash: Hash) =>
-  (!!getSearchSuggestionsResult(state, hash) ||
-    !!getSearchSuggestionsError(state, hash)) &&
-  !areSearchSuggestionsLoading(state, hash);
+export const areSearchSuggestionsFetched = (
+  state: StoreState,
+  query: GetSearchSuggestionsQuery,
+) =>
+  (!!getSearchSuggestionsResult(state, query) ||
+    !!getSearchSuggestionsError(state, query)) &&
+  !areSearchSuggestionsLoading(state, query);

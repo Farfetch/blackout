@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes/index.js';
 import type { Dispatch } from 'redux';
-import type { ResetProductsListsStateAction } from '../types/index.js';
+import type { ResetProductListsStateAction } from '../types/index.js';
 
 /**
  * Reset products lists state to its initial value.
@@ -25,11 +25,11 @@ import type { ResetProductsListsStateAction } from '../types/index.js';
  *
  * ```
  *
- * @returns Dispatch reset products list state action.
+ * @returns Dispatch reset product list state action.
  */
 const resetProductsListsState =
   (productsListsHashes?: Array<string>) =>
-  (dispatch: Dispatch<ResetProductsListsStateAction>): void => {
+  (dispatch: Dispatch<ResetProductListsStateAction>): void => {
     dispatch({
       type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
       payload: productsListsHashes,

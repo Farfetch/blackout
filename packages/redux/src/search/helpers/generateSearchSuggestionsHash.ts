@@ -1,4 +1,4 @@
-import type { SearchSuggestionsQuery } from '@farfetch/blackout-client';
+import type { GetSearchSuggestionsQuery } from '@farfetch/blackout-client';
 
 /**
  * Creates a hash based on the search suggestions query.
@@ -11,7 +11,7 @@ const generateSearchSuggestionsHash = ({
   query,
   gender,
   ignoreFilterExclusions,
-}: SearchSuggestionsQuery) =>
+}: GetSearchSuggestionsQuery) =>
   `${query}${typeof gender !== 'undefined' ? `!${gender}` : ''}${
     typeof ignoreFilterExclusions !== 'undefined'
       ? `!${ignoreFilterExclusions}`

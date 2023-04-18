@@ -1,4 +1,4 @@
-import type { SearchIntentsQuery } from '@farfetch/blackout-client';
+import type { GetSearchIntentsQuery } from '@farfetch/blackout-client';
 
 /**
  * Creates a hash based on the search intents query.
@@ -10,7 +10,7 @@ import type { SearchIntentsQuery } from '@farfetch/blackout-client';
 const generateSearchIntentsHash = ({
   searchTerms,
   gender,
-}: SearchIntentsQuery) =>
+}: GetSearchIntentsQuery) =>
   `${searchTerms}${typeof gender !== 'undefined' ? `!${gender}` : ''}`;
 
 export default generateSearchIntentsHash;

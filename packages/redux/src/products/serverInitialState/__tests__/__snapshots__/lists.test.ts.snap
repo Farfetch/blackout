@@ -322,7 +322,7 @@ Object {
 }
 `;
 
-exports[`products lists serverInitialState() should initialize server state for a non products list 1`] = `
+exports[`products lists serverInitialState() should initialize server state for a non product list 1`] = `
 Object {
   "lists": Object {
     "error": Object {},

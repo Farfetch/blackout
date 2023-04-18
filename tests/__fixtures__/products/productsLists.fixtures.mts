@@ -9,9 +9,15 @@ import {
 import { mockBrandId } from '../brands/index.mjs';
 import { mockBreadCrumbs } from './products.fixtures.mjs';
 import { mockCategoryId } from '../categories/index.mjs';
-import { mockPriceAdaptedEmpty, mockPricesResponse } from './price.fixtures.mjs';
+import {
+  mockPriceAdaptedEmpty,
+  mockPricesResponse,
+} from './price.fixtures.mjs';
 import { mockSetId } from './ids.fixtures.mjs';
-import type { FacetEntity, ProductsListEntity } from '@farfetch/blackout-redux';
+import type {
+  FacetEntity,
+  ProductListingEntity,
+} from '@farfetch/blackout-redux';
 
 export const mockProductsListPathname = 'shopping/woman/clothing';
 export const mockProductsListSlug = '/woman/clothing';
@@ -1772,6 +1778,6 @@ export const mockProductsListEntity = {
   genderName: 'women',
 };
 
-export const mockProductsListsEntity: Record<string, ProductsListEntity> = {
+export const mockProductsListsEntity: Record<string, ProductListingEntity> = {
   [mockProductsListHash]: mockProductsListEntity,
 };

@@ -22,7 +22,7 @@ type ProductsNormalized = Omit<ProductListing['products'], 'entries'> &
     entries: ProductEntity['id'][];
   };
 
-export type ProductsListEntity = Omit<
+export type ProductListingEntity = Omit<
   ProductListing,
   'products' | 'facetGroups' | 'filterSegments'
 > &
