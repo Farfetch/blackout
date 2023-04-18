@@ -1,6 +1,6 @@
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import AuthenticationConfigOption from '../AuthenticationConfigOption.js';
 import TokenData from './TokenData.js';
-import TokenKinds from './TokenKinds.js';
+import TokenKind from './TokenKind.js';
 import TokenProvider from './TokenProvider.js';
 import type { ITokenData } from './types/index.js';
 import type {
@@ -51,8 +51,8 @@ class UserTokenProvider extends TokenProvider {
    *
    * @returns User token kind.
    */
-  override getSupportedTokenKind(): TokenKinds {
-    return TokenKinds.User;
+  override getSupportedTokenKind(): TokenKind {
+    return TokenKind.User;
   }
 
   /**
@@ -82,8 +82,8 @@ class UserTokenProvider extends TokenProvider {
           grantType: 'refresh_token',
         },
         {
-          [AuthenticationConfigOptions.NoAuthentication]: true,
-          [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
+          [AuthenticationConfigOption.NoAuthentication]: true,
+          [AuthenticationConfigOption.IsUserRefreshTokenRequest]: true,
         },
       ).then(
         async (response: ITokenData) => {

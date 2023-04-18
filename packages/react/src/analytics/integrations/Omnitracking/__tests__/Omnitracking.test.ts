@@ -5,8 +5,8 @@ import {
 } from 'tests/__fixtures__/analytics/index.mjs';
 import {
   integrations as coreIntegrations,
-  EventTypes,
-  PageTypes,
+  EventType,
+  PageType,
   type PageviewEventData,
   type StrippedDownAnalytics,
 } from '@farfetch/blackout-analytics';
@@ -140,7 +140,7 @@ describe('Omnitracking', () => {
 
         // Act
         await omnitrackingInstance.track(
-          analyticsPageData[PageTypes.HOMEPAGE] as PageviewEventData,
+          analyticsPageData[PageType.Homepage] as PageviewEventData,
         );
 
         // Assert
@@ -165,7 +165,7 @@ describe('Omnitracking', () => {
 
         // Act
         await omnitrackingInstance.track(
-          analyticsPageData[PageTypes.HOMEPAGE] as PageviewEventData,
+          analyticsPageData[PageType.Homepage] as PageviewEventData,
         );
 
         // Assert
@@ -184,7 +184,7 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         );
-        const data = analyticsPageData[PageTypes.HOMEPAGE] as PageviewEventData;
+        const data = analyticsPageData[PageType.Homepage] as PageviewEventData;
 
         // @ts-ignore
         data.context.web.window.location.pathname = '/en-pt';
@@ -206,7 +206,7 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         );
-        const data = analyticsPageData[PageTypes.HOMEPAGE] as PageviewEventData;
+        const data = analyticsPageData[PageType.Homepage] as PageviewEventData;
 
         // @ts-ignore
         data.context.web.window.location.pathname = '/pt';
@@ -241,7 +241,7 @@ describe('Omnitracking', () => {
 
         // Act
         await omnitrackingInstance.track(
-          analyticsTrackData[EventTypes.PRODUCT_VIEWED],
+          analyticsTrackData[EventType.ProductViewed],
         );
 
         // Assert

@@ -3,7 +3,7 @@ import {
   integrations,
   type LoadIntegrationEventData,
   type StrippedDownAnalytics,
-  TrackTypes,
+  TrackType,
   type TrackTypesValues,
 } from '@farfetch/blackout-analytics';
 import { get } from 'lodash-es';
@@ -83,7 +83,7 @@ class Riskified extends integrations.Integration<RiskifiedIntegrationOptions> {
    */
   override track(data: EventData<TrackTypesValues>) {
     switch (data.type) {
-      case TrackTypes.PAGE:
+      case TrackType.Page:
         this.trackPage(get(data, 'context.web.window.location.href', ''));
     }
   }

@@ -2,162 +2,162 @@
  * Contains events that are supported by default by the integrations included in
  * this package. To be used in analytics.track calls.
  */
-enum EventTypes {
+enum EventType {
   /**
    * Address Info Added should be tracked when an address info is added.
    */
-  ADDRESS_INFO_ADDED = 'Address Info Added',
+  AddressInfoAdded = 'Address Info Added',
   /**
    * Billing Info Added should be tracked when an billing info is added.
    */
-  BILLING_INFO_ADDED = 'Billing Info Added',
+  BillingInfoAdded = 'Billing Info Added',
   /**
    * Checkout Abandoned should be tracked when the user abandons the checkout.
    */
-  CHECKOUT_ABANDONED = 'Checkout Abandoned',
+  CheckoutAbandoned = 'Checkout Abandoned',
   /**
    * Checkout Started should be tracked when a checkout is started.
    */
-  CHECKOUT_STARTED = 'Checkout Started',
+  CheckoutStarted = 'Checkout Started',
   /**
    * Checkout Step Completed should be tracked whenever a step of a checkout is
    * completed.
    */
-  CHECKOUT_STEP_COMPLETED = 'Checkout Step Completed',
+  CheckoutStepCompleted = 'Checkout Step Completed',
   /**
    * Checkout Step Editing should be tracked when the user starts editing a checkout
    * step.
    */
-  CHECKOUT_STEP_EDITING = 'Checkout Step Editing',
+  CheckoutStepEditing = 'Checkout Step Editing',
   /**
    * Checkout Step Viewed should be tracked when a new step of a checkout has begun.
    */
-  CHECKOUT_STEP_VIEWED = 'Checkout Step Viewed',
+  CheckoutStepViewed = 'Checkout Step Viewed',
   /**
    * Delivery Method Added should be tracked when a delivery method is added.
    */
-  DELIVERY_METHOD_ADDED = 'Delivery Method Added',
+  DeliveryMethodAdded = 'Delivery Method Added',
   /**
    * Filters Applied should be tracked when the user actively changed filters.
    */
-  FILTERS_APPLIED = 'Filters Applied',
+  FiltersApplied = 'Filters Applied',
   /**
    * Filters Cleared should be tracked when the user actively clears all filters by
    * interacting with a specific UI element for the effect.
    */
-  FILTERS_CLEARED = 'Filters Cleared',
+  FiltersCleared = 'Filters Cleared',
   /**
    * Interact Content should be tracked whenever there is interest in tracking the
    * user interaction with the interface.
    */
-  INTERACT_CONTENT = 'Interact Content',
+  InteractContent = 'Interact Content',
   /**
    * Login should be tracked when the user logs in.
    */
-  LOGIN = 'Login',
+  Login = 'Login',
   /**
    * Logout should be tracked when the user logs out.
    */
-  LOGOUT = 'Logout',
+  Logout = 'Logout',
   /**
    * Order Completed should be tracked when a new transaction is made.
    */
-  ORDER_COMPLETED = 'Order Completed',
+  OrderCompleted = 'Order Completed',
   /**
    * Order Refunded should be tracked when an order is refunded.
    */
-  ORDER_REFUNDED = 'Order Refunded',
+  OrderRefunded = 'Order Refunded',
   /**
    * Payment Info Added should be tracked when the user adds a new payment info.
    */
-  PAYMENT_INFO_ADDED = 'Payment Info Added',
+  PaymentInfoAdded = 'Payment Info Added',
   /**
    * Place Order Failed should be tracked after the submission of an order fails.
    */
-  PLACE_ORDER_FAILED = 'Place Order Failed',
+  PlaceOrderFailed = 'Place Order Failed',
   /**
    * Place Order Started should be tracked before the user submits an order.
    */
-  PLACE_ORDER_STARTED = 'Place Order Started',
+  PlaceOrderStarted = 'Place Order Started',
   /**
    * Product Added to Cart should be tracked when a product is added to the user's
    * cart.
    */
-  PRODUCT_ADDED_TO_CART = 'Product Added to Cart',
+  ProductAddedToCart = 'Product Added to Cart',
   /**
    * Product Added to Wishlist should be tracked when a product is added to the
    * users' wishlist.
    */
-  PRODUCT_ADDED_TO_WISHLIST = 'Product Added to Wishlist',
+  ProductAddedToWishlist = 'Product Added to Wishlist',
   /**
    * Product Clicked should be tracked when the user clicks in a product to view its
    * details.
    */
-  PRODUCT_CLICKED = 'Product Clicked',
+  ProductClicked = 'Product Clicked',
   /**
    * Product List Viewed should be tracked when products are viewed in a list, i.e.,
    * products are visible in the viewport.
    */
-  PRODUCT_LIST_VIEWED = 'Product List Viewed',
+  ProductListViewed = 'Product List Viewed',
   /**
    * Product Removed from Cart should be tracked when a product is removed from the
    * user's cart.
    */
-  PRODUCT_REMOVED_FROM_CART = 'Product Removed from Cart',
+  ProductRemovedFromCart = 'Product Removed from Cart',
   /**
    * Product Removed from Wishlist should be tracked when a product is removed from
    * the users' wishlist.
    */
-  PRODUCT_REMOVED_FROM_WISHLIST = 'Product Removed From Wishlist',
+  ProductRemovedFromWishlist = 'Product Removed From Wishlist',
   /**
    * Product Updated in Cart should be tracked when a product is updated in the
    * user's cart.
    */
-  PRODUCT_UPDATED = 'Product Updated',
+  ProductUpdated = 'Product Updated',
   /**
    * Product Updated in Wishlist should be tracked when a product is updated on the
    * users' wishlist.
    */
-  PRODUCT_UPDATED_WISHLIST = 'Product Updated In Wishlist',
+  ProductUpdatedWishlist = 'Product Updated In Wishlist',
   /**
    * Product Viewed should be tracked when the user views a product detail page.
    */
-  PRODUCT_VIEWED = 'Product Viewed',
+  ProductViewed = 'Product Viewed',
   /**
    * Promocode Applied should be tracked when the user applies a promocode to a
    * checkout.
    */
-  PROMOCODE_APPLIED = 'Promocode Applied',
+  PromocodeApplied = 'Promocode Applied',
   /**
    * Select Content should be tracked when the user selects a content, i.e., a
    * product item.
    */
-  SELECT_CONTENT = 'Select Content',
+  SelectContent = 'Select Content',
   /**
    * Share should be tracked when the share feature is clicked.
    */
-  SHARE = 'Share',
+  Share = 'Share',
   /**
    * Shipping Info Added should be tracked when the user adds the shipping info.
    */
-  SHIPPING_INFO_ADDED = 'Shipping Info Added',
+  ShippingInfoAdded = 'Shipping Info Added',
   /**
    * Shipping Method Added should be tracked when a shipping method is added.
    */
-  SHIPPING_METHOD_ADDED = 'Shipping Method Added',
+  ShippingMethodAdded = 'Shipping Method Added',
   /**
    * Signup Form Completed should be tracked when the user completes the sign-up
    * form.
    */
-  SIGNUP_FORM_COMPLETED = 'Sign-up Form Completed',
+  SignupFormCompleted = 'Sign-up Form Completed',
   /**
    * Signup Form Viewed should be tracked when the signup form is viewed.
    */
-  SIGNUP_FORM_VIEWED = 'Sign-up Form Viewed',
+  SignupFormViewed = 'Sign-up Form Viewed',
   /**
    * Signup Newsletter should be tracked when the user signs-up the newsletter.
    */
-  SIGNUP_NEWSLETTER = 'Sign-up Newsletter',
+  SignupNewsletter = 'Sign-up Newsletter',
 }
 
-export default EventTypes;
+export default EventType;

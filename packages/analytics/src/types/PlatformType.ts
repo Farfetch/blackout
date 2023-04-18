@@ -3,7 +3,7 @@
  * Analytics's constructor and will be available under the platform property of the
  * event data that Analytics will generate for all Integrations registered.
  */
-enum PlatformTypes {
+enum PlatformType {
   /**
    * Mobile is to be used when running on a native app. Used by
    * \@farfetch/blackout-react-native-analytics facade.
@@ -16,4 +16,4 @@ enum PlatformTypes {
   Web = 'web',
 }
 
-export default PlatformTypes;
+export default PlatformType;

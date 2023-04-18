@@ -13,8 +13,8 @@
  * ```
  */
 import {
-  PageTypes as analyticsPageTypes,
-  TrackTypes as analyticsTrackTypes,
+  PageType as analyticsPageTypes,
+  TrackType as analyticsTrackTypes,
   type EventData,
   integrations,
   type LoadIntegrationEventData,
@@ -22,7 +22,7 @@ import {
   type SetUserEventData,
   type StrippedDownAnalytics,
   type TrackEventData,
-  TrackTypes,
+  TrackType,
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -104,7 +104,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   static override [utils.CONSENT_CATEGORIES_PROPERTY] =
-    utils.DefaultConsentKeys.STATISTICS;
+    utils.DefaultConsentKeys.Statistics;
 
   /**
    * Initializes member variables from options and tries to initialize Google
@@ -208,11 +208,11 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     const eventName = get(data, 'event');
 
     switch (eventName) {
-      case analyticsPageTypes.BAG:
-      case analyticsPageTypes.SEARCH:
-      case analyticsPageTypes.WISHLIST:
+      case analyticsPageTypes.Bag:
+      case analyticsPageTypes.Search:
+      case analyticsPageTypes.Wishlist:
         return await Promise.all([
-          this.trackEvent({ ...data, type: TrackTypes.TRACK }),
+          this.trackEvent({ ...data, type: TrackType.Track }),
           this.trackPage(data),
         ]);
       default:
@@ -231,10 +231,10 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     await this.initializePromise;
 
     switch (data.type) {
-      case analyticsTrackTypes.PAGE:
+      case analyticsTrackTypes.Page:
         return await this.processPageEvent(data as PageviewEventData);
 
-      case analyticsTrackTypes.TRACK:
+      case analyticsTrackTypes.Track:
         return await this.trackEvent(data as TrackEventData);
       /* istanbul ignore next */
       default:
@@ -405,7 +405,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
         'context.library.version',
       );
 
-      if (data.type === analyticsTrackTypes.TRACK) {
+      if (data.type === analyticsTrackTypes.Track) {
         eventProperties['page_path'] =
           contextLocation.pathname +
           utils.stringifyQuery(contextLocation.query);

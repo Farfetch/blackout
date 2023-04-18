@@ -1,11 +1,11 @@
-import { EventTypes, FromParameterTypes } from '@farfetch/blackout-analytics';
+import { EventType, FromParameterType } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures.mjs';
 
 const fixtures = {
   ...baseTrackData,
-  event: EventTypes.PRODUCT_REMOVED_FROM_CART,
+  event: EventType.ProductRemovedFromCart,
   properties: {
-    from: FromParameterTypes.BAG,
+    from: FromParameterType.Bag,
     cartId: 'ksjdj92dj29dj92d2j',
     id: '507f1f77bcf86cd799439011',
     sku: 'G-32',

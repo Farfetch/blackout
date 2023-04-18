@@ -19,7 +19,7 @@ Object {
     "Size": 0,
     "SizeDescription": 1,
   },
-  "AuthenticationConfigOptions": Object {
+  "AuthenticationConfigOption": Object {
     "AccessToken": "__accessToken",
     "IsClientCredentialsTokenRequest": "__isClientCredentialsTokenRequest",
     "IsGetUserProfileRequest": "__isGetUserProfileRequest",
@@ -864,7 +864,7 @@ Object {
     "Pos": "Pos",
   },
   "TokenData": [Function],
-  "TokenKinds": Object {
+  "TokenKind": Object {
     "ClientCredentials": "ClientCredentials",
     "Guest": "Guest",
     "User": "User",

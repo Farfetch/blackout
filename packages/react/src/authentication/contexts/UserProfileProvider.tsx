@@ -1,5 +1,5 @@
 import {
-  AuthenticationConfigOptions,
+  AuthenticationConfigOption,
   getUser,
   type GuestUser,
   type User,
@@ -121,9 +121,8 @@ const UserProfileProvider = ({
 
     try {
       const userData: User | GuestUser = await getUser({
-        [AuthenticationConfigOptions.UsedAccessTokenCallback]:
-          setAccessTokenRef,
-        [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
+        [AuthenticationConfigOption.UsedAccessTokenCallback]: setAccessTokenRef,
+        [AuthenticationConfigOption.IsGetUserProfileRequest]: true,
       });
 
       const tokenManagerCurrentActiveToken =

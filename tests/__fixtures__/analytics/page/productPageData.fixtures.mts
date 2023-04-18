@@ -1,9 +1,9 @@
-import { PageTypes } from '@farfetch/blackout-analytics';
+import { PageType } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures.mjs';
 
 const fixtures = {
   ...basePageData,
-  event: PageTypes.PRODUCT_DETAILS,
+  event: PageType.ProductDetails,
   properties: {
     gender: 0,
     brand: 'Saint Laurent',

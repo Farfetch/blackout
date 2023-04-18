@@ -29,7 +29,7 @@ const FILTER_SLUGS_ORDER = [
  *
  * <ul>
  *    <li><b>Redirect:</b> not much to say, redirect to the received url;</li>
- *    <li><b>Product:</b> builds the url for the respective product's PDP;</li>
+ *    <li><b>Product:</b> builds the url for the respective product's Pdp;</li>
  *    <li><b>Listing:</b> builds the url, with the correct slugs, for the
  *    respective listing.</li>
  * </ul>.

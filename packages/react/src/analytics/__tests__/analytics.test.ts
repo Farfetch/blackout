@@ -1,6 +1,6 @@
 import analytics from '../analytics.js';
 import AnalyticsCore, {
-  TrackTypes as analyticsTrackTypes,
+  TrackType as analyticsTrackTypes,
   type ConsentData,
   type IntegrationOptions,
   integrations,
@@ -81,7 +81,7 @@ describe('analytics web', () => {
         ).track,
       ).toHaveBeenCalledWith(
         expect.objectContaining({
-          type: analyticsTrackTypes.PAGE,
+          type: analyticsTrackTypes.Page,
           event,
           properties,
         }),
@@ -107,7 +107,7 @@ describe('analytics web', () => {
       await analytics.page(event, properties, eventContext);
 
       expect(coreTrackSpy).toHaveBeenCalledWith(
-        analyticsTrackTypes.PAGE,
+        analyticsTrackTypes.Page,
         event,
         properties,
         eventContext,
@@ -128,7 +128,7 @@ describe('analytics web', () => {
         ).track,
       ).toHaveBeenCalledWith(
         expect.objectContaining({
-          type: analyticsTrackTypes.PAGE,
+          type: analyticsTrackTypes.Page,
           event,
           properties,
         }),
@@ -146,7 +146,7 @@ describe('analytics web', () => {
     await analytics.page(event, properties, eventContext);
 
     expect(coreTrackSpy).toHaveBeenCalledWith(
-      analyticsTrackTypes.PAGE,
+      analyticsTrackTypes.Page,
       event,
       properties,
       eventContext,

@@ -9,7 +9,7 @@ import type {
   SearchSuggestion,
 } from '@farfetch/blackout-client';
 
-// SEARCH DID YOU MEAN
+// Search DID YOU MEAN
 export interface FetchSearchDidYouMeanRequestAction extends Action {
   meta: { query: GetSearchDidYouMeanQuery };
   type: typeof actionTypes.FETCH_SEARCH_DID_YOU_MEAN_REQUEST;
@@ -40,7 +40,7 @@ export interface ResetSearchDidYouMeanAction extends Action {
   type: typeof actionTypes.RESET_SEARCH_DID_YOU_MEAN;
 }
 
-// SEARCH INTENTS
+// Search INTENTS
 export interface FetchSearchIntentsRequestAction extends Action {
   type: typeof actionTypes.FETCH_SEARCH_INTENTS_REQUEST;
 }
@@ -68,7 +68,7 @@ export interface ResetSearchIntentsAction extends Action {
   type: typeof actionTypes.RESET_SEARCH_INTENTS;
 }
 
-// SEARCH SUGGESTIONS
+// Search SUGGESTIONS
 export interface FetchSearchSuggestionsRequestAction extends Action {
   meta: { query: GetSearchSuggestionsQuery };
   type: typeof actionTypes.FETCH_SEARCH_SUGGESTIONS_REQUEST;

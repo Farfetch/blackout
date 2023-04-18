@@ -18,8 +18,8 @@ import {
   wishlistSetId,
 } from 'tests/__fixtures__/analytics/wishlist/index.mjs';
 import Analytics, {
-  EventTypes,
-  FromParameterTypes,
+  EventType,
+  FromParameterType,
   utils,
 } from '@farfetch/blackout-analytics';
 import type {
@@ -65,7 +65,7 @@ const discount = priceWithoutDiscount - priceWithDiscount;
 const value = priceWithDiscount;
 const affiliation = 'farfetch';
 const coupon = 'super coupon';
-const from = FromParameterTypes.RECOMMENDATIONS;
+const from = FromParameterType.Recommendations;
 const position = 3;
 const productDescription = shortDescription || name;
 // Color name must be the one that has a tag of 'DesignerColor'
@@ -291,33 +291,30 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toHaveBeenCalledWith(
-        EventTypes.PRODUCT_ADDED_TO_WISHLIST,
-        {
-          affiliation,
-          brand: brandName,
-          category: categoryName,
-          coupon,
-          currency: currencyCode,
-          discountValue: discount,
-          from,
-          id: wishlistMockData.productId,
-          list,
-          listId,
-          name: productDescription?.trim(),
-          position,
-          price: priceWithDiscount,
-          priceWithoutDiscount,
-          quantity,
-          size: size.name,
-          sizeId: size.id,
-          sizeScaleId: size.scale,
-          value,
-          variant: colorName,
-          wishlistId: wishlistMockData.wishlistId,
-          locationId: expect.any(String),
-        },
-      );
+      expect(trackSpy).toHaveBeenCalledWith(EventType.ProductAddedToWishlist, {
+        affiliation,
+        brand: brandName,
+        category: categoryName,
+        coupon,
+        currency: currencyCode,
+        discountValue: discount,
+        from,
+        id: wishlistMockData.productId,
+        list,
+        listId,
+        name: productDescription?.trim(),
+        position,
+        price: priceWithDiscount,
+        priceWithoutDiscount,
+        quantity,
+        size: size.name,
+        sizeId: size.id,
+        sizeScaleId: size.scale,
+        value,
+        variant: colorName,
+        wishlistId: wishlistMockData.wishlistId,
+        locationId: expect.any(String),
+      });
     });
   });
 
@@ -349,7 +346,7 @@ describe('analyticsWishlistMiddleware', () => {
       });
 
       expect(trackSpy).toHaveBeenCalledWith(
-        EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+        EventType.ProductRemovedFromWishlist,
         {
           affiliation,
           brand: brandName,
@@ -407,7 +404,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toHaveBeenCalledWith(
-          EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+          EventType.ProductRemovedFromWishlist,
           {
             affiliation,
             brand: brandName,
@@ -454,7 +451,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toHaveBeenCalledWith(
-          EventTypes.PRODUCT_REMOVED_FROM_WISHLIST,
+          EventType.ProductRemovedFromWishlist,
           {
             affiliation,
             brand: brandName,
@@ -576,7 +573,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toHaveBeenCalledWith(
-          EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          EventType.ProductAddedToWishlist,
           {
             affiliation,
             brand: brandName,
@@ -623,7 +620,7 @@ describe('analyticsWishlistMiddleware', () => {
         });
 
         expect(trackSpy).toHaveBeenCalledWith(
-          EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+          EventType.ProductAddedToWishlist,
           {
             affiliation,
             brand: brandName,
@@ -768,7 +765,7 @@ describe('analyticsWishlistMiddleware', () => {
         meta: {
           affiliation,
           coupon,
-          from: FromParameterTypes.WISHLIST,
+          from: FromParameterType.Wishlist,
           list: wishlistName,
           listId: wishlistMockData.wishlistId,
           position,
@@ -778,14 +775,14 @@ describe('analyticsWishlistMiddleware', () => {
         },
       });
 
-      expect(trackSpy).toHaveBeenNthCalledWith(1, EventTypes.PRODUCT_UPDATED, {
+      expect(trackSpy).toHaveBeenNthCalledWith(1, EventType.ProductUpdated, {
         affiliation,
         brand: brandName,
         category: categoryName,
         coupon,
         currency: currencyCode,
         discountValue: discount,
-        from: FromParameterTypes.WISHLIST,
+        from: FromParameterType.Wishlist,
         id: wishlistMockData.productId,
         list: wishlistName,
         listId: wishlistMockData.wishlistId,
@@ -809,7 +806,7 @@ describe('analyticsWishlistMiddleware', () => {
 
       expect(trackSpy).toHaveBeenNthCalledWith(
         2,
-        EventTypes.PRODUCT_UPDATED_WISHLIST,
+        EventType.ProductUpdatedWishlist,
         {
           affiliation,
           brand: brandName,
@@ -817,7 +814,7 @@ describe('analyticsWishlistMiddleware', () => {
           coupon,
           currency: currencyCode,
           discountValue: discount,
-          from: FromParameterTypes.WISHLIST,
+          from: FromParameterType.Wishlist,
           id: wishlistMockData.productId,
           list: wishlistName,
           listId: wishlistMockData.wishlistId,
@@ -841,7 +838,7 @@ describe('analyticsWishlistMiddleware', () => {
       );
     });
 
-    it('should trigger PRODUCT_UPDATED event when the product size is updated on wishlist, with sizeId property assigned on event payload.', async () => {
+    it('should trigger ProductUpdated event when the product size is updated on wishlist, with sizeId property assigned on event payload.', async () => {
       const size = { id: 999, name: 'XXL' };
       const mockStore = mockSimplifiedStore(getMockState(), [
         analyticsWishlistMiddleware(analytics),
@@ -864,19 +861,19 @@ describe('analyticsWishlistMiddleware', () => {
         meta: {
           productId: wishlistItem.product,
           size: size.id,
-          from: FromParameterTypes.WISHLIST,
+          from: FromParameterType.Wishlist,
         },
       });
 
       // expect trigger analytics product updated event
       expect(trackSpy).toHaveBeenNthCalledWith(
         1,
-        EventTypes.PRODUCT_UPDATED,
+        EventType.ProductUpdated,
         expect.objectContaining({ sizeId: size.id }),
       );
     });
 
-    it('should trigger PRODUCT_UPDATED and PRODUCT_ADDED_TO_WISHLIST when product quantity is incremented on wishlist', async () => {
+    it('should trigger ProductUpdated and ProductAddedToWishlist when product quantity is incremented on wishlist', async () => {
       const mockStore = mockSimplifiedStore(getMockState(), [
         analyticsWishlistMiddleware(analytics),
       ]);
@@ -899,7 +896,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
         meta: {
           productId: wishlistItem.product,
-          from: FromParameterTypes.WISHLIST,
+          from: FromParameterType.Wishlist,
           quantity:
             (getMockState()?.entities?.wishlistItems?.[wishlistItem.id]
               ?.quantity || 0) + 1,
@@ -909,7 +906,7 @@ describe('analyticsWishlistMiddleware', () => {
       // expect trigger analytics product updated event
       expect(trackSpy).toHaveBeenNthCalledWith(
         1,
-        EventTypes.PRODUCT_UPDATED,
+        EventType.ProductUpdated,
         expect.objectContaining({
           quantity:
             (getMockState()?.entities?.wishlistItems?.[wishlistItem.id]
@@ -919,14 +916,14 @@ describe('analyticsWishlistMiddleware', () => {
 
       expect(trackSpy).toHaveBeenNthCalledWith(
         3,
-        EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+        EventType.ProductAddedToWishlist,
         expect.objectContaining({
           quantity: 1,
         }),
       );
     });
 
-    it('should trigger PRODUCT_ADDED_TO_WISHLIST event when a product quantity is incremented on a PDP', async () => {
+    it('should trigger ProductAddedToWishlist event when a product quantity is incremented on a PDP', async () => {
       const mockStore = mockSimplifiedStore(getMockState(), [
         analyticsWishlistMiddleware(analytics),
       ]);
@@ -949,7 +946,7 @@ describe('analyticsWishlistMiddleware', () => {
         },
         meta: {
           productId: wishlistItem.product,
-          from: FromParameterTypes.PDP,
+          from: FromParameterType.Pdp,
           quantity:
             (getMockState()?.entities?.wishlistItems?.[wishlistItem.id]
               ?.quantity || 0) + 1,
@@ -958,7 +955,7 @@ describe('analyticsWishlistMiddleware', () => {
 
       expect(trackSpy).toHaveBeenNthCalledWith(
         2,
-        EventTypes.PRODUCT_ADDED_TO_WISHLIST,
+        EventType.ProductAddedToWishlist,
         expect.objectContaining({
           quantity: 1,
         }),

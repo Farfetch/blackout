@@ -667,7 +667,7 @@ Array [
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "analytics_package_version": "0.1.0",
       "currency": "USD",
-      "from": "PLP",
+      "from": "Plp",
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -708,7 +708,7 @@ Array [
     Object {
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "analytics_package_version": "0.1.0",
-      "from": "PLP",
+      "from": "Plp",
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -745,7 +745,7 @@ Array [
       "analytics_package_version": "0.1.0",
       "error": undefined,
       "filters": undefined,
-      "from": "PLP",
+      "from": "Plp",
       "item_list_id": undefined,
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -805,7 +805,7 @@ Array [
       "coupon": undefined,
       "currency": "USD",
       "discount": 6,
-      "from": "PLP",
+      "from": "Plp",
       "index": undefined,
       "item_brand": "Just A T-Shirt",
       "item_category": "Clothing",
@@ -881,7 +881,7 @@ Array [
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "analytics_package_version": "0.1.0",
       "currency": "USD",
-      "from": "PLP",
+      "from": "Plp",
       "image_count": undefined,
       "items": Array [
         Object {

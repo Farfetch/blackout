@@ -13,8 +13,8 @@ import {
   wishlistsActionTypes,
 } from '../../wishlists/index.js';
 import Analytics, {
-  EventTypes,
-  FromParameterTypes,
+  EventType,
+  FromParameterType,
   utils,
 } from '@farfetch/blackout-analytics';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
@@ -223,7 +223,7 @@ export function analyticsWishlistMiddleware(
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
 
-        analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+        analyticsInstance.track(EventType.ProductAddedToWishlist, {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
@@ -241,7 +241,7 @@ export function analyticsWishlistMiddleware(
         const wishlistItem = getWishlistItem(state, wishlistItemId);
         const wishlistId = getWishlistId(state);
 
-        analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+        analyticsInstance.track(EventType.ProductRemovedFromWishlist, {
           ...(await getProductData(analyticsInstance, state, wishlistItem)),
           ...getWishlistData(action, wishlistItem),
           wishlistId,
@@ -298,13 +298,13 @@ export function analyticsWishlistMiddleware(
           wishlistId,
         };
 
-        // product updated will only triggered if provenience is from WISHLIST
-        if (data.from === FromParameterTypes.WISHLIST) {
-          analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
+        // product updated will only triggered if provenience is from Wishlist
+        if (data.from === FromParameterType.Wishlist) {
+          analyticsInstance.track(EventType.ProductUpdated, { ...data });
         }
 
         // Track analytics Wishlist Product Updated Event
-        analyticsInstance.track(EventTypes.PRODUCT_UPDATED_WISHLIST, {
+        analyticsInstance.track(EventType.ProductUpdatedWishlist, {
           ...data,
         });
 
@@ -313,9 +313,9 @@ export function analyticsWishlistMiddleware(
         // Check if the quantity difference is less than it was in wishlist - use PRODUCT_REMOVED_FROM_WISHLIST in that case
         if (data.oldQuantity && data.quantity) {
           if (data.quantity < data.oldQuantity) {
-            eventType = EventTypes.PRODUCT_REMOVED_FROM_WISHLIST;
+            eventType = EventType.ProductRemovedFromWishlist;
           } else if (data.quantity > data.oldQuantity) {
-            eventType = EventTypes.PRODUCT_ADDED_TO_WISHLIST;
+            eventType = EventType.ProductAddedToWishlist;
           }
 
           data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
@@ -353,7 +353,7 @@ export function analyticsWishlistMiddleware(
         if (isDeleteOperation && !isNil(wishlistItemId)) {
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
-          analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+          analyticsInstance.track(EventType.ProductRemovedFromWishlist, {
             ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -373,7 +373,7 @@ export function analyticsWishlistMiddleware(
 
           const wishlistItem = getWishlistItem(state, wishlistItemId);
 
-          analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+          analyticsInstance.track(EventType.ProductAddedToWishlist, {
             ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
             wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -414,7 +414,7 @@ export function analyticsWishlistMiddleware(
 
         await Promise.all(
           removedItems.map(async wishlistItem => {
-            analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
+            analyticsInstance.track(EventType.ProductRemovedFromWishlist, {
               ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
@@ -453,7 +453,7 @@ export function analyticsWishlistMiddleware(
 
         await Promise.all(
           addedItems.map(async wishlistItem => {
-            analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_WISHLIST, {
+            analyticsInstance.track(EventType.ProductAddedToWishlist, {
               ...(await getProductData(analyticsInstance, state, wishlistItem)),
               ...getWishlistData(action, wishlistItem),
               wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet

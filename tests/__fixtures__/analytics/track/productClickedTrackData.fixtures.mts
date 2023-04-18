@@ -1,11 +1,11 @@
-import { EventTypes, FromParameterTypes } from '@farfetch/blackout-analytics';
+import { EventType, FromParameterType } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures.mjs';
 
 const fixtures = {
   ...baseTrackData,
-  event: EventTypes.PRODUCT_CLICKED,
+  event: EventType.ProductClicked,
   properties: {
-    from: FromParameterTypes.PLP,
+    from: FromParameterType.Plp,
     id: '507f1f77bcf86cd799439011',
     name: 'Gareth McConnell Dreamscape T-Shirt',
     position: 3,

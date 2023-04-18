@@ -1,4 +1,4 @@
-// PDP, bag item and wishlist item price object
+// Pdp, bag item and wishlist item price object
 export type Price = {
   discountExclTaxes: number;
   discountInclTaxes: number;
@@ -16,7 +16,7 @@ export type Price = {
   taxType: string;
 };
 
-// PLP product price (scattered in `ProductSummary`, which is the name in Swagger)
+// Plp product price (scattered in `ProductSummary`, which is the name in Swagger)
 export type ProductSummaryPrice = {
   currencyIsoCode: string;
   formattedPrice: string;
@@ -32,7 +32,7 @@ enum ProductPriceType {
   Max,
 }
 
-// PLP product `prices` individual object (`ProductSummaryTypedPrice` is the name in Swagger)
+// Plp product `prices` individual object (`ProductSummaryTypedPrice` is the name in Swagger)
 export type ProductSummaryTypedPrice = {
   formattedPrice: string;
   formattedPriceWithoutCurrency: string;

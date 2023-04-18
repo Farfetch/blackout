@@ -1,10 +1,10 @@
 import {
-  AuthenticationConfigOptions,
+  AuthenticationConfigOption,
   type AuthenticationTokenManager,
   deleteToken,
   type LoginData,
   postToken,
-  TokenKinds,
+  TokenKind,
   type UserToken,
 } from '@farfetch/blackout-client';
 import {
@@ -127,8 +127,8 @@ const useUserAuthState = ({
         const tokenData = await postToken(
           { grantType: 'password', ...loginData },
           {
-            [AuthenticationConfigOptions.IsLoginRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsLoginRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
 
@@ -149,7 +149,7 @@ const useUserAuthState = ({
     try {
       dispatch({ type: ActionTypes.LogoutRequested });
 
-      if (activeTokenData?.kind !== TokenKinds.User) {
+      if (activeTokenData?.kind !== TokenKind.User) {
         throw new NotLoggedInError();
       }
 
@@ -160,7 +160,7 @@ const useUserAuthState = ({
       }
 
       await deleteToken(currentAccessToken, {
-        [AuthenticationConfigOptions.IsLogoutRequest]: true,
+        [AuthenticationConfigOption.IsLogoutRequest]: true,
       });
 
       dispatch({ type: ActionTypes.LogoutSucceeded });
@@ -172,7 +172,7 @@ const useUserAuthState = ({
 
   const isLoggedIn = useMemo(() => {
     return (
-      activeTokenData?.kind === TokenKinds.User &&
+      activeTokenData?.kind === TokenKind.User &&
       !!activeTokenData?.data?.accessToken
     );
   }, [activeTokenData]);

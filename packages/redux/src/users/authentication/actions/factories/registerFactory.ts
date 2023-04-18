@@ -6,7 +6,7 @@ import {
   toBlackoutError,
   UserStatus,
 } from '@farfetch/blackout-client';
-import { LoginMethodParameterTypes } from '@farfetch/blackout-analytics';
+import { LoginMethodParameterType } from '@farfetch/blackout-analytics';
 import type { Dispatch } from 'redux';
 
 /**
@@ -41,7 +41,7 @@ const registerFactory =
         type: actionTypes.REGISTER_SUCCESS,
         meta: {
           isRegisterAction: true,
-          method: LoginMethodParameterTypes.TENANT,
+          method: LoginMethodParameterType.Tenant,
         },
       });
 

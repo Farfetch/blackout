@@ -47,7 +47,7 @@ const adaptPrice: AdaptPrice = priceToAdapt => {
     // Type of price as an integer - { 0: FullPrice, 1: Sale, 2: PrivateSale }
     priceType: (priceToAdapt as ProductSummaryPrice).priceType,
     // Promotion type as a string ["FullPrice", "Sale", "PrivateSale"]. It comes
-    // within the PLP's `prices`
+    // within the Plp's `prices`
     promotionType: (priceToAdapt as ProductSummaryTypedPrice).promotionType,
     tags: (priceToAdapt as Price).tags,
     taxes: {

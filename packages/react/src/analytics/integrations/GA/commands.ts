@@ -14,7 +14,7 @@ import {
 import {
   type AnalyticsProduct,
   type EventData,
-  EventTypes,
+  EventType,
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -79,17 +79,17 @@ const productViewedMappings = {
 };
 
 const productMappingsByEvent: Record<string, ProductMappings> = {
-  [EventTypes.PRODUCT_ADDED_TO_CART]: productAddRemoveCartMappings,
-  [EventTypes.PRODUCT_REMOVED_FROM_CART]: productAddRemoveCartMappings,
-  [EventTypes.PRODUCT_CLICKED]: productClickedMappings,
-  [EventTypes.PRODUCT_VIEWED]: productViewedMappings,
-  [EventTypes.PRODUCT_LIST_VIEWED]: productImpressionMappings,
-  [EventTypes.CHECKOUT_STEP_VIEWED]: productBaseWithQtyAndPriceMappings,
-  [EventTypes.ORDER_COMPLETED]: productBaseWithQtyAndPriceMappings,
-  [EventTypes.ORDER_REFUNDED]: productWithIdAndQuantityMappings,
-  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: productAddRemoveWishlistMappings,
-  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: productAddRemoveWishlistMappings,
-  [EventTypes.PRODUCT_UPDATED_WISHLIST]: productAddRemoveWishlistMappings,
+  [EventType.ProductAddedToCart]: productAddRemoveCartMappings,
+  [EventType.ProductRemovedFromCart]: productAddRemoveCartMappings,
+  [EventType.ProductClicked]: productClickedMappings,
+  [EventType.ProductViewed]: productViewedMappings,
+  [EventType.ProductListViewed]: productImpressionMappings,
+  [EventType.CheckoutStepViewed]: productBaseWithQtyAndPriceMappings,
+  [EventType.OrderCompleted]: productBaseWithQtyAndPriceMappings,
+  [EventType.OrderRefunded]: productWithIdAndQuantityMappings,
+  [EventType.ProductAddedToWishlist]: productAddRemoveWishlistMappings,
+  [EventType.ProductRemovedFromWishlist]: productAddRemoveWishlistMappings,
+  [EventType.ProductUpdatedWishlist]: productAddRemoveWishlistMappings,
 };
 
 /**
@@ -219,12 +219,12 @@ const postProcessCartValue = (
   const productPrice = get(productData, 'price') as number;
 
   switch (event) {
-    case EventTypes.PRODUCT_ADDED_TO_CART: {
+    case EventType.ProductAddedToCart: {
       productData[cartValueMetric] = productPrice * productQuantity;
       break;
     }
 
-    case EventTypes.PRODUCT_REMOVED_FROM_CART: {
+    case EventType.ProductRemovedFromCart: {
       productData[cartValueMetric] = -(productPrice * productQuantity);
       break;
     }
@@ -303,7 +303,7 @@ const addRefundProductsCommand = (
  */
 
 const commands = {
-  [EventTypes.PRODUCT_ADDED_TO_CART]: (
+  [EventType.ProductAddedToCart]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -327,7 +327,7 @@ const commands = {
       setActionCommand('add'),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.PRODUCT_ADDED_TO_CART,
+        EventType.ProductAddedToCart,
         getProductEventLabel(
           utils.getProductId(productData) as string,
           utils.getProductName(productData),
@@ -336,7 +336,7 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_REMOVED_FROM_CART]: (
+  [EventType.ProductRemovedFromCart]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -360,7 +360,7 @@ const commands = {
       setActionCommand('remove'),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.PRODUCT_REMOVED_FROM_CART,
+        EventType.ProductRemovedFromCart,
         getProductEventLabel(
           utils.getProductId(productData) as string,
           utils.getProductName(productData),
@@ -369,7 +369,22 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: (
+  [EventType.ProductAddedToWishlist]: (data: EventData<TrackTypesValues>) => {
+    const productData = utils.getProperties(data);
+
+    return [
+      sendEventCommand(
+        EVENT_CATEGORY_ECOMMERCE,
+        `${EventType.ProductAddedToWishlist} - ${utils.getList(data)}`,
+        getProductEventLabel(
+          utils.getProductId(productData) as string,
+          utils.getProductName(productData),
+        ),
+      ),
+    ];
+  },
+
+  [EventType.ProductRemovedFromWishlist]: (
     data: EventData<TrackTypesValues>,
   ) => {
     const productData = utils.getProperties(data);
@@ -377,7 +392,7 @@ const commands = {
     return [
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        `${EventTypes.PRODUCT_ADDED_TO_WISHLIST} - ${utils.getList(data)}`,
+        `${EventType.ProductRemovedFromWishlist} - ${utils.getList(data)}`,
         getProductEventLabel(
           utils.getProductId(productData) as string,
           utils.getProductName(productData),
@@ -386,26 +401,7 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: (
-    data: EventData<TrackTypesValues>,
-  ) => {
-    const productData = utils.getProperties(data);
-
-    return [
-      sendEventCommand(
-        EVENT_CATEGORY_ECOMMERCE,
-        `${EventTypes.PRODUCT_REMOVED_FROM_WISHLIST} - ${utils.getList(data)}`,
-        getProductEventLabel(
-          utils.getProductId(productData) as string,
-          utils.getProductName(productData),
-        ),
-      ),
-    ];
-  },
-
-  [EventTypes.PRODUCT_UPDATED_WISHLIST]: (
-    data: EventData<TrackTypesValues>,
-  ) => {
+  [EventType.ProductUpdatedWishlist]: (data: EventData<TrackTypesValues>) => {
     const productData = utils.getProperties(data);
 
     return [
@@ -420,7 +416,7 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_CLICKED]: (
+  [EventType.ProductClicked]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -438,7 +434,7 @@ const commands = {
       setActionCommand('click', { list: utils.getList(data) }),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.PRODUCT_CLICKED,
+        EventType.ProductClicked,
         getProductEventLabel(
           utils.getProductId(productData) as string,
           utils.getProductName(productData),
@@ -447,7 +443,7 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_VIEWED]: (
+  [EventType.ProductViewed]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -470,7 +466,7 @@ const commands = {
       setActionCommand('detail'),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.PRODUCT_VIEWED,
+        EventType.ProductViewed,
         getProductEventLabel(
           utils.getProductId(productData) as string,
           utils.getProductName(productData),
@@ -479,7 +475,7 @@ const commands = {
     ];
   },
 
-  [EventTypes.PRODUCT_LIST_VIEWED]: (
+  [EventType.ProductListViewed]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -496,13 +492,13 @@ const commands = {
       ...addImpressionsCommand(list, products, productMappings),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.PRODUCT_LIST_VIEWED,
+        EventType.ProductListViewed,
         list,
       ),
     ];
   },
 
-  [EventTypes.CHECKOUT_STEP_VIEWED]: (
+  [EventType.CheckoutStepViewed]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -520,26 +516,26 @@ const commands = {
       setActionCommand('checkout', checkoutProperties),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.CHECKOUT_STEP_VIEWED,
+        EventType.CheckoutStepViewed,
         `${checkoutProperties.step}`,
       ),
     ];
   },
 
-  [EventTypes.CHECKOUT_STEP_COMPLETED]: (data: EventData<TrackTypesValues>) => {
+  [EventType.CheckoutStepCompleted]: (data: EventData<TrackTypesValues>) => {
     const checkoutProperties = utils.getCheckoutProperties(data);
 
     return [
       setActionCommand('checkout_option', checkoutProperties),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.CHECKOUT_STEP_COMPLETED,
+        EventType.CheckoutStepCompleted,
         `${checkoutProperties.step} - ${checkoutProperties.option}`,
       ),
     ];
   },
 
-  [EventTypes.ORDER_COMPLETED]: (
+  [EventType.OrderCompleted]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -558,13 +554,13 @@ const commands = {
       setActionCommand('purchase', purchaseProperties),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.ORDER_COMPLETED,
+        EventType.OrderCompleted,
         `${purchaseProperties.id}`,
       ),
     ];
   },
 
-  [EventTypes.ORDER_REFUNDED]: (
+  [EventType.OrderRefunded]: (
     data: EventData<TrackTypesValues>,
     customProductMappings: ProductMappings,
   ) => {
@@ -581,7 +577,7 @@ const commands = {
       setActionCommand('refund', { id: orderId }),
       sendEventCommand(
         EVENT_CATEGORY_ECOMMERCE,
-        EventTypes.ORDER_REFUNDED,
+        EventType.OrderRefunded,
         `${orderId}`,
       ),
     ];
@@ -597,7 +593,7 @@ export const commandListSchema = validationSchemaBuilder
 
 // List of default non-interaction events
 export const nonInteractionEvents = {
-  [EventTypes.PRODUCT_VIEWED]: true,
-  [EventTypes.PRODUCT_LIST_VIEWED]: true,
-  [EventTypes.CHECKOUT_STEP_VIEWED]: true,
+  [EventType.ProductViewed]: true,
+  [EventType.ProductListViewed]: true,
+  [EventType.CheckoutStepViewed]: true,
 };
