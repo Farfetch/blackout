@@ -4,6 +4,7 @@ import {
   mockSearchSuggestionsHash,
   mockSearchSuggestionsInitialState,
   mockSearchSuggestionsLoadingState,
+  mockSearchSuggestionsQuery,
   mockSearchSuggestionsResponse,
   mockSearchSuggestionsState,
 } from 'tests/__fixtures__/search/index.mjs';
@@ -22,7 +23,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.areSearchSuggestionsLoading(
           mockState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -38,7 +39,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.getSearchSuggestionsError(
           mockState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toEqual(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -50,7 +51,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.getSearchSuggestionsResult(
           mockState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toEqual(mockSearchSuggestionsResponse);
     });
@@ -61,7 +62,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.areSearchSuggestionsFetched(
           mockState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toBe(true);
     });
@@ -70,7 +71,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.areSearchSuggestionsFetched(
           mockSearchSuggestionsErrorState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toBe(true);
     });
@@ -79,7 +80,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.areSearchSuggestionsFetched(
           mockSearchSuggestionsInitialState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toBe(false);
     });
@@ -88,7 +89,7 @@ describe('search suggestions redux selectors', () => {
       expect(
         selectors.areSearchSuggestionsFetched(
           mockSearchSuggestionsLoadingState,
-          mockSearchSuggestionsHash,
+          mockSearchSuggestionsQuery,
         ),
       ).toBe(false);
     });

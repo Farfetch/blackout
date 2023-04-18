@@ -1,10 +1,10 @@
 import { generateBrandsHash } from '../utils/index.js';
-import { mockQuery } from 'tests/__fixtures__/brands/index.mjs';
+import { mockBrandsQuery } from 'tests/__fixtures__/brands/index.mjs';
 
 describe('generateBrandsHash', () => {
   it('should correctly construct the brands hash - with query object', () => {
     const expectedResult = 'brands?id=211376, 220127';
-    const result = generateBrandsHash(mockQuery);
+    const result = generateBrandsHash(mockBrandsQuery);
 
     expect(result).toBe(expectedResult);
   });

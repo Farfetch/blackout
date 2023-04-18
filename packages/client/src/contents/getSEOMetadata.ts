@@ -2,8 +2,7 @@ import { adaptError } from '../helpers/client/formatError.js';
 import client from '../helpers/client/index.js';
 import flattenObject from '../utils/flattenObject.js';
 import join from 'proper-url-join';
-import type { Config } from '../types/index.js';
-import type { GetSEOMetadataQuery, SEOMetadata } from './types/index.js';
+import type { GetSEOMetadata, SEOMetadata } from './types/index.js';
 
 /**
  * Method responsible for searching the seo metadata for a specific page type.
@@ -13,13 +12,12 @@ import type { GetSEOMetadataQuery, SEOMetadata } from './types/index.js';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSEOMetadata = (
-  query: GetSEOMetadataQuery,
-  config?: Config,
-): Promise<SEOMetadata> =>
+const getSEOMetadata: GetSEOMetadata = (query, config): Promise<SEOMetadata> =>
   client
     .get(
-      join('/content/v1/seometadata', { query: flattenObject(query) }),
+      join('/content/v1/seometadata', {
+        query: query ? flattenObject(query) : undefined,
+      }),
       config,
     )
     .then(response => response.data)

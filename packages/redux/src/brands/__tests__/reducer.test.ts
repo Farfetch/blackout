@@ -3,8 +3,8 @@ import { generateBrandsHash } from '../utils/index.js';
 import {
   mockBrandId,
   mockBrandResponse,
+  mockBrandsQuery,
   mockBrandsResponse,
-  mockQuery,
 } from 'tests/__fixtures__/brands/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer.js';
@@ -12,7 +12,7 @@ import type { BrandsState } from '../types/index.js';
 
 const { INITIAL_STATE } = fromReducer;
 const mockAction = { type: 'foo' };
-const hash = generateBrandsHash(mockQuery);
+const hash = generateBrandsHash(mockBrandsQuery);
 let initialState: BrandsState;
 
 describe('brands reducer', () => {
@@ -51,7 +51,7 @@ describe('brands reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_BRANDS_REQUEST,
-          meta: { hash, query: mockQuery },
+          meta: { hash, query: mockBrandsQuery },
         }).error[hash],
       ).toBeUndefined();
     });
@@ -79,7 +79,7 @@ describe('brands reducer', () => {
           payload: {
             error: expectedResult,
           },
-          meta: { hash, query: mockQuery },
+          meta: { hash, query: mockBrandsQuery },
         }).error[hash],
       ).toEqual(expectedResult);
     });
@@ -87,43 +87,11 @@ describe('brands reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: { error: toBlackoutError(new Error('bar')) },
-        hash: null,
         isLoading: {},
         result: {},
       };
 
       expect(reducer(state, mockAction).error).toBe(state.error);
-    });
-  });
-
-  describe('hash() reducer', () => {
-    it('should return the initial state', () => {
-      const state = reducer(INITIAL_STATE, mockAction).hash;
-
-      expect(state).toBe(initialState.hash);
-      expect(state).toBeNull();
-    });
-
-    it('should handle SET_BRANDS_HASH action type', () => {
-      const hash = 'foo';
-
-      expect(
-        reducer(undefined, {
-          type: actionTypes.SET_BRANDS_HASH,
-          meta: { hash },
-        }).hash,
-      ).toBe(hash);
-    });
-
-    it('should handle other actions by returning the previous state', () => {
-      const state = {
-        error: {},
-        hash: 'foo',
-        isLoading: {},
-        result: {},
-      };
-
-      expect(reducer(state, mockAction).hash).toBe(state.hash);
     });
   });
 
@@ -148,7 +116,7 @@ describe('brands reducer', () => {
       expect(
         reducer(undefined, {
           type: actionTypes.FETCH_BRANDS_REQUEST,
-          meta: { hash, query: mockQuery },
+          meta: { hash, query: mockBrandsQuery },
         }).isLoading[hash],
       ).toBe(true);
     });
@@ -194,7 +162,7 @@ describe('brands reducer', () => {
             },
             result: mockBrandsResponse,
           },
-          meta: { hash, query: mockQuery },
+          meta: { hash, query: mockBrandsQuery },
         }).isLoading[hash],
       ).toBe(false);
     });
@@ -206,7 +174,7 @@ describe('brands reducer', () => {
           payload: {
             error: {},
           },
-          meta: { hash, query: mockQuery },
+          meta: { hash, query: mockBrandsQuery },
         }).isLoading[hash],
       ).toBe(false);
     });
@@ -214,7 +182,6 @@ describe('brands reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: {},
-        hash: null,
         isLoading: { isLoading: false },
         result: {},
       };
@@ -241,7 +208,7 @@ describe('brands reducer', () => {
           },
           result: mockBrandsResponse,
         },
-        meta: { hash, query: mockQuery },
+        meta: { hash, query: mockBrandsQuery },
       });
 
       expect(state.result[hash]).toEqual(mockBrandsResponse);
@@ -250,7 +217,6 @@ describe('brands reducer', () => {
     it('should handle other actions by returning the previous state', () => {
       const state = {
         error: {},
-        hash: null,
         isLoading: {},
         result: {
           [mockBrandId]: {
@@ -271,7 +237,6 @@ describe('brands reducer', () => {
       const state = {
         ...initialState,
         error: { error: toBlackoutError(new Error('foo')) },
-        hash: null,
         isLoading: {},
         result: {},
       };
@@ -285,7 +250,6 @@ describe('brands reducer', () => {
       const state = {
         ...initialState,
         error: { error: toBlackoutError(new Error('foo')) },
-        hash: null,
         isLoading: {
           [mockBrandId]: true,
         },
@@ -300,7 +264,6 @@ describe('brands reducer', () => {
     it('should return the result property from a given state', () => {
       const state = {
         error: { error: toBlackoutError(new Error('foo')) },
-        hash: null,
         isLoading: {},
         result: {
           [mockBrandId]: {

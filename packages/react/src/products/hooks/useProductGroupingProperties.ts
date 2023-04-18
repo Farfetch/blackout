@@ -1,7 +1,6 @@
 import {
   areProductGroupingPropertiesFetched,
   areProductGroupingPropertiesLoading,
-  buildQueryStringFromObject,
   fetchProductGroupingProperties,
   getProductGroupingProperties,
   getProductGroupingPropertiesError,
@@ -19,21 +18,19 @@ const useProductGroupingProperties = (
 ) => {
   const { fetchConfig, enableAutoFetch = true, fetchQuery } = options;
   const fetchAction = useAction(fetchProductGroupingProperties);
-  const queryString = fetchQuery && buildQueryStringFromObject(fetchQuery);
-  const hash = queryString ? queryString : '!all';
 
   const error = useSelector((state: StoreState) =>
-    getProductGroupingPropertiesError(state, productId, hash),
+    getProductGroupingPropertiesError(state, productId, fetchQuery),
   );
   const isLoading = useSelector((state: StoreState) =>
-    areProductGroupingPropertiesLoading(state, productId, hash),
+    areProductGroupingPropertiesLoading(state, productId, fetchQuery),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areProductGroupingPropertiesFetched(state, productId, hash),
+    areProductGroupingPropertiesFetched(state, productId, fetchQuery),
   );
 
   const productGroupingProperties = useSelector((state: StoreState) =>
-    getProductGroupingProperties(state, productId, hash),
+    getProductGroupingProperties(state, productId, fetchQuery),
   );
 
   const shouldLoadProductGrouping = enableAutoFetch && !isLoading && !isFetched;

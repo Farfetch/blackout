@@ -2,9 +2,7 @@ import {
   areSearchSuggestionsFetched,
   areSearchSuggestionsLoading,
   fetchSearchSuggestions,
-  generateSearchSuggestionsHash,
   getSearchSuggestionsError,
-  getSearchSuggestionsQuery,
   getSearchSuggestionsResult,
   resetSearchSuggestions,
   type StoreState,
@@ -12,30 +10,26 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
-import type { SearchSuggestionsQuery } from '@farfetch/blackout-client';
+import type { GetSearchSuggestionsQuery } from '@farfetch/blackout-client';
 import type { UseSearchSuggestionsOptions } from './types/index.js';
 
 const useSearchSuggestions = (
-  query: SearchSuggestionsQuery,
+  query: GetSearchSuggestionsQuery,
   options: UseSearchSuggestionsOptions = {},
 ) => {
   const { enableAutoFetch = true, fetchConfig } = options;
-  const hash = generateSearchSuggestionsHash(query);
 
   const error = useSelector((state: StoreState) =>
-    getSearchSuggestionsError(state, hash),
+    getSearchSuggestionsError(state, query),
   );
   const isLoading = useSelector((state: StoreState) =>
-    areSearchSuggestionsLoading(state, hash),
+    areSearchSuggestionsLoading(state, query),
   );
   const searchSuggestions = useSelector((state: StoreState) =>
-    getSearchSuggestionsResult(state, hash),
+    getSearchSuggestionsResult(state, query),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areSearchSuggestionsFetched(state, hash),
-  );
-  const suggestionsQuery = useSelector((state: StoreState) =>
-    getSearchSuggestionsQuery(state, hash),
+    areSearchSuggestionsFetched(state, query),
   );
 
   const fetch = useAction(fetchSearchSuggestions);
@@ -51,7 +45,7 @@ const useSearchSuggestions = (
     error,
     isLoading,
     isFetched,
-    data: { searchSuggestions, query: suggestionsQuery },
+    data: searchSuggestions,
     actions: {
       fetch,
       reset,

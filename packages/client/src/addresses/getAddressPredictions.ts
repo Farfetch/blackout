@@ -16,7 +16,7 @@ const getAddressPredictions: GetAddressPredictions = (text, query, config) =>
   client
     .get(
       join('/account/v1/addressesprediction/', text, {
-        query: query,
+        query,
       }),
       config,
     )

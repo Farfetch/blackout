@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
   type Brands,
-  type BrandsQuery,
   type Config,
   type GetBrands,
+  type GetBrandsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateBrandsHash } from '../../utils/index.js';
@@ -24,12 +24,7 @@ import type { StoreState } from '../../../types/index.js';
  */
 const fetchBrandsFactory =
   (getBrands: GetBrands) =>
-  (
-    query: BrandsQuery = {},
-    useCache = false,
-    setBrandsHash = true,
-    config?: Config,
-  ) =>
+  (query: GetBrandsQuery = {}, useCache = false, config?: Config) =>
   async (
     dispatch: Dispatch<FetchBrandsAction>,
     getState: () => StoreState,
@@ -40,32 +35,10 @@ const fetchBrandsFactory =
       hash = generateBrandsHash(query);
 
       // Check if brands data is already fetched.
-      // If it is, let the calling code know there's nothing to wait for.
+      // If it is, return immediately.
       // If not, dispatch an action to fetch the brands data.
-      if (isBrandsResultCached(getState(), hash)) {
-        if (useCache) {
-          if (!setBrandsHash) {
-            return;
-          }
-
-          dispatch({
-            meta: { hash, query },
-            type: actionTypes.SET_BRANDS_HASH,
-          });
-
-          return;
-        } else {
-          dispatch({
-            type: actionTypes.RESET_BRANDS_STATE,
-          });
-        }
-      }
-
-      if (setBrandsHash) {
-        dispatch({
-          meta: { hash, query },
-          type: actionTypes.SET_BRANDS_HASH,
-        });
+      if (isBrandsResultCached(getState(), query) && useCache) {
+        return;
       }
 
       dispatch({

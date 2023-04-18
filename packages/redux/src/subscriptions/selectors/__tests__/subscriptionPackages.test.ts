@@ -2,6 +2,7 @@ import * as selectors from '../index.js';
 import {
   mockState,
   mockSubscriptionPackageHash,
+  mockSubscriptionPackagesQuery,
 } from 'tests/__fixtures__/subscriptions/index.mjs';
 import type { StoreState } from '../../../types/index.js';
 
@@ -15,7 +16,7 @@ describe('subscription packages redux selectors', () => {
       expect(
         selectors.getSubscriptionPackagesError(
           mockStore,
-          mockSubscriptionPackageHash,
+          mockSubscriptionPackagesQuery,
         ),
       ).toBeNull();
     });
@@ -30,7 +31,7 @@ describe('subscription packages redux selectors', () => {
       expect(
         selectors.getSubscriptionPackages(
           mockStore,
-          mockSubscriptionPackageHash,
+          mockSubscriptionPackagesQuery,
         ),
       ).toEqual(expectedResult);
     });
@@ -54,7 +55,7 @@ describe('subscription packages redux selectors', () => {
       expect(
         selectors.areSubscriptionPackagesLoading(
           mockStore,
-          mockSubscriptionPackageHash,
+          mockSubscriptionPackagesQuery,
         ),
       ).toBe(expectedResult);
     });
@@ -65,7 +66,7 @@ describe('subscription packages redux selectors', () => {
       expect(
         selectors.getSubscriptionPackagesSupportedChannels(
           mockStore,
-          mockSubscriptionPackageHash,
+          mockSubscriptionPackagesQuery,
         ),
       ).toBe(
         mockState.subscriptions.packages[mockSubscriptionPackageHash].result

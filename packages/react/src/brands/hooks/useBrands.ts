@@ -2,47 +2,37 @@ import {
   areBrandsFetched,
   areBrandsLoading,
   fetchBrands,
-  generateBrandsHash,
   getBrandsError,
   getBrandsResult,
   resetBrandsState,
   type StoreState,
 } from '@farfetch/blackout-redux';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseBrandsOptions } from './types/useBrands.js';
 
 const useBrands = (options: UseBrandsOptions = {}) => {
-  const {
-    enableAutoFetch = true,
-    query,
-    useCache,
-    setBrandsHash,
-    fetchConfig,
-  } = options;
-
-  const hash = useMemo(
-    () => (query ? generateBrandsHash(query) : undefined),
-    [query],
-  );
+  const { enableAutoFetch = true, query = {}, useCache, fetchConfig } = options;
 
   const isLoading = useSelector((state: StoreState) =>
-    areBrandsLoading(state, hash),
+    areBrandsLoading(state, query),
   );
   const isFetched = useSelector((state: StoreState) =>
-    areBrandsFetched(state, hash),
+    areBrandsFetched(state, query),
   );
   const result = useSelector((state: StoreState) =>
-    getBrandsResult(state, hash),
+    getBrandsResult(state, query),
   );
-  const error = useSelector((state: StoreState) => getBrandsError(state, hash));
+  const error = useSelector((state: StoreState) =>
+    getBrandsError(state, query),
+  );
   const fetch = useAction(fetchBrands);
   const reset = useAction(resetBrandsState);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {
-      fetch(query, useCache, setBrandsHash, fetchConfig);
+      fetch(query, useCache, fetchConfig);
     }
   }, [
     fetchConfig,
@@ -51,7 +41,6 @@ const useBrands = (options: UseBrandsOptions = {}) => {
     isFetched,
     isLoading,
     query,
-    setBrandsHash,
     useCache,
   ]);
 

@@ -3,14 +3,14 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   Brand,
-  BrandsQuery,
+  GetBrandsQuery,
 } from '@farfetch/blackout-client';
 import type { BrandsResultNormalized } from './state.types.js';
 import type { NormalizedSchema } from 'normalizr';
 
 type BrandsMeta = {
   hash: string;
-  query?: BrandsQuery;
+  query?: GetBrandsQuery;
 };
 
 // A single brand normalized is
@@ -41,11 +41,6 @@ type BrandsNormalized = NormalizedSchema<
 //
 export interface ResetBrandsStateAction extends Action {
   type: typeof actionTypes.RESET_BRANDS_STATE;
-}
-
-export interface SetBrandsHashAction extends Action {
-  meta: BrandsMeta;
-  type: typeof actionTypes.SET_BRANDS_HASH;
 }
 
 //
@@ -97,5 +92,4 @@ export type FetchBrandsAction =
   | FetchBrandsFailureAction
   | FetchBrandsRequestAction
   | FetchBrandsSuccessAction
-  | ResetBrandsStateAction
-  | SetBrandsHashAction;
+  | ResetBrandsStateAction;

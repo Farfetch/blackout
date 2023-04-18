@@ -1,8 +1,8 @@
 import type { Config } from '../../index.js';
+import type { GetSearchIntentsQuery } from './searchIntentsQuery.types.js';
 import type { SearchIntents } from './searchIntents.types.js';
-import type { SearchIntentsQuery } from './searchIntentsQuery.types.js';
 
 export type GetSearchIntents = (
-  query: SearchIntentsQuery,
+  query: GetSearchIntentsQuery,
   config?: Config,
 ) => Promise<SearchIntents>;

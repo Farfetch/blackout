@@ -1,4 +1,4 @@
-import type { SearchDidYouMeanQuery } from '@farfetch/blackout-client';
+import type { GetSearchDidYouMeanQuery } from '@farfetch/blackout-client';
 
 /**
  * Creates a hash based on the search did you mean query.
@@ -10,7 +10,7 @@ import type { SearchDidYouMeanQuery } from '@farfetch/blackout-client';
 const generateSearchDidYouMeanHash = ({
   searchTerms,
   genders,
-}: SearchDidYouMeanQuery) =>
+}: GetSearchDidYouMeanQuery) =>
   `${searchTerms}${
     typeof genders !== 'undefined' ? `!${genders.join(',')}` : ''
   }`;

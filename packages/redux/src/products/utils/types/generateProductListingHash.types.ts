@@ -2,9 +2,9 @@ import type {
   GetProductListingQuery,
   GetProductSetQuery,
 } from '@farfetch/blackout-client';
-import type { ProductsListEntity } from '../../../entities/types/index.js';
+import type { ProductListingEntity } from '../../../entities/types/index.js';
 
-export type GenerateProductsListHash = (
+export type GenerateProductListingHash = (
   // Slug from pathname.
   slug: string | number | null,
   // Object or string with query parameters.
@@ -14,4 +14,4 @@ export type GenerateProductsListHash = (
     // If the hash represents a set or not.
     isSet?: boolean;
   },
-) => ProductsListEntity['hash'];
+) => ProductListingEntity['hash'];

@@ -34,8 +34,3 @@ export const FETCH_BRANDS_SUCCESS =
  * Action type dispatched when the reset brands state occurs.
  */
 export const RESET_BRANDS_STATE = '@farfetch/blackout-redux/RESET_BRANDS_STATE';
-
-/**
- * Action type dispatched when the brands hash is stored on state.
- */
-export const SET_BRANDS_HASH = '@farfetch/blackout-redux/SET_BRANDS_HASH';

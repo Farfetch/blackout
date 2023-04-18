@@ -1,3 +1,5 @@
+import generateSearchIntentsHash from '../helpers/generateSearchIntentsHash.js';
+import type { GetSearchIntentsQuery } from '@farfetch/blackout-client';
 import type { SearchHash as Hash } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 
@@ -18,17 +20,23 @@ const getContentByHash = (state: StoreState, hash: Hash) =>
  * import { getSearchIntentsError } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     error: getSearchIntentsError(state, hash)
+ *     error: getSearchIntentsError(state, query)
  * });
  *
  * ```
- *
  * @param state - Application state.
+ * @param query - Get search intents query.
  *
  * @returns Search error.
  */
-export const getSearchIntentsError = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.error;
+export const getSearchIntentsError = (
+  state: StoreState,
+  query: GetSearchIntentsQuery,
+) => {
+  const hash = generateSearchIntentsHash(query);
+
+  return getContentByHash(state, hash)?.error;
+};
 
 /**
  * Retrieves the loading condition from current search term.
@@ -38,37 +46,24 @@ export const getSearchIntentsError = (state: StoreState, hash: Hash) =>
  * import { areSearchIntentsLoading } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     isLoading: areSearchIntentsLoading(state, hash)
+ *     isLoading: areSearchIntentsLoading(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search intents query.
  *
  * @returns Whether a search term response is loading or not.
  */
-export const areSearchIntentsLoading = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.isLoading;
+export const areSearchIntentsLoading = (
+  state: StoreState,
+  query: GetSearchIntentsQuery,
+) => {
+  const hash = generateSearchIntentsHash(query);
 
-/**
- * Retrieves the current query applied to get intents results.
- *
- * @example
- * ```
- * import { getSearchIntentsQuery } from '@farfetch/blackout-redux';
- *
- * const mapStateToProps = state => ({
- *     query: getSearchIntentsQuery(state, hash)
- * });
- *
- * ```
- *
- * @param state - Application state.
- *
- * @returns The current query.
- */
-export const getSearchIntentsQuery = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.query;
+  return getContentByHash(state, hash)?.isLoading;
+};
 
 /**
  * Retrieves the result of a specific search.
@@ -78,17 +73,24 @@ export const getSearchIntentsQuery = (state: StoreState, hash: Hash) =>
  * import { getSearchIntentsResult } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = state => ({
- *     result: getSearchIntentsResult(state, hash)
+ *     result: getSearchIntentsResult(state, query)
  * });
  *
  * ```
  *
  * @param state - Application state.
+ * @param query - Get search intents query.
  *
  * @returns Search result.
  */
-export const getSearchIntentsResult = (state: StoreState, hash: Hash) =>
-  getContentByHash(state, hash)?.result;
+export const getSearchIntentsResult = (
+  state: StoreState,
+  query: GetSearchIntentsQuery,
+) => {
+  const hash = generateSearchIntentsHash(query);
+
+  return getContentByHash(state, hash)?.result;
+};
 
 /**
  * Retrieves if the search intents has been fetched.
@@ -106,10 +108,14 @@ export const getSearchIntentsResult = (state: StoreState, hash: Hash) =>
  * });
  * ```
  * @param state - Application state.
+ * @param query - Get search intents query.
  *
  * @returns isFetched status of the search intents.
  */
-export const areSearchIntentsFetched = (state: StoreState, hash: Hash) =>
-  (!!getSearchIntentsResult(state, hash) ||
-    !!getSearchIntentsError(state, hash)) &&
-  !areSearchIntentsLoading(state, hash);
+export const areSearchIntentsFetched = (
+  state: StoreState,
+  query: GetSearchIntentsQuery,
+) =>
+  (!!getSearchIntentsResult(state, query) ||
+    !!getSearchIntentsError(state, query)) &&
+  !areSearchIntentsLoading(state, query);

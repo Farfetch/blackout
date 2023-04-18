@@ -24,7 +24,7 @@ import type {
   PaymentInstrumentEntity,
   PaymentTokenEntity,
   ProductEntity,
-  ProductsListEntity,
+  ProductListingEntity,
   ProgramEntity,
   RaffleEntity,
   RaffleParticipationEntity,
@@ -144,7 +144,7 @@ export type StoreState = Partial<{
     paymentTokens: Record<PaymentTokenEntity['id'], PaymentTokenEntity>;
     preferences: Record<UserPreferenceEntity['code'], UserPreferenceEntity>;
     products: Record<ProductEntity['id'], ProductEntity>;
-    productsLists: Record<ProductsListEntity['hash'], ProductsListEntity>;
+    productsLists: Record<ProductListingEntity['hash'], ProductListingEntity>;
     programs: Record<ProgramEntity['id'], ProgramEntity>;
     raffles: Record<RaffleEntity['id'], RaffleEntity>;
     raffleParticipations: Record<

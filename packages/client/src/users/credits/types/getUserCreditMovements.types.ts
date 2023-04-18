@@ -19,6 +19,6 @@ export type GetUserCreditMovementsQuery = {
 
 export type GetUserCreditMovements = (
   userId: User['id'],
-  query: GetUserCreditMovementsQuery,
+  query?: GetUserCreditMovementsQuery,
   config?: Config,
 ) => Promise<PagedResponse<UserCreditMovement>>;

@@ -49,8 +49,8 @@ const useRecentlyViewedProducts = (
   const hasProducts = !!productIds;
 
   const {
-    isLoading: isProductListLoading,
-    isFetched: isProductListFetched,
+    isLoading: isProductListingLoading,
+    isFetched: isProductListingFetched,
     error: producListError,
     data: { items } = {},
   } = useProductListing('', {
@@ -73,9 +73,9 @@ const useRecentlyViewedProducts = (
   }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, isFetched, isLoading]);
 
   return {
-    isLoading: isLoading || !!isProductListLoading,
+    isLoading: isLoading || !!isProductListingLoading,
     error: error || producListError,
-    isFetched: isFetched || isProductListFetched,
+    isFetched: isFetched || isProductListingFetched,
     data: {
       ...pagination,
       products: items,

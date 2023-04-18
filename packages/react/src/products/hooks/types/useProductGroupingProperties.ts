@@ -1,10 +1,10 @@
 import type {
   Config,
-  GroupingPropertiesQuery,
+  GetProductGroupingPropertiesQuery,
 } from '@farfetch/blackout-client';
 
 export type UseProductGroupingPropertiesOptions = {
   fetchConfig?: Config;
   enableAutoFetch?: boolean;
-  fetchQuery?: GroupingPropertiesQuery;
+  fetchQuery?: GetProductGroupingPropertiesQuery;
 };

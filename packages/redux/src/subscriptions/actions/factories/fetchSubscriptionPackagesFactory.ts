@@ -4,7 +4,7 @@ import {
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
-import buildSubscriptionPackagesHash from '../../helpers/buildSubscriptionPackagesHash.js';
+import generateSubscriptionPackagesHash from '../../helpers/generateSubscriptionPackagesHash.js';
 import subscriptionSchema from '../../../entities/schemas/subscriptions.js';
 import type { FetchSubscriptionPackagesFactory } from './types/index.js';
 
@@ -18,7 +18,7 @@ import type { FetchSubscriptionPackagesFactory } from './types/index.js';
 const fetchSubscriptionPackagesFactory: FetchSubscriptionPackagesFactory<
   GetSubscriptionPackages
 > = getSubscriptionPackages => (query, config) => async dispatch => {
-  const hash = buildSubscriptionPackagesHash(query);
+  const hash = generateSubscriptionPackagesHash(query);
 
   try {
     dispatch({

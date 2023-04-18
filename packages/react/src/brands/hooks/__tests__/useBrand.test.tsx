@@ -3,7 +3,6 @@ import { fetchBrand } from '@farfetch/blackout-redux';
 import {
   mockBrandId,
   mockErrorState,
-  mockHash,
   mockInitialState,
   mockLoadingState,
   mockState,
@@ -49,20 +48,14 @@ describe('useBrand', () => {
   it('should return the loading state', () => {
     const { isLoading } = getRenderedHook(mockLoadingState);
 
-    expect(isLoading).toBe(mockLoadingState?.brands.isLoading[mockHash]);
+    expect(isLoading).toBe(mockLoadingState?.brands.isLoading[mockBrandId]);
     expect(isLoading).toBe(true);
   });
 
   it('should return the error state', () => {
     const { error } = getRenderedHook(mockErrorState);
 
-    expect(error).toEqual(mockErrorState.brands.error[mockHash]);
-  });
-
-  it('should return the fetched state', () => {
-    const { isFetched } = getRenderedHook(mockState);
-
-    expect(isFetched).toBe(true);
+    expect(error).toEqual(mockErrorState.brands.error[mockBrandId]);
   });
 
   describe('options', () => {

@@ -1,5 +1,5 @@
 import { buildQueryStringFromObject } from '../../helpers/index.js';
-import type { BrandsQuery } from '@farfetch/blackout-client';
+import type { GetBrandsQuery } from '@farfetch/blackout-client';
 
 /**
  * Generate a hash with the query to identify brands results.
@@ -15,7 +15,7 @@ import type { BrandsQuery } from '@farfetch/blackout-client';
  *
  * @returns Hash built to identify a brands request.
  */
-const generateBrandsHash = (query: BrandsQuery): string =>
+const generateBrandsHash = (query: GetBrandsQuery = {}): string =>
   `brands${buildQueryStringFromObject(query)}`;
 
 export default generateBrandsHash;

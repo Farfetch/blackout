@@ -2,8 +2,8 @@ import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetSearchSuggestions,
+  type GetSearchSuggestionsQuery,
   type SearchSuggestion,
-  type SearchSuggestionsQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import { generateSearchSuggestionsHash } from '../../helpers/index.js';
@@ -20,7 +20,7 @@ import type { FetchSearchSuggestionsAction } from '../../types/index.js';
  */
 const fetchSearchSuggestionsFactory =
   (getSearchSuggestions: GetSearchSuggestions) =>
-  (query: SearchSuggestionsQuery, config?: Config) =>
+  (query: GetSearchSuggestionsQuery, config?: Config) =>
   async (
     dispatch: Dispatch<FetchSearchSuggestionsAction>,
   ): Promise<SearchSuggestion[]> => {

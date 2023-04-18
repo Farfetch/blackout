@@ -1,8 +1,6 @@
 import {
   fetchSearchDidYouMean,
-  generateSearchDidYouMeanHash,
   getSearchDidYouMeanError,
-  getSearchDidYouMeanQuery,
   getSearchDidYouMeanResult,
   isSearchDidYouMeanFetched,
   isSearchDidYouMeanLoading,
@@ -12,30 +10,26 @@ import {
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
-import type { SearchDidYouMeanQuery } from '@farfetch/blackout-client';
+import type { GetSearchDidYouMeanQuery } from '@farfetch/blackout-client';
 import type { UseSearchDidYouMeanOptions } from './types/index.js';
 
 const useSearchDidYouMean = (
-  query: SearchDidYouMeanQuery,
+  query: GetSearchDidYouMeanQuery,
   options: UseSearchDidYouMeanOptions = {},
 ) => {
   const { enableAutoFetch = true, fetchConfig } = options;
-  const hash = generateSearchDidYouMeanHash(query);
 
   const error = useSelector((state: StoreState) =>
-    getSearchDidYouMeanError(state, hash),
+    getSearchDidYouMeanError(state, query),
   );
   const isLoading = useSelector((state: StoreState) =>
-    isSearchDidYouMeanLoading(state, hash),
+    isSearchDidYouMeanLoading(state, query),
   );
   const searchDidYouMean = useSelector((state: StoreState) =>
-    getSearchDidYouMeanResult(state, hash),
+    getSearchDidYouMeanResult(state, query),
   );
   const isFetched = useSelector((state: StoreState) =>
-    isSearchDidYouMeanFetched(state, hash),
-  );
-  const didYouMeanQuery = useSelector((state: StoreState) =>
-    getSearchDidYouMeanQuery(state, hash),
+    isSearchDidYouMeanFetched(state, query),
   );
 
   const fetch = useAction(fetchSearchDidYouMean);
@@ -51,7 +45,7 @@ const useSearchDidYouMean = (
     error,
     isLoading,
     isFetched,
-    data: { searchDidYouMean, query: didYouMeanQuery },
+    data: searchDidYouMean,
     actions: {
       fetch,
       reset,
