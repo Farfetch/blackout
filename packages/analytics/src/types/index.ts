@@ -1,22 +1,22 @@
-import EventTypes from './EventTypes.js';
-import FromParameterTypes from './FromParameterTypes.js';
-import InteractionTypes from './InteractionTypes.js';
-import LoginMethodParameterTypes from './LoginMethodParameterTypes.js';
-import PageTypes from './PageTypes.js';
-import PlatformTypes from './PlatformTypes.js';
-import SignupNewsletterGenderTypes from './SignupNewsletterGenderTypes.js';
-import TrackTypes from './TrackTypes.js';
+import EventType from './EventType.js';
+import FromParameterType from './FromParameterType.js';
+import InteractionType from './InteractionType.js';
+import LoginMethodParameterType from './LoginMethodParameterType.js';
+import PageType from './PageType.js';
+import PlatformType from './PlatformType.js';
+import SignupNewsletterGenderType from './SignupNewsletterGenderType.js';
+import TrackType from './TrackType.js';
 
 // Type modules
 export {
-  EventTypes,
-  FromParameterTypes,
-  InteractionTypes,
-  LoginMethodParameterTypes,
-  PageTypes,
-  PlatformTypes,
-  TrackTypes,
-  SignupNewsletterGenderTypes,
+  EventType,
+  FromParameterType,
+  InteractionType,
+  LoginMethodParameterType,
+  PageType,
+  PlatformType,
+  TrackType,
+  SignupNewsletterGenderType,
 };
 
 // Typescript types

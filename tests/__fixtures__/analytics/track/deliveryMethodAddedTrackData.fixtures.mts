@@ -1,9 +1,9 @@
-import { EventTypes } from '@farfetch/blackout-analytics';
+import { EventType } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures.mjs';
 
 const fixtures = {
   ...baseTrackData,
-  event: EventTypes.DELIVERY_METHOD_ADDED,
+  event: EventType.DeliveryMethodAdded,
   properties: {
     checkoutOrderId: 12345678,
     coupon: 'ACME2019',

@@ -68,7 +68,7 @@ export const getSpecificSizeGuide = (
   const specificSizeGuide = findSpecificSizeGuide({
     sizeGuides,
     categories,
-    // Note that this only needs one brand id - in the case you use this in a PDP,
+    // Note that this only needs one brand id - in the case you use this in a Pdp,
     // there is only one brand because a product can't have multiple brands.
     brandId: brandIds[0],
   });

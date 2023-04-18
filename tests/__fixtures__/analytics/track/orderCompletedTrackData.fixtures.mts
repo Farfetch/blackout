@@ -1,9 +1,9 @@
-import { EventTypes } from '@farfetch/blackout-analytics';
+import { EventType } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures.mjs';
 
 const fixtures = {
   ...baseTrackData,
-  event: EventTypes.ORDER_COMPLETED,
+  event: EventType.OrderCompleted,
   properties: {
     orderId: 'ABC12',
     checkoutOrderId: 21312312,

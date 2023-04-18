@@ -43,9 +43,9 @@ export const INITIAL_STATE: AuthenticationState = {
   },
 };
 
-export const login = reducerFactory('LOGIN', INITIAL_STATE.login, actionTypes);
+export const login = reducerFactory('Login', INITIAL_STATE.login, actionTypes);
 export const logout = reducerFactory(
-  'LOGOUT',
+  'Logout',
   INITIAL_STATE.logout,
   actionTypes,
 );

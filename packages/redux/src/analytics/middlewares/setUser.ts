@@ -3,7 +3,7 @@ import { get, isPlainObject } from 'lodash-es';
 import { getUser, getUserId, usersActionTypes } from '../../users/index.js';
 import { USER_ID_PROPERTY } from '../../users/constants.js';
 import Analytics, {
-  EventTypes,
+  EventType,
   type UserTraits,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -199,9 +199,9 @@ export function analyticsSetUserMiddleware(
           );
 
           const eventTypeToTrack: string | null = isRegisterAction
-            ? EventTypes.SIGNUP_FORM_COMPLETED
+            ? EventType.SignupFormCompleted
             : isLoginAction
-            ? EventTypes.LOGIN
+            ? EventType.Login
             : null;
 
           const eventPayload: { method: string } | undefined =
@@ -213,7 +213,7 @@ export function analyticsSetUserMiddleware(
             await analyticsInstance.track(eventTypeToTrack, eventPayload);
           }
         } else if (!previousIsGuest && isGuest) {
-          await analyticsInstance.track(EventTypes.LOGOUT);
+          await analyticsInstance.track(EventType.Logout);
 
           await analyticsInstance.anonymize();
 
@@ -225,7 +225,7 @@ export function analyticsSetUserMiddleware(
     }
 
     if (triggerAnonymizeActions.has(actionType)) {
-      await analyticsInstance.track(EventTypes.LOGOUT);
+      await analyticsInstance.track(EventType.Logout);
 
       await analyticsInstance.anonymize();
 

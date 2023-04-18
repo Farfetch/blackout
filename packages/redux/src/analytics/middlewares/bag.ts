@@ -10,8 +10,8 @@ import {
 import { get, isNil } from 'lodash-es';
 import { getProductDenormalized } from '../../products/index.js';
 import Analytics, {
-  EventTypes,
-  FromParameterTypes,
+  EventType,
+  FromParameterType,
   utils,
 } from '@farfetch/blackout-analytics';
 import type { AnyAction, Dispatch, Middleware } from 'redux';
@@ -265,7 +265,7 @@ export function analyticsBagMiddleware(
           ...getBagData(action),
         };
 
-        analyticsInstance.track(EventTypes.PRODUCT_ADDED_TO_CART, data);
+        analyticsInstance.track(EventType.ProductAddedToCart, data);
 
         return result;
       }
@@ -298,19 +298,19 @@ export function analyticsBagMiddleware(
         };
 
         // product updated will only be triggered if provenience is from BAG
-        if (data.from === FromParameterTypes.BAG) {
+        if (data.from === FromParameterType.Bag) {
           // Track update event
           // Data is being cloned here because it will be mutated later
-          analyticsInstance.track(EventTypes.PRODUCT_UPDATED, { ...data });
+          analyticsInstance.track(EventType.ProductUpdated, { ...data });
         }
 
         let eventType = null;
 
         // Check if the quantity difference is less than it was in bag - use PRODUCT_REMOVED_FROM_CART in that case
         if (data.oldQuantity && data.quantity < data.oldQuantity) {
-          eventType = EventTypes.PRODUCT_REMOVED_FROM_CART;
+          eventType = EventType.ProductRemovedFromCart;
         } else if (data.oldQuantity && data.quantity > data.oldQuantity) {
-          eventType = EventTypes.PRODUCT_ADDED_TO_CART;
+          eventType = EventType.ProductAddedToCart;
         }
 
         data.quantity = Math.abs(data.quantity - (data.oldQuantity || 0));
@@ -337,7 +337,7 @@ export function analyticsBagMiddleware(
           ...getBagData(action),
         };
 
-        analyticsInstance.track(EventTypes.PRODUCT_REMOVED_FROM_CART, data);
+        analyticsInstance.track(EventType.ProductRemovedFromCart, data);
         break;
       }
 

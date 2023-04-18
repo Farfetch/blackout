@@ -2,7 +2,7 @@
  * Options that can be applied to the axios config object and will be used by the
  * interceptor.
  */
-enum AuthenticationConfigOptions {
+enum AuthenticationConfigOption {
   // This means do not add an access token to the Authorization header of the request.
   // Typically is used for requests to get access tokens which by definition do not need
   // authentication.
@@ -44,4 +44,4 @@ enum AuthenticationConfigOptions {
   UsedAccessTokenKind = '__usedAccessTokenKind',
 }
 
-export default AuthenticationConfigOptions;
+export default AuthenticationConfigOption;

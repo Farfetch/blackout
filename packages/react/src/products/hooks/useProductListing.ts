@@ -14,7 +14,7 @@ import {
 } from '@farfetch/blackout-redux';
 import {
   isSet,
-  ProductListingTypes,
+  ProductListingType,
   type Slug,
   type UseProductListingOptions,
 } from './types/index.js';
@@ -24,7 +24,7 @@ import useAction from '../../helpers/useAction.js';
 
 const useProductListing = (
   slug: Slug,
-  options: UseProductListingOptions = { type: ProductListingTypes.Listing },
+  options: UseProductListingOptions = { type: ProductListingType.Listing },
 ) => {
   const {
     query,

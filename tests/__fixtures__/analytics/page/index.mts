@@ -1,8 +1,8 @@
 import {
   type EventData,
-  PageTypes,
+  PageType,
   type PageviewEventData,
-  type TrackTypes,
+  type TrackType,
 } from '@farfetch/blackout-analytics';
 import bagPageData from './bagPageData.fixtures.mjs';
 import checkoutPageData from './checkoutPageData.fixtures.mjs';
@@ -17,19 +17,19 @@ export type DefaultPageFixturesResult = PageviewEventData & {
 };
 
 export type PageFixtures = {
-  [pageType in PageTypes]: EventData<TrackTypes> & {
-    event: PageTypes;
+  [pageType in PageType]: EventData<TrackType> & {
+    event: PageType;
   };
 };
 
 const pageFixtures: Partial<PageFixtures> = {
-  [PageTypes.HOMEPAGE]: homepagePageData,
-  [PageTypes.SEARCH]: searchPageData,
-  [PageTypes.BAG]: bagPageData,
-  [PageTypes.WISHLIST]: wishlistPageData,
-  [PageTypes.PRODUCT_LISTING]: listingPageData,
-  [PageTypes.PRODUCT_DETAILS]: productPageData,
-  [PageTypes.CHECKOUT]: checkoutPageData,
+  [PageType.Homepage]: homepagePageData,
+  [PageType.Search]: searchPageData,
+  [PageType.Bag]: bagPageData,
+  [PageType.Wishlist]: wishlistPageData,
+  [PageType.ProductListing]: listingPageData,
+  [PageType.ProductDetails]: productPageData,
+  [PageType.Checkout]: checkoutPageData,
 };
 
 export default pageFixtures;

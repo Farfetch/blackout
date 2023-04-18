@@ -6,7 +6,7 @@ import {
 import {
   GuestTokenProvider,
   TokenData,
-  type TokenKinds,
+  type TokenKind,
   UserTokenProvider,
 } from './token-providers/index.js';
 import { isNil } from 'lodash-es';
@@ -18,7 +18,7 @@ import {
   TokenManagerNotLoadedException,
   UserSessionExpiredError,
 } from './errors.js';
-import AuthenticationConfigOptions from './AuthenticationConfigOptions.js';
+import AuthenticationConfigOption from './AuthenticationConfigOption.js';
 import axios, {
   type AxiosError,
   type AxiosInstance,
@@ -36,7 +36,7 @@ import type { TokenContext } from './token-providers/types/TokenContext.types.js
 import type { UserToken } from './types/index.js';
 
 type TokenDataChangedListener = (
-  activeToken: { kind: TokenKinds; data: ITokenData | null } | null,
+  activeToken: { kind: TokenKind; data: ITokenData | null } | null,
 ) => void;
 
 type UserSessionTerminatedEventListener = (value: UserToken | null) => void;
@@ -549,11 +549,11 @@ class AuthenticationTokenManager {
    * @returns If the request needs an access token or not.
    */
   requestNeedsAccessTokenMatcher(config: RequestConfig) {
-    if (config[AuthenticationConfigOptions.AccessToken]) {
+    if (config[AuthenticationConfigOption.AccessToken]) {
       return true;
     }
 
-    if (config[AuthenticationConfigOptions.NoAuthentication]) {
+    if (config[AuthenticationConfigOption.NoAuthentication]) {
       return false;
     }
 
@@ -579,15 +579,15 @@ class AuthenticationTokenManager {
       configAsRequestConfig,
     );
 
-    configAsRequestConfig[AuthenticationConfigOptions.NeedsAuthentication] =
+    configAsRequestConfig[AuthenticationConfigOption.NeedsAuthentication] =
       needsAuthentication;
 
     if (needsAuthentication) {
       let accessToken;
 
-      if (configAsRequestConfig[AuthenticationConfigOptions.AccessToken]) {
+      if (configAsRequestConfig[AuthenticationConfigOption.AccessToken]) {
         accessToken =
-          configAsRequestConfig[AuthenticationConfigOptions.AccessToken];
+          configAsRequestConfig[AuthenticationConfigOption.AccessToken];
       } else {
         if (this.isLoading) {
           await this.loadPromise;
@@ -602,12 +602,10 @@ class AuthenticationTokenManager {
         }
 
         if (
-          !configAsRequestConfig[
-            AuthenticationConfigOptions.UsedAccessTokenKind
-          ]
+          !configAsRequestConfig[AuthenticationConfigOption.UsedAccessTokenKind]
         ) {
           configAsRequestConfig[
-            AuthenticationConfigOptions.UsedAccessTokenKind
+            AuthenticationConfigOption.UsedAccessTokenKind
           ] = this.currentTokenProvider?.getSupportedTokenKind();
         }
 
@@ -618,12 +616,12 @@ class AuthenticationTokenManager {
         configAsRequestConfig as InternalAxiosRequestConfig
       ).headers.Authorization = this.authorizationHeaderFormatter(accessToken);
 
-      configAsRequestConfig[AuthenticationConfigOptions.UsedAccessToken] =
+      configAsRequestConfig[AuthenticationConfigOption.UsedAccessToken] =
         accessToken;
 
       const usedAccessTokenCallback =
         configAsRequestConfig[
-          AuthenticationConfigOptions.UsedAccessTokenCallback
+          AuthenticationConfigOption.UsedAccessTokenCallback
         ];
 
       if (typeof usedAccessTokenCallback === 'function') {
@@ -666,7 +664,7 @@ class AuthenticationTokenManager {
     const configAsRequestConfig = config as RequestConfig;
 
     if (
-      configAsRequestConfig[AuthenticationConfigOptions.IsGetUserProfileRequest]
+      configAsRequestConfig[AuthenticationConfigOption.IsGetUserProfileRequest]
     ) {
       // HACK: On a get profile request success response, we need to retrieve the user id
       //       from the response and set it on the current token provider, so that it can
@@ -675,13 +673,13 @@ class AuthenticationTokenManager {
       //       associated with the access token.
       await this.setUserInfo(result.data);
     } else if (
-      configAsRequestConfig[AuthenticationConfigOptions.IsLoginRequest]
+      configAsRequestConfig[AuthenticationConfigOption.IsLoginRequest]
     ) {
       // On a login successful request, set user token data and change the tokens context
       // to authenticated user context.
       await this.setUserTokenData(result.data, true);
     } else if (
-      configAsRequestConfig[AuthenticationConfigOptions.IsLogoutRequest]
+      configAsRequestConfig[AuthenticationConfigOption.IsLogoutRequest]
     ) {
       // On a logout successful request, change the tokens context to
       // guest user context.
@@ -723,7 +721,7 @@ class AuthenticationTokenManager {
     // If not, throw a refresh access token error which will avoid the error recovery path and enter in a loop.
     if (
       configAsRequestConfig[
-        AuthenticationConfigOptions.IsUserRefreshTokenRequest
+        AuthenticationConfigOption.IsUserRefreshTokenRequest
       ]
     ) {
       if (responseStatus && responseStatus >= 400 && responseStatus < 500) {
@@ -736,7 +734,7 @@ class AuthenticationTokenManager {
 
     if (
       configAsRequestConfig[
-        AuthenticationConfigOptions.IsGuestUserAccessTokenRequest
+        AuthenticationConfigOption.IsGuestUserAccessTokenRequest
       ]
     ) {
       throw new RefreshGuestUserAccessTokenError(error);
@@ -747,7 +745,7 @@ class AuthenticationTokenManager {
     /* istanbul ignore next */
     if (
       configAsRequestConfig[
-        AuthenticationConfigOptions.IsClientCredentialsTokenRequest
+        AuthenticationConfigOption.IsClientCredentialsTokenRequest
       ]
     ) {
       throw new RefreshClientCredentialsAccessTokenError(error);
@@ -756,7 +754,7 @@ class AuthenticationTokenManager {
     // If it is a delete token request (i.e. a logout) and the token is not found
     // return success. The token might already have been deleted.
     if (
-      configAsRequestConfig[AuthenticationConfigOptions.IsLogoutRequest] &&
+      configAsRequestConfig[AuthenticationConfigOption.IsLogoutRequest] &&
       ((responseStatus === 400 &&
         error.response?.data?.errors?.[0]?.code === '17') ||
         responseStatus === 404)
@@ -771,14 +769,14 @@ class AuthenticationTokenManager {
     }
 
     const needsAuthentication =
-      configAsRequestConfig[AuthenticationConfigOptions.NeedsAuthentication];
+      configAsRequestConfig[AuthenticationConfigOption.NeedsAuthentication];
 
     if (!needsAuthentication) {
       return Promise.reject(error);
     }
 
     const usedAccessTokenKind =
-      configAsRequestConfig[AuthenticationConfigOptions.UsedAccessTokenKind];
+      configAsRequestConfig[AuthenticationConfigOption.UsedAccessTokenKind];
 
     if (
       usedAccessTokenKind !== this.currentTokenProvider?.getSupportedTokenKind()
@@ -787,7 +785,7 @@ class AuthenticationTokenManager {
     }
 
     const usedAccessToken =
-      configAsRequestConfig[AuthenticationConfigOptions.UsedAccessToken];
+      configAsRequestConfig[AuthenticationConfigOption.UsedAccessToken];
 
     // HACK: Temporary fix to the case where the guest user id expired
     // although we got a valid user token for it. This will be fixed
@@ -796,7 +794,7 @@ class AuthenticationTokenManager {
     // this.guestTokenProvider.clearData();
     if (
       configAsRequestConfig[
-        AuthenticationConfigOptions.IsGetUserProfileRequest
+        AuthenticationConfigOption.IsGetUserProfileRequest
       ] &&
       responseStatus === 400
     ) {
@@ -830,7 +828,7 @@ class AuthenticationTokenManager {
     if (
       (responseStatus === 401 || forceRetry) &&
       !configAsRequestConfig.currentRetry &&
-      !configAsRequestConfig[AuthenticationConfigOptions.AccessToken]
+      !configAsRequestConfig[AuthenticationConfigOption.AccessToken]
     ) {
       try {
         const currentAccessToken =
@@ -854,9 +852,9 @@ class AuthenticationTokenManager {
       // refreshed.
       delete (configAsRequestConfig as InternalAxiosRequestConfig).headers
         .Authorization;
-      delete configAsRequestConfig[AuthenticationConfigOptions.UsedAccessToken];
+      delete configAsRequestConfig[AuthenticationConfigOption.UsedAccessToken];
       delete configAsRequestConfig[
-        AuthenticationConfigOptions.NeedsAuthentication
+        AuthenticationConfigOption.NeedsAuthentication
       ];
 
       const { baseURL, url, method } = config;

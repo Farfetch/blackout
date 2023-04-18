@@ -16,12 +16,12 @@ import { postGuestToken } from '../../../../../users/authentication/index.js';
 import { postTracking } from '../../../../../omnitracking/index.js';
 import { rest } from 'msw';
 import { DEFAULT_STORAGE_KEY as UserTokenDefaultStorageKey } from '../token-providers/UserTokenProvider.js';
-import AuthenticationConfigOptions from '../AuthenticationConfigOptions.js';
+import AuthenticationConfigOption from '../AuthenticationConfigOption.js';
 import client from '../../../index.js';
 import getCallError from 'tests/getCallError.mjs';
 import mswServer from '../../../../../../tests/mswServer.js';
 import TokenData from '../token-providers/TokenData.js';
-import TokenKinds from '../token-providers/TokenKinds.js';
+import TokenKind from '../token-providers/TokenKind.js';
 import type {
   AxiosAuthenticationTokenManagerOptions,
   UserParams,
@@ -122,8 +122,8 @@ describe('AuthenticationTokenManager', () => {
         expect(mockGuestTokenRequester).toHaveBeenCalledWith(
           { guestUserId: undefined },
           {
-            [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
 
@@ -156,8 +156,8 @@ describe('AuthenticationTokenManager', () => {
         expect(mockGuestTokenRequester).toHaveBeenCalledWith(
           { guestUserId: undefined },
           {
-            [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
 
@@ -170,8 +170,8 @@ describe('AuthenticationTokenManager', () => {
             guestUserId: mockUserId,
           },
           {
-            [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
       });
@@ -233,7 +233,7 @@ describe('AuthenticationTokenManager', () => {
           { guestUserId: 0, guestUserEmail: '', guestUserSecret: '' },
           {
             baseURL: '/api',
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
 
@@ -342,7 +342,7 @@ describe('AuthenticationTokenManager', () => {
         // Force a get profile request so that the guest token data is set with
         // a user id.
         await getUser({
-          [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
+          [AuthenticationConfigOption.IsGetUserProfileRequest]: true,
         });
 
         // Expect that the post guestTokens request was performed with a null
@@ -382,7 +382,7 @@ describe('AuthenticationTokenManager', () => {
         // Perform the users/me request. It should not throw and should retry the request
         // after getting the first 400 response.
         await getUser({
-          [AuthenticationConfigOptions.IsGetUserProfileRequest]: true,
+          [AuthenticationConfigOption.IsGetUserProfileRequest]: true,
         });
 
         // Expect that the post guestTokens request was performed first with the
@@ -459,8 +459,8 @@ describe('AuthenticationTokenManager', () => {
             refreshToken: mockUserTokenData.refreshToken,
           },
           {
-            [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsUserRefreshTokenRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
       });
@@ -540,8 +540,8 @@ describe('AuthenticationTokenManager', () => {
             refreshToken: mockUserTokenData.refreshToken,
           },
           {
-            [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
-            [AuthenticationConfigOptions.NoAuthentication]: true,
+            [AuthenticationConfigOption.IsUserRefreshTokenRequest]: true,
+            [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
       });
@@ -810,7 +810,7 @@ describe('AuthenticationTokenManager', () => {
       tokenManagerInstance.guestTokenProvider.setTokenData(mockGuestTokenData);
 
       let expectedTokenEventData = {
-        kind: TokenKinds.Guest,
+        kind: TokenKind.Guest,
         data: mockGuestTokenData,
       };
 
@@ -831,7 +831,7 @@ describe('AuthenticationTokenManager', () => {
       await tokenManagerInstance.setUserTokenData(mockUserTokenData, true);
 
       expectedTokenEventData = {
-        kind: TokenKinds.User,
+        kind: TokenKind.User,
         data: mockUserTokenData,
       };
 
@@ -876,7 +876,7 @@ describe('AuthenticationTokenManager', () => {
       mockUserTokenRequester.mockImplementationOnce(() => {
         return Promise.reject({
           config: {
-            [AuthenticationConfigOptions.IsUserRefreshTokenRequest]: true,
+            [AuthenticationConfigOption.IsUserRefreshTokenRequest]: true,
           },
           response: { status: 400 },
           isAxiosError: true,
@@ -889,7 +889,7 @@ describe('AuthenticationTokenManager', () => {
       } catch {}
 
       expect(listener).toHaveBeenCalledWith({
-        kind: TokenKinds.User,
+        kind: TokenKind.User,
         data: mockUserTokenData,
       });
     });
@@ -1364,8 +1364,8 @@ describe('AuthenticationTokenManager', () => {
       expect(mockGuestTokenRequester).toHaveBeenCalledWith(
         expectedGuestContext,
         {
-          [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-          [AuthenticationConfigOptions.NoAuthentication]: true,
+          [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
+          [AuthenticationConfigOption.NoAuthentication]: true,
         },
       );
     });
@@ -1410,8 +1410,8 @@ describe('AuthenticationTokenManager', () => {
           guestUserId: mockGetUserResponse.id,
         },
         {
-          [AuthenticationConfigOptions.IsGuestUserAccessTokenRequest]: true,
-          [AuthenticationConfigOptions.NoAuthentication]: true,
+          [AuthenticationConfigOption.IsGuestUserAccessTokenRequest]: true,
+          [AuthenticationConfigOption.NoAuthentication]: true,
         },
       );
     });
@@ -1483,8 +1483,8 @@ describe('AuthenticationTokenManager', () => {
       );
 
       await getUser({
-        [AuthenticationConfigOptions.AccessToken]: mockAccessToken,
-        [AuthenticationConfigOptions.UsedAccessTokenCallback]:
+        [AuthenticationConfigOption.AccessToken]: mockAccessToken,
+        [AuthenticationConfigOption.UsedAccessTokenCallback]:
           mockUsedAccessTokenCallback,
       });
 

@@ -15,7 +15,7 @@ import {
   mockProductsState,
   mockQuery,
 } from 'tests/__fixtures__/products/index.mjs';
-import { ProductListingTypes } from '../types/index.js';
+import { ProductListingType } from '../types/index.js';
 import { renderHook } from '@testing-library/react';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useProductListing from '../useProductListing.js';
@@ -295,7 +295,7 @@ describe('useProductListing', () => {
           useProductListing(slug, {
             query: mockQuery,
             useCache: false,
-            type: ProductListingTypes.Set,
+            type: ProductListingType.Set,
           }),
         {
           wrapper: withStore(mockProductsState),

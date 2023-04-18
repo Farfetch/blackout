@@ -1,7 +1,7 @@
 import {
   type EventData,
-  EventTypes,
-  type TrackTypes,
+  EventType,
+  type TrackType,
 } from '@farfetch/blackout-analytics';
 import addressInfoAddedTrackData from './addressInfoAddedTrackData.fixtures.mjs';
 import checkoutAbandonedTrackData from './checkoutAbandonedTrackData.fixtures.mjs';
@@ -40,48 +40,48 @@ import deliveryMethodAddedTrackData from './deliveryMethodAddedTrackData.fixture
 import billingInfoAddedTrackData from './billingInfoAddedTrackData.fixtures.mjs';
 
 export type TrackFixtures = {
-  [eventType in EventTypes]: EventData<TrackTypes> & {
-    event: EventTypes;
+  [eventType in EventType]: EventData<TrackType> & {
+    event: EventType;
   };
 };
 
 const allFixtures: TrackFixtures = {
-  [EventTypes.ADDRESS_INFO_ADDED]: addressInfoAddedTrackData,
-  [EventTypes.DELIVERY_METHOD_ADDED]: deliveryMethodAddedTrackData,
-  [EventTypes.BILLING_INFO_ADDED]: billingInfoAddedTrackData,
-  [EventTypes.CHECKOUT_ABANDONED]: checkoutAbandonedTrackData,
-  [EventTypes.CHECKOUT_STARTED]: checkoutStartedTrackData,
-  [EventTypes.CHECKOUT_STEP_COMPLETED]: checkoutStepCompletedTrackData,
-  [EventTypes.CHECKOUT_STEP_EDITING]: checkoutStepEditingTrackData,
-  [EventTypes.CHECKOUT_STEP_VIEWED]: checkoutStepViewedTrackData,
-  [EventTypes.FILTERS_APPLIED]: filtersAppliedTrackData,
-  [EventTypes.FILTERS_CLEARED]: filtersClearedTrackData,
-  [EventTypes.INTERACT_CONTENT]: interactContentTrackData,
-  [EventTypes.LOGIN]: loginTrackData,
-  [EventTypes.LOGOUT]: logoutTrackData,
-  [EventTypes.ORDER_COMPLETED]: orderCompletedTrackData,
-  [EventTypes.ORDER_REFUNDED]: orderRefundedTrackData,
-  [EventTypes.PAYMENT_INFO_ADDED]: paymentInfoAddedTrackData,
-  [EventTypes.PLACE_ORDER_FAILED]: placeOrderFailedTrackData,
-  [EventTypes.PLACE_ORDER_STARTED]: placeOrderStartedTrackData,
-  [EventTypes.PRODUCT_ADDED_TO_CART]: productAddedToCartTrackData,
-  [EventTypes.PRODUCT_ADDED_TO_WISHLIST]: productAddedToWishlistTrackData,
-  [EventTypes.PRODUCT_CLICKED]: productClickedTrackData,
-  [EventTypes.PRODUCT_LIST_VIEWED]: productListViewedTrackData,
-  [EventTypes.PRODUCT_REMOVED_FROM_CART]: productRemovedFromCartTrackData,
-  [EventTypes.PRODUCT_REMOVED_FROM_WISHLIST]:
+  [EventType.AddressInfoAdded]: addressInfoAddedTrackData,
+  [EventType.DeliveryMethodAdded]: deliveryMethodAddedTrackData,
+  [EventType.BillingInfoAdded]: billingInfoAddedTrackData,
+  [EventType.CheckoutAbandoned]: checkoutAbandonedTrackData,
+  [EventType.CheckoutStarted]: checkoutStartedTrackData,
+  [EventType.CheckoutStepCompleted]: checkoutStepCompletedTrackData,
+  [EventType.CheckoutStepEditing]: checkoutStepEditingTrackData,
+  [EventType.CheckoutStepViewed]: checkoutStepViewedTrackData,
+  [EventType.FiltersApplied]: filtersAppliedTrackData,
+  [EventType.FiltersCleared]: filtersClearedTrackData,
+  [EventType.InteractContent]: interactContentTrackData,
+  [EventType.Login]: loginTrackData,
+  [EventType.Logout]: logoutTrackData,
+  [EventType.OrderCompleted]: orderCompletedTrackData,
+  [EventType.OrderRefunded]: orderRefundedTrackData,
+  [EventType.PaymentInfoAdded]: paymentInfoAddedTrackData,
+  [EventType.PlaceOrderFailed]: placeOrderFailedTrackData,
+  [EventType.PlaceOrderStarted]: placeOrderStartedTrackData,
+  [EventType.ProductAddedToCart]: productAddedToCartTrackData,
+  [EventType.ProductAddedToWishlist]: productAddedToWishlistTrackData,
+  [EventType.ProductClicked]: productClickedTrackData,
+  [EventType.ProductListViewed]: productListViewedTrackData,
+  [EventType.ProductRemovedFromCart]: productRemovedFromCartTrackData,
+  [EventType.ProductRemovedFromWishlist]:
     productRemovedFromWishlistTrackData,
-  [EventTypes.PRODUCT_UPDATED]: productUpdatedTrackData,
-  [EventTypes.PRODUCT_UPDATED_WISHLIST]: productUpdatedWishlistTrackData,
-  [EventTypes.PRODUCT_VIEWED]: productViewedTrackData,
-  [EventTypes.PROMOCODE_APPLIED]: promocodeAppliedTrackData,
-  [EventTypes.SELECT_CONTENT]: selectContentTrackData,
-  [EventTypes.SHARE]: shareTrackData,
-  [EventTypes.SHIPPING_INFO_ADDED]: shippingInfoAddedTrackData,
-  [EventTypes.SHIPPING_METHOD_ADDED]: shippingMethodAddedTrackData,
-  [EventTypes.SIGNUP_FORM_COMPLETED]: signupFormCompletedTrackData,
-  [EventTypes.SIGNUP_FORM_VIEWED]: signupFormViewedTrackData,
-  [EventTypes.SIGNUP_NEWSLETTER]: signupNewsletterTrackData,
+  [EventType.ProductUpdated]: productUpdatedTrackData,
+  [EventType.ProductUpdatedWishlist]: productUpdatedWishlistTrackData,
+  [EventType.ProductViewed]: productViewedTrackData,
+  [EventType.PromocodeApplied]: promocodeAppliedTrackData,
+  [EventType.SelectContent]: selectContentTrackData,
+  [EventType.Share]: shareTrackData,
+  [EventType.ShippingInfoAdded]: shippingInfoAddedTrackData,
+  [EventType.ShippingMethodAdded]: shippingMethodAddedTrackData,
+  [EventType.SignupFormCompleted]: signupFormCompletedTrackData,
+  [EventType.SignupFormViewed]: signupFormViewedTrackData,
+  [EventType.SignupNewsletter]: signupNewsletterTrackData,
 };
 
 export default allFixtures;

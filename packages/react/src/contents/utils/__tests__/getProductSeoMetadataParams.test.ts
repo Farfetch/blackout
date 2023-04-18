@@ -79,7 +79,7 @@ const mockResult = {
 };
 
 describe('getProductSeoMetadataParams', () => {
-  it('should correctly return useSeoMetadata params for a PDP', () => {
+  it('should correctly return useSeoMetadata params for a Pdp', () => {
     const params = getProductSeoMetadataParams(mockProduct);
 
     expect(params).toEqual(mockResult);

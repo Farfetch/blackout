@@ -1,10 +1,10 @@
 import { AnalyticsApi } from '../../index.js';
 import { client } from '@farfetch/blackout-client';
 import {
-  EventTypes,
+  EventType,
   integrations,
   type LoadIntegrationEventData,
-  type PageTypes,
+  type PageType,
   type StrippedDownAnalytics,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -32,7 +32,7 @@ const strippedDownAnalytics: StrippedDownAnalytics = {
   createEvent: type => Promise.resolve({ ...loadIntegrationData, type }),
 };
 
-const defaultTrackEventData = trackEventsData[EventTypes.PRODUCT_ADDED_TO_CART];
+const defaultTrackEventData = trackEventsData[EventType.ProductAddedToCart];
 
 function createAnalyticsApiInstance(
   options: AnalyticsApiIntegrationOptions,
@@ -85,9 +85,9 @@ describe('AnalyticsApi Integration', () => {
         'Product Added to Cart',
         'Product Added to Wishlist',
         'Checkout Started',
-      ] as Array<`${EventTypes}` | `${PageTypes}`>,
+      ] as Array<`${EventType}` | `${PageType}`>,
       blacklistedEvents: ['Payment Info Added'] as Array<
-        `${EventTypes}` | `${PageTypes}`
+        `${EventType}` | `${PageType}`
       >,
       conversionsAPI: {
         testEventCode: 'TEST43363',

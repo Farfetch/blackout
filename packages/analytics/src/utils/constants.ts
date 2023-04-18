@@ -7,15 +7,15 @@ const { name, version } = require('../../package.json');
 export const PACKAGE_VERSION = version as string;
 export const PACKAGE_NAME = name as string;
 export const PACKAGE_NAME_VERSION = `${PACKAGE_NAME}@${PACKAGE_VERSION}`;
-export const DefaultConsentKeys = {
-  STATISTICS: 'statistics',
-  MARKETING: 'marketing',
-  PREFERENCES: 'preferences',
-};
+export enum DefaultConsentKeys {
+  Statistics = 'statistics',
+  Marketing = 'marketing',
+  Preferences = 'preferences',
+}
 export const CONSENT_KEYS = [
-  DefaultConsentKeys.STATISTICS,
-  DefaultConsentKeys.MARKETING,
-  DefaultConsentKeys.PREFERENCES,
+  DefaultConsentKeys.Statistics,
+  DefaultConsentKeys.Marketing,
+  DefaultConsentKeys.Preferences,
 ];
 
 export const CONSENT_CATEGORIES_PROPERTY = 'consentCategories';

@@ -7,9 +7,9 @@ import type {
 export type PlpPrice = ProductSummaryPrice & ProductSummaryTypedPrice;
 
 // There are several properties marked as optional due to the source of the data. For instance:
-// - from a PLP's `prices` - there is no `discount.includingTaxes`, `discount.excludingTaxes`,
+// - from a Plp's `prices` - there is no `discount.includingTaxes`, `discount.excludingTaxes`,
 //   `excludingTaxes`, `priceType`, `tags` and `taxes`
-// - from a PDP's `price` - there is no `type` and `promotionType`
+// - from a Pdp's `price` - there is no `type` and `promotionType`
 // - from a checkout order item - only place with `discount.rate`
 export type PriceAdapted = {
   discount?: {

@@ -100,7 +100,7 @@ const adaptProductImages: AdaptProductImages = (
   }
 
   if (!isEmpty(legacyImages)) {
-    // Adapt `imageGroups` parameter provided by PDP API response
+    // Adapt `imageGroups` parameter provided by Pdp API response
     // Format: [{ order: 1, images: [{ size: x, url: y }, ... ]}, { ... }]
     // @ts-expect-error Property legacyImages can be an object.
     if (isArray(legacyImages[0]?.images)) {

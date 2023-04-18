@@ -1,14 +1,14 @@
-import { EventTypes } from '@farfetch/blackout-analytics';
+import { EventType } from '@farfetch/blackout-analytics';
 import baseTrackData from './baseTrackData.fixtures.mjs';
 
 const fixtures = {
   ...baseTrackData,
-  event: EventTypes.SHARE,
+  event: EventType.Share,
   properties: {
     method: 'Facebook',
     contentType: 'image',
     id: '123456',
-    from: 'PDP',
+    from: 'Pdp',
   },
 };
 

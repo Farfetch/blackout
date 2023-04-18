@@ -8,7 +8,7 @@ import {
   type LoadIntegrationEventData,
   type SetUserEventData,
   type StrippedDownAnalytics,
-  TrackTypes,
+  TrackType,
   utils,
 } from '@farfetch/blackout-analytics';
 import { postTracking } from '@farfetch/blackout-client';
@@ -84,7 +84,7 @@ class Forter extends integrations.Integration<ForterIntegrationOptions> {
    */
   async createSyntheticForterTokenLoadedEvent() {
     const syntheticEventData = await this.strippedDownAnalytics.createEvent(
-      TrackTypes.TRACK,
+      TrackType.Track,
       ForterTokenLoadedAnalyticsEvent,
     );
 

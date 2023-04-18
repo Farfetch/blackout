@@ -1,7 +1,7 @@
 import {
   integrations,
   type StrippedDownAnalytics,
-  type TrackTypes,
+  type TrackType,
   utils,
 } from '@farfetch/blackout-analytics';
 import {
@@ -17,7 +17,7 @@ const defaultEventData = pageEventsData.homepage;
 utils.logger.warn = jest.fn();
 
 const strippedDownAnalytics: StrippedDownAnalytics = {
-  createEvent: (type: TrackTypes) =>
+  createEvent: (type: TrackType) =>
     Promise.resolve({ ...loadIntegrationData, type }),
 };
 
