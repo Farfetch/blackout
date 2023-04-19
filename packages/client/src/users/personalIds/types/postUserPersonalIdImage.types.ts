@@ -6,9 +6,9 @@ export type PostUserPersonalIdImageData = {
 };
 
 export enum UserPersonalIdImageSide {
-  FRONT = 'FRONT',
-  BACK = 'BACK',
-  UNKNOWN = 'UNKNOWN',
+  Front = 'FRONT',
+  Back = 'BACK',
+  Unknown = 'UNKNOWN',
 }
 
 export type UserPersonalIdImage = {

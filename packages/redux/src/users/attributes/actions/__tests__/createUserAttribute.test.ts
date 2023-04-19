@@ -1,5 +1,4 @@
 import * as actionTypes from '../../actionTypes.js';
-import { createUserAttributes } from '..//index.js';
 import { find } from 'lodash-es';
 import { INITIAL_STATE } from '../../../reducer.js';
 import {
@@ -9,6 +8,7 @@ import {
 } from 'tests/__fixtures__/users/index.mjs';
 import { mockStore } from '../../../../../tests/index.js';
 import { postUserAttribute } from '@farfetch/blackout-client';
+import createUserAttribute from '../createUserAttribute.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -18,7 +18,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 const usersMockStore = (state = {}) =>
   mockStore({ users: INITIAL_STATE }, state);
 
-describe('createUserAttributes action creator', () => {
+describe('createUserAttribute action creator', () => {
   let store = usersMockStore();
   const expectedConfig = undefined;
 
@@ -27,14 +27,14 @@ describe('createUserAttributes action creator', () => {
     store = usersMockStore();
   });
 
-  it('should create the correct actions for when the create user attributes procedure fails', async () => {
-    const expectedError = new Error('create user attributes error');
+  it('should create the correct actions for when the create user attribute procedure fails', async () => {
+    const expectedError = new Error('create user attribute error');
 
     (postUserAttribute as jest.Mock).mockRejectedValueOnce(expectedError);
 
     await expect(
       async () =>
-        await createUserAttributes(
+        await createUserAttribute(
           userId,
           mockCreateUserAttributesData,
         )(store.dispatch),
@@ -48,20 +48,20 @@ describe('createUserAttributes action creator', () => {
     );
     expect(store.getActions()).toEqual(
       expect.arrayContaining([
-        { type: actionTypes.CREATE_USER_ATTRIBUTES_REQUEST },
+        { type: actionTypes.CREATE_USER_ATTRIBUTE_REQUEST },
         {
-          type: actionTypes.CREATE_USER_ATTRIBUTES_FAILURE,
+          type: actionTypes.CREATE_USER_ATTRIBUTE_FAILURE,
           payload: { error: expectedError },
         },
       ]),
     );
   });
 
-  it('should create the correct actions for when the create user attributes procedure is successful', async () => {
+  it('should create the correct actions for when the create user attribute procedure is successful', async () => {
     (postUserAttribute as jest.Mock).mockResolvedValueOnce(
       mockPostUserAttributesResponse,
     );
-    await createUserAttributes(
+    await createUserAttribute(
       userId,
       mockCreateUserAttributesData,
     )(store.dispatch);
@@ -76,16 +76,16 @@ describe('createUserAttributes action creator', () => {
     );
 
     expect(actionResults).toMatchObject([
-      { type: actionTypes.CREATE_USER_ATTRIBUTES_REQUEST },
+      { type: actionTypes.CREATE_USER_ATTRIBUTE_REQUEST },
       {
         payload: mockPostUserAttributesResponse,
-        type: actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS,
+        type: actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS,
       },
     ]);
     expect(
       find(actionResults, {
-        type: actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS,
+        type: actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS,
       }),
-    ).toMatchSnapshot('create user attributes success payload');
+    ).toMatchSnapshot('create user attribute success payload');
   });
 });

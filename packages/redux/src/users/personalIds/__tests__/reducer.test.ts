@@ -1,5 +1,8 @@
 import * as actionTypes from '../actionTypes.js';
-import { toBlackoutError, VerifyLevel } from '@farfetch/blackout-client';
+import {
+  toBlackoutError,
+  UserPersonalIdVerifyLevel,
+} from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer.js';
 import type { UserPersonalIdsState } from '../../types/index.js';
 
@@ -28,7 +31,7 @@ describe('personalIds reducers', () => {
           isDefault: false,
           maskedIdNumber: '',
           maskedName: '',
-          verifyLevel: VerifyLevel.VALID,
+          verifyLevel: UserPersonalIdVerifyLevel.Valid,
         },
         {
           backImageId: '',
@@ -38,7 +41,7 @@ describe('personalIds reducers', () => {
           isDefault: false,
           maskedIdNumber: '',
           maskedName: '',
-          verifyLevel: VerifyLevel.VALID,
+          verifyLevel: UserPersonalIdVerifyLevel.Valid,
         },
       ];
       const state = {
@@ -52,7 +55,7 @@ describe('personalIds reducers', () => {
             isDefault: false,
             maskedIdNumber: '',
             maskedName: '',
-            verifyLevel: VerifyLevel.VALID,
+            verifyLevel: UserPersonalIdVerifyLevel.Valid,
           },
         ],
       };
@@ -74,7 +77,7 @@ describe('personalIds reducers', () => {
         isDefault: false,
         maskedIdNumber: '',
         maskedName: '',
-        verifyLevel: VerifyLevel.VALID,
+        verifyLevel: UserPersonalIdVerifyLevel.Valid,
       };
       const state = {
         ...initialState,
@@ -87,7 +90,7 @@ describe('personalIds reducers', () => {
             isDefault: false,
             maskedIdNumber: '',
             maskedName: '',
-            verifyLevel: VerifyLevel.VALID,
+            verifyLevel: UserPersonalIdVerifyLevel.Valid,
           },
         ],
       };
@@ -100,7 +103,7 @@ describe('personalIds reducers', () => {
           isDefault: false,
           maskedIdNumber: '',
           maskedName: '',
-          verifyLevel: VerifyLevel.VALID,
+          verifyLevel: UserPersonalIdVerifyLevel.Valid,
         },
         {
           backImageId: '',
@@ -110,7 +113,7 @@ describe('personalIds reducers', () => {
           isDefault: false,
           maskedIdNumber: '',
           maskedName: '',
-          verifyLevel: VerifyLevel.VALID,
+          verifyLevel: UserPersonalIdVerifyLevel.Valid,
         },
       ];
 
@@ -135,7 +138,7 @@ describe('personalIds reducers', () => {
             isDefault: false,
             maskedIdNumber: '',
             maskedName: '',
-            verifyLevel: VerifyLevel.VALID,
+            verifyLevel: UserPersonalIdVerifyLevel.Valid,
           },
         ],
         defaultPersonalId: {
@@ -156,7 +159,7 @@ describe('personalIds reducers', () => {
             isDefault: false,
             maskedIdNumber: '',
             maskedName: '',
-            verifyLevel: VerifyLevel.VALID,
+            verifyLevel: UserPersonalIdVerifyLevel.Valid,
           },
         ],
       };

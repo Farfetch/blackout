@@ -1,5 +1,9 @@
-import type { Attribute, Color, ProductImageGroup } from '../../index.js';
 import type { Brand } from '../../brands/types/index.js';
+import type {
+  Color,
+  ProductImageGroup,
+  ProductVariantAttribute,
+} from '../../index.js';
 import type { Label } from '../../types/items/label.types.js';
 import type {
   Price,
@@ -21,7 +25,7 @@ export type SharedWishlistItem = {
   isAvailable?: boolean;
   dateCreated: string;
   images?: ProductImageGroup;
-  attributes?: Attribute[];
+  attributes?: ProductVariantAttribute[];
   variants?: ProductVariant[];
   categories?: ProductCategory[];
   colors?: Color[];

@@ -3,9 +3,9 @@ import type { Contents } from './contents.types.js';
 import type { PriceType } from '../../products/types/index.js';
 
 export enum CommercePagesType {
-  PRODUCT = 'PRODUCT',
-  LISTING = 'LISTING',
-  SET = 'SET',
+  Product = 'PRODUCT',
+  Listing = 'LISTING',
+  Set = 'SET',
 }
 
 export type QueryCommercePages = {

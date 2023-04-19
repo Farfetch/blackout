@@ -1,6 +1,6 @@
 import { adaptProductSizes } from '@farfetch/blackout-redux/src/helpers/adapters';
 import {
-  AttributeType,
+  ProductVariantAttributeType,
   type BagItem,
   PurchaseChannel,
 } from '@farfetch/blackout-client';
@@ -76,7 +76,7 @@ export const mockBagItem: BagItem = {
       id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
       attributes: [
         {
-          type: AttributeType.Size,
+          type: ProductVariantAttributeType.Size,
           value: 'string',
           description: 'string',
         },

@@ -1,8 +1,8 @@
-export enum VerifyLevel {
-  UNVERIFIED,
-  VALID,
-  EXPIRED,
-  INVALID,
+export enum UserPersonalIdVerifyLevel {
+  Unverified,
+  Valid,
+  Expired,
+  Invalid,
 }
 
 export type UserPersonalId = {
@@ -13,7 +13,7 @@ export type UserPersonalId = {
   isDefault: boolean;
   maskedIdNumber: string;
   maskedName: string;
-  verifyLevel: VerifyLevel;
+  verifyLevel: UserPersonalIdVerifyLevel;
 };
 
 export type UserPersonalIdPartial = {

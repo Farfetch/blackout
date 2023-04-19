@@ -17,18 +17,18 @@ export const FETCH_USER_ATTRIBUTES_SUCCESS =
 /**
  * Action type dispatched when the create user attributes request fails.
  */
-export const CREATE_USER_ATTRIBUTES_FAILURE =
-  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTES_FAILURE';
+export const CREATE_USER_ATTRIBUTE_FAILURE =
+  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTE_FAILURE';
 /**
  * Action type dispatched when the create user attributes request starts.
  */
-export const CREATE_USER_ATTRIBUTES_REQUEST =
-  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTES_REQUEST';
+export const CREATE_USER_ATTRIBUTE_REQUEST =
+  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTE_REQUEST';
 /**
  * Action type dispatched when the create user attributes request succeeds.
  */
-export const CREATE_USER_ATTRIBUTES_SUCCESS =
-  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTES_SUCCESS';
+export const CREATE_USER_ATTRIBUTE_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_USER_ATTRIBUTE_SUCCESS';
 
 /**
  * Action type dispatched when the fetch user attribute request fails.

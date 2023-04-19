@@ -1,5 +1,5 @@
 import type { DigitalAsset } from './common.types.js';
-import type { VariationPropertyType } from './productGrouping.types.js';
+import type { ProductGroupingVariationPropertyType } from './productGrouping.types.js';
 
 export type ProductGroupingPropertiesValue = {
   id: string;
@@ -9,7 +9,7 @@ export type ProductGroupingPropertiesValue = {
 };
 
 export type ProductGroupingProperty = {
-  type: VariationPropertyType;
+  type: ProductGroupingVariationPropertyType;
   values: Array<ProductGroupingPropertiesValue>;
 };
 

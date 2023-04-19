@@ -1,7 +1,5 @@
 import {
   AddressType,
-  AttributeType,
-  CreationChannel,
   CustomerType,
   Gender,
   type MerchantOrderReturnOptions,
@@ -11,18 +9,20 @@ import {
   OrderDocumentType,
   type OrderItemActivities,
   OrderItemActivityType,
+  OrderItemCreationChannel,
   OrderItemStatus,
   OrderShippingAddressChangeRequestStatus,
   OrderStatus,
   type OrderSummaries,
   ProductType,
+  ProductVariantAttributeType,
   ReturnItemStatus,
   ReturnOptionType,
   ReturnReferenceName,
   ReturnStatus,
   ReturnStatusCode,
   SelectedSaleIntent,
-  TrackingEventType,
+  ShipmentTrackingEventType,
 } from '@farfetch/blackout-client';
 import { mockResponse as userEntity } from '../authentication/index.mjs';
 import type { OrderEntity, OrderSummaryEntity } from '@farfetch/blackout-redux';
@@ -132,7 +132,7 @@ export const mockTrackingResponse = {
       estimatedDeliveryDate: '2019-05-24T22:59:00Z',
       events: [
         {
-          type: TrackingEventType.Pickup,
+          type: ShipmentTrackingEventType.Pickup,
           description: 'Pickup',
           date: '2019-05-23T18:35:23Z',
         },
@@ -217,7 +217,7 @@ export const mockTrackingResponse = {
       estimatedDeliveryDate: '2019-05-24T22:59:00Z',
       events: [
         {
-          type: TrackingEventType.Pickup,
+          type: ShipmentTrackingEventType.Pickup,
           description: 'Pickup',
           date: '2019-05-23T18:35:23Z',
         },
@@ -300,17 +300,17 @@ export const mockOrderItem = {
   attributes: [
     {
       description: 'Scale',
-      type: AttributeType.Scale,
+      type: ProductVariantAttributeType.Scale,
       value: '204',
     },
     {
       description: 'Size',
-      type: AttributeType.Size,
+      type: ProductVariantAttributeType.Size,
       value: '24',
     },
     {
       description: 'SizeDescription',
-      type: AttributeType.SizeDescription,
+      type: ProductVariantAttributeType.SizeDescription,
       value: '7.5',
     },
   ],
@@ -350,7 +350,7 @@ export const mockOrderItem = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: CreationChannel.Catalog,
+  creationChannel: OrderItemCreationChannel.Catalog,
   customAttributes: null,
   id: orderItemId,
   images: {
@@ -461,17 +461,17 @@ export const mockOrderItem2 = {
   attributes: [
     {
       description: 'Scale',
-      type: AttributeType.Scale,
+      type: ProductVariantAttributeType.Scale,
       value: '125',
     },
     {
       description: 'Size',
-      type: AttributeType.Size,
+      type: ProductVariantAttributeType.Size,
       value: '23',
     },
     {
       description: 'SizeDescription',
-      type: AttributeType.SizeDescription,
+      type: ProductVariantAttributeType.SizeDescription,
       value: '28',
     },
   ],
@@ -517,7 +517,7 @@ export const mockOrderItem2 = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: CreationChannel.Catalog,
+  creationChannel: OrderItemCreationChannel.Catalog,
   customAttributes: null,
   id: orderItemId2,
   images: {
@@ -649,17 +649,17 @@ export const mockOrderItem3 = {
   attributes: [
     {
       description: 'Scale',
-      type: AttributeType.Scale,
+      type: ProductVariantAttributeType.Scale,
       value: '14',
     },
     {
       description: 'Size',
-      type: AttributeType.Size,
+      type: ProductVariantAttributeType.Size,
       value: '17',
     },
     {
       description: 'SizeDescription',
-      type: AttributeType.SizeDescription,
+      type: ProductVariantAttributeType.SizeDescription,
       value: 'OS',
     },
   ],
@@ -711,7 +711,7 @@ export const mockOrderItem3 = {
       tags: ['DesignerColor'],
     },
   ],
-  creationChannel: CreationChannel.Mail,
+  creationChannel: OrderItemCreationChannel.Mail,
   customAttributes: null,
   id: orderItemId3,
   images: {
@@ -1003,24 +1003,24 @@ export const mockOrderDetailsResponse2 = {
       productId: 11831274,
       attributes: [
         {
-          type: AttributeType.Scale,
+          type: ProductVariantAttributeType.Scale,
           value: '16260',
           description: 'Scale',
         },
         {
-          type: AttributeType.Size,
+          type: ProductVariantAttributeType.Size,
           value: '20',
           description: 'Size',
         },
         {
-          type: AttributeType.SizeDescription,
+          type: ProductVariantAttributeType.SizeDescription,
           value: '48',
           description: 'SizeDescription',
         },
       ],
       orderStatus: MerchantOrderStatus.Cancelled,
       orderItemStatus: OrderItemStatus.None,
-      creationChannel: CreationChannel.Catalog,
+      creationChannel: OrderItemCreationChannel.Catalog,
       shippingService: {
         description: 'DHL Ground',
         id: 44,
@@ -2000,7 +2000,7 @@ export const expectedTrackingNormalizedPayload = {
           {
             date: '2019-05-23T18:35:23Z',
             description: 'Pickup',
-            type: TrackingEventType.Pickup,
+            type: ShipmentTrackingEventType.Pickup,
           },
         ],
         labelTrackings: ['4538009162'],
@@ -2014,7 +2014,7 @@ export const expectedTrackingNormalizedPayload = {
           {
             date: '2019-05-23T18:35:23Z',
             description: 'Pickup',
-            type: TrackingEventType.Pickup,
+            type: ShipmentTrackingEventType.Pickup,
           },
         ],
         labelTrackings: ['4538009163'],
@@ -2104,7 +2104,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [136301, 136308],
           colors: mockOrderItem.colors,
-          creationChannel: CreationChannel.Catalog,
+          creationChannel: OrderItemCreationChannel.Catalog,
           customAttributes: null,
           id: orderItemId,
           productType: 'Standard',
@@ -2227,7 +2227,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [135967, 135981, 136273],
           colors: mockOrderItem2.colors,
-          creationChannel: CreationChannel.Catalog,
+          creationChannel: OrderItemCreationChannel.Catalog,
           customAttributes: null,
           id: orderItemId2,
           productType: 'Standard',
@@ -2350,7 +2350,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           brand: 220482,
           categories: [135974, 136383, 136380, 136392],
           colors: mockOrderItem3.colors,
-          creationChannel: CreationChannel.Mail,
+          creationChannel: OrderItemCreationChannel.Mail,
           customAttributes: null,
           id: orderItemId3,
           productType: 'Standard',
@@ -2791,11 +2791,19 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: AttributeType.Scale, value: '204' },
-          { description: 'Size', type: AttributeType.Size, value: '24' },
+          {
+            description: 'Scale',
+            type: ProductVariantAttributeType.Scale,
+            value: '204',
+          },
+          {
+            description: 'Size',
+            type: ProductVariantAttributeType.Size,
+            value: '24',
+          },
           {
             description: 'SizeDescription',
-            type: AttributeType.SizeDescription,
+            type: ProductVariantAttributeType.SizeDescription,
             value: '7.5',
           },
         ],
@@ -2811,7 +2819,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: CreationChannel.Catalog,
+        creationChannel: OrderItemCreationChannel.Catalog,
         id: orderItemId,
         isCustomizable: false,
         isExclusive: false,
@@ -2920,11 +2928,19 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: AttributeType.Scale, value: '125' },
-          { description: 'Size', type: AttributeType.Size, value: '23' },
+          {
+            description: 'Scale',
+            type: ProductVariantAttributeType.Scale,
+            value: '125',
+          },
+          {
+            description: 'Size',
+            type: ProductVariantAttributeType.Size,
+            value: '23',
+          },
           {
             description: 'SizeDescription',
-            type: AttributeType.SizeDescription,
+            type: ProductVariantAttributeType.SizeDescription,
             value: '28',
           },
         ],
@@ -2940,7 +2956,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: CreationChannel.Catalog,
+        creationChannel: OrderItemCreationChannel.Catalog,
         id: orderItemId2,
         isCustomizable: false,
         isExclusive: false,
@@ -3031,11 +3047,19 @@ export const expectedGuestOrdersNormalizedPayload = {
           isFormatted: true,
         },
         attributes: [
-          { description: 'Scale', type: AttributeType.Scale, value: '14' },
-          { description: 'Size', type: AttributeType.Size, value: '17' },
+          {
+            description: 'Scale',
+            type: ProductVariantAttributeType.Scale,
+            value: '14',
+          },
+          {
+            description: 'Size',
+            type: ProductVariantAttributeType.Size,
+            value: '17',
+          },
           {
             description: 'SizeDescription',
-            type: AttributeType.SizeDescription,
+            type: ProductVariantAttributeType.SizeDescription,
             value: 'OS',
           },
         ],
@@ -3051,7 +3075,7 @@ export const expectedGuestOrdersNormalizedPayload = {
             tags: ['DesignerColor'],
           },
         ],
-        creationChannel: CreationChannel.Mail,
+        creationChannel: OrderItemCreationChannel.Mail,
         id: orderItemId3,
         isCustomizable: false,
         isExclusive: false,
@@ -3362,10 +3386,18 @@ export const expectedGuestOrdersNormalizedPayload = {
         merchantOrderId: 123095473,
         productId: 11831274,
         attributes: [
-          { type: AttributeType.Scale, value: '16260', description: 'Scale' },
-          { type: AttributeType.Size, value: '20', description: 'Size' },
           {
-            type: AttributeType.SizeDescription,
+            type: ProductVariantAttributeType.Scale,
+            value: '16260',
+            description: 'Scale',
+          },
+          {
+            type: ProductVariantAttributeType.Size,
+            value: '20',
+            description: 'Size',
+          },
+          {
+            type: ProductVariantAttributeType.SizeDescription,
             value: '48',
             description: 'SizeDescription',
           },

@@ -1,5 +1,5 @@
+import { ChargeDeclineCode, ChargeStatus } from '../../payments/types/index.js';
 import { chargeId, id } from 'tests/__fixtures__/checkout/index.mjs';
-import { ChargeStatus, DeclineCode } from '../../payments/types/index.js';
 import { getCheckoutOrderCharge } from '../index.js';
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/getCheckoutOrderCharge.fixtures.js';
@@ -26,7 +26,7 @@ describe('checkout client', () => {
           {
             id: 'string',
             operationStatus: ChargeStatus.Processing,
-            declineCode: DeclineCode.NotApplicable,
+            declineCode: ChargeDeclineCode.NotApplicable,
           },
         ],
       };

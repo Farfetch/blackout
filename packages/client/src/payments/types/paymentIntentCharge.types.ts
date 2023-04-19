@@ -4,7 +4,7 @@ export enum ChargeStatus {
   Error = 'Error',
 }
 
-export enum DeclineCode {
+export enum ChargeDeclineCode {
   NotApplicable = 'NotApplicable',
   Default = 'Default',
   Generic = 'Generic',
@@ -18,7 +18,7 @@ export enum DeclineCode {
 export type ChargeInstrument = {
   id: string;
   operationStatus: ChargeStatus;
-  declineCode: DeclineCode;
+  declineCode: ChargeDeclineCode;
 };
 
 export type Charge = {

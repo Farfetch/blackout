@@ -1,4 +1,3 @@
-import * as headers from './headers.js';
 import getTimeInMinutes from './getTimeInMinutes.js';
 import usePrevious from './usePrevious.js';
 import validatePassword, {
@@ -8,7 +7,6 @@ import validatePassword, {
 
 export {
   getTimeInMinutes,
-  headers,
   usePrevious,
   validatePassword,
   PasswordValidationError,

@@ -4,6 +4,7 @@ import {
   type PatchUserPersonalId,
   type PatchUserPersonalIdData,
   toBlackoutError,
+  type User,
   type UserPersonalIdPartial,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -18,7 +19,7 @@ import type { Dispatch } from 'redux';
 const updateUserPersonalIdFactory =
   (patchUserPersonalId: PatchUserPersonalId) =>
   (
-    userId: number,
+    userId: User['id'],
     personalId: string,
     data: PatchUserPersonalIdData,
     config: Config,

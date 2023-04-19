@@ -21,7 +21,7 @@ import {
   type Config,
   type GetCheckoutOrderQuery,
   type GetCollectPointsQuery,
-  headers,
+  HttpHeaders,
   type PatchCheckoutOrderData,
   type PaymentInstrument,
   PaymentMethod,
@@ -159,11 +159,11 @@ function useCheckout(
   const checkoutSpecificConfig = useMemo(
     () => ({
       headers: {
-        [headers.ACCEPT_LANGUAGE]:
+        [HttpHeaders.AcceptLanguage]:
           checkoutOrder?.shippingAddress?.country.culture,
-        [headers.FF_COUNTRY]:
+        [HttpHeaders.FFCountry]:
           checkoutOrder?.shippingAddress?.country.alpha2Code,
-        [headers.FF_CURRENCY]: checkoutOrder?.currency,
+        [HttpHeaders.FFCurrency]: checkoutOrder?.currency,
       },
     }),
     [

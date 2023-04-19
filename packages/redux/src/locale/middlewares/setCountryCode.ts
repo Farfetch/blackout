@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes.js';
 import * as selectors from '../selectors.js';
-import { client, headers } from '@farfetch/blackout-client';
+import { client, HttpHeaders } from '@farfetch/blackout-client';
 import type { Dispatch, Middleware, MiddlewareAPI } from 'redux';
 
 const DEFAULT_ACTION_TYPES = new Set([actionTypes.SET_COUNTRY_CODE]);
@@ -52,9 +52,10 @@ const setCountryCode = (customActionTypes?: Set<string>): Middleware => {
           countryCode,
         );
 
-        client.defaults.headers.common[headers.ACCEPT_LANGUAGE] = cultureCode;
-        client.defaults.headers.common[headers.FF_COUNTRY] = countryCode;
-        client.defaults.headers.common[headers.FF_CURRENCY] = currencyCode;
+        client.defaults.headers.common[HttpHeaders.AcceptLanguage] =
+          cultureCode;
+        client.defaults.headers.common[HttpHeaders.FFCountry] = countryCode;
+        client.defaults.headers.common[HttpHeaders.FFCurrency] = currencyCode;
 
         return result;
       }

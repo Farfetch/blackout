@@ -1,4 +1,4 @@
-export * from './attribute.types.js';
+export * from './productVariantAttribute.types.js';
 export * from './color.types.js';
 export * from './creationChannel.types.js';
 export * from './images.types.js';

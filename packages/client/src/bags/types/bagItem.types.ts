@@ -1,11 +1,11 @@
+import type { Brand } from '../../brands/types/index.js';
 import type {
-  Attribute,
   Color,
   GenderCode,
   Label,
   ProductImageGroup,
+  ProductVariantAttribute,
 } from '../../types/index.js';
-import type { Brand } from '../../brands/types/index.js';
 import type { Metadata } from '../../types/common/metadata.types.js';
 import type {
   Price,
@@ -30,7 +30,7 @@ export type BagItem = {
   isAvailable: boolean;
   dateCreated: string;
   images: ProductImageGroup;
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   customAttributes: string;
   merchantShoppingUrl: string | null;
   variants: ProductVariant[];

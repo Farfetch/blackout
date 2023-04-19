@@ -1,24 +1,24 @@
 import type {
-  Attribute,
   Brand,
   CheckoutOrderItemStatus,
   Color,
-  CreationChannelLegacy,
+  OrderItemCreationChannelLegacy,
   Price,
   Product,
   ProductCategory,
   ProductImageGroup,
   ProductVariant,
+  ProductVariantAttribute,
 } from '../../index.js';
 
 export type CheckoutOrderItem = {
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   brandId?: Brand['id'];
   brandName: string;
   categories: ProductCategory[];
   checkoutOrderId: number;
   colors: Color[];
-  creationChannel: CreationChannelLegacy;
+  creationChannel: OrderItemCreationChannelLegacy;
   customAttributes: string;
   fulfillmentInfo: {
     isPreOrder: boolean;
