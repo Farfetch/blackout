@@ -12,8 +12,9 @@ import {
   type ProductCategoryWithGenderDescription,
   type ProductImageGroup,
   type ProductType,
-  SaleIntent as SelectedSaleIntent,
 } from '../../index.js';
+
+import { SaleIntent as SelectedSaleIntent } from '../../types/common/index.js';
 
 export { SelectedSaleIntent };
 
