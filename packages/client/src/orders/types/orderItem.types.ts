@@ -1,18 +1,21 @@
-import type {
-  Attribute,
-  Brand,
-  Color,
-  CreationChannel,
-  CreationChannelLegacy,
-  MerchantOrderStatus,
-  MerchantOrderStatusLegacy,
-  OrderItemStatus,
-  OrderItemStatusLegacy,
-  Price,
-  ProductCategoryWithGenderDescription,
-  ProductImageGroup,
-  ProductType,
+import {
+  type Attribute,
+  type Brand,
+  type Color,
+  type CreationChannel,
+  type CreationChannelLegacy,
+  type MerchantOrderStatus,
+  type MerchantOrderStatusLegacy,
+  type OrderItemStatus,
+  type OrderItemStatusLegacy,
+  type Price,
+  type ProductCategoryWithGenderDescription,
+  type ProductImageGroup,
+  type ProductType,
+  SaleIntent as SelectedSaleIntent,
 } from '../../index.js';
+
+export { SelectedSaleIntent };
 
 export type ShippingService = {
   description: string;
@@ -80,6 +83,7 @@ export type OrderItem = {
   customAttributes: string | null;
   shortDescription: string;
   productType: keyof typeof ProductType;
+  selectedSaleIntent?: SelectedSaleIntent | string;
 };
 
 // This type is for the `getGuestOrderLegacy` client
