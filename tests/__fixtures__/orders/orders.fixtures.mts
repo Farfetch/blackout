@@ -2105,6 +2105,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId,
           productType: 'Standard',
+          selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
           images: [
             {
               order: 1,
@@ -2226,6 +2227,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId2,
           productType: 'Standard',
+          selectedSaleIntent: SelectedSaleIntent.BACKORDER,
           images: [
             {
               order: 1,
@@ -2347,6 +2349,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId3,
           productType: 'Standard',
+          selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
           images: [
             {
               order: 1,
@@ -2749,6 +2752,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId]: {
         customAttributes: null,
         productType: 'Standard',
+        selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
         images: [
           {
             order: 1,
@@ -2876,6 +2880,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId2]: {
         customAttributes: null,
         productType: 'Standard',
+        selectedSaleIntent: SelectedSaleIntent.BACKORDER,
         images: [
           {
             order: 1,
@@ -3003,6 +3008,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId3]: {
         customAttributes: null,
         productType: 'Standard',
+        selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
         images: [
           {
             order: 1,
