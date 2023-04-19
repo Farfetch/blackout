@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.86.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.85.0...@farfetch/blackout-core@1.86.0) (2023-04-19)
+
+
+### Features
+
+* **core:** exclude update product event ([4ff61d8](https://github.com/Farfetch/blackout/commit/4ff61d875479936036f970699fce80c56c942868))
+* add index parameter to events ([2f9b0e8](https://github.com/Farfetch/blackout/commit/2f9b0e8392db4fc43a6d00751557e78f2e4de1f8))
+* add parameters add address info event ([5c75846](https://github.com/Farfetch/blackout/commit/5c758466c2a8ae9c13c3f22073d79d27a7b2af6b))
+* add parameters add shipping info event ([95cd456](https://github.com/Farfetch/blackout/commit/95cd456c16099ab19b8a7ee4b68a4cdfd8cc35fc))
+
+
+
+
+
 # [1.85.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.84.0...@farfetch/blackout-core@1.85.0) (2023-04-11)
 
 
