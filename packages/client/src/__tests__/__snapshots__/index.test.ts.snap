@@ -667,6 +667,11 @@ Object {
     "Refused": "Refused",
     "WaitingExternalApproval": "WaitingExternalApproval",
   },
+  "SaleIntent": Object {
+    "BACKORDER": "BACKORDER",
+    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
+    "PREORDER": "PREORDER",
+  },
   "SearchIntentsTypeFilter": Object {
     "0": "ProductId",
     "1": "Brands",
@@ -714,6 +719,11 @@ Object {
     "Category": 1,
     "Merchant": 3,
     "Other": 4,
+  },
+  "SelectedSaleIntent": Object {
+    "BACKORDER": "BACKORDER",
+    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
+    "PREORDER": "PREORDER",
   },
   "SeoPageType": Object {
     "0": "None",

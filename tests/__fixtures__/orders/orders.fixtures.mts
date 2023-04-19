@@ -21,6 +21,7 @@ import {
   ReturnReferenceName,
   ReturnStatus,
   ReturnStatusCode,
+  SelectedSaleIntent,
   TrackingEventType,
 } from '@farfetch/blackout-client';
 import type { OrderEntity } from '@farfetch/blackout-redux';
@@ -434,6 +435,7 @@ export const mockOrderItem = {
     from: 'from',
     message: 'message',
   },
+  selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
 };
 
 export const mockOrderItem2 = {
@@ -620,6 +622,7 @@ export const mockOrderItem2 = {
     from: 'from',
     message: 'message',
   },
+  selectedSaleIntent: SelectedSaleIntent.BACKORDER,
 };
 
 export const mockOrderItem3 = {
@@ -781,6 +784,7 @@ export const mockOrderItem3 = {
     from: 'from',
     message: 'message',
   },
+  selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
 };
 
 export const mockOrderDetailsResponse = {
