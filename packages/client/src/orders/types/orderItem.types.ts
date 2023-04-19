@@ -1,17 +1,17 @@
-import {
-  type Attribute,
-  type Brand,
-  type Color,
-  type CreationChannel,
-  type CreationChannelLegacy,
-  type MerchantOrderStatus,
-  type MerchantOrderStatusLegacy,
-  type OrderItemStatus,
-  type OrderItemStatusLegacy,
-  type Price,
-  type ProductCategoryWithGenderDescription,
-  type ProductImageGroup,
-  type ProductType,
+import type {
+  Brand,
+  Color,
+  MerchantOrderStatus,
+  MerchantOrderStatusLegacy,
+  OrderItemCreationChannel,
+  OrderItemCreationChannelLegacy,
+  OrderItemStatus,
+  OrderItemStatusLegacy,
+  Price,
+  ProductCategoryWithGenderDescription,
+  ProductImageGroup,
+  ProductType,
+  ProductVariantAttribute,
 } from '../../index.js';
 
 import { SaleIntent as SelectedSaleIntent } from '../../types/common/index.js';
@@ -29,9 +29,9 @@ export type ShippingService = {
 };
 
 export type OrderItem = {
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   brand: Brand;
-  creationChannel: CreationChannel;
+  creationChannel: OrderItemCreationChannel;
   id: number;
   images: ProductImageGroup;
   merchantId: number;
@@ -96,7 +96,7 @@ export type OrderItemLegacy = Omit<
   OrderItem,
   'creationChannel' | 'orderItemStatus' | 'orderStatus' | 'productType'
 > & {
-  creationChannel: CreationChannelLegacy;
+  creationChannel: OrderItemCreationChannelLegacy;
   orderItemStatus: OrderItemStatusLegacy;
   orderStatus: MerchantOrderStatusLegacy;
   productType: ProductType;

@@ -52,7 +52,6 @@ import type {
   UserParams,
 } from '@castleio/castle-js';
 
-export const CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
 
 /**
@@ -65,6 +64,8 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
   castleJS: typeof castleJS;
   httpClient: AxiosInstance;
   clientIdHeaderName: string;
+
+  static readonly CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 
   /**
    * This integration is required, so it should load independently of user consent.
@@ -92,7 +93,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     this.castleJS = castleJS;
     this.debugModeOn = options.debugModeOn || false;
     this.clientIdHeaderName =
-      options.clientIdHeaderName || CLIENT_ID_HEADER_NAME;
+      options.clientIdHeaderName || Castle.CLIENT_ID_HEADER_NAME;
 
     this.validateOptions(options);
     this.applyOptions(options);

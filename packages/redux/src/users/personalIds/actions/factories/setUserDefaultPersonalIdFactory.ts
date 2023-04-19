@@ -4,6 +4,7 @@ import {
   type PutUserDefaultPersonalId,
   type PutUserDefaultPersonalIdData,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -16,7 +17,7 @@ import type { Dispatch } from 'redux';
  */
 const setUserDefaultPersonalIdFactory =
   (putUserDefaultPersonalId: PutUserDefaultPersonalId) =>
-  (userId: number, data: PutUserDefaultPersonalIdData, config: Config) =>
+  (userId: User['id'], data: PutUserDefaultPersonalIdData, config: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

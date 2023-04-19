@@ -10,7 +10,7 @@ import {
 } from '@farfetch/blackout-redux';
 
 export const commercePagesQuery = {
-  type: CommercePagesType.LISTING,
+  type: CommercePagesType.Listing,
   gender: 0,
   brand: 5030844,
   category: '136643',
@@ -20,7 +20,7 @@ export const slug = 'woman/gucci';
 export const commercePageQuery = {
   brand: 5030844,
   category: '136643',
-  type: CommercePagesType.LISTING,
+  type: CommercePagesType.Listing,
   gender: GenderCode.Woman,
   contentTypeCode: 'commerce_pages',
 };

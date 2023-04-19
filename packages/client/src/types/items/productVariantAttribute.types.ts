@@ -1,10 +1,10 @@
-export type Attribute = {
-  type: AttributeType;
+export type ProductVariantAttribute = {
+  type: ProductVariantAttributeType;
   value: string;
   description: string;
 };
 
-export enum AttributeType {
+export enum ProductVariantAttributeType {
   Size,
   SizeDescription,
   Scale,

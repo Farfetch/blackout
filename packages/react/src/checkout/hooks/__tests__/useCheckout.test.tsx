@@ -33,7 +33,7 @@ import {
   updateCheckoutOrder,
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
-import { headers, PaymentMethod } from '@farfetch/blackout-client';
+import { HttpHeaders, PaymentMethod } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useCheckout from '../useCheckout.js';
 import useCheckoutOrderCharge from '../useCheckoutOrderCharge.js';
@@ -1087,11 +1087,11 @@ describe('useCheckout', () => {
           {
             ...requestConfig,
             headers: {
-              [headers.ACCEPT_LANGUAGE]:
+              [HttpHeaders.AcceptLanguage]:
                 checkoutOrderEntity.shippingAddress.country.culture,
-              [headers.FF_COUNTRY]:
+              [HttpHeaders.FFCountry]:
                 checkoutOrderEntity.shippingAddress.country.alpha2Code,
-              [headers.FF_CURRENCY]: checkoutOrderEntity.currency,
+              [HttpHeaders.FFCurrency]: checkoutOrderEntity.currency,
             },
           },
         );
@@ -1128,11 +1128,11 @@ describe('useCheckout', () => {
           {
             ...requestConfig,
             headers: {
-              [headers.ACCEPT_LANGUAGE]:
+              [HttpHeaders.AcceptLanguage]:
                 checkoutOrderEntity.shippingAddress.country.culture,
-              [headers.FF_COUNTRY]:
+              [HttpHeaders.FFCountry]:
                 checkoutOrderEntity.shippingAddress.country.alpha2Code,
-              [headers.FF_CURRENCY]: checkoutOrderEntity.currency,
+              [HttpHeaders.FFCurrency]: checkoutOrderEntity.currency,
             },
           },
         );
@@ -1174,11 +1174,11 @@ describe('useCheckout', () => {
           {
             ...requestConfig,
             headers: {
-              [headers.ACCEPT_LANGUAGE]:
+              [HttpHeaders.AcceptLanguage]:
                 checkoutOrderEntity.shippingAddress.country.culture,
-              [headers.FF_COUNTRY]:
+              [HttpHeaders.FFCountry]:
                 checkoutOrderEntity.shippingAddress.country.alpha2Code,
-              [headers.FF_CURRENCY]: checkoutOrderEntity.currency,
+              [HttpHeaders.FFCurrency]: checkoutOrderEntity.currency,
             },
           },
         );
@@ -1226,11 +1226,11 @@ describe('useCheckout', () => {
           {
             ...requestConfig,
             headers: {
-              [headers.ACCEPT_LANGUAGE]:
+              [HttpHeaders.AcceptLanguage]:
                 checkoutOrderEntity.shippingAddress.country.culture,
-              [headers.FF_COUNTRY]:
+              [HttpHeaders.FFCountry]:
                 checkoutOrderEntity.shippingAddress.country.alpha2Code,
-              [headers.FF_CURRENCY]: checkoutOrderEntity.currency,
+              [HttpHeaders.FFCurrency]: checkoutOrderEntity.currency,
             },
           },
         );
@@ -1269,11 +1269,11 @@ describe('useCheckout', () => {
           {
             ...requestConfig,
             headers: {
-              [headers.ACCEPT_LANGUAGE]:
+              [HttpHeaders.AcceptLanguage]:
                 checkoutOrderEntity.shippingAddress.country.culture,
-              [headers.FF_COUNTRY]:
+              [HttpHeaders.FFCountry]:
                 checkoutOrderEntity.shippingAddress.country.alpha2Code,
-              [headers.FF_CURRENCY]: checkoutOrderEntity.currency,
+              [HttpHeaders.FFCurrency]: checkoutOrderEntity.currency,
             },
           },
         );

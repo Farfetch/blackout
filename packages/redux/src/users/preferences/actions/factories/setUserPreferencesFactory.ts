@@ -4,6 +4,7 @@ import {
   type PutUserPreferences,
   type PutUserPreferencesData,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import userPreferencesSchema from '../../../../entities/schemas/preference.js';
@@ -18,7 +19,7 @@ import type { Dispatch } from 'redux';
  */
 const setUserPreferencesFactory =
   (putUserPreferences: PutUserPreferences) =>
-  (userId: number, data: PutUserPreferencesData[], config?: Config) =>
+  (userId: User['id'], data: PutUserPreferencesData[], config?: Config) =>
   async (dispatch: Dispatch) => {
     try {
       dispatch({

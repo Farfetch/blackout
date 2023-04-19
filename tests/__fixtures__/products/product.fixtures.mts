@@ -1,4 +1,4 @@
-import { AttributeType } from '@farfetch/blackout-client';
+import { ProductVariantAttributeType } from '@farfetch/blackout-client';
 import { mockBreadCrumbs } from './products.fixtures.mjs';
 import { mockProductSizes } from './productSizes.fixtures.mjs';
 
@@ -124,7 +124,7 @@ export const mockProductDetails = {
       byAttribute: [
         {
           merchantId: 11554,
-          type: AttributeType.Size,
+          type: ProductVariantAttributeType.Size,
           value: '17',
         },
       ],
@@ -149,7 +149,7 @@ export const mockProductDetails = {
         attributes: [
           {
             description: 'Size',
-            type: AttributeType.Size,
+            type: ProductVariantAttributeType.Size,
             value: '17',
           },
         ],

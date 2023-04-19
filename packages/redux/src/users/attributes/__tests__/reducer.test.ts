@@ -96,7 +96,7 @@ describe('attributes reducers', () => {
 
     // Error value on FAILURE
     it.each([
-      actionTypes.CREATE_USER_ATTRIBUTES_FAILURE,
+      actionTypes.CREATE_USER_ATTRIBUTE_FAILURE,
       actionTypes.FETCH_USER_ATTRIBUTES_FAILURE,
       actionTypes.FETCH_USER_ATTRIBUTE_FAILURE,
       actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE,
@@ -114,7 +114,7 @@ describe('attributes reducers', () => {
 
     // Error value on REQUEST
     it.each([
-      actionTypes.CREATE_USER_ATTRIBUTES_REQUEST,
+      actionTypes.CREATE_USER_ATTRIBUTE_REQUEST,
       actionTypes.FETCH_USER_ATTRIBUTES_REQUEST,
       actionTypes.FETCH_USER_ATTRIBUTE_REQUEST,
       actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST,
@@ -157,7 +157,7 @@ describe('attributes reducers', () => {
 
     // Loading status on REQUEST
     it.each([
-      actionTypes.CREATE_USER_ATTRIBUTES_REQUEST,
+      actionTypes.CREATE_USER_ATTRIBUTE_REQUEST,
       actionTypes.FETCH_USER_ATTRIBUTES_REQUEST,
       actionTypes.FETCH_USER_ATTRIBUTE_REQUEST,
       actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST,
@@ -173,7 +173,7 @@ describe('attributes reducers', () => {
 
     // Loading status on SUCCESS
     it.each([
-      actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS,
+      actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS,
       actionTypes.FETCH_USER_ATTRIBUTES_SUCCESS,
       actionTypes.FETCH_USER_ATTRIBUTE_SUCCESS,
       actionTypes.REMOVE_USER_ATTRIBUTE_SUCCESS,
@@ -190,7 +190,7 @@ describe('attributes reducers', () => {
 
     // Loading status on FAILURE
     it.each([
-      actionTypes.CREATE_USER_ATTRIBUTES_FAILURE,
+      actionTypes.CREATE_USER_ATTRIBUTE_FAILURE,
       actionTypes.FETCH_USER_ATTRIBUTES_FAILURE,
       actionTypes.FETCH_USER_ATTRIBUTE_FAILURE,
       actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE,

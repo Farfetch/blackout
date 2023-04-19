@@ -55,7 +55,7 @@ export default new schema.Entity(
             },
           );
 
-          // If the filter segment is an Attribute, filteredFacetGroups will be an array with
+          // If the filter segment is an ProductVariantAttribute, filteredFacetGroups will be an array with
           // all attributes so the flow is a little different.
           if (filterSegment.type === ATTRIBUTES_TYPE) {
             let facetIndex;

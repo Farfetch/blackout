@@ -199,15 +199,8 @@ Object {
   "getProductSeoMetadataParams": [Function],
   "getSearchRedirectUrl": [Function],
   "getTimeInMinutes": [Function],
-  "headers": Object {
-    "ACCEPT_LANGUAGE": "Accept-Language",
-    "CONTENT_TYPE": "Content-Type",
-    "FF_COUNTRY": "FF-Country",
-    "FF_CURRENCY": "FF-Currency",
-  },
   "integrations": Object {
     "AnalyticsApi": [Function],
-    "CASTLE_CLIENT_ID_HEADER_NAME": "X-Castle-Request-Token",
     "Castle": [Function],
     "Forter": [Function],
     "GA": [Function],
@@ -292,7 +285,6 @@ Object {
       "tuple": [Function],
     },
   },
-  "isSet": [Function],
   "registerComponent": [Function],
   "renderComponent": [Function],
   "renderContent": [Function],

@@ -4,6 +4,7 @@ import {
   type PostUserPersonalIdImage,
   type PostUserPersonalIdImageData,
   toBlackoutError,
+  type User,
   type UserPersonalIdImage,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -17,7 +18,7 @@ import type { Dispatch } from 'redux';
  */
 const createUserPersonalIdImageFactory =
   (postUserPersonalIdImage: PostUserPersonalIdImage) =>
-  (userId: number, data: PostUserPersonalIdImageData, config: Config) =>
+  (userId: User['id'], data: PostUserPersonalIdImageData, config: Config) =>
   async (dispatch: Dispatch): Promise<UserPersonalIdImage> => {
     try {
       dispatch({

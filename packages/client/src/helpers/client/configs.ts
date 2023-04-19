@@ -1,4 +1,4 @@
-import * as headers from './headers.js';
+import { HttpHeaders } from './httpHeaders.js';
 
 /**
  * Config to create an axios instance to the api.blackandwhite-ff endpoints.
@@ -6,6 +6,6 @@ import * as headers from './headers.js';
 export const configApiBlackAndWhite = {
   baseURL: 'https://api.blackandwhite-ff.com',
   headers: {
-    [headers.CONTENT_TYPE]: 'application/json',
+    [HttpHeaders.ContentType]: 'application/json',
   },
 };

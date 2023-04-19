@@ -9,17 +9,17 @@ export type ShipmentTracking = {
   pickupDate: string;
   deliveryDate: string;
   estimatedDeliveryDate: string;
-  events: TrackingEvent[];
+  events: ShipmentTrackingEvent[];
   labelTrackings: LabelTracking[];
 };
 
-export type TrackingEvent = {
-  type: TrackingEventType;
+export type ShipmentTrackingEvent = {
+  type: ShipmentTrackingEventType;
   description: string;
   date: string;
 };
 
-export enum TrackingEventType {
+export enum ShipmentTrackingEventType {
   None = 'None',
   Pickup = 'Pickup',
   Delivered = 'Delivered',
@@ -41,10 +41,10 @@ export type LabelTracking = {
   service: string;
   isEstimatedDeliveryDateTrusworthy: boolean;
   estimatedDeliveryDate: string;
-  events: LabelTrackingEvent[];
+  events: LabelShipmentTrackingEvent[];
 };
 
-export type LabelTrackingEvent = {
+export type LabelShipmentTrackingEvent = {
   code: string;
   date: string;
   description: string;

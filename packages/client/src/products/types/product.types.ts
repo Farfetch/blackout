@@ -1,5 +1,5 @@
+import type { Brand } from '../../brands/types/index.js';
 import type {
-  AttributeType,
   Color,
   ColorSet,
   GenderCode,
@@ -7,8 +7,8 @@ import type {
   Label,
   LiveModel,
   ProductImageGroup,
+  ProductVariantAttributeType,
 } from '../../index.js';
-import type { Brand } from '../../brands/types/index.js';
 import type { DigitalAsset } from './common.types.js';
 import type { Price } from './price.types.js';
 import type { ProductCategory } from '../../categories/types/index.js';
@@ -131,7 +131,7 @@ export type Composition = {
 
 export type PreferredMerchantByAttribute = {
   merchantId: number;
-  type: AttributeType;
+  type: ProductVariantAttributeType;
   value: string;
 };
 

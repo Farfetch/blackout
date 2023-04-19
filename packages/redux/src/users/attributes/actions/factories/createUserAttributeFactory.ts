@@ -3,6 +3,7 @@ import {
   type Config,
   type PostUserAttribute,
   toBlackoutError,
+  type User,
   type UserAttributeData,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -10,23 +11,23 @@ import type { Dispatch } from 'redux';
 /**
  * Method responsible for creating an user attribute.
  *
- * @param postUserAttributes - Post user attribute client.
+ * @param postUserAttribute - Post user attribute client.
  *
  * @returns Thunk factory.
  */
 const createUserAttributesFactory =
   (postUserAttributes: PostUserAttribute) =>
-  (userId: number, data: UserAttributeData, config?: Config) =>
+  (userId: User['id'], data: UserAttributeData, config?: Config) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
       dispatch({
-        type: actionTypes.CREATE_USER_ATTRIBUTES_REQUEST,
+        type: actionTypes.CREATE_USER_ATTRIBUTE_REQUEST,
       });
 
       const result = await postUserAttributes(userId, data, config);
 
       dispatch({
-        type: actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS,
+        type: actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS,
         payload: result,
       });
 
@@ -36,7 +37,7 @@ const createUserAttributesFactory =
 
       dispatch({
         payload: { error: errorAsBlackoutError },
-        type: actionTypes.CREATE_USER_ATTRIBUTES_FAILURE,
+        type: actionTypes.CREATE_USER_ATTRIBUTE_FAILURE,
       });
 
       throw errorAsBlackoutError;

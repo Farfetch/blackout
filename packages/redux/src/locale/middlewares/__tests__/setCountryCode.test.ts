@@ -1,5 +1,5 @@
 import * as actionTypes from '../../actionTypes.js';
-import { client, headers } from '@farfetch/blackout-client';
+import { client, HttpHeaders } from '@farfetch/blackout-client';
 import { mockLocaleState } from 'tests/__fixtures__/locale/index.mjs';
 import { mockStore } from '../../../../tests/index.js';
 import { setCountryCodeMiddleware } from '../index.js';
@@ -24,23 +24,24 @@ describe('setCountryMiddleware', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    client.defaults.headers.common[headers.ACCEPT_LANGUAGE] =
+    client.defaults.headers.common[HttpHeaders.AcceptLanguage] =
       mockInitialCultureCode;
-    client.defaults.headers.common[headers.FF_COUNTRY] = mockInitialCountryCode;
-    client.defaults.headers.common[headers.FF_CURRENCY] =
+    client.defaults.headers.common[HttpHeaders.FFCountry] =
+      mockInitialCountryCode;
+    client.defaults.headers.common[HttpHeaders.FFCurrency] =
       mockInitialCurrencyCode;
   });
 
   it('Should change the client headers defaults with the correct values when a country is set', () => {
     const store = mockStore(null, mockState, [setCountryCodeMiddleware()]);
 
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockInitialCultureCode,
     );
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockInitialCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockInitialCurrencyCode,
     );
 
@@ -51,13 +52,13 @@ describe('setCountryMiddleware', () => {
       },
     });
 
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockCultureCode,
     );
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockCurrencyCode,
     );
   });
@@ -70,13 +71,13 @@ describe('setCountryMiddleware', () => {
       setCountryCodeMiddleware(new Set([NEW_TYPE, NEW_ACTION_TYPE])),
     ]);
 
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockInitialCultureCode,
     );
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockInitialCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockInitialCurrencyCode,
     );
 
@@ -87,13 +88,13 @@ describe('setCountryMiddleware', () => {
       },
     });
 
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockCurrencyCode,
     );
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockCultureCode,
     );
   });
@@ -106,13 +107,13 @@ describe('setCountryMiddleware', () => {
       setCountryCodeMiddleware(new Set<string>([NEW_TYPE, NEW_ACTION_TYPE])),
     ]);
 
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockInitialCultureCode,
     );
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockInitialCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockInitialCurrencyCode,
     );
 
@@ -123,13 +124,13 @@ describe('setCountryMiddleware', () => {
       },
     });
 
-    expect(client.defaults.headers.common[headers.FF_COUNTRY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCountry]).toEqual(
       mockCountryCode,
     );
-    expect(client.defaults.headers.common[headers.FF_CURRENCY]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.FFCurrency]).toEqual(
       mockCurrencyCode,
     );
-    expect(client.defaults.headers.common[headers.ACCEPT_LANGUAGE]).toEqual(
+    expect(client.defaults.headers.common[HttpHeaders.AcceptLanguage]).toEqual(
       mockCultureCode,
     );
   });

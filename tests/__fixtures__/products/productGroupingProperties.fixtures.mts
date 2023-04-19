@@ -1,8 +1,8 @@
-import { VariationPropertyType } from '@farfetch/blackout-client';
+import { ProductGroupingVariationPropertyType } from '@farfetch/blackout-client';
 
 export const mockProductGroupingProperties = [
   {
-    type: VariationPropertyType.Color,
+    type: ProductGroupingVariationPropertyType.Color,
     values: [
       {
         id: 'fe8d9082-ba8b-4648-ab12-756244551c40',
@@ -514,7 +514,7 @@ export const mockProductGroupingProperties = [
 
 export const mockProductGroupingPropertiesAdapted = [
   {
-    type: VariationPropertyType.Color,
+    type: ProductGroupingVariationPropertyType.Color,
     values: [
       {
         id: 'fe8d9082-ba8b-4648-ab12-756244551c40',

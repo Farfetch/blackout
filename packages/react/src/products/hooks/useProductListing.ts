@@ -13,14 +13,19 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import {
-  isSet,
   ProductListingType,
   type Slug,
   type UseProductListingOptions,
+  type UseProductListingTypeSetOptions,
 } from './types/index.js';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
+
+const isUseProductListingTypeSetOptions = (
+  options: UseProductListingOptions,
+): options is UseProductListingTypeSetOptions =>
+  options.type === ProductListingType.Set;
 
 const useProductListing = (
   slug: Slug,
@@ -34,7 +39,7 @@ const useProductListing = (
     enableAutoFetch = true,
   } = options;
 
-  const isSetPage = isSet(options);
+  const isSetPage = isUseProductListingTypeSetOptions(options);
   const productListingHash = generateProductListingHash(slug, query, {
     isSet: isSetPage,
   });

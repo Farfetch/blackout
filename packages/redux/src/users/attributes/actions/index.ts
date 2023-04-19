@@ -1,4 +1,4 @@
-export { default as createUserAttributes } from './createUserAttributes.js';
+export { default as createUserAttribute } from './createUserAttribute.js';
 export { default as fetchUserAttribute } from './fetchUserAttribute.js';
 export { default as fetchUserAttributes } from './fetchUserAttributes.js';
 export { default as removeUserAttribute } from './removeUserAttribute.js';

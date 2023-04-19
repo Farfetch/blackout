@@ -1,5 +1,5 @@
 import {
-  AttributeType,
+  ProductVariantAttributeType,
   type BlackoutError,
   PurchaseChannel,
   toBlackoutError,
@@ -297,7 +297,7 @@ export const mockResponse = {
     {
       attributes: [
         {
-          type: AttributeType.SizeDescription,
+          type: ProductVariantAttributeType.SizeDescription,
           value: 'M',
           description: 'Size',
         },
@@ -365,7 +365,7 @@ export const mockResponse = {
           id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
           attributes: [
             {
-              type: AttributeType.Size,
+              type: ProductVariantAttributeType.Size,
               value: 'string',
               description: 'string',
             },

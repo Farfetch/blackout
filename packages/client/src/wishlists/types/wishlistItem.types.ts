@@ -1,5 +1,9 @@
-import type { Attribute, Color, ProductImageGroup } from '../../index.js';
 import type { Brand } from '../../brands/types/index.js';
+import type {
+  Color,
+  ProductImageGroup,
+  ProductVariantAttribute,
+} from '../../index.js';
 import type { Label } from '../../types/items/label.types.js';
 import type {
   Price,
@@ -10,7 +14,7 @@ import type {
 import type { ProductCategory } from '../../categories/types/index.js';
 
 export type WishlistItem = {
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   brandId: Brand['id'];
   brandName: Brand['name'];
   categories: ProductCategory[];

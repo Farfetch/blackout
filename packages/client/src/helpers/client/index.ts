@@ -1,14 +1,14 @@
-import * as headers from './headers.js';
 import {
   adaptError,
   isBlackoutErrorType,
   toBlackoutError,
 } from './formatError.js';
 import { configApiBlackAndWhite } from './configs.js';
+import { HttpHeaders } from './httpHeaders.js';
 
 export {
   configApiBlackAndWhite,
-  headers,
+  HttpHeaders,
   isBlackoutErrorType,
   toBlackoutError,
   adaptError,
