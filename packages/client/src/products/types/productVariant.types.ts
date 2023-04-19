@@ -1,11 +1,11 @@
-import type { Attribute, PurchaseChannel } from '../../types/index.js';
+import {
+  type Attribute,
+  SaleIntent as PublicationFeatureCode,
+  type PurchaseChannel,
+} from '../../types/index.js';
 import type { Price } from './price.types.js';
 
-export enum PublicationFeatureCode {
-  IMMEDIATE_FULFILMENT = 'IMMEDIATE_FULFILMENT',
-  PREORDER = 'PREORDER',
-  BACKORDER = 'BACKORDER',
-}
+export { PublicationFeatureCode };
 
 export type PublicationFeature = {
   /**

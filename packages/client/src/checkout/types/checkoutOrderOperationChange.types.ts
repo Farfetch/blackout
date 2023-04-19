@@ -99,6 +99,15 @@ type ChangeTypeTotalDiscountChanged = {
   oldValue?: OperationChange['oldValue'];
 };
 
+type ChangeTypeSelectedSaleIntentChanged = {
+  changeType: 'SelectedSaleIntentChanged';
+  productId?: OperationChange['productId'];
+  variantId?: OperationChange['variantId'];
+  itemId?: OperationChange['itemId'];
+  oldValue?: OperationChange['oldValue'];
+  newValue?: OperationChange['newValue'];
+};
+
 export type CheckoutOrderOperationChange =
   | ChangeTypeItemDiscountChanged
   | ChangeTypeItemIsUnavailable
@@ -110,4 +119,5 @@ export type CheckoutOrderOperationChange =
   | ChangeTypePromotionNotApplied
   | ChangeTypeShippingCostChanged
   | ChangeTypeShippingFlatRateEligibilityChanged
-  | ChangeTypeTotalDiscountChanged;
+  | ChangeTypeTotalDiscountChanged
+  | ChangeTypeSelectedSaleIntentChanged;
