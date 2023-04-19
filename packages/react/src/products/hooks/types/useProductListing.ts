@@ -18,20 +18,18 @@ export interface UseProductListingCommonOptions {
   fetchConfig?: Config;
 }
 
-export interface UseProductListingList extends UseProductListingCommonOptions {
+export interface UseProductListingTypeListingOptions
+  extends UseProductListingCommonOptions {
   type?: ProductListingType.Listing;
   query?: GetProductListingQuery;
 }
 
-export interface UseProductListingSet extends UseProductListingCommonOptions {
+export interface UseProductListingTypeSetOptions
+  extends UseProductListingCommonOptions {
   type?: ProductListingType.Set;
   query?: GetProductSetQuery;
 }
 
 export type UseProductListingOptions =
-  | UseProductListingList
-  | UseProductListingSet;
-
-export const isSet = (
-  options: UseProductListingOptions,
-): options is UseProductListingSet => options.type === ProductListingType.Set;
+  | UseProductListingTypeListingOptions
+  | UseProductListingTypeSetOptions;

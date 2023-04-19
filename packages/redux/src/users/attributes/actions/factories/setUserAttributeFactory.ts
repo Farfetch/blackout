@@ -3,6 +3,7 @@ import {
   type Config,
   type PutUserAttribute,
   toBlackoutError,
+  type User,
   type UserAttributeData,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -17,7 +18,7 @@ import type { Dispatch } from 'redux';
 const setUserAttributeFactory =
   (putUserAttribute: PutUserAttribute) =>
   (
-    userId: number,
+    userId: User['id'],
     attributeId: string,
     data: UserAttributeData,
     config?: Config,

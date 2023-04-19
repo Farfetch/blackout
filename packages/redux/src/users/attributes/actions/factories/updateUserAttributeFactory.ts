@@ -4,6 +4,7 @@ import {
   type PatchUserAttribute,
   type PatchUserAttributeData,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -17,7 +18,7 @@ import type { Dispatch } from 'redux';
 const updateUserAttributeFactory =
   (patchUserAttribute: PatchUserAttribute) =>
   (
-    userId: number,
+    userId: User['id'],
     attributeId: string,
     data: PatchUserAttributeData[],
     config?: Config,

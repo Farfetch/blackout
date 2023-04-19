@@ -27,7 +27,7 @@ export type ProductSummaryPrice = {
   promotionPercentage: number;
 };
 
-enum ProductPriceType {
+enum ProductSummaryTypedPriceType {
   Min,
   Max,
 }
@@ -42,7 +42,7 @@ export type ProductSummaryTypedPrice = {
   priceWithoutDiscount: number;
   promotionPercentage: number;
   promotionType: string;
-  type: ProductPriceType;
+  type: ProductSummaryTypedPriceType;
   typeDescription: string;
 };
 

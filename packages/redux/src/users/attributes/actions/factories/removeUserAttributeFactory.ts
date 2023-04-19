@@ -3,6 +3,7 @@ import {
   type Config,
   type DeleteUserAttribute,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -15,7 +16,7 @@ import type { Dispatch } from 'redux';
  */
 const removeUserAttributeFactory =
   (deleteUserAttribute: DeleteUserAttribute) =>
-  (userId: number, attributeId: string, config?: Config) =>
+  (userId: User['id'], attributeId: string, config?: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({

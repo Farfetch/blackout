@@ -1,13 +1,13 @@
 import * as checkoutClient from '../index.js';
 import {
-  AttributeType,
   type CheckoutOrderDetails,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
-  CreationChannelLegacy,
   CustomerTypeLegacy,
   DeliveryWindowType,
   GenderCode,
+  OrderItemCreationChannelLegacy,
+  ProductVariantAttributeType,
   PurchaseChannel,
   ShippingCostType,
   ShippingMode,
@@ -112,7 +112,7 @@ describe('checkout client', () => {
             {
               attributes: [
                 {
-                  type: AttributeType.Size,
+                  type: ProductVariantAttributeType.Size,
                   value: 'string',
                   description: 'string',
                 },
@@ -120,7 +120,7 @@ describe('checkout client', () => {
               brandName: 'string',
               brandId: 0,
               checkoutOrderId: 0,
-              creationChannel: CreationChannelLegacy.Catalog,
+              creationChannel: OrderItemCreationChannelLegacy.Catalog,
               id: 0,
               images: {
                 images: [
@@ -166,7 +166,7 @@ describe('checkout client', () => {
                   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
                   attributes: [
                     {
-                      type: AttributeType.Size,
+                      type: ProductVariantAttributeType.Size,
                       value: 'string',
                       description: 'string',
                     },

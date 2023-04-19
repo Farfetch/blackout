@@ -1,7 +1,7 @@
 import type { DigitalAsset } from './common.types.js';
 import type { PagedResponse } from '../../types/index.js';
 
-export enum VariationPropertyType {
+export enum ProductGroupingVariationPropertyType {
   Volume = 'Volume',
   Color = 'COLOR',
 }
@@ -16,7 +16,7 @@ export type ProductGroupingEntry = {
   digitalAssets: DigitalAsset[];
   variationProperties: Array<{
     // This is how the API returns the types
-    type: VariationPropertyType;
+    type: ProductGroupingVariationPropertyType;
     property: {
       id: string;
       value: string;

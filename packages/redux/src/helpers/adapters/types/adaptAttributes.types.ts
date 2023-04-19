@@ -1,4 +1,4 @@
-import type { Attribute, Size } from '@farfetch/blackout-client';
+import type { ProductVariantAttribute, Size } from '@farfetch/blackout-client';
 
 export type AttributesAdapted =
   | {
@@ -12,6 +12,6 @@ export type AttributesAdapted =
   | Record<string, never>;
 
 export type AdaptAttributes = (
-  attributes: Attribute[],
+  attributes: ProductVariantAttribute[],
   sizes?: Size[],
 ) => AttributesAdapted;

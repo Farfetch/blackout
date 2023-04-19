@@ -4,6 +4,7 @@ import {
   type PostUserPersonalId,
   type PostUserPersonalIdData,
   toBlackoutError,
+  type User,
   type UserPersonalIdPartial,
 } from '@farfetch/blackout-client';
 import type { CreateUserPersonalIdAction } from '../../types/actions.types.js';
@@ -18,7 +19,7 @@ import type { Dispatch } from 'redux';
  */
 const createUserPersonalIdsFactory =
   (postUserPersonalIds: PostUserPersonalId) =>
-  (userId: number, data: PostUserPersonalIdData, config: Config) =>
+  (userId: User['id'], data: PostUserPersonalIdData, config: Config) =>
   async (
     dispatch: Dispatch<CreateUserPersonalIdAction>,
   ): Promise<UserPersonalIdPartial> => {

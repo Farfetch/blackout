@@ -4,16 +4,16 @@ import {
   adaptPrice,
   adaptProductImages,
 } from '../../helpers/adapters/index.js';
+import { defaultTo } from 'lodash-es';
 import {
-  CreationChannel,
-  CreationChannelLegacy,
   MerchantOrderStatus,
   MerchantOrderStatusLegacy,
+  OrderItemCreationChannel,
+  OrderItemCreationChannelLegacy,
   OrderItemStatus,
   OrderItemStatusLegacy,
   ProductType,
 } from '@farfetch/blackout-client';
-import { defaultTo } from 'lodash-es';
 import { schema } from 'normalizr';
 import brand from './brand.js';
 import category from './category.js';
@@ -77,12 +77,13 @@ export default new schema.Entity(
       // order (i.e. when using the get guest order legacy endpoint)
       // This will make it easier to work with those properties by the consumer.
       if (typeof orderItem.creationChannel === 'number') {
-        const creationChannelKey = CreationChannelLegacy[
+        const creationChannelKey = OrderItemCreationChannelLegacy[
           orderItem.creationChannel
-        ] as keyof typeof CreationChannelLegacy | undefined;
+        ] as keyof typeof OrderItemCreationChannelLegacy | undefined;
 
         if (creationChannelKey) {
-          orderItem.creationChannel = CreationChannel[creationChannelKey];
+          orderItem.creationChannel =
+            OrderItemCreationChannel[creationChannelKey];
         }
       }
 

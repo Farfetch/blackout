@@ -3,6 +3,7 @@ import {
   type Config,
   type DeleteUserPersonalId,
   toBlackoutError,
+  type User,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 
@@ -15,7 +16,7 @@ import type { Dispatch } from 'redux';
  */
 const removeUserPersonalIdFactory =
   (deleteUserPersonalId: DeleteUserPersonalId) =>
-  (userId: number, personalId: string, config: Config) =>
+  (userId: User['id'], personalId: string, config: Config) =>
   async (dispatch: Dispatch): Promise<number> => {
     try {
       dispatch({

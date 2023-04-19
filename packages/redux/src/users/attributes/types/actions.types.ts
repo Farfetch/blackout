@@ -29,16 +29,16 @@ export type FetchUserAttributesAction =
 //
 export interface CreateUserAttributesFailureAction extends Action {
   payload: { error: BlackoutError };
-  type: typeof actionTypes.CREATE_USER_ATTRIBUTES_FAILURE;
+  type: typeof actionTypes.CREATE_USER_ATTRIBUTE_FAILURE;
 }
 
 export interface CreateUserAttributesRequestAction extends Action {
-  type: typeof actionTypes.CREATE_USER_ATTRIBUTES_REQUEST;
+  type: typeof actionTypes.CREATE_USER_ATTRIBUTE_REQUEST;
 }
 
 export interface CreateUserAttributesSuccessAction extends Action {
   payload: UserAttribute;
-  type: typeof actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS;
+  type: typeof actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS;
 }
 
 export type CreateUserAttributesAction =

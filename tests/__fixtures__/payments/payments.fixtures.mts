@@ -1,9 +1,9 @@
 import {
   type BlackoutError,
   ChargeStatus,
-  Classification,
-  DeclineCode,
-  LineItemsType,
+  PaymentIntentLineItemClassification,
+  ChargeDeclineCode,
+  PaymentIntentLineItemType,
   type PaymentInstrument,
   PaymentInstrumentStatus,
   PaymentIntentStatus,
@@ -88,7 +88,7 @@ export const mockCharge = {
       {
         id: '',
         operationStatus: ChargeStatus.Processing,
-        declineCode: DeclineCode.NotApplicable,
+        declineCode: ChargeDeclineCode.NotApplicable,
       },
     ],
   },
@@ -173,10 +173,10 @@ export const mockFetchIntentResponse = {
     {
       id: 'string',
       productId: 'string',
-      classification: Classification.Standard,
+      classification: PaymentIntentLineItemClassification.Standard,
       unitValue: 0,
       formattedUnitValue: 'string',
-      type: LineItemsType.Item,
+      type: PaymentIntentLineItemType.Item,
       quantity: 0,
       totalExtraTaxes: 0,
       formattedTotalExtraTaxes: 'string',
@@ -340,7 +340,7 @@ export const mockFetchPaymentIntentChargeResponse = {
     {
       id: '00000000-0000-0000-0000-000000000000',
       operationStatus: ChargeStatus.Processing,
-      declineCode: DeclineCode.NotApplicable,
+      declineCode: ChargeDeclineCode.NotApplicable,
     },
   ],
 };

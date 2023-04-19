@@ -3,6 +3,7 @@ import {
   type Config,
   type GetUserPersonalId,
   toBlackoutError,
+  type User,
   type UserPersonalId,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -16,7 +17,7 @@ import type { Dispatch } from 'redux';
  */
 const fetchUserPersonalIdFactory =
   (getUserPersonalId: GetUserPersonalId) =>
-  (userId: number, personalId: string, config: Config) =>
+  (userId: User['id'], personalId: string, config: Config) =>
   async (dispatch: Dispatch): Promise<UserPersonalId> => {
     try {
       dispatch({

@@ -1,4 +1,4 @@
-import * as headers from './headers.js';
+import { HttpHeaders } from './httpHeaders.js';
 import axios from 'axios';
 
 /**
@@ -7,6 +7,6 @@ import axios from 'axios';
 export default axios.create({
   baseURL: '/api',
   headers: {
-    [headers.CONTENT_TYPE]: 'application/json',
+    [HttpHeaders.ContentType]: 'application/json',
   },
 });

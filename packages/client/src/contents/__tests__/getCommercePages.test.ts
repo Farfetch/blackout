@@ -13,7 +13,7 @@ describe('getCommercePages()', () => {
 
   const spy = jest.spyOn(client, 'get');
   const query = {
-    type: CommercePagesType.PRODUCT,
+    type: CommercePagesType.Product,
     id: 100200,
   };
 

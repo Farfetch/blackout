@@ -9,13 +9,13 @@ export enum PaymentIntentStatus {
   Refunded = 'Refunded',
 }
 
-export enum Classification {
+export enum PaymentIntentLineItemClassification {
   Standard,
   Domestic,
   International,
 }
 
-export enum LineItemsType {
+export enum PaymentIntentLineItemType {
   Item,
   Shipping,
 }
@@ -33,8 +33,8 @@ export type PaymentIntent = {
   lineItems: {
     id: string;
     productId: string;
-    classification: Classification;
-    type: LineItemsType;
+    classification: PaymentIntentLineItemClassification;
+    type: PaymentIntentLineItemType;
     unitValue: number;
     formattedUnitValue: string;
     quantity: number;

@@ -1,6 +1,6 @@
 import {
   UserPersonalIdImageSide,
-  VerifyLevel,
+  UserPersonalIdVerifyLevel,
 } from '@farfetch/blackout-client';
 
 export const mockPersonalIdResponse = {
@@ -11,7 +11,7 @@ export const mockPersonalIdResponse = {
   isDefault: true,
   maskedIdNumber: '',
   maskedName: '',
-  verifyLevel: VerifyLevel.VALID,
+  verifyLevel: UserPersonalIdVerifyLevel.Valid,
 };
 
 export const mockGetUserDefaultPersonalIdResponse = {
@@ -22,7 +22,7 @@ export const mockGetUserDefaultPersonalIdResponse = {
   isDefault: true,
   maskedIdNumber: 'string',
   maskedName: 'string',
-  verifyLevel: VerifyLevel.VALID,
+  verifyLevel: UserPersonalIdVerifyLevel.Valid,
 };
 
 export const mockGetPersonalIdsResponse = [
@@ -34,7 +34,7 @@ export const mockGetPersonalIdsResponse = [
     isDefault: true,
     maskedIdNumber: 'string',
     maskedName: 'string',
-    verifyLevel: VerifyLevel.VALID,
+    verifyLevel: UserPersonalIdVerifyLevel.Valid,
   },
 ];
 
@@ -55,7 +55,7 @@ export const mockPutDefaultPersonalIdResponse = {
   isDefault: true,
   maskedIdNumber: 'string',
   maskedName: 'string',
-  verifyLevel: VerifyLevel.VALID,
+  verifyLevel: UserPersonalIdVerifyLevel.Valid,
 };
 
 export const mockPatchPersonalIdResponse = {
@@ -69,7 +69,7 @@ export const mockPatchPersonalIdResponse = {
 
 export const mockPostPersonalIdImageResponse = {
   id: '',
-  side: UserPersonalIdImageSide.FRONT,
+  side: UserPersonalIdImageSide.Front,
 };
 
 export const mockPostPersonalIdsData = {

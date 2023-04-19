@@ -1,4 +1,4 @@
-import type { Attribute } from '../../types/index.js';
+import type { ProductVariantAttribute } from '../../types/index.js';
 
 export type FullMeasurement = {
   description: string;
@@ -10,6 +10,6 @@ export type FullMeasurement = {
 };
 
 export type ProductVariantMeasurement = {
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   measurements: FullMeasurement[];
 };

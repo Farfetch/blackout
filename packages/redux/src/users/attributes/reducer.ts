@@ -13,15 +13,15 @@ const isLoading = (
   action: AnyAction,
 ): T.UserAttributesState['isLoading'] => {
   switch (action.type) {
-    case actionTypes.CREATE_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.CREATE_USER_ATTRIBUTE_REQUEST:
     case actionTypes.FETCH_USER_ATTRIBUTES_REQUEST:
     case actionTypes.FETCH_USER_ATTRIBUTE_REQUEST:
     case actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST:
     case actionTypes.SET_USER_ATTRIBUTE_REQUEST:
     case actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST:
       return true;
-    case actionTypes.CREATE_USER_ATTRIBUTES_FAILURE:
-    case actionTypes.CREATE_USER_ATTRIBUTES_SUCCESS:
+    case actionTypes.CREATE_USER_ATTRIBUTE_FAILURE:
+    case actionTypes.CREATE_USER_ATTRIBUTE_SUCCESS:
     case actionTypes.FETCH_USER_ATTRIBUTES_FAILURE:
     case actionTypes.FETCH_USER_ATTRIBUTES_SUCCESS:
     case actionTypes.FETCH_USER_ATTRIBUTE_FAILURE:
@@ -51,14 +51,14 @@ const error = (
   action: AnyAction,
 ): T.UserAttributesState['error'] => {
   switch (action.type) {
-    case actionTypes.CREATE_USER_ATTRIBUTES_REQUEST:
+    case actionTypes.CREATE_USER_ATTRIBUTE_REQUEST:
     case actionTypes.FETCH_USER_ATTRIBUTES_REQUEST:
     case actionTypes.FETCH_USER_ATTRIBUTE_REQUEST:
     case actionTypes.REMOVE_USER_ATTRIBUTE_REQUEST:
     case actionTypes.SET_USER_ATTRIBUTE_REQUEST:
     case actionTypes.UPDATE_USER_ATTRIBUTE_REQUEST:
       return INITIAL_STATE.error;
-    case actionTypes.CREATE_USER_ATTRIBUTES_FAILURE:
+    case actionTypes.CREATE_USER_ATTRIBUTE_FAILURE:
     case actionTypes.FETCH_USER_ATTRIBUTES_FAILURE:
     case actionTypes.FETCH_USER_ATTRIBUTE_FAILURE:
     case actionTypes.REMOVE_USER_ATTRIBUTE_FAILURE:

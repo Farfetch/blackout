@@ -1,5 +1,5 @@
 import {
-  type Attribute,
+  type ProductVariantAttribute,
   SaleIntent as PublicationFeatureCode,
   type PurchaseChannel,
 } from '../../types/index.js';
@@ -17,7 +17,7 @@ export type PublicationFeature = {
 
 export type ProductVariant = {
   id: string;
-  attributes: Attribute[];
+  attributes: ProductVariantAttribute[];
   availableAt: number[];
   merchantId: number;
   price: Price;
