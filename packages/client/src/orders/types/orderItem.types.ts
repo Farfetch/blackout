@@ -85,6 +85,7 @@ export type OrderItem = {
   shortDescription: string;
   productType: keyof typeof ProductType;
   selectedSaleIntent?: SelectedSaleIntent | string;
+  metadata?: Record<string, string>;
 };
 
 // This type is for the `getGuestOrderLegacy` client
