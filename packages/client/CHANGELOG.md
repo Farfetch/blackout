@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.251](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.250...@farfetch/blackout-client@2.0.0-next.251) (2023-04-20)
+
+### Bug Fixes
+
+- fix unit tests failing ([f729a61](https://github.com/Farfetch/blackout/commit/f729a61d2836915b1c9930becd701e1bbce1da95))
+
 # [2.0.0-next.250](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.249...@farfetch/blackout-client@2.0.0-next.250) (2023-04-14)
 
 **Note:** Version bump only for package @farfetch/blackout-client
