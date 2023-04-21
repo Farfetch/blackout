@@ -155,7 +155,7 @@ export type Variation = {
     id: number;
     isDefault: boolean;
     order: number;
-    varianId: string;
+    variantId: string;
   }>;
   values: Array<{
     property: {
