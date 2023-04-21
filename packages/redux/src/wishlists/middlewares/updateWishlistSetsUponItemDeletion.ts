@@ -30,9 +30,10 @@ const updateWishlistSetsUponItemDeletion: Middleware =
     if (action.type === actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS) {
       const user = getUser(getState());
       const isGuestUser = getUserIsGuest(user);
+      const userWishlistId = user?.wishlistId;
 
-      if (!isGuestUser) {
-        dispatch(fetchWishlistSets());
+      if (!isGuestUser && userWishlistId) {
+        dispatch(fetchWishlistSets(userWishlistId));
       }
     }
 

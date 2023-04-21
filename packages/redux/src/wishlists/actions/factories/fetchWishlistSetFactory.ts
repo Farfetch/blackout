@@ -3,14 +3,13 @@ import {
   type Config,
   type GetWishlistSet,
   toBlackoutError,
+  type Wishlist,
   type WishlistSet,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
 import wishlistSetSchema from '../../../entities/schemas/wishlistSet.js';
 import type { Dispatch } from 'redux';
 import type { FetchWishlistSetAction } from '../../types/index.js';
-import type { StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to get information
@@ -22,21 +21,17 @@ import type { StoreState } from '../../../types/index.js';
  */
 const fetchWishlistSetFactory =
   (getWishlistSet: GetWishlistSet) =>
-  (wishlistSetId: WishlistSet['setId'], config?: Config) =>
+  (
+    wishlistId: Wishlist['id'],
+    wishlistSetId: WishlistSet['setId'],
+    config?: Config,
+  ) =>
   async (
     dispatch: Dispatch<FetchWishlistSetAction>,
-    getState: () => StoreState,
   ): Promise<WishlistSet | undefined> => {
     try {
-      const state = getState();
-      const wishlistId = getWishlistId(state);
-
       if (!wishlistSetId) {
         throw new Error('No wishlist set id is set');
-      }
-
-      if (!wishlistId) {
-        throw new Error('No wishlist id is set');
       }
 
       dispatch({

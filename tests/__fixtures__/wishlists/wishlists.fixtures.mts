@@ -1,3 +1,4 @@
+import { mockAuthenticatedUserEntities } from '../users/users.fixtures.mjs';
 import { mockProductsEntity } from '../products/index.mjs';
 import type { ProductEntity, StoreState } from '@farfetch/blackout-redux';
 import type { WishlistItem } from '@farfetch/blackout-client';
@@ -187,6 +188,7 @@ export const mockWishlistState: StoreState = {
         ],
       },
     },
+    ...mockAuthenticatedUserEntities,
   },
 };
 
@@ -213,7 +215,17 @@ export const mockWishlistInitialState: StoreState = {
       },
     },
   },
-  entities: {},
+  entities: {
+    ...mockAuthenticatedUserEntities,
+  },
+};
+
+export const mockWishlistInitialStateWithoutUser: StoreState = {
+  ...mockWishlistInitialState,
+  entities: {
+    ...mockWishlistInitialState.entities,
+    user: undefined,
+  },
 };
 
 export const expectedWishlistSetDataDenormalized = {

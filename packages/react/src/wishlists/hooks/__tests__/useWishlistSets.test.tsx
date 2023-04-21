@@ -11,6 +11,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import {
   expectedWishlistSetsDataDenormalized,
   mockWishlistInitialState,
+  mockWishlistInitialStateWithoutUser,
   mockWishlistSetId,
   mockWishlistSetPatchData,
   mockWishlistState,
@@ -183,14 +184,23 @@ describe('useWishlistSets', () => {
 
   describe('options', () => {
     describe('enableAutoFetch', () => {
-      it('should call `fetch` action if `enableAutoFetch` option is true', () => {
+      it('should call `fetch` action if `enableAutoFetch` option is true and user is set', () => {
         getRenderedHook(mockWishlistInitialState);
 
-        expect(fetchWishlistSets).toHaveBeenCalledWith(undefined);
+        expect(fetchWishlistSets).toHaveBeenCalledWith(
+          mockWishlistInitialState.entities?.user?.wishlistId,
+          undefined,
+        );
       });
 
       it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
         getRenderedHook(mockWishlistInitialState, { enableAutoFetch: false });
+
+        expect(fetchWishlistSets).not.toHaveBeenCalled();
+      });
+
+      it('should not call `fetch` action if `enableAutoFetch` option is true but there is no user set', () => {
+        getRenderedHook(mockWishlistInitialStateWithoutUser);
 
         expect(fetchWishlistSets).not.toHaveBeenCalled();
       });
@@ -220,30 +230,63 @@ describe('useWishlistSets', () => {
 
   describe('actions', () => {
     describe('add', () => {
-      it('should call `addWishlistSet` action', () => {
+      it('should call `addWishlistSet` action when user is set', () => {
         const {
           actions: { add },
         } = getRenderedHook();
 
         add({ name: 'test', description: '', wishlistSetItems: [] });
 
-        expect(addWishlistSet).toHaveBeenCalledWith({
-          name: 'test',
-          description: '',
-          wishlistSetItems: [],
-        });
+        expect(addWishlistSet).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
+          {
+            name: 'test',
+            description: '',
+            wishlistSetItems: [],
+          },
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          actions: { add },
+        } = getRenderedHook(mockWishlistInitialStateWithoutUser);
+
+        await expect(() =>
+          add({ name: 'test', description: '', wishlistSetItems: [] }),
+        ).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(addWishlistSet).not.toHaveBeenCalled();
       });
     });
 
     describe('fetch', () => {
-      it('should call `fetchWishlistSets` action', () => {
+      it('should call `fetchWishlistSets` action when user is set', () => {
         const {
           actions: { fetch },
-        } = getRenderedHook();
+        } = getRenderedHook(mockWishlistState, { enableAutoFetch: false });
 
         fetch();
 
-        expect(fetchWishlistSets).toHaveBeenCalled();
+        expect(fetchWishlistSets).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          actions: { fetch },
+        } = getRenderedHook(mockWishlistInitialStateWithoutUser);
+
+        await expect(() => fetch()).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(fetchWishlistSets).not.toHaveBeenCalled();
       });
     });
 
@@ -272,31 +315,65 @@ describe('useWishlistSets', () => {
     });
 
     describe('remove', () => {
-      it('should call `removeWishlistSet` action', () => {
+      it('should call `removeWishlistSet` action when user is set', () => {
         const {
           actions: { remove },
         } = getRenderedHook();
 
         remove(mockWishlistSetId);
 
-        expect(removeWishlistSet).toHaveBeenCalledWith(mockWishlistSetId);
+        expect(removeWishlistSet).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
+          mockWishlistSetId,
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          actions: { remove },
+        } = getRenderedHook(mockWishlistInitialStateWithoutUser);
+
+        await expect(() => remove(mockWishlistSetId)).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(removeWishlistSet).not.toHaveBeenCalled();
       });
     });
 
     describe('fetchWishlistSet', () => {
-      it('should call `fetchWishlistSet` action', () => {
+      it('should call `fetchWishlistSet` action when user is set', () => {
         const {
           actions: { fetchWishlistSet: fetchWishlistSetAction },
         } = getRenderedHook();
 
         fetchWishlistSetAction(mockWishlistSetId);
 
-        expect(fetchWishlistSet).toHaveBeenCalledWith(mockWishlistSetId);
+        expect(fetchWishlistSet).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
+          mockWishlistSetId,
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          actions: { fetchWishlistSet: fetchWishlistSetAction },
+        } = getRenderedHook(mockWishlistInitialStateWithoutUser);
+
+        await expect(() =>
+          fetchWishlistSetAction(mockWishlistSetId),
+        ).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(fetchWishlistSet).not.toHaveBeenCalled();
       });
     });
 
     describe('update', () => {
-      it('should call `updateWishlistSet` action', () => {
+      it('should call `updateWishlistSet` action when user is set', () => {
         const {
           actions: { update },
         } = getRenderedHook();
@@ -304,9 +381,26 @@ describe('useWishlistSets', () => {
         update(mockWishlistSetId, mockWishlistSetPatchData);
 
         expect(updateWishlistSet).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
           mockWishlistSetId,
           mockWishlistSetPatchData,
+          undefined,
+          undefined,
         );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          actions: { update },
+        } = getRenderedHook(mockWishlistInitialStateWithoutUser);
+
+        await expect(() =>
+          update(mockWishlistSetId, mockWishlistSetPatchData),
+        ).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(updateWishlistSet).not.toHaveBeenCalled();
       });
     });
   });

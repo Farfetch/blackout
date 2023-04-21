@@ -6,7 +6,7 @@ import {
   type Wishlist,
   type WishlistItem,
 } from '@farfetch/blackout-client';
-import { getWishlistId, getWishlistItem } from '../../selectors/index.js';
+import { getWishlistItem } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem.js';
 import type { Dispatch } from 'redux';
@@ -28,6 +28,7 @@ import type { WishlistItemDenormalized } from '../../../entities/types/index.js'
 const removeWishlistItemFactory =
   (deleteWishlistItem: DeleteWishlistItem) =>
   (
+    wishlistId: Wishlist['id'],
     wishlistItemId: WishlistItem['id'],
     metadata?: WishlistItemActionMetadata,
     config?: Config,
@@ -43,11 +44,6 @@ const removeWishlistItemFactory =
 
     try {
       const state = getState();
-      const wishlistId = getWishlistId(state);
-
-      if (!wishlistId) {
-        throw new Error('No wishlist id is set');
-      }
 
       wishlistItem = getWishlistItem(state, wishlistItemId);
 

@@ -5,9 +5,9 @@ import {
   type PatchWishlistSet,
   type PatchWishlistSetData,
   toBlackoutError,
+  type Wishlist,
   type WishlistSet,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors/index.js';
 import fetchWishlistSetFactory from './fetchWishlistSetFactory.js';
 import type {
   FetchWishlistSetAction,
@@ -29,6 +29,7 @@ import type { ThunkDispatch } from 'redux-thunk';
 const updateWishlistSetFactory =
   (patchWishlistSet: PatchWishlistSet, getWishlistSet: GetWishlistSet) =>
   (
+    wishlistId: Wishlist['id'],
     wishlistSetId: WishlistSet['setId'],
     data: PatchWishlistSetData,
     metadata?: WishlistSetActionMetadata,
@@ -40,16 +41,8 @@ const updateWishlistSetFactory =
       unknown,
       FetchWishlistSetAction | UpdateWishlistSetAction
     >,
-    getState: () => StoreState,
   ): Promise<WishlistSet | undefined> => {
     try {
-      const state = getState();
-      const wishlistId = getWishlistId(state);
-
-      if (!wishlistId) {
-        throw new Error('No wishlist id is set');
-      }
-
       dispatch({
         meta: { wishlistSetId },
         type: actionTypes.UPDATE_WISHLIST_SET_REQUEST,
@@ -65,7 +58,7 @@ const updateWishlistSetFactory =
       // Since the PATCH returns 204 (No Content), get the updated set
       const fetchWishlistSetAction = fetchWishlistSetFactory(getWishlistSet);
       const updatedResult = await dispatch(
-        fetchWishlistSetAction(wishlistSetId),
+        fetchWishlistSetAction(wishlistId, wishlistSetId),
       );
 
       return updatedResult;

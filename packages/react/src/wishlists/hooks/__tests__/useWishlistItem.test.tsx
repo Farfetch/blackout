@@ -127,7 +127,9 @@ describe('useWishlistItem', () => {
         remove();
 
         expect(removeWishlistItem).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
           mockWishlistItemId,
+          undefined,
           undefined,
         );
       });
@@ -165,8 +167,10 @@ describe('useWishlistItem', () => {
         update(mockWishlistItemPatchData);
 
         expect(updateWishlistItem).toHaveBeenCalledWith(
+          mockWishlistState.entities?.user?.wishlistId,
           mockWishlistItemId,
           mockWishlistItemPatchData,
+          undefined,
           undefined,
         );
       });

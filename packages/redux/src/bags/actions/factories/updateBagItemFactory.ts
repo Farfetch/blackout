@@ -1,22 +1,18 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
   type Bag,
+  type BagItem,
   type Config,
   type PatchBagItem,
   type PatchBagItemData,
   type PatchBagItemQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { getBagId } from '../../selectors.js';
 import { normalize } from 'normalizr';
 import bagItemSchema from '../../../entities/schemas/bagItem.js';
 import type { BagItemActionMetadata } from '../../types/index.js';
 import type { Dispatch } from 'redux';
-import type {
-  GetOptionsArgument,
-  Nullable,
-  StoreState,
-} from '../../../types/index.js';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to update a bag
@@ -29,7 +25,8 @@ import type {
 const updateBagItemFactory =
   (patchBagItem: PatchBagItem) =>
   (
-    bagItemId: number,
+    bagId: Bag['id'],
+    bagItemId: BagItem['id'],
     data: PatchBagItemData,
     query?: PatchBagItemQuery,
     metadata?: BagItemActionMetadata,
@@ -42,13 +39,7 @@ const updateBagItemFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    let bagId: Nullable<string> = null;
-
     try {
-      const state = getState();
-
-      bagId = getBagId(state);
-
       dispatch({
         meta: {
           ...metadata,

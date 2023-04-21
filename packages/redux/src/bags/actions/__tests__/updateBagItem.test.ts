@@ -54,6 +54,7 @@ describe('updateBagItem() action creator', () => {
     await expect(
       async () =>
         await updateBagItem(
+          mockBagId,
           mockBagItemId,
           mockBagItemData,
           undefined,
@@ -100,6 +101,7 @@ describe('updateBagItem() action creator', () => {
     (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     await updateBagItem(
+      mockBagId,
       mockBagItemId,
       mockBagItemData,
       undefined,
@@ -152,7 +154,7 @@ describe('updateBagItem() action creator', () => {
 
     (patchBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-    await updateBagItem(mockBagItemId, mockBagItemData)(
+    await updateBagItem(mockBagId, mockBagItemId, mockBagItemData)(
       store.dispatch,
       store.getState as () => StoreState,
       {} as GetOptionsArgument,

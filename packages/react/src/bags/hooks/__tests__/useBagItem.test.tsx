@@ -129,6 +129,7 @@ describe('useBagItem', () => {
       await remove(undefined, myConfig);
 
       expect(removeBagItem).toHaveBeenCalledWith(
+        mockState.entities.user.bagId,
         mockBagItemId,
         undefined,
         undefined,
@@ -153,6 +154,7 @@ describe('useBagItem', () => {
 
       expect(updateBagItem).toHaveBeenCalledTimes(1);
       expect(updateBagItem).toHaveBeenCalledWith(
+        mockState.entities.user.bagId,
         mockBagItemId,
         {
           authCode: undefined,

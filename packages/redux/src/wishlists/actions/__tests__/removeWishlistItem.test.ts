@@ -45,31 +45,6 @@ describe('removeWishlistItem() action creator', () => {
     store = wishlistMockStore(mockWishlistState);
   });
 
-  it('should throw an error if the wishlistId is not set on state', async () => {
-    store = wishlistMockStore({ wishlist: { id: null } });
-
-    await expect(
-      removeWishlistItem(mockWishlistItemId)(
-        store.dispatch,
-        store.getState as () => StoreState,
-        { getOptions },
-      ),
-    ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          type: actionTypes.REMOVE_WISHLIST_ITEM_FAILURE,
-          payload: {
-            error: expect.objectContaining({
-              message: 'No wishlist id is set',
-              code: '-1',
-            }),
-          },
-        }),
-      ]),
-    );
-  });
-
   it('should create the correct actions for when the remove wishlist item procedure fails', async () => {
     const expectedError = new Error('remove wishlist item error');
 
@@ -77,11 +52,11 @@ describe('removeWishlistItem() action creator', () => {
 
     await expect(
       async () =>
-        await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
-          store.dispatch,
-          store.getState as () => StoreState,
-          { getOptions },
-        ),
+        await removeWishlistItem(
+          mockWishlistId,
+          mockWishlistItemId,
+          wishlistItemMetadata,
+        )(store.dispatch, store.getState as () => StoreState, { getOptions }),
     ).rejects.toThrow(expectedError);
 
     expect(deleteWishlistItem).toHaveBeenCalledTimes(1);
@@ -116,13 +91,15 @@ describe('removeWishlistItem() action creator', () => {
       mockWishlistsResponse,
     );
 
-    await removeWishlistItem(mockWishlistItemId, wishlistItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).then(clientResult => {
-      expect(clientResult).toBe(mockWishlistsResponse);
-    });
+    await removeWishlistItem(
+      mockWishlistId,
+      mockWishlistItemId,
+      wishlistItemMetadata,
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
+        expect(clientResult).toBe(mockWishlistsResponse);
+      },
+    );
 
     const storeActions = store.getActions();
 
@@ -174,7 +151,7 @@ describe('removeWishlistItem() action creator', () => {
       mockWishlistsResponse,
     );
 
-    await removeWishlistItem(mockWishlistItemId)(
+    await removeWishlistItem(mockWishlistId, mockWishlistItemId)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
