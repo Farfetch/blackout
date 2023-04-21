@@ -1,13 +1,13 @@
 import { map } from 'lodash-es';
-import Component from '../../Component.js';
+import Component from '../../Component.jsx';
 import React, { type ReactElement } from 'react';
-import type { ComponentsList as ComponentsListType } from '../../../types/index.js';
+import type { ComponentList as ComponentListType } from '../../../types/index.js';
 
-const ComponentsList = ({
+const ComponentList = ({
   data: { components },
   location,
   viewportBreakpoint,
-}: ComponentsListType): ReactElement => (
+}: ComponentListType): ReactElement => (
   <>
     {map(components, (component, key) => (
       <Component
@@ -20,4 +20,4 @@ const ComponentsList = ({
   </>
 );
 
-export default ComponentsList;
+export default ComponentList;

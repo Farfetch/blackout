@@ -1,9 +1,11 @@
 import {
   AuthenticationConfigOption,
   type AuthenticationTokenManager,
+  type BlackoutError,
   deleteToken,
   type LoginData,
   postToken,
+  toBlackoutError,
   TokenKind,
   type UserToken,
 } from '@farfetch/blackout-client';
@@ -30,17 +32,11 @@ interface State {
 
 interface Action {
   type: string;
-  payload?: UserToken['data'] | Error;
+  payload?: UserToken['data'] | BlackoutError;
 }
 
-interface Error {
-  code: number;
-  message: string;
-  status: number;
-}
-
-export interface ErrorData {
-  causeError?: Error | UserToken['data'];
+interface ErrorData {
+  causeError?: BlackoutError | UserToken['data'];
   context: string;
 }
 
@@ -136,8 +132,14 @@ const useUserAuthState = ({
 
         return tokenData;
       } catch (e) {
-        dispatch({ type: ActionTypes.LoginFailed, payload: e as Error });
-        throw e;
+        const errorAsBlackoutError = toBlackoutError(e);
+
+        dispatch({
+          type: ActionTypes.LoginFailed,
+          payload: errorAsBlackoutError,
+        });
+
+        throw errorAsBlackoutError;
       }
     },
     [assertNotLoading, dispatch, tokenManager],
@@ -165,8 +167,14 @@ const useUserAuthState = ({
 
       dispatch({ type: ActionTypes.LogoutSucceeded });
     } catch (e) {
-      dispatch({ type: ActionTypes.LogoutFailed, payload: e as Error });
-      throw e;
+      const errorAsBlackoutError = toBlackoutError(e);
+
+      dispatch({
+        type: ActionTypes.LogoutFailed,
+        payload: errorAsBlackoutError,
+      });
+
+      throw errorAsBlackoutError;
     }
   }, [activeTokenData, assertNotLoading, dispatch]);
 

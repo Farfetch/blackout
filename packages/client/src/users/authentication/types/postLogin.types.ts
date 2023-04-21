@@ -1,11 +1,11 @@
 import type { Config } from '../../../types/index.js';
 import type { LoginResponse } from './login.types.js';
 
-export interface LoginData {
+export type LoginData = {
   username: string;
   password: string;
   rememberMe?: boolean;
-}
+};
 
 export type PostLogin = (
   data: LoginData,

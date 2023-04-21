@@ -1,7 +1,9 @@
 import {
   AuthenticationConfigOption,
+  type BlackoutError,
   getUser,
   type GuestUser,
+  toBlackoutError,
   type User,
 } from '@farfetch/blackout-client';
 import { noop } from 'lodash-es';
@@ -18,19 +20,13 @@ interface Props {
 
 interface State {
   isLoading: boolean;
-  error: Error | null;
+  error: BlackoutError | null;
   userData: User | GuestUser | null;
 }
 
 interface Action {
   type: string;
-  payload?: User | GuestUser | Error;
-}
-
-export interface Error {
-  code: number;
-  message: string;
-  status: number;
+  payload?: User | GuestUser | BlackoutError;
 }
 
 const ActionTypes = {
@@ -67,7 +63,7 @@ const reducer = (state: State, action: Action): State => {
     case ActionTypes.GetUserFailed: {
       return {
         ...state,
-        error: action.payload as Error,
+        error: action.payload as BlackoutError,
         isLoading: false,
       };
     }
@@ -146,11 +142,14 @@ const UserProfileProvider = ({
 
       return userData;
     } catch (error) {
+      const errorAsBlackoutError = toBlackoutError(error);
+
       dispatch({
         type: ActionTypes.GetUserFailed,
-        payload: error as User | GuestUser | Error | undefined,
+        payload: errorAsBlackoutError,
       });
-      throw error;
+
+      throw errorAsBlackoutError;
     }
   }, [dispatch, tokenManager]);
 

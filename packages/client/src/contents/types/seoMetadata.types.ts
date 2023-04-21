@@ -46,11 +46,11 @@ export type GetSEOMetadataQuery = {
   param?: Record<string, string | number>;
 };
 
-export interface HrefLangs {
+export type HrefLangs = {
   rel?: string;
   href: string;
   hrefLang?: string;
-}
+};
 
 export type Metatag = {
   tagName: string;

@@ -1,7 +1,7 @@
 import type { ComponentType } from '@farfetch/blackout-client';
 import type { DefaultMedia } from './base.types.js';
 
-export interface ComponentProps {
+export type ComponentProps = {
   component: ComponentType;
   location?: {
     query?: Record<string, string>;
@@ -9,9 +9,9 @@ export interface ComponentProps {
   viewportBreakpoint?: string;
   media?: DefaultMedia;
   children?: React.ReactNode;
-}
+};
 
-export interface ComponentsList {
+export type ComponentList = {
   data: {
     components: Array<ComponentType>;
   };
@@ -19,4 +19,4 @@ export interface ComponentsList {
     query?: Record<string, string>;
   };
   viewportBreakpoint: string;
-}
+};

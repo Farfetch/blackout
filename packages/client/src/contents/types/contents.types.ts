@@ -33,7 +33,7 @@ export type QuerySearchContents = {
   metadataCustom?: string;
 };
 
-export interface ComponentType {
+export type ComponentType = {
   type: string;
   components?: ComponentType[];
   fields?: Record<string, unknown>;
@@ -43,9 +43,9 @@ export interface ComponentType {
   hex?: string;
   name?: string;
   displayOptions?: Record<string, string>;
-}
+};
 
-export interface ContentMetadata {
+export type ContentMetadata = {
   custom?: {
     id: string;
     gender: string;
@@ -54,9 +54,9 @@ export interface ContentMetadata {
     category: string;
     eventDate?: string;
   };
-}
+};
 
-export interface ContentEntry<T = ComponentType[]> {
+export type ContentEntry<T = ComponentType[]> = {
   publicationId: string;
   publicationDate: string;
   versionId: string;
@@ -68,7 +68,7 @@ export interface ContentEntry<T = ComponentType[]> {
   code: string;
   ranking?: number;
   components: T;
-}
+};
 
 export type Contents = PagedResponse<ContentEntry>;
 
