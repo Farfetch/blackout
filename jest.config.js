@@ -51,7 +51,7 @@ module.exports = {
   ],
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.m?js$': '$1', // This is to support the resolution algorithm in jest which does not use extensions
+    '^(\\.{1,2}/.*)\\.m?jsx?$': '$1', // This is to support the resolution algorithm in jest which does not use extensions
     '^lodash-es$': 'lodash', // Map lodash-es to lodash so we do not need to transpile it
     '^@farfetch/blackout-analytics(.*)$': '<rootDir>/packages/analytics/src$1',
     '^@farfetch/blackout-client/src(.*)$': '<rootDir>/packages/client/src$1',

@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios';
 import type { Config } from '../../../types/index.js';
 
-export interface PostPasswordRecoverData {
+export type PostPasswordRecoverData = {
   username: string;
-}
+};
 
 export type PostPasswordRecover = (
   data: PostPasswordRecoverData,
