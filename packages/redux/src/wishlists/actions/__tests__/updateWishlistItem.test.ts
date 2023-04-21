@@ -46,31 +46,6 @@ describe('updateWishlistItem()', () => {
     store = wishlistMockStore(mockWishlistState);
   });
 
-  it('should throw an error if the wishlistId is not set on state', async () => {
-    store = wishlistMockStore({ wishlist: { id: null } });
-
-    await expect(
-      updateWishlistItem(mockWishlistItemId, data)(
-        store.dispatch,
-        store.getState as () => StoreState,
-        { getOptions },
-      ),
-    ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          type: actionTypes.UPDATE_WISHLIST_ITEM_FAILURE,
-          payload: {
-            error: expect.objectContaining({
-              message: 'No wishlist id is set',
-              code: '-1',
-            }),
-          },
-        }),
-      ]),
-    );
-  });
-
   it('should create the correct actions for when updating a wishlist item procedure fails', async () => {
     const expectedError = new Error('update wishlist item error');
 
@@ -79,6 +54,7 @@ describe('updateWishlistItem()', () => {
     await expect(
       async () =>
         await updateWishlistItem(
+          mockWishlistId,
           mockWishlistItemId,
           data,
           wishlistItemMetadata,
@@ -118,13 +94,16 @@ describe('updateWishlistItem()', () => {
       mockWishlistsResponse,
     );
 
-    await updateWishlistItem(mockWishlistItemId, data, wishlistItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).then(clientResult => {
-      expect(clientResult).toBe(mockWishlistsResponse);
-    });
+    await updateWishlistItem(
+      mockWishlistId,
+      mockWishlistItemId,
+      data,
+      wishlistItemMetadata,
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
+        expect(clientResult).toBe(mockWishlistsResponse);
+      },
+    );
 
     const storeActions = store.getActions();
 
@@ -176,7 +155,7 @@ describe('updateWishlistItem()', () => {
       mockWishlistsResponse,
     );
 
-    await updateWishlistItem(mockWishlistItemId, data)(
+    await updateWishlistItem(mockWishlistId, mockWishlistItemId, data)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },

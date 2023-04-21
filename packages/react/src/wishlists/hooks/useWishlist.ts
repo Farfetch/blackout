@@ -14,12 +14,18 @@ import {
   removeWishlistItem,
   resetWishlist,
   updateWishlistItem,
+  type WishlistItemActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 // Types
-import type { Config } from '@farfetch/blackout-client';
+import type {
+  Config,
+  PatchWishlistItemData,
+  PostWishlistItemData,
+  WishlistItem,
+} from '@farfetch/blackout-client';
 import type { UseWishlistOptions } from './types/index.js';
 
 /**
@@ -29,7 +35,7 @@ import type { UseWishlistOptions } from './types/index.js';
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
 const useWishlist = (options: UseWishlistOptions = {}) => {
-  const { enableAutoFetch = false, fetchConfig } = options;
+  const { enableAutoFetch = true, fetchConfig } = options;
   // Selectors
   const error = useSelector(getWishlistError);
   const isLoading = useSelector(isWishlistLoading);
@@ -38,13 +44,13 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const userWishlistId = useSelector(getUser)?.wishlistId;
   const isFetched = useSelector(isWishlistFetched);
   // Actions
-  const addItem = useAction(addWishlistItem);
-  const updateItem = useAction(updateWishlistItem);
-  const removeItem = useAction(removeWishlistItem);
+  const addItemAction = useAction(addWishlistItem);
+  const updateItemAction = useAction(updateWishlistItem);
+  const removeItemAction = useAction(removeWishlistItem);
   const fetchWishlist = useAction(fetchWishlistAction);
 
   const fetch = useCallback(
-    (config?: Config) => {
+    (config: Config | undefined = fetchConfig) => {
       if (!userWishlistId) {
         return Promise.reject(
           new Error(
@@ -55,7 +61,71 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
 
       return fetchWishlist(userWishlistId, config);
     },
-    [fetchWishlist, userWishlistId],
+    [fetchConfig, fetchWishlist, userWishlistId],
+  );
+
+  const addItem = useCallback(
+    (
+      data: PostWishlistItemData,
+      metadata?: WishlistItemActionMetadata | undefined,
+      config: Config | undefined = fetchConfig,
+    ) => {
+      if (!userWishlistId) {
+        return Promise.reject(
+          new Error(
+            "User's wishlist id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return addItemAction(userWishlistId, data, metadata, config);
+    },
+    [addItemAction, fetchConfig, userWishlistId],
+  );
+
+  const updateItem = useCallback(
+    (
+      wishlistItemId: WishlistItem['id'],
+      data: PatchWishlistItemData,
+      metadata?: WishlistItemActionMetadata,
+      config: Config | undefined = fetchConfig,
+    ) => {
+      if (!userWishlistId) {
+        return Promise.reject(
+          new Error(
+            "User's wishlist id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return updateItemAction(
+        userWishlistId,
+        wishlistItemId,
+        data,
+        metadata,
+        config,
+      );
+    },
+    [fetchConfig, userWishlistId, updateItemAction],
+  );
+
+  const removeItem = useCallback(
+    (
+      wishlistItemId: WishlistItem['id'],
+      metadata?: WishlistItemActionMetadata,
+      config: Config | undefined = fetchConfig,
+    ) => {
+      if (!userWishlistId) {
+        return Promise.reject(
+          new Error(
+            "User's wishlist id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return removeItemAction(userWishlistId, wishlistItemId, metadata, config);
+    },
+    [fetchConfig, userWishlistId, removeItemAction],
   );
 
   const reset = useAction(resetWishlist);

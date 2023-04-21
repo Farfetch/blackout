@@ -10,7 +10,6 @@ import {
   mockWishlistsSetResponse,
 } from 'tests/__fixtures__/wishlists/index.mjs';
 import { postWishlistSet } from '@farfetch/blackout-client';
-import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -27,15 +26,6 @@ let store: ReturnType<typeof wishlistMockStore>;
 describe('addWishlistSet()', () => {
   beforeEach(jest.clearAllMocks);
 
-  it('should throw an error if the wishlistId is not set on state', async () => {
-    store = wishlistMockStore({ wishlist: { id: null } });
-
-    await expect(
-      addWishlistSet(data)(store.dispatch, store.getState as () => StoreState),
-    ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toHaveLength(1);
-  });
-
   it('should create the correct actions for when adding a wishlist set procedure fails', async () => {
     const expectedError = new Error('post wishlist set error');
 
@@ -43,11 +33,7 @@ describe('addWishlistSet()', () => {
     (postWishlistSet as jest.Mock).mockRejectedValueOnce(expectedError);
 
     await expect(
-      async () =>
-        await addWishlistSet(data)(
-          store.dispatch,
-          store.getState as () => StoreState,
-        ),
+      async () => await addWishlistSet(mockWishlistId, data)(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(postWishlistSet).toHaveBeenCalledTimes(1);
@@ -71,10 +57,10 @@ describe('addWishlistSet()', () => {
       mockWishlistsSetResponse,
     );
 
-    await addWishlistSet(data)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).then(clientResult => {
+    await addWishlistSet(
+      mockWishlistId,
+      data,
+    )(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockWishlistsSetResponse);
     });
 

@@ -596,5 +596,3 @@ Object {
   "type": "@farfetch/blackout-redux/ADD_BAG_ITEM_SUCCESS",
 }
 `;
-
-exports[`addBagItem() action creator should throw an error if the bagId is not set on state 1`] = `[Error: No bag id is set]`;

@@ -7,16 +7,11 @@ import {
   type PostBagItemQuery,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import { getBagId } from '../../selectors.js';
 import { normalize } from 'normalizr';
 import bagItemSchema from '../../../entities/schemas/bagItem.js';
 import type { BagItemActionMetadata } from '../../types/index.js';
 import type { Dispatch } from 'redux';
-import type {
-  GetOptionsArgument,
-  Nullable,
-  StoreState,
-} from '../../../types/index.js';
+import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to add a bag item.
@@ -28,6 +23,7 @@ import type {
 const addBagItemFactory =
   (postBagItem: PostBagItem) =>
   (
+    bagId: Bag['id'],
     data: PostBagItemData,
     query?: PostBagItemQuery,
     metadata?: BagItemActionMetadata,
@@ -40,18 +36,7 @@ const addBagItemFactory =
       getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
     }: GetOptionsArgument,
   ): Promise<Bag> => {
-    let bagId: Nullable<string> = null;
-
     try {
-      const state = getState();
-
-      bagId = getBagId(state);
-
-      // Do not add product if there's no bag set yet
-      if (!bagId) {
-        throw new Error('No bag id is set');
-      }
-
       dispatch({
         type: actionTypes.ADD_BAG_ITEM_REQUEST,
         meta: {

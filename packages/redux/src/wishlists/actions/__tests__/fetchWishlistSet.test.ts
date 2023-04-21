@@ -10,7 +10,6 @@ import {
   mockWishlistsSetNormalizedPayload,
   mockWishlistsSetResponse,
 } from 'tests/__fixtures__/wishlists/index.mjs';
-import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -39,10 +38,10 @@ describe('fetchWishlistSet()', () => {
 
     await expect(
       async () =>
-        await fetchWishlistSet(mockWishlistSetId)(
-          store.dispatch,
-          store.getState as () => StoreState,
-        ),
+        await fetchWishlistSet(
+          mockWishlistId,
+          mockWishlistSetId,
+        )(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(getWishlistSet).toHaveBeenCalledTimes(1);
@@ -70,10 +69,10 @@ describe('fetchWishlistSet()', () => {
       mockWishlistsSetResponse,
     );
 
-    await fetchWishlistSet(mockWishlistSetId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).then(clientResult => {
+    await fetchWishlistSet(
+      mockWishlistId,
+      mockWishlistSetId,
+    )(store.dispatch).then(clientResult => {
       expect(clientResult).toBe(mockWishlistsSetResponse);
     });
 

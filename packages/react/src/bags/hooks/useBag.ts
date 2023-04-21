@@ -32,7 +32,14 @@ import {
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
-import type { BagQueryBase, Config } from '@farfetch/blackout-client';
+import type {
+  Bag,
+  BagItem,
+  BagQueryBase,
+  Config,
+  DeleteBagItemQuery,
+  Product,
+} from '@farfetch/blackout-client';
 import type { UseBagOptions } from './types/index.js';
 
 type HandleAddOrUpdateItem = (
@@ -79,7 +86,7 @@ const useBag = (options: UseBagOptions = {}) => {
   // Actions
   const addBagItem = useAction(addBagItemAction);
   const updateBagItem = useAction(updateBagItemAction);
-  const removeItem = useAction(removeBagItemAction);
+  const removeBagItem = useAction(removeBagItemAction);
   const fetchBag = useAction(fetchBagAction);
   const reset = useAction(resetBagAction);
   const fetch = useCallback(
@@ -117,12 +124,18 @@ const useBag = (options: UseBagOptions = {}) => {
       metadata,
       config,
     ) => {
+      // No need to throw here since this check is being done
+      // by the exposed actions which will call this method.
+      if (!userBagId) {
+        return;
+      }
+
       let quantityToHandle = quantity;
 
       // Throw an error to indicate for the consumer that nothing
       // will be done.
       if (!size?.stock) {
-        throw new AddUpdateItemBagError(-1);
+        return Promise.reject(new AddUpdateItemBagError(-1));
       }
 
       const itemsRefreshed = getBagItems(getState());
@@ -162,6 +175,7 @@ const useBag = (options: UseBagOptions = {}) => {
           for (let i = newQuantity; i > itemInBag.quantity; i--) {
             if (i <= merchantQuantity) {
               await updateBagItem(
+                userBagId,
                 itemInBag.id,
                 {
                   ...requestData,
@@ -179,7 +193,7 @@ const useBag = (options: UseBagOptions = {}) => {
           }
         } else {
           // When the item is not in the bag, we add it
-          await addBagItem(requestData, undefined, metadata, config);
+          await addBagItem(userBagId, requestData, undefined, metadata, config);
 
           // Now we have less quantity to add to the next merchant
           quantityToHandle -= quantityToAdd;
@@ -195,30 +209,38 @@ const useBag = (options: UseBagOptions = {}) => {
       // unable to add any quantity of the product to the
       // bag, throw an error.
       if (quantityToHandle === quantity) {
-        throw new AddUpdateItemBagError(3);
+        return Promise.reject(new AddUpdateItemBagError(3));
       }
     },
-    [addBagItem, getState, updateBagItem],
+    [addBagItem, getState, updateBagItem, userBagId],
   );
 
   const addItem = useCallback(
     (
-      productId: number,
+      productId: Product['result']['id'],
       { quantity, sizeId }: { quantity: number; sizeId: number },
       metadata?: BagItemActionMetadata,
-      config?: Config,
+      config: Config | undefined = fetchConfig,
     ) => {
+      if (!userBagId) {
+        return Promise.reject(
+          new Error(
+            "User's bag id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
       const state = getState();
       const product = getProductDenormalized(state, productId);
 
       if (!product) {
-        throw new ProductError();
+        return Promise.reject(new ProductError());
       }
 
       const size = product?.sizes?.find(size => size.id === sizeId);
 
       if (!size) {
-        throw new SizeError();
+        return Promise.reject(new SizeError());
       }
 
       return handleAddOrUpdateItem(
@@ -232,7 +254,7 @@ const useBag = (options: UseBagOptions = {}) => {
         config,
       );
     },
-    [getState, handleAddOrUpdateItem],
+    [fetchConfig, getState, handleAddOrUpdateItem, userBagId],
   );
 
   const handleQuantityChange = useCallback(
@@ -242,14 +264,21 @@ const useBag = (options: UseBagOptions = {}) => {
       metadata?: BagItemActionMetadata,
       config?: Config,
     ) => {
+      // No need to throw here since this check is being done
+      // by the exposed actions which will call this method.
+      if (!userBagId) {
+        return;
+      }
+
       const quantityDelta = newQuantity - bagItem.quantity;
 
       if (!bagItem.product) {
-        throw new ProductError();
+        return Promise.reject(new ProductError());
       }
 
       if (quantityDelta < 0) {
         return updateBagItem(
+          userBagId,
           bagItem.id,
           {
             merchantId: bagItem.merchant,
@@ -269,7 +298,7 @@ const useBag = (options: UseBagOptions = {}) => {
       );
 
       if (!size) {
-        throw new SizeError();
+        return Promise.reject(new SizeError());
       }
 
       return handleAddOrUpdateItem(
@@ -284,7 +313,7 @@ const useBag = (options: UseBagOptions = {}) => {
         config,
       );
     },
-    [handleAddOrUpdateItem, updateBagItem],
+    [handleAddOrUpdateItem, updateBagItem, userBagId],
   );
 
   /**
@@ -310,8 +339,14 @@ const useBag = (options: UseBagOptions = {}) => {
       metadata?: BagItemActionMetadata,
       config?: Config,
     ) => {
+      // No need to throw here since this check is being done
+      // by the exposed actions which will call this method.
+      if (!userBagId) {
+        return;
+      }
+
       if (!bagItem.product) {
-        throw new ProductError();
+        return Promise.reject(new ProductError());
       }
 
       // This extra logic is due to the fact that when changing sizes,
@@ -320,7 +355,7 @@ const useBag = (options: UseBagOptions = {}) => {
       const size = bagItem.product?.sizes?.find(size => size.id === newSize);
 
       if (!size) {
-        throw new SizeError();
+        return Promise.reject(new SizeError());
       }
 
       let quantityToHandle = bagItem.quantity;
@@ -345,7 +380,8 @@ const useBag = (options: UseBagOptions = {}) => {
 
         if (bagItemQuantity <= merchantQuantity) {
           // Update with bagItemQuantity
-          await updateBagItem(
+          return await updateBagItem(
+            userBagId,
             bagItem.id,
             {
               ...requestData,
@@ -355,13 +391,12 @@ const useBag = (options: UseBagOptions = {}) => {
             metadata,
             config,
           );
-
-          return;
         }
 
         // Update with merchantQuantity, removing the need
         // of trying to add the rest of the quantity in this merchant
         await updateBagItem(
+          userBagId,
           bagItem.id,
           {
             ...requestData,
@@ -383,12 +418,12 @@ const useBag = (options: UseBagOptions = {}) => {
             ) || [],
         };
       } else {
-        await removeItem(bagItem.id, undefined, metadata, config);
+        await removeBagItem(userBagId, bagItem.id, undefined, metadata, config);
       }
 
       if (quantityToHandle) {
         // Add the left quantity in the other merchants
-        handleAddOrUpdateItem(
+        return handleAddOrUpdateItem(
           {
             customAttributes: bagItem?.customAttributes,
             productAggregatorId: bagItem?.productAggregator?.id,
@@ -401,7 +436,7 @@ const useBag = (options: UseBagOptions = {}) => {
         );
       }
     },
-    [handleAddOrUpdateItem, removeItem, updateBagItem],
+    [handleAddOrUpdateItem, removeBagItem, updateBagItem, userBagId],
   );
 
   /**
@@ -427,22 +462,30 @@ const useBag = (options: UseBagOptions = {}) => {
       newSizeId: number,
       newQty: number,
       metadata?: BagItemActionMetadata,
-      config?: Config,
+      config: Config | undefined = fetchConfig,
     ) => {
+      // No need to throw here since this check is being done
+      // by the exposed actions which will call this method.
+      if (!userBagId) {
+        return;
+      }
+
       // In this case, we really want to update the bagItem,
       // so we force it on the first time.
       let didFirstUpdate = false;
       let quantityToHandle = Number(newQty);
 
       if (!bagItem.product) {
-        throw new ProductError();
+        return Promise.reject(new ProductError());
       }
 
       const size = bagItem.product?.sizes?.find(size => size.id === newSizeId);
 
       if (!size?.stock) {
-        throw new SizeError();
+        return Promise.reject(new SizeError());
       }
+
+      let updatedBag: Bag | undefined;
 
       // Iterate through the stock of the different merchants
       for (const { merchantId, quantity: merchantQuantity } of size.stock) {
@@ -467,7 +510,8 @@ const useBag = (options: UseBagOptions = {}) => {
 
         if (!didFirstUpdate) {
           // Update the item
-          await updateBagItem(
+          updatedBag = await updateBagItem(
+            userBagId,
             bagItem.id,
             {
               ...requestData,
@@ -481,7 +525,13 @@ const useBag = (options: UseBagOptions = {}) => {
         } else {
           // When we did the first update, we add the remaining quantity
           // to the bag
-          await addBagItem(requestData, undefined, metadata, config);
+          updatedBag = await addBagItem(
+            userBagId,
+            requestData,
+            undefined,
+            metadata,
+            config,
+          );
         }
 
         quantityToHandle -= quantityToManage;
@@ -496,15 +546,17 @@ const useBag = (options: UseBagOptions = {}) => {
       // unable to add any quantity of the product to the
       // bag, throw an error.
       if (quantityToHandle === newQty) {
-        throw new AddUpdateItemBagError(3);
+        return Promise.reject(new AddUpdateItemBagError(3));
       }
+
+      return updatedBag;
     },
-    [addBagItem, updateBagItem],
+    [addBagItem, fetchConfig, updateBagItem, userBagId],
   );
 
   const updateItem = useCallback(
     (
-      bagItemId: number,
+      bagItemId: BagItem['id'],
       {
         quantity,
         sizeId,
@@ -513,14 +565,22 @@ const useBag = (options: UseBagOptions = {}) => {
         sizeId?: number;
       },
       metadata?: BagItemActionMetadata,
-      config?: Config,
+      config: Config | undefined = fetchConfig,
     ) => {
+      if (!userBagId) {
+        return Promise.reject(
+          new Error(
+            "User's bag id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
       const itemsRefreshed = getBagItems(getState());
 
       const bagItem = itemsRefreshed.find(item => item.id === bagItemId);
 
       if (!bagItem || !bagItem.product) {
-        throw new BagItemNotFoundError();
+        return Promise.reject(new BagItemNotFoundError());
       }
 
       const newQuantity = quantity || bagItem.quantity;
@@ -546,7 +606,34 @@ const useBag = (options: UseBagOptions = {}) => {
 
       return;
     },
-    [getState, handleFullUpdate, handleQuantityChange, handleSizeChange],
+    [
+      fetchConfig,
+      getState,
+      handleFullUpdate,
+      handleQuantityChange,
+      handleSizeChange,
+      userBagId,
+    ],
+  );
+
+  const removeItem = useCallback(
+    (
+      bagItemId: BagItem['id'],
+      query?: DeleteBagItemQuery,
+      metadata?: BagItemActionMetadata,
+      config?: Config,
+    ) => {
+      if (!userBagId) {
+        return Promise.reject(
+          new Error(
+            "User's bag id is not loaded. Please, fetch the user before using this action",
+          ),
+        );
+      }
+
+      return removeBagItem(userBagId, bagItemId, query, metadata, config);
+    },
+    [removeBagItem, userBagId],
   );
 
   const data = useMemo(() => {

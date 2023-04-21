@@ -1,9 +1,13 @@
 import {
-  ProductVariantAttributeType,
   type BlackoutError,
+  ProductVariantAttributeType,
   PurchaseChannel,
   toBlackoutError,
 } from '@farfetch/blackout-client';
+import {
+  mockAuthenticatedUserEntities,
+  mockUsersResponse,
+} from '../users/index.mjs';
 import { mockBagItemEntity, mockBagItemId } from './bagItem.fixtures.mjs';
 import {
   mockBagOperation,
@@ -18,7 +22,6 @@ import {
   mockProductTypeToExclude,
 } from '../products/index.mjs';
 import { mockCategoryId } from '../categories/index.mjs';
-import { mockUsersResponse } from '../users/index.mjs';
 import type {
   BrandEntity,
   CategoryEntity,
@@ -286,6 +289,7 @@ export const mockState = {
     bagPromocodesInformation: {
       [mockBagId]: mockBagPromocodesResponse.promoCodesInformation,
     },
+    ...mockAuthenticatedUserEntities,
   },
 };
 
@@ -506,5 +510,13 @@ export const mockStateWithUnavailableStock = {
         ],
       },
     },
+  },
+};
+
+export const mockStateWithoutUser = {
+  ...mockState,
+  entities: {
+    ...mockState.entities,
+    user: undefined,
   },
 };

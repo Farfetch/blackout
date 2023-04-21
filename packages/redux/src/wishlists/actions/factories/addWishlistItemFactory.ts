@@ -6,7 +6,6 @@ import {
   toBlackoutError,
   type Wishlist,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
 import wishlistItemSchema from '../../../entities/schemas/wishlistItem.js';
 import type {
@@ -27,6 +26,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
 const addWishlistItemFactory =
   (postWishlistItem: PostWishlistItem) =>
   (
+    wishlistId: Wishlist['id'],
     data: PostWishlistItemData,
     metadata?: WishlistItemActionMetadata,
     config?: Config,
@@ -39,14 +39,6 @@ const addWishlistItemFactory =
     }: GetOptionsArgument,
   ): Promise<Wishlist | undefined> => {
     try {
-      const state = getState();
-      const wishlistId = getWishlistId(state);
-
-      // Do not add product if there's no wishlist set yet
-      if (!wishlistId) {
-        throw new Error('No wishlist id is set');
-      }
-
       dispatch({
         meta: { ...metadata, productId: data.productId },
         type: actionTypes.ADD_WISHLIST_ITEM_REQUEST,

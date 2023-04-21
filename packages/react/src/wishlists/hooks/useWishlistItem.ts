@@ -12,7 +12,7 @@ import {
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import useWishlist from './useWishlist.js';
-import type { PatchWishlistItemData } from '@farfetch/blackout-client';
+import type { Config, PatchWishlistItemData } from '@farfetch/blackout-client';
 import type { WishlistItemId } from './types/useWishlistItem.types.js';
 
 /**
@@ -42,23 +42,27 @@ const useWishlistItem = (wishlistItemId: WishlistItemId) => {
   );
 
   const update = useCallback(
-    (data: PatchWishlistItemData, metadata?: WishlistItemActionMetadata) => {
+    (
+      data: PatchWishlistItemData,
+      metadata?: WishlistItemActionMetadata,
+      config?: Config,
+    ) => {
       if (!wishlistItemId) {
         return Promise.reject(new Error('No wishlist item id was specified'));
       }
 
-      return updateItem(wishlistItemId, data, metadata);
+      return updateItem(wishlistItemId, data, metadata, config);
     },
     [updateItem, wishlistItemId],
   );
 
   const remove = useCallback(
-    (metadata?: WishlistItemActionMetadata) => {
+    (metadata?: WishlistItemActionMetadata, config?: Config) => {
       if (!wishlistItemId) {
         return Promise.reject(new Error('No wishlist item id was specified'));
       }
 
-      return removeItem(wishlistItemId, metadata);
+      return removeItem(wishlistItemId, metadata, config);
     },
     [removeItem, wishlistItemId],
   );

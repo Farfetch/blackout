@@ -44,19 +44,6 @@ let store: ReturnType<typeof wishlistMockStore>;
 describe('addWishlistItem()', () => {
   beforeEach(jest.clearAllMocks);
 
-  it('should throw an error if the wishlistId is not set on state', async () => {
-    store = wishlistMockStore({ wishlist: { id: null } });
-
-    await expect(
-      addWishlistItem(data)(
-        store.dispatch,
-        store.getState as () => StoreState,
-        { getOptions },
-      ),
-    ).rejects.toThrowErrorMatchingInlineSnapshot('"No wishlist id is set"');
-    expect(store.getActions()).toHaveLength(1);
-  });
-
   it('should create the correct actions for when adding a wishlist item procedure fails', async () => {
     const expectedError = new Error('post wishlist item error');
     const data = { productId: mockProductId, quantity: 1 };
@@ -66,7 +53,7 @@ describe('addWishlistItem()', () => {
 
     await expect(
       async () =>
-        await addWishlistItem(data, wishlistItemMetadata)(
+        await addWishlistItem(mockWishlistId, data, wishlistItemMetadata)(
           store.dispatch,
           store.getState as () => StoreState,
           { getOptions },
@@ -98,7 +85,7 @@ describe('addWishlistItem()', () => {
       mockWishlistsResponse,
     );
 
-    await addWishlistItem(data, wishlistItemMetadata)(
+    await addWishlistItem(mockWishlistId, data, wishlistItemMetadata)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -149,7 +136,7 @@ describe('addWishlistItem()', () => {
       mockWishlistsResponse,
     );
 
-    await addWishlistItem(data)(
+    await addWishlistItem(mockWishlistId, data)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },

@@ -14,12 +14,13 @@ import {
 } from 'tests/__fixtures__/users/index.mjs';
 import {
   mockWishlistId,
+  mockWishlistInitialStateWithoutUser,
   mockWishlistItemId,
   mockWishlistState,
 } from 'tests/__fixtures__/wishlists/index.mjs';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useWishlist from '../useWishlist.js';
-import type { BlackoutError } from '@farfetch/blackout-client';
 
 const mockUserState = {
   entities: {
@@ -71,6 +72,16 @@ const mockInitialState = {
         isLoading: {},
       },
     },
+  },
+};
+
+const mockError = toBlackoutError(new Error('This is an error message'));
+
+const mockErrorState = {
+  ...mockInitialState,
+  wishlist: {
+    ...mockInitialState.wishlist,
+    error: mockError,
   },
 };
 
@@ -137,20 +148,12 @@ describe('useWishlist', () => {
   });
 
   it('should return correctly with an error state', () => {
-    const mockError = new Error('This is an error message') as BlackoutError;
-
     const {
       result: {
         current: { error },
       },
     } = renderHook(() => useWishlist(), {
-      wrapper: withStore({
-        ...stateMockData,
-        wishlist: {
-          ...stateMockData.wishlist!,
-          error: mockError,
-        },
-      }),
+      wrapper: withStore(mockErrorState),
     });
 
     expect(error).toEqual(mockError);
@@ -223,26 +226,58 @@ describe('useWishlist', () => {
   });
 
   describe('options', () => {
-    it('should call fetch data if `enableAutoFetch` option is true', () => {
-      renderHook(() => useWishlist({ enableAutoFetch: true }), {
-        wrapper: withStore(mockInitialState),
+    describe('enableAutoFetch', () => {
+      it('should call `fetch` action if `enableAutoFetch` option is true and user is set', () => {
+        renderHook(() => useWishlist(), {
+          wrapper: withStore(mockInitialState),
+        });
+
+        expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
       });
 
-      expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
-    });
+      it('should not call `fetch` action if `enableAutoFetch` option is false', () => {
+        renderHook(() => useWishlist({ enableAutoFetch: false }), {
+          wrapper: withStore(mockInitialState),
+        });
 
-    it('should not fetch data if `enableAutoFetch` option is false', () => {
-      renderHook(() => useWishlist(), {
-        wrapper: withStore(mockInitialState),
+        expect(fetchWishlist).not.toHaveBeenCalled();
       });
 
-      expect(fetchWishlist).not.toHaveBeenCalled();
+      it('should not call `fetch` action if `enableAutoFetch` option is true but there is no user set', () => {
+        renderHook(() => useWishlist(), {
+          wrapper: withStore({
+            ...mockInitialState,
+            entities: {
+              ...mockInitialState.entities,
+              user: undefined,
+            },
+          }),
+        });
+
+        expect(fetchWishlist).not.toHaveBeenCalled();
+      });
+
+      it('should not call `fetch` action if `enableAutoFetch` option is true but there is data', () => {
+        renderHook(() => useWishlist(), {
+          wrapper: withStore(stateMockData),
+        });
+
+        expect(fetchWishlist).not.toHaveBeenCalled();
+      });
+
+      it('should not call `fetch` action if `enableAutoFetch` option is true but there is an error', () => {
+        renderHook(() => useWishlist(), {
+          wrapper: withStore(mockErrorState),
+        });
+
+        expect(fetchWishlist).not.toHaveBeenCalled();
+      });
     });
   });
 
   describe('actions', () => {
     describe('fetch', () => {
-      it('should call `fetch` action', () => {
+      it('should call `fetchWishlist` action when user is set', () => {
         const {
           result: {
             current: {
@@ -258,7 +293,7 @@ describe('useWishlist', () => {
         expect(fetchWishlist).toHaveBeenCalledWith(mockWishlistId, undefined);
       });
 
-      it('should throw an error when calling `fetch` if user is not loaded', () => {
+      it('should throw an error when user is not set', () => {
         const {
           result: {
             current: {
@@ -282,7 +317,7 @@ describe('useWishlist', () => {
     });
 
     describe('addItem', () => {
-      it('should call `addWishlistItem` action', () => {
+      it('should call `addWishlistItem` action when user is set', () => {
         const {
           result: {
             current: {
@@ -296,18 +331,40 @@ describe('useWishlist', () => {
         addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'Pdp' });
 
         expect(addWishlistItem).toHaveBeenCalledWith(
+          stateMockData.entities?.user?.wishlistId,
           {
             productId: 123,
             quantity: 1,
             size: 17,
           },
           { from: 'Pdp' },
+          undefined,
         );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(mockWishlistInitialStateWithoutUser),
+        });
+
+        await expect(() =>
+          addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'Pdp' }),
+        ).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(addWishlistItem).not.toHaveBeenCalled();
       });
     });
 
     describe('updateItem', () => {
-      it('should call `updateWishlistItem` action', () => {
+      it('should call `updateWishlistItem` action when user is set', () => {
         const {
           result: {
             current: {
@@ -325,17 +382,48 @@ describe('useWishlist', () => {
           productId: 123,
         });
 
-        expect(updateWishlistItem).toHaveBeenCalledWith(123, {
-          quantity: 1,
-          size: 17,
-          merchantId: 456,
-          productId: 123,
+        expect(updateWishlistItem).toHaveBeenCalledWith(
+          stateMockData.entities?.user?.wishlistId,
+          123,
+          {
+            quantity: 1,
+            size: 17,
+            merchantId: 456,
+            productId: 123,
+          },
+          undefined,
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          result: {
+            current: {
+              actions: { updateItem },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(mockWishlistInitialStateWithoutUser),
         });
+
+        await expect(() =>
+          updateItem(123, {
+            quantity: 1,
+            size: 17,
+            merchantId: 456,
+            productId: 123,
+          }),
+        ).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(updateWishlistItem).not.toHaveBeenCalled();
       });
     });
 
     describe('removeItem', () => {
-      it('should call `removeWishlistItem` action', () => {
+      it('should call `removeWishlistItem` action when user is set', () => {
         const {
           result: {
             current: {
@@ -348,7 +436,30 @@ describe('useWishlist', () => {
 
         removeItem(123);
 
-        expect(removeWishlistItem).toHaveBeenCalledWith(123);
+        expect(removeWishlistItem).toHaveBeenCalledWith(
+          stateMockData.entities?.user?.wishlistId,
+          123,
+          undefined,
+          undefined,
+        );
+      });
+
+      it('should throw an error when user is not set', async () => {
+        const {
+          result: {
+            current: {
+              actions: { removeItem },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(mockWishlistInitialStateWithoutUser),
+        });
+
+        await expect(() => removeItem(123)).rejects.toThrow(
+          "User's wishlist id is not loaded. Please, fetch the user before using this action",
+        );
+
+        expect(removeWishlistItem).not.toHaveBeenCalled();
       });
     });
 
