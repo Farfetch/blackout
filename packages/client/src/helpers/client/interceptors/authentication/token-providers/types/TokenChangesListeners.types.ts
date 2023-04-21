@@ -1,6 +1,6 @@
 import type { ITokenData } from './TokenData.types.js';
 
-export interface TokenChangesListeners {
+export type TokenChangesListeners = {
   id: number;
   callback: (tokenData?: ITokenData | null) => void;
-}
+};

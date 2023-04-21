@@ -2,16 +2,16 @@ import type { ITokenData } from '../token-providers/types/TokenData.types.js';
 import type { RequestConfig } from './AuthenticationTokenManager.types.js';
 import type { TokenContext } from '../token-providers/types/TokenContext.types.js';
 
-export interface OptionsStorageProvider {
+export type OptionsStorageProvider = {
   getItem(key: string): Promise<string | null>;
   setItem(key: string, value: string): Promise<void>;
   removeItem(key: string): Promise<void>;
-}
+};
 
-export interface OptionsStorageSerializer {
+export type OptionsStorageSerializer = {
   serializeTokenData(tokenData: ITokenData | null): string;
   deserializeTokenData(rawData: string): ITokenData;
-}
+};
 
 export type UserParams = {
   username?: string;
@@ -52,7 +52,7 @@ type Headers = {
   'x-api-key'?: string;
 } & Record<string, string>;
 
-export interface AxiosAuthenticationTokenManagerOptions {
+export type AxiosAuthenticationTokenManagerOptions = {
   storage?: {
     provider: OptionsStorageProvider;
     serializer: OptionsStorageSerializer;
@@ -68,4 +68,4 @@ export interface AxiosAuthenticationTokenManagerOptions {
   guestTokenRequester: GuestTokenRequester;
   userTokenRequester: UserTokenRequester;
   refreshTokenWindowOffset: number;
-}
+};

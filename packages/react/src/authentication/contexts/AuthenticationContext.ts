@@ -8,7 +8,7 @@ import type {
 } from '@farfetch/blackout-client';
 import type { ErrorData } from '../hooks/useUserAuthState.js';
 
-export interface AuthenticationContextProps {
+export type AuthenticationContextProps = {
   activeTokenData?: UserToken | null;
   clearTokenData?: () => void;
   getAccessToken?: (useCache: boolean) => Promise<string | undefined>;
@@ -25,7 +25,7 @@ export interface AuthenticationContextProps {
   isLoggedIn?: boolean;
   isLoading?: boolean;
   errorData?: ErrorData | null;
-}
+};
 
 export default createContext<AuthenticationContextProps>(
   {} as AuthenticationContextProps,

@@ -1,7 +1,7 @@
 import type { Config } from '../../../types/index.js';
 import type { User } from './user.types.js';
 
-export interface PostUserData {
+export type PostUserData = {
   countryCode: string;
   email: string;
   password: string;
@@ -12,6 +12,6 @@ export interface PostUserData {
   firstName?: string;
   lastName?: string;
   receiveNewsletters?: boolean;
-}
+};
 
 export type PostUser = (data: PostUserData, config?: Config) => Promise<User>;

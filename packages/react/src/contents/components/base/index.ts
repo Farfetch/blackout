@@ -1,7 +1,7 @@
 import Boolean from './boolean/Boolean.js';
 import CallToAction from './callToAction/CallToAction.js';
 import Color from './color/Color.js';
-import ComponentsList from './componentsList/ComponentsList.js';
+import ComponentList from './componentList/ComponentList.js';
 import ContentList from './contentList/ContentList.js';
 import DateTime from './dateTime/DateTime.js';
 import Html from './html/Html.js';
@@ -25,7 +25,7 @@ const baseComponents = {
   date: DateTime,
   html: Html,
   link: CallToAction,
-  list: ComponentsList,
+  list: ComponentList,
   longtext: LongText,
   MediaComponent: Media,
   number: Number,
