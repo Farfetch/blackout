@@ -7,7 +7,6 @@ import {
   mockWishlistSetId,
 } from 'tests/__fixtures__/wishlists/index.mjs';
 import { removeWishlistSet } from '..//index.js';
-import type { StoreState } from '../../../types/index.js';
 
 jest.mock('@farfetch/blackout-client', () => ({
   ...jest.requireActual('@farfetch/blackout-client'),
@@ -35,10 +34,10 @@ describe('removeWishlistSet() action creator', () => {
 
     await expect(
       async () =>
-        await removeWishlistSet(mockWishlistSetId)(
-          store.dispatch,
-          store.getState as () => StoreState,
-        ),
+        await removeWishlistSet(
+          mockWishlistId,
+          mockWishlistSetId,
+        )(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(deleteWishlistSet).toHaveBeenCalledTimes(1);
@@ -63,10 +62,10 @@ describe('removeWishlistSet() action creator', () => {
   it('should create the correct actions for when the remove wishlist set procedure is successful', async () => {
     (deleteWishlistSet as jest.Mock).mockResolvedValueOnce(undefined);
 
-    await removeWishlistSet(mockWishlistSetId)(
-      store.dispatch,
-      store.getState as () => StoreState,
-    ).then(clientResult => {
+    await removeWishlistSet(
+      mockWishlistId,
+      mockWishlistSetId,
+    )(store.dispatch).then(clientResult => {
       expect(clientResult).toBeUndefined();
     });
 

@@ -4,14 +4,13 @@ import {
   type PostWishlistSet,
   type PostWishlistSetData,
   toBlackoutError,
+  type Wishlist,
   type WishlistSet,
 } from '@farfetch/blackout-client';
-import { getWishlistId } from '../../selectors/index.js';
 import { normalize } from 'normalizr';
 import wishlistSetSchema from '../../../entities/schemas/wishlistSet.js';
 import type { AddWishlistSetAction } from '../../types/index.js';
 import type { Dispatch } from 'redux';
-import type { StoreState } from '../../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to add a new set to
@@ -23,20 +22,11 @@ import type { StoreState } from '../../../types/index.js';
  */
 const addWishlistSetFactory =
   (postWishlistSet: PostWishlistSet) =>
-  (data: PostWishlistSetData, config?: Config) =>
+  (wishlistId: Wishlist['id'], data: PostWishlistSetData, config?: Config) =>
   async (
     dispatch: Dispatch<AddWishlistSetAction>,
-    getState: () => StoreState,
   ): Promise<WishlistSet | undefined> => {
     try {
-      const state = getState();
-      const wishlistId = getWishlistId(state);
-
-      // Do not add the set if there's no wishlist id yet
-      if (!wishlistId) {
-        throw new Error('No wishlist id is set');
-      }
-
       dispatch({
         type: actionTypes.ADD_WISHLIST_SET_REQUEST,
       });

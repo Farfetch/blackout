@@ -53,11 +53,12 @@ describe('removeBagItem() action creator', () => {
 
     await expect(
       async () =>
-        await removeBagItem(mockBagItemId, undefined, bagItemMetadata)(
-          store.dispatch,
-          store.getState as () => StoreState,
-          { getOptions },
-        ),
+        await removeBagItem(
+          mockBagId,
+          mockBagItemId,
+          undefined,
+          bagItemMetadata,
+        )(store.dispatch, store.getState as () => StoreState, { getOptions }),
     ).rejects.toThrow(expectedError);
 
     expect(deleteBagItem).toHaveBeenCalledTimes(1);
@@ -95,13 +96,16 @@ describe('removeBagItem() action creator', () => {
   it('should create the correct actions for when the remove bag item procedure is successful', async () => {
     (deleteBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-    await removeBagItem(mockBagItemId, undefined, bagItemMetadata)(
-      store.dispatch,
-      store.getState as () => StoreState,
-      { getOptions },
-    ).then(clientResult => {
-      expect(clientResult).toBe(mockResponse);
-    });
+    await removeBagItem(
+      mockBagId,
+      mockBagItemId,
+      undefined,
+      bagItemMetadata,
+    )(store.dispatch, store.getState as () => StoreState, { getOptions }).then(
+      clientResult => {
+        expect(clientResult).toBe(mockResponse);
+      },
+    );
 
     const actionResults = store.getActions();
 
@@ -143,7 +147,7 @@ describe('removeBagItem() action creator', () => {
 
     (deleteBagItem as jest.Mock).mockResolvedValueOnce(mockResponse);
 
-    await removeBagItem(mockBagItemId)(
+    await removeBagItem(mockBagId, mockBagItemId)(
       store.dispatch,
       store.getState as () => StoreState,
       {} as GetOptionsArgument,

@@ -55,7 +55,7 @@ export type ProductResult = {
   translatedAttributes: string | null;
   type: ProductType;
   variants: ProductVariant[];
-  variations: Variation[];
+  variations: ProductVariation[];
   videos: Video[];
 };
 
@@ -150,7 +150,7 @@ export type FashionSeason = {
   name: string | null;
 };
 
-export type Variation = {
+export type ProductVariation = {
   products: Array<{
     id: number;
     isDefault: boolean;

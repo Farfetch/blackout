@@ -20,7 +20,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
  */
 const fetchBagFactory =
   (getBag: GetBag) =>
-  (bagId: string, query?: GetBagQuery, config?: Config) =>
+  (bagId: Bag['id'], query?: GetBagQuery, config?: Config) =>
   async (
     dispatch: Dispatch,
     getState: () => StoreState,
