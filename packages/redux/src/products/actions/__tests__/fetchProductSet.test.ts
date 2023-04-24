@@ -95,18 +95,18 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: {
           error: expectedError,
         },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_FAILURE,
       },
     ]);
   });
@@ -128,16 +128,16 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
       },
     ]);
   });
@@ -160,16 +160,16 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalizedWithoutImageOptions,
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
       },
     ]);
   });
@@ -203,20 +203,20 @@ describe('fetchProductSet() action creator', () => {
     expect(getProductSet).toHaveBeenCalledWith(mockSetId, {}, expectedConfig);
     expect(store.getActions()).toEqual([
       {
-        type: productsActionTypes.RESET_PRODUCTS_LISTS_STATE,
+        type: productsActionTypes.RESET_PRODUCT_LISTINGS_STATE,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
       },
     ]);
   });
@@ -245,7 +245,7 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.DEHYDRATE_PRODUCTS_LIST,
+        type: productsActionTypes.DEHYDRATE_PRODUCT_LISTING,
       },
     ]);
   });
@@ -274,7 +274,7 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.SET_PRODUCTS_LIST_HASH,
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
       },
     ]);
   });
@@ -300,12 +300,12 @@ describe('fetchProductSet() action creator', () => {
     expect(store.getActions()).toEqual([
       {
         meta: { hash: mockProductsListHashForSetsWithId },
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
       },
       {
         meta: { hash: mockProductsListHashForSetsWithId },
         payload: mockProductsListForSetsWithIdNormalized,
-        type: productsActionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
       },
     ]);
   });

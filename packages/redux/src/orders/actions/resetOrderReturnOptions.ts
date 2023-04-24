@@ -1,5 +1,4 @@
 import * as actionTypes from '../actionTypes.js';
-import { resetOrderReturnOptionsState } from './index.js';
 import type { Dispatch } from 'redux';
 import type { Order } from '@farfetch/blackout-client';
 import type {
@@ -34,6 +33,22 @@ const resetEntities =
   (dispatch: Dispatch<ResetOrderReturnOptionsEntitiesAction>) => {
     dispatch({
       type: actionTypes.RESET_ORDER_RETURN_OPTIONS_ENTITIES,
+      payload: orderIds,
+    });
+  };
+
+/**
+ * Reset orders return options slice state only
+ * to its initial value.
+ *
+ * @param orderIds - Order ids whose return options state should be reset.
+ *
+ * @returns - Thunk.
+ */
+const resetOrderReturnOptionsState =
+  (orderIds?: Array<Order['id']>) => (dispatch: Dispatch) => {
+    dispatch({
+      type: actionTypes.RESET_ORDER_RETURN_OPTIONS_STATE,
       payload: orderIds,
     });
   };

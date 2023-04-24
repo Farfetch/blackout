@@ -62,7 +62,7 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
   );
 
   const {
-    actions: { fetchReturn, resetReturnState, updateReturn, createReturn },
+    actions: { fetchReturn, resetReturn, updateReturn, createReturn },
   } = useUserReturns({ enableAutoFetch: false });
 
   /**
@@ -173,10 +173,10 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
       setIsCreatingReturn(false);
 
       if (returnId) {
-        resetReturnState([returnId]);
+        resetReturn([returnId]);
       }
     },
-    [implicitReturnId, resetReturnState],
+    [implicitReturnId, resetReturn],
   );
 
   // Clear create return state every time the hook is rendered

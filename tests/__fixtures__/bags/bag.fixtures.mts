@@ -286,9 +286,6 @@ export const mockState = {
         id: '101',
       },
     },
-    bagPromocodesInformation: {
-      [mockBagId]: mockBagPromocodesResponse.promoCodesInformation,
-    },
     ...mockAuthenticatedUserEntities,
   },
 };

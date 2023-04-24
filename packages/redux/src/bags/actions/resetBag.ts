@@ -1,10 +1,9 @@
 import * as actionTypes from '../actionTypes.js';
-import resetBagState from './resetBagState.js';
 import type { Dispatch } from 'redux';
 import type {
   ResetBagAction,
   ResetBagEntitiesAction,
-  ResetBagOperationsEntitiesAction,
+  ResetBagStateAction,
 } from '../types/index.js';
 import type { StoreState } from '../../types/index.js';
 import type { ThunkDispatch } from 'redux-thunk';
@@ -34,34 +33,111 @@ const resetEntities = () => (dispatch: Dispatch<ResetBagEntitiesAction>) => {
 };
 
 /**
- * Reset bag operations entities to its initial value.
+ * Reset bag state to its initial value.
  *
- * @example
+ * @example <caption>Reset with no fields to reset, resetting all</caption>
  * ```
- * // Store before executing action
- * const store = {
- *     entities: {
- *         bag: { 123: {...} },
- *         bagItems: { 1: {...} },
- *         bagOperations: { 1: {...} }
+ * // State before executing action
+ * const state = {
+ *   id: '123-456-789',
+ *   error: null,
+ *   isLoading: false,
+ *   result: {
+ *     bagSummary: { ... }
+ *   },
+ *   items: {
+ *     ids: [123],
+ *     item: {
+ *       error: {
+ *         123: {
+ *           message: 'error'
+ *         }
+ *       },
+ *       isLoading: {
+ *         123: true
+ *       }
  *     }
- * }
+ *   }
+ * };
  *
- * // Result of reset bag operations entities:
- * const store = {
- *     entities: {
- *         bag: { 123: {...} },
- *         bagItems: { 1: {...} }
+ * // Result of reset:
+ * const state = {
+ *   id: null,
+ *   error: null,
+ *   isLoading: false,
+ *   result: {},
+ *   items: {
+ *     ids: [],
+ *     item: {
+ *       error: {},
+ *       isLoading: {}
  *     }
- * }
+ *   }
+ * };
+ *
+ * // Usage
+ * dispatch(resetBagState());
+ *
+ * ```
+ * @example <caption>Reset with fields to reset</caption>
+ * ```
+ * // State object before executing action
+ * const state = {
+ *   id: '123-456-789',
+ *   error: { message: 'error' },
+ *   isLoading: false,
+ *   result: {
+ *     bagSummary: { ... }
+ *   },
+ *   items: {
+ *     ids: [123],
+ *     items: {
+ *       error: {
+ *         123: {
+ *           message: 'error'
+ *         }
+ *       },
+ *       isLoading: {
+ *         123: true
+ *       }
+ *     }
+ *   }
+ * };
+ *
+ * // Result of reset:
+ * const state = {
+ *   id: '123-456-789',
+ *   error: null,
+ *   isLoading: false,
+ *   result: {
+ *     bagSummary: {}
+ *   },
+ *   items: {
+ *     ids: [123],
+ *     item: {
+ *       error: {},
+ *       isLoading: {
+ *         123: true
+ *       }
+ *     }
+ *   }
+ * };
+ *
+ * // Usage
+ * dispatch(resetBagState(["error"]));
+ *
  * ```
  *
- * @returns Dispatch reset bag operations entities action.
+ * @param fieldsToReset - List of fields to reset during the reset operation.
+ *
+ * @returns Dispatch reset bag state action.
  */
-export const resetBagOperationsEntities =
-  () => (dispatch: Dispatch<ResetBagOperationsEntitiesAction>) => {
+const resetBagState =
+  (fieldsToReset?: string[]) =>
+  (dispatch: Dispatch<ResetBagStateAction>): void => {
     dispatch({
-      type: actionTypes.RESET_BAG_OPERATIONS_ENTITIES,
+      payload: { fieldsToReset },
+      type: actionTypes.RESET_BAG_STATE,
     });
   };
 

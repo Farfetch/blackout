@@ -1,7 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCategories,
-  resetCategoriesState,
+  resetCategories,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import {
@@ -16,7 +16,7 @@ import { useCategories } from '../..//index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  resetCategoriesState: jest.fn(() => () => Promise.resolve()),
+  resetCategories: jest.fn(() => () => Promise.resolve()),
   fetchCategories: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -95,7 +95,7 @@ describe('useCategories', () => {
 
       reset();
 
-      expect(resetCategoriesState).toHaveBeenCalled();
+      expect(resetCategories).toHaveBeenCalled();
     });
 
     it('should call `fetch` action', () => {

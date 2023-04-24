@@ -9,7 +9,7 @@ import {
   getProductListingResult,
   isProductListingFetched,
   isProductListingLoading,
-  resetProductsLists,
+  resetProductListings,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import {
@@ -46,7 +46,7 @@ const useProductListing = (
 
   const fetchListingAction = useAction(fetchProductListing);
   const fetchSetAction = useAction(fetchProductSet);
-  const resetAction = useAction(resetProductsLists);
+  const resetAction = useAction(resetProductListings);
   const reset = useCallback(() => {
     resetAction([productListingHash]);
   }, [resetAction, productListingHash]);

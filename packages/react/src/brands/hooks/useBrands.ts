@@ -4,7 +4,7 @@ import {
   fetchBrands,
   getBrandsError,
   getBrandsResult,
-  resetBrandsState,
+  resetBrands,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
@@ -28,7 +28,7 @@ const useBrands = (options: UseBrandsOptions = {}) => {
     getBrandsError(state, query),
   );
   const fetch = useAction(fetchBrands);
-  const reset = useAction(resetBrandsState);
+  const reset = useAction(resetBrands);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {

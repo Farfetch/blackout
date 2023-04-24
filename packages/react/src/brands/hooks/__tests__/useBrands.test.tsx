@@ -1,5 +1,5 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { fetchBrands, resetBrandsState } from '@farfetch/blackout-redux';
+import { fetchBrands, resetBrands } from '@farfetch/blackout-redux';
 import {
   mockBrandsQuery,
   mockErrorState,
@@ -14,7 +14,7 @@ import { useBrands } from '../../../index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  resetBrandsState: jest.fn(() => () => Promise.resolve()),
+  resetBrands: jest.fn(() => () => Promise.resolve()),
   fetchBrands: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -113,7 +113,7 @@ describe('useBrands', () => {
 
       reset();
 
-      expect(resetBrandsState).toHaveBeenCalled();
+      expect(resetBrands).toHaveBeenCalled();
     });
   });
 });

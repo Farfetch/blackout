@@ -138,10 +138,7 @@ function useCheckout(
     isFetched: areCollectPointsFetched,
     error: collectPointsError,
     data: collectPoints,
-    actions: {
-      fetch: fetchCollectPointsAction,
-      reset: resetCollectPointsState,
-    },
+    actions: { fetch: fetchCollectPointsAction, reset: resetCollectPoints },
   } = useCollectPoints(defaultFetchCollectPointsQuery, {
     enableAutoFetch: false,
   });
@@ -540,7 +537,7 @@ function useCheckout(
       reset,
       resetCheckoutState,
       resetChargeState,
-      resetCollectPointsState,
+      resetCollectPoints,
       resetDetailsState,
       resetInstrumentsState,
     },

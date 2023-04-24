@@ -198,6 +198,9 @@ const bagOperations = (
           [action.meta.bagOperationId]: action.payload.error,
         },
       };
+    case actionTypes.RESET_BAG_OPERATIONS_STATE: {
+      return INITIAL_STATE.bagOperations;
+    }
     default:
       return state;
   }
@@ -226,6 +229,8 @@ const bagPromocodes = (
         isLoading: false,
         error: (action as SetBagPromocodesFailureAction).payload.error,
       };
+    case actionTypes.RESET_BAG_PROMOCODES_STATE:
+      return INITIAL_STATE.bagPromocodes;
     default:
       return state;
   }
@@ -314,28 +319,28 @@ const bagReducer: Reducer<BagsState> = (state, action) => {
 
     if (!fieldsToReset) {
       return INITIAL_STATE;
-    } else {
-      const reducerFn = (acc: BagsState, field: BagItem['id']) => {
-        if (state.items[field] || state.items.item[field]) {
-          return {
-            ...acc,
-            [field]: INITIAL_STATE[field],
-            items: {
-              ...acc.items,
-              [field]: INITIAL_STATE.items[field],
-              item: {
-                ...acc.items.item,
-                [field]: INITIAL_STATE.items.item[field],
-              },
-            },
-          };
-        }
-
-        return { ...acc, [field]: INITIAL_STATE[field] };
-      };
-
-      return fieldsToReset.reduce(reducerFn, state);
     }
+
+    const reducerFn = (acc: BagsState, field: BagItem['id']) => {
+      if (state.items[field] || state.items.item[field]) {
+        return {
+          ...acc,
+          [field]: INITIAL_STATE[field],
+          items: {
+            ...acc.items,
+            [field]: INITIAL_STATE.items[field],
+            item: {
+              ...acc.items.item,
+              [field]: INITIAL_STATE.items.item[field],
+            },
+          },
+        };
+      }
+
+      return { ...acc, [field]: INITIAL_STATE[field] };
+    };
+
+    return fieldsToReset.reduce(reducerFn, state);
   }
 
   return reducer(state, action);

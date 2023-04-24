@@ -31,6 +31,12 @@ export const SET_BAG_PROMOCODES_SUCCESS =
   '@farfetch/blackout-redux/SET_BAG_PROMOCODES_SUCCESS';
 
 /**
+ * Action type dispatched when the reset bag promocodes state entities occurs.
+ */
+export const RESET_BAG_PROMOCODES_STATE =
+  '@farfetch/blackout-redux/RESET_BAG_PROMOCODES_STATE';
+
+/**
  * Action type dispatched when the remove item from bag request fails.
  */
 export const REMOVE_BAG_ITEM_FAILURE =
@@ -104,4 +110,10 @@ export const FETCH_BAG_OPERATION_SUCCESS =
  * Action type dispatched when the reset bag operations entities occurs.
  */
 export const RESET_BAG_OPERATIONS_ENTITIES =
-  '@farfetch/blackout-redux/RESET_BAG_OPERATIONS_ENTITIES ';
+  '@farfetch/blackout-redux/RESET_BAG_OPERATIONS_ENTITIES';
+
+/**
+ * Action type dispatched when the reset bag operations state occurs.
+ */
+export const RESET_BAG_OPERATIONS_STATE =
+  '@farfetch/blackout-redux/RESET_BAG_OPERATIONS_STATE';

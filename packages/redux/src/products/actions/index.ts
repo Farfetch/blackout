@@ -18,9 +18,7 @@ export { default as fetchProductVariantsByMerchantsLocations } from './fetchProd
 export { default as fetchRecommendedProductSet } from './fetchRecommendedProductSet.js';
 export { default as fetchProductSet } from './fetchProductSet.js';
 export { default as resetProductDetails } from './resetProductDetails.js';
-export { default as resetProductDetailsState } from './resetProductDetailsState.js';
-export { default as resetProductsLists } from './resetProductsLists.js';
-export { default as resetProductsListsState } from './resetProductsListsState.js';
+export { default as resetProductListings } from './resetProductListings.js';
 
 // Recently Viewed Products
 export { default as fetchRecentlyViewedProducts } from './fetchRecentlyViewedProducts.js';

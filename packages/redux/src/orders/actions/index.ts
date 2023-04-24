@@ -13,7 +13,6 @@ export { default as fetchOrderItemAvailableActivities } from './fetchOrderItemAv
 export { default as fetchOrderReturnOptions } from './fetchOrderReturnOptions.js';
 export { default as fetchShipmentTrackings } from './fetchShipmentTrackings.js';
 export { default as fetchUserOrders } from './fetchUserOrders.js';
-export { default as resetOrderDetailsState } from './resetOrderDetailsState.js';
-export { default as resetOrderReturnOptions } from './resetOrderReturnOptions.js';
-export { default as resetOrderReturnOptionsState } from './resetOrderReturnOptionsState.js';
 export { default as resetOrders } from './resetOrders.js';
+export { default as resetOrderDetails } from './resetOrderDetails.js';
+export { default as resetOrderReturnOptions } from './resetOrderReturnOptions.js';

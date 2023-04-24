@@ -25,9 +25,9 @@ import {
   removePaymentIntentInstrument,
   resetCheckout,
   resetCheckoutOrderChargeState,
-  resetCheckoutOrderDetailsState,
-  resetCollectPointsState,
-  resetPaymentIntentInstrumentsState,
+  resetCheckoutOrderDetails,
+  resetCollectPoints,
+  resetPaymentIntentInstruments,
   setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
   updateCheckoutOrder,
@@ -65,13 +65,13 @@ jest.mock('@farfetch/blackout-redux', () => ({
   resetCheckoutOrderChargeState: jest.fn(() => ({
     type: 'reset_checkout_order_charge_state',
   })),
-  resetCheckoutOrderDetailsState: jest.fn(() => ({
+  resetCheckoutOrderDetails: jest.fn(() => ({
     type: 'reset_checkout_order_details_state',
   })),
-  resetCollectPointsState: jest.fn(() => ({
+  resetCollectPoints: jest.fn(() => ({
     type: 'reset_collect_points_state',
   })),
-  resetPaymentIntentInstrumentsState: jest.fn(() => ({
+  resetPaymentIntentInstruments: jest.fn(() => ({
     type: 'reset_payment_intent_instruments_state',
   })),
   setCheckoutOrderPromocodes: jest.fn(() => ({
@@ -148,7 +148,7 @@ const defaultReturn = {
     reset: expect.any(Function),
     resetCheckoutState: expect.any(Function),
     resetChargeState: expect.any(Function),
-    resetCollectPointsState: expect.any(Function),
+    resetCollectPoints: expect.any(Function),
     resetDetailsState: expect.any(Function),
     resetInstrumentsState: expect.any(Function),
   },
@@ -248,7 +248,7 @@ describe('useCheckout', () => {
       });
 
       expect(resetCheckout).toHaveBeenCalled();
-      expect(resetPaymentIntentInstrumentsState).toHaveBeenCalled();
+      expect(resetPaymentIntentInstruments).toHaveBeenCalled();
     });
 
     describe('should call all hook dependencies with the correct arguments', () => {
@@ -1334,10 +1334,10 @@ describe('useCheckout', () => {
         reset();
 
         expect(resetCheckout).toHaveBeenCalled();
-        expect(resetPaymentIntentInstrumentsState).toHaveBeenCalled();
+        expect(resetPaymentIntentInstruments).toHaveBeenCalled();
         expect(resetCheckoutOrderChargeState).not.toHaveBeenCalled();
-        expect(resetCheckoutOrderDetailsState).not.toHaveBeenCalled();
-        expect(resetCollectPointsState).not.toHaveBeenCalled();
+        expect(resetCheckoutOrderDetails).not.toHaveBeenCalled();
+        expect(resetCollectPoints).not.toHaveBeenCalled();
       });
     });
   });

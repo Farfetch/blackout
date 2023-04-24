@@ -35,7 +35,7 @@ interface Action {
   payload?: UserToken['data'] | BlackoutError;
 }
 
-interface ErrorData {
+export interface ErrorData {
   causeError?: BlackoutError | UserToken['data'];
   context: string;
 }

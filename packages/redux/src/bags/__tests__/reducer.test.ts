@@ -27,16 +27,16 @@ describe('bags redux reducer', () => {
   describe('reset handling', () => {
     it('should return the initial state when there are no fields to keep', () => {
       expect(
-        reducer(undefined, {
+        reducer(mockState.bag, {
           payload: {},
           type: actionTypes.RESET_BAG_STATE,
         }),
       ).toEqual(initialState);
     });
 
-    it('should return the initial state when is a LOGOUT_SUCCESS action', () => {
+    it('should return the initial state when there is a LOGOUT_SUCCESS action', () => {
       expect(
-        reducer(undefined, {
+        reducer(mockState.bag, {
           payload: {},
           type: LOGOUT_SUCCESS,
         }),
@@ -396,17 +396,6 @@ describe('bags redux reducer', () => {
   });
 
   describe('bagOperations() reducer', () => {
-    it('should return the same state', () => {
-      const state = {
-        ...initialState,
-        bagOperations: mockState.bag.bagOperations,
-      };
-
-      expect(reducer(state, randomAction).bagOperations).toEqual(
-        state.bagOperations,
-      );
-    });
-
     it('should handle FETCH_BAG_OPERATION_REQUEST action type', () => {
       expect(
         reducer(undefined, {
@@ -463,6 +452,14 @@ describe('bags redux reducer', () => {
       ).toEqual({ error: {}, isLoading: { [mockBagOperationId]: false } });
     });
 
+    it('should handle RESET_BAG_OPERATIONS_STATE action type', () => {
+      expect(
+        reducer(mockState.bag, {
+          type: actionTypes.RESET_BAG_OPERATIONS_STATE,
+        }).bagOperations,
+      ).toEqual(initialState.bagOperations);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...mockState.bag,
@@ -474,6 +471,118 @@ describe('bags redux reducer', () => {
 
       expect(reducer(state, randomAction).bagOperations).toEqual(
         state.bagOperations,
+      );
+    });
+  });
+
+  describe('bagPromocodes() reducer', () => {
+    it('should handle SET_BAG_PROMOCODES_REQUEST action type', () => {
+      expect(
+        reducer(
+          {
+            ...mockState.bag,
+            bagPromocodes: {
+              error: toBlackoutError(new Error('dummy')),
+              isLoading: false,
+              result: {
+                promoCodesInformation: [],
+              },
+            },
+          },
+          {
+            type: actionTypes.SET_BAG_PROMOCODES_REQUEST,
+          },
+        ).bagPromocodes,
+      ).toEqual({
+        error: null,
+        isLoading: true,
+        result: {
+          promoCodesInformation: [],
+        },
+      });
+    });
+
+    it('should handle SET_BAG_PROMOCODES_FAILURE action type', () => {
+      expect(
+        reducer(mockState.bag, {
+          type: actionTypes.SET_BAG_PROMOCODES_FAILURE,
+          payload: {
+            error: mockError,
+          },
+        }).bagPromocodes,
+      ).toEqual({
+        error: mockError,
+        isLoading: false,
+        result: undefined,
+      });
+    });
+
+    it('should handle SET_BAG_PROMOCODES_SUCCESS action type', () => {
+      const bagPromocodesInformation = {
+        promoCodesInformation: [
+          {
+            promoCode: 'ABC',
+            isValid: true,
+          },
+        ],
+      };
+
+      expect(
+        reducer(
+          {
+            ...mockState.bag,
+            bagPromocodes: {
+              error: null,
+              isLoading: true,
+              result: undefined,
+            },
+          },
+          {
+            type: actionTypes.SET_BAG_PROMOCODES_SUCCESS,
+            payload: bagPromocodesInformation,
+          },
+        ).bagPromocodes,
+      ).toEqual({
+        error: null,
+        isLoading: false,
+        result: bagPromocodesInformation,
+      });
+    });
+
+    it('should handle RESET_BAG_PROMOCODES_STATE action type', () => {
+      expect(
+        reducer(
+          {
+            ...mockState.bag,
+            bagPromocodes: {
+              error: toBlackoutError(new Error('dummy')),
+              isLoading: false,
+              result: {
+                promoCodesInformation: [],
+              },
+            },
+          },
+          {
+            type: actionTypes.RESET_BAG_PROMOCODES_STATE,
+          },
+        ).bagPromocodes,
+      ).toEqual(initialState.bagPromocodes);
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = {
+        ...mockState.bag,
+        bagPromocodes: {
+          error: toBlackoutError(new Error('dummy')),
+          isLoading: false,
+          result: {
+            promoCodesInformation: [],
+          },
+        },
+      };
+
+      expect(reducer(state, randomAction).bagPromocodes).toEqual(
+        state.bagPromocodes,
       );
     });
   });

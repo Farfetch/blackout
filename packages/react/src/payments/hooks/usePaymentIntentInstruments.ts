@@ -6,7 +6,7 @@ import {
   getPaymentIntentInstruments,
   getPaymentIntentInstrumentsError,
   removePaymentIntentInstrument,
-  resetPaymentIntentInstrumentsState,
+  resetPaymentIntentInstruments,
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -39,7 +39,7 @@ function usePaymentIntentInstruments(
   const createInstrumentAction = useAction(createPaymentIntentInstrument);
   const updateInstrumentAction = useAction(updatePaymentIntentInstrument);
   const removeInstrumentAction = useAction(removePaymentIntentInstrument);
-  const resetInstrumentsState = useAction(resetPaymentIntentInstrumentsState);
+  const resetInstrumentsState = useAction(resetPaymentIntentInstruments);
 
   const instruments = useMemo(() => {
     return instrumentEntities ? Object.values(instrumentEntities) : undefined;
