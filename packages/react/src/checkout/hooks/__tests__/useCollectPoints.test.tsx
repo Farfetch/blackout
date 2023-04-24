@@ -9,7 +9,7 @@ import {
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCollectPoints,
-  resetCollectPointsState,
+  resetCollectPoints,
 } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useCollectPoints from '../useCollectPoints.js';
@@ -17,7 +17,7 @@ import useCollectPoints from '../useCollectPoints.js';
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   fetchCollectPoints: jest.fn(() => ({ type: 'fetch_collect_points' })),
-  resetCollectPointsState: jest.fn(() => ({ type: 'reset_collect_points' })),
+  resetCollectPoints: jest.fn(() => ({ type: 'reset_collect_points' })),
 }));
 
 const defaultReturn = {
@@ -98,7 +98,7 @@ describe('useCollectPoints', () => {
         wrapper: withStore(mockCheckoutState),
       });
 
-      expect(resetCollectPointsState).toHaveBeenCalled();
+      expect(resetCollectPoints).toHaveBeenCalled();
     });
 
     it('should not call reset if the passed query.orderId does not differ from the checkoutOrderId that is in state', () => {
@@ -106,7 +106,7 @@ describe('useCollectPoints', () => {
         wrapper: withStore(mockCheckoutState),
       });
 
-      expect(resetCollectPointsState).not.toHaveBeenCalled();
+      expect(resetCollectPoints).not.toHaveBeenCalled();
     });
 
     it('should not call reset if the query.orderId hook parameter is passed but there is no collect points data in state', () => {
@@ -114,7 +114,7 @@ describe('useCollectPoints', () => {
         wrapper: withStore(mockInitialState),
       });
 
-      expect(resetCollectPointsState).not.toHaveBeenCalled();
+      expect(resetCollectPoints).not.toHaveBeenCalled();
     });
   });
 
@@ -250,7 +250,7 @@ describe('useCollectPoints', () => {
     });
 
     describe('reset', () => {
-      it('should call `resetCollectPointsState` action', async () => {
+      it('should call `resetCollectPoints` action', async () => {
         const {
           result: {
             current: {
@@ -263,7 +263,7 @@ describe('useCollectPoints', () => {
 
         await reset();
 
-        expect(resetCollectPointsState).toHaveBeenCalled();
+        expect(resetCollectPoints).toHaveBeenCalled();
       });
     });
   });

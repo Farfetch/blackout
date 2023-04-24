@@ -1,7 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchConfigurations,
-  resetConfigurationsState,
+  resetConfigurations,
 } from '@farfetch/blackout-redux';
 import {
   mockConfigurationsErrorState,
@@ -15,7 +15,7 @@ import { useConfigurations } from '../..//index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  resetConfigurationsState: jest.fn(() => () => Promise.resolve()),
+  resetConfigurations: jest.fn(() => () => Promise.resolve()),
   fetchConfigurations: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -98,7 +98,7 @@ describe('useConfigurations', () => {
 
       reset();
 
-      expect(resetConfigurationsState).toHaveBeenCalled();
+      expect(resetConfigurations).toHaveBeenCalled();
     });
 
     it('should call `fetch` action', () => {

@@ -15,7 +15,6 @@ import {
   isAnyWishlistSetLoading as isAnyWishlistSetLoadingSelector,
   removeWishlistSet as removeWishlistSetAction,
   resetWishlistSets as resetWishlistSetsAction,
-  resetWishlistSetsState as resetWishlistSetsStateAction,
   updateWishlistSet as updateWishlistSetAction,
   type WishlistSetActionMetadata,
 } from '@farfetch/blackout-redux';
@@ -57,7 +56,6 @@ const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
   const removeWishlistSet = useAction(removeWishlistSetAction);
   const updateWishlistSet = useAction(updateWishlistSetAction);
   const resetWishlistSets = useAction(resetWishlistSetsAction);
-  const resetWishlistSetsState = useAction(resetWishlistSetsStateAction);
 
   const userWishlistId = user?.isGuest === false ? user.wishlistId : undefined;
 
@@ -192,10 +190,6 @@ const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
        * Resets the wishlist sets.
        */
       reset: resetWishlistSets,
-      /**
-       * Resets the wishlist sets state.
-       */
-      resetWishlistSetsState,
     },
     /**
      * List of error states for the wishlist sets.

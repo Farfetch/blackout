@@ -23,7 +23,7 @@ jest.mock('../useUserOrders', () => {
       data: undefined,
       actions: {
         fetchOrderDetails: mockFetchOrderDetailsFn,
-        resetOrderDetailsState: mockResetOrderDetailsStateFn,
+        resetOrderDetails: mockResetOrderDetailsStateFn,
       },
     };
   });
@@ -311,7 +311,7 @@ describe('useOrder', () => {
     });
 
     describe('reset', () => {
-      it('should call `resetOrderDetailsState` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', async () => {
+      it('should call `resetOrderDetails` action with the orderId parameter passed to the hook if no orderId parameter is passed to the function', async () => {
         const {
           result: {
             current: {
@@ -330,7 +330,7 @@ describe('useOrder', () => {
         expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId]);
       });
 
-      it('should call `resetOrderDetailsState` action with the orderId parameter passed to the function', async () => {
+      it('should call `resetOrderDetails` action with the orderId parameter passed to the function', async () => {
         const {
           result: {
             current: {
@@ -349,7 +349,7 @@ describe('useOrder', () => {
         expect(mockResetOrderDetailsStateFn).toHaveBeenCalledWith([orderId2]);
       });
 
-      it('should not call `resetOrderDetailsState` when orderId parameter is not passed to both the hook and the function', async () => {
+      it('should not call `resetOrderDetails` when orderId parameter is not passed to both the hook and the function', async () => {
         const {
           result: {
             current: {

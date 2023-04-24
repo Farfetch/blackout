@@ -15,7 +15,6 @@ export { default as fetchCheckoutOrderDeliveryBundleProvisioningFactory } from '
 export { default as fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory } from './fetchCheckoutOrderDeliveryBundleUpgradeProvisioningFactory.js';
 export { default as fetchCheckoutOrderPaymentMethodsFactory } from './fetchCheckoutOrderPaymentMethodsFactory.js';
 export { default as removeCheckoutOrderItemFactory } from './removeCheckoutOrderItemFactory.js';
-export { default as resetCheckoutFactory } from '../resetCheckout.js';
 export { default as setCheckoutOrderItemTagsFactory } from './setCheckoutOrderItemTagsFactory.js';
 export { default as setCheckoutOrderPromocodesFactory } from './setCheckoutOrderPromocodesFactory.js';
 export { default as setCheckoutOrderTagsFactory } from './setCheckoutOrderTagsFactory.js';

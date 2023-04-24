@@ -4,11 +4,7 @@ import {
   REMOVE_BAG_ITEM_SUCCESS,
   UPDATE_BAG_ITEM_SUCCESS,
 } from '../../actionTypes.js';
-import {
-  fetchBagOperation,
-  resetBagOperationsEntities,
-  resetBagState,
-} from '../../actions/index.js';
+import { fetchBagOperation, resetBagOperations } from '../../actions/index.js';
 import { fetchBagOperationsOnBagRequestSuccess } from '..//index.js';
 import {
   mockBagId,
@@ -20,8 +16,8 @@ import { mockStore } from '../../../../tests/index.js';
 jest.mock('../../actions', () => ({
   ...jest.requireActual('../../actions'),
   fetchBagOperation: jest.fn(() => ({ type: 'foo' })),
-  resetBagState: jest.fn(() => ({ type: 'foo' })),
-  resetBagOperationsEntities: jest.fn(() => ({ type: 'foo' })),
+  resetBag: jest.fn(() => ({ type: 'foo' })),
+  resetBagOperations: jest.fn(() => ({ type: 'foo' })),
 }));
 
 describe('fetchBagOperationsOnBagRequestSuccess', () => {
@@ -49,8 +45,7 @@ describe('fetchBagOperationsOnBagRequestSuccess', () => {
       type: actionType,
     });
 
-    expect(resetBagState).toHaveBeenCalledWith(['bagOperations']);
-    expect(resetBagOperationsEntities).toHaveBeenCalled();
+    expect(resetBagOperations).toHaveBeenCalled();
     expect(fetchBagOperation).toHaveBeenCalledWith(
       mockBagId,
       mockBagOperationId,

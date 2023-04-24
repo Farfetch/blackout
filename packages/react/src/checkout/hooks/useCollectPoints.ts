@@ -5,7 +5,7 @@ import {
   getCheckoutOrderId,
   getCollectPoints,
   getCollectPointsError,
-  resetCollectPointsState,
+  resetCollectPoints,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
@@ -34,7 +34,7 @@ function useCollectPoints(
   );
   const checkoutOrderId = useSelector(getCheckoutOrderId);
   const fetchCollectPointsAction = useAction(fetchCollectPoints);
-  const reset = useAction(resetCollectPointsState);
+  const reset = useAction(resetCollectPoints);
 
   const fetch = useCallback(
     (

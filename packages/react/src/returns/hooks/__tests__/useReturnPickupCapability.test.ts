@@ -1,7 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchReturnPickupCapability,
-  resetReturnPickupCapabilityState,
+  resetReturnPickupCapability,
 } from '@farfetch/blackout-redux';
 import {
   mockState,
@@ -21,7 +21,7 @@ jest.mock('@farfetch/blackout-redux', () => {
     fetchReturnPickupCapability: jest.fn(() => ({
       type: 'fetch_return_pickup_capability',
     })),
-    resetReturnPickupCapabilityState: jest.fn(() => ({
+    resetReturnPickupCapability: jest.fn(() => ({
       type: 'reset_return_pickup_capability',
     })),
   };
@@ -233,7 +233,7 @@ describe('useReturnPickupCapability', () => {
 
   describe('actions', () => {
     describe('reset', () => {
-      it('should call `resetReturnPickupCapabilityState` action with the returnId and pickupDay parameters provided to the hook if no parameters are passed', () => {
+      it('should call `resetReturnPickupCapability` action with the returnId and pickupDay parameters provided to the hook if no parameters are passed', () => {
         const {
           result: {
             current: {
@@ -253,12 +253,12 @@ describe('useReturnPickupCapability', () => {
 
         reset();
 
-        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+        expect(resetReturnPickupCapability).toHaveBeenCalledWith([
           { returnId, pickupDay },
         ]);
       });
 
-      it('should call `resetReturnPickupCapabilityState` action with the returnId passed as a parameter and use the pickupDay parameter provided to the hook if it is not passed', () => {
+      it('should call `resetReturnPickupCapability` action with the returnId passed as a parameter and use the pickupDay parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
@@ -278,12 +278,12 @@ describe('useReturnPickupCapability', () => {
 
         reset(undefined, returnId);
 
-        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+        expect(resetReturnPickupCapability).toHaveBeenCalledWith([
           { returnId, pickupDay },
         ]);
       });
 
-      it('should call `resetReturnPickupCapabilityState` action with the pickupDay passed as a parameter and use the returnId parameter provided to the hook if it is not passed', () => {
+      it('should call `resetReturnPickupCapability` action with the pickupDay passed as a parameter and use the returnId parameter provided to the hook if it is not passed', () => {
         const {
           result: {
             current: {
@@ -303,12 +303,12 @@ describe('useReturnPickupCapability', () => {
 
         reset(pickupDay);
 
-        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+        expect(resetReturnPickupCapability).toHaveBeenCalledWith([
           { returnId, pickupDay },
         ]);
       });
 
-      it('should call `resetReturnPickupCapabilityState` action with the returnId and pickupDay parameters if both are passed to the function', () => {
+      it('should call `resetReturnPickupCapability` action with the returnId and pickupDay parameters if both are passed to the function', () => {
         const {
           result: {
             current: {
@@ -328,12 +328,12 @@ describe('useReturnPickupCapability', () => {
 
         reset(pickupDay, returnId);
 
-        expect(resetReturnPickupCapabilityState).toHaveBeenCalledWith([
+        expect(resetReturnPickupCapability).toHaveBeenCalledWith([
           { returnId, pickupDay },
         ]);
       });
 
-      it('should not call `resetReturnPickupCapabilityState` when returnId parameter is not passed to both the hook and the function', () => {
+      it('should not call `resetReturnPickupCapability` when returnId parameter is not passed to both the hook and the function', () => {
         const {
           result: {
             current: {
@@ -353,10 +353,10 @@ describe('useReturnPickupCapability', () => {
 
         reset();
 
-        return expect(resetReturnPickupCapabilityState).not.toHaveBeenCalled();
+        return expect(resetReturnPickupCapability).not.toHaveBeenCalled();
       });
 
-      it('should not call `resetReturnPickupCapabilityState` when pickupDay parameter is not passed to both the hook and the function', () => {
+      it('should not call `resetReturnPickupCapability` when pickupDay parameter is not passed to both the hook and the function', () => {
         const {
           result: {
             current: {
@@ -376,7 +376,7 @@ describe('useReturnPickupCapability', () => {
 
         reset();
 
-        expect(resetReturnPickupCapabilityState).not.toHaveBeenCalled();
+        expect(resetReturnPickupCapability).not.toHaveBeenCalled();
       });
     });
 

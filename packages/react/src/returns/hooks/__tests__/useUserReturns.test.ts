@@ -29,7 +29,7 @@ const defaultUserReturns = {
     createReturn: expect.any(Function),
     fetch: expect.any(Function),
     fetchReturn: expect.any(Function),
-    resetReturnState: expect.any(Function),
+    resetReturn: expect.any(Function),
     updateReturn: expect.any(Function),
   },
 };

@@ -26,7 +26,7 @@ function useOrder(
   const {
     actions: {
       fetchOrderDetails,
-      resetOrderDetailsState: resetOrderDetailsStateFromUseOrders,
+      resetOrderDetails: resetOrderDetailsStateFromUseOrders,
     },
   } = useUserOrders({ enableAutoFetch: false });
   const isLoading = useSelector((state: StoreState) =>

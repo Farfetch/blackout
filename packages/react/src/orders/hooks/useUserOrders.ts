@@ -9,7 +9,7 @@ import {
   getUserOrdersResult,
   getUserOrdersResultByOrderId,
   isAuthenticated as isAuthenticatedSelector,
-  resetOrderDetailsState as resetOrderDetailsStateAction,
+  resetOrderDetails as resetOrderDetailsStateAction,
   resetOrders,
   type StoreState,
 } from '@farfetch/blackout-redux';
@@ -31,7 +31,7 @@ function useUserOrders(options: UseUserOrdersOptions = {}) {
   const fetchOrder = useAction(fetchOrderAction);
   const fetchGuestOrderLegacy = useAction(fetchGuestOrderLegacyAction);
   const reset = useAction(resetOrders);
-  const resetOrderDetailsState = useAction(resetOrderDetailsStateAction);
+  const resetOrderDetails = useAction(resetOrderDetailsStateAction);
   const isLoading = useSelector((state: StoreState) =>
     areUserOrdersLoading(state, fetchQuery),
   );
@@ -121,7 +121,7 @@ function useUserOrders(options: UseUserOrdersOptions = {}) {
       fetch,
       fetchOrderDetails,
       reset,
-      resetOrderDetailsState,
+      resetOrderDetails,
     },
     data,
     error,

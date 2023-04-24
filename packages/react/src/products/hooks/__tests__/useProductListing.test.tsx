@@ -2,7 +2,7 @@ import {
   fetchProductListing,
   fetchProductSet,
   getSlug,
-  resetProductsLists,
+  resetProductListings,
 } from '@farfetch/blackout-redux';
 import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
 import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
@@ -25,7 +25,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   fetchProductListing: jest.fn(() => () => Promise.resolve()),
   fetchProductSet: jest.fn(() => () => Promise.resolve()),
-  resetProductsLists: jest.fn(() => () => Promise.resolve()),
+  resetProductListings: jest.fn(() => () => Promise.resolve()),
 }));
 
 const slug = getSlug(mockProductsListPathname);
@@ -251,7 +251,7 @@ describe('useProductListing', () => {
 
       reset();
 
-      expect(resetProductsLists).toHaveBeenCalledWith([data?.hash]);
+      expect(resetProductListings).toHaveBeenCalledWith([data?.hash]);
     });
 
     it('should call `fetchListing` successfully when `refetch` action is called and type is `listing`', () => {

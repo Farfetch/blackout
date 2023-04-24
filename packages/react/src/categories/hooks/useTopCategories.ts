@@ -4,7 +4,7 @@ import {
   fetchTopCategories,
   getTopCategories,
   getTopCategoriesError,
-  resetCategoriesState,
+  resetCategories,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const useTopCategories = (options: UseTopCategoriesOptions = {}) => {
   const isFetched = useSelector(areTopCategoriesFetched);
   const topCategories = useSelector(getTopCategories);
   const fetch = useAction(fetchTopCategories);
-  const reset = useAction(resetCategoriesState);
+  const reset = useAction(resetCategories);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {

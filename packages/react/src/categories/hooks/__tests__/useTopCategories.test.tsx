@@ -1,7 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchTopCategories,
-  resetCategoriesState,
+  resetCategories,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import {
@@ -18,7 +18,7 @@ import { useTopCategories } from '../..//index.js';
 
 jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
-  resetCategoriesState: jest.fn(() => () => Promise.resolve()),
+  resetCategories: jest.fn(() => () => Promise.resolve()),
   fetchTopCategories: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -107,7 +107,7 @@ describe('useTopCategories', () => {
 
       reset();
 
-      expect(resetCategoriesState).toHaveBeenCalled();
+      expect(resetCategories).toHaveBeenCalled();
     });
   });
 });

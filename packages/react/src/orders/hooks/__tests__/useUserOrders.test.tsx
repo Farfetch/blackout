@@ -14,7 +14,7 @@ import {
   fetchGuestOrderLegacy,
   fetchOrder,
   fetchUserOrders,
-  resetOrderDetailsState as resetOrderDetailsStateAction,
+  resetOrderDetails as resetOrderDetailsStateAction,
   resetOrders,
 } from '@farfetch/blackout-redux';
 import {
@@ -46,7 +46,7 @@ jest.mock('@farfetch/blackout-redux', () => {
     resetOrders: jest.fn(() => ({
       type: 'reset_orders',
     })),
-    resetOrderDetailsState: jest.fn(() => ({
+    resetOrderDetails: jest.fn(() => ({
       type: 'reset_order_details_state',
     })),
   };
@@ -59,7 +59,7 @@ const defaultReturn = {
   error: null,
   actions: {
     fetch: expect.any(Function),
-    resetOrderDetailsState: expect.any(Function),
+    resetOrderDetails: expect.any(Function),
     fetchOrderDetails: expect.any(Function),
     reset: expect.any(Function),
   },
@@ -467,19 +467,19 @@ describe('useUserOrders', () => {
         });
       });
 
-      describe('resetOrderDetailsState', () => {
-        it('should call `resetOrderDetailsState` action with the correct parameters', async () => {
+      describe('resetOrderDetails', () => {
+        it('should call `resetOrderDetails` action with the correct parameters', async () => {
           const {
             result: {
               current: {
-                actions: { resetOrderDetailsState },
+                actions: { resetOrderDetails },
               },
             },
           } = renderHook(() => useUserOrders({ enableAutoFetch: false }), {
             wrapper: withStore(mockInitialState),
           });
 
-          await resetOrderDetailsState([orderId]);
+          await resetOrderDetails([orderId]);
 
           expect(resetOrderDetailsStateAction).toHaveBeenCalledWith([orderId]);
         });

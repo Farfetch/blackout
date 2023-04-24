@@ -17,17 +17,17 @@ export const INITIAL_STATE: ProductsListsState = {
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_PRODUCTS_LIST_REQUEST:
+    case actionTypes.FETCH_PRODUCT_LISTING_REQUEST:
       return {
         ...state,
         [action.meta.hash]: undefined,
       };
-    case actionTypes.FETCH_PRODUCTS_LIST_FAILURE:
+    case actionTypes.FETCH_PRODUCT_LISTING_FAILURE:
       return {
         ...state,
         [action.meta.hash]: action.payload.error,
       };
-    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+    case actionTypes.RESET_PRODUCT_LISTINGS_STATE:
       return partialResetStateReducer(
         state,
         action as ResetProductListsStateAction,
@@ -38,7 +38,7 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
 };
 
 const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
-  if (action.type === actionTypes.SET_PRODUCTS_LIST_HASH) {
+  if (action.type === actionTypes.SET_PRODUCT_LISTING_HASH) {
     return action.meta.hash;
   }
 
@@ -47,12 +47,12 @@ const hash = (state = INITIAL_STATE.hash, action: AnyAction) => {
 
 const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.DEHYDRATE_PRODUCTS_LIST:
+    case actionTypes.DEHYDRATE_PRODUCT_LISTING:
       return {
         ...state,
         [action.meta.hash]: false,
       };
-    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+    case actionTypes.RESET_PRODUCT_LISTINGS_STATE:
       return partialResetStateReducer(
         state,
         action as ResetProductListsStateAction,
@@ -64,18 +64,18 @@ const isHydrated = (state = INITIAL_STATE.isHydrated, action: AnyAction) => {
 
 const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
-    case actionTypes.FETCH_PRODUCTS_LIST_REQUEST:
+    case actionTypes.FETCH_PRODUCT_LISTING_REQUEST:
       return {
         ...state,
         [action.meta.hash]: true,
       };
-    case actionTypes.FETCH_PRODUCTS_LIST_SUCCESS:
-    case actionTypes.FETCH_PRODUCTS_LIST_FAILURE:
+    case actionTypes.FETCH_PRODUCT_LISTING_SUCCESS:
+    case actionTypes.FETCH_PRODUCT_LISTING_FAILURE:
       return {
         ...state,
         [action.meta.hash]: false,
       };
-    case actionTypes.RESET_PRODUCTS_LISTS_STATE:
+    case actionTypes.RESET_PRODUCT_LISTINGS_STATE:
       return partialResetStateReducer(
         state,
         action as ResetProductListsStateAction,
@@ -86,7 +86,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
 };
 
 export const entitiesMapper = {
-  [actionTypes.RESET_PRODUCTS_LISTS_ENTITIES]: (
+  [actionTypes.RESET_PRODUCT_LISTING_ENTITIES]: (
     state: NonNullable<StoreState['entities']>,
     action: AnyAction,
   ) => {
@@ -154,7 +154,7 @@ const reducers = combineReducers({
  */
 const productsListsReducer: Reducer<ProductsListsState> = (state, action) => {
   if (
-    action.type === actionTypes.RESET_PRODUCTS_LISTS_STATE &&
+    action.type === actionTypes.RESET_PRODUCT_LISTINGS_STATE &&
     !(action as ResetProductListsStateAction).payload?.length
   ) {
     return INITIAL_STATE;

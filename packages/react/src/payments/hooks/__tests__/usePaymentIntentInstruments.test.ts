@@ -3,7 +3,7 @@ import {
   createPaymentIntentInstrument,
   fetchPaymentIntentInstruments,
   removePaymentIntentInstrument,
-  resetPaymentIntentInstrumentsState,
+  resetPaymentIntentInstruments,
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
 import {
@@ -24,7 +24,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchPaymentIntentInstruments: jest.fn(() => () => Promise.resolve()),
   createPaymentIntentInstrument: jest.fn(() => () => Promise.resolve()),
   removePaymentIntentInstrument: jest.fn(() => () => Promise.resolve()),
-  resetPaymentIntentInstrumentsState: jest.fn(() => () => Promise.resolve()),
+  resetPaymentIntentInstruments: jest.fn(() => () => Promise.resolve()),
   updatePaymentIntentInstrument: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -424,7 +424,7 @@ describe('usePaymentIntentInstruments', () => {
     });
 
     describe('reset', () => {
-      it('should call `resetPaymentIntentInstrumentsState` action', async () => {
+      it('should call `resetPaymentIntentInstruments` action', async () => {
         const {
           result: {
             current: {
@@ -437,7 +437,7 @@ describe('usePaymentIntentInstruments', () => {
 
         await reset();
 
-        expect(resetPaymentIntentInstrumentsState).toHaveBeenCalled();
+        expect(resetPaymentIntentInstruments).toHaveBeenCalled();
       });
     });
   });
