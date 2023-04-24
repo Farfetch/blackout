@@ -22,4 +22,3 @@ export { default as createPhoneToken } from './createPhoneToken.js';
 export { default as createPhoneTokenValidation } from './createPhoneTokenValidation.js';
 export { default as createPhoneNumberValidation } from './createPhoneNumberValidation.js';
 export { default as resetUser } from './resetUser.js';
-export { default as resetUserState } from './resetUserState.js';

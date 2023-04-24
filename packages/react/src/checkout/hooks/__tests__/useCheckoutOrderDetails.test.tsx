@@ -310,7 +310,7 @@ describe('useCheckoutOrderDetails', () => {
     });
 
     describe('reset', () => {
-      it('should call `resetCheckoutOrderDetailsState` action', async () => {
+      it('should call `resetCheckoutOrderDetails` action', async () => {
         const {
           result: {
             current: {

@@ -4,7 +4,7 @@ import {
   fetchCategories,
   getCategories,
   getCategoriesError,
-  resetCategoriesState,
+  resetCategories,
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const useCategories = (options: UseCategoriesOptions = {}) => {
   const isFetched = useSelector(areCategoriesFetched);
   const categories = useSelector(getCategories);
   const fetch = useAction(fetchCategories);
-  const reset = useAction(resetCategoriesState);
+  const reset = useAction(resetCategories);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {

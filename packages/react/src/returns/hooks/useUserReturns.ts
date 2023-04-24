@@ -8,7 +8,7 @@ import {
   buildQueryStringFromObject,
   createReturn as createReturnAction,
   fetchReturn as fetchReturnAction,
-  resetReturnState as resetReturnStateAction,
+  resetReturn as resetReturnStateAction,
   updateReturn as updateReturnAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
@@ -158,7 +158,7 @@ function useUserReturns(options: UseUserReturnsOptions = {}) {
   const data = userIdRequestState?.result;
   const isFetched = !!(data || error) && !isLoading;
   const fetchReturn = useAction(fetchReturnAction);
-  const resetReturnState = useAction(resetReturnStateAction);
+  const resetReturn = useAction(resetReturnStateAction);
   const updateReturn = useAction(updateReturnAction);
   const createReturn = useAction(createReturnAction);
 
@@ -221,7 +221,7 @@ function useUserReturns(options: UseUserReturnsOptions = {}) {
     actions: {
       fetch,
       fetchReturn,
-      resetReturnState,
+      resetReturn,
       updateReturn,
       createReturn,
     },

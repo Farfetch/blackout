@@ -4,11 +4,7 @@ import {
   REMOVE_BAG_ITEM_SUCCESS,
   UPDATE_BAG_ITEM_SUCCESS,
 } from '../actionTypes.js';
-import {
-  fetchBagOperation,
-  resetBagOperationsEntities,
-  resetBagState,
-} from '../actions/index.js';
+import { fetchBagOperation, resetBagOperations } from '../actions/index.js';
 import { getBag, getBagId } from '../selectors.js';
 import type { AnyAction, Middleware } from 'redux';
 import type { FetchBagOperationAction } from '../types/index.js';
@@ -49,8 +45,7 @@ const fetchBagOperationsOnBagRequestSuccess: Middleware =
     const controls = getBag(getState())?.['@controls'];
 
     if (controls) {
-      dispatch(resetBagState(['bagOperations']));
-      dispatch(resetBagOperationsEntities());
+      dispatch(resetBagOperations());
 
       Object.values(controls).forEach(({ href }) => {
         const operationId = href?.split('/')?.pop();

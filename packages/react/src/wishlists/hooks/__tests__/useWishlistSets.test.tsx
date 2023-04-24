@@ -4,7 +4,6 @@ import {
   fetchWishlistSets,
   removeWishlistSet,
   resetWishlistSets,
-  resetWishlistSetsState,
   updateWishlistSet,
 } from '@farfetch/blackout-redux';
 import { cleanup, renderHook } from '@testing-library/react';
@@ -28,7 +27,6 @@ jest.mock('@farfetch/blackout-redux', () => ({
   addWishlistSet: jest.fn(() => ({ type: 'add' })),
   fetchWishlistSets: jest.fn(() => ({ type: 'fetch' })),
   resetWishlistSets: jest.fn(() => ({ type: 'reset' })),
-  resetWishlistSetsState: jest.fn(() => ({ type: 'resetState' })),
   removeWishlistSet: jest.fn(() => ({ type: 'remove' })),
   fetchWishlistSet: jest.fn(() => ({ type: 'fetch_wishlist_set' })),
   updateWishlistSet: jest.fn(() => ({ type: 'update' })),
@@ -60,7 +58,6 @@ const defaultReturn = {
     reset: expect.any(Function),
     fetch: expect.any(Function),
     fetchWishlistSet: expect.any(Function),
-    resetWishlistSetsState: expect.any(Function),
     update: expect.any(Function),
     remove: expect.any(Function),
   },
@@ -299,18 +296,6 @@ describe('useWishlistSets', () => {
         reset();
 
         expect(resetWishlistSets).toHaveBeenCalled();
-      });
-    });
-
-    describe('resetWishlistSetsState', () => {
-      it('should call `resetWishlistSetsState` action', () => {
-        const {
-          actions: { resetWishlistSetsState: resetWishlistSetsStateAction },
-        } = getRenderedHook();
-
-        resetWishlistSetsStateAction(['error']);
-
-        expect(resetWishlistSetsState).toHaveBeenCalled();
       });
     });
 

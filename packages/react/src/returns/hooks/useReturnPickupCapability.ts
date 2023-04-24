@@ -4,7 +4,7 @@ import {
   getReturnPickupCapabilityError,
   isReturnPickupCapabilityFetched,
   isReturnPickupCapabilityLoading,
-  resetReturnPickupCapabilityState as resetReturnPickupCapabilityStateAction,
+  resetReturnPickupCapability as resetReturnPickupCapabilityStateAction,
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
@@ -65,7 +65,7 @@ function useReturnPickupCapability(
   const fetchReturnPickupCapability = useAction(
     fetchReturnPickupCapabilityAction,
   );
-  const resetReturnPickupCapabilityState = useAction(
+  const resetReturnPickupCapability = useAction(
     resetReturnPickupCapabilityStateAction,
   );
 
@@ -117,12 +117,12 @@ function useReturnPickupCapability(
       returnId: Return['id'] | undefined = returnIdHookParameter,
     ) => {
       if (returnId && pickupDay) {
-        resetReturnPickupCapabilityState([{ returnId, pickupDay }]);
+        resetReturnPickupCapability([{ returnId, pickupDay }]);
       }
     },
     [
       pickupDayHookParameter,
-      resetReturnPickupCapabilityState,
+      resetReturnPickupCapability,
       returnIdHookParameter,
     ],
   );

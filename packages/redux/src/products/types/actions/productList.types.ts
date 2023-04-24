@@ -16,7 +16,7 @@ export type ProductListActionOptions = {
 };
 export interface FetchProductListRequestAction extends Action {
   meta: { hash: ProductListingEntity['hash'] };
-  type: typeof actionTypes.FETCH_PRODUCTS_LIST_REQUEST;
+  type: typeof actionTypes.FETCH_PRODUCT_LISTING_REQUEST;
 }
 export interface FetchProductListSuccessAction extends Action {
   meta: { hash: ProductListingEntity['hash'] };
@@ -28,12 +28,12 @@ export interface FetchProductListSuccessAction extends Action {
     },
     ProductListingEntity['hash']
   >;
-  type: typeof actionTypes.FETCH_PRODUCTS_LIST_SUCCESS;
+  type: typeof actionTypes.FETCH_PRODUCT_LISTING_SUCCESS;
 }
 export interface FetchProductListFailureAction extends Action {
   meta: { hash: ProductListingEntity['hash'] };
   payload: { error: BlackoutError };
-  type: typeof actionTypes.FETCH_PRODUCTS_LIST_FAILURE;
+  type: typeof actionTypes.FETCH_PRODUCT_LISTING_FAILURE;
 }
 
 /**
@@ -46,19 +46,19 @@ export type FetchProductListAction =
 
 export interface DehydrateProductListAction extends Action {
   meta: { hash: ProductListingEntity['hash'] };
-  type: typeof actionTypes.DEHYDRATE_PRODUCTS_LIST;
+  type: typeof actionTypes.DEHYDRATE_PRODUCT_LISTING;
 }
 
 export interface SetProductListHashAction extends Action {
   meta: { hash: ProductListingEntity['hash'] };
-  type: typeof actionTypes.SET_PRODUCTS_LIST_HASH;
+  type: typeof actionTypes.SET_PRODUCT_LISTING_HASH;
 }
 
 /**
  * Actions dispatched when the reset products lists state is called.
  */
 export interface ResetProductListsStateAction extends Action {
-  type: typeof actionTypes.RESET_PRODUCTS_LISTS_STATE;
+  type: typeof actionTypes.RESET_PRODUCT_LISTINGS_STATE;
   payload: Array<string> | undefined;
 }
 
@@ -66,7 +66,7 @@ export interface ResetProductListsStateAction extends Action {
  * Actions dispatched when the reset products lists entities is called.
  */
 export interface ResetProductListsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_PRODUCTS_LISTS_ENTITIES;
+  type: typeof actionTypes.RESET_PRODUCT_LISTING_ENTITIES;
   payload: Array<string> | undefined;
 }
 

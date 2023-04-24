@@ -143,10 +143,6 @@ export interface ResetBagEntitiesAction extends Action {
   type: typeof actionTypes.RESET_BAG_ENTITIES;
 }
 
-export interface ResetBagOperationsEntitiesAction extends Action {
-  type: typeof actionTypes.RESET_BAG_OPERATIONS_ENTITIES;
-}
-
 export type ResetBagAction = ResetBagStateAction | ResetBagEntitiesAction;
 
 export interface FetchBagOperationRequestAction extends Action {
@@ -168,6 +164,18 @@ export type FetchBagOperationAction =
   | FetchBagSuccessAction
   | FetchBagFailureAction;
 
+export interface ResetBagOperationsEntitiesAction extends Action {
+  type: typeof actionTypes.RESET_BAG_OPERATIONS_ENTITIES;
+}
+
+export interface ResetBagOperationsStateAction extends Action {
+  type: typeof actionTypes.RESET_BAG_OPERATIONS_STATE;
+}
+
+export type ResetBagOperationsAction =
+  | ResetBagOperationsStateAction
+  | ResetBagOperationsEntitiesAction;
+
 export interface SetBagPromocodesRequestAction extends Action {
   type: typeof actionTypes.SET_BAG_PROMOCODES_REQUEST;
 }
@@ -186,3 +194,7 @@ export type SetBagPromocodesAction =
   | SetBagPromocodesRequestAction
   | SetBagPromocodesSuccessAction
   | SetBagPromocodesFailureAction;
+
+export interface ResetBagPromocodesStateAction extends Action {
+  type: typeof actionTypes.RESET_BAG_PROMOCODES_STATE;
+}

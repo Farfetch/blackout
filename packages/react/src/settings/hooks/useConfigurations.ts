@@ -4,7 +4,7 @@ import {
   fetchConfigurations,
   getConfigurations,
   getConfigurationsError,
-  resetConfigurationsState,
+  resetConfigurations,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const useConfigurations = (options: UseConfigurationsOptions = {}) => {
   const isFetched = useSelector(areConfigurationsFetched);
   const configurations = useSelector(getConfigurations);
   const fetch = useAction(fetchConfigurations);
-  const reset = useAction(resetConfigurationsState);
+  const reset = useAction(resetConfigurations);
 
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch) {

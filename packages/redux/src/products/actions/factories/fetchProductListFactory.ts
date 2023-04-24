@@ -70,7 +70,7 @@ const fetchProductListFactory = async (
     if (isHydrated) {
       dispatch({
         meta: { hash },
-        type: actionTypes.DEHYDRATE_PRODUCTS_LIST,
+        type: actionTypes.DEHYDRATE_PRODUCT_LISTING,
       });
 
       return;
@@ -85,13 +85,13 @@ const fetchProductListFactory = async (
 
         dispatch({
           meta: { hash },
-          type: actionTypes.SET_PRODUCTS_LIST_HASH,
+          type: actionTypes.SET_PRODUCT_LISTING_HASH,
         });
 
         return;
       } else {
         dispatch({
-          type: actionTypes.RESET_PRODUCTS_LISTS_STATE,
+          type: actionTypes.RESET_PRODUCT_LISTINGS_STATE,
         });
       }
     }
@@ -99,13 +99,13 @@ const fetchProductListFactory = async (
     if (setProductsListHash) {
       dispatch({
         meta: { hash },
-        type: actionTypes.SET_PRODUCTS_LIST_HASH,
+        type: actionTypes.SET_PRODUCT_LISTING_HASH,
       });
     }
 
     dispatch({
       meta: { hash },
-      type: actionTypes.FETCH_PRODUCTS_LIST_REQUEST,
+      type: actionTypes.FETCH_PRODUCT_LISTING_REQUEST,
     });
 
     // @ts-expect-error Property slug can be a string or a number.
@@ -122,7 +122,7 @@ const fetchProductListFactory = async (
         },
         productsListSchema,
       ),
-      type: actionTypes.FETCH_PRODUCTS_LIST_SUCCESS,
+      type: actionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
     });
 
     return result;
@@ -132,7 +132,7 @@ const fetchProductListFactory = async (
     dispatch({
       meta: { hash: hash as string },
       payload: { error: errorAsBlackoutError },
-      type: actionTypes.FETCH_PRODUCTS_LIST_FAILURE,
+      type: actionTypes.FETCH_PRODUCT_LISTING_FAILURE,
     });
 
     throw errorAsBlackoutError;

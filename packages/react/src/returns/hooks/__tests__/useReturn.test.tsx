@@ -33,7 +33,7 @@ jest.mock('../useUserReturns', () => {
       data: undefined,
       actions: {
         fetchReturn: mockFetchReturnFn,
-        resetReturnState: mockResetReturnStateFn,
+        resetReturn: mockResetReturnStateFn,
         updateReturn: mockUpdateReturnFn,
         createReturn: mockCreateReturnFn,
       },
@@ -319,7 +319,7 @@ describe('useReturn', () => {
 
   describe('actions', () => {
     describe('reset', () => {
-      it('should call `resetReturnState` action with the returnId parameter passed to the hook if no returnId is passed to the function', () => {
+      it('should call `resetReturn` action with the returnId parameter passed to the hook if no returnId is passed to the function', () => {
         const {
           result: {
             current: {
@@ -335,7 +335,7 @@ describe('useReturn', () => {
         expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId]);
       });
 
-      it('should call `resetReturnState` action with the returnId parameter passed to the function', () => {
+      it('should call `resetReturn` action with the returnId parameter passed to the function', () => {
         const {
           result: {
             current: {
@@ -351,7 +351,7 @@ describe('useReturn', () => {
         expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId]);
       });
 
-      it('should not call `resetReturnState` when returnId parameter is not passed to both the hook and the function', () => {
+      it('should not call `resetReturn` when returnId parameter is not passed to both the hook and the function', () => {
         const {
           result: {
             current: {
@@ -606,7 +606,7 @@ describe('useReturn', () => {
           let queryByTestId = renderResult.queryByTestId;
 
           // Test cleanup 1: The hook is rerendered with a different returnId
-          // from the one that was created. A call to resetReturnState must happen
+          // from the one that was created. A call to resetReturn must happen
           // as well as clearing the create return request state.
           jest.clearAllMocks();
 
@@ -623,7 +623,7 @@ describe('useReturn', () => {
           expect(mockResetReturnStateFn).toHaveBeenCalledWith([returnId2]);
 
           // Test cleanup 2: The hook is rerendered with the same returnId
-          // as the one that was created. A call to resetReturnState must not
+          // as the one that was created. A call to resetReturn must not
           // happen but the create return request state must be cleared.
           // To avoid the need of creating another test, we will need to
           // set the hook's create return state again to test the cleanup.
