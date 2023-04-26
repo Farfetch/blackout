@@ -59,6 +59,7 @@ const validTrackEvents = {
       quantity: 1,
       oldQuantity: undefined,
       position: 2,
+      locationId: '123',
     },
     user: {
       id: 680968743,
