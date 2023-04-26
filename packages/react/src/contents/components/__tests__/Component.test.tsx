@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Component, { registerComponent } from '../Component.js';
+import Component, { registerComponent } from '../Component.jsx';
 import React from 'react';
 
 const MockComponent = (): React.ReactElement => {

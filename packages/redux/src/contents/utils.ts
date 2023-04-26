@@ -3,18 +3,18 @@
  */
 
 import {
-  type CommercePages,
-  type CommercePagesContent,
-  type ComponentType,
-  type ContentMetadata,
-  type QueryCommercePages,
-  type QuerySearchContents,
-} from '@farfetch/blackout-client';
-import {
   CommercePagesRankingStrategy,
   type GenerateSEOPathnameQuery,
 } from './types/index.js';
 import { get, isEmpty } from 'lodash-es';
+import type {
+  CommercePages,
+  CommercePagesContent,
+  ComponentType,
+  ContentMetadata,
+  QueryCommercePages,
+  QuerySearchContents,
+} from '@farfetch/blackout-client';
 
 /**
  * Constant that represent all possible static values to apply to an environment
