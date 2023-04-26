@@ -4,7 +4,7 @@ import {
   mockImage,
   mockVideo,
 } from 'tests/__fixtures__/contents/index.mjs';
-import Media from '../media/Media.js';
+import Media from '../media/Media.jsx';
 import React from 'react';
 
 jest.mock('../media/components/audio', () => () => 'Audio');

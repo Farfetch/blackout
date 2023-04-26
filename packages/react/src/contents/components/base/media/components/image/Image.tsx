@@ -1,7 +1,7 @@
 import { DEFAULT_MEDIA } from '../../../index.js';
 import { imageArrToObj } from '../utils/index.js';
 import { ImageStyled, ImageThumbnail, LinkStyled } from './styles.js';
-import CallToAction from '../../../callToAction/CallToAction.js';
+import CallToAction from '../../../callToAction/CallToAction.jsx';
 import React from 'react';
 import type { ImageComponent } from '../../../../../types/index.js';
 

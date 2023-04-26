@@ -3,7 +3,7 @@ import { sortContentType } from '../../../utils/index.js';
 import { useContents } from '../../../hooks/index.js';
 import { useSelector } from 'react-redux';
 import React, { type ReactElement } from 'react';
-import renderContent from '../../../helpers/renderContent.js';
+import renderContent from '../../../helpers/renderContent.jsx';
 import type { ContentListComponent } from '../../../types/index.js';
 
 const ContentList = ({
