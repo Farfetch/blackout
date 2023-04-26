@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
-import CallToAction from '../callToAction/CallToAction.js';
+import CallToAction from '../callToAction/CallToAction.jsx';
 import React from 'react';
 
 describe('<CallToAction />', () => {

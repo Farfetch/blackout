@@ -1,4 +1,4 @@
-export { registerComponent } from './components/Component.js';
+export { registerComponent } from './components/Component.jsx';
 export * from './components/index.js';
 export { renderComponent, renderContent } from './helpers/index.js';
 export * from './hooks/index.js';

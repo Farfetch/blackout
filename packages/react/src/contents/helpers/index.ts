@@ -2,6 +2,6 @@
  * Contents helpers.
  */
 
-export { default as renderScriptTag } from './renderScriptTag.js';
-export { default as renderComponent } from './renderComponent.js';
-export { default as renderContent } from './renderContent.js';
+export { default as renderScriptTag } from './renderScriptTag.jsx';
+export { default as renderComponent } from './renderComponent.jsx';
+export { default as renderContent } from './renderContent.jsx';
