@@ -205,6 +205,7 @@ Array [
     "colourList": "2, 1",
     "listIndex": 1,
     "productId": "507f1f77bcf86cd799439011",
+    "storeID": "123",
     "tid": 2098,
   },
   Object {
@@ -213,6 +214,7 @@ Array [
     "productId": "507f1f77bcf86cd799439011",
     "scaleList": "10, 12",
     "sizeList": "11, 10",
+    "storeID": "123",
     "tid": 2920,
   },
   Object {
@@ -220,6 +222,7 @@ Array [
     "itemQuantity": 1,
     "listIndex": 1,
     "productId": "507f1f77bcf86cd799439011",
+    "storeID": "123",
     "tid": 2919,
   },
 ]
