@@ -21,6 +21,7 @@ const fixtures = {
     oldSizeScaleId: '10',
     sizeScaleId: '12',
     position: 1,
+    locationId: '123',
   },
 };
 
