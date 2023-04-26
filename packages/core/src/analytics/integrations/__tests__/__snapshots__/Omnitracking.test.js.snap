@@ -219,6 +219,7 @@ Array [
     "colourList": "2, 1",
     "listIndex": 2,
     "productId": "12345",
+    "storeID": "123",
     "tid": 2098,
   },
   Object {
@@ -227,6 +228,7 @@ Array [
     "productId": "12345",
     "scaleList": "10, 12",
     "sizeList": "11, 10",
+    "storeID": "123",
     "tid": 2920,
   },
   Object {
@@ -234,6 +236,7 @@ Array [
     "itemQuantity": 2,
     "listIndex": 2,
     "productId": "12345",
+    "storeID": "123",
     "tid": 2919,
   },
 ]
