@@ -172,6 +172,7 @@ export const customTrackMockData = {
     quantity: 2,
     oldQuantity: 1,
     position: 2,
+    locationId: '123',
   },
   [eventTypes.FILTERS_APPLIED]: {
     from: 'PLP',
