@@ -222,6 +222,7 @@ const getProductUpdatedParametersFromEvent = (
     item_id: utils.getProductId(eventProperties),
     item_name: utils.getProductName(eventProperties),
     index: eventProperties.position,
+    location_id: eventProperties.locationId,
   };
 
   switch (event) {

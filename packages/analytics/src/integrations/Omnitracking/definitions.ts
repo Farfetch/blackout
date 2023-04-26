@@ -637,6 +637,12 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventTypes.PRODUCT_UPDATED]: data => {
     const eventList = [];
     const properties = data.properties;
+    const genericEventProperties = {
+      productId: getProductId(properties),
+      actionArea: properties?.from,
+      listIndex: properties?.position,
+      storeID: properties?.locationId,
+    };
 
     if (properties.colour && properties.oldColour !== properties.colour) {
       // color changed event
@@ -655,11 +661,9 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       }
 
       eventList.push({
+        ...genericEventProperties,
         ...additionalParameters,
         tid: 2098,
-        productId: getProductId(properties),
-        actionArea: properties?.from,
-        listIndex: properties?.position,
       });
     }
 
@@ -693,11 +697,9 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       }
 
       eventList.push({
+        ...genericEventProperties,
         ...additionalParameters,
         tid: 2920,
-        productId: getProductId(properties),
-        actionArea: properties?.from,
-        listIndex: properties?.position,
       });
     }
 
@@ -708,11 +710,9 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       // quantity changed event
 
       eventList.push({
+        ...genericEventProperties,
         tid: 2919,
-        productId: getProductId(properties),
-        actionArea: properties?.from,
         itemQuantity: properties?.quantity,
-        listIndex: properties?.position,
       });
     }
 
