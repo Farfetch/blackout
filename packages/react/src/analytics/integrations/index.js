@@ -5,6 +5,7 @@ const { Integration } = integrations;
 export { Integration };
 export { AnalyticsConstants } from './shared/constants';
 
+export { default as AnalyticsApi } from './AnalyticsApi';
 export { default as AnalyticsService } from './AnalyticsService';
 export { default as GA, validationSchemaBuilder } from './GA';
 export { default as GTM } from './GTM';
