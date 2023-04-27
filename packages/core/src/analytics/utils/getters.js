@@ -64,3 +64,14 @@ export const getProductName = unmappedProduct => {
 export const getLocation = data => {
   return get(data, 'context.web.window.location', {});
 };
+
+export const getCookie = name => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift();
+  }
+
+  return;
+};
