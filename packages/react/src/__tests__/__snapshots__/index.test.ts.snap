@@ -201,6 +201,7 @@ Object {
     "FF_CURRENCY": "FF-Currency",
   },
   "integrations": Object {
+    "AnalyticsApi": [Function],
     "CASTLE_CLIENT_ID_HEADER_NAME": "X-Castle-Request-Token",
     "Castle": [Function],
     "Forter": [Function],

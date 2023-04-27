@@ -152,6 +152,7 @@ Object {
     "StorageWrapper": [Function],
     "getCheckoutProperties": [Function],
     "getContextDefaults": [Function],
+    "getCookie": [Function],
     "getCurrency": [Function],
     "getCustomerIdFromUser": [Function],
     "getEvent": [Function],

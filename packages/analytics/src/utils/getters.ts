@@ -110,3 +110,19 @@ export const getLocation = (
     Record<string, string | undefined>
   >;
 };
+
+/**
+ * Obtain cookie value using the cookie name.
+ *
+ * @param name - Cookie name.
+ *
+ * @returns The cookie value.
+ */
+export const getCookie = (name: string): string | void => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift();
+  }
+};
