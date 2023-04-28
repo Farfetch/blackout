@@ -1,0 +1,27 @@
+diff --git a/node_modules/@lerna/conventional-commits/lib/recommend-version.js b/node_modules/@lerna/conventional-commits/lib/recommend-version.js
+index a982adf..1482fe3 100644
+--- a/node_modules/@lerna/conventional-commits/lib/recommend-version.js
++++ b/node_modules/@lerna/conventional-commits/lib/recommend-version.js
+@@ -12,7 +12,7 @@ module.exports.recommendVersion = recommendVersion;
+  * @param {import("..").VersioningStrategy} type
+  * @param {import("..").BaseChangelogOptions & { prereleaseId?: string }} commandOptions
+  */
+-function recommendVersion(pkg, type, { changelogPreset, rootPath, tagPrefix, prereleaseId }) {
++function recommendVersion(pkg, type, { changelogPreset, rootPath, tagPrefix, prereleaseId, forceMajorBumpsIntoMinor }) {
+   log.silly(type, "for %s at %s", pkg.name, pkg.location);
+ 
+   const options = {
+@@ -58,6 +58,13 @@ function recommendVersion(pkg, type, { changelogPreset, rootPath, tagPrefix, pre
+         // we still need to bump _something_ because lerna saw a change here
+         let releaseType = data.releaseType || "patch";
+ 
++        // if recommended release type is major and --force-major-bumps-into-minor
++        // option is passed, change it to minor to prevent updating the major
++        // when not desired
++        if (releaseType === 'major' && forceMajorBumpsIntoMinor) {
++          releaseType = 'minor';
++        }
++
+         if (prereleaseId) {
+           const shouldBump = shouldBumpPrerelease(releaseType, pkg.version);
+           const prereleaseType = shouldBump ? `pre${releaseType}` : "prerelease";

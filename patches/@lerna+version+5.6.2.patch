@@ -1,0 +1,36 @@
+diff --git a/node_modules/@lerna/version/command.js b/node_modules/@lerna/version/command.js
+index d82bd24..73c4736 100644
+--- a/node_modules/@lerna/version/command.js
++++ b/node_modules/@lerna/version/command.js
+@@ -165,6 +165,10 @@ exports.builder = (yargs, composed) => {
+       alias: "yes",
+       type: "boolean",
+     },
++    "force-major-bumps-into-minor": {
++      describe: "When using `--conventional-commits` option, this flag converts recommended major version bumps to minor",
++      type: "boolean",
++    },
+   };
+ 
+   if (composed) {
+diff --git a/node_modules/@lerna/version/index.js b/node_modules/@lerna/version/index.js
+index e4fbf24..5c3488f 100644
+--- a/node_modules/@lerna/version/index.js
++++ b/node_modules/@lerna/version/index.js
+@@ -367,7 +367,7 @@ class VersionCommand extends Command {
+ 
+   recommendVersions(resolvePrereleaseId) {
+     const independentVersions = this.project.isIndependent();
+-    const { changelogPreset, conventionalGraduate } = this.options;
++    const { changelogPreset, conventionalGraduate, forceMajorBumpsIntoMinor } = this.options;
+     const rootPath = this.project.manifest.location;
+     const type = independentVersions ? "independent" : "fixed";
+     const prereleasePackageNames = this.getPrereleasePackageNames();
+@@ -394,6 +394,7 @@ class VersionCommand extends Command {
+           rootPath,
+           tagPrefix: this.tagPrefix,
+           prereleaseId: getPrereleaseId(node),
++          forceMajorBumpsIntoMinor,
+         })
+       )
+     );
