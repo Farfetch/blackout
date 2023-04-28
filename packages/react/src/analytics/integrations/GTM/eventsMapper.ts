@@ -133,6 +133,7 @@ const eventsMapper: EventMappers = {
       shipping: properties.shipping,
       coupon: properties.coupon,
       currency: properties.currency,
+      orderId: properties.orderId,
     };
   },
   [EventTypes.ORDER_REFUNDED]: (data: EventData<TrackTypesValues>) => {
