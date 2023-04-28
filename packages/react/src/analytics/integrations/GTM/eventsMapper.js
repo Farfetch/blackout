@@ -123,6 +123,7 @@ const eventsMapper = {
       shipping: properties.shipping,
       coupon: properties.coupon,
       currency: properties.currency,
+      orderId: properties.orderId,
     };
   },
   [eventTypes.ORDER_REFUNDED]: data => {
