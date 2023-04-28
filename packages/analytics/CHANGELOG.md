@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.145](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.144...@farfetch/blackout-analytics@1.0.0-next.145) (2023-04-28)
+
+### Features
+
+- **analytics|react:** add location id parameter on analytics product events next ([e61d2f7](https://github.com/Farfetch/blackout/commit/e61d2f7107a179b7b045e62cf289a4d9b7ddc9d3))
+
 # [1.0.0-next.144](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.143...@farfetch/blackout-analytics@1.0.0-next.144) (2023-04-27)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
