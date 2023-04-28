@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.417](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.416...@farfetch/blackout-react@1.0.0-next.417) (2023-04-28)
+
+### Features
+
+- **analytics|react:** add location id parameter on analytics product events next ([e61d2f7](https://github.com/Farfetch/blackout/commit/e61d2f7107a179b7b045e62cf289a4d9b7ddc9d3))
+
 # [1.0.0-next.416](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.415...@farfetch/blackout-react@1.0.0-next.416) (2023-04-27)
 
 **Note:** Version bump only for package @farfetch/blackout-react
