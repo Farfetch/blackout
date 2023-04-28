@@ -57,6 +57,7 @@ exports[`GTM EventsMapper Should match the snapshot for the event: Order Complet
 Object {
   "coupon": undefined,
   "currency": undefined,
+  "orderId": "OFH1213",
   "products": Array [
     Object {
       "brand": "RALPH LAUREN",
