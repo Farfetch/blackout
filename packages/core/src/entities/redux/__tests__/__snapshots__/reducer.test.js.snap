@@ -48,6 +48,7 @@ Object {
     "@farfetch/blackout-core/GET_ORDERS_SUCCESS": [Function],
     "@farfetch/blackout-core/GET_ORDER_DETAILS_SUCCESS": [Function],
     "@farfetch/blackout-core/GET_ORDER_RETURN_OPTIONS_SUCCESS": [Function],
+    "@farfetch/blackout-core/POST_GUEST_ORDER_DETAILS_SUCCESS": [Function],
     "@farfetch/blackout-core/RESET_ORDERS": [Function],
   },
   "payments": Object {
