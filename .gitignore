@@ -15,3 +15,5 @@ node_modules/
 **/docs
 **/.cache
 !/docs/contributing
+
+*.tsbuildinfo
