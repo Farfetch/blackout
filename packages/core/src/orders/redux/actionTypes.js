@@ -122,3 +122,13 @@ export const POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_REQUEST =
 /** Action type dispatched when the post order shipping address change requests request succeeds. */
 export const POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS =
   '@farfetch/blackout-core/POST_ORDER_SHIPPING_ADDRESS_CHANGE_REQUESTS_SUCCESS';
+
+/** Action type dispatched when the post guest order details request fails. */
+export const POST_GUEST_ORDER_DETAILS_FAILURE =
+  '@farfetch/blackout-core/POST_GUEST_ORDER_DETAILS_FAILURE';
+/** Action type dispatched when the post guest order details request starts. */
+export const POST_GUEST_ORDER_DETAILS_REQUEST =
+  '@farfetch/blackout-core/POST_GUEST_ORDER_DETAILS_REQUEST';
+/** Action type dispatched when the post guest order details request succeeds. */
+export const POST_GUEST_ORDER_DETAILS_SUCCESS =
+  '@farfetch/blackout-core/POST_GUEST_ORDER_DETAILS_SUCCESS';

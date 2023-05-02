@@ -59,6 +59,7 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_TRACKINGS_FAILURE:
     case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_FAILURE:
     case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_FAILURE:
       return action.payload.error;
     case actionTypes.GET_ORDER_DETAILS_REQUEST:
     case actionTypes.GET_ORDER_RETURN_OPTIONS_REQUEST:
@@ -66,6 +67,7 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.GET_TRACKINGS_REQUEST:
     case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
     case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_REQUEST:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.error;
     default:
@@ -81,6 +83,7 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_TRACKINGS_REQUEST:
     case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_REQUEST:
     case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_REQUEST:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_REQUEST:
       return true;
     case actionTypes.GET_ORDERS_FAILURE:
     case actionTypes.GET_ORDERS_SUCCESS:
@@ -94,11 +97,108 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.GET_ORDER_AVAILABLE_ITEMS_ACTIVITIES_SUCCESS:
     case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_FAILURE:
     case actionTypes.GET_ORDER_ITEM_AVAILABLE_ACTIVITIES_SUCCESS:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_FAILURE:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_SUCCESS:
     case actionTypes.RESET_ORDERS:
       return INITIAL_STATE.isLoading;
     default:
       return state;
   }
+};
+
+const mergeOrderDetails = (state, action) => {
+  const { orderId, isSplitByMerchantOrderCode } = action.meta;
+  const { entities, result } = action.payload;
+  // Filtering unimportant properties from the orderDetails request.
+  const orderDetails = omit(result, [
+    'baseUrl',
+    'clientOnlyPage',
+    'components',
+    'countryCode',
+    'countryId',
+    'cultureCode',
+    'currency',
+    'currencyCode',
+    'currencyCultureCode',
+    'dataLayer',
+    'isMobileDevice',
+    'pageContent',
+    'pageType',
+    'redirectUrl',
+    'relativeUrl',
+    'requestSourceCountryCode',
+    'returnUrl',
+    'screenPixelsHeight',
+    'screenPixelsWidth',
+    'seoMetadata',
+    'seoPageType',
+    'serverSideJsApp',
+    'slug',
+    'staticPathorderDetails',
+    'subfolder',
+    'translationsUrl',
+    'createdDate',
+    'updatedDate',
+  ]);
+  const { createdDate, updatedDate } = result;
+  const orderItems = entities.orderItems;
+
+  const tempState = {
+    ...state,
+  };
+
+  if (action.guest) {
+    tempState.orders = {};
+  }
+
+  return produce(tempState, draftState => {
+    merge(draftState, entities);
+    for (const orderItem in orderItems) {
+      if (orderItems.hasOwnProperty(orderItem)) {
+        const merchantId = orderItems[orderItem].merchant;
+        const merchantOrderCode = orderItems[orderItem].merchantOrderCode;
+
+        if (!draftState.orders || !draftState.orders[orderId]) {
+          draftState.orders = {
+            ...draftState.orders,
+            [orderId]: { byMerchant: { [merchantId]: {} } },
+          };
+        }
+        const orderByMerchant =
+          draftState.orders[orderId].byMerchant[merchantId];
+        const existingOrderItems =
+          (isSplitByMerchantOrderCode
+            ? orderByMerchant[merchantOrderCode]?.orderItems
+            : orderByMerchant?.orderItems) || [];
+
+        if (!existingOrderItems.includes(orderItem)) {
+          if (isSplitByMerchantOrderCode) {
+            // If order is split by merchant order code, the order itens
+            // should be added to the item's `merchantOrderCode`, instead of
+            // the default merchantId.
+            draftState.orders[orderId].byMerchant[merchantId][
+              merchantOrderCode
+            ] = {
+              ...orderByMerchant[merchantOrderCode],
+              orderItems: [...existingOrderItems, orderItem],
+            };
+          } else {
+            draftState.orders[orderId].byMerchant[merchantId] = {
+              ...orderByMerchant,
+              orderItems: [...existingOrderItems, orderItem],
+            };
+          }
+        }
+      }
+    }
+
+    draftState.orders[orderId] = {
+      ...draftState.orders[orderId],
+      ...orderDetails,
+      createdDate: adaptDate(createdDate),
+      updatedDate: adaptDate(updatedDate),
+    };
+  });
 };
 
 export const entitiesMapper = {
@@ -143,100 +243,8 @@ export const entitiesMapper = {
       draftState.merchants = newMerchants;
     });
   },
-  [actionTypes.GET_ORDER_DETAILS_SUCCESS]: (state, action) => {
-    const { orderId, isSplitByMerchantOrderCode } = action.meta;
-    const { entities, result } = action.payload;
-    // Filtering unimportant properties from the orderDetails request.
-    const orderDetails = omit(result, [
-      'baseUrl',
-      'clientOnlyPage',
-      'components',
-      'countryCode',
-      'countryId',
-      'cultureCode',
-      'currency',
-      'currencyCode',
-      'currencyCultureCode',
-      'dataLayer',
-      'isMobileDevice',
-      'pageContent',
-      'pageType',
-      'redirectUrl',
-      'relativeUrl',
-      'requestSourceCountryCode',
-      'returnUrl',
-      'screenPixelsHeight',
-      'screenPixelsWidth',
-      'seoMetadata',
-      'seoPageType',
-      'serverSideJsApp',
-      'slug',
-      'staticPathorderDetails',
-      'subfolder',
-      'translationsUrl',
-      'createdDate',
-      'updatedDate',
-    ]);
-    const { createdDate, updatedDate } = result;
-    const orderItems = entities.orderItems;
-
-    const tempState = {
-      ...state,
-    };
-
-    if (action.guest) {
-      tempState.orders = {};
-    }
-
-    return produce(tempState, draftState => {
-      merge(draftState, entities);
-      for (const orderItem in orderItems) {
-        if (orderItems.hasOwnProperty(orderItem)) {
-          const merchantId = orderItems[orderItem].merchant;
-          const merchantOrderCode = orderItems[orderItem].merchantOrderCode;
-
-          if (!draftState.orders || !draftState.orders[orderId]) {
-            draftState.orders = {
-              ...draftState.orders,
-              [orderId]: { byMerchant: { [merchantId]: {} } },
-            };
-          }
-          const orderByMerchant =
-            draftState.orders[orderId].byMerchant[merchantId];
-          const existingOrderItems =
-            (isSplitByMerchantOrderCode
-              ? orderByMerchant[merchantOrderCode]?.orderItems
-              : orderByMerchant?.orderItems) || [];
-
-          if (!existingOrderItems.includes(orderItem)) {
-            if (isSplitByMerchantOrderCode) {
-              // If order is split by merchant order code, the order itens
-              // should be added to the item's `merchantOrderCode`, instead of
-              // the default merchantId.
-              draftState.orders[orderId].byMerchant[merchantId][
-                merchantOrderCode
-              ] = {
-                ...orderByMerchant[merchantOrderCode],
-                orderItems: [...existingOrderItems, orderItem],
-              };
-            } else {
-              draftState.orders[orderId].byMerchant[merchantId] = {
-                ...orderByMerchant,
-                orderItems: [...existingOrderItems, orderItem],
-              };
-            }
-          }
-        }
-      }
-
-      draftState.orders[orderId] = {
-        ...draftState.orders[orderId],
-        ...orderDetails,
-        createdDate: adaptDate(createdDate),
-        updatedDate: adaptDate(updatedDate),
-      };
-    });
-  },
+  [actionTypes.GET_ORDER_DETAILS_SUCCESS]: mergeOrderDetails,
+  [actionTypes.POST_GUEST_ORDER_DETAILS_SUCCESS]: mergeOrderDetails,
   [actionTypes.GET_ORDER_RETURN_OPTIONS_SUCCESS]: (state, action) => {
     const { orderId } = action.meta;
     const returnOptions = action.payload.entities.returnOptions;
@@ -295,6 +303,7 @@ export const orderDetails = (
 ) => {
   switch (action.type) {
     case actionTypes.GET_ORDER_DETAILS_REQUEST:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_REQUEST:
       return {
         isLoading: {
           ...state.isLoading,
@@ -306,6 +315,7 @@ export const orderDetails = (
         },
       };
     case actionTypes.GET_ORDER_DETAILS_SUCCESS:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_SUCCESS:
       return {
         ...state,
         isLoading: {
@@ -314,6 +324,7 @@ export const orderDetails = (
         },
       };
     case actionTypes.GET_ORDER_DETAILS_FAILURE:
+    case actionTypes.POST_GUEST_ORDER_DETAILS_FAILURE:
       return {
         ...state,
         isLoading: {
