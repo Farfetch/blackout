@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.419](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.418...@farfetch/blackout-react@1.0.0-next.419) (2023-05-05)
+
+### Bug Fixes
+
+- **react:** add missing orderId parameter on order_completed event ([9d5d119](https://github.com/Farfetch/blackout/commit/9d5d1194089aab1ccb447667a3182136299f4ff2))
+
 # [1.0.0-next.418](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.417...@farfetch/blackout-react@1.0.0-next.418) (2023-05-05)
 
 **Note:** Version bump only for package @farfetch/blackout-react
