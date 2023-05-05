@@ -6,14 +6,14 @@ import {
 import {
   type BlackoutError,
   type Category,
+  ChargeDeclineCode,
   ChargeStatus,
+  CheckoutOrderDeliveryWindowType,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
-  OrderItemCreationChannelLegacy,
   CustomerTypeLegacy,
-  ChargeDeclineCode,
-  CheckoutOrderDeliveryWindowType,
   GenderCode,
+  OrderItemCreationChannelLegacy,
   OrderStatusError,
   type PatchCheckoutOrderItemsData,
   ShippingCostType,
@@ -43,6 +43,7 @@ export const itemId1 = 0;
 export const itemId2 = 1;
 export const deliveryBundleUpgradeId_1 = '111';
 export const deliveryBundleUpgradeId_2 = '222';
+export const contextId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
 const merchantId = 10658;
 
@@ -1092,6 +1093,82 @@ export const deliveryBundleUpgradesEntity = {
   },
 };
 
+export const checkoutOrderContext = {
+  id: contextId,
+  context: 'string',
+  value: 'string',
+  createdAt: '2023-05-05T17:54:29.565Z',
+};
+
+export const mockGetCheckoutOrderContextResponse = {
+  id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+  context: 'string',
+  value: 'string',
+  createdAt: '2023-05-05T17:54:29.565Z',
+};
+
+export const mockGetCheckoutOrderContextsResponse = [
+  {
+    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    context: 'context1',
+    value: 'value1',
+    createdAt: '2023-05-05T17:54:29.565Z',
+  },
+  {
+    id: '3fa85f64-5717-4562-b3fc-2c963f66aaaa',
+    context: 'context2',
+    value: 'value2',
+    createdAt: '2023-05-16T17:54:29.565Z',
+  },
+];
+
+export const mockGetContextActionPayload = {
+  entities: {
+    checkoutOrderContexts: {
+      [contextId]: checkoutOrderContext,
+    },
+  },
+  result: contextId,
+};
+
+export const mockGetContextsActionPayload = {
+  entities: {
+    checkoutOrderContexts: {
+      [contextId]: checkoutOrderContext,
+    },
+  },
+  result: [contextId],
+};
+
+export const mockDeleteContextActionPayload = {
+  '@controls': null,
+};
+
+export const checkoutOrderContextEntity = {
+  [contextId]: checkoutOrderContext,
+};
+
+export const mockPostCheckoutOrderContext = {
+  headers: {
+    location: `http://localhost:9699/v1/checkout/${checkoutOrderId}/contexts/${contextId}`,
+  },
+  data: {
+    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    context: 'string',
+    value: 'string',
+    createdAt: '2023-05-05T17:54:29.565Z',
+  },
+};
+export const mockPostCheckoutOrderContextWithoutHeaders = {
+  headers: {},
+  data: {
+    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    context: 'string',
+    value: 'string',
+    createdAt: '2023-05-05T17:54:29.565Z',
+  },
+};
+
 export const mockInitialState = {
   checkout: {
     error: null,
@@ -1162,6 +1239,16 @@ export const mockInitialState = {
     updateOrderItem: {
       error: null,
       isLoading: false,
+    },
+    context: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+    contexts: {
+      error: null,
+      isLoading: false,
+      result: null,
     },
   },
   users: {
@@ -1371,6 +1458,16 @@ export const mockCheckoutState = {
         isLoading: false,
       },
     },
+    context: {
+      isLoading: false,
+      error: null,
+      result: contextId,
+    },
+    contexts: {
+      isLoading: false,
+      error: null,
+      result: [contextId],
+    },
   },
   payments: {
     ...mockInitialState.payments,
@@ -1392,6 +1489,9 @@ export const mockCheckoutState = {
     },
     checkoutDetails: {
       [checkoutId]: mockCheckoutDetailsEntity,
+    },
+    checkoutOrderContext: {
+      [contextId]: checkoutOrderContext,
     },
     deliveryBundles: deliveryBundlesEntity,
     deliveryBundleUpgrades: deliveryBundleUpgradesEntity,

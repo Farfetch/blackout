@@ -34,4 +34,6 @@ export type CheckoutState = CombinedState<{
   operations: StateWithResult<CheckoutOrderOperationsNormalized>;
   removeOrderItem: StateWithoutResult;
   updateOrderItem: StateWithoutResult;
+  context: StateWithResult<string>;
+  contexts: StateWithResult<string[]>;
 }>;

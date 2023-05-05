@@ -5,6 +5,7 @@ import type {
   CategoryEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
+  CheckoutOrderContextEntity,
   CheckoutOrderDeliveryBundleEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
@@ -97,6 +98,10 @@ export type StoreState = Partial<{
     categories: Record<CategoryEntity['id'], CategoryEntity>;
     checkout: Record<CheckoutEntity['id'], CheckoutEntity>;
     checkoutDetails: Record<CheckoutOrder['id'], CheckoutDetailsEntity>;
+    checkoutOrderContext: Record<
+      CheckoutOrderContextEntity['id'],
+      CheckoutOrderContextEntity
+    >;
     checkoutOrderItems: Record<
       CheckoutOrderItemEntity['id'],
       CheckoutOrderItemEntity

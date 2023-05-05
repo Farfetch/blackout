@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeCheckoutOrderContext() action creator should create the correct actions for when the remove checkout order item procedure is successful: fetch checkout order context success payload 1`] = `
+Object {
+  "meta": Object {
+    "contextId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  },
+  "payload": Object {
+    "@controls": null,
+  },
+  "type": "@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS",
+}
+`;

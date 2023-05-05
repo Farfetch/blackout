@@ -3,8 +3,10 @@ import * as fromReducer from '../reducer.js';
 import {
   checkoutEntity,
   checkoutId,
+  checkoutOrderContext,
   checkoutOrderId,
   checkoutOrderItemId,
+  contextId,
   expectedItemDeliveryProvisioningNormalizedPayload,
   expectedUpgradesNormalizedPayload,
   expectedUpgradesNormalizedProvisioningPayload,
@@ -14,7 +16,10 @@ import {
   mockCheckoutState,
   mockCollectPoint,
   mockCollectPointsResponse,
+  mockDeleteContextActionPayload,
   mockDeliveryBundlesResponse,
+  mockGetContextActionPayload,
+  mockGetContextsActionPayload,
   mockGetOperationActionPayload,
   mockGetOperationsActionPayload,
   mockItemDeliveryPorvisioningResponse,
@@ -38,6 +43,7 @@ import type {
 } from '../../entities/types/index.js';
 import type {
   CheckoutState,
+  RemoveCheckoutOrderContextAction,
   RemoveCheckoutOrderItemSuccessAction,
   UpdateCheckoutOrderItemSuccessAction,
 } from '../types/index.js';
@@ -1212,6 +1218,228 @@ describe('checkout reducer', () => {
     });
   });
 
+  describe('context() reducer', () => {
+    let checkoutReducerWithContextState: CheckoutState;
+
+    beforeEach(() => {
+      checkoutReducerWithContextState = {
+        ...initialState,
+        context: {
+          error: null,
+          isLoading: false,
+          result: null,
+        },
+      };
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_REQUEST action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXT_REQUEST,
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(true);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_FAILURE action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXT_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBe(action.payload.error);
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS,
+        payload: mockGetContextActionPayload,
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBe(mockGetContextActionPayload.result);
+    });
+
+    it('should handle @farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_REQUEST action', () => {
+      const action = {
+        type: actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_REQUEST,
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(true);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_FAILURE action', () => {
+      const action = {
+        type: actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBe(action.payload.error);
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_SUCCESS,
+        payload: mockGetContextActionPayload,
+        meta: { contextId },
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBe(mockGetContextActionPayload.result);
+    });
+
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST,
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(true);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBe(action.payload.error);
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS,
+        payload: mockDeleteContextActionPayload,
+        meta: { contextId },
+      };
+      const state = reducer(checkoutReducerWithContextState, action);
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/RESET_CHECKOUT_ORDER_CONTEXT_STATE action', () => {
+      const action = {
+        type: actionTypes.RESET_CHECKOUT_ORDER_CONTEXT_STATE,
+      };
+      const state = reducer(
+        {
+          ...initialState,
+          context: {
+            isLoading: true,
+            error: toBlackoutError(new Error('dummy error')),
+            result: null,
+          },
+        },
+        action,
+      );
+
+      expect(state.context.isLoading).toBe(false);
+      expect(state.context.error).toBeNull();
+      expect(state.context.result).toBeNull();
+    });
+  });
+
+  describe('contexts() reducer', () => {
+    let checkoutReducerWithContextsState: CheckoutState;
+
+    beforeEach(() => {
+      checkoutReducerWithContextsState = {
+        ...initialState,
+        contexts: {
+          error: null,
+          isLoading: false,
+          result: null,
+        },
+      };
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_REQUEST action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXTS_REQUEST,
+      };
+      const state = reducer(checkoutReducerWithContextsState, action);
+
+      expect(state.contexts.isLoading).toBe(true);
+      expect(state.contexts.error).toBeNull();
+      expect(state.contexts.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_FAILURE action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXTS_FAILURE,
+        payload: {
+          error: 'error',
+        },
+      };
+      const state = reducer(checkoutReducerWithContextsState, action);
+
+      expect(state.contexts.isLoading).toBe(false);
+      expect(state.contexts.error).toBe(action.payload.error);
+      expect(state.contexts.result).toBeUndefined();
+    });
+
+    it('should handle @farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_SUCCESS action', () => {
+      const action = {
+        type: actionTypes.FETCH_CHECKOUT_ORDER_CONTEXTS_SUCCESS,
+        payload: mockGetContextsActionPayload,
+      };
+      const state = reducer(checkoutReducerWithContextsState, action);
+
+      expect(state.contexts.isLoading).toBe(false);
+      expect(state.contexts.error).toBeNull();
+      expect(state.contexts.result).toBe(mockGetContextsActionPayload.result);
+    });
+
+    it('should handle @farfetch/blackout-redux/RESET_CHECKOUT_ORDER_CONTEXTS_STATE action', () => {
+      const action = {
+        type: actionTypes.RESET_CHECKOUT_ORDER_CONTEXTS_STATE,
+      };
+      const state = reducer(
+        {
+          ...initialState,
+          contexts: {
+            isLoading: true,
+            error: toBlackoutError(new Error('dummy error')),
+            result: mockGetContextsActionPayload.result,
+          },
+        },
+        action,
+      );
+
+      expect(state.contexts.isLoading).toBe(false);
+      expect(state.contexts.error).toBeNull();
+      expect(state.contexts.result).toBeNull();
+    });
+  });
+
   describe('entitiesMapper()', () => {
     const mockCheckoutResponse = {
       [checkoutId]: {
@@ -1628,6 +1856,45 @@ describe('checkout reducer', () => {
         ).toBe(state);
       });
     });
+
+    describe('handle RemoveCheckoutOrderContextSuccess action', () => {
+      let state: StoreState['entities'];
+      let action: RemoveCheckoutOrderContextAction;
+
+      beforeEach(() => {
+        state = {
+          checkoutOrderContext: {
+            [contextId]: checkoutOrderContext,
+          },
+        };
+        action = {
+          type: actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS,
+          payload: {},
+          meta: { contextId },
+        };
+      });
+
+      it('should remove existing checkout order context', () => {
+        const expectedState = { checkoutOrderContext: {} };
+
+        expect(
+          entitiesMapper[actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS](
+            state as NonNullable<typeof state>,
+            action,
+          ),
+        ).toEqual(expectedState);
+      });
+
+      it('should do nothing when there is not checkoutOrderContext on state', () => {
+        delete state?.checkoutOrderContext;
+        expect(
+          entitiesMapper[actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS](
+            state as NonNullable<typeof state>,
+            action,
+          ),
+        ).toBe(state);
+      });
+    });
   });
 
   describe('getId() selector', () => {
@@ -1675,6 +1942,8 @@ describe('checkout reducer', () => {
       checkoutOrderTags: { ...subAreaResult },
       checkoutOrderItems: { ...subAreaResult },
       checkoutOrderCharge: { ...subAreaResult },
+      context: { ...subAreaResult },
+      contexts: { ...subAreaResult },
       checkoutOrderDeliveryBundleUpgrades: { ...subAreaResult },
       checkoutOrderDeliveryBundleProvisioning: { ...subAreaResult },
       checkoutOrderDeliveryBundleUpgradeProvisioning: { ...subAreaResult },
@@ -1688,6 +1957,8 @@ describe('checkout reducer', () => {
       'CheckoutOrderTags',
       'CheckoutOrderItems',
       'CheckoutOrderCharge',
+      'Context',
+      'Contexts',
       'CheckoutOrderDeliveryBundleUpgrades',
       'CheckoutOrderDeliveryBundleProvisioning',
       'CheckoutOrderDeliveryBundleUpgradeProvisioning',
