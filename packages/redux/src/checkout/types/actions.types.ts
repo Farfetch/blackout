@@ -3,16 +3,19 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   CheckoutOrderCharge,
+  CheckoutOrderContext,
   CheckoutOrderDeliveryBundle,
   CheckoutOrderDeliveryBundleUpgrades,
   CheckoutOrderItemDeliveryProvisioning,
   CheckoutOrderOperations,
+  DeleteCheckoutOrderContextResponse,
   PatchCheckoutOrderItemData,
   PaymentMethods,
 } from '@farfetch/blackout-client';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
+  CheckoutOrderContextEntity,
   CheckoutOrderDeliveryBundleEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
@@ -277,3 +280,51 @@ export interface FetchCheckoutOrderPaymentMethodsSuccessAction extends Action {
   };
   type: typeof actionTypes.FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS;
 }
+
+export interface CreateCheckoutOrderContextSuccessAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_SUCCESS;
+  payload: NormalizedSchema<CheckoutOrderContext, CheckoutOrderContextEntity>;
+  meta: {
+    contextId: string;
+  };
+}
+
+export interface CreateCheckoutOrderContextFailureAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_FAILURE;
+  payload: { error: BlackoutError };
+}
+
+export interface CreateCheckoutOrderContextRequestAction extends Action {
+  type: typeof actionTypes.CREATE_CHECKOUT_ORDER_CONTEXT_REQUEST;
+}
+
+/**
+ * Charge Action.
+ */
+export type CreateCheckoutOrderContextAction =
+  | CreateCheckoutOrderContextSuccessAction
+  | CreateCheckoutOrderContextFailureAction
+  | CreateCheckoutOrderContextRequestAction;
+
+export interface RemoveCheckoutOrderContextSuccessAction extends Action {
+  type: typeof actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS;
+  payload: DeleteCheckoutOrderContextResponse;
+  meta: { contextId: CheckoutOrderContext['id'] };
+}
+
+export interface RemoveCheckoutOrderContextFailureAction extends Action {
+  type: typeof actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE;
+  payload: { error: BlackoutError };
+}
+
+export interface RemoveCheckoutOrderContextRequestAction extends Action {
+  type: typeof actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST;
+}
+
+/**
+ * Charge Action.
+ */
+export type RemoveCheckoutOrderContextAction =
+  | RemoveCheckoutOrderContextSuccessAction
+  | RemoveCheckoutOrderContextFailureAction
+  | RemoveCheckoutOrderContextRequestAction;

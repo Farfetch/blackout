@@ -423,3 +423,78 @@ export const FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_REQUEST =
  */
 export const FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_PAYMENT_METHODS_SUCCESS';
+
+/**
+ * Action type dispatched when the create checkout order context request fails.
+ */
+export const CREATE_CHECKOUT_ORDER_CONTEXT_FAILURE =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_FAILURE';
+/**
+ * Action type dispatched when the create checkout order context request starts.
+ */
+export const CREATE_CHECKOUT_ORDER_CONTEXT_REQUEST =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_REQUEST';
+/**
+ * Action type dispatched when the create checkout order context request succeeds.
+ */
+export const CREATE_CHECKOUT_ORDER_CONTEXT_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_CHECKOUT_ORDER_CONTEXT_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order contexts state.
+ */
+export const RESET_CHECKOUT_ORDER_CONTEXTS_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_CONTEXTS_STATE';
+
+/**
+ * Action type dispatched when the fetch checkout order contexts request fails.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXTS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_FAILURE';
+/**
+ * Action type dispatched when the fetch checkout order contexts request starts.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXTS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_REQUEST';
+/**
+ * Action type dispatched when the fetch checkout order contexts request succeeds.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXTS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_SUCCESS';
+
+/**
+ * Action type dispatched when resetting the checkout order context state.
+ */
+export const RESET_CHECKOUT_ORDER_CONTEXT_STATE =
+  '@farfetch/blackout-redux/RESET_CHECKOUT_ORDER_CONTEXT_STATE';
+/**
+ * Action type dispatched when the fetch checkout order context request fails.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXT_FAILURE =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_FAILURE';
+/**
+ * Action type dispatched when the fetch checkout order context request starts.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXT_REQUEST =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_REQUEST';
+/**
+ * Action type dispatched when the fetch checkout order context request succeeds.
+ */
+export const FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS';
+
+/**
+ * Action type dispatched when the fetch checkout order context request fails.
+ */
+export const REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE';
+/**
+ * Action type dispatched when the fetch checkout order context request starts.
+ */
+export const REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST';
+/**
+ * Action type dispatched when the fetch checkout order context request succeeds.
+ */
+export const REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS';

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCheckoutOrderContext() action creator should create the correct actions for when the fetch checkout order contexts procedure is successful: fetch checkout order context success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "checkoutOrderContexts": Object {
+        "3fa85f64-5717-4562-b3fc-2c963f66aaaa": Object {
+          "context": "context2",
+          "createdAt": "2023-05-16T17:54:29.565Z",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66aaaa",
+          "value": "value2",
+        },
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
+          "context": "context1",
+          "createdAt": "2023-05-05T17:54:29.565Z",
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "value": "value1",
+        },
+      },
+    },
+    "result": Array [
+      "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "3fa85f64-5717-4562-b3fc-2c963f66aaaa",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXTS_SUCCESS",
+}
+`;
