@@ -11,6 +11,8 @@ import {
   getCheckoutOrderPromocodes as getCheckoutOrderPromocodesFromReducer,
   getCheckoutOrderTags as getCheckoutOrderTagsFromReducer,
   getCollectPoints as getCollectPointsFromReducer,
+  getContext,
+  getContexts,
   getError,
   getId,
   getIsLoading,
@@ -32,6 +34,7 @@ import type {
   ProductEntity,
 } from '../entities/index.js';
 import type {
+  CheckoutOrderContext,
   CheckoutOrderDeliveryBundleItemDeliveryOption,
   CheckoutOrderDeliveryBundleUpgrade,
   CheckoutOrderDeliveryWindowType,
@@ -1036,3 +1039,91 @@ export const isUpdateOrderItemLoading = (state: StoreState) =>
  */
 export const getUpdateOrderItemError = (state: StoreState) =>
   getUpdateOrderItem(state.checkout as CheckoutState).error;
+
+/**
+ * Returns the checkout order context loading state for the last operation called (fetch, create, remove).
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order context fetch process loading status.
+ */
+export const isCheckoutOrderContextLoading = (state: StoreState) =>
+  getContext(state.checkout as CheckoutState).isLoading;
+
+/**
+ * Returns the checkout order context error for the last operation called (fetch, create, remove).
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order context error.
+ */
+export const getCheckoutOrderContextError = (state: StoreState) =>
+  getContext(state.checkout as CheckoutState).error;
+
+/**
+ * Returns the checkout order context for the last operation called (fetch, create).
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order context.
+ */
+export const getCheckoutOrderContext: (
+  state: StoreState,
+) => CheckoutOrderContext | undefined = createSelector(
+  [
+    (state: StoreState) => getContext(state.checkout as CheckoutState),
+    (state: StoreState) => getEntities(state, 'checkoutOrderContext'),
+  ],
+  (context, contextsEntity) => {
+    if (!context || !context.result) {
+      return;
+    }
+
+    return contextsEntity?.[context.result];
+  },
+);
+
+/**
+ * Returns the loading status for the checkout order contexts fetch process.
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order contexts fetch process loading status.
+ */
+export const areCheckoutOrderContextsLoading = (state: StoreState) =>
+  getContexts(state.checkout as CheckoutState).isLoading;
+
+/**
+ * Returns the Checkout order contexts error.
+ *
+ * @param state - Application state.
+ *
+ * @returns Checkout order contexts error.
+ */
+export const getCheckoutOrderContextsError = (state: StoreState) =>
+  getContexts(state.checkout as CheckoutState).error;
+
+/**
+ * Returns the checkout order contexts entries updated for the last operation called (fetchContexts).
+ *
+ * @param state - Application state.
+ *
+ * @returns List with checkout order contexts.
+ */
+export const getCheckoutOrderContexts: (
+  state: StoreState,
+) => CheckoutOrderContext[] | undefined = createSelector(
+  [
+    (state: StoreState) => getContexts(state.checkout as CheckoutState),
+    (state: StoreState) => getEntities(state, 'checkoutOrderContext'),
+  ],
+  (contexts, contextsEntity) => {
+    if (!contexts || !contexts.result || !contextsEntity) {
+      return;
+    }
+
+    return contexts.result
+      .map(context => contextsEntity[context])
+      .filter(Boolean) as CheckoutOrderContext[] | undefined;
+  },
+);

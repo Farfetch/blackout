@@ -7,6 +7,7 @@ export * from './category.types.js';
 export * from './checkout.types.js';
 export * from './checkoutDetails.types.js';
 export * from './checkoutOrder.types.js';
+export * from './checkoutOrderContext.types.js';
 export * from './checkoutOrderItem.types.js';
 export * from './checkoutOrderItemProduct.types.js';
 export * from './checkoutOrderOperation.types.js';

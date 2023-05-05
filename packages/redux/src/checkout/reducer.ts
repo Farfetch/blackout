@@ -71,6 +71,16 @@ export const INITIAL_STATE: CheckoutState = {
     error: null,
     isLoading: false,
   },
+  context: {
+    error: null,
+    isLoading: false,
+    result: null,
+  },
+  contexts: {
+    error: null,
+    isLoading: false,
+    result: null,
+  },
 };
 
 const error = (
@@ -264,6 +274,19 @@ const handleUpdateCheckoutOrderItemSuccess = produce<
   Object.assign(checkoutOrderItem, action.payload);
 });
 
+const handleRemoveCheckoutOrderContextSuccess = produce<
+  NonNullable<StoreState['entities']>,
+  [AnyAction]
+>((draftState, action) => {
+  if (!draftState || !draftState.checkoutOrderContext) {
+    return;
+  }
+
+  const { contextId } = action.meta;
+
+  delete draftState.checkoutOrderContext[contextId];
+});
+
 export const entitiesMapper = {
   [actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS]: (
     state: NonNullable<StoreState['entities']>,
@@ -358,6 +381,8 @@ export const entitiesMapper = {
     handleRemoveCheckoutOrderItemSuccess,
   [actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_SUCCESS]:
     handleUpdateCheckoutOrderItemSuccess,
+  [actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS]:
+    handleRemoveCheckoutOrderContextSuccess,
 } as const;
 
 export const checkoutOrderDetails = reducerFactory(
@@ -562,6 +587,28 @@ export const updateOrderItem = reducerFactory(
   actionTypes.RESET_UPDATE_CHECKOUT_ORDER_ITEM_STATE,
 );
 
+export const context = createReducerWithResult(
+  [
+    'FETCH_CHECKOUT_ORDER_CONTEXT',
+    'CREATE_CHECKOUT_ORDER_CONTEXT',
+    'REMOVE_CHECKOUT_ORDER_CONTEXT',
+  ],
+  INITIAL_STATE.context,
+  actionTypes,
+  true,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_CONTEXT_STATE,
+);
+
+export const contexts = createReducerWithResult(
+  'FETCH_CHECKOUT_ORDER_CONTEXTS',
+  INITIAL_STATE.contexts,
+  actionTypes,
+  true,
+  false,
+  actionTypes.RESET_CHECKOUT_ORDER_CONTEXTS_STATE,
+);
+
 export const getError = (state: CheckoutState): CheckoutState['error'] =>
   state.error;
 export const getId = (state: CheckoutState): CheckoutState['id'] => state.id;
@@ -614,6 +661,10 @@ export const getRemoveOrderItem = (
 export const getUpdateOrderItem = (
   state: CheckoutState,
 ): CheckoutState['updateOrderItem'] => state.updateOrderItem;
+export const getContext = (state: CheckoutState): CheckoutState['context'] =>
+  state.context;
+export const getContexts = (state: CheckoutState): CheckoutState['contexts'] =>
+  state.contexts;
 
 const reducer: Reducer<CheckoutState> = combineReducers({
   error,
@@ -633,6 +684,8 @@ const reducer: Reducer<CheckoutState> = combineReducers({
   operations,
   removeOrderItem,
   updateOrderItem,
+  context,
+  contexts,
 });
 
 /**

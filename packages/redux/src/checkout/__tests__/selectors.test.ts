@@ -8,8 +8,10 @@ import {
 import {
   checkoutEntity,
   checkoutId,
+  checkoutOrderContext,
   checkoutOrderEntity,
   checkoutOrderItemId,
+  contextId,
   deliveryBundleId,
   deliveryBundlesEntity,
   deliveryBundleUpgradeId_1,
@@ -715,6 +717,108 @@ describe('checkout redux selectors', () => {
 
     it('should return error', () => {
       expect(selectors.getUpdateOrderItemError(state as StoreState)).toBeNull();
+    });
+  });
+
+  describe('context selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    it('should return loading status', () => {
+      state = {
+        ...mockCheckoutState,
+        checkout: {
+          context: {
+            isLoading: true,
+            error: null,
+            result: null,
+          },
+        },
+      };
+
+      expect(selectors.isCheckoutOrderContextLoading(state as StoreState)).toBe(
+        true,
+      );
+    });
+
+    it('should return error', () => {
+      const expectedResult = new Error('dummy error') as BlackoutError;
+
+      state = {
+        ...mockCheckoutState,
+        checkout: {
+          context: {
+            isLoading: false,
+            error: new Error('dummy error') as BlackoutError,
+            result: null,
+          },
+        },
+      };
+
+      expect(
+        selectors.getCheckoutOrderContextError(state as StoreState),
+      ).toEqual(expectedResult);
+    });
+
+    it('should return the checkout order context', () => {
+      expect(selectors.getCheckoutOrderContext(mockCheckoutState)).toEqual(
+        checkoutOrderContext,
+      );
+    });
+  });
+
+  describe('contexts selectors', () => {
+    let state: { checkout: Partial<StoreState['checkout']> };
+
+    it('should return loading status', () => {
+      state = {
+        ...mockCheckoutState,
+        checkout: {
+          contexts: {
+            isLoading: true,
+            error: null,
+            result: [],
+          },
+        },
+      };
+
+      expect(
+        selectors.areCheckoutOrderContextsLoading(state as StoreState),
+      ).toBe(true);
+    });
+
+    it('should return error', () => {
+      const expectedResult = new Error('dummy error') as BlackoutError;
+
+      state = {
+        checkout: {
+          contexts: {
+            isLoading: false,
+            error: new Error('dummy error') as BlackoutError,
+            result: [],
+          },
+        },
+      };
+
+      expect(
+        selectors.getCheckoutOrderContextsError(state as StoreState),
+      ).toEqual(expectedResult);
+    });
+
+    it('should return the list of all checkout order contexts', () => {
+      state = {
+        ...mockCheckoutState,
+        checkout: {
+          contexts: {
+            isLoading: true,
+            error: null,
+            result: [contextId],
+          },
+        },
+      };
+
+      expect(
+        selectors.getCheckoutOrderContexts(state as StoreState),
+      ).toStrictEqual([checkoutOrderContext]);
     });
   });
 });
