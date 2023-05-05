@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.146](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.145...@farfetch/blackout-analytics@1.0.0-next.146) (2023-05-05)
+
+**Note:** Version bump only for package @farfetch/blackout-analytics
+
 # [1.0.0-next.145](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.144...@farfetch/blackout-analytics@1.0.0-next.145) (2023-04-28)
 
 ### Features
