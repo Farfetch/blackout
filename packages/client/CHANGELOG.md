@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.254](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.253...@farfetch/blackout-client@2.0.0-next.254) (2023-05-05)
+
+### Features
+
+- **client|redux:** add exchanges endpoints ([ea34545](https://github.com/Farfetch/blackout/commit/ea3454562cce8638a5fdcbc82eca5d413fa1f260))
+
 # [2.0.0-next.253](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.252...@farfetch/blackout-client@2.0.0-next.253) (2023-04-27)
 
 ### Bug Fixes
