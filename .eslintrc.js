@@ -40,6 +40,11 @@ module.exports = {
             message:
               "Named exports from uuid do not work under node's ESM/CJS interop. You will need to import the default export and use that export as a function, like this: `import uuid from 'uuid'; uuid(...)`",
           },
+          {
+            group: ['lodash'],
+            message:
+              "Do not use lodash as this package is ESM only. Use lodash-es instead like this: `import { xxx } from 'lodash-es';`",
+          },
         ],
       },
     ],
