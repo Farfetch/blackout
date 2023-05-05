@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.420](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.419...@farfetch/blackout-react@1.0.0-next.420) (2023-05-05)
+
+### Features
+
+- setup analytics api integration next ([cb8b693](https://github.com/Farfetch/blackout/commit/cb8b6930cd6dd4502d3d88afc89225313b663407))
+
 # [1.0.0-next.419](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.418...@farfetch/blackout-react@1.0.0-next.419) (2023-05-05)
 
 ### Bug Fixes
