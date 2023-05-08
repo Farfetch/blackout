@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.87.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.86.0...@farfetch/blackout-core@1.87.0) (2023-05-08)
+
+
+### Features
+
+* setup analytics api integration ([6f38991](https://github.com/Farfetch/blackout/commit/6f389910259a8a61be3e7b4a44be6873772f0fa5))
+* **core:** add exchanges endpoints ([9add8b4](https://github.com/Farfetch/blackout/commit/9add8b4619848b2747deeed2d59b940f6d95be89))
+* **core|react:** add location id parameter on analytics product events ([54ca354](https://github.com/Farfetch/blackout/commit/54ca354a941b97071af95b6da4c0fbb43f96b146))
+* **core|react:** add package version to analytics ([788a10c](https://github.com/Farfetch/blackout/commit/788a10c1b1d5140cb6df5f2bd92e79ed1c648eb3))
+
+
+
+
+
 # [1.86.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.85.0...@farfetch/blackout-core@1.86.0) (2023-04-19)
 
 

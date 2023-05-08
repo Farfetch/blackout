@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.58.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.57.0...@farfetch/blackout-react@0.58.0) (2023-05-08)
+
+
+### Bug Fixes
+
+* **react:** add missing orderId parameter on order_completed event ([0865cf7](https://github.com/Farfetch/blackout/commit/0865cf7167ab5b020ae7b4ae76978e0e72c3e279))
+
+
+### Features
+
+* setup analytics api integration ([6f38991](https://github.com/Farfetch/blackout/commit/6f389910259a8a61be3e7b4a44be6873772f0fa5))
+* **core:** add exchanges endpoints ([9add8b4](https://github.com/Farfetch/blackout/commit/9add8b4619848b2747deeed2d59b940f6d95be89))
+* **core|react:** add location id parameter on analytics product events ([54ca354](https://github.com/Farfetch/blackout/commit/54ca354a941b97071af95b6da4c0fbb43f96b146))
+* **core|react:** add package version to analytics ([788a10c](https://github.com/Farfetch/blackout/commit/788a10c1b1d5140cb6df5f2bd92e79ed1c648eb3))
+
+
+
+
+
 # [0.57.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.56.0...@farfetch/blackout-react@0.57.0) (2023-04-19)
 
 
