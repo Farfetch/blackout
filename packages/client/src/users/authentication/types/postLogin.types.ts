@@ -1,5 +1,5 @@
 import type { Config } from '../../../types/index.js';
-import type { LoginResponse } from './login.types.js';
+import type { UserLegacy } from './login.types.js';
 
 export type LoginData = {
   username: string;
@@ -10,4 +10,4 @@ export type LoginData = {
 export type PostLogin = (
   data: LoginData,
   config?: Config,
-) => Promise<LoginResponse>;
+) => Promise<UserLegacy>;

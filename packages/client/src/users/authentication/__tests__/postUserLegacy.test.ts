@@ -1,10 +1,10 @@
-import { mockUsersResponse } from 'tests/__fixtures__/users/users.fixtures.mjs';
-import { postUser } from '../index.js';
+import { mockResponse as response } from '../__fixtures__/login.fixtures.js';
 import client from '../../../helpers/client/index.js';
-import fixtures from '../__fixtures__/postUser.fixtures.js';
+import fixtures from '../__fixtures__/postUserLegacy.fixtures.js';
 import mswServer from '../../../../tests/mswServer.js';
+import postUserLegacy from '../postUserLegacy.js';
 
-describe('postUser', () => {
+describe('postUserLegacy', () => {
   const spy = jest.spyOn(client, 'post');
   const expectedConfig = undefined;
 
@@ -20,13 +20,11 @@ describe('postUser', () => {
   };
 
   it('should handle a client request successfully', async () => {
-    mswServer.use(fixtures.success(mockUsersResponse));
+    mswServer.use(fixtures.success(response));
 
-    await expect(postUser(requestData)).resolves.toStrictEqual(
-      mockUsersResponse,
-    );
+    await expect(postUserLegacy(requestData)).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/users',
+      '/legacy/v1/account/register',
       requestData,
       expectedConfig,
     );
@@ -35,9 +33,9 @@ describe('postUser', () => {
   it('should receive a client request error', async () => {
     mswServer.use(fixtures.failure());
 
-    await expect(postUser(requestData)).rejects.toMatchSnapshot();
+    await expect(postUserLegacy(requestData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/users',
+      '/legacy/v1/account/register',
       requestData,
       expectedConfig,
     );

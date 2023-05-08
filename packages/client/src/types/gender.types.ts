@@ -18,7 +18,7 @@ export enum UserGender {
   Female = 'Female',
 }
 
-export enum UserGenderLogin {
+export enum UserGenderLegacy {
   NotDefined,
   Male,
   Female,

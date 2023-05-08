@@ -1,8 +1,8 @@
 import type { Title } from '../../../users/index.js';
 import type { User } from './user.types.js';
-import type { UserGenderLogin } from '../../../types/index.js';
+import type { UserGenderLegacy } from '../../../types/index.js';
 
-export enum UserStatusLogin {
+export enum UserStatusLegacy {
   Inactive,
   Disabled,
   Locked,
@@ -12,7 +12,7 @@ export enum UserStatusLogin {
   Unknown,
 }
 
-export type LoginResponse = Omit<
+export type UserLegacy = Omit<
   User,
   | 'dateOfBirth'
   | 'gender'
@@ -29,11 +29,11 @@ export type LoginResponse = Omit<
   | 'updatedDate'
 > & {
   dateOfBirth: string | null;
-  gender: UserGenderLogin;
+  gender: UserGenderLegacy;
   title: Title | null;
   phoneNumber: string | null;
   segments: string[];
-  status: UserStatusLogin;
+  status: UserStatusLegacy;
   lastName: string | null;
   firstName: string | null;
   createdDate: string | null;

@@ -904,7 +904,7 @@ Object {
     "Male": "Male",
     "NotDefined": "NotDefined",
   },
-  "UserGenderLogin": Object {
+  "UserGenderLegacy": Object {
     "0": "NotDefined",
     "1": "Male",
     "2": "Female",
@@ -937,7 +937,7 @@ Object {
     "PendingResetPassword": "PendingResetPassword",
     "Unknown": "Unknown",
   },
-  "UserStatusLogin": Object {
+  "UserStatusLegacy": Object {
     "0": "Inactive",
     "1": "Disabled",
     "2": "Locked",
@@ -1103,6 +1103,7 @@ Object {
   "getUserCredits": [Function],
   "getUserDefaultContactAddress": [Function],
   "getUserDefaultPersonalId": [Function],
+  "getUserLegacy": [Function],
   "getUserOrders": [Function],
   "getUserPersonalId": [Function],
   "getUserPersonalIds": [Function],
@@ -1163,6 +1164,7 @@ Object {
   "postUserAddress": [Function],
   "postUserAttribute": [Function],
   "postUserContact": [Function],
+  "postUserLegacy": [Function],
   "postUserPersonalId": [Function],
   "postUserPersonalIdImage": [Function],
   "postValidateEmail": [Function],
