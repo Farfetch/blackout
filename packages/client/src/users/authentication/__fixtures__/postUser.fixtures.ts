@@ -1,10 +1,10 @@
 import { rest, type RestHandler } from 'msw';
-import type { LoginResponse } from '../types/index.js';
+import type { User } from '../types/index.js';
 
 const path = '/api/account/v1/users';
 
 const fixtures = {
-  success: (response: LoginResponse): RestHandler =>
+  success: (response: User): RestHandler =>
     rest.post(path, (_req, res, ctx) =>
       res(ctx.status(200), ctx.json(response)),
     ),

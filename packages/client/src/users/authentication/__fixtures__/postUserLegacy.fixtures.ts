@@ -1,7 +1,7 @@
 import { rest, type RestHandler } from 'msw';
 import type { UserLegacy } from '../types/index.js';
 
-const path = '/api/legacy/v1/account/login';
+const path = '/api/legacy/v1/account/register';
 
 const fixtures = {
   success: (response: UserLegacy): RestHandler =>

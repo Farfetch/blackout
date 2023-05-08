@@ -1,6 +1,7 @@
 import type {
   User,
   UserContact,
+  UserLegacy,
   UserPreference,
 } from '@farfetch/blackout-client';
 import type {
@@ -8,7 +9,7 @@ import type {
   UserCreditMovementsEntity,
 } from './credit.types.js';
 
-export type UserEntity = User & {
+export type UserEntity = (User | UserLegacy) & {
   credits?: UserCreditEntity;
   creditMovements?: UserCreditMovementsEntity;
   preferences?: Array<UserPreference['code']>;

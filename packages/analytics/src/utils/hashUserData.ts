@@ -9,7 +9,7 @@ import type { UserData, UserTraits } from '../types/analytics.types.js';
  *
  * @returns The hashed result.
  */
-function hashPlainTextString(plainString: string | undefined) {
+function hashPlainTextString(plainString: string | null | undefined) {
   return plainString ? cryptoes.SHA256(plainString).toString() : plainString;
 }
 

@@ -224,7 +224,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    *
    * @returns - The ISO date string.
    */
-  getNormalizedCreatedDate(createdDate: string | undefined) {
+  getNormalizedCreatedDate(createdDate: string | null | undefined) {
     if (!createdDate) {
       return undefined;
     }
