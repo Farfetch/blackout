@@ -1,6 +1,7 @@
 import {
   changePassword as changePasswordAction,
   fetchUser as fetchUserAction,
+  fetchUserLegacy as fetchUserLegacyAction,
   getAuthenticationError,
   getChangePasswordError,
   getLoginError,
@@ -22,6 +23,7 @@ import {
   logout as logoutAction,
   recoverPassword as recoverPasswordAction,
   register as registerAction,
+  registerLegacy as registerLegacyAction,
   resetPassword as resetPasswordAction,
   setUser as setUserAction,
 } from '@farfetch/blackout-redux';
@@ -31,12 +33,20 @@ import useAction from '../../helpers/useAction.js';
 import type {
   Config,
   PostPasswordChangeData,
+  PostUserData,
+  PostUserDataLegacy,
   PutUserData,
+  User,
+  UserLegacy,
 } from '@farfetch/blackout-client';
 import type { UseUserOptions } from './types/index.js';
 
 function useUser(options: UseUserOptions = {}) {
-  const { enableAutoFetch = false, fetchConfig } = options;
+  const {
+    enableAutoFetch = false,
+    fetchConfig,
+    useLegacyActions = false,
+  } = options;
   // Selectors
   const user = useSelector(getUser);
   const isUserLoading = useSelector(isUserLoadingSelector);
@@ -58,11 +68,20 @@ function useUser(options: UseUserOptions = {}) {
   const resetPasswordError = useSelector(getResetPasswordError);
   // Actions
   const login = useAction(loginAction);
-  const register = useAction(registerAction);
+  const registerNew = useAction(registerAction);
+  const registerLegacy = useAction(registerLegacyAction);
+  // The type definition is necessary for register because apparently
+  // typescript cannot infer the types correctly.
+  const register:
+    | ((data: PostUserData, config?: Config) => Promise<User>)
+    | ((data: PostUserDataLegacy, config?: Config) => Promise<UserLegacy>) =
+    useLegacyActions ? registerLegacy : registerNew;
   const changePasswordActionDispatcher = useAction(changePasswordAction);
   const resetPassword = useAction(resetPasswordAction);
   const recoverPassword = useAction(recoverPasswordAction);
-  const fetch = useAction(fetchUserAction);
+  const fetchNew = useAction(fetchUserAction);
+  const fetchLegacy = useAction(fetchUserLegacyAction);
+  const fetch = useLegacyActions ? fetchLegacy : fetchNew;
   const updateActionDispatcher = useAction(setUserAction);
   const logout = useAction(logoutAction);
   const userId = user?.id;
@@ -115,7 +134,14 @@ function useUser(options: UseUserOptions = {}) {
     if (enableAutoFetch && !isUserLoading && !userError) {
       fetch(fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, isUserLoading, userError]);
+  }, [
+    enableAutoFetch,
+    fetch,
+    fetchConfig,
+    fetchLegacy,
+    isUserLoading,
+    userError,
+  ]);
 
   return {
     actions: {

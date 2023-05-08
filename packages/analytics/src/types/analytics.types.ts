@@ -4,7 +4,7 @@ import type {
   ON_SET_USER_TRACK_TYPE,
 } from '../utils/constants.js';
 import type { Integration } from '../integrations/index.js';
-import type { User } from '@farfetch/blackout-client';
+import type { User, UserLegacy } from '@farfetch/blackout-client';
 import type TrackType from './TrackType.js';
 
 export type TrackTypesValues = (typeof TrackType)[keyof typeof TrackType];
@@ -94,7 +94,7 @@ export type ExtendedTrackTypes =
   | typeof ON_SET_USER_TRACK_TYPE
   | typeof LOAD_INTEGRATION_TRACK_TYPE;
 
-export type UserTraits = Omit<User, 'id'>;
+export type UserTraits = Omit<User | UserLegacy, 'id'>;
 
 export type UserData = {
   id: number | null | undefined;

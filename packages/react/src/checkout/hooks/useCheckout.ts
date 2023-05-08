@@ -339,10 +339,10 @@ function useCheckout(
         payer: overridesCopy?.payer || {
           id: `${user?.id}`,
           firstName: isRegisteredUser
-            ? user.firstName
+            ? user.firstName || undefined
             : checkoutOrder.billingAddress.firstName,
           lastName: isRegisteredUser
-            ? user.lastName
+            ? user.lastName || undefined
             : checkoutOrder.billingAddress.lastName,
           email: isRegisteredUser ? user?.email : guestUserEmail,
           address: checkoutOrder.billingAddress,
@@ -382,10 +382,10 @@ function useCheckout(
         payer: overridesCopy?.payer || {
           id: `${user.id}`,
           firstName: isRegisteredUser
-            ? user.firstName
+            ? user.firstName || undefined
             : checkoutOrder.billingAddress.firstName,
           lastName: isRegisteredUser
-            ? user.lastName
+            ? user.lastName || undefined
             : checkoutOrder.billingAddress.lastName,
           email: isRegisteredUser ? user?.email : guestUserEmail,
           address: checkoutOrder.billingAddress,

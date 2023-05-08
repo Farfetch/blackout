@@ -1,4 +1,4 @@
-import type { Config } from '../../../types/index.js';
+import type { Config, UserGender } from '../../../types/index.js';
 import type { User } from './user.types.js';
 
 export type PutUserData = {
@@ -7,7 +7,7 @@ export type PutUserData = {
   email: string;
   phoneNumber?: string;
   dateOfBirth?: string;
-  gender?: string;
+  gender?: UserGender;
   receiveNewsletters?: boolean;
   personalShopperId?: number;
   titleId?: string;

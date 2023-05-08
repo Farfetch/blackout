@@ -1,6 +1,6 @@
-import type { LoginResponse } from '../types/index.js';
+import type { UserLegacy } from '../types/index.js';
 
-export const mockResponse: LoginResponse = {
+export const mockResponse: UserLegacy = {
   bagId: 'cb805dc8-86f5-409e-84d1-3209c2be9517',
   dateOfBirth: null,
   email: 'pepe@acme.com',

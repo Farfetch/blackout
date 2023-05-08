@@ -1,4 +1,8 @@
-import { UserGender } from '@farfetch/blackout-client';
+import {
+  UserGender,
+  UserStatus,
+  UserStatusLegacy,
+} from '@farfetch/blackout-client';
 
 export const id = '1';
 export const userId = 123123;
@@ -34,7 +38,7 @@ export const mockUnverifiedUserResponse = {
     id: '111',
     value: 'Dr.',
   },
-  status: 'PendingEmailConfirmation',
+  status: UserStatus.PendingEmailConfirmation,
   phoneNumber: undefined,
   segments: [],
   username: 'pepe@acme.com',
@@ -42,6 +46,11 @@ export const mockUnverifiedUserResponse = {
   isExternalLogin: false,
   isGuest: false,
   guestBagItemsMerged: 0,
+};
+
+export const mockUnverifiedUserLegacyResponse = {
+  ...mockUnverifiedUserResponse,
+  status: UserStatusLegacy.PendingEmailConfirmation,
 };
 
 export const expectedNormalizedPayload = {

@@ -1,10 +1,12 @@
 import {
   changePassword,
   fetchUser,
+  fetchUserLegacy,
   login,
   logout,
   recoverPassword,
   register,
+  registerLegacy,
   resetPassword,
   setUser,
 } from '@farfetch/blackout-redux';
@@ -14,7 +16,12 @@ import {
   mockGuestUserEntities,
   mockUserInitialState,
 } from 'tests/__fixtures__/users/index.mjs';
-import { toBlackoutError } from '@farfetch/blackout-client';
+import {
+  type PostUserData,
+  type PostUserDataLegacy,
+  toBlackoutError,
+  UserGender,
+} from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useUser from '../useUser.js';
 
@@ -29,10 +36,12 @@ jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   changePassword: jest.fn(() => () => Promise.resolve()),
   fetchUser: jest.fn(() => () => Promise.resolve()),
+  fetchUserLegacy: jest.fn(() => () => Promise.resolve()),
   login: jest.fn(() => () => Promise.resolve()),
   logout: jest.fn(() => () => Promise.resolve()),
   recoverPassword: jest.fn(() => () => Promise.resolve()),
   register: jest.fn(() => () => Promise.resolve()),
+  registerLegacy: jest.fn(() => () => Promise.resolve()),
   resetPassword: jest.fn(() => () => Promise.resolve()),
   setUser: jest.fn(() => () => Promise.resolve()),
 }));
@@ -238,12 +247,23 @@ describe('useUser', () => {
   });
 
   describe('options', () => {
-    it('should call fetch data if `enableAutoFetch` option is true', () => {
+    it('should call `fetchUser` data if `enableAutoFetch` option is true and `useLegacyActions` is false', () => {
       renderHook(() => useUser({ enableAutoFetch: true }), {
         wrapper: withStore(mockStore),
       });
 
       expect(fetchUser).toHaveBeenCalled();
+    });
+
+    it('should call `fetchUserLegacy` data if `enableAutoFetch` option is true and `useLegacyActions` is true', () => {
+      renderHook(
+        () => useUser({ enableAutoFetch: true, useLegacyActions: true }),
+        {
+          wrapper: withStore(mockStore),
+        },
+      );
+
+      expect(fetchUserLegacy).toHaveBeenCalled();
     });
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
@@ -256,20 +276,38 @@ describe('useUser', () => {
   });
 
   describe('actions', () => {
-    it('should call `fetch` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { fetch },
+    describe('fetch', () => {
+      it('should call `fetchUser` action when `useLegacyActions` is false', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
           },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper: withStore(mockStore),
+        } = renderHook(() => useUser(), {
+          wrapper: withStore(mockStore),
+        });
+
+        fetch();
+
+        expect(fetchUser).toHaveBeenCalled();
       });
 
-      fetch();
+      it('should call `fetchUserLegacy` action when `useLegacyActions` is true', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(() => useUser({ useLegacyActions: true }), {
+          wrapper: withStore(mockStore),
+        });
 
-      expect(fetchUser).toHaveBeenCalled();
+        fetch();
+
+        expect(fetchUserLegacy).toHaveBeenCalled();
+      });
     });
 
     it('should call `login` action', () => {
@@ -306,31 +344,64 @@ describe('useUser', () => {
       expect(logout).toHaveBeenCalled();
     });
 
-    it('should call `register` action', () => {
-      const {
-        result: {
-          current: {
-            actions: { register: registerAction },
+    describe('register', () => {
+      it('should call `register` action when `useLegacyActions` is false', () => {
+        const {
+          result: {
+            current: {
+              actions: { register: registerAction },
+            },
           },
-        },
-      } = renderHook(() => useUser(), {
-        wrapper: withStore(mockStore),
+        } = renderHook(() => useUser(), {
+          wrapper: withStore(mockStore),
+        });
+
+        const registerData: PostUserData = {
+          email: 'email@email.com',
+          name: 'user',
+          password: 'pass',
+          username: 'email@email.com',
+          countryCode: 'PT',
+          firstName: 'User',
+          lastName: 'Name',
+          phoneNumber: '123',
+          receiveNewsletters: true,
+        };
+
+        registerAction(registerData);
+
+        expect(register).toHaveBeenCalledWith(registerData);
       });
 
-      const registerData = {
-        email: 'email@email.com',
-        name: 'user',
-        password: 'pass',
-        username: 'email@email.com',
-        countryCode: 'PT',
-        firstName: 'User',
-        lastName: 'Name',
-        phoneNumber: '123',
-      };
+      it('should call `registerLegacy` action when `useLegacyActions` is true', () => {
+        const {
+          result: {
+            current: {
+              actions: { register: registerAction },
+            },
+          },
+        } = renderHook(() => useUser({ useLegacyActions: true }), {
+          wrapper: withStore(mockStore),
+        });
 
-      registerAction(registerData);
+        const registerData: PostUserDataLegacy = {
+          email: 'email@email.com',
+          name: 'user',
+          password: 'pass',
+          username: 'email@email.com',
+          countryCode: 'PT',
+          firstName: 'User',
+          lastName: 'Name',
+          phoneNumber: '123',
+          loyalty: {
+            join: true,
+          },
+        };
 
-      expect(register).toHaveBeenCalledWith(registerData);
+        registerAction(registerData);
+
+        expect(registerLegacy).toHaveBeenCalledWith(registerData);
+      });
     });
 
     describe('changePassword', () => {
@@ -436,7 +507,7 @@ describe('useUser', () => {
         email: 'email@email.com',
         phoneNumber: '123',
         dateOfBirth: 'date/123123123/',
-        gender: 'male',
+        gender: UserGender.Male,
         receiveNewsletters: true,
         personalShopperId: 123,
         titleId: 'Mr',
