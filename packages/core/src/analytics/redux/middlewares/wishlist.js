@@ -149,6 +149,7 @@ const getProductData = async (analyticsInstance, state, wishlistItem) => {
     size,
     sizeId,
     sizeScaleId: sizeScale,
+    locationId: get(wishlistItem, 'merchant')?.toString(),
   };
 };
 

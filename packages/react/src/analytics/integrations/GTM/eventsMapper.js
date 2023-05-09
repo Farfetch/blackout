@@ -78,6 +78,8 @@ const eventsMapper = {
     return {
       products: get(properties, 'products', []).map(getProductData),
       orderId: properties.orderId,
+      total: properties.total,
+      value: get(properties, 'total', get(properties, 'value')),
     };
   },
   [eventTypes.PLACE_ORDER_STARTED]: data => {
@@ -86,7 +88,8 @@ const eventsMapper = {
     return {
       orderId: properties.orderId,
       products: get(properties, 'products', []).map(getProductData),
-      value: properties.value,
+      total: properties.total,
+      value: get(properties, 'total', get(properties, 'value')),
     };
   },
   [eventTypes.CHECKOUT_STEP_VIEWED]: data => {
@@ -110,7 +113,8 @@ const eventsMapper = {
 
     return {
       paymentType: properties.paymentType,
-      value: properties.value,
+      total: properties.total,
+      value: get(properties, 'total', get(properties, 'value')),
     };
   },
   [eventTypes.ORDER_COMPLETED]: data => {
