@@ -50,6 +50,10 @@ export const trackingNumber2 = '4538009163';
 export const userId = 29521154;
 export const mockGuestUserEmail = 'qat5@farfetch.com';
 
+export const mockGuestUserData = {
+  guestUserEmail: mockGuestUserEmail,
+};
+
 export const mockOrdersResponse = {
   entries: [
     {
