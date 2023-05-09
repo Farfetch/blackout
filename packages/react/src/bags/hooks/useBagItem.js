@@ -360,13 +360,15 @@ export default bagItemId => {
    *
    * @function handleDeleteBagItem
    *
+   * @param {number} position - Index of the item on a list.
    * @param {string} [from] - Provenience of action.
    */
-  const handleDeleteBagItem = from => {
+  const handleDeleteBagItem = (from, position) => {
     deleteBagItem(bagItem.id, {
       productId: bagItem.product.id,
       quantity: bagItem.quantity,
       from,
+      position,
     });
   };
 

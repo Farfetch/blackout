@@ -28,7 +28,7 @@ export default class AnalyticsAPI extends integrations.Integration {
       !isArray(this.options.whitelistedEvents)
     ) {
       throw new Error(
-        '[Analytics API] - The value `options.whitelistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `whitelistedEvents` from Analytics Api integration options must be an array.',
       );
     }
 
@@ -38,16 +38,25 @@ export default class AnalyticsAPI extends integrations.Integration {
       !isArray(this.options.blacklistedEvents)
     ) {
       throw new Error(
-        '[Analytics API] - The value `options.blacklistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `blacklistedEvents` from Analytics Api integration options must be an array.',
+      );
+    }
+
+    if (this.options.blacklistedEvents && this.options.whitelistedEvents) {
+      throw new Error(
+        '[Analytics API] - Configuration error: `blacklistedEvents` and `whitelistedEvents` cannot both be set at the same time.',
       );
     }
 
     this.debugMode =
       utils.getCookie('analyticsAPIDebug')?.toLowerCase() === 'true';
-    this.whitelisted = this.options.whitelistedEvents || [
-      ...Object.values(pageTypes),
-      ...Object.values(eventTypes),
-    ];
+
+    this.whitelisted = !this.options.blacklistedEvents
+      ? this.options.whitelistedEvents || [
+          ...Object.values(pageTypes),
+          ...Object.values(eventTypes),
+        ]
+      : undefined;
   }
 
   /**
@@ -75,8 +84,9 @@ export default class AnalyticsAPI extends integrations.Integration {
    */
   async track(data) {
     if (
-      this.whitelisted?.includes(data.event) &&
-      !this.options.blacklistedEvents?.includes(data.event)
+      this.whitelisted?.includes(data.event) ||
+      (this.options.blacklistedEvents &&
+        !this.options.blacklistedEvents.includes(data.event))
     ) {
       const payload = {
         data,
