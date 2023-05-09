@@ -2,6 +2,7 @@ import * as actionTypes from '../../actionTypes.js';
 import {
   type Config,
   type GetGuestOrderLegacy,
+  type GetGuestOrderLegacyData,
   type OrderLegacy,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -19,7 +20,7 @@ import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
  */
 const fetchGuestOrderLegacyFactory =
   (getGuestOrderLegacy: GetGuestOrderLegacy) =>
-  (orderId: string, guestUserEmail: string, config?: Config) =>
+  (orderId: string, data: GetGuestOrderLegacyData, config?: Config) =>
   async (
     dispatch: Dispatch<FetchOrderAction>,
     getState: () => StoreState,
@@ -34,7 +35,7 @@ const fetchGuestOrderLegacyFactory =
       });
 
       const { productImgQueryParam } = getOptions(getState);
-      const result = await getGuestOrderLegacy(orderId, guestUserEmail, config);
+      const result = await getGuestOrderLegacy(orderId, data, config);
       const normalizedResult = normalizeFetchOrderResponse(
         result,
         productImgQueryParam,

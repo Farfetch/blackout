@@ -99,7 +99,7 @@ function useOrders(options: UseOrdersOptions = {}) {
       const useLegacyEndpointForGuest = !!guestUserEmail;
 
       return useLegacyEndpointForGuest
-        ? fetchGuestOrderLegacy(orderId, guestUserEmail as string, config)
+        ? fetchGuestOrderLegacy(orderId, { guestUserEmail }, config)
         : fetchOrder(orderId, config);
     },
     [fetchGuestOrderLegacy, fetchOrder, isAuthenticated],
