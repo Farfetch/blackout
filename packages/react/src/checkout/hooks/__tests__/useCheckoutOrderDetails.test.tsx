@@ -9,7 +9,7 @@ import {
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   fetchCheckoutOrderDetails,
-  resetCheckoutOrderDetailsState,
+  resetCheckout,
 } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers/index.js';
 import useCheckoutOrderDetails from '../useCheckoutOrderDetails.js';
@@ -19,8 +19,8 @@ jest.mock('@farfetch/blackout-redux', () => ({
   fetchCheckoutOrderDetails: jest.fn(() => ({
     type: 'fetch_checkout_order_details',
   })),
-  resetCheckoutOrderDetailsState: jest.fn(() => ({
-    type: 'reset_checkout_order_details_state',
+  resetCheckout: jest.fn(() => ({
+    type: 'reset_checkout',
   })),
 }));
 
@@ -103,7 +103,7 @@ describe('useCheckoutOrderDetails', () => {
         wrapper: withStore(mockCheckoutState),
       });
 
-      expect(resetCheckoutOrderDetailsState).toHaveBeenCalled();
+      expect(resetCheckout).toHaveBeenCalled();
     });
 
     it('should not call reset if the passed checkoutOrderId does not differ from the checkoutOrderId that is in state', () => {
@@ -111,7 +111,7 @@ describe('useCheckoutOrderDetails', () => {
         wrapper: withStore(mockCheckoutState),
       });
 
-      expect(resetCheckoutOrderDetailsState).not.toHaveBeenCalled();
+      expect(resetCheckout).not.toHaveBeenCalled();
     });
 
     it('should not call reset if the checkoutOrderId hook parameter is passed but there is no checkout details data in state', () => {
@@ -119,7 +119,7 @@ describe('useCheckoutOrderDetails', () => {
         wrapper: withStore(mockInitialState),
       });
 
-      expect(resetCheckoutOrderDetailsState).not.toHaveBeenCalled();
+      expect(resetCheckout).not.toHaveBeenCalled();
     });
   });
 
@@ -323,7 +323,7 @@ describe('useCheckoutOrderDetails', () => {
 
         await reset();
 
-        expect(resetCheckoutOrderDetailsState).toHaveBeenCalled();
+        expect(resetCheckout).toHaveBeenCalled();
       });
     });
   });

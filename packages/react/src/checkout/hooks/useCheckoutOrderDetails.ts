@@ -4,7 +4,7 @@ import {
   fetchCheckoutOrderDetails,
   getCheckoutOrderDetails,
   getCheckoutOrderDetailsError,
-  resetCheckoutOrderDetailsState,
+  resetCheckout,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ function useCheckoutOrderDetails(
   const isFetched = useSelector(areCheckoutOrderDetailsFetched);
   const details = useSelector(getCheckoutOrderDetails);
   const fetchCheckoutOrderDetailsAction = useAction(fetchCheckoutOrderDetails);
-  const reset = useAction(resetCheckoutOrderDetailsState);
+  const reset = useAction(resetCheckout);
 
   const fetch = useCallback(
     (config: Config | undefined = fetchConfig) => {
