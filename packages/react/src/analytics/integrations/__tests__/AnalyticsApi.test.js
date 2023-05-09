@@ -5,8 +5,8 @@ import { validTrackEvents } from '../__fixtures__/gaData.fixtures.js';
 import client from '@farfetch/blackout-core/helpers/client';
 
 utils.logger.error = jest.fn();
-
 utils.logger.warn = jest.fn();
+utils.logger.info = jest.fn();
 
 Object.defineProperty(document, 'cookie', {
   writable: true,
@@ -56,12 +56,6 @@ describe('AnalyticsApi Integration', () => {
     let analyticsApiInstance;
 
     const validOptions = {
-      whitelistedEvents: [
-        'Product Added to Cart',
-        'Product Added to Wishlist',
-        'Checkout Started',
-      ],
-      blacklistedEvents: ['Payment Info Added'],
       conversionsAPI: {
         testEventCode: 'TEST43363',
       },
@@ -105,7 +99,7 @@ describe('AnalyticsApi Integration', () => {
           loadData,
         ),
       ).toThrow(
-        '[Analytics API] - The value `options.whitelistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `whitelistedEvents` from Analytics Api integration options must be an array.',
       );
     });
 
@@ -122,39 +116,122 @@ describe('AnalyticsApi Integration', () => {
           loadData,
         ),
       ).toThrow(
-        '[Analytics API] - The value `options.blacklistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `blacklistedEvents` from Analytics Api integration options must be an array.',
+      );
+    });
+
+    it('Should trigger an error if both `blacklistedEvents` and `whitelistedEvents` options', async () => {
+      expect(() =>
+        AnalyticsApi.createInstance(
+          {
+            blacklistedEvents: [defaultTrackEventData.event],
+            whitelistedEvents: [defaultTrackEventData.event],
+            conversionsAPI: {
+              testEventCode: 'TEST12345',
+            },
+          },
+          loadData,
+        ),
+      ).toThrow(
+        '[Analytics API] - Configuration error: `blacklistedEvents` and `whitelistedEvents` cannot both be set at the same time.',
       );
     });
 
     describe('Track events', () => {
-      it('Should not map the blacklisted event', async () => {
-        analyticsApiInstance = await createAnalyticsApiInstanceAndLoad({
-          blacklistedEvents: [defaultTrackEventData.event],
-          conversionsAPI: {
-            testEventCode: 'TEST43363',
-          },
+      describe('When `blacklistedEvents` is set', () => {
+        it('Should not send events that are blacklisted', async () => {
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad({
+            ...validOptions,
+            blacklistedEvents: [defaultTrackEventData.event],
+          });
+
+          await analyticsApiInstance.track(defaultTrackEventData);
+
+          expect(client.post).not.toHaveBeenCalled();
         });
 
-        await analyticsApiInstance.track(defaultTrackEventData);
+        it('Should send events that are not blacklisted', async () => {
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad({
+            ...validOptions,
+            blacklistedEvents: [],
+          });
 
-        expect(client.post).toHaveBeenCalledTimes(0);
+          await analyticsApiInstance.track(defaultTrackEventData);
+
+          expect(client.post).toHaveBeenCalledWith('/analytics/v1/events', {
+            options: {
+              ...validOptions,
+              debugMode: true,
+            },
+            data: defaultTrackEventData,
+          });
+        });
       });
 
-      it('Should map the whitelisted event, and not send the whitelistedEvents or blacklistedEvents in options', async () => {
-        analyticsApiInstance = await createAnalyticsApiInstanceAndLoad(
-          validOptions,
-        );
+      describe('When `whitelistedEvents` is set', () => {
+        it('Should send events that are whitelisted', async () => {
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad({
+            ...validOptions,
+            whitelistedEvents: [defaultTrackEventData.event],
+          });
 
-        await analyticsApiInstance.track(defaultTrackEventData);
+          await analyticsApiInstance.track(defaultTrackEventData);
 
-        expect(client.post).toHaveBeenCalledWith('/analytics/v1/events', {
-          options: {
-            conversionsAPI: validOptions.conversionsAPI,
-            debugMode: true,
-          },
-          data: expect.objectContaining({
-            event: defaultTrackEventData.event,
-          }),
+          expect(client.post).toHaveBeenCalledWith('/analytics/v1/events', {
+            options: {
+              ...validOptions,
+              debugMode: true,
+            },
+            data: defaultTrackEventData,
+          });
+        });
+
+        it('Should not send events that are not whitelisted', async () => {
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad({
+            ...validOptions,
+            whitelistedEvents: [],
+          });
+
+          await analyticsApiInstance.track(defaultTrackEventData);
+
+          expect(client.post).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('debugMode', () => {
+        it('Should log the payload that will be sent when `debugMode` is true', async () => {
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad(
+            validOptions,
+          );
+
+          await analyticsApiInstance.track(defaultTrackEventData);
+
+          expect(utils.logger.info).toHaveBeenCalledWith(
+            '[Analytics API] - track:',
+            {
+              data: defaultTrackEventData,
+              options: {
+                ...validOptions,
+                debugMode: true,
+              },
+            },
+          );
+        });
+
+        it('Should not log the payload that will be sent when `debugMode` is false', async () => {
+          const originalDocumentCookies = document.cookie;
+
+          document.cookie = '';
+
+          analyticsApiInstance = await createAnalyticsApiInstanceAndLoad(
+            validOptions,
+          );
+
+          await analyticsApiInstance.track(defaultTrackEventData);
+
+          expect(utils.logger.info).not.toHaveBeenCalled();
+
+          document.cookie = originalDocumentCookies;
         });
       });
     });

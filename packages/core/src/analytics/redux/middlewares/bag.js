@@ -186,6 +186,7 @@ const getProductData = async (analyticsInstance, state, action) => {
     sku,
     quantity,
     variant,
+    locationId: merchantId?.toString(),
   };
 };
 

@@ -20,6 +20,8 @@ Object {
       "variant": "Black",
     },
   ],
+  "total": 1000,
+  "value": 1000,
 }
 `;
 
@@ -107,7 +109,8 @@ Object {
 exports[`GTM EventsMapper Should match the snapshot for the event: Payment Info Added 1`] = `
 Object {
   "paymentType": "paypal",
-  "value": 123123,
+  "total": 1000,
+  "value": 1000,
 }
 `;
 
@@ -131,7 +134,8 @@ Object {
       "variant": "Black",
     },
   ],
-  "value": 123123,
+  "total": 1000,
+  "value": 1000,
 }
 `;
 
