@@ -8,6 +8,7 @@ import {
   resetOrders,
 } from '@farfetch/blackout-redux';
 import {
+  mockGuestUserData,
   mockGuestUserEmail,
   mockState,
   orderEntityDenormalized,
@@ -424,7 +425,7 @@ describe('useOrders', () => {
 
           expect(fetchGuestOrderLegacy).toHaveBeenCalledWith(
             orderId,
-            mockGuestUserEmail,
+            mockGuestUserData,
             mockFetchConfig,
           );
         });

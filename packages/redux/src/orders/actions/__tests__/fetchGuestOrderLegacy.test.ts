@@ -3,7 +3,7 @@ import * as normalizr from 'normalizr';
 import { fetchGuestOrderLegacy } from '../index.js';
 import {
   getExpectedOrderDetailsNormalizedPayload,
-  mockGuestUserEmail,
+  mockGuestUserData,
   mockOrderDetailsResponse,
   orderId,
 } from 'tests/__fixtures__/orders/index.mjs';
@@ -47,7 +47,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
 
     await expect(
       async () =>
-        await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
+        await fetchGuestOrderLegacy(orderId, mockGuestUserData)(
           store.dispatch,
           store.getState as () => StoreState,
           { getOptions },
@@ -57,7 +57,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     expect(getGuestOrderLegacy).toHaveBeenCalledTimes(1);
     expect(getGuestOrderLegacy).toHaveBeenCalledWith(
       orderId,
-      mockGuestUserEmail,
+      mockGuestUserData,
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
@@ -84,7 +84,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
 
     expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
+    await fetchGuestOrderLegacy(orderId, mockGuestUserData)(
       store.dispatch,
       store.getState as () => StoreState,
       { getOptions },
@@ -96,7 +96,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     expect(getGuestOrderLegacy).toHaveBeenCalledTimes(1);
     expect(getGuestOrderLegacy).toHaveBeenCalledWith(
       orderId,
-      mockGuestUserEmail,
+      mockGuestUserData,
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
@@ -122,7 +122,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
 
     expectedPayload.entities.orders[orderId].totalItems = 3;
 
-    await fetchGuestOrderLegacy(orderId, mockGuestUserEmail)(
+    await fetchGuestOrderLegacy(orderId, mockGuestUserData)(
       store.dispatch,
       store.getState as () => StoreState,
       {} as GetOptionsArgument,
@@ -134,7 +134,7 @@ describe('fetchGuestOrderLegacy() action creator', () => {
     expect(getGuestOrderLegacy).toHaveBeenCalledTimes(1);
     expect(getGuestOrderLegacy).toHaveBeenCalledWith(
       orderId,
-      mockGuestUserEmail,
+      mockGuestUserData,
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
