@@ -9,6 +9,7 @@ import * as actionTypes from '../actionTypes';
  * @param {object} query - Query object.
  * @param {string} query.id - The identifier of the subscription.
  * @param {string} query.emailHash - SHA256 hash of the user's email to be unsubscribed.
+ * @param {Array<string>} query.packageList - Package List with names of packages to unsubscribe.
  * @param {object} [config] - Custom configurations to send to the client
  * instance (axios).
  *
@@ -26,14 +27,14 @@ import * as actionTypes from '../actionTypes';
  * @returns {UnsubscribeFromSubscriptionThunkFactory} Thunk factory.
  */
 export default deleteSubscription =>
-  ({ id, emailHash }, config) =>
+  ({ id, emailHash, packageList }, config) =>
   async dispatch => {
     try {
       dispatch({
         type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_REQUEST,
       });
 
-      await deleteSubscription({ id, emailHash }, config);
+      await deleteSubscription({ id, emailHash, packageList }, config);
 
       dispatch({
         type: actionTypes.UNSUBSCRIBE_FROM_SUBSCRIPTION_SUCCESS,

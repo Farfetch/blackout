@@ -2,9 +2,11 @@ import join from 'proper-url-join';
 import moxios from 'moxios';
 
 export default {
-  success: ({ id, emailHash }, response) => {
+  success: ({ id, emailHash, packageList }, response) => {
     moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: { id, emailHash } }),
+      join('/api/marketing/v1/subscriptions', {
+        query: { id, emailHash, package: packageList },
+      }),
       {
         method: 'delete',
         status: 200,
@@ -12,9 +14,11 @@ export default {
       },
     );
   },
-  failure: ({ id, emailHash }) => {
+  failure: ({ id, emailHash, packageList }) => {
     moxios.stubRequest(
-      join('/api/marketing/v1/subscriptions', { query: { id, emailHash } }),
+      join('/api/marketing/v1/subscriptions', {
+        query: { id, emailHash, package: packageList },
+      }),
       {
         method: 'delete',
         response: 'stub error',
