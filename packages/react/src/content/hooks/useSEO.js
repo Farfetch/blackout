@@ -7,7 +7,7 @@ import {
 } from '@farfetch/blackout-core/contents/redux';
 import { getSEO as getSEOclient } from '@farfetch/blackout-core/contents/client';
 import { useAction } from '../../utils';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 /**
@@ -31,13 +31,17 @@ export default (query, pathname) => {
   const isLoading = useSelector(state => isSEOLoading(state, query));
   const seo = useSelector(state => getSEO(state, query));
   // Actions
-  const fetchSEO = useAction(doGetSEO(getSEOclient));
+  const action = useAction(doGetSEO(getSEOclient));
   const reset = useAction(resetContents);
 
+  const fetchSEO = useCallback(() => {
+    return action(query);
+  }, [action, query]);
+
   useEffect(() => {
-    !seo && !isLoading && fetchSEO(query);
+    !seo && !isLoading && fetchSEO();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seo, query, pathname]);
+  }, [seo, pathname]);
 
   return {
     /**

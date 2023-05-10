@@ -133,7 +133,7 @@ const metadata = (
         ...state,
         isLoading: {
           ...state.isLoading,
-          [action.payload.pathname]: undefined,
+          [action.payload.pathname]: false,
         },
         error: {
           ...state.error,
