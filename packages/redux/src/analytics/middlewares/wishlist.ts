@@ -177,6 +177,10 @@ const getProductData = async (
     size,
     sizeId,
     sizeScaleId: sizeScale,
+    locationId:
+      wishlistItem && 'merchant' in wishlistItem
+        ? `${wishlistItem.merchant}`
+        : undefined,
   };
 };
 
