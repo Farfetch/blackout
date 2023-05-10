@@ -5,6 +5,7 @@ export const mockDeleteSubscription = {
     emailHash:
       '1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127',
     id: 'c3e39b1f-69a8-47e3-ab7f-743ddd1278bc',
+    packageList: ['Newsletters', 'Product_notifications'],
   },
   response: {},
 };

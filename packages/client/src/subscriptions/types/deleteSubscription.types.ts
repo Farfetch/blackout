@@ -14,4 +14,8 @@ export type DeleteSubscriptionQuery = {
    * SHA256 hash of the user's email to be unsubscribed.
    */
   emailHash: string;
+  /**
+   * Package list to be unsubscribed
+   */
+  packageList?: Array<string>;
 };
