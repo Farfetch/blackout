@@ -272,7 +272,7 @@ describe('contents redux reducer', () => {
           type: actionTypes.GET_SEO_FAILURE,
           payload: { result: { foo: 'bar' }, pathname: 'about' },
         }).metadata.isLoading,
-      ).toEqual({ about: undefined });
+      ).toEqual({ about: false });
       expect(
         reducer(undefined, {
           type: actionTypes.GET_SEO_FAILURE,
