@@ -88,6 +88,8 @@ const eventsMapper: EventMappers = {
     return {
       products: get(properties, 'products', []).map(getProductData),
       orderId: properties.orderId,
+      value: 'total' in properties ? properties.total : properties.value,
+      total: properties.total,
     };
   },
   [EventTypes.PLACE_ORDER_STARTED]: (data: EventData<TrackTypesValues>) => {
@@ -96,7 +98,8 @@ const eventsMapper: EventMappers = {
     return {
       orderId: properties.orderId,
       products: get(properties, 'products', []).map(getProductData),
-      value: properties.value,
+      value: 'total' in properties ? properties.total : properties.value,
+      total: properties.total,
     };
   },
   [EventTypes.CHECKOUT_STEP_VIEWED]: (data: EventData<TrackTypesValues>) => {
@@ -120,7 +123,8 @@ const eventsMapper: EventMappers = {
 
     return {
       paymentType: properties.paymentType,
-      value: properties.value,
+      value: 'total' in properties ? properties.total : properties.value,
+      total: properties.total,
     };
   },
   [EventTypes.ORDER_COMPLETED]: (data: EventData<TrackTypesValues>) => {

@@ -203,6 +203,7 @@ const getProductData = async (
     sku,
     quantity,
     variant,
+    locationId: merchantId?.toString(),
   };
 };
 

@@ -315,6 +315,7 @@ describe('analyticsWishlistMiddleware', () => {
           value,
           variant: colorName,
           wishlistId: wishlistMockData.wishlistId,
+          locationId: expect.any(String),
         },
       );
     });
@@ -371,6 +372,7 @@ describe('analyticsWishlistMiddleware', () => {
           value,
           variant: colorName,
           wishlistId: wishlistMockData.wishlistId,
+          locationId: expect.any(String),
         },
       );
     });
@@ -428,6 +430,7 @@ describe('analyticsWishlistMiddleware', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            locationId: expect.any(String),
           },
         );
       });
@@ -474,6 +477,7 @@ describe('analyticsWishlistMiddleware', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            locationId: expect.any(String),
           },
         );
       });
@@ -595,6 +599,7 @@ describe('analyticsWishlistMiddleware', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            locationId: expect.any(String),
           },
         );
       });
@@ -641,6 +646,7 @@ describe('analyticsWishlistMiddleware', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            locationId: expect.any(String),
           },
         );
       });
@@ -798,6 +804,7 @@ describe('analyticsWishlistMiddleware', () => {
         oldQuantity: undefined,
         sizeId,
         sizeScaleId,
+        locationId: merchantId.toString(),
       });
 
       expect(trackSpy).toHaveBeenNthCalledWith(
@@ -829,6 +836,7 @@ describe('analyticsWishlistMiddleware', () => {
           oldQuantity: undefined,
           sizeId,
           sizeScaleId,
+          locationId: merchantId.toString(),
         },
       );
     });
