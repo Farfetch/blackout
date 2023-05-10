@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.421](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.420...@farfetch/blackout-react@1.0.0-next.421) (2023-05-10)
+
+### Bug Fixes
+
+- fix possible infinite loop in `useCheckoutOrderDetails` ([2956441](https://github.com/Farfetch/blackout/commit/2956441b593a55dd2390b0164c800398f0c321e3))
+
 # [1.0.0-next.420](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.419...@farfetch/blackout-react@1.0.0-next.420) (2023-05-05)
 
 ### Features
