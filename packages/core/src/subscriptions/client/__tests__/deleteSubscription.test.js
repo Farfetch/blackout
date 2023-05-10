@@ -43,4 +43,25 @@ describe('deleteSubscription', () => {
       expectedConfig,
     );
   });
+
+  it('should handle a client request with packageList', async () => {
+    const response = {};
+    const packageList = ['Newsletters', 'Product_Notification'];
+    fixtures.success({ id, emailHash, packageList }, response);
+
+    await expect(
+      deleteSubscription({
+        id,
+        emailHash,
+        packageList,
+      }),
+    ).resolves.toBe(response);
+
+    expect(spy).toHaveBeenCalledWith(
+      join('/marketing/v1/subscriptions', {
+        query: { id, emailHash, package: packageList },
+      }),
+      expectedConfig,
+    );
+  });
 });

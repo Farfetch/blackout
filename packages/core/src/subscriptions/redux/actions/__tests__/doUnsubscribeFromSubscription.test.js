@@ -12,6 +12,7 @@ describe('Subscriptions redux actions', () => {
   const id = 'c3e39b1f-69a8-47e3-ab7f-743ddd1278bc';
   const emailHash =
     '1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127';
+  const packageList = ['newsletter', 'product_bundles'];
 
   beforeEach(jest.clearAllMocks);
 
@@ -36,7 +37,7 @@ describe('Subscriptions redux actions', () => {
       deleteSubscription.mockRejectedValueOnce(expectedError);
 
       try {
-        await store.dispatch(action({ id, emailHash }));
+        await store.dispatch(action({ id, emailHash, packageList }));
       } catch (error) {
         expect(error).toBe(expectedError);
         expect(deleteSubscription).toBeCalled();
@@ -57,7 +58,7 @@ describe('Subscriptions redux actions', () => {
 
       deleteSubscription.mockResolvedValueOnce(response);
 
-      await store.dispatch(action({ id, emailHash }));
+      await store.dispatch(action({ id, emailHash, packageList }));
 
       expect(deleteSubscription).toBeCalled();
       expect(store.getActions()).toEqual(expectedActions);
