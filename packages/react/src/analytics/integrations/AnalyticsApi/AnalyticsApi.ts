@@ -19,7 +19,7 @@ export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiI
   static override [utils.CONSENT_CATEGORIES_PROPERTY] =
     utils.DefaultConsentKeys.Marketing;
   private debugMode: boolean | undefined;
-  private whitelisted: Array<string>;
+  private whitelisted: Array<string> | undefined;
 
   /**
    * Creates an instance of Analytics Api integration.
@@ -35,12 +35,18 @@ export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiI
   ) {
     super(options, loadData, strippedDownAnalytics);
 
+    if (this.options.blacklistedEvents && this.options.whitelistedEvents) {
+      throw new Error(
+        '[Analytics API] - Configuration error: `blacklistedEvents` and `whitelistedEvents` cannot both be set at the same time.',
+      );
+    }
+
     if (
       this.options.whitelistedEvents &&
       !isArray(this.options.whitelistedEvents)
     ) {
       throw new Error(
-        '[Analytics API] - The value `options.whitelistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `whitelistedEvents` must be an array.',
       );
     }
 
@@ -49,16 +55,19 @@ export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiI
       !isArray(this.options.blacklistedEvents)
     ) {
       throw new Error(
-        '[Analytics API] - The value `options.blacklistedEvents` from Analytics Api integration options must be an array.',
+        '[Analytics API] - Configuration error: option `blacklistedEvents` must be an array.',
       );
     }
 
     this.debugMode =
       utils.getCookie('analyticsAPIDebug')?.toLowerCase() === 'true';
-    this.whitelisted = this.options.whitelistedEvents || [
-      ...Object.values(PageType),
-      ...Object.values(EventType),
-    ];
+
+    this.whitelisted = !this.options.blacklistedEvents
+      ? this.options.whitelistedEvents || [
+          ...Object.values(PageType),
+          ...Object.values(EventType),
+        ]
+      : undefined;
   }
 
   /**
@@ -71,8 +80,9 @@ export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiI
    */
   override async track(data: EventData<TrackTypesValues>) {
     if (
-      this.whitelisted?.includes(data.event) &&
-      !this.options.blacklistedEvents?.includes(data.event)
+      this.whitelisted?.includes(data.event) ||
+      (this.options.blacklistedEvents &&
+        !this.options.blacklistedEvents.includes(data.event))
     ) {
       const payload = {
         data,
