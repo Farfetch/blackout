@@ -7,6 +7,8 @@ import AnalyticsCore, {
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
 
+console.error = jest.fn();
+
 class LoadableIntegration extends integrations.Integration<IntegrationOptions> {
   static override shouldLoad() {
     return true;
