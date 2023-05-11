@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.422](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.421...@farfetch/blackout-react@1.0.0-next.422) (2023-05-11)
+
+### Features
+
+- **client|redux|react:** add post guest orders endpoint ([21c0fec](https://github.com/Farfetch/blackout/commit/21c0fece8225ac728acf4e8be8ad4074bab067aa))
+
+### BREAKING CHANGES
+
+- **client|redux|react:** The fetchGuestOrdersLegacy is now a POST to prevent from leaking
+  query data to google analytics. Now it accepts an object as data with the user email
+  instead of passing the email as query.
+
 # [1.0.0-next.421](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.420...@farfetch/blackout-react@1.0.0-next.421) (2023-05-10)
 
 ### Bug Fixes
