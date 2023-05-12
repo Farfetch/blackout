@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.409](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.408...@farfetch/blackout-redux@1.0.0-next.409) (2023-05-12)
+
+### Features
+
+- **react|redux:** analytics improvements ([d72a4de](https://github.com/Farfetch/blackout/commit/d72a4de7b216ff914b1fe868d8d7702b87492712))
+
 # [1.0.0-next.408](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.407...@farfetch/blackout-redux@1.0.0-next.408) (2023-05-12)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
