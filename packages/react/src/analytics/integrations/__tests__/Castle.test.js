@@ -1,6 +1,5 @@
 import { integrations } from '@farfetch/blackout-core/analytics';
 import Castle from '../Castle';
-import CastleV1 from '../Castle/CastleV1';
 import CastleV2 from '../Castle/CastleV2';
 
 // mock this function to avoid installing `jest-canvas-mock` - CastleV2 needs it.
@@ -15,12 +14,6 @@ describe('Castle facade class', () => {
     expect(Castle.shouldLoad()).toBe(true);
   });
 
-  it('Should return a CastleV1 instance when passing an app ID', async () => {
-    const instance = Castle.createInstance({ appId: 123465 });
-
-    expect(instance).toBeInstanceOf(CastleV1);
-  });
-
   it('Should return a CastleV2 instance when passing an publishable key', async () => {
     const instance = Castle.createInstance({
       configureOptions: {
@@ -31,9 +24,15 @@ describe('Castle facade class', () => {
     expect(instance).toBeInstanceOf(CastleV2);
   });
 
+  it('Should throw an error if old castle v1 options is passed.', async () => {
+    expect(() => Castle.createInstance({ appId: 123465 })).toThrowError(
+      '[Castle] - Could not load the correct version of Castle integration. The version 1 of Castle, is deprecated and is not available anymore. Make sure to pass the correct integration options.',
+    );
+  });
+
   it('Should throw an error if no valid option is passed', async () => {
     expect(() => Castle.createInstance({ foo: 'bar' })).toThrowError(
-      'Could not load the correct version of Castle integration. Make sure to pass the correct integration options.',
+      '[Castle] - Could not load the correct version of Castle integration. Make sure to pass the correct integration options.',
     );
   });
 });

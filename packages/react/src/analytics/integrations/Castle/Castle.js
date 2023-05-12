@@ -18,8 +18,7 @@
  * @category Analytics
  * @subcategory Integrations
  */
-import { integrations, utils } from '@farfetch/blackout-core/analytics';
-import CastleV1 from './CastleV1';
+import { integrations } from '@farfetch/blackout-core/analytics';
 import CastleV2 from './CastleV2';
 
 /**
@@ -59,20 +58,18 @@ class Castle extends integrations.Integration {
    * @returns {Castle} - The correct instance according to the option passed.
    */
   static loadCorrectVersion(options, loadData) {
-    if (options.appId) {
-      utils.logger.warn(
-        'This integration was loaded with the legacy options and it will be deprecated soon. Make sure you pass in the correct options for Castle v2.0.',
-      );
-
-      return CastleV1.createInstance(options, loadData);
-    }
-
     if (options.configureOptions?.pk) {
       return CastleV2.createInstance(options, loadData);
     }
 
+    if (options.appId) {
+      throw new Error(
+        '[Castle] - Could not load the correct version of Castle integration. The version 1 of Castle, is deprecated and is not available anymore. Make sure to pass the correct integration options.',
+      );
+    }
+
     throw new Error(
-      'Could not load the correct version of Castle integration. Make sure to pass the correct integration options.',
+      '[Castle] - Could not load the correct version of Castle integration. Make sure to pass the correct integration options.',
     );
   }
 }
