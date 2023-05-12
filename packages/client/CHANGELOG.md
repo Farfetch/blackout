@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.258](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.257...@farfetch/blackout-client@2.0.0-next.258) (2023-05-12)
+
+### Bug Fixes
+
+- remove `contentTypeCode` as required parameter ([f32f7c0](https://github.com/Farfetch/blackout/commit/f32f7c0116df3e0ec9f2af957ccd58b6d229e14a))
+
+### BREAKING CHANGES
+
+- `useContentType` hook is now called `useContents`
+  and the `contentTypeCode` parameter was removed. You will need to pass
+  the `contentTypeCode` property in the options parameter now.
+
 # [2.0.0-next.257](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.256...@farfetch/blackout-client@2.0.0-next.257) (2023-05-12)
 
 ### Features

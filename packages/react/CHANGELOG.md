@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.428](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.427...@farfetch/blackout-react@1.0.0-next.428) (2023-05-12)
+
+### Bug Fixes
+
+- remove `contentTypeCode` as required parameter ([f32f7c0](https://github.com/Farfetch/blackout/commit/f32f7c0116df3e0ec9f2af957ccd58b6d229e14a))
+
+### BREAKING CHANGES
+
+- `useContentType` hook is now called `useContents`
+  and the `contentTypeCode` parameter was removed. You will need to pass
+  the `contentTypeCode` property in the options parameter now.
+
 # [1.0.0-next.427](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.426...@farfetch/blackout-react@1.0.0-next.427) (2023-05-12)
 
 ### Features
