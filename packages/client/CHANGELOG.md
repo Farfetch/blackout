@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-next.256](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.255...@farfetch/blackout-client@2.0.0-next.256) (2023-05-12)
+
+### Features
+
+- **client:** add package to unsubcribe action ([7a4211c](https://github.com/Farfetch/blackout/commit/7a4211cbda905ba5fdf64d6b9ef3ecce449eb981))
+
 # [2.0.0-next.255](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.254...@farfetch/blackout-client@2.0.0-next.255) (2023-05-11)
 
 ### Features
