@@ -49,10 +49,8 @@ import type { CastleIntegrationOptions } from './types/index.js';
 import type {
   ConfigureOptions,
   FormParams,
-  PageParams,
   UserParams,
 } from '@castleio/castle-js';
-import type { WebContextType } from '../../context.js';
 
 export const CLIENT_ID_HEADER_NAME = 'X-Castle-Request-Token';
 export const CASTLE_MESSAGE_PREFIX = 'Castle 2.x -';
@@ -259,16 +257,11 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
    * @returns - Promise that will resolve when the method finishes.
    */
   override track(data: EventData<TrackTypesValues>) {
-    switch (data.type) {
-      case TrackTypes.PAGE:
-        return this.trackPage(data as PageviewEventData);
-
-      case TrackTypes.TRACK:
-        return this.trackEvent(data as TrackEventData);
-      /* istanbul ignore next */
-      default:
-        return;
+    if (data.type === TrackTypes.TRACK) {
+      return this.trackEvent(data as TrackEventData);
     }
+
+    return;
   }
 
   /**
@@ -311,38 +304,6 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     }
 
     return null;
-  }
-
-  /**
-   * Method that will handle page events to be tracked.
-   *
-   * @param data - Data Track event data.
-   *
-   * @returns - The resolved promise of each castle call method.
-   */
-  trackPage(data: PageviewEventData) {
-    const user = this.getUserData(data);
-    const dataWithWebEventType = data as PageviewEventData & {
-      context: WebContextType;
-    };
-
-    const pageData: PageParams = {
-      url: dataWithWebEventType.context.web.window.location.href,
-      name: dataWithWebEventType.context.web.document.title,
-      referrer: dataWithWebEventType.context.web.document.referrer,
-      user,
-    };
-
-    return this.castleJS
-      .page(pageData)
-      .then(
-        () =>
-          this.debugModeOn &&
-          utils.logger.info(
-            `${CASTLE_MESSAGE_PREFIX} Page track success. Payload:`,
-            pageData,
-          ),
-      );
   }
 }
 

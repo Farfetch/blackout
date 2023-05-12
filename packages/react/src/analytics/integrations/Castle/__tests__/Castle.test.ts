@@ -9,7 +9,6 @@ import {
   integrations,
   type LoadIntegrationEventData,
   PageTypes,
-  type PageviewEventData,
   type StrippedDownAnalytics,
   type TrackEventData,
   type TrackTypesValues,
@@ -164,28 +163,17 @@ describe('Castle integration', () => {
   });
 
   describe('Tracking', () => {
-    it('Should track page views', async () => {
+    it('Should not track page views', async () => {
       instance = createInstance();
 
-      const castlePageSpy = jest.spyOn(instance.castleJS, 'page');
+      const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
       const mockPageEvent = analyticsPageData[
         PageTypes.HOMEPAGE
       ] as EventData<TrackTypesValues> & { context: WebContextType };
-      const expectedCallPayload = {
-        referrer: mockPageEvent.context.web.document.referrer,
-        name: mockPageEvent.context.web.document.title,
-        url: mockPageEvent.context.web.window.location.href,
-        user: instance.getUserData(mockPageEvent as PageviewEventData),
-      };
 
       await instance.track(mockPageEvent);
 
-      expect(castlePageSpy).toHaveBeenCalledWith(expectedCallPayload);
-
-      expect(utils.logger.info).toHaveBeenCalledWith(
-        `${CASTLE_MESSAGE_PREFIX} Page track success. Payload:`,
-        expectedCallPayload,
-      );
+      expect(castleFormSpy).not.toHaveBeenCalled();
     });
 
     it.each([
