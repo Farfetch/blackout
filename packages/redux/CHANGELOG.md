@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.407](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.406...@farfetch/blackout-redux@1.0.0-next.407) (2023-05-12)
+
+### Bug Fixes
+
+- refactor serverInitialState ([46b998c](https://github.com/Farfetch/blackout/commit/46b998c2a8db9bcd9cc48199ffb8fbe03caf7377))
+
 # [1.0.0-next.406](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.0.0-next.405...@farfetch/blackout-redux@1.0.0-next.406) (2023-05-11)
 
 ### Features
