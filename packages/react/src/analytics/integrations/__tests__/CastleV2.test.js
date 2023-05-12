@@ -141,27 +141,13 @@ describe('Castle integration', () => {
   });
 
   describe('Tracking', () => {
-    it('Should track page views', async () => {
+    it('Should not track page views', async () => {
       instance = createInstance();
 
-      const castlePageSpy = jest.spyOn(instance.castleJS, 'page');
-      const expectedCallPayload = {
-        page: {
-          referrer: analyticsPageDataMock.context.web.document.referrer,
-          title: analyticsPageDataMock.context.web.document.title,
-          url: analyticsPageDataMock.context.web.window.location.href,
-        },
-        user: instance.getUserData(analyticsPageDataMock),
-      };
-
+      const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
       await instance.track(analyticsPageDataMock);
 
-      expect(castlePageSpy).toHaveBeenCalledWith(expectedCallPayload);
-
-      expect(utils.logger.info).toHaveBeenCalledWith(
-        `${CASTLE_MESSAGE_PREFIX} Page track success. Payload:`,
-        expectedCallPayload,
-      );
+      expect(castleFormSpy).not.toHaveBeenCalled();
     });
 
     it.each([
