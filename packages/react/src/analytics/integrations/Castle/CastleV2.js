@@ -239,16 +239,10 @@ class CastleV2 extends integrations.Integration {
    * @returns {Promise} Promise that will resolve when the method finishes.
    */
   async track(data) {
-    switch (data.type) {
-      case trackTypes.PAGE:
-        return this.trackPage(data);
-
-      case trackTypes.TRACK:
-        return this.trackEvent(data);
-      /* istanbul ignore next */
-      default:
-        return;
+    if (data.type === trackTypes.TRACK) {
+      return this.trackEvent(data);
     }
+    return;
   }
 
   /**
@@ -292,39 +286,6 @@ class CastleV2 extends integrations.Integration {
       default:
         break;
     }
-  }
-
-  /**
-   * Method that will handle page events to be tracked.
-   *
-   * @param {object} data - Data Track event data.
-   *
-   * @async
-   *
-   * @returns {Promise<object>} - The resolved promise of each castle call method.
-   */
-  async trackPage(data) {
-    const user = this.getUserData(data);
-
-    const pageData = {
-      page: {
-        url: data.context.web.window.location.href,
-        title: data.context.web.document.title,
-        referrer: data.context.web.document.referrer,
-      },
-      user,
-    };
-
-    return this.castleJS
-      .page(pageData)
-      .then(
-        () =>
-          this.debugModeOn &&
-          utils.logger.info(
-            `${CASTLE_MESSAGE_PREFIX} Page track success. Payload:`,
-            pageData,
-          ),
-      );
   }
 }
 
