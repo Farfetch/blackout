@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.427](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.426...@farfetch/blackout-react@1.0.0-next.427) (2023-05-12)
+
+### Features
+
+- implement and review both orders and returns area to integrate the order split and multiple returns flow ([22cd9f2](https://github.com/Farfetch/blackout/commit/22cd9f230c3612c8fd194570fb41ace20c75f2d8))
+
+### BREAKING CHANGES
+
+- - Removed the entities mapper specific fetch order logic to merge
+    information since we no longer have merging issues.
+
+* getOrder was reviewed
+* getOrderReturns was migrated and reviewed on the returns area.
+* getOrderMerchants was deleted and a new selector was born to replace it called
+  `getOrderSummaries` that returns all the order summaries of a certain order id.
+* getOrderItemsByMerchant was renamed to getOrderItemsBySummary and it now returns
+  the order items of an order summary instead of splitting them by merchant.
+* getOrderItemQuantity was reviewed to remove an unnecessary restriction
+* getUserOrder is now normalising the date
+* getOrderItems is now normalising the result
+* getOrderItem is now normalising the result
+* Tests were adapted and added to test the mentioned changes
+* Removed the reset of the return options since they are already resetted when a
+  new user is fetches or when a user logins. There is no use case to manually reset
+  this data for a user.
+* Revamped the returnOption schema to wrap around the entire object that contains
+  sub returnOptions per type. The older schematisation implied that there was a
+  need to reference each of the sub returnOption and there is none. Also the
+  identifier of the this entity has been changed to be the `merchantOrderId` property
+  so we can link it to the order items if needed.
+* Removed the artificial merchant normalization.
+* getOrderReturnOptions selector now returns a list of return options denormalized
+  organised by `merchantOrderId` this id can be linked to order items.
+* getReturnOption is now normalising the result. You now need to provide a
+  `merchantOrderId` to fetch it.
+* fetchOrderReturnOptions now saves the array with the merchantOrderIds identifying
+  the returnOptions entities in the Orders area of the redux store.
+* Removed getGuestOrder clienta nd fetchGuestOrder action since it works the same way as getOrder and fetchOrder.
+
 # [1.0.0-next.426](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.425...@farfetch/blackout-react@1.0.0-next.426) (2023-05-12)
 
 ### Features
