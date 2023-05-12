@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.426](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.425...@farfetch/blackout-react@1.0.0-next.426) (2023-05-12)
+
+### Features
+
+- **react:** remove castle pageview event tracking ([c23f711](https://github.com/Farfetch/blackout/commit/c23f711da37fc5588fd50113add93fabdd220d37))
+
 # [1.0.0-next.425](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.424...@farfetch/blackout-react@1.0.0-next.425) (2023-05-12)
 
 ### Features
