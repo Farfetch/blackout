@@ -149,7 +149,10 @@ describe('contents redux selectors', () => {
       const spy = jest.spyOn(fromReducer, 'getSEOmetadata');
 
       expect(
-        selectors.isSEOMetadataFetched(mockState, { path: '/anotherPage' }),
+        selectors.isSEOMetadataFetched(mockState, {
+          baseUrl: '',
+          path: '/anotherPage',
+        }),
       ).toBe(false);
       expect(spy).toHaveBeenCalledTimes(2);
     });

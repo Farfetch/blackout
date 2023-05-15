@@ -1,12 +1,12 @@
 import type { CheckoutAddress, Config } from '../../types/index.js';
 import type {
   CheckoutOrder,
+  CheckoutOrderShippingOption,
   ClickAndCollect,
   GetCheckoutOrderResponse,
-  ShippingOption,
 } from './index.js';
 
-export type DeliveryBundleUpdate = {
+export type CheckoutOrderDeliveryBundleUpdate = {
   id: string;
   isSelected: boolean;
 };
@@ -15,8 +15,8 @@ export type PatchCheckoutOrderData = {
   shippingAddress?: CheckoutAddress;
   billingAddress?: CheckoutAddress;
   clickAndCollect?: ClickAndCollect;
-  shippingOption?: ShippingOption;
-  deliveryBundleUpdate?: DeliveryBundleUpdate;
+  shippingOption?: CheckoutOrderShippingOption;
+  deliveryBundleUpdate?: CheckoutOrderDeliveryBundleUpdate;
   email?: string;
 };
 

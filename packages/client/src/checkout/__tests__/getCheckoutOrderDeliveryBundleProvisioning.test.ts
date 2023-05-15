@@ -3,7 +3,7 @@ import { deliveryBundleId, id } from 'tests/__fixtures__/checkout/index.mjs';
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleProvisioning.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
-import type { ItemDeliveryProvisioning } from '../types/index.js';
+import type { CheckoutOrderItemDeliveryProvisioning } from '../types/index.js';
 
 describe('getCheckoutOrderDeliveryBundleProvisioning', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -13,7 +13,7 @@ describe('getCheckoutOrderDeliveryBundleProvisioning', () => {
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/itemDeliveryProvisioning`;
 
   it('should handle a client request successfully', async () => {
-    const response: ItemDeliveryProvisioning[] = [
+    const response: CheckoutOrderItemDeliveryProvisioning[] = [
       {
         itemId: 0,
         provisioning: [

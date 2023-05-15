@@ -1,6 +1,6 @@
-import type { DeliveryWindow } from './index.js';
+import type { CheckoutOrderDeliveryWindow } from './index.js';
 
-export type DeliveryBundleUpgrade = {
+export type CheckoutOrderDeliveryBundleUpgrade = {
   id: string;
   index: number;
   name: string;
@@ -10,12 +10,12 @@ export type DeliveryBundleUpgrade = {
   currency: string;
   rank: number;
   itemId: number;
-  deliveryWindow: DeliveryWindow;
+  deliveryWindow: CheckoutOrderDeliveryWindow;
 };
 
-export type DeliveryBundleUpgrades = {
+export type CheckoutOrderDeliveryBundleUpgrades = {
   [itemId: number]: {
-    Nominated?: DeliveryBundleUpgrade[];
-    Estimated?: DeliveryBundleUpgrade[];
+    Nominated?: CheckoutOrderDeliveryBundleUpgrade[];
+    Estimated?: CheckoutOrderDeliveryBundleUpgrade[];
   };
 };

@@ -7,7 +7,7 @@ export type Provisioning = {
   deliveryDateEstimate: string;
 };
 
-export type ItemDeliveryProvisioning = {
+export type CheckoutOrderItemDeliveryProvisioning = {
   itemId: number;
   provisioning: Provisioning[];
 };

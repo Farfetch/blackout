@@ -1,10 +1,10 @@
-export enum DeliveryWindowType {
+export enum CheckoutOrderDeliveryWindowType {
   Nominated,
   Estimated,
 }
 
-export type DeliveryWindow = {
-  type: DeliveryWindowType;
+export type CheckoutOrderDeliveryWindow = {
+  type: CheckoutOrderDeliveryWindowType;
   min: string;
   max: string;
 };

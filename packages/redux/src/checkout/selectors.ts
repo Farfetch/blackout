@@ -23,22 +23,22 @@ import { getEntities, getEntityById } from '../entities/selectors/index.js';
 import buildCollectPointsQueryHash from './helpers/buildCollectPointsQueryHash.js';
 import type {
   CategoryEntity,
+  CheckoutOrderDeliveryBundleEntity,
   CheckoutOrderEntityDenormalized,
   CheckoutOrderItemEntity,
   CheckoutOrderItemEntityDenormalized,
   CheckoutOrderItemProductEntity,
-  DeliveryBundleEntity,
   MerchantEntity,
   ProductEntity,
 } from '../entities/index.js';
 import type {
+  CheckoutOrderDeliveryBundleItemDeliveryOption,
+  CheckoutOrderDeliveryBundleUpgrade,
+  CheckoutOrderDeliveryWindowType,
   CheckoutOrderItem,
+  CheckoutOrderShippingOption,
   ClickAndCollect,
-  DeliveryBundleUpgrade,
-  DeliveryWindowType,
   GetCollectPointsQuery,
-  ItemDeliveryOption,
-  ShippingOption,
 } from '@farfetch/blackout-client';
 import type {
   CheckoutOrderOperationsNormalized,
@@ -46,7 +46,7 @@ import type {
 } from './types/index.js';
 import type { StoreState } from '../types/index.js';
 
-export type DeliveryBundleWindow = {
+export type CheckoutOrderDeliveryBundleWindow = {
   minEstimatedDeliveryDate: string;
   maxEstimatedDeliveryDate: string;
 };
@@ -346,7 +346,7 @@ export const getCheckoutOrderSelectedCollectPoint: (
  */
 export const getCheckoutOrderShippingOptions: (
   state: StoreState,
-) => ShippingOption[] | undefined = createSelector(
+) => CheckoutOrderShippingOption[] | undefined = createSelector(
   [getCheckoutOrderResult],
   checkout => checkout?.shippingOptions,
 );
@@ -387,10 +387,11 @@ export const getCheckoutOrderSelectedDeliveryBundleId: (
  */
 export const getCheckoutOrderDeliveryBundlesIds: (
   state: StoreState,
-) => Array<DeliveryBundleEntity['id']> | undefined = createSelector(
-  [getCheckoutOrderResult],
-  checkout => checkout?.deliveryBundles,
-);
+) => Array<CheckoutOrderDeliveryBundleEntity['id']> | undefined =
+  createSelector(
+    [getCheckoutOrderResult],
+    checkout => checkout?.deliveryBundles,
+  );
 
 /**
  * Returns the checkout delivery bundles.
@@ -401,7 +402,7 @@ export const getCheckoutOrderDeliveryBundlesIds: (
  */
 export const getCheckoutOrderDeliveryBundles: (
   state: StoreState,
-) => DeliveryBundleEntity[] | undefined = createSelector(
+) => CheckoutOrderDeliveryBundleEntity[] | undefined = createSelector(
   [
     getCheckoutOrderDeliveryBundlesIds,
     (state: StoreState) => getEntities(state, 'deliveryBundles'),
@@ -409,7 +410,7 @@ export const getCheckoutOrderDeliveryBundles: (
   (deliveryBundlesIds, deliveryBundles) =>
     deliveryBundlesIds
       ?.map(id => deliveryBundles && deliveryBundles[id])
-      .filter(Boolean) as DeliveryBundleEntity[] | undefined,
+      .filter(Boolean) as CheckoutOrderDeliveryBundleEntity[] | undefined,
 );
 
 /**
@@ -422,7 +423,7 @@ export const getCheckoutOrderDeliveryBundles: (
  */
 export const getCheckoutOrderDeliveryBundleUpgrades = (
   state: StoreState,
-  deliveryBundleId: DeliveryBundleUpgrade['id'],
+  deliveryBundleId: CheckoutOrderDeliveryBundleUpgrade['id'],
 ) => getEntityById(state, 'deliveryBundleUpgrades', deliveryBundleId);
 
 /**
@@ -438,11 +439,11 @@ export const getCheckoutOrderDeliveryBundleUpgrades = (
  */
 export const getCheckoutOrderDeliveryBundleUpgrade: (
   state: StoreState,
-  deliveryBundleId: DeliveryBundleEntity['id'],
-  itemId: DeliveryBundleUpgrade['itemId'],
-  deliveryWindowType: DeliveryWindowType | string,
-  upgradeId: DeliveryBundleUpgrade['id'],
-) => DeliveryBundleUpgrade | undefined = createSelector(
+  deliveryBundleId: CheckoutOrderDeliveryBundleEntity['id'],
+  itemId: CheckoutOrderDeliveryBundleUpgrade['itemId'],
+  deliveryWindowType: CheckoutOrderDeliveryWindowType | string,
+  upgradeId: CheckoutOrderDeliveryBundleUpgrade['id'],
+) => CheckoutOrderDeliveryBundleUpgrade | undefined = createSelector(
   [
     (state: StoreState, deliveryBundleId: string) =>
       getCheckoutOrderDeliveryBundleUpgrades(state, deliveryBundleId),
@@ -450,7 +451,7 @@ export const getCheckoutOrderDeliveryBundleUpgrade: (
       state: StoreState,
       deliveryBundleId: string,
       itemId: number,
-      upgradeType: DeliveryWindowType | string,
+      upgradeType: CheckoutOrderDeliveryWindowType | string,
       upgradeId: string,
     ) => ({
       deliveryBundleId,
@@ -462,7 +463,9 @@ export const getCheckoutOrderDeliveryBundleUpgrade: (
   (checkoutDeliveryBundleUpgrades, { itemId, upgradeId, upgradeType }) => {
     const itemUpgrades = checkoutDeliveryBundleUpgrades?.[itemId];
     const upgrades =
-      itemUpgrades?.[upgradeType as keyof typeof DeliveryWindowType];
+      itemUpgrades?.[
+        upgradeType as keyof typeof CheckoutOrderDeliveryWindowType
+      ];
 
     return upgrades?.find(({ id }) => id === upgradeId);
   },
@@ -502,7 +505,7 @@ export const getCheckoutOrderSelectedCollectPointEstimatedDeliveryPeriod: (
           minEstimatedDeliveryHour: number | null;
           maxEstimatedDeliveryHour: number | null;
         },
-        shippingOption: ShippingOption,
+        shippingOption: CheckoutOrderShippingOption,
       ) => {
         const emptyArray: number[] = [];
         const merchants = get(shippingOption, 'merchants', emptyArray);
@@ -851,9 +854,9 @@ export const getCheckoutOrderDeliveryBundleUpgradeProvisioningError = (
  *
  * @returns Items delivery options formatted date.
  */
-const getItemsDeliveryOptionsDate = (
+const getCheckoutOrderDeliveryBundleItemsDeliveryOptionsDate = (
   timeLimitType: TimeLimitType | string,
-  itemsDeliveryOptions: Array<ItemDeliveryOption>,
+  itemsDeliveryOptions: Array<CheckoutOrderDeliveryBundleItemDeliveryOption>,
 ) => {
   if (!itemsDeliveryOptions || itemsDeliveryOptions.length < 1) {
     return '';
@@ -894,7 +897,7 @@ const getItemsDeliveryOptionsDate = (
 export const getCheckoutOrderDeliveryBundleWindow = (
   state: StoreState,
   deliveryBundleId: string,
-): DeliveryBundleWindow | undefined => {
+): CheckoutOrderDeliveryBundleWindow | undefined => {
   const deliveryBundle = getCheckoutOrderDeliveryBundle(
     state,
     deliveryBundleId,
@@ -911,14 +914,16 @@ export const getCheckoutOrderDeliveryBundleWindow = (
   }
 
   return {
-    minEstimatedDeliveryDate: getItemsDeliveryOptionsDate(
-      'min',
-      itemsDeliveryOptions,
-    ),
-    maxEstimatedDeliveryDate: getItemsDeliveryOptionsDate(
-      'max',
-      itemsDeliveryOptions,
-    ),
+    minEstimatedDeliveryDate:
+      getCheckoutOrderDeliveryBundleItemsDeliveryOptionsDate(
+        'min',
+        itemsDeliveryOptions,
+      ),
+    maxEstimatedDeliveryDate:
+      getCheckoutOrderDeliveryBundleItemsDeliveryOptionsDate(
+        'max',
+        itemsDeliveryOptions,
+      ),
   };
 };
 

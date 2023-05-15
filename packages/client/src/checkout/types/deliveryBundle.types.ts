@@ -1,12 +1,12 @@
-import type { DeliveryWindow } from './index.js';
+import type { CheckoutOrderDeliveryWindow } from './index.js';
 
-export type ItemDeliveryOption = {
+export type CheckoutOrderDeliveryBundleItemDeliveryOption = {
   itemId: number;
   name: string;
-  deliveryWindow: DeliveryWindow;
+  deliveryWindow: CheckoutOrderDeliveryWindow;
 };
 
-export type DeliveryBundle = {
+export type CheckoutOrderDeliveryBundle = {
   id: string;
   name: string;
   isSelected: boolean;
@@ -17,5 +17,5 @@ export type DeliveryBundle = {
   discount: number;
   currency: string;
   rank: number;
-  itemsDeliveryOptions: ItemDeliveryOption[];
+  itemsDeliveryOptions: CheckoutOrderDeliveryBundleItemDeliveryOption[];
 };

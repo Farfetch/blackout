@@ -1,5 +1,5 @@
 import type {
-  DeliveryBundle,
+  CheckoutOrderDeliveryBundle,
   GetCheckoutOrderResponse,
 } from '@farfetch/blackout-client';
 
@@ -8,5 +8,5 @@ export type CheckoutEntity = Omit<
   'checkoutOrder' | 'deliveryBundles'
 > & {
   checkoutOrder: GetCheckoutOrderResponse['id'];
-  deliveryBundles?: Array<DeliveryBundle['id']>;
+  deliveryBundles?: Array<CheckoutOrderDeliveryBundle['id']>;
 };

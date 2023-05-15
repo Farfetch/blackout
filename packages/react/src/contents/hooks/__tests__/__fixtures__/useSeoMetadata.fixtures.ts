@@ -225,6 +225,7 @@ export const resultNoSocialMeta = {
 };
 
 export const query = {
+  baseUrl: '',
   pageType: SeoPageType.Pages,
   path: '/about',
   subPageType: SeoSubPageType.Default,

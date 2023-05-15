@@ -1,8 +1,12 @@
-import type { CheckoutOrder, DeliveryBundle, ShippingOption } from './index.js';
+import type {
+  CheckoutOrder,
+  CheckoutOrderDeliveryBundle,
+  CheckoutOrderShippingOption,
+} from './index.js';
 
 export type CheckoutOrderDetails = {
   checkoutOrder: CheckoutOrder;
-  shippingOptions?: ShippingOption[];
-  deliveryBundles?: DeliveryBundle[];
+  shippingOptions?: CheckoutOrderShippingOption[];
+  deliveryBundles?: CheckoutOrderDeliveryBundle[];
   registered: boolean;
 };
