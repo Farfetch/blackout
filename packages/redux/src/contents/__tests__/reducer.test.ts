@@ -94,7 +94,7 @@ describe('contents redux reducer', () => {
       expect(state).toEqual({
         error: undefined,
         isLoading: false,
-        result: null,
+        result: undefined,
       });
     });
 
@@ -133,7 +133,7 @@ describe('contents redux reducer', () => {
       expect(state).toEqual({
         error: {},
         isLoading: {},
-        result: null,
+        result: undefined,
       });
     });
 
@@ -168,6 +168,52 @@ describe('contents redux reducer', () => {
           payload: { error: '', pathname: 'about' },
         }).metadata.error,
       ).toEqual({ about: '' });
+    });
+  });
+
+  describe('seoFiles reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer(INITIAL_STATE_CONTENT, mockAction).seoFiles;
+
+      expect(state).toEqual(initialState.seoFiles);
+      expect(state).toEqual({
+        error: {},
+        isLoading: {},
+        result: undefined,
+      });
+    });
+
+    it('should handle FETCH_SEO_FILES_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.FETCH_SEO_FILES_REQUEST,
+          payload: { foo: 'bar', hash: 'files' },
+        }).seoFiles.isLoading,
+      ).toEqual({ files: true });
+    });
+
+    it('should handle FETCH_SEO_FILES_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.FETCH_SEO_FILES_SUCCESS,
+          payload: { result: { foo: 'bar' }, hash: 'files' },
+        }).seoFiles.isLoading,
+      ).toEqual({ files: false });
+    });
+
+    it('should handle FETCH_SEO_FILES_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          type: actionTypes.FETCH_SEO_FILES_FAILURE,
+          payload: { result: { foo: 'bar' }, hash: 'files' },
+        }).seoFiles.isLoading,
+      ).toEqual({ files: false });
+      expect(
+        reducer(undefined, {
+          type: actionTypes.FETCH_SEO_FILES_FAILURE,
+          payload: { error: '', hash: 'files' },
+        }).seoFiles.error,
+      ).toEqual({ files: '' });
     });
   });
 

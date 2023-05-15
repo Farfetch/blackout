@@ -24,12 +24,17 @@ describe('contents serverInitialState()', () => {
         contentTypes: {
           error: undefined,
           isLoading: false,
-          result: null,
+          result: undefined,
         },
         metadata: {
           error: {},
           isLoading: {},
-          result: null,
+          result: undefined,
+        },
+        seoFiles: {
+          error: {},
+          isLoading: {},
+          result: undefined,
         },
       },
     });

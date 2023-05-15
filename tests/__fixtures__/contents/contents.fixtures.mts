@@ -357,6 +357,11 @@ export const mockContentsInitialState = {
       isLoading: {},
       result: {},
     },
+    seoFiles: {
+      error: {},
+      isLoading: {},
+      result: {},
+    },
   },
 };
 

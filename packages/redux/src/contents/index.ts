@@ -12,4 +12,5 @@ export {
   generateContentHash,
   generateSEOPathname,
   applyCommercePagesRankingStrategy,
+  generateSEOFilesHash,
 } from './utils.js';

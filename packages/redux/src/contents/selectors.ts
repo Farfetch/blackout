@@ -2,14 +2,20 @@
  * Contents selectors.
  */
 import { type ContentEntity, getEntityById } from '../entities/index.js';
-import { generateContentHash, generateSEOPathname } from './utils.js';
+import {
+  generateContentHash,
+  generateSEOFilesHash,
+  generateSEOPathname,
+} from './utils.js';
 import {
   getContentResult,
   getContentTypes as getContentTypesFromReducer,
+  getSEOFiles,
   getSEOmetadata,
 } from './reducer.js';
 import type { ContentsState, Hash } from './types/index.js';
 import type {
+  GetSEOFilesQuery,
   GetSEOMetadataQuery,
   QueryCommercePages,
   QuerySearchContents,
@@ -21,7 +27,7 @@ import type { StoreState } from '../types/index.js';
  *
  * @example
  * ```
- * import { getContentsByHash } from '@bw/redux/contents';
+ * import { getContentsByHash } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { hash }) => ({
  *     result: getContentsByHash(state, hash)
@@ -96,7 +102,7 @@ export const isContentLoading = (
  *
  * @example
  * ```
- * import { getContentByQuery } from '@bw/redux/contents';
+ * import { getContentByQuery } from '@farfetch/blackout-redux';
  *
  * const mapStateToProps = (state, { query }) => ({
  *     contentEntry: getContentByQuery(state, query)
@@ -322,3 +328,117 @@ export const getSEOMetadataResult = (
  */
 export const getContent = <T>(state: StoreState, hash: string) =>
   getEntityById(state, 'contents', hash) as ContentEntity<T> | undefined;
+
+/**
+ * Returns the error thrown to the getSEOFiles request.
+ *
+ * @example
+ * ```
+ * import { getSEOFilesError } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { query }) => ({
+ *     seoFilesError: getSEOFilesError(state, query)
+ * });
+ *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the SEO Files.
+ *
+ * @returns - Content error.
+ */
+export const getSEOFilesError = (
+  state: StoreState,
+  query: GetSEOFilesQuery,
+) => {
+  const hash = generateSEOFilesHash(query);
+  const error = getSEOFiles(state.contents as ContentsState).error;
+
+  return error && error[hash];
+};
+
+/**
+ * Returns the loading status to the getSEOFiles request.
+ *
+ * @example
+ * ```
+ * import { areSEOFilesLoading } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { query }) => ({
+ *     areSEOMetadataLoading: areSEOFilesLoading(state, query)
+ * });
+ *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the SEO Files.
+ *
+ * @returns - If the content is loading or not.
+ */
+export const areSEOFilesLoading = (
+  state: StoreState,
+  query: GetSEOFilesQuery,
+) => {
+  const hash = generateSEOFilesHash(query);
+
+  return !!getSEOFiles(state.contents as ContentsState).isLoading[hash];
+};
+
+/**
+ * Returns the isFetched status to the getSEOFiles request.
+ *
+ * @example
+ * ```
+ * import { areSEOFilesFetched } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { query }) => ({
+ *     areSEOMetadataFetched: areSEOFilesFetched(state, query)
+ * });
+ *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search the SEO Files.
+ *
+ * @returns - If the SEO Files is loading or not.
+ */
+export const areSEOFilesFetched = (
+  state: StoreState,
+  query: GetSEOFilesQuery,
+) => {
+  const hash = generateSEOFilesHash(query);
+
+  return (
+    (!!getSEOFiles(state.contents as ContentsState).result?.[hash] ||
+      !!getSEOFilesError(state, query)) &&
+    !areSEOFilesLoading(state, query)
+  );
+};
+
+/**
+ * Returns the SEO Files of that page.
+ *
+ * @example
+ * ```
+ * import { getSEOFilesResult } from '@farfetch/blackout-redux';
+ *
+ * const mapStateToProps = (state, { query }) => ({
+ *     seo: getSEOFilesResult(state, query)
+ * });
+ *
+ * ```
+ *
+ * @param state - Application state.
+ * @param query - Query applied to search for the SEO Files.
+ *
+ * @returns - All SEO Files for that page.
+ */
+export const getSEOFilesResult = (
+  state: StoreState,
+  query: GetSEOFilesQuery,
+) => {
+  const hash = generateSEOFilesHash(query);
+  const result = getSEOFiles(state.contents as ContentsState).result;
+
+  return result && result[hash];
+};
