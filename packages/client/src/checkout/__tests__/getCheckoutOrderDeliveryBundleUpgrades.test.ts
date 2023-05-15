@@ -1,9 +1,9 @@
 import * as checkoutClient from '../index.js';
-import { deliveryBundleId, id } from 'tests/__fixtures__/checkout/index.mjs';
 import {
-  type DeliveryBundleUpgrades,
-  DeliveryWindowType,
+  type CheckoutOrderDeliveryBundleUpgrades,
+  CheckoutOrderDeliveryWindowType,
 } from '../types/index.js';
+import { deliveryBundleId, id } from 'tests/__fixtures__/checkout/index.mjs';
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgrades.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
@@ -16,7 +16,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
   beforeEach(() => jest.clearAllMocks());
 
   it('should handle a client request successfully', async () => {
-    const response: DeliveryBundleUpgrades = {
+    const response: CheckoutOrderDeliveryBundleUpgrades = {
       123: {
         Nominated: [
           {
@@ -29,7 +29,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 123,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },
@@ -47,7 +47,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 123,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },
@@ -67,7 +67,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 456,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },
@@ -85,7 +85,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 456,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },
@@ -105,7 +105,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 789,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },
@@ -123,7 +123,7 @@ describe('getCheckoutOrderDeliveryBundleUpgrades', () => {
             rank: 0,
             itemId: 789,
             deliveryWindow: {
-              type: DeliveryWindowType.Nominated,
+              type: CheckoutOrderDeliveryWindowType.Nominated,
               min: '2021-07-22T10:15:13.847Z',
               max: '2021-07-22T10:15:13.847Z',
             },

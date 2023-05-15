@@ -203,7 +203,7 @@ class Castle extends integrations.Integration<CastleIntegrationOptions> {
     const formattedUserData: UserParams = {
       id: String(userData.id || 'USER NOT LOADED YET'),
       email: userTraits.email,
-      phone: userTraits.phoneNumber,
+      phone: userTraits.phoneNumber || undefined,
       name: userTraits.name,
       registered_at: this.getNormalizedCreatedDate(userTraits.createdDate),
       traits: {

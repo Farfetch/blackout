@@ -79,6 +79,12 @@ Object {
     "Error": "Error",
     "Processing": "Processing",
   },
+  "CheckoutOrderDeliveryWindowType": Object {
+    "0": "Nominated",
+    "1": "Estimated",
+    "Estimated": 1,
+    "Nominated": 0,
+  },
   "CheckoutOrderItemStatus": Object {
     "0": "Available",
     "1": "NoStock",
@@ -165,12 +171,6 @@ Object {
     "Normal": 0,
     "PersonalShopper": 1,
     "VipBrazil": 2,
-  },
-  "DeliveryWindowType": Object {
-    "0": "Nominated",
-    "1": "Estimated",
-    "Estimated": 1,
-    "Nominated": 0,
   },
   "EligibleOfferType": Object {
     "1": "OfferMoneyOff",

@@ -30,7 +30,7 @@ describe('fetchUserAddresses() action creator', () => {
   });
 
   it('should create the correct actions for when the get user addresses procedure fails', async () => {
-    const expectedError = new Error('get user adresses error');
+    const expectedError = new Error('get user addresses error');
 
     (getUserAddresses as jest.Mock).mockRejectedValueOnce(expectedError);
 

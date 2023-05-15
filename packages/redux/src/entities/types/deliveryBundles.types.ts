@@ -1,11 +1,14 @@
 import type {
-  DeliveryBundle,
-  ItemDeliveryProvisioning,
+  CheckoutOrderDeliveryBundle,
+  CheckoutOrderItemDeliveryProvisioning,
 } from '@farfetch/blackout-client';
 
-export type DeliveryBundleEntity = DeliveryBundle & {
+export type CheckoutOrderDeliveryBundleEntity = CheckoutOrderDeliveryBundle & {
   itemsIds?: Array<string>;
   itemDeliveryProvisioning: Array<
-    Record<ItemDeliveryProvisioning['itemId'], ItemDeliveryProvisioning>
+    Record<
+      CheckoutOrderItemDeliveryProvisioning['itemId'],
+      CheckoutOrderItemDeliveryProvisioning
+    >
   >;
 };

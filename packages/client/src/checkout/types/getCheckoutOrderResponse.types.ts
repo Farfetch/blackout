@@ -1,4 +1,8 @@
-import type { CheckoutOrder, DeliveryBundle, ShippingOption } from './index.js';
+import type {
+  CheckoutOrder,
+  CheckoutOrderDeliveryBundle,
+  CheckoutOrderShippingOption,
+} from './index.js';
 import type {
   PaymentMethods,
   PaymentToken,
@@ -16,8 +20,8 @@ export enum OrderStatusError {
 export type GetCheckoutOrderResponse = {
   id: CheckoutOrder['id'];
   checkoutOrder?: CheckoutOrder;
-  shippingOptions?: ShippingOption[];
-  deliveryBundles?: DeliveryBundle[];
+  shippingOptions?: CheckoutOrderShippingOption[];
+  deliveryBundles?: CheckoutOrderDeliveryBundle[];
   paymentMethods?: PaymentMethods;
   userPaymentTokens?: PaymentToken[];
   paymentRequestId?: string;

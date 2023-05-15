@@ -1,6 +1,6 @@
 import type { ShippingCostType } from './index.js';
 
-export type ShippingOption = {
+export type CheckoutOrderShippingOption = {
   currency: string;
   discount: number;
   merchants: number[];

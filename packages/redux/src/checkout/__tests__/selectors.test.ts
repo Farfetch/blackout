@@ -3,7 +3,7 @@ import * as fromReducer from '../reducer.js';
 import * as selectors from '../selectors.js';
 import {
   type BlackoutError,
-  DeliveryWindowType,
+  CheckoutOrderDeliveryWindowType,
 } from '@farfetch/blackout-client';
 import {
   checkoutEntity,
@@ -460,7 +460,7 @@ describe('checkout redux selectors', () => {
 
       expect(
         selectors.getCheckoutOrderDeliveryBundleWindow(
-          // @ts-expect-error DeliveryWindow is not set on purpose in itemDeliveryOptions entries.
+          // @ts-expect-error CheckoutOrderDeliveryWindow is not set on purpose in itemDeliveryOptions entries.
           newState,
           deliveryBundleId,
         ),
@@ -486,7 +486,7 @@ describe('checkout redux selectors', () => {
                   itemId: 0,
                   name: 'Standard',
                   deliveryWindow: {
-                    type: DeliveryWindowType.Estimated,
+                    type: CheckoutOrderDeliveryWindowType.Estimated,
                     min: '2020-02-09T14:38:22.228Z',
                     max: '2020-02-13T14:38:22.228Z',
                   },
@@ -504,7 +504,7 @@ describe('checkout redux selectors', () => {
 
       expect(
         selectors.getCheckoutOrderDeliveryBundleWindow(
-          // @ts-expect-error DeliveryWindow is not set on purpose in itemDeliveryOptions entries.
+          // @ts-expect-error CheckoutOrderDeliveryWindow is not set on purpose in itemDeliveryOptions entries.
           newState,
           deliveryBundleId,
         ),

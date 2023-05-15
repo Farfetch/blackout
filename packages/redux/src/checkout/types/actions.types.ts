@@ -3,19 +3,19 @@ import type { Action } from 'redux';
 import type {
   BlackoutError,
   CheckoutOrderCharge,
+  CheckoutOrderDeliveryBundle,
+  CheckoutOrderDeliveryBundleUpgrades,
+  CheckoutOrderItemDeliveryProvisioning,
   CheckoutOrderOperations,
-  DeliveryBundle,
-  DeliveryBundleUpgrades,
-  ItemDeliveryProvisioning,
   PatchCheckoutOrderItemData,
   PaymentMethods,
 } from '@farfetch/blackout-client';
 import type {
   CheckoutDetailsEntity,
   CheckoutEntity,
+  CheckoutOrderDeliveryBundleEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
-  DeliveryBundleEntity,
 } from '../../entities/types/index.js';
 import type { NormalizedSchema } from 'normalizr';
 
@@ -31,10 +31,13 @@ type Payload = NormalizedSchema<
       CheckoutDetailsEntity['checkoutOrder'],
       CheckoutDetailsEntity
     >;
-    deliveryBundles?: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
+    deliveryBundles?: Record<
+      CheckoutOrderDeliveryBundleEntity['id'],
+      CheckoutOrderDeliveryBundleEntity
+    >;
     deliveryBundleUpgrades?: Record<
-      DeliveryBundle['id'],
-      DeliveryBundleUpgrades
+      CheckoutOrderDeliveryBundle['id'],
+      CheckoutOrderDeliveryBundleUpgrades
     >;
   },
   string
@@ -112,13 +115,13 @@ export interface FetchUpgradeItemDeliveryProvisioningSuccessAction
   extends Action {
   type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string; upgradeId: string };
-  payload: NormalizedSchema<DeliveryBundleEntity, string[]>;
+  payload: NormalizedSchema<CheckoutOrderDeliveryBundleEntity, string[]>;
 }
 
 export interface FetchItemDeliveryProvisioningSuccessAction extends Action {
   type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_PROVISIONING_SUCCESS;
   meta: { deliveryBundleId: string };
-  payload: NormalizedSchema<ItemDeliveryProvisioning[], string[]>;
+  payload: NormalizedSchema<CheckoutOrderItemDeliveryProvisioning[], string[]>;
 }
 
 export interface FetchItemDeliveryProvisioningFailureAction extends Action {
@@ -183,18 +186,18 @@ export type CreateCheckoutOrderChargeAction =
   | CreateCheckoutOrderChargeSuccessAction
   | CreateCheckoutOrderChargeRequestAction;
 
-export interface UpdateDeliveryBundleSuccessAction extends Action {
+export interface UpdateCheckoutOrderDeliveryBundleSuccessAction extends Action {
   type:
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_SUCCESS
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
 }
 
-export interface FetchDeliveryBundleSuccessAction extends Action {
+export interface FetchCheckoutOrderDeliveryBundleSuccessAction extends Action {
   type: typeof actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_SUCCESS;
   payload: { result: string };
 }
 
-export interface DeliveryBundleFailureAction extends Action {
+export interface CheckoutOrderDeliveryBundleFailureAction extends Action {
   type:
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_FAILURE
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_FAILURE
@@ -202,7 +205,7 @@ export interface DeliveryBundleFailureAction extends Action {
   payload: { error: BlackoutError };
 }
 
-export interface DeliveryBundleRequestAction extends Action {
+export interface CheckoutOrderDeliveryBundleRequestAction extends Action {
   type:
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE_REQUEST
     | typeof actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST
@@ -210,13 +213,13 @@ export interface DeliveryBundleRequestAction extends Action {
 }
 
 /**
- * DeliveryBundle Action.
+ * CheckoutOrderDeliveryBundle Action.
  */
-export type DeliveryBundleAction =
-  | DeliveryBundleFailureAction
-  | UpdateDeliveryBundleSuccessAction
-  | FetchDeliveryBundleSuccessAction
-  | DeliveryBundleRequestAction;
+export type CheckoutOrderDeliveryBundleAction =
+  | CheckoutOrderDeliveryBundleFailureAction
+  | UpdateCheckoutOrderDeliveryBundleSuccessAction
+  | FetchCheckoutOrderDeliveryBundleSuccessAction
+  | CheckoutOrderDeliveryBundleRequestAction;
 
 export interface FetchCollectPointsSuccessAction extends Action {
   type: typeof actionTypes.FETCH_COLLECT_POINTS_SUCCESS;

@@ -86,11 +86,7 @@ describe('useSeoMetadata', () => {
         wrapper: withStore(mockInitialState),
       });
 
-      expect(fetchSEOMetadata).toHaveBeenCalledWith({
-        pageType: 5,
-        path: '/about',
-        subPageType: 'Default',
-      });
+      expect(fetchSEOMetadata).toHaveBeenCalledWith(query);
     });
 
     it('should not fetch data if `enableAutoFetch` option is false', () => {
@@ -118,11 +114,7 @@ describe('useSeoMetadata', () => {
 
       fetch(query);
 
-      expect(fetchSEOMetadata).toHaveBeenCalledWith({
-        pageType: 5,
-        path: '/about',
-        subPageType: 'Default',
-      });
+      expect(fetchSEOMetadata).toHaveBeenCalledWith(query);
     });
   });
 });

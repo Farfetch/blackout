@@ -1,8 +1,8 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
   type CheckoutOrder,
+  type CheckoutOrderDeliveryBundle,
   type Config,
-  type DeliveryBundle,
   type PatchCheckoutOrderDeliveryBundleUpgrades,
   type PatchCheckoutOrderDeliveryBundleUpgradesData,
   toBlackoutError,
@@ -22,7 +22,7 @@ const updateCheckoutOrderDeliveryBundleUpgradesFactory =
   ) =>
   (
     checkoutOrderId: CheckoutOrder['id'],
-    deliveryBundleId: DeliveryBundle['id'],
+    deliveryBundleId: CheckoutOrderDeliveryBundle['id'],
     data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData>,
     config?: Config,
   ) =>
