@@ -7,7 +7,7 @@ import {
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/getCheckoutOrderDeliveryBundleUpgradeProvisioning.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
-import type { ItemDeliveryProvisioning } from '../types/index.js';
+import type { CheckoutOrderItemDeliveryProvisioning } from '../types/index.js';
 
 describe('getCheckoutOrderDeliveryBundleUpgradeProvisioning', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -17,7 +17,7 @@ describe('getCheckoutOrderDeliveryBundleUpgradeProvisioning', () => {
   const urlToBeCalled = `/checkout/v1/orders/${id}/deliveryBundles/${deliveryBundleId}/upgrades/${upgradeId}/itemDeliveryProvisioning`;
 
   it('should handle a client request successfully', async () => {
-    const response: ItemDeliveryProvisioning[] = [
+    const response: CheckoutOrderItemDeliveryProvisioning[] = [
       {
         itemId: 0,
         provisioning: [

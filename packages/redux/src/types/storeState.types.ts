@@ -5,6 +5,7 @@ import type {
   CategoryEntity,
   CheckoutDetailsEntity,
   CheckoutEntity,
+  CheckoutOrderDeliveryBundleEntity,
   CheckoutOrderEntity,
   CheckoutOrderItemEntity,
   CheckoutOrderItemProductEntity,
@@ -14,7 +15,6 @@ import type {
   ConvertEntity,
   CountryEntity,
   CourierEntity,
-  DeliveryBundleEntity,
   FacetEntity,
   LabelTrackingEntity,
   MerchantEntity,
@@ -51,10 +51,10 @@ import type { BagsState } from '../bags/types/index.js';
 import type {
   Brand,
   CheckoutOrder,
+  CheckoutOrderDeliveryBundle,
+  CheckoutOrderDeliveryBundleUpgrades,
   Country,
   CountryAddressSchema,
-  DeliveryBundle,
-  DeliveryBundleUpgrades,
   MerchantLocation,
   ProgramMembership,
   SizeScale,
@@ -118,10 +118,13 @@ export type StoreState = Partial<{
     countries: Record<CountryEntity['code'], CountryEntity>;
     countriesAddressSchemas: Record<Country['code'], CountryAddressSchema[]>;
     courier: Record<CourierEntity['id'], CourierEntity>;
-    deliveryBundles: Record<DeliveryBundleEntity['id'], DeliveryBundleEntity>;
+    deliveryBundles: Record<
+      CheckoutOrderDeliveryBundleEntity['id'],
+      CheckoutOrderDeliveryBundleEntity
+    >;
     deliveryBundleUpgrades: Record<
-      DeliveryBundle['id'],
-      DeliveryBundleUpgrades
+      CheckoutOrderDeliveryBundle['id'],
+      CheckoutOrderDeliveryBundleUpgrades
     >;
     facets: Record<FacetEntity['id'], FacetEntity>;
     paymentInstruments: Record<

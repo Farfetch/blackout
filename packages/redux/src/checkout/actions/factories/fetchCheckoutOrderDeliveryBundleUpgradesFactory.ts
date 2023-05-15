@@ -1,9 +1,9 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
   type CheckoutOrder,
+  type CheckoutOrderDeliveryBundle,
+  type CheckoutOrderDeliveryBundleUpgrades,
   type Config,
-  type DeliveryBundle,
-  type DeliveryBundleUpgrades,
   type GetCheckoutOrderDeliveryBundleUpgrades,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -22,10 +22,10 @@ const fetchCheckoutOrderDeliveryBundleUpgrades =
   ) =>
   (
     checkoutOrderId: CheckoutOrder['id'],
-    deliveryBundleId: DeliveryBundle['id'],
+    deliveryBundleId: CheckoutOrderDeliveryBundle['id'],
     config?: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<DeliveryBundleUpgrades> => {
+  async (dispatch: Dispatch): Promise<CheckoutOrderDeliveryBundleUpgrades> => {
     try {
       dispatch({
         type: actionTypes.FETCH_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,

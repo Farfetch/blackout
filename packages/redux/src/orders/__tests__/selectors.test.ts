@@ -505,7 +505,7 @@ describe('orders redux selectors', () => {
     });
   });
 
-  describe('getOrderItemProductQuantity()', () => {
+  describe('getOrderProductQuantity()', () => {
     it('should get the order item quantity as undefined from state', () => {
       const newState = {
         entities: {
@@ -514,19 +514,19 @@ describe('orders redux selectors', () => {
       };
 
       expect(
-        selectors.getOrderItemProductQuantity(newState, orderId, productId),
+        selectors.getOrderProductQuantity(newState, orderId, productId),
       ).toBeUndefined();
     });
 
     it('should get the order item quantity from state', () => {
       expect(
-        selectors.getOrderItemProductQuantity(mockState, orderId, productId),
+        selectors.getOrderProductQuantity(mockState, orderId, productId),
       ).toBe(1);
     });
 
     it('should get undefined if the order was not fetched', () => {
       expect(
-        selectors.getOrderItemProductQuantity(
+        selectors.getOrderProductQuantity(
           mockState,
           'randomOrderId',
           productId,

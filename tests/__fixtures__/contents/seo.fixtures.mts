@@ -2,6 +2,7 @@ import { generateSEOPathname } from '@farfetch/blackout-redux';
 import { SeoPageType } from '@farfetch/blackout-client';
 
 export const seoQuery = {
+  baseUrl: '',
   path: '/about',
   pageType: SeoPageType.Pages,
   subPageType: '',

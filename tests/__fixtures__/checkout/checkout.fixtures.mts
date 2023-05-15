@@ -12,7 +12,7 @@ import {
   OrderItemCreationChannelLegacy,
   CustomerTypeLegacy,
   ChargeDeclineCode,
-  DeliveryWindowType,
+  CheckoutOrderDeliveryWindowType,
   GenderCode,
   OrderStatusError,
   type PatchCheckoutOrderItemsData,
@@ -23,7 +23,7 @@ import {
   UserStatus,
 } from '@farfetch/blackout-client';
 import type {
-  DeliveryBundleEntity,
+  CheckoutOrderDeliveryBundleEntity,
   UserEntity,
 } from '@farfetch/blackout-redux';
 
@@ -163,7 +163,7 @@ export const mockDeliveryBundlesResponse = [
         itemId: 95097041,
         name: 'Standard',
         deliveryWindow: {
-          type: DeliveryWindowType.Estimated,
+          type: CheckoutOrderDeliveryWindowType.Estimated,
           min: '2020-02-10T14:38:22.228Z',
           max: '2020-02-13T14:38:22.228Z',
         },
@@ -172,14 +172,14 @@ export const mockDeliveryBundlesResponse = [
         itemId: 95097042,
         name: 'Standard',
         deliveryWindow: {
-          type: DeliveryWindowType.Estimated,
+          type: CheckoutOrderDeliveryWindowType.Estimated,
           min: '2020-02-10T14:38:22.228Z',
           max: '2020-02-14T14:38:22.228Z',
         },
       },
     ],
     itemDeliveryProvisioning: mockItemDeliveryPorvisioningResponse,
-  } as DeliveryBundleEntity,
+  } as CheckoutOrderDeliveryBundleEntity,
 ];
 
 const mockCheckoutOrderItem = {
@@ -517,7 +517,7 @@ export const mockDeliveryBundleUpgradesResponse = {
         rank: 1,
         itemId: 95097041,
         deliveryWindow: {
-          type: DeliveryWindowType.Estimated,
+          type: CheckoutOrderDeliveryWindowType.Estimated,
           min: '2019-10-09T16:20:32.303Z',
           max: '2019-10-12T16:20:32.303Z',
         },
@@ -537,7 +537,7 @@ export const mockDeliveryBundleUpgradesResponse = {
         rank: 1,
         itemId: 95097042,
         deliveryWindow: {
-          type: DeliveryWindowType.Estimated,
+          type: CheckoutOrderDeliveryWindowType.Estimated,
           min: '2019-10-09T16:20:32.303Z',
           max: '2019-10-11T16:20:32.303Z',
         },
@@ -680,7 +680,7 @@ export const expectedUpgradesNormalizedPayload = {
               rank: 1,
               itemId: 95097041,
               deliveryWindow: {
-                type: DeliveryWindowType.Estimated,
+                type: CheckoutOrderDeliveryWindowType.Estimated,
                 min: '2019-10-09T16:20:32.303Z',
                 max: '2019-10-12T16:20:32.303Z',
               },
@@ -700,7 +700,7 @@ export const expectedUpgradesNormalizedPayload = {
               rank: 1,
               itemId: 95097042,
               deliveryWindow: {
-                type: DeliveryWindowType.Estimated,
+                type: CheckoutOrderDeliveryWindowType.Estimated,
                 min: '2019-10-09T16:20:32.303Z',
                 max: '2019-10-11T16:20:32.303Z',
               },
@@ -728,7 +728,7 @@ export const expectedUpgradesNormalizedProvisioningPayload = {
             rank: 1,
             itemId: 95097041,
             deliveryWindow: {
-              type: DeliveryWindowType.Estimated,
+              type: CheckoutOrderDeliveryWindowType.Estimated,
               min: '2019-10-09T16:20:32.303Z',
               max: '2019-10-12T16:20:32.303Z',
             },
@@ -757,7 +757,7 @@ export const expectedUpgradesNormalizedProvisioningPayload = {
             rank: 1,
             itemId: 95097042,
             deliveryWindow: {
-              type: DeliveryWindowType.Estimated,
+              type: CheckoutOrderDeliveryWindowType.Estimated,
               min: '2019-10-09T16:20:32.303Z',
               max: '2019-10-11T16:20:32.303Z',
             },
@@ -1011,7 +1011,7 @@ const deliveryBundle = {
       itemId: itemId1,
       name: 'Standard',
       deliveryWindow: {
-        type: DeliveryWindowType.Estimated,
+        type: CheckoutOrderDeliveryWindowType.Estimated,
         min: '2020-02-09T14:38:22.228Z',
         max: '2020-02-13T14:38:22.228Z',
       },
@@ -1020,7 +1020,7 @@ const deliveryBundle = {
       itemId: itemId2,
       name: 'Standard',
       deliveryWindow: {
-        type: DeliveryWindowType.Nominated,
+        type: CheckoutOrderDeliveryWindowType.Nominated,
         min: '2020-02-14T14:38:22.228Z',
         max: '2020-02-14T14:38:22.228Z',
       },
@@ -1061,7 +1061,7 @@ export const deliveryBundleUpgradesEntity = {
           currency: '€',
           rank: 1,
           deliveryWindow: {
-            type: DeliveryWindowType.Estimated,
+            type: CheckoutOrderDeliveryWindowType.Estimated,
             min: '2020-02-10T14:38:22.228Z',
             max: '2020-02-13T14:38:22.228Z',
           },
@@ -1082,7 +1082,7 @@ export const deliveryBundleUpgradesEntity = {
           currency: '€',
           rank: 2,
           deliveryWindow: {
-            type: DeliveryWindowType.Nominated,
+            type: CheckoutOrderDeliveryWindowType.Nominated,
             min: '2020-02-10T14:38:22.228Z',
             max: '2020-02-13T14:38:22.228Z',
           },

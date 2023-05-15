@@ -1,10 +1,10 @@
 import * as checkoutClient from '../index.js';
 import {
+  CheckoutOrderDeliveryWindowType,
   type CheckoutOrderDetails,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
   CustomerTypeLegacy,
-  DeliveryWindowType,
   GenderCode,
   OrderItemCreationChannelLegacy,
   ProductVariantAttributeType,
@@ -392,7 +392,7 @@ describe('checkout client', () => {
                 itemId: 0,
                 name: 'string',
                 deliveryWindow: {
-                  type: DeliveryWindowType.Nominated,
+                  type: CheckoutOrderDeliveryWindowType.Nominated,
                   min: '2021-07-22T09:19:53.935Z',
                   max: '2021-07-22T09:19:53.935Z',
                 },

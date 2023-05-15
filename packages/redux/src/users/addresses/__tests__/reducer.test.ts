@@ -367,7 +367,7 @@ describe('addresses reducers', () => {
       });
     });
 
-    describe('delete adressbook address', () => {
+    describe('delete addressbook address', () => {
       const state = {
         addresses: {
           1: { ...address1, id: '1', address: 'data' },

@@ -552,7 +552,7 @@ export const getOrderSummaries: (
 );
 
 /**
- * Returns all the order items from a order summary (received from
+ * Returns all the order items from an order summary (received from
  * the `fetchUserOrders` action) indexed by its `merchantOrderCode`.
  *
  * @param state   - Application state.
@@ -602,15 +602,15 @@ export const getOrderItemsByMerchantOrderCode: (
 );
 
 /**
- * Returns the quantity of the same product in a order.
+ * Returns the quantity of a product in an order.
  *
  * @param state       - Application state.
  * @param orderId     - Order id.
  * @param productOrderId - Product order id.
  *
- * @returns Number of orderItems in the order.
+ * @returns Product quantity in the order, if any.
  */
-export const getOrderItemProductQuantity: (
+export const getOrderProductQuantity: (
   state: StoreState,
   orderId: Order['id'],
   productId: OrderItem['productId'],
@@ -904,7 +904,7 @@ const denormalizeReturnOption = (
 };
 
 /**
- * Denormalizes a order summary.
+ * Denormalizes an order summary.
  *
  * @param orderSummaryMerchantOrderCode - Merchant order code that identifies the order summaries.
  * @param orderSummaries - Order summary entities.
