@@ -359,16 +359,15 @@ export default bagItemId => {
    * hook.</small></i>.
    *
    * @function handleDeleteBagItem
-   *
-   * @param {number} position - Index of the item on a list.
    * @param {string} [from] - Provenience of action.
+   * @param {object} [meta] - Metadata of action.
    */
-  const handleDeleteBagItem = (from, position) => {
+  const handleDeleteBagItem = (from, meta) => {
     deleteBagItem(bagItem.id, {
+      ...meta,
       productId: bagItem.product.id,
       quantity: bagItem.quantity,
       from,
-      position,
     });
   };
 
