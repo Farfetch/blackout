@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.59.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.58.0...@farfetch/blackout-react@0.59.0) (2023-05-16)
+
+
+### Bug Fixes
+
+* **react:** change handle delete bag item parameters ([6a1ce1c](https://github.com/Farfetch/blackout/commit/6a1ce1c8dc3fd128b0d71e46ae24e45374520890))
+* **react|redux:** useSEO hook looping requests ([4dc53dd](https://github.com/Farfetch/blackout/commit/4dc53dda9f142bf24c7e932d5e2a5a75ed1af5fc))
+
+
+### Features
+
+* **core:** add post guest orders endpoint ([a6d753e](https://github.com/Farfetch/blackout/commit/a6d753ebe0a54ef3956d214fdae8a5633ef07a58))
+* **core|react:** analytics improvements ([d461155](https://github.com/Farfetch/blackout/commit/d461155f8400e5beef34039b1c39a21b9f4cc01d))
+* **react:** remove castle pageview event tracking ([b2143a4](https://github.com/Farfetch/blackout/commit/b2143a497bb17842d88532d9a27bf7ae9c9f4ccc))
+
+
+
+
+
 # [0.58.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.57.0...@farfetch/blackout-react@0.58.0) (2023-05-08)
 
 

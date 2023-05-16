@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.88.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.87.0...@farfetch/blackout-core@1.88.0) (2023-05-16)
+
+
+### Bug Fixes
+
+* **react|redux:** useSEO hook looping requests ([4dc53dd](https://github.com/Farfetch/blackout/commit/4dc53dda9f142bf24c7e932d5e2a5a75ed1af5fc))
+
+
+### Features
+
+* **core|react:** analytics improvements ([d461155](https://github.com/Farfetch/blackout/commit/d461155f8400e5beef34039b1c39a21b9f4cc01d))
+* add package to unsubcribe action ([226c8bb](https://github.com/Farfetch/blackout/commit/226c8bb1c7e002d082e9e47507d25313ec18b88c))
+* **core:** add post guest orders endpoint ([a6d753e](https://github.com/Farfetch/blackout/commit/a6d753ebe0a54ef3956d214fdae8a5633ef07a58))
+
+
+
+
+
 # [1.87.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.86.0...@farfetch/blackout-core@1.87.0) (2023-05-08)
 
 
