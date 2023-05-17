@@ -3,6 +3,141 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.429](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.428...@farfetch/blackout-react@1.0.0-next.429) (2023-05-17)
+
+### Bug Fixes
+
+- add consistency fixes ([67724fc](https://github.com/Farfetch/blackout/commit/67724fcb2d8493a46c82f96572ee6093bd045dca))
+- **client|redux:** type fixes ([4d9e537](https://github.com/Farfetch/blackout/commit/4d9e537c4acce15caecf638c69567184cf02ebff))
+- fix AnalyticsAPI options ([7a50ddf](https://github.com/Farfetch/blackout/commit/7a50ddfceb245c347cdeeef78d5f80427867519d))
+- fix useProductListing auto fetch check ([a6f8bba](https://github.com/Farfetch/blackout/commit/a6f8bba048cf54077ae28183cbbb89dbae174304))
+- fix useWishlistSets hook ([9251d66](https://github.com/Farfetch/blackout/commit/9251d6699b36274cb7df7935048b0eb9e52b8352))
+
+### chore
+
+- add reset actions consistency changes ([e58e690](https://github.com/Farfetch/blackout/commit/e58e69042a957086af95f4b5a4648dbd415fe194))
+- change fetchCollectPoints action ([7025cdd](https://github.com/Farfetch/blackout/commit/7025cdde04d37f4e5cc60fb57fac59cc6b1ecfdd))
+- change put checkout promocode client to support multiple promocodes ([16abc6a](https://github.com/Farfetch/blackout/commit/16abc6a99c42366e229cffe33ff4bb68e4119be4))
+- more consistency changes ([5df13f3](https://github.com/Farfetch/blackout/commit/5df13f3035dd01310f7427ea61d449f28ff43329))
+- more renames ([08f08c0](https://github.com/Farfetch/blackout/commit/08f08c05e29dc7085214fb6f34b4a3d2ac25f0a5))
+- product selectors rename and more changes ([823298e](https://github.com/Farfetch/blackout/commit/823298eff2b9ece63f34f90e461edd1b10109d3c))
+- rename contents exports ([16695ba](https://github.com/Farfetch/blackout/commit/16695ba447efd503a034ba00e7c8e06344eca03d))
+
+### BREAKING CHANGES
+
+- The following public exports were renamed:
+
+`DeliveryWindowType` -> `CheckoutOrderDeliveryWindowType`
+`getOrderItemProductQuantity` -> `getOrderProductQuantity`
+
+- reset actions that only reset either the entities or
+  the internal state were now removed. All reset actions provided now
+  remove both entities and state simultaneously.
+- Actions that add/remove/update both bag items, wishlist items and
+  wishlist sets now require that the bagId and wishlistId parameters
+  respectively be passed explicitly.
+  `useBag`, `useWishlist` and `useWishlistSets` actions now assume the
+  user's bagId and wishlistId as the parameter to perform an operation
+  on so it is not necessary to pass that parameter anymore.
+- Check the message body of this commit to know the changes.
+- - The following exports were renamed:
+    `buildSubscriptionPackagesHash` -> `generateSubscriptionPackagesHash`
+    `generateProductsListHash` -> `generateProductListingHash`
+    `getProductsListActiveFilters` -> `getProductListingActiveFilters`
+    `getProductsListBreadcrumbs` -> `getProductListingBreadcrumbs`
+    `getProductsListError` -> `getProductListingError`
+    `getProductsListFacetGroups` -> `getProductListingFacetGroups`
+    `getProductsListFacetsByFacetGroupType` -> `getProductListingFacetsByFacetGroupType`
+    `getProductsListFacetsGroupsByType` -> `getProductListingFacetsGroupsByType`
+    `getProductsListHash` -> `getProductListingHash`
+    `getProductsListPagination` -> `getProductListingPagination`
+    `getProductsListProducts` -> `getProductListingProducts`
+    `getProductsListProductsFromAllPages` -> `getProductListingProductsFromAllPages`
+    `getProductsListProductsIds` -> `getProductListingProductsIds`
+    `getProductsListResult` -> `getProductListingResult`
+    `getProductsListSelectedFiltersCount` -> `getProductListingSelectedFiltersCount`
+    `getProductsListSort` -> `getProductListingSort`
+    `isProductsListCached` -> `isProductListingCached`
+    `isProductsListFetched` -> `isProductListingFetched`
+    `isProductsListHydrated` -> `isProductListingHydrated`
+    `isProductsListLoading` -> `isProductListingLoading`
+
+* The following exports were removed:
+  `getBrandsHash` -> No need since the brands selectors now use the query
+  as their parameter instead of a hash.
+  `getSearchDidYouMeanQuery`, `getSearchIntentsQuery` and
+  `getSearchSuggestionsQuery` -> removed as they are redundant since
+  their selectors already specify the query now instead of a hash.
+
+* The selectors from the
+  following areas now receive a query parameter instead of
+  a hash:
+
+`searchSuggestions`
+`productGrouping`
+`productGroupingProperties`
+`searchDidYouMean`
+`searchIntents`
+`subscriptionPackages`
+`brands`
+
+- `fetchBrands` action now does not clear the brands that are in store
+  when the `useCache` parameter is set to `false`. Also the
+  `setBrandsHash` parameter was removed since that functionality does
+  not exist anymore.
+
+- The hooks `useSearchIntents`, `useSearchSuggestions` and
+  `useSearchDidYouMean` now expose the data directly on the `data`
+  property instead of being wrapped in another object.
+
+* The following exports were renamed:
+
+`ENVIRONMENT_CODES` -> `ContentEnvironmentCode`
+`getRankedCommercePage` -> `applyCommercePagesRankingStrategy`
+`CommercePagesStrategy` -> `CommercePagesRankingStrategy`
+
+- The following exports were renamed:
+  `putCheckoutOrderPromocode` -> `putCheckoutOrderPromocodes`
+  `setCheckoutOrderPromocode` -> `setCheckoutOrderPromocodes`
+  `setCheckoutOrderPromocodeFactory` -> `setCheckoutOrderPromocodesFactory`
+  `isCheckoutOrderPromocodeLoading` -> `areCheckoutOrderPromocodesLoading`
+  `getCheckoutOrderPromocodeError` -> `getCheckoutOrderPromocodesError`
+  `resetCheckoutOrderPromocodeState` -> `resetCheckoutOrderPromocodesState`
+- The `fetchCollectPoints` action now does not
+  require the `query` parameter.
+  The following selectors to obtain state of collect points requests now requires
+  the query
+  parameter to match the query of the request:
+
+* getCollectPoints
+* areCollectPointsLoading
+* getCollectPointsError
+* areCollectPointsFetched
+
+* The checkoutOrder returned by `getCheckoutOrder` selector now does
+  not contain the collectPoints property.
+
+- - `useOrders` and `useReturns` were renamed to
+    `useUserOrders` and `useUserReturns` respectively.
+
+* `useBag`, `useBagItem`, `useWishlist`, `useWishlistItem`, `useUser`,
+  `useWishlistSet`, `useWishlistSets` `useReturnPickupCapability`,
+  `useReturnPickupRescheduleRequest`,
+  `useReturnPickupRescheduleRequests`, `useReturn`, `useOrder`,
+  `useOrderReturnOptions` and `useOrderReturns` have some changes in its
+  public properties/actions. Check the description for more information.
+* `putUserDefaultShippingAddress` and `putUserDefaultBillingAddress`
+  signatures changed. Now, instead of receiving an object containing the
+  userId and id properties, there is a specific parameter for both of
+  those properties.
+* `fetchContentPage` action and `useContentPage` hook now discard the
+  query string from the `codes` in query when generating the hash.
+* Type `BreadCrumb` used in product listings was renamed to
+  `ProductsBreadcrumb`. Do not confuse with the type `Breadcrumb` (with
+  lowercase c) which is to be used with contents modules.
+* Type `PasswordValidationErrorsConstants` was replaced with
+  `PasswordValidationErrors` type which is now an enum.
+
 # [1.0.0-next.428](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.0-next.427...@farfetch/blackout-react@1.0.0-next.428) (2023-05-12)
 
 ### Bug Fixes
