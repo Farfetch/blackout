@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatError() should format the error properly when the api returns a LIST with errors 1`] = `
+Object {
+  "code": "14",
+  "exception": Object {},
+  "message": "Could not authenticate",
+  "moreInformation": "more information",
+  "status": 400,
+}
+`;
+
+exports[`formatError() should format the error properly when the api returns an OBJECT with the error 1`] = `
+Object {
+  "code": "14",
+  "exception": Object {},
+  "message": "Could not authenticate",
+  "moreInformation": "more information",
+  "status": 400,
+}
+`;
+
+exports[`formatError() should format the error properly when the api returns the error (legacy) 1`] = `
+Object {
+  "code": "14",
+  "errorData": Object {
+    "key": "value",
+    "productId": "13981125",
+  },
+  "message": "Could not authenticate",
+  "status": 400,
+  "success": false,
+}
+`;
+
+exports[`formatError() should format the error properly when the request has no description 1`] = `
+Object {
+  "code": "-1",
+  "message": "Request failed with status code 404",
+  "status": 404,
+}
+`;
+
+exports[`formatError() should format the error properly when the request has no response 1`] = `
+Object {
+  "code": "-1",
+  "description": "i am error",
+  "message": "i am error",
+  "status": 400,
+}
+`;

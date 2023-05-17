@@ -1,0 +1,576 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Started 1`] = `
+Object {
+  "orderId": "OFH1213",
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "total": 1000,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Step Completed 1`] = `
+Object {
+  "option": "DHL",
+  "step": 1,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Step Viewed 1`] = `
+Object {
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "step": 1,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Order Completed 1`] = `
+Object {
+  "coupon": undefined,
+  "currency": undefined,
+  "orderId": "OFH1213",
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "shipping": 10,
+  "tax": 23,
+  "total": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Order Refunded 1`] = `
+Object {
+  "orderId": "OFH1213",
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Payment Info Added 1`] = `
+Object {
+  "paymentType": "paypal",
+  "total": 1000,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Place Order Started 1`] = `
+Object {
+  "orderId": "OFH1213",
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "total": 1000,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Cart 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Wishlist 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Clicked 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product List Viewed 1`] = `
+Object {
+  "currency": undefined,
+  "list": "product listing",
+  "products": Array [
+    Object {
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed From Wishlist 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed from Cart 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Updated In Wishlist 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Product Viewed 1`] = `
+Object {
+  "product": Object {
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "id": "100",
+    "list": "product listing",
+    "name": "embroidered logo polo shirt",
+    "option": "DHL",
+    "orderId": "OFH1213",
+    "paymentType": "paypal",
+    "position": 1,
+    "price": 19.5,
+    "products": Array [
+      Object {
+        "brand": "RALPH LAUREN",
+        "category": Array [
+          "category 1",
+          "category 2",
+        ],
+        "id": "100",
+        "list": "product listing",
+        "name": "embroidered logo polo shirt",
+        "position": 1,
+        "price": 19.5,
+        "quantity": 1,
+        "size": "M",
+        "variant": "Black",
+      },
+    ],
+    "quantity": 1,
+    "shipping": 10,
+    "size": "M",
+    "step": 1,
+    "tax": 23,
+    "total": 1000,
+    "value": 123123,
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Completed 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Viewed 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: about 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: account 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: article 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: bag 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: biography 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: checkout 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: checkout-delivery-method 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: checkout-payment 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: checkout-review 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: checkout-shipping 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: collections 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: cookie-preferences 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: corporate 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: customer-service 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: designers 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: editorial 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: gender-selection 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: generic-error 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: homepage 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: journal 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: login 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: login-register 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: new-in 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: not-found 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: order-confirmation 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: product-details 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: product-listing 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: recover-password 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: register 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: reset-password 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: returns 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: sale 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: search 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: social 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: stores 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: unsubscribe 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: wishlist 1`] = `Object {}`;
+
+exports[`GTM Track Should track with unique id on track result 1`] = `
+Object {
+  "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+  "event": "Product Clicked",
+  "product": Object {
+    "category": undefined,
+    "id": 123123,
+  },
+  "type": "track",
+}
+`;

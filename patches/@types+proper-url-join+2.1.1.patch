@@ -1,0 +1,37 @@
+diff --git a/node_modules/@types/proper-url-join/index.d.ts b/node_modules/@types/proper-url-join/index.d.ts
+index aea8fd2..a5900be 100755
+--- a/node_modules/@types/proper-url-join/index.d.ts
++++ b/node_modules/@types/proper-url-join/index.d.ts
+@@ -6,7 +6,7 @@
+
+ import { StringifyOptions } from 'query-string';
+
+-export interface Options {
++interface Options {
+     /**
+      * Add a leading slash.
+      *
+@@ -30,7 +30,7 @@ export interface Options {
+      * It will be merged with the query string in the url, if it exists.
+      */
+     query?: {
+-        [k: string]: string|number|ReadonlyArray<string|number>;
++        [k: string]: string|number|boolean|ReadonlyArray<string>|null|undefined|number[];
+     } | undefined;
+     /**
+      * [query-string](https://github.com/sindresorhus/query-string#stringifyobject-options) singify method options to be considered when stringifying the query.
+@@ -38,7 +38,7 @@ export interface Options {
+     queryOptions?: StringifyOptions | undefined;
+ }
+
+-export type PathArg = string|null|undefined|number;
++type PathArg = string|null|undefined|number;
+
+ interface urlJoin {
+     (p1: PathArg, options?: Options): string;
+@@ -56,4 +56,4 @@ interface urlJoin {
+
+ declare const urlJoin: urlJoin;
+
+-export default urlJoin;
++export = urlJoin;

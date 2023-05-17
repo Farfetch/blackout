@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchContents() action creator should create the correct actions for when the fetch content procedure is successful: Get content payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "contents": Object {
+        "1fa65fb0-49bf-43b3-902e-78d104f160a3": Object {
+          "code": "cttpage",
+          "components": Array [
+            Object {
+              "content": "<p>Content test</p>",
+              "displayOptions": Object {},
+              "name": "QA HTML Template",
+              "type": "html",
+            },
+          ],
+          "contentTypeCode": "pages",
+          "environmentCode": "live",
+          "id": undefined,
+          "metadata": undefined,
+          "publicationDate": 1606318282619,
+          "publicationId": "1fa65fb0-49bf-43b3-902e-78d104f160a3",
+          "spaceCode": "website",
+          "target": Object {
+            "contentzone": "10674",
+          },
+          "versionId": "914480a1-21a3-4bb4-8670-40ab113b1a3a",
+        },
+      },
+    },
+    "hash": "pages!cttpage",
+    "result": Object {
+      "entries": Array [
+        "1fa65fb0-49bf-43b3-902e-78d104f160a3",
+      ],
+      "hash": "pages!cttpage",
+      "number": 1,
+      "totalItems": 1,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_CONTENTS_SUCCESS",
+}
+`;

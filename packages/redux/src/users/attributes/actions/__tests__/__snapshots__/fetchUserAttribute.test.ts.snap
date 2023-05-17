@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserAttribute action creator should create the correct actions for when the fetch user attribute procedure is successful: fetch guest user success payload 1`] = `
+Object {
+  "payload": Object {},
+  "type": "@farfetch/blackout-redux/FETCH_USER_ATTRIBUTE_SUCCESS",
+}
+`;

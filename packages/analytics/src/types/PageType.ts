@@ -1,0 +1,45 @@
+/**
+ * Contains some page types that are supported by default by the integrations
+ * included in this package. To be used in analytics.page calls.
+ */
+enum PageType {
+  About = 'about',
+  Account = 'account',
+  Article = 'article',
+  Bag = 'bag',
+  Biography = 'biography',
+  Checkout = 'checkout',
+  CheckoutDeliveryMethod = 'checkout-delivery-method',
+  CheckoutPayment = 'checkout-payment',
+  CheckoutReview = 'checkout-review',
+  CheckoutShipping = 'checkout-shipping',
+  Collections = 'collections',
+  CookiePreferences = 'cookie-preferences',
+  Corporate = 'corporate',
+  CustomerService = 'customer-service',
+  Designers = 'designers',
+  Editorial = 'editorial',
+  GenderSelection = 'gender-selection',
+  GenericError = 'generic-error',
+  Homepage = 'homepage',
+  Journal = 'journal',
+  Login = 'login',
+  LoginRegister = 'login-register',
+  NewIn = 'new-in',
+  NotFound = 'not-found',
+  OrderConfirmation = 'order-confirmation',
+  ProductDetails = 'product-details',
+  ProductListing = 'product-listing',
+  RecoverPassword = 'recover-password',
+  Register = 'register',
+  ResetPassword = 'reset-password',
+  Returns = 'returns',
+  Sale = 'sale',
+  Search = 'search',
+  Social = 'social',
+  Stores = 'stores',
+  Unsubscribe = 'unsubscribe',
+  Wishlist = 'wishlist',
+}
+
+export default PageType;

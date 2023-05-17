@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doGetUserBenefits action creator should create the correct actions for when the get user benefits procedure is successful: get guest user success payload 1`] = `
-Object {
-  "payload": Object {},
-  "type": "@farfetch/blackout-core/GET_USER_BENEFITS_SUCCESS",
-}
-`;

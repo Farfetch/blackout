@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export FromParameterType 1`] = `
+Object {
+  "Bag": "Bag",
+  "Editorial": "Editorial",
+  "Other": "Other",
+  "Pdp": "Pdp",
+  "Plp": "Plp",
+  "RecentlyViewed": "Recently Viewed",
+  "Recommendations": "Recommendations",
+  "Wishlist": "Wishlist",
+}
+`;

@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doGetUserAttribute action creator should create the correct actions for when the get user attribute procedure is successful: get guest user success payload 1`] = `
-Object {
-  "payload": undefined,
-  "type": "@farfetch/blackout-core/GET_USER_ATTRIBUTE_SUCCESS",
-}
-`;

@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adaptPrice() should adapt a price object for a free item: price for free item 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 0,
+    "includingTaxes": 0,
+    "rate": 0,
+  },
+  "excludingTaxes": 0,
+  "formatted": Object {
+    "includingTaxes": "0,00 €",
+    "includingTaxesWithoutDiscount": "0,00 €",
+  },
+  "includingTaxes": 0,
+  "includingTaxesWithoutDiscount": 0,
+  "isFormatted": true,
+  "priceType": undefined,
+  "promotionType": undefined,
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 0,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": undefined,
+}
+`;
+
+exports[`adaptPrice() should adapt a price object for a price range: price range - max 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 104.17,
+    "includingTaxes": 125,
+    "rate": 50,
+  },
+  "excludingTaxes": 104.17,
+  "formatted": Object {
+    "includingTaxes": "125,00 €",
+    "includingTaxesWithoutDiscount": "250,00 €",
+  },
+  "includingTaxes": 125,
+  "includingTaxesWithoutDiscount": 250,
+  "isFormatted": true,
+  "priceType": 0,
+  "promotionType": "FullPrice",
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 20.83,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": 1,
+}
+`;
+
+exports[`adaptPrice() should adapt a price object for a price range: price range - min 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 104.17,
+    "includingTaxes": 125,
+    "rate": 50,
+  },
+  "excludingTaxes": 104.17,
+  "formatted": Object {
+    "includingTaxes": "125,00 €",
+    "includingTaxesWithoutDiscount": "250,00 €",
+  },
+  "includingTaxes": 125,
+  "includingTaxesWithoutDiscount": 250,
+  "isFormatted": true,
+  "priceType": 0,
+  "promotionType": "FullPrice",
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 20.83,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": 0,
+}
+`;
+
+exports[`adaptPrice() should adapt a price object with promotion percentage key: price with promotion percentage key adapter 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 104.17,
+    "includingTaxes": 125,
+    "rate": 50,
+  },
+  "excludingTaxes": 104.17,
+  "formatted": Object {
+    "includingTaxes": "125,00 €",
+    "includingTaxesWithoutDiscount": "250,00 €",
+  },
+  "includingTaxes": 125,
+  "includingTaxesWithoutDiscount": 250,
+  "isFormatted": true,
+  "priceType": 0,
+  "promotionType": "FullPrice",
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 20.83,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": 0,
+}
+`;
+
+exports[`adaptPrice() should adapt a price object without "*InclTaxes" keys correctly: price without *InclTaxes keys adapter 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 104.17,
+    "includingTaxes": 125,
+    "rate": 50,
+  },
+  "excludingTaxes": 104.17,
+  "formatted": Object {
+    "includingTaxes": "125,00 €",
+    "includingTaxesWithoutDiscount": "250,00 €",
+  },
+  "includingTaxes": 125,
+  "includingTaxesWithoutDiscount": 250,
+  "isFormatted": true,
+  "priceType": 0,
+  "promotionType": "FullPrice",
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 20.83,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": 0,
+}
+`;
+
+exports[`adaptPrice() should adapt a standard price object correctly: standard price adapter 1`] = `
+Object {
+  "discount": Object {
+    "excludingTaxes": 104.17,
+    "includingTaxes": 125,
+    "rate": 50,
+  },
+  "excludingTaxes": 104.17,
+  "formatted": Object {
+    "includingTaxes": "125,00 €",
+    "includingTaxesWithoutDiscount": "250,00 €",
+  },
+  "includingTaxes": 125,
+  "includingTaxesWithoutDiscount": 250,
+  "isFormatted": true,
+  "priceType": 0,
+  "promotionType": "FullPrice",
+  "tags": Array [
+    "VAT",
+  ],
+  "taxes": Object {
+    "amount": 20.83,
+    "rate": 20,
+    "type": "VAT",
+  },
+  "type": 0,
+}
+`;

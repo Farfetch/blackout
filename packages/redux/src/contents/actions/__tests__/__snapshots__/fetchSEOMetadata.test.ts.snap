@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchSEOMetadata action creator should create the correct actions for when the fetch SEO procedure is successful: Get SEO payload 1`] = `
+Object {
+  "payload": Object {
+    "pathname": "/about",
+    "result": Object {
+      "/about": Object {
+        "canonicalUrl": "https://api.blackout.com/about",
+        "description": "About Page",
+        "h1": "h1 title",
+        "headPrefix": "og: http://ogp.me/ns#",
+        "hrefLangs": Array [
+          Object {
+            "href": "https://api.blackout.com/about",
+            "hrefLang": "x-default",
+          },
+        ],
+        "imageAltText": null,
+        "keywords": "test",
+        "metatags": Array [
+          Object {
+            "content": "About Page",
+            "contentType": "content",
+            "propertyDescription": "og:description",
+            "propertyType": "property",
+            "tagName": "meta",
+          },
+        ],
+        "title": "About",
+      },
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_SEO_METADATA_SUCCESS",
+}
+`;

@@ -1,8 +1,10 @@
 # @farfetch/blackout-react
 
-React components, hooks and other tools filled with business logic to help you use Farfetch Platform Solutions' services in your web or native e-commerce app
+React components, hooks and other tools filled with business logic to help using the Farfetch Platform Solutions' services in web or native e-commerce apps.
 
 ## Installation
+
+The current version (1.x) requires at least Node 14.
 
 **yarn**
 
@@ -18,48 +20,61 @@ npm i @farfetch/blackout-react
 
 ### Peer dependencies
 
-Make sure that you have installed the correct Farfetch's peer dependencies:
+Make sure that you have installed the correct peer dependencies of this package:
 
-- [`@farfetch/blackout-core`](https://www.npmjs.com/package/@farfetch/blackout-core)
+- [`@farfetch/blackout-analytics`](https://www.npmjs.com/package/@farfetch/blackout-analytics)
+- [`@farfetch/blackout-client`](https://www.npmjs.com/package/@farfetch/blackout-client)
+- [`@farfetch/blackout-redux`](https://www.npmjs.com/package/@farfetch/blackout-redux)
+- [`axios`](https://www.npmjs.com/package/axios)
+- [`lodash-es`](https://www.npmjs.com/package/lodash-es)
+- [`react`](https://www.npmjs.com/package/react)
+- [`react-redux`](https://www.npmjs.com/package/react-redux)
+- [`redux`](https://www.npmjs.com/package/redux)
 
-## Usage
+### Configuration
 
-You just need to import and use what you need
+**IMPORTANT** This package is a Pure ESM package which means it cannot be `require()`'d from CommonJS. If you cannot change to ESM or want to keep using Commonjs, consider using the `import()` function to load the modules from this package asynchronously.
 
-```js
-// Managing a bag item
-import { useBagItem } from '@farfetch/blackout-react/bags';
+#### Webpack
 
-const { error, isLoading } = useBagItem(bagItemId);
-```
+- If it is necessary to transpile the package, add a specific loader for it:
 
-### Additional configuration
-
-Since this package is published in its original structure, all the source code is contained in a `src` folder. This means you might need additional configurations:
-
-- In order to have friendly imports (`@farfetch/blackout-react` vs `@farfetch/blackout-react/src`), you probably want to add aliases
-
-  ```js
-  // Webpack example
-  config.resolve.alias = {
-    '@farfetch/blackout-react': '@farfetch/blackout-react/src',
-  };
-  ```
-
-- In order to have your project running, you probably need a specific loader
   ```js
   // Webpack example
   config.module.rules.push({
     test: /\.jsx?$/,
-    include: [/node_modules\/@farfetch\/blackout-react/],
+    // This will add all @farfetch packages and lodash-es package which are ESM only
+    include: [/node_modules\/(@farfetch|lodash-es)/],
     use: [
       {
         loader: 'babel-loader',
         options: myBabelConfig,
       },
     ],
+    // If using webpack 5, you might need this depending on the transformations used
+    resolve: { fullySpecified: false },
   });
   ```
+
+#### Jest
+
+- In order to support unit tests via jest, it is necessary to transpile the package to Commonjs by adding the following value to the `transformIgnorePatterns` option in Jest configuration:
+
+```js
+// jest.config.js
+transformIgnorePatterns: ['/node_modules/(?!(@farfetch|lodash-es)).+\\.js$'];
+```
+
+## Usage
+
+You just need to import and use what you need. All imports should be done from the root of the package like in the following example:
+
+```js
+// Managing a bag item
+import { useBagItem } from '@farfetch/blackout-react';
+
+const { error, isLoading } = useBagItem(bagItemId);
+```
 
 ## Contributing
 

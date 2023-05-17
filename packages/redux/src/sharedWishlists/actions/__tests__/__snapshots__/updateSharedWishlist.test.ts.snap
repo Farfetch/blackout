@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`updateSharedWishlist() should create the correct actions for when the update shared wishlist procedure is successful: Update wishlist item success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "10533": Object {
+          "id": 10533,
+          "name": "Valentino",
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "brand": 10533,
+          "categories": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": "Modern Sneakers",
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": undefined,
+          "labels": undefined,
+          "merchant": undefined,
+          "name": "251 sneakers",
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": undefined,
+              "includingTaxes": undefined,
+              "rate": undefined,
+            },
+            "excludingTaxes": undefined,
+            "formatted": Object {
+              "includingTaxes": undefined,
+              "includingTaxesWithoutDiscount": undefined,
+            },
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": undefined,
+            "taxes": Object {
+              "amount": undefined,
+              "rate": undefined,
+              "type": undefined,
+            },
+            "type": undefined,
+          },
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": undefined,
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+      "sharedWishlistItems": Object {
+        "481426747": Object {
+          "attributes": undefined,
+          "dateCreated": 1669302883319,
+          "id": 481426747,
+          "price": undefined,
+          "product": 11766695,
+          "quantity": 2,
+          "size": Object {},
+        },
+      },
+      "sharedWishlists": Object {
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
+          "dateCreated": "2022-11-24T15:14:43.319Z",
+          "description": "string",
+          "hasMissingItems": false,
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "items": Array [
+            481426747,
+          ],
+          "name": "string",
+        },
+      },
+    },
+    "result": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  },
+  "type": "@farfetch/blackout-redux/UPDATE_SHARED_WISHLIST_SUCCESS",
+}
+`;

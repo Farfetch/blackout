@@ -1,0 +1,600 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`updateBagItem() action creator should create the correct actions for when the update bag item procedure is successful without receiving options: update bag item success payload without receiving options 1`] = `
+Object {
+  "meta": Object {
+    "bagId": "7894746",
+    "bagItemId": 134,
+    "merchantId": 4,
+    "productId": 1,
+    "quantity": 99,
+    "scale": 3,
+    "size": 2,
+  },
+  "payload": Object {
+    "entities": Object {
+      "bagItems": Object {
+        "134": Object {
+          "attributes": Array [
+            Object {
+              "description": "Size",
+              "type": 1,
+              "value": "M",
+            },
+          ],
+          "customAttributes": "",
+          "dateCreated": 12345,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": null,
+            "isPreOrder": false,
+          },
+          "gender": 1,
+          "id": 134,
+          "isAvailable": true,
+          "isCustomizable": false,
+          "isExclusive": false,
+          "merchant": 12424,
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+            "type": undefined,
+          },
+          "product": 11766695,
+          "productAggregator": null,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0 €",
+            "isProductOffer": false,
+            "promotionEvaluationItemId": null,
+            "totalDiscountPercentage": null,
+            "totalDiscountValue": 0,
+          },
+          "quantity": 1,
+          "size": Object {
+            "name": "M",
+          },
+        },
+      },
+      "brands": Object {
+        "25354": Object {
+          "id": 25354,
+          "name": "Ralph Lauren",
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "gender": 0,
+          "id": 136301,
+          "name": "Shoes",
+          "parentId": 0,
+        },
+        "136308": Object {
+          "gender": 0,
+          "id": 136308,
+          "name": "Sandals",
+          "parentId": 136301,
+        },
+      },
+      "merchants": Object {
+        "12424": Object {
+          "id": 12424,
+          "name": "STORE OF THE FUTURE LISBON BOUTIQUE",
+          "shoppingUrl": null,
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "brand": 25354,
+          "categories": Array [
+            136301,
+            136308,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
+          "customAttributes": undefined,
+          "description": "Classic oxford shirt",
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
+          "labels": Array [],
+          "merchant": undefined,
+          "name": "Oxford Shirt",
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": undefined,
+              "includingTaxes": undefined,
+              "rate": undefined,
+            },
+            "excludingTaxes": undefined,
+            "formatted": Object {
+              "includingTaxes": undefined,
+              "includingTaxesWithoutDiscount": undefined,
+            },
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": undefined,
+            "taxes": Object {
+              "amount": undefined,
+              "rate": undefined,
+              "type": undefined,
+            },
+            "type": 0,
+          },
+          "prices": undefined,
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "oxford-shirt-11766695",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "type": 0,
+          "variants": Array [
+            Object {
+              "attributes": Array [
+                Object {
+                  "description": "string",
+                  "type": 0,
+                  "value": "string",
+                },
+              ],
+              "availableAt": Array [
+                0,
+              ],
+              "formattedPrice": "string",
+              "formattedPriceWithoutDiscount": "string",
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "isOneSize": true,
+              "merchantId": 0,
+              "price": Object {
+                "discount": Object {
+                  "excludingTaxes": 0,
+                  "includingTaxes": 0,
+                  "rate": 0,
+                },
+                "excludingTaxes": 0,
+                "formatted": Object {
+                  "includingTaxes": "string",
+                  "includingTaxesWithoutDiscount": "string",
+                },
+                "includingTaxes": 0,
+                "includingTaxesWithoutDiscount": 0,
+                "isFormatted": true,
+                "priceType": undefined,
+                "promotionType": undefined,
+                "tags": Array [
+                  "string",
+                ],
+                "taxes": Object {
+                  "amount": 0,
+                  "rate": 0,
+                  "type": "string",
+                },
+                "type": undefined,
+              },
+              "purchaseChannel": 0,
+              "quantity": 0,
+              "scale": "string",
+              "scaleAbbreviation": "string",
+              "size": "string",
+              "sizeDescription": "string",
+            },
+          ],
+        },
+      },
+    },
+    "result": Object {
+      "@controls": Object {
+        "BagGet_operation": Object {
+          "href": "/v1/bags/7894746/operations/134",
+        },
+      },
+      "bagSummary": Object {
+        "currency": "USD",
+        "currencySymbol": "$",
+        "dateCreated": "/Date(1534759345364)/",
+        "dateUpdated": "/Date(1562573175001)/",
+        "formattedGrandTotal": "$381.62",
+        "formattedSubTotalAmount": "$371.62",
+        "formattedSubTotalAmountExclTaxes": "$371.62",
+        "formattedTotalDiscount": "$0",
+        "formattedTotalProductPromotionDiscount": "$0",
+        "formattedTotalShippingFee": "$10",
+        "formattedTotalTaxes": "$0",
+        "grandTotal": 381.62,
+        "subTotalAmount": 371.62,
+        "subTotalAmountExclTaxes": 371.62,
+        "taxType": "DDP",
+        "totalDiscount": 0,
+        "totalProductPromotionDiscount": 0,
+        "totalShippingFee": 10,
+        "totalTaxes": 0,
+      },
+      "count": 1,
+      "hadUnavailableItems": false,
+      "id": "7894746",
+      "items": Array [
+        134,
+      ],
+    },
+  },
+  "type": "@farfetch/blackout-redux/UPDATE_BAG_ITEM_SUCCESS",
+}
+`;
+
+exports[`updateBagItem() action creator should create the correct actions for when the update bag item procedure is successful: update bag item success payload 1`] = `
+Object {
+  "meta": Object {
+    "bagId": "7894746",
+    "bagItemId": 134,
+    "from": "bag",
+    "merchantId": 4,
+    "oldQuantity": 1,
+    "oldSize": 16,
+    "productId": 1,
+    "quantity": 99,
+    "scale": 3,
+    "size": 2,
+  },
+  "payload": Object {
+    "entities": Object {
+      "bagItems": Object {
+        "134": Object {
+          "attributes": Array [
+            Object {
+              "description": "Size",
+              "type": 1,
+              "value": "M",
+            },
+          ],
+          "customAttributes": "",
+          "dateCreated": 12345,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": null,
+            "isPreOrder": false,
+          },
+          "gender": 1,
+          "id": 134,
+          "isAvailable": true,
+          "isCustomizable": false,
+          "isExclusive": false,
+          "merchant": 12424,
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+            "type": undefined,
+          },
+          "product": 11766695,
+          "productAggregator": null,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0 €",
+            "isProductOffer": false,
+            "promotionEvaluationItemId": null,
+            "totalDiscountPercentage": null,
+            "totalDiscountValue": 0,
+          },
+          "quantity": 1,
+          "size": Object {
+            "name": "M",
+          },
+        },
+      },
+      "brands": Object {
+        "25354": Object {
+          "id": 25354,
+          "name": "Ralph Lauren",
+        },
+      },
+      "categories": Object {
+        "136301": Object {
+          "gender": 0,
+          "id": 136301,
+          "name": "Shoes",
+          "parentId": 0,
+        },
+        "136308": Object {
+          "gender": 0,
+          "id": 136308,
+          "name": "Sandals",
+          "parentId": 136301,
+        },
+      },
+      "merchants": Object {
+        "12424": Object {
+          "id": 12424,
+          "name": "STORE OF THE FUTURE LISBON BOUTIQUE",
+          "shoppingUrl": null,
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "brand": 25354,
+          "categories": Array [
+            136301,
+            136308,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
+          "customAttributes": undefined,
+          "description": "Classic oxford shirt",
+          "groupedEntries": undefined,
+          "id": 11766695,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
+          "labels": Array [],
+          "merchant": undefined,
+          "name": "Oxford Shirt",
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": undefined,
+              "includingTaxes": undefined,
+              "rate": undefined,
+            },
+            "excludingTaxes": undefined,
+            "formatted": Object {
+              "includingTaxes": undefined,
+              "includingTaxesWithoutDiscount": undefined,
+            },
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": undefined,
+            "taxes": Object {
+              "amount": undefined,
+              "rate": undefined,
+              "type": undefined,
+            },
+            "type": 0,
+          },
+          "prices": undefined,
+          "sizes": Array [
+            Object {
+              "globalQuantity": 2,
+              "id": 21,
+              "isOneSize": false,
+              "isOutOfStock": false,
+              "name": "36",
+              "scale": 206,
+              "scaleAbbreviation": "IT",
+              "scaleDescription": undefined,
+              "stock": Array [
+                Object {
+                  "barcodes": Array [
+                    "2013323497172",
+                  ],
+                  "merchantId": 11554,
+                  "price": Object {
+                    "formatted": Object {
+                      "includingTaxes": "4 300 €",
+                      "includingTaxesWithoutDiscount": "4 300 €",
+                    },
+                  },
+                  "purchaseChannel": null,
+                  "quantity": 2,
+                },
+              ],
+            },
+          ],
+          "slug": "oxford-shirt-11766695",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "type": 0,
+          "variants": Array [
+            Object {
+              "attributes": Array [
+                Object {
+                  "description": "string",
+                  "type": 0,
+                  "value": "string",
+                },
+              ],
+              "availableAt": Array [
+                0,
+              ],
+              "formattedPrice": "string",
+              "formattedPriceWithoutDiscount": "string",
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "isOneSize": true,
+              "merchantId": 0,
+              "price": Object {
+                "discount": Object {
+                  "excludingTaxes": 0,
+                  "includingTaxes": 0,
+                  "rate": 0,
+                },
+                "excludingTaxes": 0,
+                "formatted": Object {
+                  "includingTaxes": "string",
+                  "includingTaxesWithoutDiscount": "string",
+                },
+                "includingTaxes": 0,
+                "includingTaxesWithoutDiscount": 0,
+                "isFormatted": true,
+                "priceType": undefined,
+                "promotionType": undefined,
+                "tags": Array [
+                  "string",
+                ],
+                "taxes": Object {
+                  "amount": 0,
+                  "rate": 0,
+                  "type": "string",
+                },
+                "type": undefined,
+              },
+              "purchaseChannel": 0,
+              "quantity": 0,
+              "scale": "string",
+              "scaleAbbreviation": "string",
+              "size": "string",
+              "sizeDescription": "string",
+            },
+          ],
+        },
+      },
+    },
+    "result": Object {
+      "@controls": Object {
+        "BagGet_operation": Object {
+          "href": "/v1/bags/7894746/operations/134",
+        },
+      },
+      "bagSummary": Object {
+        "currency": "USD",
+        "currencySymbol": "$",
+        "dateCreated": "/Date(1534759345364)/",
+        "dateUpdated": "/Date(1562573175001)/",
+        "formattedGrandTotal": "$381.62",
+        "formattedSubTotalAmount": "$371.62",
+        "formattedSubTotalAmountExclTaxes": "$371.62",
+        "formattedTotalDiscount": "$0",
+        "formattedTotalProductPromotionDiscount": "$0",
+        "formattedTotalShippingFee": "$10",
+        "formattedTotalTaxes": "$0",
+        "grandTotal": 381.62,
+        "subTotalAmount": 371.62,
+        "subTotalAmountExclTaxes": 371.62,
+        "taxType": "DDP",
+        "totalDiscount": 0,
+        "totalProductPromotionDiscount": 0,
+        "totalShippingFee": 10,
+        "totalTaxes": 0,
+      },
+      "count": 1,
+      "hadUnavailableItems": false,
+      "id": "7894746",
+      "items": Array [
+        134,
+      ],
+    },
+  },
+  "type": "@farfetch/blackout-redux/UPDATE_BAG_ITEM_SUCCESS",
+}
+`;

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserAddresses() action creator should create the correct actions for when the get user address book procedure is successful: get user addresses success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "addresses": Object {
+        "1234": Object {
+          "addressLine1": "Rua António Gago A",
+          "addressLine2": "São Gonçalo de Lagos",
+          "addressLine3": "A",
+          "addressType": "Billing",
+          "city": Object {
+            "countryId": 0,
+            "id": 0,
+            "name": "Lagos",
+          },
+          "country": Object {
+            "alpha2Code": "PT",
+            "alpha3Code": "PRT",
+            "continentId": 3,
+            "culture": "pt-PT",
+            "id": 165,
+            "name": "Portugal",
+            "nativeName": "Portugal",
+            "region": "Europe",
+            "regionId": 10,
+            "subRegion": "dummy",
+          },
+          "createdDate": "2021-03-31T08:45:41.307Z",
+          "firstName": "tiago3443",
+          "id": "1234",
+          "isCurrentBilling": true,
+          "isCurrentPreferred": true,
+          "isCurrentShipping": true,
+          "lastName": "ultimo4343",
+          "phone": "434343434",
+          "state": Object {
+            "countryId": 0,
+            "id": 0,
+            "name": "Faro",
+          },
+          "updatedDate": "2021-11-03T17:24:48.37Z",
+          "zipCode": "8600",
+        },
+        "2222222": Object {
+          "addressLine1": "Caminho Municipal 1267 1",
+          "addressLine2": "Balança",
+          "addressType": "Any",
+          "city": Object {
+            "countryId": 0,
+            "id": 0,
+            "name": "Terras de Bouro",
+          },
+          "country": Object {
+            "alpha2Code": "PT",
+            "alpha3Code": "PRT",
+            "continentId": 3,
+            "culture": "pt-PT",
+            "id": 165,
+            "name": "Portugal",
+            "nativeName": "Portugal",
+            "region": "Europe",
+            "regionId": 10,
+            "subRegion": "dummy",
+          },
+          "createdDate": "2021-11-03T16:46:17.584Z",
+          "firstName": "testing",
+          "id": "2222222",
+          "isCurrentBilling": false,
+          "isCurrentPreferred": false,
+          "isCurrentShipping": false,
+          "lastName": "testing",
+          "phone": "969696969",
+          "state": Object {
+            "countryId": 0,
+            "id": 0,
+            "name": "Braga",
+          },
+          "updatedDate": "2021-11-04T10:13:44.782Z",
+          "zipCode": "4840-010",
+        },
+      },
+    },
+    "result": Array [
+      "1234",
+      "2222222",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_USER_ADDRESSES_SUCCESS",
+}
+`;

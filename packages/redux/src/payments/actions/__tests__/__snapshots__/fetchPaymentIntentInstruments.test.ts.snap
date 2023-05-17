@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchPaymentIntentInstruments() action creator should create the correct actions when the fetch payment intent instruments procedure is successful: fetch payment intent instruments success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "paymentInstruments": Object {
+        "316bc538-e7e5-4f6c-943f-686350fac5ae": Object {
+          "amounts": Array [
+            Object {
+              "refundedValue": 0,
+              "settledValue": 0,
+              "value": 27,
+            },
+          ],
+          "data": Object {
+            "cardCvv": "037",
+            "cardExpiryMonth": 10,
+            "cardExpiryYear": 2020,
+            "cardFirstDigits": "411111",
+            "cardHolderName": "Joao Baptista",
+            "cardLastDigits": "111111",
+            "cardNumber": "123",
+            "creditUserId": "",
+          },
+          "id": "316bc538-e7e5-4f6c-943f-686350fac5ae",
+          "installments": Object {
+            "quantity": 0,
+          },
+          "method": "CreditCard",
+          "option": "credit card",
+          "payer": Object {
+            "address": Object {
+              "addressLine1": "Rua da Lionesa 446, G12",
+              "addressLine2": " Teste",
+              "city": Object {
+                "countryId": 0,
+                "id": 0,
+                "name": "Leça do Balio",
+                "stateId": 0,
+              },
+              "country": Object {
+                "alpha2Code": "PT",
+                "alpha3Code": "PRT",
+                "continentId": 3,
+                "culture": "pt-PT",
+                "id": 165,
+                "name": "Portugal",
+                "nativeName": "Portugal",
+                "region": "Europe",
+                "regionId": 0,
+                "subRegion": "",
+                "subfolder": "/en-pt",
+              },
+              "ddd": "351",
+              "firstName": "tester",
+              "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+              "isDefaultBillingAddress": true,
+              "isDefaultShippingAddress": true,
+              "lastName": "teste",
+              "neighbourhood": "Centro",
+              "phone": "121525125",
+              "state": Object {
+                "code": "Braga",
+                "countryId": 0,
+                "id": 0,
+                "name": "Braga",
+              },
+              "title": null,
+              "userId": 0,
+              "vatNumber": "50",
+              "zipCode": "4465-761",
+            },
+            "email": "joao@mail.com",
+            "firstName": "João",
+            "id": "1213",
+            "lastName": "Batista",
+          },
+          "shopperInteraction": "Ecommerce",
+          "status": 0,
+        },
+      },
+    },
+    "result": Array [
+      "316bc538-e7e5-4f6c-943f-686350fac5ae",
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_INSTRUMENTS_SUCCESS",
+}
+`;

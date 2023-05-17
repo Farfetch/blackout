@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doPostOrderItemActivities() action creator should create the correct actions for when the post order item activities procedure is successful: post order item activities success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-core/POST_ORDER_ITEM_ACTIVITIES_SUCCESS",
-}
-`;

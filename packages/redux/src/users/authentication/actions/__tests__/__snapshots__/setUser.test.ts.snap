@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setUser action creator should create the correct actions for when the set user procedure is successful: update user success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "user": Object {
+        "bagId": "3a52edfe-5b17-46b9-ba5d-ed87cb36aa67",
+        "countryCode": "0",
+        "dateOfBirth": "/Date(631152000000)/",
+        "email": "teste@conta.com",
+        "gender": "NotDefined",
+        "id": 29556478,
+        "isExternalLogin": false,
+        "isGuest": false,
+        "name": "Ivo Mota",
+        "phoneNumber": "910000000",
+        "segments": Array [],
+        "title": Object {
+          "id": "111",
+          "value": "Dr.",
+        },
+        "username": "teste@conta.com",
+        "wishlistId": "8e091868-b74b-47e1-ab27-a2c247c92242",
+      },
+    },
+    "result": 29556478,
+  },
+  "type": "@farfetch/blackout-redux/UPDATE_USER_SUCCESS",
+}
+`;

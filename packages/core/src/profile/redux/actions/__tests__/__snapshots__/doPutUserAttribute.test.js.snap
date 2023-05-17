@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doPutUserAttribute action creator should create the correct actions for when the update user attribute procedure is successful: update user attribute success payload 1`] = `
-Object {
-  "payload": Object {},
-  "type": "@farfetch/blackout-core/PUT_USER_ATTRIBUTE_SUCCESS",
-}
-`;

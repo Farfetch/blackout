@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchBagOperation() should create the correct actions for when the get bagOperation procedure is successful: get bagOperation success payload 1`] = `
+Object {
+  "meta": Object {
+    "bagOperationId": "134",
+  },
+  "payload": Object {
+    "entities": Object {
+      "bagOperations": Object {
+        "134": Object {
+          "changes": Array [
+            Object {
+              "changeType": "ItemIsUnavailable",
+              "productId": 0,
+              "reason": "LackOfBenefits",
+              "variantId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            },
+          ],
+          "createdDate": "2023-01-19T15:46:00.223Z",
+          "id": "134",
+          "violations": Array [
+            Object {
+              "fixSuggestion": Object {
+                "action": "DecreaseQuantity",
+                "value": "string",
+              },
+              "itemsIds": Array [
+                0,
+              ],
+            },
+          ],
+        },
+      },
+    },
+    "result": "134",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_BAG_OPERATION_SUCCESS",
+}
+`;

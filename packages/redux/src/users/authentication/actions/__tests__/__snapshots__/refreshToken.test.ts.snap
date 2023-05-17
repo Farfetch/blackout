@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refreshToken() action creator should create the correct actions for when the refresh token procedure is successful: refresh token success payload 1`] = `
+Object {
+  "payload": Object {
+    "accessToken": "04b55bb7-f1af-4b45-aa10-5c4667a48936",
+    "expiresIn": "1200",
+    "refreshToken": "d5b4f8e72f652d9e048d7e5c75f1ec97bb9eeaec2b080497eba0965abc0ade4d",
+  },
+  "type": "@farfetch/blackout-redux/REFRESH_TOKEN_SUCCESS",
+}
+`;

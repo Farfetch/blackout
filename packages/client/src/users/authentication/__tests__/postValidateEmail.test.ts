@@ -1,0 +1,44 @@
+import { postValidateEmail } from '../index.js';
+import client from '../../../helpers/client/index.js';
+import fixtures from '../__fixtures__/postValidateEmail.fixtures.js';
+import mswServer from '../../../../tests/mswServer.js';
+
+describe('postEmailTokenValidate', () => {
+  const spy = jest.spyOn(client, 'post');
+  const expectedConfig = undefined;
+
+  beforeEach(() => jest.clearAllMocks());
+
+  const requestData = {
+    username: 'pepe@acme.com',
+    token: 'TOKEN_EVA_01',
+  };
+
+  it('should handle a client request successfully', async () => {
+    mswServer.use(fixtures.success());
+
+    await expect(postValidateEmail(requestData)).resolves.toMatchObject(
+      expect.objectContaining({
+        status: 204,
+      }),
+    );
+
+    expect(spy).toHaveBeenCalledWith(
+      '/account/v1/emailtokensvalidation',
+      requestData,
+      expectedConfig,
+    );
+  });
+
+  it('should receive a client request error', async () => {
+    mswServer.use(fixtures.failure());
+
+    await expect(postValidateEmail(requestData)).rejects.toMatchSnapshot();
+
+    expect(spy).toHaveBeenCalledWith(
+      '/account/v1/emailtokensvalidation',
+      requestData,
+      expectedConfig,
+    );
+  });
+});
