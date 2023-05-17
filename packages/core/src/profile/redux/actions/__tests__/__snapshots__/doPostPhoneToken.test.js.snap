@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doPostPhoneToken action creator should create the correct actions for when the post user attributes procedure is successful: post user attributes success payload 1`] = `
-Object {
-  "payload": Object {},
-  "type": "@farfetch/blackout-core/POST_PHONE_TOKEN_SUCCESS",
-}
-`;

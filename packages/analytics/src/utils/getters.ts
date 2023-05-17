@@ -1,0 +1,128 @@
+import { get } from 'lodash-es';
+import type {
+  AnalyticsProduct,
+  EventData,
+  EventProperties,
+  LoadIntegrationEventData,
+  SetUserEventData,
+  TrackTypesValues,
+} from '../types/analytics.types.js';
+import type URLParse from 'url-parse';
+
+export const getEvent = (data: EventData<TrackTypesValues>): string => {
+  return get(data, 'event', '');
+};
+
+export const getProperties = (
+  data: EventData<TrackTypesValues>,
+): EventProperties => {
+  return get(data, 'properties', {});
+};
+
+export const getProducts = (
+  data: EventData<TrackTypesValues>,
+): AnalyticsProduct[] => {
+  return get(data, 'properties.products', []);
+};
+
+export const getCurrency = (data: EventData<TrackTypesValues>): string => {
+  const properties = getProperties(data);
+
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return get(properties, 'currency', '') as string;
+};
+
+export const getList = (data: EventData<TrackTypesValues>): string => {
+  const properties = getProperties(data);
+
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return get(properties, 'list', '') as string;
+};
+
+export const getOrderId = (data: EventData<TrackTypesValues>): string => {
+  const properties = getProperties(data);
+
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return properties.orderId as string;
+};
+
+export const getPurchaseProperties = (
+  data: EventData<TrackTypesValues>,
+): {
+  id: string;
+  revenue: number;
+  tax: number;
+  shipping: string;
+  coupon: string;
+} => {
+  const properties = getProperties(data);
+
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return {
+    id: getOrderId(data),
+    revenue: properties.total as number,
+    tax: properties.tax as number,
+    shipping: properties.shipping as string,
+    coupon: properties.coupon as string,
+  };
+};
+
+export const getCheckoutProperties = (
+  data: EventData<TrackTypesValues>,
+): { step: string; option: string } => {
+  const properties = getProperties(data);
+
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return {
+    step: properties.step as string,
+    option: properties.option as string,
+  };
+};
+
+export const getProductId = (
+  unmappedProduct: AnalyticsProduct,
+): string | undefined => {
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  const productId = unmappedProduct.productId || unmappedProduct.id;
+
+  return productId ? `${productId}` : undefined;
+};
+
+export const getProductName = (unmappedProduct: AnalyticsProduct): string => {
+  // Validation of event properties are done before this function is called
+  // so the cast is acceptable here.
+  return unmappedProduct.name as string;
+};
+
+export const getLocation = (
+  data:
+    | EventData<TrackTypesValues>
+    | SetUserEventData
+    | LoadIntegrationEventData,
+): URLParse<Record<string, string | undefined>> => {
+  return get(data, 'context.web.window.location', {}) as URLParse<
+    Record<string, string | undefined>
+  >;
+};
+
+/**
+ * Obtain cookie value using the cookie name.
+ *
+ * @param name - Cookie name.
+ *
+ * @returns The cookie value.
+ */
+export const getCookie = (name: string): string | void => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift();
+  }
+};

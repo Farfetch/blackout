@@ -1,24 +1,23 @@
-module.exports = {
-  presets: [
-    [
-      '@babel/preset-env',
-      {
-        useBuiltIns: 'entry',
-        corejs: 3,
-        targets: {
-          node: '8.9',
-          browsers: 'extends browserslist-config-google',
+module.exports = function (api) {
+  return {
+    plugins: [
+      ['./babel-plugins/plugin-package-json-transformer'], // This must be the first plugin
+    ],
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          bugfixes: true,
+          modules: !!api.env('test') ? 'auto' : false,
         },
-      },
+      ],
+      [
+        '@babel/preset-react',
+        {
+          runtime: 'automatic', // Starting from Babel 8, "automatic" will be the default runtime
+        },
+      ],
+      '@babel/preset-typescript',
     ],
-    '@babel/preset-react',
-  ],
-  plugins: [
-    [
-      '@babel/plugin-proposal-class-properties',
-      {
-        loose: true,
-      },
-    ],
-  ],
+  };
 };

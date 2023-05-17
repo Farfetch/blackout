@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCountryStateCities() action creator should create the correct actions for when the get product details procedure is successful: Get cities success payload 1`] = `
+Object {
+  "meta": Object {
+    "countryCode": "US",
+    "stateId": 3,
+  },
+  "payload": Object {
+    "entities": Object {
+      "cities": Object {
+        "515": Object {
+          "countryId": 216,
+          "id": 515,
+          "name": "Atlanta",
+          "stateId": 6,
+        },
+        "516": Object {
+          "countryId": 216,
+          "id": 516,
+          "name": "Lisbon",
+          "stateId": 3,
+        },
+      },
+      "states": Object {
+        "3": Object {
+          "cities": Array [
+            516,
+            515,
+          ],
+          "id": 3,
+        },
+      },
+    },
+    "result": 3,
+  },
+  "type": "@farfetch/blackout-redux/FETCH_COUNTRY_STATE_CITIES_SUCCESS",
+}
+`;

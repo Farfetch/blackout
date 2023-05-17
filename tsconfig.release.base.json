@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "target": "ES2015",
+
+    /* Modules */
+    // baseUrl is intentionally wrong to prevent typescript from recommending the
+    // wrong imports in the "Quick fix..." window. For example, if baseUrl is set to "."
+    // imports to other packages on the monorepo will have the quick fix pointing to the
+    // "packages" folder instead of recommending the package name. For example if you want
+    // to add the 'postTracking' import from @farfetch/blackout-client in a module
+    // in our redux package. If baseUrl is set here to "." it will suggest adding the import
+    // like this "import { postTracking } from 'packages/client'" instead of suggesting
+    // "import { postTracking } from '@farfetch/blackout-client'".
+    "baseUrl": "./dummy",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "types"],
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+
+    /* Projects */
+    "composite": true,
+
+    /* Emit */
+    "declarationMap": false,
+    "importHelpers": true,
+    "verbatimModuleSyntax": true,
+    "noEmitOnError": true,
+    "sourceMap": false,
+    "stripInternal": true,
+    "emitDeclarationOnly": true,
+
+    /* Completeness */
+    "skipLibCheck": true,
+
+    /* Type checking */
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true
+  }
+}

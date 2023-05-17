@@ -1,0 +1,439 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setCheckoutOrderTags() action creator should create the correct actions for when the set checkout order tags procedure is successful: set checkout order tags success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "categories": Object {
+        "136301": Object {
+          "color": Object {
+            "id": 112495,
+            "name": "Black",
+          },
+          "gender": 1,
+          "id": 136301,
+          "name": "Shoes",
+          "tags": Array [
+            "MainColor",
+          ],
+        },
+      },
+      "checkout": Object {
+        "15338048": Object {
+          "checkoutOrder": 15338048,
+          "deliveryBundles": Array [
+            "12345678",
+          ],
+          "id": 15338048,
+          "orderStatus": 0,
+          "paymentMethods": Object {
+            "creditCard": Object {
+              "creditCards": Array [
+                Object {
+                  "code": "",
+                  "description": "",
+                  "id": "",
+                },
+              ],
+              "type": "",
+            },
+            "customerAccounts": Array [],
+          },
+          "shippingOptions": Array [],
+          "userPaymentTokens": undefined,
+        },
+      },
+      "checkoutOrderItemProducts": Object {
+        "12640693": Object {
+          "categories": Array [
+            136301,
+          ],
+          "colors": Array [
+            Object {
+              "color": Object {
+                "id": 112495,
+                "name": "Black",
+              },
+              "tags": Array [
+                "MainColor",
+              ],
+            },
+            Object {
+              "color": Object {
+                "id": 0,
+                "name": "BLACK",
+              },
+              "tags": Array [
+                "DesignerColor",
+              ],
+            },
+          ],
+          "customAttributes": "",
+          "id": 12640693,
+          "images": Array [
+            Object {
+              "order": 1,
+              "size": "54",
+              "sources": Object {
+                "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
+              },
+              "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+            },
+          ],
+          "isCustomizable": true,
+          "isExclusive": true,
+          "merchant": 12455,
+          "name": "Navy Treated Bonded Cotton Dry Bag",
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+            "type": undefined,
+          },
+          "slug": "navy-treated-bonded-cotton-dry-bag-12640693",
+          "variants": Array [],
+        },
+      },
+      "checkoutOrderItems": Object {
+        "30380051": Object {
+          "brandId": 121212,
+          "brandName": "78 Stitches",
+          "checkoutOrderId": 122,
+          "creationChannel": 1,
+          "fulfillmentInfo": Object {
+            "fulfillmentDate": "2020-11-06T14:19:14.4398538Z",
+            "isPreOrder": false,
+          },
+          "id": 30380051,
+          "merchant": 12455,
+          "merchantShoppingUrl": "http://www.merchant.com",
+          "price": Object {
+            "discount": Object {
+              "excludingTaxes": 0,
+              "includingTaxes": 0,
+              "rate": 0,
+            },
+            "excludingTaxes": 185442.9802,
+            "formatted": Object {
+              "includingTaxes": "$265,597.00",
+              "includingTaxesWithoutDiscount": "$265,597.00",
+            },
+            "includingTaxes": 265596.9995,
+            "includingTaxesWithoutDiscount": 265596.9995,
+            "isFormatted": true,
+            "priceType": undefined,
+            "promotionType": undefined,
+            "tags": Array [
+              "DDP",
+            ],
+            "taxes": Object {
+              "amount": 80154.0193,
+              "rate": 43.223,
+              "type": "DDP",
+            },
+            "type": undefined,
+          },
+          "product": 12640693,
+          "productAggregator": Object {
+            "bundleSlug": "string",
+            "id": 0,
+            "images": Array [
+              Object {
+                "order": 1,
+                "size": "54",
+                "sources": Object {
+                  "54": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg?c=2",
+                },
+                "url": "https://cdn-images.farfetch.com/12/91/31/72/12913172_13206150_54.jpg",
+              },
+            ],
+          },
+          "promocodeDiscountPercentage": 123,
+          "promotionDetail": Object {
+            "formattedTotalDiscountValue": "0,00 €",
+            "isProductOffer": false,
+            "promotionEvaluationItemId": undefined,
+            "totalDiscountPercentage": undefined,
+            "totalDiscountValue": 0,
+          },
+          "quantity": 1,
+          "scale": "",
+          "size": Object {
+            "id": 17,
+            "name": "One Size",
+          },
+          "sizeDescription": "",
+          "status": 0,
+          "summary": Object {
+            "formattedGrandTotal": "265,00 €",
+            "formattedSubTotalAmount": "265,00 €",
+            "formattedSubTotalOriginalAmount": "530,00 €",
+            "grandTotal": 265,
+            "subTotalAmount": 265,
+            "subTotalOriginalAmount": 530,
+          },
+          "tags": Array [
+            "GIFT",
+          ],
+          "variantId": "f4e60000-3a25-000d-0998-08d48da399fa",
+        },
+      },
+      "checkoutOrders": Object {
+        "15338048": Object {
+          "bagId": "187639899",
+          "billingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "addressLine3": "",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": undefined,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": undefined,
+            },
+            "ddd": undefined,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isCurrentBilling": true,
+            "isCurrentPreferred": false,
+            "isCurrentShipping": true,
+            "lastName": "teste",
+            "neighbourhood": undefined,
+            "phone": "121525125",
+            "state": Object {
+              "code": undefined,
+              "countryId": 0,
+              "id": 0,
+              "name": "",
+            },
+            "vatNumber": undefined,
+            "zipCode": "4465-761",
+          },
+          "checkoutOrderMerchants": Array [
+            Object {
+              "merchant": 10658,
+              "salesTax": 0,
+              "shipping": Object {
+                "baseFlatRate": 0,
+                "currency": "EUR",
+                "discount": 0,
+                "formattedPrice": "100 €",
+                "merchants": Array [
+                  10658,
+                ],
+                "price": 2,
+                "shippingCostType": 5,
+                "shippingService": Object {
+                  "description": "abc",
+                  "id": 187639899,
+                  "maxEstimatedDeliveryHour": 0,
+                  "minEstimatedDeliveryHour": 0,
+                  "name": "DHL Express",
+                  "trackingCodes": Array [],
+                  "type": "Express",
+                },
+                "shippingWithoutCapped": 0,
+              },
+            },
+          ],
+          "clickAndCollect": Object {
+            "collectPointId": 0,
+            "merchantLocationId": 0,
+          },
+          "countryId": 165,
+          "createdDate": 1657638358402,
+          "credits": Array [
+            Object {
+              "sourceCreditValue": 0,
+              "sourceCurrencyId": 0,
+              "storeId": 0,
+              "targetCreditValue": 0,
+              "targetCurrencyId": 0,
+              "userId": "1234",
+            },
+          ],
+          "currency": "EUR",
+          "customerType": 0,
+          "formattedGrandTotal": "102 €",
+          "formattedSubTotalAmount": "100 €",
+          "formattedSubTotalAmountExclTaxes": "100 €",
+          "formattedTotalCredit": "0 €",
+          "formattedTotalDiscount": "0 €",
+          "formattedTotalDomesticTaxes": "0 €",
+          "formattedTotalShippingFee": "2 €",
+          "formattedTotalTaxes": "0 €",
+          "grandTotal": 102,
+          "hadUnavailableItems": false,
+          "id": 15338048,
+          "isGuestUser": true,
+          "items": Array [
+            30380051,
+          ],
+          "locale": "en-US",
+          "orderId": "D7XM6Y",
+          "paymentIntentId": "123",
+          "promocode": "123",
+          "shippingAddress": Object {
+            "addressLine1": "Rua da Lionesa 446, G12",
+            "addressLine2": "Teste",
+            "addressLine3": "",
+            "city": Object {
+              "countryId": 0,
+              "id": 0,
+              "name": "Leça do Balio",
+              "stateId": undefined,
+            },
+            "country": Object {
+              "alpha2Code": "PT",
+              "alpha3Code": "PRT",
+              "continentId": 3,
+              "culture": "pt-PT",
+              "id": 165,
+              "name": "Portugal",
+              "nativeName": "Portugal",
+              "region": "Europe",
+              "regionId": 0,
+              "subRegion": undefined,
+            },
+            "ddd": undefined,
+            "firstName": "tester",
+            "id": "c9ce5410-58d9-4298-a385-231a79373e4a",
+            "isCurrentBilling": true,
+            "isCurrentPreferred": false,
+            "isCurrentShipping": true,
+            "lastName": "teste",
+            "neighbourhood": undefined,
+            "phone": "121525125",
+            "state": Object {
+              "code": undefined,
+              "countryId": 0,
+              "id": 0,
+              "name": "",
+            },
+            "vatNumber": undefined,
+            "zipCode": "4465-761",
+          },
+          "shippingMode": "ByMerchant",
+          "status": 0,
+          "subTotalAmount": 100,
+          "subTotalAmountExclTaxes": 100,
+          "tags": Array [
+            "CLEAN_BAG",
+          ],
+          "taxType": "VAT",
+          "totalCredit": 0,
+          "totalDiscount": 0,
+          "totalDomesticTaxes": 0,
+          "totalQuantity": 1,
+          "totalShippingFee": 2,
+          "totalTaxes": 0,
+          "updatedDate": 1657638358836,
+          "userId": 0,
+        },
+      },
+      "deliveryBundles": Object {
+        "12345678": Object {
+          "currency": "EUR",
+          "discount": 0,
+          "finalPrice": 10,
+          "formattedFinalPrice": "10",
+          "formattedPrice": "10",
+          "id": "12345678",
+          "isSelected": true,
+          "itemDeliveryProvisioning": Array [
+            Object {
+              "itemId": 95097041,
+              "provisioning": Object {
+                "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+                "deliveryDateEstimateMaximum": "2020-02-13T14:38:22.228Z",
+                "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+                "merchantId": 9206,
+                "merchantLocationId": 92061,
+                "quantity": 1,
+              },
+            },
+            Object {
+              "itemId": 95097042,
+              "provisioning": Object {
+                "deliveryDateEstimate": "2020-02-11T14:38:22.228Z",
+                "deliveryDateEstimateMaximum": "2020-02-14T14:38:22.228Z",
+                "deliveryDateEstimateMinimum": "2020-02-10T14:38:22.228Z",
+                "merchantId": 9689,
+                "merchantLocationId": 96891,
+                "quantity": 1,
+              },
+            },
+          ],
+          "itemsDeliveryOptions": Array [
+            Object {
+              "deliveryWindow": Object {
+                "max": "2020-02-13T14:38:22.228Z",
+                "min": "2020-02-10T14:38:22.228Z",
+                "type": 1,
+              },
+              "itemId": 95097041,
+              "name": "Standard",
+            },
+            Object {
+              "deliveryWindow": Object {
+                "max": "2020-02-14T14:38:22.228Z",
+                "min": "2020-02-10T14:38:22.228Z",
+                "type": 1,
+              },
+              "itemId": 95097042,
+              "name": "Standard",
+            },
+          ],
+          "name": "Basic",
+          "price": 10,
+          "rank": 1,
+        },
+      },
+      "merchants": Object {
+        "10658": Object {
+          "id": 10658,
+          "name": "ACME WH NELSON FG",
+        },
+        "12455": Object {
+          "id": 12455,
+          "name": "Test Merchant",
+        },
+      },
+    },
+    "result": 15338048,
+  },
+  "type": "@farfetch/blackout-redux/SET_CHECKOUT_ORDER_TAGS_SUCCESS",
+}
+`;

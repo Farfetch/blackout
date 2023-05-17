@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doUpdateDeliveryBundleUpgrade() action creator should create the correct actions for when the update delivery bundle upgrade procedure is successful: update delivery bundle upgrade success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-core/UPDATE_DELIVERY_BUNDLE_UPGRADE_SUCCESS",
-}
-`;

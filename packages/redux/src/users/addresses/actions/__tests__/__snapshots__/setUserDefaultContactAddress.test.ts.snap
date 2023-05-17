@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setUserDefaultContactAddress() action creator should create the correct actions for when the set user default contact address procedure is successful: set user default contact address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+  },
+  "type": "@farfetch/blackout-redux/SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS",
+}
+`;

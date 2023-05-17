@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchExchange() action creator should create the correct actions for when the fetch exchange procedure is successful: fetch exchange success payload 1`] = `
+Object {
+  "payload": Object {
+    "createdDate": "2023-01-30T15:46:23.6727716+00:00",
+    "customer": Object {
+      "id": 83110367,
+    },
+    "exchangeGroups": Array [
+      Object {
+        "exchangeItems": Array [
+          Object {
+            "id": "177d6a94-2fa0-4481-a0e5-69c57c220a25",
+            "product": Object {
+              "id": 18061196,
+              "merchantId": 13708,
+              "uuid": "44a12a5e-25b0-4640-a98e-3a6ab4cb2d71",
+              "variantId": "e1bd4075-2f19-4b8f-9bc5-25a8acf75864",
+            },
+          },
+        ],
+        "exchangeReturnItems": Array [
+          Object {
+            "id": "74da9bf1-5864-47b0-b058-e6f0df1e69e0",
+            "orderCode": "ABC123",
+            "orderItemUuid": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
+            "returnId": null,
+          },
+        ],
+      },
+    ],
+    "exchangeOrder": Object {
+      "checkoutOrderId": "215058872",
+      "orderId": "ABC123",
+      "payment": Object {
+        "intentId": "09079122-328a-4bd1-9aff-cd9ad016de70",
+      },
+    },
+    "id": "a8cc5ea3-b0a9-4a02-bfaa-e522045ebc28\\"",
+    "status": "Booked",
+    "updatedDate": "2023-01-30T15:46:23.6727716+00:00",
+  },
+  "type": "@farfetch/blackout-redux/FETCH_EXCHANGE_SUCCESS",
+}
+`;

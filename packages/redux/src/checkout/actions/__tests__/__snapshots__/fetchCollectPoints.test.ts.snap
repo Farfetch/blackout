@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchCollectPoints() action creator should create the correct actions for when the fetch collect points procedure is successful: fetch collect points success payload 1`] = `
+Object {
+  "meta": Object {
+    "hash": "15338048|false|false",
+  },
+  "payload": Object {
+    "result": Array [
+      Object {
+        "businessDays": Array [
+          Object {
+            "hours": Array [
+              Object {
+                "close": "17:00:00",
+                "open": "12:00:00",
+              },
+            ],
+            "weekday": 0,
+          },
+        ],
+        "clickAndCollect": Object {
+          "collectPointId": 999,
+          "merchantLocationId": 1212121212,
+        },
+        "storeAddress": Object {
+          "addressLine1": "Rua do Instituto Industrial 7",
+          "city": Object {
+            "countryId": 0,
+            "id": 207,
+            "name": "Lisbon",
+          },
+          "country": Object {
+            "alpha2Code": "PT",
+            "alpha3Code": "PRT",
+            "continentId": 0,
+            "culture": "pt-PT",
+            "id": 165,
+            "name": "Portugal",
+            "nativeName": "Portugal",
+            "region": "Portugal",
+            "regionId": 0,
+            "subfolder": "PT",
+          },
+          "firstName": "Lisbon Office",
+          "id": "00000000-0000-0000-0000-000000000000",
+          "isDefaultBillingAddress": false,
+          "isDefaultShippingAddress": false,
+          "lastName": "last",
+          "latitude": "",
+          "longitude": "",
+          "phone": "+351 915233992",
+          "userId": 0,
+          "zipCode": "1200-225 ",
+        },
+      },
+    ],
+  },
+  "type": "@farfetch/blackout-redux/FETCH_COLLECT_POINTS_SUCCESS",
+}
+`;

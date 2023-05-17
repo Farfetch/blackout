@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refreshEmailToken() action creator should create the correct actions for when the refresh token procedure is successful: refresh token success payload 1`] = `
+Object {
+  "type": "@farfetch/blackout-redux/REFRESH_EMAIL_TOKEN_SUCCESS",
+}
+`;

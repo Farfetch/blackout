@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscriptions redux actions updateUserSubscriptions() action creator Should create the correct actions when the user subscriptions' put request is successful: Update subscriptions success payload 1`] = `
+Object {
+  "type": "@farfetch/blackout-redux/UPDATE_USER_SUBSCRIPTIONS_SUCCESS",
+}
+`;

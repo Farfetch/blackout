@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doUpdateGiftMessage() action creator should create the correct actions for when the update gift message procedure is successful: update gift message success payload 1`] = `
-Object {
-  "type": "@farfetch/blackout-core/UPDATE_GIFT_MESSAGE_SUCCESS",
-}
-`;

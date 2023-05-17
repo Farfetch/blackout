@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setUserDefaultBillingAddress() action creator should create the correct actions for when the set user deafult billing address procedure is successful: set user default billing address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+  },
+  "type": "@farfetch/blackout-redux/SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS",
+}
+`;

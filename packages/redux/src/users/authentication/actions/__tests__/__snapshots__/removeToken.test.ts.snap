@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeToken() action creator should create the correct actions for when the delete token procedure is successful: delete token success payload 1`] = `
+Object {
+  "meta": Object {
+    "tokenId": "1234",
+  },
+  "type": "@farfetch/blackout-redux/REMOVE_TOKEN_SUCCESS",
+}
+`;
