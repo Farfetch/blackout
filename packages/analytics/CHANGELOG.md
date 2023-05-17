@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-next.152](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.151...@farfetch/blackout-analytics@1.0.0-next.152) (2023-05-17)
+
+### chore
+
+- product selectors rename and more changes ([823298e](https://github.com/Farfetch/blackout/commit/823298eff2b9ece63f34f90e461edd1b10109d3c))
+
+### BREAKING CHANGES
+
+- - The following exports were renamed:
+    `buildSubscriptionPackagesHash` -> `generateSubscriptionPackagesHash`
+    `generateProductsListHash` -> `generateProductListingHash`
+    `getProductsListActiveFilters` -> `getProductListingActiveFilters`
+    `getProductsListBreadcrumbs` -> `getProductListingBreadcrumbs`
+    `getProductsListError` -> `getProductListingError`
+    `getProductsListFacetGroups` -> `getProductListingFacetGroups`
+    `getProductsListFacetsByFacetGroupType` -> `getProductListingFacetsByFacetGroupType`
+    `getProductsListFacetsGroupsByType` -> `getProductListingFacetsGroupsByType`
+    `getProductsListHash` -> `getProductListingHash`
+    `getProductsListPagination` -> `getProductListingPagination`
+    `getProductsListProducts` -> `getProductListingProducts`
+    `getProductsListProductsFromAllPages` -> `getProductListingProductsFromAllPages`
+    `getProductsListProductsIds` -> `getProductListingProductsIds`
+    `getProductsListResult` -> `getProductListingResult`
+    `getProductsListSelectedFiltersCount` -> `getProductListingSelectedFiltersCount`
+    `getProductsListSort` -> `getProductListingSort`
+    `isProductsListCached` -> `isProductListingCached`
+    `isProductsListFetched` -> `isProductListingFetched`
+    `isProductsListHydrated` -> `isProductListingHydrated`
+    `isProductsListLoading` -> `isProductListingLoading`
+
+* The following exports were removed:
+  `getBrandsHash` -> No need since the brands selectors now use the query
+  as their parameter instead of a hash.
+  `getSearchDidYouMeanQuery`, `getSearchIntentsQuery` and
+  `getSearchSuggestionsQuery` -> removed as they are redundant since
+  their selectors already specify the query now instead of a hash.
+
+* The selectors from the
+  following areas now receive a query parameter instead of
+  a hash:
+
+`searchSuggestions`
+`productGrouping`
+`productGroupingProperties`
+`searchDidYouMean`
+`searchIntents`
+`subscriptionPackages`
+`brands`
+
+- `fetchBrands` action now does not clear the brands that are in store
+  when the `useCache` parameter is set to `false`. Also the
+  `setBrandsHash` parameter was removed since that functionality does
+  not exist anymore.
+
+- The hooks `useSearchIntents`, `useSearchSuggestions` and
+  `useSearchDidYouMean` now expose the data directly on the `data`
+  property instead of being wrapped in another object.
+
 # [1.0.0-next.151](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0-next.150...@farfetch/blackout-analytics@1.0.0-next.151) (2023-05-12)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
