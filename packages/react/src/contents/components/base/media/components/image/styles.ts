@@ -10,9 +10,3 @@ export const ImageStyled = {
   objectFit: 'cover',
   objectPosition: 'center',
 } as React.CSSProperties;
-
-export const ImageThumbnail = {
-  ...ImageStyled,
-  zIndex: 1,
-  opacity: 1,
-};

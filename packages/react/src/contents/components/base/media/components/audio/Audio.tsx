@@ -1,19 +1,14 @@
 import { AudioContainer, Play, Player, Thumbnails } from './styles.js';
-import Image from '../image/index.js';
 import React, { useEffect, useState } from 'react';
 import ReactPlayerImport from 'react-player';
+import Thumbnail from '../thumbnail/index.js';
 import type { AudioComponent } from '../../../../../types/index.js';
 
 // react-player is a cjs package whose module.exports is an object
 // with a "default" property pointing to the ReactPlayer component.
 const ReactPlayer = ReactPlayerImport.default;
 
-const Audio = ({
-  data,
-  hasAudio,
-  breakpoint,
-  media,
-}: AudioComponent): JSX.Element => {
+const Audio = ({ data, hasAudio, breakpoint }: AudioComponent): JSX.Element => {
   const { audio, image } = data;
   const hasImages = image.assets.every(asset => !!asset.source);
   const hasThumbnails = hasAudio && hasImages;
@@ -44,12 +39,7 @@ const Audio = ({
               ▶︎
             </div>
           )}
-          <Image
-            data={data}
-            showAsThumbnail={hasThumbnails}
-            breakpoint={breakpoint}
-            media={media}
-          />
+          <Thumbnail image={image} breakpoint={breakpoint} />
         </div>
       )}
       {hasEnabledAudio && (
