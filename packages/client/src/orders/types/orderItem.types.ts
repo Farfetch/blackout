@@ -14,9 +14,7 @@ import type {
   ProductVariantAttribute,
 } from '../../index.js';
 
-import { SaleIntent as SelectedSaleIntent } from '../../types/common/index.js';
-
-export { SelectedSaleIntent };
+import { type SaleIntent } from '../../types/common/index.js';
 
 export type ShippingService = {
   description: string;
@@ -85,8 +83,9 @@ export type OrderItem = {
   customAttributes: string | null;
   shortDescription: string;
   productType: keyof typeof ProductType;
-  selectedSaleIntent?: SelectedSaleIntent | string;
   metadata?: Record<string, string>;
+  expectedFulfillmentDate?: string;
+  saleIntent?: SaleIntent | string;
 };
 
 // This type is for the `getGuestOrderLegacy` client

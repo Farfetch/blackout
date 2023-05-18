@@ -41,7 +41,7 @@ export const mockProductVariants: VariantsAdapted = [
     isOneSize: true,
     publicationFeatures: [
       {
-        code: PublicationFeatureCode.IMMEDIATE_FULFILMENT,
+        code: PublicationFeatureCode.ImmediateFulfilment,
       },
     ],
   },
@@ -91,7 +91,7 @@ export const mockProductVariantsMerchantsLocationsNormalizedResponse = {
             purchaseChannel: PurchaseChannel.EmailOnly,
             publicationFeatures: [
               {
-                code: PublicationFeatureCode.IMMEDIATE_FULFILMENT,
+                code: PublicationFeatureCode.ImmediateFulfilment,
               },
             ],
           },

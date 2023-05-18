@@ -645,9 +645,9 @@ Object {
     "Unverified": "Unverified",
   },
   "PublicationFeatureCode": Object {
-    "BACKORDER": "BACKORDER",
-    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
-    "PREORDER": "PREORDER",
+    "Backorder": "BACKORDER",
+    "ImmediateFulfilment": "IMMEDIATE_FULFILMENT",
+    "Preorder": "PREORDER",
   },
   "PurchaseChannel": Object {
     "0": "AddToBag",
@@ -757,9 +757,9 @@ Object {
     "WaitingExternalApproval": "WaitingExternalApproval",
   },
   "SaleIntent": Object {
-    "BACKORDER": "BACKORDER",
-    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
-    "PREORDER": "PREORDER",
+    "Backorder": "BACKORDER",
+    "ImmediateFulfilment": "IMMEDIATE_FULFILMENT",
+    "Preorder": "PREORDER",
   },
   "SearchIntentsTypeFilter": Object {
     "0": "ProductId",
@@ -808,11 +808,6 @@ Object {
     "Category": 1,
     "Merchant": 3,
     "Other": 4,
-  },
-  "SelectedSaleIntent": Object {
-    "BACKORDER": "BACKORDER",
-    "IMMEDIATE_FULFILMENT": "IMMEDIATE_FULFILMENT",
-    "PREORDER": "PREORDER",
   },
   "SeoPageType": Object {
     "0": "None",
