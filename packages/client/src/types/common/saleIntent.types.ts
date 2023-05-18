@@ -1,5 +1,5 @@
 export enum SaleIntent {
-  IMMEDIATE_FULFILMENT = 'IMMEDIATE_FULFILMENT',
-  PREORDER = 'PREORDER',
-  BACKORDER = 'BACKORDER',
+  ImmediateFulfilment = 'IMMEDIATE_FULFILMENT',
+  Preorder = 'PREORDER',
+  Backorder = 'BACKORDER',
 }
