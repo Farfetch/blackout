@@ -117,6 +117,11 @@ export type Image = {
   displayOptions: Record<string, never>;
 };
 
+export type ThumbnailComponent = {
+  image: Image;
+  breakpoint: string;
+};
+
 export type ImageComponent = {
   data: {
     cta?: CallToAction;

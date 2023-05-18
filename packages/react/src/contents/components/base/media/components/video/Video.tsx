@@ -1,20 +1,14 @@
-import { DEFAULT_MEDIA } from '../../../index.js';
 import { Play, Player, Thumbnails, VideoContainer } from './styles.js';
-import Image from '../image/index.js';
 import React, { useEffect, useState } from 'react';
 import ReactPlayerImport from 'react-player';
+import Thumbnail from '../thumbnail/index.js';
 import type { VideoComponent } from '../../../../../types/index.js';
 
 // react-player is a cjs package whose module.exports is an object
 // with a "default" property pointing to the ReactPlayer component.
 const ReactPlayer = ReactPlayerImport.default;
 
-const Video = ({
-  data,
-  hasVideo,
-  breakpoint,
-  media = DEFAULT_MEDIA,
-}: VideoComponent): JSX.Element => {
+const Video = ({ data, hasVideo, breakpoint }: VideoComponent): JSX.Element => {
   const { video, image } = data;
   const hasImages = image.assets.every(asset => !!asset.source);
   const hasThumbnails = hasVideo && hasImages;
@@ -49,12 +43,10 @@ const Video = ({
           >
             ▶︎
           </div>
-          <Image
-            data={data}
+          <Thumbnail
+            image={image}
             data-test={`${video.name}-thumbnail`}
-            showAsThumbnail={hasThumbnails}
             breakpoint={breakpoint}
-            media={media}
           />
         </div>
       )}

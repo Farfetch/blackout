@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Thumbnail /> should render correctly 1`] = `
+<div>
+  <img
+    alt="alt"
+    data-test="Image-thumbnail"
+    src="https://cdn-static.blackandwhite-ff.com/BWStaticContent/25000/25000/949336c2-f88e-4762-b6a1-ba55c120056c_md-burberry.jpg"
+    style="width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; opacity: 1;"
+  />
+</div>
+`;

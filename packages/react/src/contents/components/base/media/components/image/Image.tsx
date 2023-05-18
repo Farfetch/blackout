@@ -1,33 +1,30 @@
 import { DEFAULT_MEDIA } from '../../../index.js';
-import { imageArrToObj } from '../utils/index.js';
-import { ImageStyled, ImageThumbnail, LinkStyled } from './styles.js';
+import { ImageStyled, LinkStyled } from './styles.js';
 import CallToAction from '../../../callToAction/CallToAction.jsx';
+import getFallbackSrcImage from '../utils/getFallbackSrcImage.js';
 import React from 'react';
+import Thumbnail from '../thumbnail/index.js';
 import type { ImageComponent } from '../../../../../types/index.js';
 
 const Image = ({
-  data: {
-    cta,
-    image: { alt, assets, name },
-  },
+  data,
   showAsThumbnail,
   breakpoint,
   media = DEFAULT_MEDIA,
   ...props
 }: ImageComponent): JSX.Element => {
+  const {
+    cta,
+    image: { alt, assets },
+  } = data;
+
   const hasLink = !!(
     cta &&
     cta.url &&
     cta.url !== '/null/' &&
     cta.url !== undefined
   );
-  const sourcesBySize = imageArrToObj(assets);
-  const fallbackSrc =
-    sourcesBySize?.[breakpoint] ||
-    sourcesBySize?.Lg ||
-    sourcesBySize?.Md ||
-    sourcesBySize?.Sm ||
-    sourcesBySize?.Xs;
+  const fallbackSrc = getFallbackSrcImage(assets, breakpoint);
 
   const renderPicture = () => {
     return (
@@ -47,21 +44,18 @@ const Image = ({
           style={ImageStyled}
         />
         <noscript>
-          {fallbackSrc && <img src={fallbackSrc} alt={alt} {...props} />}
+          {fallbackSrc && (
+            <picture>
+              <img src={fallbackSrc} alt={alt} {...props} />
+            </picture>
+          )}
         </noscript>
       </picture>
     );
   };
 
   if (showAsThumbnail) {
-    return (
-      <img
-        alt={alt}
-        style={ImageThumbnail}
-        src={fallbackSrc}
-        data-test={`${name}-thumbnail`}
-      />
-    );
+    return <Thumbnail image={data.image} breakpoint={breakpoint} />;
   }
 
   return hasLink ? (
