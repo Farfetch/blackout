@@ -21,7 +21,7 @@ import {
   ReturnReferenceName,
   ReturnStatus,
   ReturnStatusCode,
-  SelectedSaleIntent,
+  SaleIntent,
   ShipmentTrackingEventType,
 } from '@farfetch/blackout-client';
 import { mockResponse as userEntity } from '../authentication/index.mjs';
@@ -454,7 +454,7 @@ export const mockOrderItem = {
     from: 'from',
     message: 'message',
   },
-  selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+  saleIntent: SaleIntent.ImmediateFulfilment,
 };
 
 export const mockOrderItem2 = {
@@ -642,7 +642,7 @@ export const mockOrderItem2 = {
     from: 'from',
     message: 'message',
   },
-  selectedSaleIntent: SelectedSaleIntent.BACKORDER,
+  saleIntent: SaleIntent.Backorder,
 };
 
 export const mockOrderItem3 = {
@@ -805,7 +805,7 @@ export const mockOrderItem3 = {
     from: 'from',
     message: 'message',
   },
-  selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+  saleIntent: SaleIntent.ImmediateFulfilment,
 };
 
 export const mockOrderDetailsResponse = {
@@ -2108,7 +2108,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId,
           productType: 'Standard',
-          selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+          saleIntent: SaleIntent.ImmediateFulfilment,
           images: [
             {
               order: 1,
@@ -2231,7 +2231,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId2,
           productType: 'Standard',
-          selectedSaleIntent: SelectedSaleIntent.BACKORDER,
+          saleIntent: SaleIntent.Backorder,
           images: [
             {
               order: 1,
@@ -2354,7 +2354,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           customAttributes: null,
           id: orderItemId3,
           productType: 'Standard',
-          selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+          saleIntent: SaleIntent.ImmediateFulfilment,
           images: [
             {
               order: 1,
@@ -2725,7 +2725,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId]: {
         customAttributes: null,
         productType: 'Standard',
-        selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+        saleIntent: SaleIntent.ImmediateFulfilment,
         images: [
           {
             order: 1,
@@ -2862,7 +2862,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId2]: {
         customAttributes: null,
         productType: 'Standard',
-        selectedSaleIntent: SelectedSaleIntent.BACKORDER,
+        saleIntent: SaleIntent.Backorder,
         images: [
           {
             order: 1,
@@ -2999,7 +2999,7 @@ export const expectedGuestOrdersNormalizedPayload = {
       [orderItemId3]: {
         customAttributes: null,
         productType: 'Standard',
-        selectedSaleIntent: SelectedSaleIntent.IMMEDIATE_FULFILMENT,
+        saleIntent: SaleIntent.ImmediateFulfilment,
         images: [
           {
             order: 1,
