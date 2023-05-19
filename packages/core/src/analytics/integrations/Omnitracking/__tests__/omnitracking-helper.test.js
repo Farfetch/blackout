@@ -92,13 +92,13 @@ describe('getCheckoutEventGenericProperties', () => {
     const eventData = {
       properties: {
         orderId: '5H5QYB',
-        checkoutOrderId: '123',
+        checkoutOrderId: 123,
       },
     };
 
     expect(getCheckoutEventGenericProperties(eventData, true)).toEqual({
       orderCode: '5H5QYB',
-      orderId: '123',
+      orderId: 123,
     });
   });
 });

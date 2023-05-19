@@ -75,3 +75,41 @@ export const getCookie = name => {
 
   return;
 };
+
+/**
+ * Obtain checkout order generic fields from analytics properties.
+ *
+ * @param {object} eventProperties - The event's properties data.
+ * @returns {object} - The checkout generic order data result.
+ */
+export const getCheckoutOrderIdentificationProperties = eventProperties => {
+  const checkoutOrderId = eventProperties?.checkoutOrderId;
+  const orderId = eventProperties?.orderId;
+  const orderIdAsNumber = Number(orderId);
+  // Valid order code should be an alphanumeric value.
+  // Should be used 'orderId' values like e.g.: 5H5QYB
+  // and for 'checkoutOrderId' values like e.g.:123123123
+  const isOrderCodeValid =
+    typeof orderId === 'string' && isNaN(orderIdAsNumber);
+  const isOrderIdValid =
+    typeof checkoutOrderId === 'number' && !isNaN(checkoutOrderId);
+
+  const orderCode = isOrderCodeValid ? orderId : undefined;
+
+  let finalOrderId;
+
+  // If we have a valid order id, i.e., the property checkoutOrderId from the
+  // event properties is a number, then we always use it.
+  if (isOrderIdValid) {
+    finalOrderId = checkoutOrderId;
+  } else if (!isOrderCodeValid) {
+    // If we do not have a valid order code and checkoutOrderId is not valid
+    // we use the orderId from the payload if it is not NaN
+    finalOrderId = !isNaN(orderIdAsNumber) ? orderIdAsNumber : undefined;
+  }
+
+  return {
+    orderCode,
+    orderId: finalOrderId,
+  };
+};

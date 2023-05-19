@@ -337,7 +337,7 @@ describe('Omnitracking', () => {
           await omnitracking.track(data);
 
           data = generateTrackMockData({
-            event: eventTypes.PLACE_ORDER_STARTED,
+            event: eventTypes.SHARE,
           });
           await omnitracking.track(data);
 
