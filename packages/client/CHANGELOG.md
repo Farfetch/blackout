@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0...@farfetch/blackout-client@2.1.0) (2023-05-19)
+
+### Features
+
+- add checkoutOrder context endpoint ([3e77b7c](https://github.com/Farfetch/blackout/commit/3e77b7cb8755b06d9225512d5c8de909eb571d36))
+
 # [2.0.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0-next.259...@farfetch/blackout-client@2.0.0) (2023-05-18)
 
 **Note:** Version bump only for package @farfetch/blackout-client
