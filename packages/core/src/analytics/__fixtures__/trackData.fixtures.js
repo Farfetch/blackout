@@ -93,6 +93,13 @@ export const customTrackMockData = {
   },
   [eventTypes.ORDER_COMPLETED]: {
     orderId: 'ABC12',
+    checkoutOrderId: '123457',
+    addressFinder: false,
+    step: 5,
+    deliveryType: 'Standard/Standard',
+    packagingType: 'foo',
+    shippingTier: 'Next Day',
+    paymentType: 'credit card',
   },
   [eventTypes.SIGNUP_NEWSLETTER]: {
     gender: ['0', '1'],
