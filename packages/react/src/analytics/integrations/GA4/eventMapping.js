@@ -318,8 +318,8 @@ const getCheckoutStartedParametersFromEvent = eventProperties => {
     transaction_id: eventProperties.orderId,
     payment_type: eventProperties.paymentType,
     packaging_type: eventProperties.packagingType,
-    shipping: eventProperties.shipping,
     shipping_tier: eventProperties.shippingTier,
+    shipping: eventProperties.shipping,
     tax: eventProperties.tax,
     method: eventProperties.method,
   };
@@ -519,13 +519,37 @@ const getLoginAndSignupParametersFromEvent = eventProperties => {
  *
  * @returns {object} Properties formatted for the GA4's order completed/refunded ecommerce events.
  */
-const getOrderPurchaseOrRefundParametersFromEvent = eventProperties => {
+const getOrderPurchaseOrRefundGenericParametersFromEvent = eventProperties => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     transaction_id: eventProperties.orderId,
     affiliation: eventProperties.affiliation,
     shipping: eventProperties.shipping,
     tax: eventProperties.tax,
+  };
+};
+
+/**
+ * Returns the checkout order completed event properties formatted for the GA4 ecommerce events with some custom parameters.
+ *
+ * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Properties formatted for the GA4's order completed/refunded ecommerce events.
+ */
+const getOrderPurchaseParametersFromEvent = eventProperties => {
+  const orderInfo = utils.getCheckoutOrderGenericProperties(eventProperties);
+
+  return {
+    ...getOrderPurchaseOrRefundGenericParametersFromEvent(eventProperties),
+    address_finder: eventProperties.addressFinder,
+    checkout_step: eventProperties.step,
+    delivery_type: eventProperties.deliveryType,
+    payment_type: eventProperties.paymentType,
+    packaging_type: eventProperties.packagingType,
+    shipping_tier: eventProperties.shippingTier,
+    transaction_id: orderInfo.orderCode,
   };
 };
 
@@ -770,8 +794,12 @@ export function getEventProperties(event, data) {
       return getViewItemParametersFromEvent(eventProperties);
 
     case eventTypes.ORDER_COMPLETED:
+      return getOrderPurchaseParametersFromEvent(eventProperties);
+
     case eventTypes.ORDER_REFUNDED:
-      return getOrderPurchaseOrRefundParametersFromEvent(eventProperties);
+      return getOrderPurchaseOrRefundGenericParametersFromEvent(
+        eventProperties,
+      );
 
     case pageTypes.SEARCH:
       return getSearchParametersFromEvent(eventProperties);

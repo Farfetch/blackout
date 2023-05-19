@@ -9,7 +9,10 @@ import {
   DEFAULT_CLIENT_LANGUAGE,
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants';
-import { getProductId } from '../../utils/getters';
+import {
+  getCheckoutOrderIdentificationProperties,
+  getProductId,
+} from '../../utils/getters';
 import {
   pageActionEventTypes,
   pageDefinitions,
@@ -23,6 +26,7 @@ import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
 import get from 'lodash/get';
 import logger from '../../utils/logger';
+import omit from 'lodash/omit';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
 
@@ -538,26 +542,21 @@ export const getProductLineItemsQuantity = productList => {
  * @returns {object} - The checkout omnitracking order data.
  */
 export const getCheckoutEventGenericProperties = (data, addOrderId = false) => {
-  const validOrderCode = isNaN(data.properties?.orderId);
+  const orderInfo = getCheckoutOrderIdentificationProperties(data.properties);
 
-  if (!validOrderCode) {
+  if (orderInfo.orderCode === undefined) {
     logger.warn(
       `[Omnitracking] - Event ${data.event} property orderId should be an alphanumeric value.
-                        If you send the internal orderId, please use 'orderId' (e.g.: 5H5QYB)
+                        If you want to send the internal orderId, please use 'orderId' (e.g.: 5H5QYB)
                         and 'checkoutOrderId' (e.g.:123123123)`,
     );
   }
 
-  const orderCode = validOrderCode ? data.properties?.orderId : undefined;
-
-  return addOrderId
-    ? {
-        orderCode,
-        orderId: !validOrderCode
-          ? parseInt(data.properties?.orderId)
-          : data.properties?.checkoutOrderId,
-      }
-    : { orderCode };
+  if (addOrderId) {
+    return orderInfo;
+  } else {
+    return omit(orderInfo, ['orderId']);
+  }
 };
 
 /**
