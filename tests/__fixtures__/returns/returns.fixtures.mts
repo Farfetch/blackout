@@ -236,8 +236,7 @@ export const responses = {
   },
   patch: {
     success: {
-      redirectUrl:
-        'https://www.test.com/pt/account/return/summary/?id=5926969',
+      redirectUrl: 'https://www.test.com/pt/account/return/summary/?id=5926969',
     },
   },
   getReturnPickupRescheduleRequests: {

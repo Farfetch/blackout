@@ -134,6 +134,8 @@ Any commit made to `main` should be replicated (and adapted) on `next`, to ensur
 This replication should be isolated, in order to maintain a clear Git history for the release tags and commits pushed.
 This means that no rebase should be made on these branches, only on PR branches; ie, `main` and `next` never actually "touch" each other (although we can cherry-pick some commits instead of actually duplicating changes).
 
+There is also the `v1` branch which points to the now legacy packages `@farfetch/blackout-core` and `@farfetch/blackout-react@0.XX`. If a fix or feature is needed for those packages, use that branch as both the base and target of the PR.
+
 ### Code review and approval process
 
 Our maintainers look at pull requests on a regular basis, and the process follows some simple steps:
@@ -155,6 +157,8 @@ It happens automatically with every commit on the `main` branch.
 To prepare the next release, a new branch is created (by the maintainers), named `dev-main-<release-date>` (for example `dev-main-03-11-21` for a scheduled release on Nov 03, 2021) and every PR should target that same branch if it's to be included in that release. In a way, this mimics [GitFlow](http://datasift.github.io/gitflow/IntroducingGitFlow.html).
 
 On the other hand, a hotfix is released as soon as it's ready and needs no intermediate branch.
+
+The same process should be used for releases targeting the `v1` branch with a similarly named `dev-v1-<release-date>` branch.
 
 ## Your First Contribution
 
