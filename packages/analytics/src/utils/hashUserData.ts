@@ -38,7 +38,7 @@ const hashUserData = (userData: UserData): UserData => {
           name: hashPlainTextString(traits.name) as string,
           phoneNumber: hashPlainTextString(traits.phoneNumber),
           username: hashPlainTextString(traits.username) as string,
-        },
+        } as UserTraits,
       };
     }
 
