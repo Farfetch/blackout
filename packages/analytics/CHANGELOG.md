@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.1...@farfetch/blackout-analytics@1.1.0) (2023-05-23)
+
+### Bug Fixes
+
+- fix UserTraits type in analytics ([37fbbcb](https://github.com/Farfetch/blackout/commit/37fbbcb45e44686c9bb94a23c0cfdb2e42a364e8))
+
+### Features
+
+- **analytics|react:** update order completed analytics event ([b65d7a5](https://github.com/Farfetch/blackout/commit/b65d7a5ad26b962749c4cfecdfcbb4e0fcb6a4b2))
+
 ## [1.0.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.0.0...@farfetch/blackout-analytics@1.0.1) (2023-05-19)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics

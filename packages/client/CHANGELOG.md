@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.1.0...@farfetch/blackout-client@2.2.0) (2023-05-23)
+
+### Features
+
+- **client:** add backorder types to order item ([009cda6](https://github.com/Farfetch/blackout/commit/009cda6a4c0a332d8cfab6a376be57a96798ee13))
+
 # [2.1.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.0.0...@farfetch/blackout-client@2.1.0) (2023-05-19)
 
 ### Features
