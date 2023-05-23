@@ -495,6 +495,10 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventType.OrderCompleted]: data => ({
     tid: 2831,
     ...getCheckoutEventGenericProperties(data),
+    addressFinder: data.properties?.addressFinder,
+    checkoutStep: data.properties?.step,
+    paymentType: data.properties?.paymentType,
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
   }),
   [EventType.Logout]: () => ({
     tid: 431,

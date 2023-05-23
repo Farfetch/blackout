@@ -12,6 +12,12 @@ const fixtures = {
     tax: 2.04,
     coupon: 'ACME2019',
     currency: 'USD',
+    addressFinder: false,
+    step: 5,
+    deliveryType: 'Standard/Standard',
+    packagingType: 'foo',
+    shippingTier: 'Next Day',
+    paymentType: 'credit card',
     products: [
       {
         id: '507f1f77bcf86cd799439011',

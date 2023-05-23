@@ -150,6 +150,7 @@ Object {
     "LOAD_INTEGRATION_TRACK_TYPE": "loadIntegration",
     "ON_SET_USER_TRACK_TYPE": "onSetUser",
     "StorageWrapper": [Function],
+    "getCheckoutOrderIdentificationProperties": [Function],
     "getCheckoutProperties": [Function],
     "getContextDefaults": [Function],
     "getCookie": [Function],

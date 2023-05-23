@@ -572,7 +572,7 @@ const getLoginAndSignupParametersFromEvent = (
  *
  * @returns Properties formatted for the GA4's order completed/refunded ecommerce events.
  */
-const getOrderPurchaseOrRefundParametersFromEvent = (
+const getOrderPurchaseOrRefundGenericParametersFromEvent = (
   eventProperties: EventProperties,
 ) => {
   return {
@@ -581,6 +581,33 @@ const getOrderPurchaseOrRefundParametersFromEvent = (
     affiliation: eventProperties.affiliation,
     shipping: eventProperties.shipping,
     tax: eventProperties.tax,
+  };
+};
+
+/**
+ * Returns the checkout order completed event properties formatted for the GA4 ecommerce events with some custom parameters.
+ *
+ * @see {@link https://developers.google.com/analytics/devguides/collection/ga4/ecommerce#purchases_checkouts_and_refunds}
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Properties formatted for the GA4's order completed/refunded ecommerce events.
+ */
+const getOrderPurchaseParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  const orderInfo =
+    utils.getCheckoutOrderIdentificationProperties(eventProperties);
+
+  return {
+    ...getOrderPurchaseOrRefundGenericParametersFromEvent(eventProperties),
+    address_finder: eventProperties.addressFinder,
+    checkout_step: eventProperties.step,
+    delivery_type: eventProperties.deliveryType,
+    payment_type: eventProperties.paymentType,
+    packaging_type: eventProperties.packagingType,
+    shipping_tier: eventProperties.shippingTier,
+    transaction_id: orderInfo.orderCode,
   };
 };
 
@@ -844,8 +871,11 @@ export function getEventProperties(
       return getViewItemParametersFromEvent(eventProperties);
 
     case EventType.OrderCompleted:
+      return getOrderPurchaseParametersFromEvent(eventProperties);
     case EventType.OrderRefunded:
-      return getOrderPurchaseOrRefundParametersFromEvent(eventProperties);
+      return getOrderPurchaseOrRefundGenericParametersFromEvent(
+        eventProperties,
+      );
 
     case PageType.Search:
       return getSearchParametersFromEvent(eventProperties);
