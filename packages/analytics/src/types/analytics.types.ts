@@ -94,7 +94,7 @@ export type ExtendedTrackTypes =
   | typeof ON_SET_USER_TRACK_TYPE
   | typeof LOAD_INTEGRATION_TRACK_TYPE;
 
-export type UserTraits = Omit<User | UserLegacy, 'id'>;
+export type UserTraits = Omit<User, 'id'> | Omit<UserLegacy, 'id'>;
 
 export type UserData = {
   id: number | null | undefined;
