@@ -1,4 +1,9 @@
-import { ANALYTICS_UNIQUE_EVENT_ID } from '../../utils/constants.js';
+import {
+  ANALYTICS_UNIQUE_EVENT_ID,
+  getCheckoutOrderIdentificationProperties,
+  getProductId,
+  logger,
+} from '../../utils/index.js';
 import {
   type AnalyticsProduct,
   type EventData,
@@ -12,7 +17,6 @@ import {
   DEFAULT_SEARCH_QUERY_PARAMETERS,
 } from './constants.js';
 import { get, pick } from 'lodash-es';
-import { getProductId, logger } from '../../utils/index.js';
 import {
   isPageEventType,
   isScreenEventType,
@@ -522,19 +526,19 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
 export const getCheckoutEventGenericProperties = (
   data: EventData<TrackTypesValues>,
 ) => {
-  const validOrderCode = isNaN(Number(data.properties?.orderId));
+  const orderInfo = getCheckoutOrderIdentificationProperties(data.properties);
 
-  if (!validOrderCode) {
+  if (orderInfo.orderCode === undefined) {
     logger.error(
       `[Omnitracking] - Event ${data.event} property "orderId" should be an alphanumeric value.
-                        If you send the internal "orderId", please use "orderId" (e.g.: 5H5QYB)
+                        If you want to send the internal "orderId", please use "orderId" (e.g.: 5H5QYB)
                         and 'checkoutOrderId' (e.g.:123123123)`,
     );
   }
 
   return {
-    orderCode: data.properties?.orderId,
-    checkoutOrderId: data.properties?.checkoutOrderId,
+    orderCode: orderInfo.orderCode,
+    checkoutOrderId: orderInfo.orderId,
   };
 };
 

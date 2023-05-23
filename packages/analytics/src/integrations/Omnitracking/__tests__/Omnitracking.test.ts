@@ -372,7 +372,7 @@ describe('Omnitracking', () => {
           await omnitracking.track(data);
 
           data = generateTrackMockData({
-            event: EventType.PlaceOrderStarted,
+            event: EventType.Share,
           });
           await omnitracking.track(data);
 
