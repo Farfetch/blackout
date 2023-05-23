@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.60.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.59.0...@farfetch/blackout-react@0.60.0) (2023-05-23)
+
+
+### Features
+
+* **core|react:** update order completed analytics event ([e685eb7](https://github.com/Farfetch/blackout/commit/e685eb7fecc8956615263d6cd8f6ab74aebcffd8))
+
+
+
+
+
 # [0.59.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.58.0...@farfetch/blackout-react@0.59.0) (2023-05-16)
 
 
