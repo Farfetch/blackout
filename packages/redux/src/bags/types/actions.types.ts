@@ -6,6 +6,7 @@ import type {
   BlackoutError,
   Brand,
   Category,
+  JSONValue,
   PatchBagItemData,
   PostBagItemData,
   ProductCategory,
@@ -23,7 +24,7 @@ export type BagItemActionMetadata = {
   coupon?: string;
   position?: number;
   value?: number;
-} & Record<string, unknown>;
+} & Record<string, JSONValue>;
 
 type Payload = NormalizedSchema<
   {

@@ -165,6 +165,7 @@ describe('useBagItem', () => {
           quantity: 2,
           scale: mockSizeScaleId,
           size: 2,
+          metadata,
         },
         undefined,
         metadata,

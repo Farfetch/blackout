@@ -2,6 +2,7 @@ import type {
   BagItemEntity,
   ProductEntityDenormalized,
 } from '../../entities/types/index.js';
+import type { BagItemMetadata } from '@farfetch/blackout-client';
 import type {
   CustomAttributesAdapted,
   SizeAdapted,
@@ -22,6 +23,8 @@ type BuildBagItemParams = {
   quantity?: number;
   // Size information.
   size: SizeAdapted | BagItemEntity['size'];
+  // Metadata information.
+  metadata?: BagItemMetadata;
 };
 
 /**
@@ -39,6 +42,7 @@ const buildBagItem = ({
   productAggregatorId,
   quantity = 1,
   size,
+  metadata,
 }: BuildBagItemParams) => {
   const parsedCustomAttributes =
     !!customAttributes && typeof customAttributes === 'object'
@@ -54,6 +58,7 @@ const buildBagItem = ({
     quantity,
     scale: size.scale,
     size: size.id,
+    metadata,
   };
 };
 

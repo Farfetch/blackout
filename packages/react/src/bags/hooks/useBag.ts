@@ -157,6 +157,7 @@ const useBag = (options: UseBagOptions = {}) => {
           productAggregatorId,
           quantity: quantityToAdd,
           size,
+          metadata,
         });
         // Checks if the item we want to add is already in bag
         // by comparing the bag items' hash
@@ -286,6 +287,7 @@ const useBag = (options: UseBagOptions = {}) => {
             quantity: newQuantity,
             scale: bagItem.size.scale,
             size: bagItem.size.id,
+            metadata,
           },
           undefined,
           metadata,
@@ -366,6 +368,7 @@ const useBag = (options: UseBagOptions = {}) => {
         productId: bagItem.product?.id,
         scale: size.scale,
         size: size.id,
+        metadata,
       };
 
       // Checks if there is a merchant for that new size that is the
@@ -506,6 +509,7 @@ const useBag = (options: UseBagOptions = {}) => {
           quantity: quantityToManage,
           productAggregatorId: bagItem?.productAggregator?.id,
           size,
+          metadata,
         });
 
         if (!didFirstUpdate) {
