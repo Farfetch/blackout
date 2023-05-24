@@ -166,13 +166,15 @@ export default bagItemId => {
    *
    * @param {number} newQuantity - Quantity to update the bag item into.
    * @param {string} [from] - Provenience of action.
+   * @param {object} [meta] - Metadata of action.
    */
-  const handleQuantityChange = (newQuantity, from) => {
+  const handleQuantityChange = (newQuantity, from, meta) => {
     const quantityToHandle = Number(newQuantity);
     // If a bag item quantity is decreased, there's no need to make
     // any further verifications and update the bag item can proceed
     if (quantityToHandle < bagItem.quantity) {
       updateBagItem(bagItem.id, {
+        ...meta,
         merchantId: bagItem.merchant,
         productId: bagItem.product.id,
         quantity: quantityToHandle,
@@ -187,7 +189,7 @@ export default bagItemId => {
 
     const quantityToAdd = quantityToHandle - bagItem.quantity;
 
-    handleAddOrUpdateItem({ quantity: quantityToAdd, from });
+    handleAddOrUpdateItem({ ...meta, quantity: quantityToAdd, from });
   };
 
   /**
@@ -206,8 +208,9 @@ export default bagItemId => {
    *
    * @param {number} newSize - Size to update the bag item into.
    * @param {string} [from] - Provenience of action.
+   * @param {object} [meta] - Metadata of action.
    */
-  const handleSizeChange = async (newSize, from) => {
+  const handleSizeChange = async (newSize, from, meta) => {
     // This extra logic is due to the fact that when changing sizes,
     // the verification to see if the bag item is already in bag
     // will always be false, thus never updating.
@@ -219,6 +222,7 @@ export default bagItemId => {
     let sizeToHandle = size;
 
     const requestData = {
+      ...meta,
       merchantId: bagItem.merchant,
       productId: bagItem.product.id,
       scale: size.scale,
@@ -297,8 +301,9 @@ export default bagItemId => {
    * @param {number} newSizeId - Size to update the bag item into.
    * @param {number} newQty - Quantity to update the bag item into.
    * @param {string} [from] - Provenience of action.
+   * @param {object} [meta] - Metadata of action.
    */
-  const handleFullUpdate = async (newSizeId, newQty, from) => {
+  const handleFullUpdate = async (newSizeId, newQty, from, meta) => {
     // In this case, we really want to update the bagItem,
     // so we force it on the first time.
     let didFirstUpdate = false;
@@ -318,6 +323,7 @@ export default bagItemId => {
 
       // Format the data to send to the request
       const requestData = buildBagItem({
+        ...meta,
         customAttributes: bagItem.customAttributes,
         merchantId,
         product: bagItem.product,

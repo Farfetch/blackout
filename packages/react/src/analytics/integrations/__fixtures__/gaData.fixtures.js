@@ -382,6 +382,8 @@ const validTrackEvents = {
       coupon: 'HARRODS2019',
       shippingTier: 'Next Day',
       currency: 'USD',
+      step: 1,
+      deliveryType: 'Standard/Standard',
     },
   },
 

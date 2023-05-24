@@ -360,6 +360,7 @@ const getCheckoutShippingStepParametersFromEvent = eventProperties => {
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
     transaction_id: eventProperties.orderId,
+    checkout_step: eventProperties.step,
   };
 };
 
@@ -539,7 +540,8 @@ const getOrderPurchaseOrRefundGenericParametersFromEvent = eventProperties => {
  * @returns {object} Properties formatted for the GA4's order completed/refunded ecommerce events.
  */
 const getOrderPurchaseParametersFromEvent = eventProperties => {
-  const orderInfo = utils.getCheckoutOrderGenericProperties(eventProperties);
+  const orderInfo =
+    utils.getCheckoutOrderIdentificationProperties(eventProperties);
 
   return {
     ...getOrderPurchaseOrRefundGenericParametersFromEvent(eventProperties),
