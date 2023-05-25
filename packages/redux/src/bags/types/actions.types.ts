@@ -19,11 +19,11 @@ import type {
 import type { NormalizedSchema } from 'normalizr';
 
 export type BagItemActionMetadata = {
-  from?: string;
-  affiliation?: string;
-  coupon?: string;
-  position?: number;
-  value?: number;
+  from?: string | null;
+  affiliation?: string | null;
+  coupon?: string | null;
+  position?: number | null;
+  value?: number | null;
 } & Record<string, JSONValue>;
 
 type Payload = NormalizedSchema<
