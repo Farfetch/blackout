@@ -1,5 +1,5 @@
 import type { Config, UserGender } from '../../../types/index.js';
-import type { User } from './user.types.js';
+import type { User, UserMetadata } from './user.types.js';
 
 export type PutUserData = {
   name: string;
@@ -13,6 +13,7 @@ export type PutUserData = {
   titleId?: string;
   firstName?: string;
   lastName?: string;
+  metadata?: UserMetadata;
 };
 
 export type PutUser = (
