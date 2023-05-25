@@ -40,7 +40,10 @@ jest.mock('@farfetch/blackout-redux', () => ({
   resetBag: jest.fn(() => () => Promise.resolve()),
 }));
 
-const metadata = { from: 'plp' };
+const internalMetadata = { from: 'plp' };
+const externalMetadata = { date_to_delivery: '2023-05-25' };
+const metadata = { ...internalMetadata, ...externalMetadata };
+
 const myConfig = { headers: { Accept: 'application/vnd.mason+json' } };
 
 describe('useBag', () => {
@@ -228,24 +231,192 @@ describe('useBag', () => {
   });
 
   describe('options', () => {
-    it('should call `fetchBag` action if `enableAutoFetch` option is true', () => {
-      renderHook(() => useBag({ enableAutoFetch: true }), {
-        wrapper: withStore(mockInitialStateWithoutBagId),
+    describe('enableAutoFetch', () => {
+      it('should call `fetchBag` action if `enableAutoFetch` option is true', () => {
+        renderHook(() => useBag({ enableAutoFetch: true }), {
+          wrapper: withStore(mockInitialStateWithoutBagId),
+        });
+
+        expect(fetchBag).toHaveBeenCalledWith(
+          mockInitialStateWithoutBagId.entities.user.bagId,
+          undefined,
+          undefined,
+        );
       });
 
-      expect(fetchBag).toHaveBeenCalledWith(
-        mockInitialStateWithoutBagId.entities.user.bagId,
-        undefined,
-        undefined,
-      );
+      it('should not call `fetchBag` action if `enableAutoFetch` option is false', () => {
+        renderHook(() => useBag(), {
+          wrapper: withStore(mockInitialStateWithoutBagId),
+        });
+
+        expect(fetchBag).not.toHaveBeenCalled();
+      });
     });
 
-    it('should not call `fetchBag` action if `enableAutoFetch` option is false', () => {
-      renderHook(() => useBag(), {
-        wrapper: withStore(mockInitialStateWithoutBagId),
+    describe('internalMetadataList', () => {
+      it('should filter the default internal metadata properties when not specified', async () => {
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(() => useBag(), {
+          wrapper: withStore(mockState),
+        });
+
+        const metadata = {
+          from: 'plp',
+          affiliation: 'dummy affiliation',
+          coupon: 'SPRING360',
+          position: 1,
+          value: 10,
+          date_to_delivery: '2023-05-25',
+          another_metadata_prop: 'dummy value',
+        };
+
+        await addItem(
+          mockProductId,
+          { quantity: 1, sizeId: 1 },
+          metadata,
+          myConfig,
+        );
+
+        expect(addBagItem).toHaveBeenCalledWith(
+          mockState.entities.user.bagId,
+          {
+            authCode: undefined,
+            customAttributes: '',
+            merchantId: mockMerchantId,
+            productAggregatorId: undefined,
+            productId: mockProductId,
+            quantity: 1,
+            scale: mockSizeScaleId,
+            size: 1,
+            metadata: {
+              date_to_delivery: '2023-05-25',
+              another_metadata_prop: 'dummy value',
+            },
+          },
+          undefined,
+          metadata,
+          myConfig,
+        );
       });
 
-      expect(fetchBag).not.toHaveBeenCalled();
+      it('should override the default internal metadata properties when specified', async () => {
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(
+          () =>
+            useBag({
+              internalMetadataList: [
+                'from',
+                'affiliation',
+                'coupon',
+                'position',
+              ],
+            }),
+          {
+            wrapper: withStore(mockState),
+          },
+        );
+
+        const metadata = {
+          from: 'plp',
+          affiliation: 'dummy affiliation',
+          coupon: 'SPRING360',
+          position: 1,
+          value: 10,
+          date_to_delivery: '2023-05-25',
+          another_metadata_prop: 'dummy value',
+        };
+
+        await addItem(
+          mockProductId,
+          { quantity: 1, sizeId: 1 },
+          metadata,
+          myConfig,
+        );
+
+        expect(addBagItem).toHaveBeenCalledWith(
+          mockState.entities.user.bagId,
+          {
+            authCode: undefined,
+            customAttributes: '',
+            merchantId: mockMerchantId,
+            productAggregatorId: undefined,
+            productId: mockProductId,
+            quantity: 1,
+            scale: mockSizeScaleId,
+            size: 1,
+            metadata: {
+              value: 10,
+              date_to_delivery: '2023-05-25',
+              another_metadata_prop: 'dummy value',
+            },
+          },
+          undefined,
+          metadata,
+          myConfig,
+        );
+      });
+
+      it('should not send metadata in the request if there are no metadata properties to send after filtering the internal ones', async () => {
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(
+          () =>
+            useBag({
+              internalMetadataList: [
+                'from',
+                'affiliation',
+                'coupon',
+                'position',
+              ],
+            }),
+          {
+            wrapper: withStore(mockState),
+          },
+        );
+
+        const metadata = {
+          from: 'plp',
+        };
+
+        await addItem(
+          mockProductId,
+          { quantity: 1, sizeId: 1 },
+          metadata,
+          myConfig,
+        );
+
+        expect(addBagItem).toHaveBeenCalledWith(
+          mockState.entities.user.bagId,
+          {
+            authCode: undefined,
+            customAttributes: '',
+            merchantId: mockMerchantId,
+            productAggregatorId: undefined,
+            productId: mockProductId,
+            quantity: 1,
+            scale: mockSizeScaleId,
+            size: 1,
+            metadata: undefined,
+          },
+          undefined,
+          metadata,
+          myConfig,
+        );
+      });
     });
   });
 
@@ -280,7 +451,7 @@ describe('useBag', () => {
             quantity: 1,
             scale: mockSizeScaleId,
             size: 1,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -320,7 +491,7 @@ describe('useBag', () => {
             scale: mockSizeScaleId,
             size: 23,
             productAggregatorId: undefined,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -492,7 +663,7 @@ describe('useBag', () => {
             quantity: 1,
             scale: mockSizeScaleId,
             size: 23,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -526,7 +697,7 @@ describe('useBag', () => {
             quantity: 6,
             scale: mockSizeScaleId,
             size: 23,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -558,7 +729,7 @@ describe('useBag', () => {
             quantity: 5,
             scale: mockSizeScaleId,
             size: 4,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -590,7 +761,7 @@ describe('useBag', () => {
             quantity: 2,
             scale: mockSizeScaleId,
             size: 2,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -607,7 +778,7 @@ describe('useBag', () => {
             quantity: 3,
             scale: mockSizeScaleId,
             size: 2,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -638,7 +809,7 @@ describe('useBag', () => {
             quantity: 2,
             scale: mockSizeScaleId,
             size: 2,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -658,7 +829,7 @@ describe('useBag', () => {
             quantity: 3,
             scale: mockSizeScaleId,
             size: 2,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -697,7 +868,7 @@ describe('useBag', () => {
             quantity: 2,
             scale: mockSizeScaleId,
             size: 2,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,
@@ -738,7 +909,7 @@ describe('useBag', () => {
             quantity: 5,
             scale: mockSizeScaleId,
             size: 24,
-            metadata,
+            metadata: externalMetadata,
           },
           undefined,
           metadata,

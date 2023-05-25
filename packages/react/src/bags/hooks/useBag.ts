@@ -29,6 +29,7 @@ import {
   ProductError,
   SizeError,
 } from './errors/index.js';
+import { omit } from 'lodash-es';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
@@ -65,14 +66,67 @@ type HandleAddOrUpdateItem = (
   config?: Config,
 ) => Promise<void>;
 
+const DEFAULT_INTERNAL_METADATA_LIST = [
+  'from',
+  'affiliation',
+  'coupon',
+  'position',
+  'value',
+];
+
+/**
+ * Filters internal metadata properties that should not be sent in
+ * the request.
+ *
+ * @param allMetadata - metadata to filter.
+ * @param internalMetadataList - the list containing the fields that are considered internal metadata.
+ *
+ * @returns Metadata object containing only properties that are not in `internalMetadataList` parameter or undefined if there are no properties after filtering.
+ */
+const filterInternalMetadata = (
+  allMetadata: BagItemActionMetadata | undefined,
+  internalMetadataList: string[],
+) => {
+  if (!allMetadata) {
+    return undefined;
+  }
+
+  const metadataExternalParameters = omit(allMetadata, internalMetadataList);
+
+  if (Object.keys(metadataExternalParameters).length === 0) {
+    return undefined;
+  }
+
+  return metadataExternalParameters;
+};
+
 /**
  * Provides Redux actions and state access, as well as handlers for dealing with
  * bag business logic. It will fetch bag data from the current user's bag.
+ * A note of attention regarding sending metadata: The hook distinguishes between
+ * 2 types of metadata: bag item metadata and bag action metadata. Bag item metadata
+ * can be sent to the add/update endpoints to set specific bag item metadata and bag
+ * action metadata are used to add context to the action that was performed and can be
+ * used by redux middlewares like analytics to enhance tracking of bag events and this
+ * metadata cannot be sent to the endpoints. Since the hook already have a specific metadata
+ * parameter in its actions, to avoid a breaking change the same parameter is used to specify
+ * both kinds of metadata values but an additional option `internalMetadataList` was added
+ * to filter out the metadata properties that should not be sent to the bag endpoints.
+ * By default it is set to the currently used bag action metadata: 'from', 'affiliation',
+ * 'coupon', 'value' and 'position'. If you need to add more internal metadata parameters
+ * or have an internal metadata parameter be sent to the bag endpoints, pass an appropriate
+ * `internalMetadataList` to have the correct set of metadata parameters being sent in the
+ * appropriate cases.
  *
  * @returns All the handlers, state, actions and relevant data needed to manage any bag operation.
  */
 const useBag = (options: UseBagOptions = {}) => {
-  const { enableAutoFetch = false, fetchQuery, fetchConfig } = options;
+  const {
+    enableAutoFetch = false,
+    fetchQuery,
+    fetchConfig,
+    internalMetadataList = DEFAULT_INTERNAL_METADATA_LIST,
+  } = options;
   const { getState } = useStore<StoreState>();
   // Selectors
   const bag = useSelector(getBag);
@@ -140,6 +194,11 @@ const useBag = (options: UseBagOptions = {}) => {
 
       const itemsRefreshed = getBagItems(getState());
 
+      const metadataWithoutInternalParameters = filterInternalMetadata(
+        metadata,
+        internalMetadataList,
+      );
+
       // Iterate through the stock of different merchants
       for (const { merchantId, quantity: merchantQuantity } of size.stock) {
         // If there is no quantity on this merchant jump to the next one
@@ -157,7 +216,10 @@ const useBag = (options: UseBagOptions = {}) => {
           productAggregatorId,
           quantity: quantityToAdd,
           size,
-          metadata,
+          // The bag item for the request should contain only the metadata fields that are
+          // considered external. Internal metadata that is used exclusively
+          // by analytics should not be sent.
+          metadata: metadataWithoutInternalParameters,
         });
         // Checks if the item we want to add is already in bag
         // by comparing the bag items' hash
@@ -213,7 +275,7 @@ const useBag = (options: UseBagOptions = {}) => {
         return Promise.reject(new AddUpdateItemBagError(3));
       }
     },
-    [addBagItem, getState, updateBagItem, userBagId],
+    [addBagItem, getState, internalMetadataList, updateBagItem, userBagId],
   );
 
   const addItem = useCallback(
@@ -277,6 +339,11 @@ const useBag = (options: UseBagOptions = {}) => {
         return Promise.reject(new ProductError());
       }
 
+      const metadataWithoutInternalParameters = filterInternalMetadata(
+        metadata,
+        internalMetadataList,
+      );
+
       if (quantityDelta < 0) {
         return updateBagItem(
           userBagId,
@@ -287,7 +354,10 @@ const useBag = (options: UseBagOptions = {}) => {
             quantity: newQuantity,
             scale: bagItem.size.scale,
             size: bagItem.size.id,
-            metadata,
+            // The bag item for the request should contain only the metadata fields that are
+            // considered external. Internal metadata that is used exclusively
+            // by analytics should not be sent.
+            metadata: metadataWithoutInternalParameters,
           },
           undefined,
           metadata,
@@ -315,7 +385,7 @@ const useBag = (options: UseBagOptions = {}) => {
         config,
       );
     },
-    [handleAddOrUpdateItem, updateBagItem, userBagId],
+    [handleAddOrUpdateItem, internalMetadataList, updateBagItem, userBagId],
   );
 
   /**
@@ -363,12 +433,20 @@ const useBag = (options: UseBagOptions = {}) => {
       let quantityToHandle = bagItem.quantity;
       let sizeToHandle = size;
 
+      const metadataWithoutInternalParameters = filterInternalMetadata(
+        metadata,
+        internalMetadataList,
+      );
+
       const requestData = {
         merchantId: bagItem.merchant,
         productId: bagItem.product?.id,
         scale: size.scale,
         size: size.id,
-        metadata,
+        // The bag item for the request should contain only the metadata fields that are
+        // considered external. Internal metadata that is used exclusively
+        // by analytics should not be sent.
+        metadata: metadataWithoutInternalParameters,
       };
 
       // Checks if there is a merchant for that new size that is the
@@ -439,7 +517,13 @@ const useBag = (options: UseBagOptions = {}) => {
         );
       }
     },
-    [handleAddOrUpdateItem, removeBagItem, updateBagItem, userBagId],
+    [
+      handleAddOrUpdateItem,
+      internalMetadataList,
+      removeBagItem,
+      updateBagItem,
+      userBagId,
+    ],
   );
 
   /**
@@ -490,6 +574,11 @@ const useBag = (options: UseBagOptions = {}) => {
 
       let updatedBag: Bag | undefined;
 
+      const metadataWithoutInternalParameters = filterInternalMetadata(
+        metadata,
+        internalMetadataList,
+      );
+
       // Iterate through the stock of the different merchants
       for (const { merchantId, quantity: merchantQuantity } of size.stock) {
         // If there is no quantity on this merchant jump to the next one
@@ -509,7 +598,10 @@ const useBag = (options: UseBagOptions = {}) => {
           quantity: quantityToManage,
           productAggregatorId: bagItem?.productAggregator?.id,
           size,
-          metadata,
+          // The bag item for the request should contain only the metadata fields that are
+          // considered external. Internal metadata that is used exclusively
+          // by analytics should not be sent.
+          metadata: metadataWithoutInternalParameters,
         });
 
         if (!didFirstUpdate) {
@@ -555,7 +647,7 @@ const useBag = (options: UseBagOptions = {}) => {
 
       return updatedBag;
     },
-    [addBagItem, fetchConfig, updateBagItem, userBagId],
+    [addBagItem, fetchConfig, internalMetadataList, updateBagItem, userBagId],
   );
 
   const updateItem = useCallback(
