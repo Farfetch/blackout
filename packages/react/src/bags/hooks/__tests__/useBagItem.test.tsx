@@ -148,7 +148,9 @@ describe('useBagItem', () => {
         wrapper: withStore(mockState),
       });
 
-      const metadata = { from: 'bag' };
+      const internalMetadata = { from: 'bag' };
+      const externalMetadata = { date_to_delivery: '2023-05-25' };
+      const metadata = { ...internalMetadata, ...externalMetadata };
 
       await update({ sizeId: 2, quantity: 2 }, metadata, myConfig);
 
@@ -165,7 +167,7 @@ describe('useBagItem', () => {
           quantity: 2,
           scale: mockSizeScaleId,
           size: 2,
-          metadata,
+          metadata: externalMetadata,
         },
         undefined,
         metadata,

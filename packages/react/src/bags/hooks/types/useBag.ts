@@ -4,4 +4,5 @@ export type UseBagOptions = {
   enableAutoFetch?: boolean;
   fetchQuery?: GetBagQuery;
   fetchConfig?: Config;
+  internalMetadataList?: string[];
 };
