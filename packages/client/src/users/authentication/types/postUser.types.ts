@@ -1,5 +1,5 @@
 import type { Config } from '../../../types/index.js';
-import type { User } from './user.types.js';
+import type { User, UserMetadata } from './user.types.js';
 
 export type PostUserData = {
   countryCode: string;
@@ -12,6 +12,7 @@ export type PostUserData = {
   firstName?: string;
   lastName?: string;
   receiveNewsletters?: boolean;
+  metadata?: UserMetadata;
 };
 
 export type PostUser = (data: PostUserData, config?: Config) => Promise<User>;
