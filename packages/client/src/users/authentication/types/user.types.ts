@@ -1,6 +1,10 @@
 import type { GuestUser } from './guestUser.types.js';
 import type { UserGender } from '../../../types/index.js';
 
+// This type cannot be based on the `Metadata` type
+// as its values are string only.
+export type UserMetadata = Record<string, string>;
+
 export type User = Omit<GuestUser, 'isGuest'> & {
   dateOfBirth?: string;
   email?: string;
@@ -22,4 +26,5 @@ export type User = Omit<GuestUser, 'isGuest'> & {
   personalShopperId?: number;
   createdDate?: string;
   updatedDate?: string;
+  metadata?: UserMetadata;
 };
