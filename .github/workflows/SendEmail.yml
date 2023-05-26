@@ -21,7 +21,7 @@ jobs:
           # Required password
           password: ${{ secrets.EMAIL_ACCOUNT_PASSWORD }}
           # Required mail subject. Will be the release name.
-          subject: ${{ github.event.release.name }}
+          subject: Release ${{ github.event.release.name }}
           # Required recipients' addresses:
           to: ${{ secrets.EMAIL_RECIPIENTS }}
           # Required sender full name (address can be skipped):
