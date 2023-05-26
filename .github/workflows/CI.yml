@@ -97,6 +97,7 @@ jobs:
           PUBLISH_COMMIT_MESSAGE: 'chore: publish [skip build]'
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}
           GIT_AUTHOR_EMAIL: ${{ secrets.RELEASE_BOT_GIT_EMAIL }}
           GIT_COMMITTER_NAME: ${{ secrets.RELEASE_BOT_GIT_NAME }}

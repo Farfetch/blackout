@@ -1,7 +1,5 @@
 #!/bin/bash
 
-git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.git"
-
 CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 CONTENTS="--contents dist"
 
@@ -16,6 +14,9 @@ if [[ ${CURRENT_BRANCH_NAME} = main || ${CURRENT_BRANCH_NAME} = next ]]; then
     if [[ ${CURRENT_BRANCH_NAME} = main ]]; then
         # Set conventional-graduate flag so prereleases are bumped correctly
         CONVENTIONAL_GRADUATE="--conventional-graduate"
+
+        # Set create release parameter
+        CREATE_RELEASE="--create-release github"
 
         # If the current branch is main, we need to check if the commit
         # came from next branch. If it did not, then we will not allow
@@ -51,7 +52,7 @@ if [[ ${CURRENT_BRANCH_NAME} = main || ${CURRENT_BRANCH_NAME} = next ]]; then
     # transform which will replace any imports to `version` from `package.json` 
     # with the literal version obtained from the `package.json` so to
     # avoid setting the wrong version, the packages __MUST__ be built only after this step.
-    npx lerna version --conventional-commits --yes --message "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE} ${FORCE_MAJOR_BUMPS_INTO_MINOR} ${CONVENTIONAL_GRADUATE} --loglevel=silly
+    npx lerna version --conventional-commits --yes --message "${PUBLISH_COMMIT_MESSAGE}" ${PRE_ID} ${CONVENTIONAL_PRERELEASE} ${FORCE_MAJOR_BUMPS_INTO_MINOR} ${CONVENTIONAL_GRADUATE} ${CREATE_RELEASE} --loglevel=silly
 
     yarn build
 
