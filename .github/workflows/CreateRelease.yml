@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_BOT_GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: ${{ github.ref }}
           body: ${{ steps.extract_release_notes.outputs.release_notes }}
           draft: false
           prerelease: false
