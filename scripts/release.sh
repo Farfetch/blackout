@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Need to set the origin url with the GITHUB_TOKEN variable so lerna can push
+# the commit with the new version.
+git remote set-url origin "https://${GITHUB_TOKEN}@github.com/Farfetch/blackout.git"
+
 CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 CONTENTS="--contents dist"
 
