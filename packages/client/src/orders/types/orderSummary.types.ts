@@ -4,6 +4,7 @@ export type OrderSummaries = PagedResponse<OrderSummary>;
 
 export enum OrderTag {
   PreOrder = 'PreOrder',
+  ExchangeOrder = 'ExchangeOrder',
 }
 
 export enum OrderStatus {
@@ -24,6 +25,13 @@ export enum OrderStatus {
   ReturnAcceptedAndRefunded = 'Return Accepted and Refunded',
 }
 
+export enum FpsOrderType {
+  Farfetch = 'Farfetch',
+  HistoricalOffline = 'HistoricalOffline',
+  HistoricalOnline = 'HistoricalOnline',
+  Offline = 'Offline',
+}
+
 export type OrderSummary = {
   id: string;
   userId: number;
@@ -39,4 +47,5 @@ export type OrderSummary = {
   maxReturnDate?: string;
   tags: OrderTag[];
   merchantOrderCode: string;
+  fpsOrderType: FpsOrderType;
 };
