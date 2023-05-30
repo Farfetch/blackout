@@ -1,6 +1,6 @@
 {
   "name": "@farfetch/blackout-client",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Clients to connect to the Farfetch Platform Solutions' services",
   "license": "MIT",
   "main": "src/index.ts",
