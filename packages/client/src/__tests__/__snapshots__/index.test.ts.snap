@@ -325,6 +325,12 @@ Object {
     "StockPoints": 26,
     "Styles": 1,
   },
+  "FpsOrderType": Object {
+    "Farfetch": "Farfetch",
+    "HistoricalOffline": "HistoricalOffline",
+    "HistoricalOnline": "HistoricalOnline",
+    "Offline": "Offline",
+  },
   "Gender": Object {
     "Kid": "Kid",
     "Man": "Man",
@@ -505,6 +511,7 @@ Object {
     "ShippingOptionsError": 2,
   },
   "OrderTag": Object {
+    "ExchangeOrder": "ExchangeOrder",
     "PreOrder": "PreOrder",
   },
   "PayerAddressType": Object {
