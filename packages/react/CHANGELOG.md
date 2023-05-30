@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.1.0...@farfetch/blackout-react@1.1.1) (2023-05-30)
+
+### Bug Fixes
+
+- send metadata to bag endpoints in useBag hook ([3bbc65c](https://github.com/Farfetch/blackout/commit/3bbc65c555b8718ba75e9f4c893f7d4519c33f57))
+- separate internal metadata parameters from external in useBag ([e9f8b59](https://github.com/Farfetch/blackout/commit/e9f8b597d9c5ddf20219e22f13a927a918ee4ab4))
+
 # [1.1.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.0.1...@farfetch/blackout-react@1.1.0) (2023-05-23)
 
 ### Features

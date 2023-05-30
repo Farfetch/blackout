@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.1.1...@farfetch/blackout-redux@1.1.2) (2023-05-30)
+
+### Bug Fixes
+
+- send metadata to bag endpoints in useBag hook ([3bbc65c](https://github.com/Farfetch/blackout/commit/3bbc65c555b8718ba75e9f4c893f7d4519c33f57))
+
 ## [1.1.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.1.0...@farfetch/blackout-redux@1.1.1) (2023-05-23)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
