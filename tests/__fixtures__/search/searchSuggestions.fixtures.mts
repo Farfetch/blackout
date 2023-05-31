@@ -1,5 +1,8 @@
 import { GenderCode, toBlackoutError } from '@farfetch/blackout-client';
-import { mockDidYouMean, mockIntents } from 'tests/__fixtures__/search/index.mjs';
+import {
+  mockDidYouMean,
+  mockIntents,
+} from 'tests/__fixtures__/search/index.mjs';
 
 export const mockSearchSuggestionsHash = 'dresses!0!true';
 

@@ -19,10 +19,10 @@ export type CheckoutOrderItem = {
   checkoutOrderId: number;
   colors: Color[];
   creationChannel: OrderItemCreationChannelLegacy;
-  customAttributes: string;
-  fulfillmentInfo: {
-    isPreOrder: boolean;
-    fulfillmentDate: string;
+  customAttributes?: string;
+  fulfillmentInfo?: {
+    isPreOrder?: boolean;
+    fulfillmentDate?: string;
   };
   gift?: {
     to: string;
@@ -39,7 +39,7 @@ export type CheckoutOrderItem = {
   productAggregator: {
     id?: number;
     images: ProductImageGroup;
-    bundleSlug: string;
+    bundleSlug?: string;
   };
   productId: Product['result']['id'];
   productName: string;
@@ -59,7 +59,11 @@ export type CheckoutOrderItem = {
   status: CheckoutOrderItemStatus;
   tags: string[];
   variantId: string;
-  variants: ProductVariant[];
+  variants: Array<
+    Omit<ProductVariant, 'price'> & {
+      price: Omit<ProductVariant['price'], 'taxType'>;
+    }
+  >;
   summary: {
     formattedGrandTotal: string;
     formattedSubTotalAmount: string;

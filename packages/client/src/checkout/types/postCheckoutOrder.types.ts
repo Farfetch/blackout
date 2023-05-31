@@ -1,10 +1,9 @@
 import type { Bag } from '../../bags/index.js';
 import type { Config } from '../../types/index.js';
 import type { GetCheckoutOrderResponse, ShippingMode } from './index.js';
-import type { Metadata } from '../../types/common/metadata.types.js';
 import type { Product } from '../../products/types/index.js';
 
-export type PostCheckoutOrderMetadata = Metadata;
+export type PostCheckoutOrderMetadata = Record<string, string>;
 
 export type PostCheckoutOrderData = {
   guestUserEmail?: string;
@@ -12,15 +11,17 @@ export type PostCheckoutOrderData = {
   metadata?: PostCheckoutOrderMetadata;
 };
 
+export type PostCheckoutOrderItem = {
+  productId: Product['result']['id'];
+  merchantId: number;
+  variantId: string;
+  quantity: number;
+  customAttributes: string;
+  productAggregatorId: number;
+};
+
 export type PostCheckoutOrderDataWithItems = PostCheckoutOrderData & {
-  items: {
-    productId: Product['result']['id'];
-    merchantId: number;
-    variantId: string;
-    quantity: number;
-    customAttributes: string;
-    productAggregatorId: number;
-  }[];
+  items: PostCheckoutOrderItem[];
 };
 
 export type PostCheckoutOrderDataWithBag = PostCheckoutOrderData & {
