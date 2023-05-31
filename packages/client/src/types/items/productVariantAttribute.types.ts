@@ -10,4 +10,5 @@ export enum ProductVariantAttributeType {
   Scale,
   ScaleDescription,
   ScaleAbbreviation,
+  SizeOrder,
 }

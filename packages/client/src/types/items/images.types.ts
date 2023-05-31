@@ -18,9 +18,9 @@ export type LiveModel = {
 export type ProductImageGroup = {
   images: Image[];
   liveModelId: number | null;
-  liveModel: LiveModel | null;
-  productSize: string | null;
-  tag: string | null;
+  liveModel?: LiveModel | null;
+  productSize?: string | null;
+  tag?: string | null;
 };
 
 export type ImageGroup = {

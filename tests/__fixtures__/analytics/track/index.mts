@@ -4,11 +4,13 @@ import {
   type TrackType,
 } from '@farfetch/blackout-analytics';
 import addressInfoAddedTrackData from './addressInfoAddedTrackData.fixtures.mjs';
+import billingInfoAddedTrackData from './billingInfoAddedTrackData.fixtures.mjs';
 import checkoutAbandonedTrackData from './checkoutAbandonedTrackData.fixtures.mjs';
 import checkoutStartedTrackData from './checkoutStartedTrackData.fixtures.mjs';
 import checkoutStepCompletedTrackData from './checkoutStepCompletedTrackData.fixtures.mjs';
 import checkoutStepEditingTrackData from './checkoutStepEditingTrackData.fixtures.mjs';
 import checkoutStepViewedTrackData from './checkoutStepViewedTrackData.fixtures.mjs';
+import deliveryMethodAddedTrackData from './deliveryMethodAddedTrackData.fixtures.mjs';
 import filtersAppliedTrackData from './filtersAppliedTrackData.fixtures.mjs';
 import filtersClearedTrackData from './filtersClearedTrackData.fixtures.mjs';
 import interactContentTrackData from './interactContentTrackData.fixtures.mjs';
@@ -36,8 +38,6 @@ import shippingMethodAddedTrackData from './shippingMethodAddedTrackData.fixture
 import signupFormCompletedTrackData from './signupFormCompletedTrackData.fixtures.mjs';
 import signupFormViewedTrackData from './signupFormViewedTrackData.fixtures.mjs';
 import signupNewsletterTrackData from './signupNewsletterTrackData.fixtures.mjs';
-import deliveryMethodAddedTrackData from './deliveryMethodAddedTrackData.fixtures.mjs';
-import billingInfoAddedTrackData from './billingInfoAddedTrackData.fixtures.mjs';
 
 export type TrackFixtures = {
   [eventType in EventType]: EventData<TrackType> & {
@@ -69,8 +69,7 @@ const allFixtures: TrackFixtures = {
   [EventType.ProductClicked]: productClickedTrackData,
   [EventType.ProductListViewed]: productListViewedTrackData,
   [EventType.ProductRemovedFromCart]: productRemovedFromCartTrackData,
-  [EventType.ProductRemovedFromWishlist]:
-    productRemovedFromWishlistTrackData,
+  [EventType.ProductRemovedFromWishlist]: productRemovedFromWishlistTrackData,
   [EventType.ProductUpdated]: productUpdatedTrackData,
   [EventType.ProductUpdatedWishlist]: productUpdatedWishlistTrackData,
   [EventType.ProductViewed]: productViewedTrackData,

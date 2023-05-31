@@ -1,16 +1,16 @@
 import * as checkoutClient from '../index.js';
 import { ChargeDeclineCode, ChargeStatus } from '../../payments/types/index.js';
-import { id } from 'tests/__fixtures__/checkout/index.mjs';
+import { mockCheckoutSessionId } from 'tests/__fixtures__/checkout/index.mjs';
 import client from '../../helpers/client/index.js';
-import fixtures from '../__fixtures__/postCheckoutOrderCharge.fixtures.js';
+import fixtures from '../__fixtures__/postCheckoutSessionCharge.fixtures.js';
 import mswServer from '../../../tests/mswServer.js';
 import type {
-  CheckoutOrderCharge,
-  PostCheckoutOrderChargeData,
+  CheckoutSessionCharge,
+  PostCheckoutSessionChargeData,
 } from '../types/index.js';
 
 describe('checkout client', () => {
-  const data: PostCheckoutOrderChargeData = {
+  const data: PostCheckoutSessionChargeData = {
     returnUrl: 'string',
     cancelUrl: 'string',
   };
@@ -18,12 +18,12 @@ describe('checkout client', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('postCheckoutOrderCharge', () => {
+  describe('postCheckoutSessionCharge', () => {
     const spy = jest.spyOn(client, 'post');
-    const urlToBeCalled = `/checkout/v1/orders/${id}/charges`;
+    const urlToBeCalled = `/checkout/v1/checkoutSessions/${mockCheckoutSessionId}/charges`;
 
     it('should handle a client request successfully', async () => {
-      const response: CheckoutOrderCharge = {
+      const response: CheckoutSessionCharge = {
         id: '00000000-0000-0000-0000-000000000000',
         status: ChargeStatus.Processing,
         redirectUrl: 'string',
@@ -41,7 +41,7 @@ describe('checkout client', () => {
       mswServer.use(fixtures.success(response));
 
       await expect(
-        checkoutClient.postCheckoutOrderCharge(id, data),
+        checkoutClient.postCheckoutSessionCharge(mockCheckoutSessionId, data),
       ).resolves.toStrictEqual(response);
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
@@ -50,7 +50,7 @@ describe('checkout client', () => {
       mswServer.use(fixtures.failure());
 
       await expect(
-        checkoutClient.postCheckoutOrderCharge(id, data),
+        checkoutClient.postCheckoutSessionCharge(mockCheckoutSessionId, data),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });

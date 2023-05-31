@@ -187,7 +187,6 @@ describe('checkout client', () => {
                     formattedPriceWithoutDiscount: 'string',
                     formattedPriceWithoutCurrency: 'string',
                     formattedPriceWithoutDiscountAndCurrency: 'string',
-                    taxType: 'string',
                   },
                   formattedPrice: 'string',
                   formattedPriceWithoutDiscount: 'string',

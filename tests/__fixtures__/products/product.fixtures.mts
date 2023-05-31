@@ -1,6 +1,6 @@
-import { ProductVariantAttributeType } from '@farfetch/blackout-client';
 import { mockBreadCrumbs } from './products.fixtures.mjs';
 import { mockProductSizes } from './productSizes.fixtures.mjs';
+import { ProductVariantAttributeType } from '@farfetch/blackout-client';
 
 export const imageGroup = [
   {
