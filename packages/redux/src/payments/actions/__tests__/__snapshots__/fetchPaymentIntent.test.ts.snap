@@ -3,25 +3,35 @@
 exports[`fetchPaymentIntent() action creator should create the correct actions when the fetch payment intent procedure is successful: fetch payment intent success payload 1`] = `
 Object {
   "payload": Object {
+    "amount": Object {
+      "items": 1,
+      "paid": 0,
+      "remaining": 0,
+      "shipping": 1,
+      "total": 1,
+    },
+    "clientId": "string",
     "currency": "string",
     "dateCreated": "2020-08-12T14:03:28.538Z",
+    "dueDate": "2020-08-12T14:03:28.538Z",
     "fingerprint": "string",
-    "formattedTotalShippingFee": "string",
     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "lineItems": Array [
       Object {
         "classification": 0,
         "description": "string",
-        "formattedTotalExtraTaxes": "string",
-        "formattedUnitValue": "string",
         "id": "string",
-        "productId": "string",
+        "metadata": Object {
+          "productId": "string",
+        },
         "quantity": 0,
-        "totalExtraTaxes": 0,
+        "totalDiscount": 0,
+        "totalTaxes": 0,
+        "totalValue": 1,
         "type": 0,
-        "unitValue": 0,
       },
     ],
+    "locale": "string",
     "receiver": Object {
       "address": Object {
         "addressLine1": "string",
@@ -88,9 +98,6 @@ Object {
     },
     "reference": "string",
     "status": "Created",
-    "totalShippingFee": 0,
-    "totalValue": 0,
-    "totalValueFormattedPrice": "string",
   },
   "type": "@farfetch/blackout-redux/FETCH_PAYMENT_INTENT_SUCCESS",
 }
