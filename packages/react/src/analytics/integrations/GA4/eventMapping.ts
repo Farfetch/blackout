@@ -395,6 +395,7 @@ const getCheckoutShippingStepParametersFromEvent = (
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
     transaction_id: eventProperties.orderId,
+    checkout_step: eventProperties.step,
   };
 };
 
