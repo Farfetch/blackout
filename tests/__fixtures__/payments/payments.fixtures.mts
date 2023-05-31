@@ -161,28 +161,34 @@ export const mockFetchInstrumentNormalizedPayload = {
 export const mockFetchIntentResponse = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
   reference: 'string',
+  amount: {
+    total: 1,
+    items: 1,
+    shipping: 1,
+    paid: 0,
+    remaining: 0,
+  },
+  clientId: 'string',
   currency: 'string',
   dateCreated: '2020-08-12T14:03:28.538Z',
-  totalValue: 0,
-  totalValueFormattedPrice: 'string',
-  fingerprint: 'string',
+  dueDate: '2020-08-12T14:03:28.538Z',
   status: PaymentIntentStatus.Created,
-  totalShippingFee: 0,
-  formattedTotalShippingFee: 'string',
   lineItems: [
     {
       id: 'string',
-      productId: 'string',
       classification: PaymentIntentLineItemClassification.Standard,
-      unitValue: 0,
-      formattedUnitValue: 'string',
       type: PaymentIntentLineItemType.Item,
+      totalValue: 1,
+      totalDiscount: 0,
+      totalTaxes: 0,
       quantity: 0,
-      totalExtraTaxes: 0,
-      formattedTotalExtraTaxes: 'string',
       description: 'string',
+      metadata: {
+        productId: 'string',
+      },
     },
   ],
+  locale: 'string',
   receiver: {
     id: 'string',
     firstName: 'string',
@@ -247,6 +253,7 @@ export const mockFetchIntentResponse = {
       isDefaultShippingAddress: true,
     },
   },
+  fingerprint: 'string',
 };
 export const mockFetchPaymentMethodsResponse = {
   customerAccounts: [

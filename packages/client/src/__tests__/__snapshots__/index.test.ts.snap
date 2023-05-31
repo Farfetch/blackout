@@ -520,6 +520,14 @@ Object {
     "ExchangeOrder": "ExchangeOrder",
     "PreOrder": "PreOrder",
   },
+  "PayByLinkChannel": Object {
+    "Email": "Email",
+    "None": "None",
+  },
+  "PayByLinkContext": Object {
+    "OrderOnCustomerBehalf": "OrderOnCustomerBehalf",
+    "ReAttempt": "ReAttempt",
+  },
   "PayerAddressType": Object {
     "0": "Provided",
     "1": "CheckoutOrderBillingAddress",

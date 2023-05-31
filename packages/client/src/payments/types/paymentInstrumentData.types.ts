@@ -1,3 +1,13 @@
+export enum PayByLinkChannel {
+  None = 'None',
+  Email = 'Email',
+}
+
+export enum PayByLinkContext {
+  OrderOnCustomerBehalf = 'OrderOnCustomerBehalf',
+  ReAttempt = 'ReAttempt',
+}
+
 export type PaymentInstrumentData = {
   cardHolderName?: string;
   cardFirstDigits?: string;
@@ -7,4 +17,9 @@ export type PaymentInstrumentData = {
   giftCardLastDigits?: string;
   creditUserId?: string;
   issuer?: string;
+  payByLinkChannel?: PayByLinkChannel;
+  payByLinkRecipient?: string;
+  payByLinkDueDate?: string;
+  payByLinkLocale?: string;
+  payByLinkContext?: PayByLinkContext;
 };
