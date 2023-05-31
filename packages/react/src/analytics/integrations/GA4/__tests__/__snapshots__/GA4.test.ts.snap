@@ -226,6 +226,7 @@ Array [
       "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "address_finder": undefined,
       "analytics_package_version": "0.1.0",
+      "checkout_step": 1,
       "coupon": "ACME2019",
       "currency": "USD",
       "delivery_type": "Standard/Standard",
