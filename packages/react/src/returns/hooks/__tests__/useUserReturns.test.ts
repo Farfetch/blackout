@@ -1,7 +1,12 @@
 import { act, cleanup, renderHook } from '@testing-library/react';
-import { getUserReturns, toBlackoutError } from '@farfetch/blackout-client';
+import {
+  getUserReturns,
+  getUserReturnsLegacy,
+  toBlackoutError,
+} from '@farfetch/blackout-client';
 import {
   mockAuthenticatedUserEntities,
+  mockGuestUserEntities,
   mockUserInitialState,
 } from 'tests/__fixtures__/users/index.mjs';
 import { mockUserReturnsResponse } from 'tests/__fixtures__/users/userReturns.fixtures.mjs';
@@ -15,6 +20,9 @@ jest.mock('@farfetch/blackout-client', () => {
   return {
     ...original,
     getUserReturns: jest.fn(() => Promise.resolve(mockUserReturnsResponse)),
+    getUserReturnsLegacy: jest.fn(() =>
+      Promise.resolve(mockUserReturnsResponse),
+    ),
   };
 });
 
@@ -39,11 +47,17 @@ const defaultUserReturnsFetched = {
 };
 
 const mockUserId = 56681854;
+const mockGuestUserId = 5000015566032863;
 const mockFetchQuery = {
   page: 1,
+  orderId: 'J8MMWA',
 };
 const mockFetchConfig = {
   myCustomParameter: 10,
+};
+const mockUserReturnsLegacyData = {
+  guestUserEmail: 'foo@bar.com',
+  orderId: mockFetchQuery.orderId,
 };
 
 describe('useUserReturns', () => {
@@ -232,6 +246,148 @@ describe('useUserReturns', () => {
         );
 
         expect(getUserReturns).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('useLegacyGuestFlow', () => {
+      it('should fetch legacy endpoint if `useLegacyGuestFlow` option is true', () => {
+        renderHook(
+          () =>
+            useUserReturns({
+              enableAutoFetch: true,
+              fetchQuery: mockFetchQuery,
+              fetchConfig: mockFetchConfig,
+              useLegacyGuestFlow: true,
+              guestUserEmail: 'foo@bar.com',
+            }),
+          {
+            wrapper: withStore({
+              entities: mockGuestUserEntities,
+              users: mockUserInitialState,
+            }),
+          },
+        );
+
+        expect(getUserReturnsLegacy).toHaveBeenCalledWith(
+          mockGuestUserId,
+          mockUserReturnsLegacyData,
+          mockFetchQuery,
+          mockFetchConfig,
+        );
+      });
+
+      it('should return an error if `useLegacyGuestFlow` option is true but the user is not a guest', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useUserReturns({
+              enableAutoFetch: true,
+              fetchQuery: mockFetchQuery,
+              fetchConfig: mockFetchConfig,
+              useLegacyGuestFlow: true,
+              guestUserEmail: 'foo@bar.com',
+            }),
+          {
+            wrapper: withStore({
+              entities: mockAuthenticatedUserEntities,
+              users: mockUserInitialState,
+            }),
+          },
+        );
+
+        return expect(() => fetch()).rejects.toThrow(
+          'The user must be a guest to use the legacy flow',
+        );
+      });
+
+      it('should return an error if `useLegacyGuestFlow` option is true but both `orderId` and `guestUserEmail` are undefined', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useUserReturns({
+              enableAutoFetch: true,
+              fetchQuery: { ...mockFetchQuery, orderId: undefined },
+              fetchConfig: mockFetchConfig,
+              useLegacyGuestFlow: true,
+            }),
+          {
+            wrapper: withStore({
+              entities: mockGuestUserEntities,
+              users: mockUserInitialState,
+            }),
+          },
+        );
+
+        return expect(() => fetch()).rejects.toThrow(
+          'To use the legacy flow both guestUserEmail and orderId must be provided',
+        );
+      });
+
+      it('should return an error if `useLegacyGuestFlow` option is true but `orderId` is undefined', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useUserReturns({
+              enableAutoFetch: true,
+              fetchQuery: { ...mockFetchQuery, orderId: undefined },
+              fetchConfig: mockFetchConfig,
+              useLegacyGuestFlow: true,
+              guestUserEmail: 'foo@bar.com',
+            }),
+          {
+            wrapper: withStore({
+              entities: mockGuestUserEntities,
+              users: mockUserInitialState,
+            }),
+          },
+        );
+
+        return expect(() => fetch()).rejects.toThrow(
+          'To use the legacy flow both guestUserEmail and orderId must be provided',
+        );
+      });
+
+      it('should return an error if `useLegacyGuestFlow` option is true but `guestUserEmail` is undefined', () => {
+        const {
+          result: {
+            current: {
+              actions: { fetch },
+            },
+          },
+        } = renderHook(
+          () =>
+            useUserReturns({
+              enableAutoFetch: true,
+              fetchQuery: mockFetchQuery,
+              fetchConfig: mockFetchConfig,
+              useLegacyGuestFlow: true,
+            }),
+          {
+            wrapper: withStore({
+              entities: mockGuestUserEntities,
+              users: mockUserInitialState,
+            }),
+          },
+        );
+
+        return expect(() => fetch()).rejects.toThrow(
+          'To use the legacy flow both guestUserEmail and orderId must be provided',
+        );
       });
     });
 
