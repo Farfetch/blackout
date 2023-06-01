@@ -1,6 +1,7 @@
 import {
   type BlackoutError,
   getUserReturns,
+  getUserReturnsLegacy,
   type User,
   type UserReturns,
 } from '@farfetch/blackout-client';
@@ -135,11 +136,19 @@ function reducer(state: State, action: Action) {
 }
 
 function useUserReturns(options: UseUserReturnsOptions = {}) {
-  const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
+  const {
+    enableAutoFetch = true,
+    fetchConfig,
+    fetchQuery,
+    useLegacyGuestFlow = false,
+    guestUserEmail,
+  } = options;
   const currentRequestId = useRef(0);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { data: user } = useUser();
   const userId = user?.id;
+  const isGuest = user?.isGuest;
+  const orderId = fetchQuery?.orderId;
   const queryHash = useMemo(() => {
     if (!fetchQuery) {
       return '';
@@ -167,15 +176,46 @@ function useUserReturns(options: UseUserReturnsOptions = {}) {
       return Promise.reject(new Error('No userId provided'));
     }
 
+    if (useLegacyGuestFlow && !isGuest) {
+      return Promise.reject(
+        new Error('The user must be a guest to use the legacy flow'),
+      );
+    }
+
+    if (useLegacyGuestFlow && (!guestUserEmail || !orderId)) {
+      return Promise.reject(
+        new Error(
+          'To use the legacy flow both guestUserEmail and orderId must be provided',
+        ),
+      );
+    }
+
     const requestId = currentRequestId.current++;
     const actionMetadata = { userId, requestId, queryHash };
+    const getUserReturnsLegacyData =
+      guestUserEmail && orderId
+        ? {
+            guestUserEmail,
+            orderId,
+          }
+        : undefined;
 
     dispatch({
       type: actionTypes.FetchUserReturnsRequest,
       meta: actionMetadata,
     });
 
-    const result = await getUserReturns(userId, fetchQuery, fetchConfig).then(
+    const getUserReturnsClient =
+      useLegacyGuestFlow && !!getUserReturnsLegacyData
+        ? getUserReturnsLegacy(
+            userId,
+            getUserReturnsLegacyData,
+            fetchQuery,
+            fetchConfig,
+          )
+        : getUserReturns(userId, fetchQuery, fetchConfig);
+
+    const result = await getUserReturnsClient.then(
       userReturns => {
         dispatch({
           type: actionTypes.FetchUserReturnsSuccess,
@@ -195,7 +235,16 @@ function useUserReturns(options: UseUserReturnsOptions = {}) {
     );
 
     return result;
-  }, [userId, queryHash, fetchQuery, fetchConfig]);
+  }, [
+    userId,
+    queryHash,
+    fetchQuery,
+    fetchConfig,
+    isGuest,
+    guestUserEmail,
+    orderId,
+    useLegacyGuestFlow,
+  ]);
 
   useEffect(() => {
     if (
