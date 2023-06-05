@@ -1,6 +1,7 @@
 import * as fromExchanges from '../reducer.js';
 import * as selectors from '../selectors.js';
 import { mockState } from 'tests/__fixtures__/exchanges/index.mjs';
+import { toBlackoutError } from '@farfetch/blackout-client';
 
 describe('exchanges redux selectors', () => {
   beforeEach(jest.clearAllMocks);
@@ -32,6 +33,36 @@ describe('exchanges redux selectors', () => {
 
       expect(selectors.getExchangeError(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isExchangeFetched()', () => {
+    it('should return true if the exchange fetch request succeeded', () => {
+      expect(selectors.isExchangeFetched(mockState)).toBe(true);
+    });
+
+    it('should return true if the exchange fetch request failed', () => {
+      const mockStateWithError = {
+        ...mockState,
+        exchanges: {
+          ...mockState.exchanges,
+          error: toBlackoutError(new Error('error')),
+        },
+      };
+
+      expect(selectors.isExchangeFetched(mockStateWithError)).toBe(true);
+    });
+
+    it('should return false if there is an ongoing fetch request', () => {
+      const mockStateLoading = {
+        ...mockState,
+        exchanges: {
+          ...mockState.exchanges,
+          isLoading: true,
+        },
+      };
+
+      expect(selectors.isExchangeFetched(mockStateLoading)).toBe(false);
     });
   });
 
@@ -98,6 +129,46 @@ describe('exchanges redux selectors', () => {
         expectedResult,
       );
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('isExchangeBookRequestFetched()', () => {
+    it('should return true if the exchange book request fetch request succeeded', () => {
+      expect(selectors.isExchangeBookRequestFetched(mockState)).toBe(true);
+    });
+
+    it('should return true if the exchange book request fetch request failed', () => {
+      const mockStateWithError = {
+        ...mockState,
+        exchanges: {
+          ...mockState.exchanges,
+          exchangeBookRequest: {
+            ...mockState.exchanges.exchangeBookRequest,
+            error: toBlackoutError(new Error('error')),
+          },
+        },
+      };
+
+      expect(selectors.isExchangeBookRequestFetched(mockStateWithError)).toBe(
+        true,
+      );
+    });
+
+    it('should return false if there is an ongoing fetch request', () => {
+      const mockStateLoading = {
+        ...mockState,
+        exchanges: {
+          ...mockState.exchanges,
+          exchangeBookRequest: {
+            ...mockState.exchanges.exchangeBookRequest,
+            isLoading: true,
+          },
+        },
+      };
+
+      expect(selectors.isExchangeBookRequestFetched(mockStateLoading)).toBe(
+        false,
+      );
     });
   });
 });
