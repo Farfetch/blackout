@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doFetchSharedWishlist() should create the correct actions for when fetch a shared wishlist procedure is successful: get shared wishlist success payload 1`] = `
+Object {
+  "payload": Object {
+    "entities": Object {
+      "brands": Object {
+        "10533": Object {
+          "id": 10533,
+          "name": "Valentino",
+        },
+      },
+      "products": Object {
+        "11766695": Object {
+          "DEPRECATED_images": undefined,
+          "brand": 10533,
+          "categories": undefined,
+          "colorGrouping": undefined,
+          "colors": undefined,
+          "customAttributes": undefined,
+          "description": "Modern Sneakers",
+          "groupedEntries": undefined,
+          "grouping": undefined,
+          "groupingProperties": undefined,
+          "id": 11766695,
+          "images": undefined,
+          "labels": undefined,
+          "merchant": undefined,
+          "name": "251 sneakers",
+          "price": undefined,
+          "prices": undefined,
+          "sizes": undefined,
+          "slug": "string",
+          "tag": Object {
+            "id": undefined,
+            "name": undefined,
+          },
+          "variants": undefined,
+        },
+      },
+      "sharedWishlists": Object {
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
+          "dateCreated": "2022-11-24T15:14:43.319Z",
+          "description": "string",
+          "hasMissingItems": false,
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "items": Array [
+            481426747,
+          ],
+          "name": "string",
+        },
+      },
+      "sharedWishlistsItems": Object {
+        "481426747": Object {
+          "attributes": undefined,
+          "dateCreated": 1669302883319,
+          "id": 481426747,
+          "isCustomizable": false,
+          "isExclusive": false,
+          "price": undefined,
+          "product": 11766695,
+          "quantity": 2,
+          "size": Object {},
+        },
+      },
+    },
+    "result": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  },
+  "type": "@farfetch/blackout-core/FETCH_SHARED_WISHLIST_SUCCESS",
+}
+`;
