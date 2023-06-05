@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doUpdateSharedWishlist() should create the correct actions for when the update shared wishlist procedure is successful: update shared wishlist success payload 1`] = `undefined`;
