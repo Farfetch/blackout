@@ -919,6 +919,7 @@ export const mockOrderDetailsResponse = {
   totalTaxes: 423.57,
   updatedDate: '/Date(1539688029817)/',
   userId,
+  fpsOrderType: FpsOrderType.Farfetch,
 } as Order;
 
 export const mockOrderDetailsResponse2 = {
@@ -2568,6 +2569,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           totalTaxes: 423.57,
           updatedDate: 1539688029817,
           userId,
+          fpsOrderType: FpsOrderType.Farfetch,
         },
       },
     },
@@ -4198,6 +4200,7 @@ export const orderEntityDenormalized = {
     vatNumber: '123456789',
     zipCode: '1234-567',
   },
+  fpsOrderType: FpsOrderType.Farfetch,
 };
 
 export const orderEntityDenormalized2 = {
