@@ -39,6 +39,21 @@ export const areExchangesLoading = (state: StoreState) =>
   getIsLoading(state.exchanges as ExchangesState);
 
 /**
+ * Retrieves if the exchange has been fetched.
+ *
+ * Will return true if an exchange request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the exchange.
+ */
+export const isExchangeFetched = (state: StoreState) =>
+  (!!getExchange(state) || !!getExchangeError(state)) &&
+  !areExchangesLoading(state);
+
+/**
  * Returns the exchange filter.
  *
  * @param state - Application state.
@@ -97,3 +112,18 @@ export const isExchangeBookRequestLoading = (state: StoreState) =>
  */
 export const getExchangeBookRequestError = (state: StoreState) =>
   getExchangeBookRequestGetter(state.exchanges as ExchangesState).error;
+
+/**
+ * Retrieves if the exchange book request has been fetched.
+ *
+ * Will return true if an exchange book request request
+ * has been made that returned either successfully or failed
+ * and false otherwise.
+ *
+ * @param state - Application state.
+ *
+ * @returns isFetched status of the exchange book request.
+ */
+export const isExchangeBookRequestFetched = (state: StoreState) =>
+  (!!getExchangeBookRequest(state) || !!getExchangeBookRequestError(state)) &&
+  !isExchangeBookRequestLoading(state);

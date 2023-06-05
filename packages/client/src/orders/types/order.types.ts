@@ -1,4 +1,5 @@
 import type { ClickAndCollect } from '../../checkout/index.js';
+import type { FpsOrderType } from './orderSummary.types.js';
 import type { OrderItem, OrderItemLegacy } from './orderItem.types.js';
 import type { PaymentIntent } from '../../payments/index.js';
 import type {
@@ -38,6 +39,7 @@ export type Order = {
   taxType: string;
   paymentIntentIds?: Array<PaymentIntent['id']>;
   promotionOffers?: Array<OrderPromotionOffer>;
+  fpsOrderType: FpsOrderType;
 };
 
 export type OrderPromotionOffer = {
