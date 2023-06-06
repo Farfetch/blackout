@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.61.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.60.0...@farfetch/blackout-react@0.61.0) (2023-06-06)
+
+
+### Features
+
+* **react:** add meta to bag item hooks ([fcbd57d](https://github.com/Farfetch/blackout/commit/fcbd57d139c23eb2d4ae086d095cdb520d4438d1))
+
+
+
+
+
 # [0.60.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.59.0...@farfetch/blackout-react@0.60.0) (2023-05-23)
 
 
