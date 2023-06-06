@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.1.1...@farfetch/blackout-analytics@1.2.0) (2023-06-06)
+
+### Features
+
+- add checkout step to analytics event ([ef79cbb](https://github.com/Farfetch/blackout/commit/ef79cbb36a84d7f470a3e752bf518a0adcca66e1))
+
 ## [1.1.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.1.0...@farfetch/blackout-analytics@1.1.1) (2023-05-30)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics

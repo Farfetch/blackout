@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.1.2...@farfetch/blackout-react@1.2.0) (2023-06-06)
+
+### Features
+
+- add checkout step to analytics event ([ef79cbb](https://github.com/Farfetch/blackout/commit/ef79cbb36a84d7f470a3e752bf518a0adcca66e1))
+- **react:** add legacy guest flow to useUserReturns hook ([0e01ccf](https://github.com/Farfetch/blackout/commit/0e01ccf726a4718c02ecc67ce3978ae05bbe9b14))
+
 ## [1.1.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.1.1...@farfetch/blackout-react@1.1.2) (2023-05-30)
 
 **Note:** Version bump only for package @farfetch/blackout-react

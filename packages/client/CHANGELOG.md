@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.2.1...@farfetch/blackout-client@2.3.0) (2023-06-06)
+
+### Features
+
+- add historical orders properties ([c5a5516](https://github.com/Farfetch/blackout/commit/c5a551629db0620c54dca36d6f3be5506c1c5974))
+- **client:** add checkoutSessions clients ([5df29b4](https://github.com/Farfetch/blackout/commit/5df29b49ccc8e75391b10aeb9b7521d54af4e1d3))
+
 ## [2.2.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.2.0...@farfetch/blackout-client@2.2.1) (2023-05-30)
 
 **Note:** Version bump only for package @farfetch/blackout-client
