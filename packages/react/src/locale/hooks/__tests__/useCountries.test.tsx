@@ -3,6 +3,7 @@ import { fetchCountries, type StoreState } from '@farfetch/blackout-redux';
 import {
   mockCountriesEntities,
   mockCountry,
+  mockCountryIE,
   mockCountryNormalized,
   mockCountryPT,
   mockLocaleState,
@@ -52,6 +53,7 @@ describe('useCountries', () => {
         countriesById: {
           [mockCountry.platformId]: mockCountryNormalized,
           [mockCountryPT.platformId]: mockCountryPT,
+          [mockCountryIE.platformId]: mockCountryIE,
         },
       },
       actions: {

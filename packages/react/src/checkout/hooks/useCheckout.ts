@@ -33,6 +33,10 @@ import {
   type PutPaymentIntentInstrumentData,
 } from '@farfetch/blackout-client';
 import { useCallback, useEffect, useMemo } from 'react';
+import {
+  useCountryAddressSchemas,
+  validateShippingAddressZipCode,
+} from '../../index.js';
 import { useSelector } from 'react-redux';
 import { useUser } from '../../users/index.js';
 import useAction from '../../helpers/useAction.js';
@@ -59,6 +63,7 @@ function useCheckout(
     createData,
     createConfig,
     enableAutoCreate = false,
+    isoCodesToValidate = [],
   } = options;
 
   const isCheckoutOrderLoading = useSelector(isCheckoutOrderLoadingSelector);
@@ -476,6 +481,39 @@ function useCheckout(
     reset();
   }
 
+  const {
+    data: { countryAddressSchemas },
+    actions: { fetch: fetchCountryAddressSchemas },
+  } = useCountryAddressSchemas(
+    (checkoutOrder?.shippingAddress?.country.alpha2Code as string) || '',
+    { enableAutoFetch: false },
+  );
+
+  const isShippingAddressZipCodeValid = useCallback(async () => {
+    let addressSchema = countryAddressSchemas;
+
+    if (!checkoutOrder?.shippingAddress) {
+      return { isValid: false };
+    }
+
+    if (!addressSchema) {
+      addressSchema = await fetchCountryAddressSchemas(
+        checkoutOrder?.shippingAddress?.country.alpha2Code,
+      );
+    }
+
+    return validateShippingAddressZipCode(
+      checkoutOrder?.shippingAddress,
+      addressSchema,
+      isoCodesToValidate,
+    );
+  }, [
+    checkoutOrder?.shippingAddress,
+    countryAddressSchemas,
+    fetchCountryAddressSchemas,
+    isoCodesToValidate,
+  ]);
+
   useEffect(() => {
     if (
       enableAutoCreate &&
@@ -547,6 +585,7 @@ function useCheckout(
       isOrderConfirmed,
       isOrderAwaitingPayment,
       getSelectedShippingOption,
+      isShippingAddressZipCodeValid,
     },
     data,
     isAnythingLoading,

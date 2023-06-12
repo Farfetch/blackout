@@ -22,6 +22,7 @@ import {
   UserGender,
   UserStatus,
 } from '@farfetch/blackout-client';
+import { mockLocaleState } from '../locale/locale.fixtures.mjs';
 import type {
   CheckoutOrderDeliveryBundleEntity,
   UserEntity,
@@ -1398,6 +1399,7 @@ export const mockInitialState = {
       isLoading: false,
     },
   },
+  ...mockLocaleState,
   entities: {
     user: {
       bagId: 'ada57d80-62a7-4cb4-8de4-f8937fe53213',
@@ -1425,6 +1427,10 @@ export const mockInitialState = {
       updatedDate: '/Date(1655722263553)/',
       countryCode: 'PT',
     } as UserEntity,
+    countries: mockLocaleState.entities.countries,
+    countriesAddressSchemas: {
+      ...mockLocaleState.entities.countriesAddressSchemas,
+    },
   },
 };
 
