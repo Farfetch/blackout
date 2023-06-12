@@ -19,6 +19,33 @@ Object {
         },
       },
       "countries": Object {
+        "IE": Object {
+          "code": "IE",
+          "continentId": 3,
+          "cultures": Array [
+            "en-en",
+          ],
+          "currencies": Array [
+            Object {
+              "cultureCode": "de-DE",
+              "id": 1,
+              "isoCode": "EUR",
+              "name": "Euro Member Countries",
+              "symbol": "€",
+            },
+          ],
+          "defaultCulture": "en-US",
+          "defaultSubfolder": "/en-pt",
+          "isCountryDefault": false,
+          "isDefault": false,
+          "name": "Ireland",
+          "nativeName": "Ireland",
+          "newsletterSubscriptionOptionDefault": true,
+          "platformId": 166,
+          "structures": Array [
+            "/en-en",
+          ],
+        },
         "PT": Object {
           "code": "PT",
           "continentId": 3,
@@ -104,6 +131,7 @@ Object {
     "result": Array [
       "US",
       "PT",
+      "IE",
     ],
   },
   "type": "@farfetch/blackout-redux/FETCH_COUNTRIES_SUCCESS",

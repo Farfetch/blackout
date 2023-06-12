@@ -9,6 +9,7 @@ import {
   mockCountries,
   mockCountriesEntities,
   mockCountry,
+  mockCountryIE,
   mockCountryPT,
   mockStatesEntities,
 } from 'tests/__fixtures__/locale/index.mjs';
@@ -74,7 +75,7 @@ describe('fetchCountries() action creator', () => {
       },
       expect.objectContaining({
         payload: {
-          result: [mockCountry.code, mockCountryPT.code],
+          result: [mockCountry.code, mockCountryPT.code, mockCountryIE.code],
           entities: {
             countries: mockCountriesEntities,
             states: mockStatesEntities,
