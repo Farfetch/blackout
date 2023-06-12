@@ -177,6 +177,11 @@ Object {
     "_threadCount": 0,
   },
   "UserProfileProvider": [Function],
+  "ZipCodeValidationError": Object {
+    "ZipCodeInvalid": "ER03",
+    "ZipCodeSchemaNotFoundError": "ER02",
+    "ZipCodeValidationCountryIgnored": "ER01",
+  },
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
     "consentInstance": null,
@@ -354,6 +359,7 @@ Object {
   "useWishlistSet": [Function],
   "useWishlistSets": [Function],
   "validatePassword": [Function],
+  "validateShippingAddressZipCode": [Function],
   "webContext": [Function],
 }
 `;

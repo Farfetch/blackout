@@ -89,15 +89,39 @@ export const mockCountryPT = {
   isCountryDefault: false,
   continentId: 3,
 };
+export const mockCountryIE = {
+  code: 'IE',
+  cultures: ['en-en'],
+  currencies: [
+    {
+      id: 1,
+      name: 'Euro Member Countries',
+      isoCode: 'EUR',
+      cultureCode: 'de-DE',
+      symbol: '€',
+    },
+  ],
+  newsletterSubscriptionOptionDefault: true,
+  platformId: 166,
+  defaultCulture: 'en-US',
+  defaultSubfolder: '/en-pt',
+  name: 'Ireland',
+  nativeName: 'Ireland',
+  structures: ['/en-en'],
+  isDefault: false,
+  isCountryDefault: false,
+  continentId: 3,
+};
 
 export const mockCountryNormalized = {
   ...mockCountry,
   states: [3, 6],
 };
-export const mockCountries = [mockCountry, mockCountryPT];
+export const mockCountries = [mockCountry, mockCountryPT, mockCountryIE];
 export const mockCountriesEntities = {
   [mockCountry.code]: mockCountryNormalized,
   [mockCountryPT.code]: mockCountryPT,
+  [mockCountryIE.code]: mockCountryIE,
 };
 
 export const mockCity = {
@@ -305,5 +329,10 @@ export const mockLocaleState = {
   },
   entities: {
     countries: mockCountriesEntities,
+    countriesAddressSchemas: {
+      [isoCode]: {
+        ...mockGetAddressSchemaResponse,
+      },
+    },
   },
 };
