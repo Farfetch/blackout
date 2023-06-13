@@ -1,5 +1,7 @@
 import {
   ExchangeBookRequestStatus,
+  ExchangeFilterConditionComparator,
+  ExchangeFilterConditionCriteria,
   ExchangeFilterLogicOperatorComparator,
   ExchangeFilterLogicOperatorCriteria,
   ExchangeFilterLogicOperatorType,
@@ -107,6 +109,18 @@ export const responses = {
           },
         ],
       },
+      filters: [
+        {
+          criteria: ExchangeFilterConditionCriteria.ProductId,
+          comparator: ExchangeFilterConditionComparator.Equals,
+          value: '18061196',
+        },
+        {
+          criteria: ExchangeFilterConditionCriteria.Price,
+          comparator: ExchangeFilterConditionComparator.LessThanOrEqual,
+          value: '1.0',
+        },
+      ],
     },
   },
   postExchange: {

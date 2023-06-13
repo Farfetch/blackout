@@ -9,6 +9,18 @@ Object {
         "orderItemUuid": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
       },
     ],
+    "filters": Array [
+      Object {
+        "comparator": "Equals",
+        "criteria": "ProductId",
+        "value": "18061196",
+      },
+      Object {
+        "comparator": "LessThanOrEqual",
+        "criteria": "Price",
+        "value": "1.0",
+      },
+    ],
     "id": "25301c32-d738-4315-8e9c-d43d2b57f009",
     "logicOperator": Object {
       "logicOperatorType": "And",
