@@ -3,7 +3,11 @@ import type { Order, OrderItem } from '../../orders/index.js';
 export type ExchangeFilter = {
   id: string;
   exchangeFilterItems: Array<ExchangeFilterItem>;
+  /**
+   * @deprecated logicOperator property is deprecated, use the filters property instead.
+   */
   logicOperator: ExchangeFilterLogicOperator;
+  filters: Array<ExchangeFilterCondition>;
 };
 
 export type ExchangeFilterItem = {
@@ -21,6 +25,8 @@ export enum ExchangeFilterLogicOperatorType {
   And = 'And',
   Or = 'Or',
 }
+
+export type ExchangeFilterCondition = ExchangeFilterLogicOperatorData;
 
 export type ExchangeFilterLogicOperatorData = {
   criteria: ExchangeFilterLogicOperatorCriteria;
@@ -43,3 +49,6 @@ export enum ExchangeFilterLogicOperatorComparator {
   LessThanOrEqual = 'LessThanOrEqual',
   LessThan = 'LessThan',
 }
+
+export { ExchangeFilterLogicOperatorCriteria as ExchangeFilterConditionCriteria };
+export { ExchangeFilterLogicOperatorComparator as ExchangeFilterConditionComparator };

@@ -189,6 +189,20 @@ Object {
     "None": "None",
     "Success": "Success",
   },
+  "ExchangeFilterConditionComparator": Object {
+    "Equals": "Equals",
+    "In": "In",
+    "LessThan": "LessThan",
+    "LessThanOrEqual": "LessThanOrEqual",
+    "None": "None",
+    "NotIn": "NotIn",
+  },
+  "ExchangeFilterConditionCriteria": Object {
+    "MerchantId": "MerchantId",
+    "None": "None",
+    "Price": "Price",
+    "ProductId": "ProductId",
+  },
   "ExchangeFilterLogicOperatorComparator": Object {
     "Equals": "Equals",
     "In": "In",
