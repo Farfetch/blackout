@@ -111,14 +111,22 @@ describe('exchanges reducer', () => {
       expect(state).toBeNull();
     });
 
-    it('should handle GET_EXCHANGE_SUCCESS action type', () => {
+    it.each([
+      actionTypes.CREATE_EXCHANGE_SUCCESS,
+      actionTypes.GET_EXCHANGE_SUCCESS,
+    ])('should handle %s action type', actionType => {
       const expectedResult = 'foo';
-      const reducerResult = reducer(undefined, {
-        payload: { result: expectedResult },
-        type: actionTypes.GET_EXCHANGE_SUCCESS,
-      });
+      const state = {
+        ...initialState,
+        isLoading: true,
+      };
 
-      expect(reducerResult.result).toBe(expectedResult);
+      expect(
+        reducer(state, {
+          payload: expectedResult,
+          type: actionType,
+        }).result,
+      ).toBe(expectedResult);
     });
 
     it('should handle other actions by returning the previous state', () => {
