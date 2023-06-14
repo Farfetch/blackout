@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.1.5...@farfetch/blackout-redux@1.2.0) (2023-06-14)
+
+### Bug Fixes
+
+- **redux:** exchanges result reducer ([5a633a6](https://github.com/Farfetch/blackout/commit/5a633a66d8a536a4436cca60f40747c51d2a3341))
+
+### Features
+
+- checkout payment capture upon shipment ([4647dad](https://github.com/Farfetch/blackout/commit/4647dadcb06af015bd2c612fb5e254c400fa6f3f))
+- **client:** add filters property to exchange filters ([bce3089](https://github.com/Farfetch/blackout/commit/bce308908e875f0daf2ca73a4870c9c7c7b3156c))
+
 ## [1.1.5](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.1.4...@farfetch/blackout-redux@1.1.5) (2023-06-06)
 
 **Note:** Version bump only for package @farfetch/blackout-redux

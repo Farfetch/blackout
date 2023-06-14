@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.3.1...@farfetch/blackout-client@2.4.0) (2023-06-14)
+
+### Features
+
+- checkout payment capture upon shipment ([4647dad](https://github.com/Farfetch/blackout/commit/4647dadcb06af015bd2c612fb5e254c400fa6f3f))
+- **client:** add filters property to exchange filters ([bce3089](https://github.com/Farfetch/blackout/commit/bce308908e875f0daf2ca73a4870c9c7c7b3156c))
+
 ## [2.3.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.3.0...@farfetch/blackout-client@2.3.1) (2023-06-06)
 
 **Note:** Version bump only for package @farfetch/blackout-client
