@@ -52,7 +52,7 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.CREATE_EXCHANGE_SUCCESS:
     case actionTypes.FETCH_EXCHANGE_SUCCESS:
-      return action.payload.result;
+      return action.payload;
     default:
       return state;
   }
