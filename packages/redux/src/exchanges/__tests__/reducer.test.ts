@@ -148,6 +148,38 @@ describe('exchanges reducer', () => {
     });
   });
 
+  describe('result() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer(undefined, randomAction).result;
+
+      expect(state).toBe(initialState.result);
+    });
+
+    it.each([
+      actionTypes.CREATE_EXCHANGE_SUCCESS,
+      actionTypes.FETCH_EXCHANGE_SUCCESS,
+    ])('should handle %s action type', actionType => {
+      const expectedResult = mockState.exchanges.result;
+      const state = {
+        ...initialState,
+        isLoading: true,
+      };
+
+      expect(
+        reducer(state, {
+          payload: expectedResult,
+          type: actionType,
+        }).result,
+      ).toBe(expectedResult);
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = mockState?.exchanges;
+
+      expect(reducer(state, randomAction).result).toBe(state.result);
+    });
+  });
+
   describe('exchangeFilter() reducer', () => {
     it('should return the initial state', () => {
       const state = reducer(undefined, randomAction).exchangeFilter;
