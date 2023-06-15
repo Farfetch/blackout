@@ -84,6 +84,7 @@ import type { SizeGuidesState } from '../sizeGuides/types/index.js';
 import type { SizeScalesState } from '../sizeScales/types/index.js';
 import type { StaffMembersState } from '../staffMembers/types/index.js';
 import type { SubscriptionsState } from '../subscriptions/index.js';
+import type { ThemeState } from '../themes/types/index.js';
 import type { UsersState } from '../users/types/index.js';
 import type { WishlistsState } from '../wishlists/types/index.js';
 
@@ -210,6 +211,7 @@ export type StoreState = Partial<{
   sizeScales: SizeScalesState;
   staffMembers: StaffMembersState;
   subscriptions: SubscriptionsState;
+  themes: ThemeState;
   users: UsersState;
   wishlist: WishlistsState;
   // Keep adding here as we migrate chunks

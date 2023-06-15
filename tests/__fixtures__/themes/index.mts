@@ -1,1 +1,1 @@
-export * from './themes.fixtures.mjs';
+export * from './theme.fixtures.mjs';
