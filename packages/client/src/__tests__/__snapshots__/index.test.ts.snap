@@ -1125,6 +1125,7 @@ Object {
   "getStaffMember": [Function],
   "getSubscriptionPackages": [Function],
   "getSubscriptions": [Function],
+  "getTheme": [Function],
   "getTopCategories": [Function],
   "getTranslations": [Function],
   "getUser": [Function],
