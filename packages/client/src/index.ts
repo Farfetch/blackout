@@ -29,6 +29,7 @@ export * from './sizeGuides/index.js';
 export * from './sizeScales/index.js';
 export * from './staffMembers/index.js';
 export * from './subscriptions/index.js';
+export * from './themes/index.js';
 export * from './types/index.js';
 export * from './users/index.js';
 export * from './wishlists/index.js';
