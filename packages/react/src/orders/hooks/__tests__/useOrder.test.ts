@@ -1,6 +1,7 @@
 import { cleanup, renderHook } from '@testing-library/react';
 import {
   mockGuestUserEmail,
+  mockOrderShippingAddressChangeRequestsPayload,
   mockState,
   orderEntityDenormalized,
   orderId,
@@ -9,6 +10,7 @@ import {
 import { withStore } from '../../../../tests/helpers/index.js';
 import useOrder from '../useOrder.js';
 import useOrderReturnOptions from '../useOrderReturnOptions.js';
+import useOrderShippingAddressChangeRequests from '../useOrderShippingAddressChangeRequests.js';
 import useUserOrders from '../useUserOrders.js';
 import type { BlackoutError } from '@farfetch/blackout-client';
 
@@ -16,6 +18,8 @@ const mockFetchOrderDetailsFn = jest.fn();
 const mockResetOrderDetailsStateFn = jest.fn();
 const mockFetchReturnOptions = jest.fn();
 const mockResetReturnOptions = jest.fn();
+const mockFetchOrderShippingAddressChangeRequests = jest.fn();
+const mockCreateOrderShippingAddressChangeRequest = jest.fn();
 
 jest.mock('../useUserOrders', () => {
   return jest.fn(() => {
@@ -44,6 +48,21 @@ jest.mock('../useOrderReturnOptions', () => {
   });
 });
 
+jest.mock('../useOrderShippingAddressChangeRequests', () => {
+  return jest.fn(() => {
+    return {
+      data: undefined,
+      isLoading: false,
+      isFetched: false,
+      error: null,
+      actions: {
+        fetch: mockFetchOrderShippingAddressChangeRequests,
+        create: mockCreateOrderShippingAddressChangeRequest,
+      },
+    };
+  });
+});
+
 const defaultReturn = {
   data: undefined,
   isOrderLoading: false,
@@ -57,6 +76,8 @@ const defaultReturn = {
     reset: expect.any(Function),
     fetchReturnOptions: expect.any(Function),
     resetReturnOptions: expect.any(Function),
+    fetchOrderShippingAddressChangeRequests: expect.any(Function),
+    createOrderShippingAddressChangeRequest: expect.any(Function),
   },
 };
 
@@ -127,6 +148,13 @@ describe('useOrder', () => {
     expect(useOrderReturnOptions).toHaveBeenCalledWith(orderId, {
       enableAutoFetch: false,
     });
+
+    expect(useOrderShippingAddressChangeRequests).toHaveBeenCalledWith(
+      orderId,
+      {
+        enableAutoFetch: false,
+      },
+    );
   });
 
   it('should return correctly when the order is fetched', () => {
@@ -394,6 +422,72 @@ describe('useOrder', () => {
         await fetchReturnOptions(anotherConfig, orderId2);
 
         expect(mockFetchReturnOptions).toHaveBeenCalledWith(
+          anotherConfig,
+          orderId2,
+        );
+      });
+    });
+
+    describe('fetchOrderShippingAddressChangeRequests', () => {
+      it('should call `fetch` from the `useOrderShippingAddressChangeRequests` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { fetchOrderShippingAddressChangeRequests },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const anotherConfig = {};
+
+        await fetchOrderShippingAddressChangeRequests(anotherConfig, orderId2);
+
+        expect(
+          mockFetchOrderShippingAddressChangeRequests,
+        ).toHaveBeenCalledWith(anotherConfig, orderId2);
+      });
+    });
+
+    describe('createOrderShippingAddressChangeRequest', () => {
+      it('should call `create` from the `useOrderShippingAddressChangeRequests` hook', async () => {
+        const {
+          result: {
+            current: {
+              actions: { createOrderShippingAddressChangeRequest },
+            },
+          },
+        } = renderHook(
+          () =>
+            useOrder(orderId, mockGuestUserEmail, {
+              enableAutoFetch: false,
+              fetchConfig: mockFetchConfig,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const anotherConfig = {};
+
+        await createOrderShippingAddressChangeRequest(
+          mockOrderShippingAddressChangeRequestsPayload,
+          anotherConfig,
+          orderId2,
+        );
+
+        expect(
+          mockCreateOrderShippingAddressChangeRequest,
+        ).toHaveBeenCalledWith(
+          mockOrderShippingAddressChangeRequestsPayload,
           anotherConfig,
           orderId2,
         );

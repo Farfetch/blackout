@@ -321,6 +321,7 @@ Object {
   "useLocale": [Function],
   "useOrder": [Function],
   "useOrderReturnOptions": [Function],
+  "useOrderShippingAddressChangeRequests": [Function],
   "usePaymentIntentInstruments": [Function],
   "usePaymentTokens": [Function],
   "usePrevious": [Function],
