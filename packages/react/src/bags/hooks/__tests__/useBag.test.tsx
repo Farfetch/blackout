@@ -85,6 +85,7 @@ describe('useBag', () => {
           formattedTotalProductPromotionDiscount: '$0',
         },
         count: 7,
+        promocodes: ['code-1'],
         isEmpty: false,
         items: [
           {

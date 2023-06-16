@@ -30,4 +30,5 @@ export type Bag = {
   '@controls'?: {
     [key: string]: HypermediaLink;
   };
+  promocodes: string[];
 };
