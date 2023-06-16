@@ -287,6 +287,9 @@ Object {
       "items": Array [
         134,
       ],
+      "promocodes": Array [
+        "code-1",
+      ],
     },
   },
   "type": "@farfetch/blackout-redux/REMOVE_BAG_ITEM_SUCCESS",
@@ -582,6 +585,9 @@ Object {
       "id": "7894746",
       "items": Array [
         134,
+      ],
+      "promocodes": Array [
+        "code-1",
       ],
     },
   },

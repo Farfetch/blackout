@@ -188,6 +188,7 @@ export const mockState = {
       count: 7,
       items: [mockBagItemId, 101, 102, 103, 104],
       hadUnavailableItems: false,
+      promocodes: ['code-1'],
       '@controls': {
         BagGet_operation: {
           href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
@@ -461,6 +462,7 @@ export const mockResponse = {
       href: `/v1/bags/${mockBagId}/operations/${mockBagOperationId}`,
     },
   },
+  promocodes: ['code-1'],
 };
 
 export const mockNormalizedPayload = {
