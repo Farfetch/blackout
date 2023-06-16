@@ -8,6 +8,7 @@ import {
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import useOrderReturnOptions from './useOrderReturnOptions.js';
+import useOrderShippingAddressChangeRequests from './useOrderShippingAddressChangeRequests.js';
 import useUserOrders from './useUserOrders.js';
 import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderOptions } from './types/index.js';
@@ -97,6 +98,15 @@ function useOrder(
     enableAutoFetch: false,
   });
 
+  const {
+    actions: {
+      fetch: fetchOrderShippingAddressChangeRequests,
+      create: createOrderShippingAddressChangeRequest,
+    },
+  } = useOrderShippingAddressChangeRequests(orderIdHookParameter, {
+    enableAutoFetch: false,
+  });
+
   useEffect(() => {
     if (!isLoading && !isFetched && enableAutoFetch && orderIdHookParameter) {
       fetch();
@@ -109,6 +119,8 @@ function useOrder(
       reset,
       fetchReturnOptions,
       resetReturnOptions,
+      fetchOrderShippingAddressChangeRequests,
+      createOrderShippingAddressChangeRequest,
     },
     data: order,
     orderError: error,
