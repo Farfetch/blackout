@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.90.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.89.0...@farfetch/blackout-core@1.90.0) (2023-06-20)
+
+
+### Bug Fixes
+
+* **core:** exchanges result reducer ([66a7de7](https://github.com/Farfetch/blackout/commit/66a7de761d13d045e504ecb845587a7f7024a68d))
+
+
+### Features
+
+* shared wishlists clients, redux and middleware ([230be36](https://github.com/Farfetch/blackout/commit/230be364cff429063e168b80a88372d5199bf050))
+
+
+
+
+
 # [1.89.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.88.0...@farfetch/blackout-core@1.89.0) (2023-05-23)
 
 
