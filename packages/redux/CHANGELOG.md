@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.2.0...@farfetch/blackout-redux@1.3.0) (2023-06-21)
+
+### Bug Fixes
+
+- add promocodes prop in bag types ([b8eb870](https://github.com/Farfetch/blackout/commit/b8eb87067938d829948c5faae120c80e50577f53))
+
+### Features
+
+- **react:** add exchanges hooks ([15db4fc](https://github.com/Farfetch/blackout/commit/15db4fc23938581a7aba2e813fc7cecb4b0cccde))
+- **redux:** add redux for themes ([ab0f5b7](https://github.com/Farfetch/blackout/commit/ab0f5b7af73537171dbd6b9ff8134fe38f56a8fa))
+
 # [1.2.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.1.5...@farfetch/blackout-redux@1.2.0) (2023-06-14)
 
 ### Bug Fixes

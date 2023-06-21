@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.4.0...@farfetch/blackout-client@2.5.0) (2023-06-21)
+
+### Bug Fixes
+
+- add promocodes prop in bag types ([b8eb870](https://github.com/Farfetch/blackout/commit/b8eb87067938d829948c5faae120c80e50577f53))
+
+### Features
+
+- **client:** add new themes endpoint ([acc3e69](https://github.com/Farfetch/blackout/commit/acc3e69c3474a020672e0456288a50564cb8f145))
+- **react:** add exchanges hooks ([15db4fc](https://github.com/Farfetch/blackout/commit/15db4fc23938581a7aba2e813fc7cecb4b0cccde))
+- **redux:** add redux for themes ([ab0f5b7](https://github.com/Farfetch/blackout/commit/ab0f5b7af73537171dbd6b9ff8134fe38f56a8fa))
+
 # [2.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.3.1...@farfetch/blackout-client@2.4.0) (2023-06-14)
 
 ### Features
