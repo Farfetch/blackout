@@ -507,6 +507,7 @@ The following tables contain the exports that were renamed and their new names y
 | actionTypes.UPDATE_CHECKOUT\*¹                        | checkoutActionTypes.UPDATE_CHECKOUT_ORDER\*¹                                     |
 | actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADES\*¹        | checkoutActionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES\*¹            |
 | actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE\*¹         | checkoutActionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADE\*¹             |
+| actionTypes.POST_CHARGES\*¹                           | checkoutActionTypes.CREATE_CHECKOUT_ORDER_CHARGE\*¹                              |
 
 ¹ Where `*` can be `_REQUEST`, `_FAILURE` or `_SUCCESS`.
 
@@ -536,6 +537,8 @@ The following tables contain the exports that were renamed and their new names y
 | doSetItemTags                        | setCheckoutOrderItemTags (pre-configured w/ client) or setCheckoutOrderItemTagsFactory                                                       |
 | doUpdateCheckout                     | updateCheckoutOrder (pre-configured w/ client) or updateCheckoutOrderFactory                                                                 |
 | doUpdateOrderItem                    | updateCheckoutOrderItem (pre-configured w/ client) or updateCheckoutOrderItemFactory                                                         |
+| doUpdateDeliveryBundleUpgrades       | updateCheckoutOrderDeliveryBundleUpgrades (pre-configured w/ client) or updateCheckoutOrderDeliveryBundleUpgradesFactory                     |
+| doPostCharges                        | createCheckoutOrderCharge (pre-configured w/ client) or createCheckoutOrderChargeFactory                                                     |
 | reset                                | resetCheckout                                                                                                                                |
 | resetPromocode                       | resetCheckoutOrderPromocodes                                                                                                                 |
 
@@ -590,24 +593,19 @@ The following tables contain the exports that were removed and the alternatives 
 
 ##### Action types
 
-| Removed export                                | Notes                                |
-| --------------------------------------------- | ------------------------------------ |
-| actionTypes.POST_CHARGES\*¹                   | Removed as its action was deprecated |
-| actionTypes.COMPLETE_PAYMENT_CHECKOUT\*¹      | Removed as its action was deprecated |
-| actionTypes.COMPLETE_PAYMENT_CHECKOUT\*¹      | Removed as its action was deprecated |
-| actionTypes.UPDATE_GIFT_MESSAGE\*¹            | Removed as its action was deprecated |
-| actionTypes.UPDATE_DELIVERY_BUNDLE_UPGRADE\*¹ | Removed as its action was deprecated |
+| Removed export                           | Notes                                |
+| ---------------------------------------- | ------------------------------------ |
+| actionTypes.COMPLETE_PAYMENT_CHECKOUT\*¹ | Removed as its action was deprecated |
+| actionTypes.UPDATE_GIFT_MESSAGE\*¹       | Removed as its action was deprecated |
 
 ¹ Where `*` can be `_REQUEST`, `_FAILURE` or `_SUCCESS`.
 
 ##### Actions
 
-| Removed export                | Notes                                         |
-| ----------------------------- | --------------------------------------------- |
-| doCompletePaymentCheckout     | Removed as it was deprecated                  |
-| doPostCharges                 | Removed as it was deprecated                  |
-| doUpdateDeliveryBundleUpgrade | Removed as it was deprecated                  |
-| doUpdateGiftMessage           | Use `updateCheckoutOrderItems` action instead |
+| Removed export            | Notes                                         |
+| ------------------------- | --------------------------------------------- |
+| doCompletePaymentCheckout | Removed as it was deprecated                  |
+| doUpdateGiftMessage       | Use `updateCheckoutOrderItems` action instead |
 
 ##### Selectors
 
@@ -1119,6 +1117,7 @@ The following tables contain the exports that were renamed and their new names y
 | actionTypes.POST_CREDIT_BALANCE\*¹                         | paymentsActionTypes.FETCH_USER_CREDIT_BALANCE\*¹                     |
 | actionTypes.POST_GIFT_CARD_BALANCE\*¹                      | paymentsActionTypes.FETCH_GIFT_CARD_BALANCE\*¹                       |
 | actionTypes.POST_INSTRUMENT\*¹                             | paymentsActionTypes.CREATE_PAYMENT_INTENT_INSTRUMENT\*¹              |
+| actionTypes.POST_PAYMENTS\*¹                               | paymentsActionTypes.CREATE_PAYMENT_INTENT_CHARGE\*¹                  |
 | actionTypes.PUT_INSTRUMENT\*¹                              | paymentsActionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT\*¹              |
 | actionTypes.RESET_CHARGES                                  | paymentsActionTypes.RESET_PAYMENT_INTENT_CHARGE_STATE                |
 | actionTypes.RESET_INSTRUMENTS                              | paymentsActionTypes.RESET_PAYMENT_INTENT_INSTRUMENTS_STATE           |
@@ -1149,6 +1148,7 @@ The following tables contain the exports that were renamed and their new names y
 | doPostCreditBalance                     | fetchUserCreditBalance (pre-configured w/ client) or fetchUserCreditBalanceFactory                                   |
 | doPostGiftCardBalance                   | fetchGiftCardBalance (pre-configured w/ client) or fetchGiftCardBalanceFactory                                       |
 | doPostInstruments                       | createPaymentIntentInstrument (pre-configured w/ client) or createPaymentIntentInstrumentFactory                     |
+| doPostPayments                          | createPaymentIntentCharge (pre-configured w/ client) or createPaymentIntentChargeFactory                             |
 | doPutInstruments                        | updatePaymentIntentInstrument (pre-configured w/ client) or updatePaymentIntentInstrumentFactory                     |
 | doResetInstruments                      | resetPaymentIntentInstruments                                                                                        |
 
@@ -1184,7 +1184,6 @@ The following tables contain the exports that were removed and the alternatives 
 | actionTypes.GET_PAYMENT_METHODS\*¹    | Removed as it was deprecated |
 | actionTypes.GET_TRANSACTION\*¹        | Removed as it was deprecated |
 | actionTypes.POST_APPLE_PAY_SESSION\*¹ | Removed as it was deprecated |
-| actionTypes.POST_PAYMENTS\*¹          | Removed as it was deprecated |
 | actionTypes.POST_TRANSACTION\*¹       | Removed as it was deprecated |
 
 ¹ Where `*` can be `_REQUEST`, `_FAILURE` or `_SUCCESS`.
@@ -1197,7 +1196,6 @@ The following tables contain the exports that were removed and the alternatives 
 | doGetTransaction      | Removed as it was deprecated                                                  |
 | doPayTransaction      | Removed as it was deprecated                                                  |
 | doPostApplePaySession | Removed as it was deprecated                                                  |
-| doPostPayments        | Removed as it was deprecated                                                  |
 
 ##### Selectors
 
