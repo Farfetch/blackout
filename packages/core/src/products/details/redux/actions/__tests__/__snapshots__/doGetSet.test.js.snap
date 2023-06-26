@@ -10,6 +10,7 @@ Object {
       "facets": Object {
         "categories_136103": Object {
           "description": "A-Line Skirts",
+          "groupType": 6,
           "id": "categories_136103",
           "parentId": "categories_undefined",
           "slug": "skirts-a-line-skirts",
@@ -109,6 +110,7 @@ Object {
       "facets": Object {
         "categories_136103": Object {
           "description": "A-Line Skirts",
+          "groupType": 6,
           "id": "categories_136103",
           "parentId": "categories_undefined",
           "slug": "skirts-a-line-skirts",

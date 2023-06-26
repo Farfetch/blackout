@@ -11,7 +11,13 @@ import {
   getFacetsByIds,
   getProduct,
 } from '../../../entities/redux/selectors';
-import { getError, getHash, getIsHydrated, getIsLoading } from './reducer';
+import {
+  getError,
+  getHash,
+  getIsHydrated,
+  getIsLoading,
+  getListingFacetsState,
+} from './reducer';
 import {
   name as PCKG_NAME,
   version as PCKG_VERSION,
@@ -743,3 +749,39 @@ export const getHierarchicalFacetsWithChildren = createSelector(
     });
   },
 );
+
+/**
+ * Returns the listing facets error.
+ *
+ * @function
+ *
+ * @param {object} state    - Application state.
+ *
+ * @returns {object}        - Listing Facets error.
+ */
+export const getListingFacetsError = state =>
+  getListingFacetsState(state).error;
+
+/**
+ * Returns the result of the listing facets.
+ *
+ * @function
+ *
+ * @param {object} state    - Application state.
+ *
+ * @returns {Array}         - Array of listing facets.
+ */
+export const getListingFacetsResult = state =>
+  getListingFacetsState(state).result;
+
+/**
+ * Returns the loading status for the listing facets.
+ *
+ * @function
+ *
+ * @param {object} state    - Application state.
+ *
+ * @returns {boolean}       - Listing facets loading status.
+ */
+export const isListingFacetsLoading = state =>
+  getListingFacetsState(state).isLoading;

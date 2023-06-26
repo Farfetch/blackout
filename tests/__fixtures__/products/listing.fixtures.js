@@ -566,6 +566,37 @@ export const mockListingModel = {
   redirectInformation: null,
 };
 
+export const mockListingFacets = [
+  {
+    deep: 0,
+    description: null,
+    type: 24,
+    values: [
+      [
+        {
+          value: 16,
+          valueUpperBound: 0,
+          description: 'One Size',
+          slug: null,
+          url: null,
+          parentId: 0,
+          _isDisabled: false,
+          _isActive: false,
+          groupsOn: 176828,
+          count: 2,
+        },
+      ],
+    ],
+    order: 8,
+    key: 'sizesbycategory',
+    format: 'multiple',
+    _clearUrl: null,
+    _isClearHidden: false,
+    _isClosed: false,
+    dynamic: 176828,
+  },
+];
+
 export const mockListingState = {
   listing: {
     error: { [mockListingHash]: 'Error - Listing not loaded.' },
@@ -574,6 +605,18 @@ export const mockListingState = {
     },
     isLoading: { [mockListingHash]: false },
     hash: mockListingHash,
+    listingFacets: {
+      error: null,
+      result: mockListingFacets,
+      isLoading: false,
+    },
   },
   entities: mockListingNormalizedPayload.entities,
+};
+
+export const mockFacetsState = {
+  listingFacets: {
+    error: 'error',
+    isLoading: false,
+  },
 };

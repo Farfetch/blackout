@@ -1,25 +1,18 @@
-import { actionTypes } from '../../';
+import { actionTypes } from '../..';
 import { mockStore } from '../../../../../../tests';
-import { reset } from '../';
+import resetListingFacets from '../resetListingFacets';
 
-describe('reset() action creator', () => {
+describe('doGetListingFacets() action creator', () => {
   let store;
 
   it('should dispatch the correct action type', () => {
     store = mockStore();
-    store.dispatch(reset());
-
+    store.dispatch(resetListingFacets());
     const actionResults = store.getActions();
 
     expect(actionResults).toMatchObject([
       {
         type: actionTypes.RESET_LISTING_FACETS,
-      },
-      {
-        type: actionTypes.RESET_LISTING_STATE,
-      },
-      {
-        type: actionTypes.RESET_LISTING_ENTITIES,
       },
     ]);
   });
