@@ -106,64 +106,97 @@ const UserProfileProvider = ({
     null,
   );
 
-  const loadProfileAux = useCallback(async (): Promise<User | GuestUser> => {
-    dispatch({ type: ActionTypes.GetUserRequested });
+  const userActionAux = useCallback(
+    async (
+      actionRequested: string,
+      actionSucceeded: string,
+      actionFailed: string,
+    ): Promise<User | GuestUser> => {
+      dispatch({ type: actionRequested });
 
-    let usedAccessToken = null;
+      let usedAccessToken = null;
 
-    const setAccessTokenRef = (accessToken: string) => {
-      usedAccessToken = accessToken;
-    };
+      const setAccessTokenRef = (accessToken: string) => {
+        usedAccessToken = accessToken;
+      };
 
-    try {
-      const userData: User | GuestUser = await getUser({
-        [AuthenticationConfigOption.UsedAccessTokenCallback]: setAccessTokenRef,
-        [AuthenticationConfigOption.IsGetUserProfileRequest]: true,
-      });
+      try {
+        const userData: User | GuestUser = await getUser({
+          [AuthenticationConfigOption.UsedAccessTokenCallback]:
+            setAccessTokenRef,
+          [AuthenticationConfigOption.IsGetUserProfileRequest]: true,
+        });
 
-      const tokenManagerCurrentActiveToken =
-        tokenManager?.getActiveToken()?.data?.accessToken;
+        const tokenManagerCurrentActiveToken =
+          tokenManager?.getActiveToken()?.data?.accessToken;
 
-      // This is a safe check to ensure that the response obtained from the getUser
-      // is still valid as there might have been a change on the active token
-      // while the request has not returned. This will only happen on very extreme
-      // situations like getUser taking a huge amount of time and after that a logout/login
-      // happens that changes the current active token.
-      if (tokenManagerCurrentActiveToken !== usedAccessToken) {
-        throw new ProfileChangedError();
+        // This is a safe check to ensure that the response obtained from the getUser
+        // is still valid as there might have been a change on the active token
+        // while the request has not returned. This will only happen on very extreme
+        // situations like getUser taking a huge amount of time and after that a logout/login
+        // happens that changes the current active token.
+        if (tokenManagerCurrentActiveToken !== usedAccessToken) {
+          throw new ProfileChangedError();
+        }
+
+        dispatch({
+          type: actionSucceeded,
+          payload: userData,
+        });
+
+        currentLoadProfilePromiseRef.current = null;
+
+        return userData;
+      } catch (error) {
+        const errorAsBlackoutError = toBlackoutError(error);
+
+        dispatch({
+          type: actionFailed,
+          payload: errorAsBlackoutError,
+        });
+
+        throw errorAsBlackoutError;
+      }
+    },
+    [dispatch, tokenManager],
+  );
+
+  const callUserAction = useCallback(
+    (
+      aux: (
+        actionRequested: string,
+        actionSucceeded: string,
+        actionFailed: string,
+      ) => Promise<User | GuestUser>,
+      actionRequested: string,
+      actionSucceeded: string,
+      actionFailed: string,
+    ) => {
+      const { isLoading } = userProfileState;
+
+      if (isLoading) {
+        return currentLoadProfilePromiseRef.current;
       }
 
-      dispatch({
-        type: ActionTypes.GetUserSucceeded,
-        payload: userData,
-      });
+      currentLoadProfilePromiseRef.current = aux(
+        actionRequested,
+        actionSucceeded,
+        actionFailed,
+      );
 
-      currentLoadProfilePromiseRef.current = null;
-
-      return userData;
-    } catch (error) {
-      const errorAsBlackoutError = toBlackoutError(error);
-
-      dispatch({
-        type: ActionTypes.GetUserFailed,
-        payload: errorAsBlackoutError,
-      });
-
-      throw errorAsBlackoutError;
-    }
-  }, [dispatch, tokenManager]);
+      return currentLoadProfilePromiseRef.current;
+    },
+    [userProfileState],
+  );
 
   const loadProfile = useCallback(() => {
-    const { isLoading } = userProfileState;
-
-    if (isLoading) {
-      return currentLoadProfilePromiseRef.current;
-    }
-
-    currentLoadProfilePromiseRef.current = loadProfileAux();
-
-    return currentLoadProfilePromiseRef.current;
-  }, [loadProfileAux, userProfileState]);
+    return callUserAction(
+      userActionAux,
+      ActionTypes.GetUserRequested,
+      ActionTypes.GetUserSucceeded,
+      ActionTypes.GetUserFailed,
+    );
+  }, [userActionAux, callUserAction]);
 
   // This useEffect call will check if there is a need to
   // call getUser client again to synchronize the user data
