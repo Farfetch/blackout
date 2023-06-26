@@ -52,6 +52,7 @@ export default getListing =>
         { ...query, pageindex: pageIndex + 1 },
         config,
       );
+
       const normalizedResult = normalize(
         {
           hash: currentHash,

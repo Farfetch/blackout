@@ -6,10 +6,14 @@
 import { combineReducers } from 'redux';
 import {
   DEHYDRATE_LISTING,
+  GET_LISTING_FACETS_FAILURE,
+  GET_LISTING_FACETS_REQUEST,
+  GET_LISTING_FACETS_SUCCESS,
   GET_LISTING_FAILURE,
   GET_LISTING_REQUEST,
   GET_LISTING_SUCCESS,
   RESET_LISTING_ENTITIES,
+  RESET_LISTING_FACETS,
   RESET_LISTING_STATE,
   SET_LISTING_HASH,
 } from './actionTypes';
@@ -19,6 +23,11 @@ export const INITIAL_STATE = {
   hash: null,
   isHydrated: {},
   isLoading: {},
+  listingFacets: {
+    isLoading: false,
+    error: null,
+    result: [],
+  },
 };
 
 const error = (
@@ -97,16 +106,42 @@ export const entitiesMapper = {
   },
 };
 
+const listingFacets = (state = INITIAL_STATE.listingFacets, action = {}) => {
+  switch (action.type) {
+    case GET_LISTING_FACETS_REQUEST:
+      return {
+        ...INITIAL_STATE.listingFacets,
+        isLoading: true,
+      };
+    case GET_LISTING_FACETS_SUCCESS:
+      return {
+        ...INITIAL_STATE.listingFacets,
+        result: action.payload.result,
+      };
+    case GET_LISTING_FACETS_FAILURE:
+      return {
+        ...INITIAL_STATE.listingFacets,
+        error: action.payload.error,
+      };
+    case RESET_LISTING_FACETS:
+      return INITIAL_STATE.listingFacets;
+    default:
+      return state;
+  }
+};
+
 export const getError = state => state.error;
 export const getHash = state => state.hash;
 export const getIsHydrated = state => state.isHydrated;
 export const getIsLoading = state => state.isLoading;
+export const getListingFacetsState = state => state.listingFacets;
 
 const reducers = combineReducers({
   error,
   hash,
   isHydrated,
   isLoading,
+  listingFacets,
 });
 
 /**

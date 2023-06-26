@@ -39,3 +39,18 @@ export const getFacets = state => getEntity(state, 'facets');
  */
 export const getFacetsByIds = (state, facetIds) =>
   facetIds.map(id => getFacet(state, id));
+
+/**
+ * Returns all facets by parent type.
+ *
+ * @function getFacetsByGroupType
+ * @memberof module:entities/selectors
+ * @param {object} state - Application state.
+ * @param {number} facetGroupType - Facet group type to find.
+ *
+ * @returns {Array} Array with all facets content requested by group type.
+ */
+export const getFacetsByGroupType = (state, facetGroupType) =>
+  Object.values(getFacets(state)).filter(
+    facet => facet?.groupType === facetGroupType,
+  );

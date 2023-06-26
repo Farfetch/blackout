@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes';
+import resetListingFacets from './resetListingFacets';
 import resetState from './resetState';
 
 /**
@@ -62,6 +63,7 @@ const resetEntities = () => dispatch => {
  * @returns {Function} Dispatch reset listing state and entities action.
  */
 export default () => dispatch => {
+  dispatch(resetListingFacets());
   dispatch(resetState());
   dispatch(resetEntities());
 };

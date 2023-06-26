@@ -6,3 +6,4 @@ warnDeprecatedMethod(
   '@farfetch/blackout-core/products/listing',
 );
 export { default as getListing } from './getListing';
+export { default as getListingFacets } from './getListingFacets';

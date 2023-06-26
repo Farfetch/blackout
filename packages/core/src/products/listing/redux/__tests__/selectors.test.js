@@ -3,6 +3,7 @@ import * as selectors from '../selectors';
 import {
   mockBreadCrumbs,
   mockFacets,
+  mockFacetsState,
   mockGroupedEntries,
   mockListingHash,
   mockListingNormalizedPayload,
@@ -767,6 +768,32 @@ describe('product listing redux selectors', () => {
           ...mockFacet,
         },
       ]);
+    });
+  });
+
+  describe('listingFacets', () => {
+    describe('getListingFacetsError()', () => {
+      it('should get the listing facets error property from state', () => {
+        const expectedResult = mockFacetsState.listingFacets.error;
+        const spy = jest.spyOn(fromReducer, 'getListingFacetsState');
+
+        expect(selectors.getListingFacetsError(mockFacetsState)).toBe(
+          expectedResult,
+        );
+        expect(spy).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('isListingFacetsLoading()', () => {
+      it('should get the listing facets loading status from state', () => {
+        const expectedResult = mockFacetsState.listingFacets.isLoading;
+        const spy = jest.spyOn(fromReducer, 'getListingFacetsState');
+
+        expect(selectors.isListingFacetsLoading(mockFacetsState)).toBe(
+          expectedResult,
+        );
+        expect(spy).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
