@@ -26,3 +26,17 @@ export const RESET_LISTING_STATE =
 
 /** Action type dispatched when the listing hash is setted. */
 export const SET_LISTING_HASH = '@farfetch/blackout-core/SET_LISTING_HASH';
+
+/** Action type dispatched when the get listing facets request fails. */
+export const GET_LISTING_FACETS_FAILURE =
+  '@farfetch/blackout-core/GET_LISTING_FACETS_FAILURE';
+/** Action type dispatched when the get listing facets request starts. */
+export const GET_LISTING_FACETS_REQUEST =
+  '@farfetch/blackout-core/GET_LISTING_FACETS_REQUEST';
+/** Action type dispatched when the get listing facets request succeeds. */
+export const GET_LISTING_FACETS_SUCCESS =
+  '@farfetch/blackout-core/GET_LISTING_FACETS_SUCCESS';
+
+/** Action type dispatched when the reset size preferences occurs. */
+export const RESET_LISTING_FACETS =
+  '@farfetch/blackout-core/RESET_LISTING_FACETS';

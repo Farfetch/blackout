@@ -1,4 +1,5 @@
 import * as fromReducer from '../reducer';
+import { mockFacetGroups } from 'tests/__fixtures__/products/listing.fixtures';
 import { mockListingHash, mockProductId } from 'tests/__fixtures__/products';
 import reducer, { actionTypes } from '../';
 
@@ -12,9 +13,21 @@ describe('details redux reducer', () => {
   describe('reset handling', () => {
     it('should return the initial state', () => {
       expect(
-        reducer(undefined, {
-          type: actionTypes.RESET_LISTING_STATE,
-        }),
+        reducer(
+          {
+            error: {},
+            hash: '/en-pt/listing?pagesize=1',
+            isHydrated: {},
+            isLoading: { '/en-pt/listing?pagesize=1': false },
+            listingFacets: {
+              isLoading: true,
+              error: {},
+            },
+          },
+          {
+            type: actionTypes.RESET_LISTING_STATE,
+          },
+        ),
       ).toEqual(initialState);
     });
   });
@@ -183,6 +196,67 @@ describe('details redux reducer', () => {
       expect(
         fromReducer.entitiesMapper[actionTypes.RESET_LISTING_ENTITIES](state),
       ).toEqual(expectedResult);
+    });
+  });
+
+  describe('listingFacets() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().listingFacets;
+
+      expect(state).toEqual(initialState.listingFacets);
+      expect(state).toEqual({
+        error: null,
+        isLoading: false,
+        result: [],
+      });
+    });
+
+    it('should handle GET_LISTING_FACETS_REQUEST action type', () => {
+      expect(
+        reducer(
+          { isLoading: false, error: {} },
+          {
+            type: actionTypes.GET_LISTING_FACETS_REQUEST,
+            payload: mockFacetGroups,
+          },
+        ).listingFacets,
+      ).toEqual({
+        error: null,
+        isLoading: true,
+        result: [],
+      });
+    });
+
+    it('should handle GET_LISTING_FACETS_FAILURE action type', () => {
+      expect(
+        reducer(
+          { isLoading: true, error: {} },
+          {
+            type: actionTypes.GET_LISTING_FACETS_FAILURE,
+            payload: { error: 'ERROR' },
+          },
+        ).listingFacets,
+      ).toEqual({
+        error: 'ERROR',
+        isLoading: false,
+        result: [],
+      });
+    });
+
+    it('should handle GET_LISTING_FACETS_SUCCESS action type', () => {
+      expect(
+        reducer(
+          { isLoading: true, error: {} },
+          {
+            type: actionTypes.GET_LISTING_FACETS_SUCCESS,
+            payload: { result: mockFacetGroups },
+          },
+        ).listingFacets,
+      ).toEqual({
+        error: null,
+        isLoading: false,
+        result: mockFacetGroups,
+      });
     });
   });
 

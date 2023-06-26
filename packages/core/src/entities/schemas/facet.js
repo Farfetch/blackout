@@ -20,6 +20,7 @@ export default new schema.Entity(
       // Since the id is in the format "facetKey_9999999", it's only natural that the parent id is in the same format
       // (it represents an id)
       parentId: `${parent.description.toLowerCase()}_${entity.parentId}`,
+      groupType: parent.type,
     }),
   },
 );
