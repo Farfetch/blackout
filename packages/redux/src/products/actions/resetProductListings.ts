@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes/index.js';
 import type { Dispatch } from 'redux';
 import type {
+  ResetProductListingFacetsAction,
   ResetProductListsEntitiesAction,
   ResetProductListsStateAction,
 } from '../types/index.js';
@@ -75,6 +76,14 @@ const resetProductListingsState =
     });
   };
 
+const resetProductListingFacets =
+  () =>
+  (dispatch: Dispatch<ResetProductListingFacetsAction>): void => {
+    dispatch({
+      type: actionTypes.RESET_PRODUCT_LISTING_FACETS,
+    });
+  };
+
 /**
  * Reset product listings state and related entities to its initial value.
  *
@@ -118,6 +127,7 @@ const resetProductListings =
   ): void => {
     dispatch(resetProductListingsState(productListingsHashes));
     dispatch(resetProductListingsEntities(productListingsHashes));
+    dispatch(resetProductListingFacets());
   };
 
 export default resetProductListings;

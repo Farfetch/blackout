@@ -166,6 +166,7 @@ export const mockSet = {
             value: 136103,
             count: 1,
             description: 'A-Line Skirts',
+            groupType: 6,
             groupsOn: 0,
             parentId: 0,
             slug: 'skirts-a-line-skirts',

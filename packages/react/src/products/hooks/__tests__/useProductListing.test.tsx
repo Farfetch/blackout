@@ -53,6 +53,11 @@ describe('useProductListing', () => {
           },
           isLoading: { [mockProductsListHashWithoutParameters]: false },
           hash: mockProductsListHashWithoutParameters,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
       },
     };
@@ -112,6 +117,11 @@ describe('useProductListing', () => {
             [mockProductsListHashWithoutParameters]: false,
           },
           hash: mockProductsListHashWithoutParameters,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
       },
     };
@@ -144,6 +154,11 @@ describe('useProductListing', () => {
             [mockProductsListHashWithoutParameters]: true,
           },
           hash: mockProductsListHashWithoutParameters,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
       },
     };

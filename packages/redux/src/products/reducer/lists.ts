@@ -13,6 +13,11 @@ export const INITIAL_STATE: ProductsListsState = {
   hash: null,
   isHydrated: {},
   isLoading: {},
+  productListingFacets: {
+    error: null,
+    isLoading: false,
+    result: [],
+  },
 };
 
 const error = (state = INITIAL_STATE.error, action: AnyAction) => {
@@ -124,6 +129,33 @@ function partialResetStateReducer<T extends object | null | undefined>(
   return omit(state, productsListsHashes) as T;
 }
 
+const productListingFacets = (
+  state = INITIAL_STATE.productListingFacets,
+  action: AnyAction,
+) => {
+  switch (action.type) {
+    case actionTypes.FETCH_PRODUCT_LISTING_FACETS_REQUEST:
+      return {
+        ...INITIAL_STATE.productListingFacets,
+        isLoading: true,
+      };
+    case actionTypes.FETCH_PRODUCT_LISTING_FACETS_SUCCESS:
+      return {
+        ...INITIAL_STATE.productListingFacets,
+        result: action.payload.result,
+      };
+    case actionTypes.FETCH_PRODUCT_LISTING_FACETS_FAILURE:
+      return {
+        ...INITIAL_STATE.productListingFacets,
+        error: action.payload.error,
+      };
+    case actionTypes.RESET_PRODUCT_LISTING_FACETS:
+      return INITIAL_STATE.productListingFacets;
+    default:
+      return state;
+  }
+};
+
 export const getError = (
   state: ProductsListsState,
 ): ProductsListsState['error'] => state.error;
@@ -136,12 +168,15 @@ export const getIsHydrated = (
 export const getIsLoading = (
   state: ProductsListsState,
 ): ProductsListsState['isLoading'] => state.isLoading;
+export const getListingFacetsState = (state: ProductsListsState) =>
+  state.productListingFacets;
 
 const reducers = combineReducers({
   error,
   hash,
   isHydrated,
   isLoading,
+  productListingFacets,
 });
 
 /**

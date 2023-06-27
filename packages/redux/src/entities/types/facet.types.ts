@@ -1,8 +1,9 @@
-import type { FacetValue } from '@farfetch/blackout-client';
+import type { FacetGroup, FacetValue } from '@farfetch/blackout-client';
 
 export type FacetEntity = Omit<FacetValue, 'parentId'> & {
   id: string;
   parentId: string;
+  groupType: FacetGroup['type'];
 };
 
 export type FacetEntityWithChildren = FacetEntity & {

@@ -53,6 +53,11 @@ const serverInitialState: ProductListingsServerInitialState = ({
           isLoading: {
             [hash]: false,
           },
+          productListingFacets: {
+            error: null,
+            isLoading: false,
+            result: [],
+          },
         },
       };
     }
@@ -111,6 +116,11 @@ const serverInitialState: ProductListingsServerInitialState = ({
       },
       isLoading: {
         [hash]: false,
+      },
+      productListingFacets: {
+        isLoading: false,
+        error: null,
+        result: [],
       },
     },
     entities,
