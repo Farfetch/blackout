@@ -4,7 +4,7 @@ import { LOGOUT_SUCCESS } from '../../authentication/redux/actionTypes';
 
 const INITIAL_STATE = {
   error: null,
-  id: null,
+  isLoading: false,
   result: null,
 };
 const result = (state = INITIAL_STATE.result, action = {}) => {
