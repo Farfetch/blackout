@@ -48,6 +48,11 @@ describe('useRecentlyViewedProducts', () => {
           isHydrated: {},
           isLoading: { [mockProductsListHashWithProductIds]: false },
           hash: null,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
       },
       entities: {
@@ -108,6 +113,11 @@ describe('useRecentlyViewedProducts', () => {
           isHydrated: {},
           isLoading: {},
           hash: null,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
         recentlyViewed: {
           error: mockError,
@@ -146,6 +156,11 @@ describe('useRecentlyViewedProducts', () => {
           isHydrated: {},
           isLoading: {},
           hash: null,
+          productListingFacets: {
+            isLoading: false,
+            error: null,
+            result: [],
+          },
         },
         recentlyViewed: {
           error: null,
@@ -234,6 +249,11 @@ describe('useRecentlyViewedProducts', () => {
               [mockProductsListHashWithSingleProductId]: false,
             },
             hash: null,
+            productListingFacets: {
+              isLoading: false,
+              error: null,
+              result: [],
+            },
           },
         },
         entities: {

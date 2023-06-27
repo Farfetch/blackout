@@ -114,6 +114,11 @@ export const mockProductsListsState = {
     },
     isLoading: { [mockProductsListHash]: false },
     hash: mockProductsListHash,
+    productListingFacets: {
+      isLoading: false,
+      error: null,
+      result: [],
+    },
   },
 };
 export const mockMeasurementsState = {

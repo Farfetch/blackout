@@ -10,6 +10,7 @@ export * from './productOutfits.fixtures.mjs';
 export * from './productSizeGuides.fixtures.mjs';
 export * from './productSizes.fixtures.mjs';
 export * from './productsLists.fixtures.mjs';
+export * from './productListingFacets.fixtures.mjs';
 export * from './productVariantsMerchantsLocations.fixtures.mjs';
 export * from './productVariantsMeasurements.fixtures.mjs';
 export * from './recommendedProductSet.fixtures.mjs';

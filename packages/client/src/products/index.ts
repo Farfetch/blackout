@@ -2,6 +2,7 @@
  * Products clients.
  */
 export { default as getProductListing } from './getProductListing.js';
+export { default as getProductListingFacets } from './getProductListingFacets.js';
 export { default as getProductAttributes } from './getProductAttributes.js';
 export { default as getProduct } from './getProduct.js';
 export { default as getProductFittings } from './getProductFittings.js';

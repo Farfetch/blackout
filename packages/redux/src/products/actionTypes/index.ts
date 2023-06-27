@@ -9,6 +9,7 @@ export * from './productOutfits.actionTypes.js';
 export * from './productSizeGuides.actionTypes.js';
 export * from './productSizes.actionTypes.js';
 export * from './productsLists.actionTypes.js';
+export * from './productListingFacets.actionTypes.js';
 export * from './recentlyViewedProducts.actionTypes.js';
 export * from './recommendedProducts.actionTypes.js';
 export * from './recommendedProductSet.actionTypes.js';

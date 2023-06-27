@@ -17,6 +17,9 @@ describe('resetProductListings() action creator', () => {
       {
         type: productsActionTypes.RESET_PRODUCT_LISTING_ENTITIES,
       },
+      {
+        type: productsActionTypes.RESET_PRODUCT_LISTING_FACETS,
+      },
     ]);
   });
 });

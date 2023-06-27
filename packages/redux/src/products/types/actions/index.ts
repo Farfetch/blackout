@@ -9,6 +9,7 @@ export * from './productOutfits.types.js';
 export * from './productSizeGuides.types.js';
 export * from './productSizes.types.js';
 export * from './productList.types.js';
+export * from './productListingFacets.types.js';
 export * from './recentlyViewedProducts.types.js';
 export * from './recommendedProducts.types.js';
 export * from './recommendedProductSet.types.js';

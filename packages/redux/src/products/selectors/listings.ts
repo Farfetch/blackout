@@ -13,6 +13,7 @@ import {
   getHash,
   getIsHydrated,
   getIsLoading,
+  getListingFacetsState,
 } from '../reducer/lists.js';
 import getShallowestDepth from '../utils/getFacetGroupsShallowestDepth.js';
 import type {
@@ -760,3 +761,60 @@ export const getProductListingFacetGroups = createSelector(
   state: StoreState,
   hash?: string | number | null,
 ) => FacetGroupDenormalized[] | undefined;
+
+/**
+ * Returns all facets by parent type.
+ *
+ * @param state - Application state.
+ * @param facetGroupType - Facet group type to find.
+ *
+ * @returns Array with all facets content requested by group type.
+ */
+export const getFacetsByGroupType: (
+  state: StoreState,
+  facetGroupType: FacetGroup['type'],
+) => FacetEntity[] = createSelector(
+  [
+    getFacets,
+    (state: StoreState, facetGroupType: FacetGroup['type']) => facetGroupType,
+  ],
+  (facets, facetGroupType) => {
+    if (facets) {
+      return Object.values(facets).filter(
+        facet => facet?.groupType === facetGroupType,
+      );
+    }
+
+    return [];
+  },
+);
+
+/**
+ * Returns the error of the fetch listing facets request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Listing Facets error.
+ */
+export const getListingFacetsError = (state: StoreState) =>
+  getListingFacetsState((state.products as ProductsState).lists).error;
+
+/**
+ * Returns the result of the fetch listing facets request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Array of listing facets.
+ */
+export const getListingFacetsResult = (state: StoreState) =>
+  getListingFacetsState((state.products as ProductsState).lists).result;
+
+/**
+ * Returns the loading status of the fetch listing facets request.
+ *
+ * @param state - Application state.
+ *
+ * @returns Listing facets loading status.
+ */
+export const areListingFacetsLoading = (state: StoreState) =>
+  getListingFacetsState((state.products as ProductsState).lists).isLoading;

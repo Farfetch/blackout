@@ -1,7 +1,11 @@
 import * as fromReducer from '../../reducer/lists.js';
 import * as selectors from '../listings.js';
 import { cloneDeep } from 'lodash-es';
-import { FacetGroupFormat, FacetGroupKey } from '@farfetch/blackout-client';
+import {
+  FacetGroupFormat,
+  FacetGroupKey,
+  FacetType,
+} from '@farfetch/blackout-client';
 import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
 import {
   mockBreadCrumbs,
@@ -308,6 +312,11 @@ describe('product listing redux selectors', () => {
             hash: '',
             isHydrated: {},
             isLoading: {},
+            productListingFacets: {
+              isLoading: false,
+              error: null,
+              result: [],
+            },
           },
         },
       };
@@ -757,6 +766,7 @@ describe('product listing redux selectors', () => {
         [mockRepeatedFacetId]: {
           description: 'Shoes',
           groupsOn: 0,
+          groupType: 6,
           id: mockRepeatedFacetId,
           parentId: mockRepeatedFacetId,
           slug: 'shoes',
@@ -862,6 +872,7 @@ describe('product listing redux selectors', () => {
         const mockFacet = {
           description: 'Jackets',
           groupsOn: 0,
+          groupType: 6,
           id: 'categories_136335',
           parentId: 'categories_136330',
           slug: 'clothing-jackets',
@@ -882,6 +893,7 @@ describe('product listing redux selectors', () => {
               categories_136330: {
                 description: 'Clothing',
                 groupsOn: 0,
+                groupType: 6,
                 id: 'categories_136330',
                 parentId: 'categories_0',
                 slug: 'clothing',
@@ -951,6 +963,20 @@ describe('product listing redux selectors', () => {
       expect(selectors.getFacets(mockProductsState)).toEqual(
         mockProductsState.entities.facets,
       );
+    });
+  });
+
+  describe('getFacetsByGroupType()', () => {
+    it('should return all the facets of the passed group type', () => {
+      const expectedResult = [
+        mockProductsListNormalizedPayload.entities.facets[mockFacets[0]!.id],
+        mockProductsListNormalizedPayload.entities.facets[mockFacets[1]!.id],
+        mockProductsListNormalizedPayload.entities.facets[mockFacets[2]!.id],
+      ];
+
+      expect(
+        selectors.getFacetsByGroupType(mockProductsState, FacetType.Categories),
+      ).toEqual(expectedResult);
     });
   });
 

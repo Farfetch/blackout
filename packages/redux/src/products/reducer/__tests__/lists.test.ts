@@ -1,3 +1,4 @@
+import { mockListingFacets } from 'tests/__fixtures__/products/productListingFacets.fixtures.mjs';
 import {
   mockProductsEntity,
   mockProductsListEntity,
@@ -12,6 +13,7 @@ import reducer, {
   getHash,
   getIsHydrated,
   getIsLoading,
+  getListingFacetsState,
   INITIAL_STATE,
 } from '../lists.js';
 
@@ -49,6 +51,7 @@ describe('lists redux reducer', () => {
         },
         isLoading: { [anotherProductsListHash]: false },
         isHydrated: { [anotherProductsListHash]: true },
+        productListingFacets: { error: null, isLoading: false, result: [] },
         hash: null,
       };
 
@@ -127,6 +130,7 @@ describe('lists redux reducer', () => {
         isLoading: {},
         isHydrated: {},
         hash: mockProductsListHash,
+        productListingFacets: { isLoading: false, error: null, result: [] },
       };
 
       expect(reducer(state, mockAction).error).toBe(state.error);
@@ -165,6 +169,7 @@ describe('lists redux reducer', () => {
         isLoading: {},
         isHydrated: {},
         hash: mockProductsListHash,
+        productListingFacets: { isLoading: false, error: null, result: [] },
       };
 
       expect(reducer(state, mockAction).hash).toBe(state.hash);
@@ -222,6 +227,7 @@ describe('lists redux reducer', () => {
         isLoading: {},
         isHydrated: { [mockProductsListHash]: false },
         hash: mockProductsListHash,
+        productListingFacets: { isLoading: false, error: null, result: [] },
       };
 
       expect(reducer(state, mockAction).isHydrated).toEqual(state.isHydrated);
@@ -301,9 +307,107 @@ describe('lists redux reducer', () => {
         isLoading: { [mockProductsListHash]: false },
         isHydrated: {},
         hash: mockProductsListHash,
+        productListingFacets: { isLoading: false, error: null, result: [] },
       };
 
       expect(reducer(state, mockAction).isLoading).toEqual(state.isLoading);
+    });
+  });
+
+  describe('productListingFacets() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer(INITIAL_STATE, mockAction).productListingFacets;
+
+      expect(state).toEqual(initialState.productListingFacets);
+    });
+
+    it('should handle FETCH_PRODUCT_LISTING_FACETS_REQUEST action type', () => {
+      const expectedState = {
+        isLoading: true,
+        error: null,
+        result: [],
+      };
+      const state = reducer(
+        {
+          ...initialState,
+          productListingFacets: { isLoading: false, error: null, result: [] },
+        },
+        {
+          type: productsActionTypes.FETCH_PRODUCT_LISTING_FACETS_REQUEST,
+        },
+      );
+
+      expect(state.productListingFacets).toEqual(expectedState);
+    });
+
+    it('should handle FETCH_PRODUCT_LISTING_FACETS_FAILURE action type', () => {
+      const expectedState = { isLoading: false, error: '', result: [] };
+      const state = reducer(
+        {
+          ...initialState,
+          productListingFacets: { isLoading: true, error: null, result: [] },
+        },
+        {
+          payload: { error: '' },
+          type: productsActionTypes.FETCH_PRODUCT_LISTING_FACETS_FAILURE,
+        },
+      );
+
+      expect(state.productListingFacets).toEqual(expectedState);
+    });
+
+    it('should handle FETCH_PRODUCT_LISTING_FACETS_SUCCESS action type', () => {
+      const expectedState = {
+        isLoading: false,
+        error: null,
+        result: { foo: 'bar' },
+      };
+      const state = reducer(
+        {
+          ...initialState,
+          productListingFacets: { isLoading: true, error: null, result: [] },
+        },
+        {
+          payload: { result: { foo: 'bar' } },
+          type: productsActionTypes.FETCH_PRODUCT_LISTING_FACETS_SUCCESS,
+        },
+      );
+
+      expect(state.productListingFacets).toEqual(expectedState);
+    });
+
+    it('should handle RESET_PRODUCT_LISTING_FACETS action type', () => {
+      const state = reducer(
+        {
+          ...initialState,
+          productListingFacets: {
+            isLoading: true,
+            error: toBlackoutError('error'),
+            result: [],
+          },
+        },
+        {
+          type: productsActionTypes.RESET_PRODUCT_LISTING_FACETS,
+        },
+      );
+
+      expect(state.productListingFacets).toEqual(
+        initialState.productListingFacets,
+      );
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = {
+        error: {},
+        isLoading: {},
+        isHydrated: {},
+        hash: mockProductsListHash,
+        productListingFacets: { isLoading: false, error: null, result: [] },
+      };
+
+      expect(reducer(state, mockAction).productListingFacets.isLoading).toEqual(
+        state.productListingFacets.isLoading,
+      );
     });
   });
 
@@ -427,6 +531,19 @@ describe('lists redux reducer', () => {
       const state = { ...initialState, isHydrated };
 
       expect(getIsHydrated(state)).toEqual(isHydrated);
+    });
+  });
+
+  describe('getListingFacetsState() selector', () => {
+    it('should return the `listingFacets` property from a given state', () => {
+      const productListingFacets = {
+        result: mockListingFacets,
+        error: null,
+        isLoading: false,
+      };
+      const state = { ...initialState, productListingFacets };
+
+      expect(getListingFacetsState(state)).toEqual(productListingFacets);
     });
   });
 });

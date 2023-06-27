@@ -70,6 +70,14 @@ export interface ResetProductListsEntitiesAction extends Action {
   payload: Array<string> | undefined;
 }
 
+/**
+ * Actions dispatched when the reset products listing facets is called.
+ */
+export interface ResetProductListingFacetsAction extends Action {
+  type: typeof actionTypes.RESET_PRODUCT_LISTING_FACETS;
+}
+
 export type ResetProductListsAction =
   | ResetProductListsStateAction
-  | ResetProductListsEntitiesAction;
+  | ResetProductListsEntitiesAction
+  | ResetProductListingFacetsAction;
