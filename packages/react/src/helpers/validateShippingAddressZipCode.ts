@@ -6,40 +6,27 @@ import {
 
 /**
  * Zip Code Validation Errors
- * * ER01 - The zip code validation is ignored because is not included in the countries array to be validated
- * * ER02 - Zip code schema not found
- * * ER03 - The zip code inserted is invalid
+ * * ER01 - Zip code schema not found
+ * * ER02 - The zip code inserted is invalid
  */
 export enum ZipCodeValidationError {
-  ZipCodeValidationCountryIgnored = 'ER01',
-  ZipCodeSchemaNotFoundError = 'ER02',
-  ZipCodeInvalid = 'ER03',
+  ZipCodeSchemaNotFoundError = 'ER01',
+  ZipCodeInvalid = 'ER02',
 }
 
 /**
- * Validates zip code for an array of iso-codes.
+ * Validates a zip code for a shipping address.
  * If the passed address' zip code is valid will return true and false with the error code `ZipCodeInvalid` if not valid.
- * For the case that the address' country code is not in the array of isoCodesToValidate,
- * it will return false and the error code `ZipCodeValidationCountryIgnored`
  *
  * @param address - address
  * @param addressSchemas - address schemas to test.
- * @param isoCodesToValidate - iso codes to be validated.
  *
  * @returns - an object with isValid and error code if exist
  * */
 export default function validateShippingAddressZipCode(
   address: AddressBase,
   addressSchemas: CountryAddressSchema[],
-  isoCodesToValidate: string[] = [],
 ): { isValid: boolean; error?: ZipCodeValidationError } {
-  if (!isoCodesToValidate.includes(address.country.alpha2Code)) {
-    return {
-      isValid: false,
-      error: ZipCodeValidationError.ZipCodeValidationCountryIgnored,
-    };
-  }
-
   const schema =
     addressSchemas.find(
       ({ addressType }) => addressType === AddressType.Shipping,

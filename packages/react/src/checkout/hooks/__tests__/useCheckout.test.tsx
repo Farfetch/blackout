@@ -21,7 +21,6 @@ import {
   fetchCheckoutOrder,
   fetchCheckoutOrderCharge,
   fetchCollectPoints as fetchCollectPointsAction,
-  fetchCountryAddressSchemas,
   isCheckoutOrderAwaitingPayment,
   isCheckoutOrderConfirmed,
   removePaymentIntentInstrument,
@@ -36,7 +35,9 @@ import {
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
 import { HttpHeaders, PaymentMethod } from '@farfetch/blackout-client';
+import { mockGetAddressSchemaResponse } from 'tests/__fixtures__/locale/locale.fixtures.mjs';
 import { withStore } from '../../../../tests/helpers/index.js';
+import { ZipCodeValidationError } from '../../../index.js';
 import useCheckout from '../useCheckout.js';
 import useCheckoutOrderCharge from '../useCheckoutOrderCharge.js';
 import useCheckoutOrderDetails from '../useCheckoutOrderDetails.js';
@@ -87,9 +88,6 @@ jest.mock('@farfetch/blackout-redux', () => ({
   })),
   isCheckoutOrderConfirmed: jest.fn(),
   isCheckoutOrderAwaitingPayment: jest.fn(),
-  fetchCountryAddressSchemas: jest.fn(() => ({
-    type: 'fetch_country_address_schemas',
-  })),
 }));
 
 jest.mock('../useCheckoutOrderCharge', () => ({
@@ -114,6 +112,8 @@ jest.mock('../../../locale/hooks/useCountryAddressSchemas', () => ({
       .default,
   ),
 }));
+
+const mockUseCountryAddressSchemas = jest.mocked(useCountryAddressSchemas);
 
 jest.mock('../../../payments/hooks/usePaymentIntentInstruments', () => ({
   __esModule: true,
@@ -1835,7 +1835,6 @@ describe('useCheckout', () => {
           () =>
             useCheckout(undefined, {
               enableAutoFetch: false,
-              isoCodesToValidate: ['IE'],
             }),
           {
             wrapper: withStore(cloneMockState),
@@ -1847,11 +1846,19 @@ describe('useCheckout', () => {
         });
       });
 
-      it('should fetch the addressSchema if does not exist', async () => {
+      it('should get addressSchema and return isValid true if zipCode is valid', async () => {
         const cloneMockState = cloneDeep(mockCheckoutState);
 
         // @ts-expect-error mocking purpose
         delete cloneMockState.entities.countriesAddressSchemas;
+
+        // @ts-expect-error mocking purpose
+        mockUseCountryAddressSchemas.mockReturnValueOnce({
+          data: { countryAddressSchemas: undefined },
+          actions: {
+            fetch: jest.fn().mockResolvedValue(mockGetAddressSchemaResponse),
+          },
+        });
 
         const {
           result: {
@@ -1863,7 +1870,6 @@ describe('useCheckout', () => {
           () =>
             useCheckout(undefined, {
               enableAutoFetch: false,
-              isoCodesToValidate: ['IE'],
             }),
           {
             wrapper: withStore(cloneMockState),
@@ -1871,43 +1877,12 @@ describe('useCheckout', () => {
         );
 
         await isShippingAddressZipCodeValid();
-
-        expect(fetchCountryAddressSchemas).toHaveBeenCalledWith(
-          cloneMockState.entities.checkoutOrders[checkoutId].shippingAddress
-            .country.alpha2Code,
-        );
-      });
-
-      it('should return isValid true if country shipping of a checkout order is not included in the isoCodesToValidate', async () => {
-        const {
-          result: {
-            current: {
-              helpers: { isShippingAddressZipCodeValid },
-            },
-          },
-        } = renderHook(
-          () =>
-            useCheckout(undefined, {
-              enableAutoFetch: false,
-              isoCodesToValidate: ['IE'],
-            }),
-          {
-            wrapper: withStore(mockCheckoutState),
-          },
-        );
-
-        expect(useCountryAddressSchemas).toHaveBeenCalledWith(
-          mockCheckoutState.entities.checkoutOrders[checkoutId].shippingAddress
-            .country.alpha2Code,
-          { enableAutoFetch: false },
-        );
         expect(await isShippingAddressZipCodeValid()).toEqual({
-          isValid: false,
-          error: 'ER01',
+          isValid: true,
         });
       });
 
-      it('should return isValid true if country shipping of a checkout order is in isoCodesToValidate array and zip code is valid', async () => {
+      it('should return isValid true if zip code is valid', async () => {
         const cloneMockState = cloneDeep(mockCheckoutState);
 
         // change alpha2Code from 'PT' to 'IE'
@@ -1934,7 +1909,6 @@ describe('useCheckout', () => {
           () =>
             useCheckout(undefined, {
               enableAutoFetch: false,
-              isoCodesToValidate: ['IE'],
             }),
           {
             wrapper: withStore(cloneMockState),
@@ -1951,7 +1925,7 @@ describe('useCheckout', () => {
         });
       });
 
-      it('should return isValid false if country shipping of a checkout order is in isoCodesToValidate array and zip code is not valid', async () => {
+      it('should return isValid false if zip code is not valid', async () => {
         const cloneMockState = cloneDeep(mockCheckoutState);
 
         // change alpha2Code from 'PT' to 'IE'
@@ -1978,7 +1952,6 @@ describe('useCheckout', () => {
           () =>
             useCheckout(undefined, {
               enableAutoFetch: false,
-              isoCodesToValidate: ['IE'],
             }),
           {
             wrapper: withStore(cloneMockState),
@@ -1992,7 +1965,54 @@ describe('useCheckout', () => {
         );
         expect(await isShippingAddressZipCodeValid()).toEqual({
           isValid: false,
-          error: 'ER03',
+          error: ZipCodeValidationError.ZipCodeInvalid,
+        });
+      });
+
+      it('should do the validation when receive the shipping address by parameter', async () => {
+        const cloneMockState = cloneDeep(mockCheckoutState);
+
+        // change alpha2Code from 'PT' to 'IE'
+        cloneMockState.entities.checkoutOrders[
+          checkoutId
+        ].shippingAddress.country.alpha2Code = 'IE';
+
+        // set a valid Ireland zip code format
+        cloneMockState.entities.checkoutOrders[
+          checkoutId
+        ].shippingAddress.zipCode = 'D02 N725';
+
+        // @ts-expect-error mocking purpose
+        cloneMockState.entities.countriesAddressSchemas['IE'] =
+          mockIrelandAddressSchema;
+
+        const {
+          result: {
+            current: {
+              helpers: { isShippingAddressZipCodeValid },
+            },
+          },
+        } = renderHook(
+          () =>
+            useCheckout(undefined, {
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(cloneMockState),
+          },
+        );
+
+        expect(useCountryAddressSchemas).toHaveBeenCalledWith(
+          cloneMockState.entities.checkoutOrders[checkoutId].shippingAddress
+            .country.alpha2Code,
+          { enableAutoFetch: false },
+        );
+        expect(
+          await isShippingAddressZipCodeValid(
+            cloneMockState.entities.checkoutOrders[checkoutId].shippingAddress,
+          ),
+        ).toEqual({
+          isValid: true,
         });
       });
     });
