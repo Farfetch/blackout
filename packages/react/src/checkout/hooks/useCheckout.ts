@@ -17,8 +17,10 @@ import {
   updateCheckoutOrder,
 } from '@farfetch/blackout-redux';
 import {
+  type CheckoutAddress,
   type CheckoutOrder,
   type Config,
+  type CountryAddressSchema,
   type GetCheckoutOrderQuery,
   type GetCollectPointsQuery,
   HttpHeaders,
@@ -63,7 +65,6 @@ function useCheckout(
     createData,
     createConfig,
     enableAutoCreate = false,
-    isoCodesToValidate = [],
   } = options;
 
   const isCheckoutOrderLoading = useSelector(isCheckoutOrderLoadingSelector);
@@ -489,30 +490,33 @@ function useCheckout(
     { enableAutoFetch: false },
   );
 
-  const isShippingAddressZipCodeValid = useCallback(async () => {
-    let addressSchema = countryAddressSchemas;
+  const isShippingAddressZipCodeValid = useCallback(
+    async (
+      shippingAddress:
+        | CheckoutAddress
+        | undefined = checkoutOrder?.shippingAddress,
+    ) => {
+      let addressSchema: CountryAddressSchema[] | undefined =
+        countryAddressSchemas;
 
-    if (!checkoutOrder?.shippingAddress) {
-      return { isValid: false };
-    }
+      if (!shippingAddress) {
+        return { isValid: false };
+      }
 
-    if (!addressSchema) {
-      addressSchema = await fetchCountryAddressSchemas(
-        checkoutOrder?.shippingAddress?.country.alpha2Code,
-      );
-    }
+      if (!addressSchema) {
+        addressSchema = await fetchCountryAddressSchemas(
+          shippingAddress?.country.alpha2Code,
+        );
+      }
 
-    return validateShippingAddressZipCode(
+      return validateShippingAddressZipCode(shippingAddress, addressSchema);
+    },
+    [
+      countryAddressSchemas,
       checkoutOrder?.shippingAddress,
-      addressSchema,
-      isoCodesToValidate,
-    );
-  }, [
-    checkoutOrder?.shippingAddress,
-    countryAddressSchemas,
-    fetchCountryAddressSchemas,
-    isoCodesToValidate,
-  ]);
+      fetchCountryAddressSchemas,
+    ],
+  );
 
   useEffect(() => {
     if (

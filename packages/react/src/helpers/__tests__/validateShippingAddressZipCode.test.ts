@@ -1,5 +1,8 @@
 import { type AddressType } from '@farfetch/blackout-client';
-import { validateShippingAddressZipCode } from '../index.js';
+import {
+  validateShippingAddressZipCode,
+  ZipCodeValidationError,
+} from '../index.js';
 
 const eircodeRegex =
   '^(?=.{7,8}$)^([AC-FHKNPRTV-Y]{1}[0-9]{2}|D6W)[ ]?[0-9AC-FHKNPRTV-Y]{4}$';
@@ -27,34 +30,7 @@ describe('validateShippingAddressZipCode', () => {
     },
   ];
 
-  it("should return true if the country isn't one of the countries to validate", async () => {
-    const mockAddress = {
-      addressLine1: 'Portugal Address',
-      city: {
-        countryId: 0,
-        id: 0,
-        name: 'Portugal',
-      },
-      country: {
-        alpha2Code: 'PT',
-        id: 98,
-        name: 'Portugal',
-        continentId: 1,
-      },
-      zipCode: '4444',
-    };
-
-    expect(
-      await validateShippingAddressZipCode(mockAddress, mockAddressSchema, [
-        'ES',
-      ]),
-    ).toEqual({
-      isValid: false,
-      error: 'ER01',
-    });
-  });
-
-  it('should return true if the country is one of the countries to validate and zipCode is valid', async () => {
+  it('should return true if the zipCode is valid', async () => {
     const mockAddress = {
       addressLine1: 'Ireland Address',
       city: {
@@ -72,9 +48,7 @@ describe('validateShippingAddressZipCode', () => {
     };
 
     expect(
-      await validateShippingAddressZipCode(mockAddress, mockAddressSchema, [
-        'IE',
-      ]),
+      await validateShippingAddressZipCode(mockAddress, mockAddressSchema),
     ).toEqual({
       isValid: true,
     });
@@ -98,12 +72,10 @@ describe('validateShippingAddressZipCode', () => {
     };
 
     expect(
-      await validateShippingAddressZipCode(mockAddress, mockAddressSchema, [
-        'IE',
-      ]),
+      await validateShippingAddressZipCode(mockAddress, mockAddressSchema),
     ).toEqual({
       isValid: false,
-      error: 'ER03',
+      error: ZipCodeValidationError.ZipCodeInvalid,
     });
   });
 
@@ -124,11 +96,9 @@ describe('validateShippingAddressZipCode', () => {
       zipCode: 'D025',
     };
 
-    expect(
-      await validateShippingAddressZipCode(mockAddress, [], ['IE']),
-    ).toEqual({
+    expect(await validateShippingAddressZipCode(mockAddress, [])).toEqual({
       isValid: false,
-      error: 'ER02',
+      error: ZipCodeValidationError.ZipCodeSchemaNotFoundError,
     });
   });
 });
