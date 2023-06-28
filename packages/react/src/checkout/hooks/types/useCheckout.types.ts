@@ -12,5 +12,4 @@ export type UseCheckoutOptions = {
   enableAutoCreate?: boolean;
   createData?: PostCheckoutOrderDataWithItems | PostCheckoutOrderDataWithBag;
   createConfig?: Config;
-  isoCodesToValidate?: string[];
 };

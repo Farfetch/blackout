@@ -178,9 +178,8 @@ Object {
   },
   "UserProfileProvider": [Function],
   "ZipCodeValidationError": Object {
-    "ZipCodeInvalid": "ER03",
-    "ZipCodeSchemaNotFoundError": "ER02",
-    "ZipCodeValidationCountryIgnored": "ER01",
+    "ZipCodeInvalid": "ER02",
+    "ZipCodeSchemaNotFoundError": "ER01",
   },
   "analytics": AnalyticsWeb {
     "activeIntegrations": Map {},
