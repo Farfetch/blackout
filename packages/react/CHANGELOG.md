@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.3.0...@farfetch/blackout-react@1.4.0) (2023-06-29)
+
+### Features
+
+- implement eircode validation ([954d9ee](https://github.com/Farfetch/blackout/commit/954d9ee651b72bfc05171513ad08b1a56c25650a))
+- **react:** create useOrderShippingAddressChangeRequest hook ([679c16c](https://github.com/Farfetch/blackout/commit/679c16c2c088dd47fc1715e6d15dd6e7bab66d6c))
+
 # [1.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.2.2...@farfetch/blackout-react@1.3.0) (2023-06-21)
 
 ### Bug Fixes
