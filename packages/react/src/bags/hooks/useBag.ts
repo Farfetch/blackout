@@ -685,8 +685,8 @@ const useBag = (options: UseBagOptions = {}) => {
       if (newQuantity !== bagItem.quantity && newSizeId !== bagItem.size.id) {
         return handleFullUpdate(
           bagItem,
-          newQuantity,
           newSizeId,
+          newQuantity,
           metadata,
           config,
         );

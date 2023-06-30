@@ -1,5 +1,6 @@
 export const mockBrandId = 6326412;
 export const mockMerchantId = 10973;
+export const mockMerchantId2 = 545;
 export const mockProductId = 11766695;
 export const mockProductTypeToExclude = 3;
 export const mockSetId = 1050;

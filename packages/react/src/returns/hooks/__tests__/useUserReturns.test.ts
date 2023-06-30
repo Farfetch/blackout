@@ -286,7 +286,7 @@ describe('useUserReturns', () => {
         } = renderHook(
           () =>
             useUserReturns({
-              enableAutoFetch: true,
+              enableAutoFetch: false,
               fetchQuery: mockFetchQuery,
               fetchConfig: mockFetchConfig,
               useLegacyGuestFlow: true,
@@ -300,7 +300,7 @@ describe('useUserReturns', () => {
           },
         );
 
-        return expect(() => fetch()).rejects.toThrow(
+        return expect(fetch()).rejects.toThrow(
           'The user must be a guest to use the legacy flow',
         );
       });
@@ -315,7 +315,7 @@ describe('useUserReturns', () => {
         } = renderHook(
           () =>
             useUserReturns({
-              enableAutoFetch: true,
+              enableAutoFetch: false,
               fetchQuery: { ...mockFetchQuery, orderId: undefined },
               fetchConfig: mockFetchConfig,
               useLegacyGuestFlow: true,
@@ -343,7 +343,7 @@ describe('useUserReturns', () => {
         } = renderHook(
           () =>
             useUserReturns({
-              enableAutoFetch: true,
+              enableAutoFetch: false,
               fetchQuery: { ...mockFetchQuery, orderId: undefined },
               fetchConfig: mockFetchConfig,
               useLegacyGuestFlow: true,
@@ -372,7 +372,7 @@ describe('useUserReturns', () => {
         } = renderHook(
           () =>
             useUserReturns({
-              enableAutoFetch: true,
+              enableAutoFetch: false,
               fetchQuery: mockFetchQuery,
               fetchConfig: mockFetchConfig,
               useLegacyGuestFlow: true,
