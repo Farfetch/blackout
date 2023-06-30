@@ -24,6 +24,7 @@ import {
 import {
   mockBrandId,
   mockMerchantId,
+  mockMerchantId2,
   mockProductId,
   mockSizeScaleId,
 } from 'tests/__fixtures__/products/ids.fixtures.mjs';
@@ -773,7 +774,7 @@ describe('useBag', () => {
           {
             authCode: undefined,
             customAttributes: '',
-            merchantId: 545,
+            merchantId: mockMerchantId2,
             productAggregatorId: undefined,
             productId: mockProductId,
             quantity: 3,
@@ -824,7 +825,7 @@ describe('useBag', () => {
           {
             authCode: undefined,
             customAttributes: '',
-            merchantId: 545,
+            merchantId: mockMerchantId2,
             productId: mockProductId,
             productAggregatorId: undefined,
             quantity: 3,
@@ -851,7 +852,7 @@ describe('useBag', () => {
 
         await updateItem(
           mockBagItemId,
-          { sizeId: 2, quantity: 2 },
+          { sizeId: 2, quantity: 10 },
           metadata,
           myConfig,
         );
@@ -867,6 +868,25 @@ describe('useBag', () => {
             merchantId: mockMerchantId,
             productId: mockProductId,
             quantity: 2,
+            scale: mockSizeScaleId,
+            size: 2,
+            metadata: externalMetadata,
+          },
+          undefined,
+          metadata,
+          myConfig,
+        );
+
+        expect(addBagItem).toHaveBeenCalledTimes(1);
+        expect(addBagItem).toHaveBeenCalledWith(
+          mockState.entities.user.bagId,
+          {
+            authCode: undefined,
+            customAttributes: '',
+            productAggregatorId: undefined,
+            merchantId: mockMerchantId2,
+            productId: mockProductId,
+            quantity: 8,
             scale: mockSizeScaleId,
             size: 2,
             metadata: externalMetadata,

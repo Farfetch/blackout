@@ -1,5 +1,6 @@
 import {
   mockMerchantId,
+  mockMerchantId2,
   mockProductId,
   mockSizeScaleId,
 } from './ids.fixtures.mjs';
@@ -86,7 +87,7 @@ export const mockProductSizesAdapted = [
         purchaseChannel: null,
       },
       {
-        merchantId: 545,
+        merchantId: mockMerchantId2,
         quantity: 20,
         barcodes: [],
         price: {
@@ -158,7 +159,7 @@ export const mockProductSizesAdapted = [
     scaleDescription: 'italian',
     stock: [
       {
-        merchantId: 545,
+        merchantId: mockMerchantId2,
         quantity: 0,
         barcodes: [],
         price: {
