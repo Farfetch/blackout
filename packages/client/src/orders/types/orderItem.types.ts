@@ -44,6 +44,7 @@ export type OrderItem = {
   tags: string[];
   isExclusive?: boolean;
   isReturnAvailable: boolean;
+  isExchangeAvailable?: boolean;
   isPreOrder: boolean;
   preOrder?: {
     expectedFulfillmentDate?: {

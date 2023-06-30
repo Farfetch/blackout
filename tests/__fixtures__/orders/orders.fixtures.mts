@@ -402,6 +402,7 @@ export const mockOrderItem = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
+  isExchangeAvailable: false,
   merchantOrderCode: merchantOrderCode,
   productSummary: {
     productId: '12091686',
@@ -590,6 +591,7 @@ export const mockOrderItem2 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
+  isExchangeAvailable: false,
   merchantOrderCode: merchantOrderCode2,
   productSummary: {
     productId: '12511241',
@@ -753,6 +755,7 @@ export const mockOrderItem3 = {
   orderItemStatus: OrderItemStatus.None,
   orderStatus: MerchantOrderStatus.CheckingStock,
   isReturnAvailable: false,
+  isExchangeAvailable: false,
   merchantOrderCode: merchantOrderCode3,
   productSummary: {
     productId: '12092633',
@@ -1037,6 +1040,7 @@ export const mockOrderDetailsResponse2 = {
       },
       customAttributes: '',
       isReturnAvailable: false,
+      isExchangeAvailable: false,
       returnRestriction: 'BlockedByWorkflow',
       isCustomizable: false,
       isExclusive: false,
@@ -2167,6 +2171,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
+          isExchangeAvailable: false,
           merchantOrderCode: merchantOrderCode,
           productSummary: {
             productId: '12091686',
@@ -2290,6 +2295,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
+          isExchangeAvailable: false,
           merchantOrderCode: merchantOrderCode2,
           productSummary: {
             productId: '12511241',
@@ -2397,6 +2403,7 @@ export const getExpectedOrderDetailsNormalizedPayload = (
           orderItemStatus: OrderItemStatus.None,
           orderStatus: MerchantOrderStatus.CheckingStock,
           isReturnAvailable: false,
+          isExchangeAvailable: false,
           merchantOrderCode: merchantOrderCode3,
           productSummary: {
             productId: '12092633',
@@ -2836,6 +2843,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
+        isExchangeAvailable: false,
         merchantOrderCode: merchantOrderCode,
         productSummary: {
           productId: '12091686',
@@ -2973,6 +2981,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
+        isExchangeAvailable: false,
         merchantOrderCode: merchantOrderCode2,
         productSummary: {
           productId: '12511241',
@@ -3092,6 +3101,7 @@ export const expectedGuestOrdersNormalizedPayload = {
         orderItemStatus: 'None',
         orderStatus: 'CheckingStock',
         isReturnAvailable: false,
+        isExchangeAvailable: false,
         merchantOrderCode: merchantOrderCode3,
         productSummary: {
           productId: '12511241',
@@ -3424,6 +3434,7 @@ export const expectedGuestOrdersNormalizedPayload = {
           trackingCodes: [],
         },
         isReturnAvailable: false,
+        isExchangeAvailable: false,
         returnRestriction: 'BlockedByWorkflow',
         isCustomizable: false,
         isExclusive: false,
