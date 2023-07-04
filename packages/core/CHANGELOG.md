@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.90.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.90.0...@farfetch/blackout-core@1.90.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* add missing index file in shared wishlists redux ([5e3ee80](https://github.com/Farfetch/blackout/commit/5e3ee802424c4dd8f7c305cb8f653411ff350751))
+
+
+
+
+
 # [1.90.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.89.0...@farfetch/blackout-core@1.90.0) (2023-06-20)
 
 
