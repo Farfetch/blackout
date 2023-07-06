@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.5.0...@farfetch/blackout-client@2.5.1) (2023-07-06)
+
+### Bug Fixes
+
+- **client:** add isExchangeAvailable to orderItem property ([77f2b93](https://github.com/Farfetch/blackout/commit/77f2b931af24d6d56fc51bdd3901e1f955f591e4))
+
 # [2.5.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.4.0...@farfetch/blackout-client@2.5.0) (2023-06-21)
 
 ### Bug Fixes

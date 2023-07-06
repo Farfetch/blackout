@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.4.0...@farfetch/blackout-react@1.4.1) (2023-07-06)
+
+### Bug Fixes
+
+- fix `useBag` wrong call to `handleFullUpdate` ([62570fe](https://github.com/Farfetch/blackout/commit/62570fe78cf4e718cf8a797c9b82f4d2b8622444))
+
 # [1.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.3.0...@farfetch/blackout-react@1.4.0) (2023-06-29)
 
 ### Features

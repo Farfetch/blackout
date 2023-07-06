@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.3.0...@farfetch/blackout-redux@1.4.0) (2023-07-06)
+
+### Features
+
+- implement eircode validation ([954d9ee](https://github.com/Farfetch/blackout/commit/954d9ee651b72bfc05171513ad08b1a56c25650a))
+
 # [1.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.2.0...@farfetch/blackout-redux@1.3.0) (2023-06-21)
 
 ### Bug Fixes
