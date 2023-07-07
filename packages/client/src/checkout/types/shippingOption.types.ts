@@ -1,11 +1,12 @@
 import type { ShippingCostType } from './index.js';
 
 export type CheckoutOrderShippingOption = {
-  currency: string;
+  /** @deprecated Currently not used */
+  currency?: string;
   discount: number;
   merchants: number[];
   price: number;
-  formattedPrice: string;
+  formattedPrice?: string;
   shippingCostType: ShippingCostType;
   shippingService: {
     description: string;

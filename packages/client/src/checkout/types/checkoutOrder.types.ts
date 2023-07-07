@@ -1,4 +1,7 @@
-import type { CheckoutAddress } from '../../types/common/address.types.js';
+import type {
+  CheckoutAddress,
+  CheckoutShippingAddress,
+} from '../../types/common/address.types.js';
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from './index.js';
 import type { CustomerTypeLegacy } from '../../orders/types/order.types.js';
 import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types.js';
@@ -25,7 +28,6 @@ export type ClickAndCollect = {
 
 export type CheckoutOrder = {
   id: number;
-  bagId: string;
   billingAddress: CheckoutAddress;
   checkoutOrderMerchants: CheckoutOrderMerchant[];
   countryId: number;
@@ -48,7 +50,7 @@ export type CheckoutOrder = {
   // in favour of the promocodes property.
   promocode?: string;
   promocodes?: string[];
-  shippingAddress: CheckoutAddress;
+  shippingAddress: CheckoutShippingAddress;
   status: CheckoutOrderStatus;
   subTotalAmount: number;
   subTotalAmountExclTaxes: number;
@@ -69,7 +71,7 @@ export type CheckoutOrder = {
   taxType: string;
   updatedDate: string;
   userId: number;
-  clickAndCollect: ClickAndCollect;
+  clickAndCollect?: ClickAndCollect;
   tags: string[];
   hadUnavailableItems: boolean;
   isGuestUser: boolean;

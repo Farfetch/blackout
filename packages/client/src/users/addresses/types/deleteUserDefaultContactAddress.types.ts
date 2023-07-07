@@ -4,4 +4,4 @@ import type { User } from '../../../users/authentication/types/user.types.js';
 export type DeleteUserDefaultContactAddress = (
   userId: User['id'],
   config?: Config,
-) => void;
+) => Promise<number>;

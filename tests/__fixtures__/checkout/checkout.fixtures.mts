@@ -11,6 +11,7 @@ import {
   CheckoutOrderDeliveryWindowType,
   CheckoutOrderItemStatus,
   CheckoutOrderStatus,
+  type CheckoutShippingAddress,
   CustomerTypeLegacy,
   GenderCode,
   OrderItemCreationChannelLegacy,
@@ -18,7 +19,6 @@ import {
   type PatchCheckoutOrderItemsData,
   ShippingCostType,
   ShippingMode,
-  type UserAddress,
   UserGender,
   UserStatus,
 } from '@farfetch/blackout-client';
@@ -52,7 +52,7 @@ export const productId = 12640693;
 
 const brandId = 121212;
 
-const address: UserAddress = {
+const address: CheckoutShippingAddress = {
   addressLine1: 'Rua da Lionesa 446, G12',
   addressLine2: ' Teste',
   addressLine3: '',
@@ -71,12 +71,13 @@ const address: UserAddress = {
     nativeName: 'Portugal',
     region: 'Europe',
     subRegion: undefined,
+    subfolder: '/pt-PT',
     regionId: 0,
     continentId: 3,
   },
   ddd: undefined,
   firstName: 'tester',
-  id: 'c9ce5410-58d9-4298-a385-231a79373e4a',
+  id: '00000000-0000-0000-0000-000000000000',
   lastName: 'teste',
   neighbourhood: undefined,
   phone: '121525125',
@@ -88,8 +89,6 @@ const address: UserAddress = {
   },
   vatNumber: undefined,
   zipCode: '4465-761',
-  isCurrentBilling: true,
-  isCurrentShipping: true,
 };
 
 const storeAddress = {

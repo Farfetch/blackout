@@ -21,4 +21,4 @@ export type PutPaymentIntentInstrument = (
   paymentInstrumentId: PaymentInstrument['id'],
   data: PutPaymentIntentInstrumentData,
   config?: Config,
-) => void;
+) => Promise<number>;

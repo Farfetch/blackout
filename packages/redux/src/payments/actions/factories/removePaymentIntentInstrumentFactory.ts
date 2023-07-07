@@ -25,7 +25,7 @@ const removePaymentIntentInstrumentFactory =
   ) =>
   async (
     dispatch: Dispatch<RemovePaymentIntentInstrumentAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         type: actionTypes.REMOVE_PAYMENT_INTENT_INSTRUMENT_REQUEST,

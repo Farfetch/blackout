@@ -436,7 +436,7 @@ describe('useExchangeBookRequest', () => {
         );
       });
 
-      it('should fail when both exchangeId and data parameters are not passed to the function', () => {
+      it('should fail when both exchangeId and data parameters are not passed to the function', async () => {
         const {
           result: {
             current: {
@@ -454,10 +454,12 @@ describe('useExchangeBookRequest', () => {
           },
         );
 
-        // @ts-expect-error
-        create();
+        await expect(
+          // @ts-expect-error
+          create(),
+        ).rejects.toThrow('No exchangeId provided');
 
-        return expect(createExchangeBookRequest).not.toHaveBeenCalled();
+        expect(createExchangeBookRequest).not.toHaveBeenCalled();
       });
 
       it('should fail when exchangeId parameter is not passed to the function', () => {

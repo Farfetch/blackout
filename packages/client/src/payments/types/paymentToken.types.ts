@@ -1,7 +1,4 @@
-import type {
-  AddressWithOptionalLocation,
-  AddressWithRecipient,
-} from '../../types/common/address.types.js';
+import type { PaymentTokenBillingAddress } from '../../types/common/address.types.js';
 
 export type PaymentToken = {
   id: string;
@@ -12,7 +9,7 @@ export type PaymentToken = {
   expiryMonth: number;
   holderName: string;
   forceCvvRequest: boolean;
-  billingAddress: AddressWithOptionalLocation<AddressWithRecipient>;
+  billingAddress: PaymentTokenBillingAddress;
   tokenExpired: boolean;
   usedDate: string;
   createdDate: string;

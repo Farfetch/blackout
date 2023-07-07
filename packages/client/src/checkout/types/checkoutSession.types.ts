@@ -1,5 +1,4 @@
 import type { CheckoutSessionItem } from './checkoutSessionItem.types.js';
-import type { PaymentMethods } from '../../payments/types/paymentMethods.types.js';
 
 export enum CheckoutSessionType {
   Checkout,
@@ -32,5 +31,4 @@ export type CheckoutSession = {
   taxType: string;
   metadata?: CheckoutSessionMetadata;
   items: CheckoutSessionItem[];
-  paymentMethods: PaymentMethods;
 };

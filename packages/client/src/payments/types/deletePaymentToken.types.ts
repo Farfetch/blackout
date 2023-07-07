@@ -4,4 +4,4 @@ import type { PaymentToken } from './index.js';
 export type DeletePaymentToken = (
   paymentTokenId: PaymentToken['id'],
   config?: Config,
-) => void;
+) => Promise<number>;
