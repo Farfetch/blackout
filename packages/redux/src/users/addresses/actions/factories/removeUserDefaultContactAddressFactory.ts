@@ -21,7 +21,7 @@ const removeUserDefaultContactAddressFactory =
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (
     dispatch: Dispatch<RemoveUserDefaultContactAddressAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         meta: { userId, addressId },

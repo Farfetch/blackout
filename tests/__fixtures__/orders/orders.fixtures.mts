@@ -4320,7 +4320,7 @@ export const mockOrderShippingAddressChangeRequestsResponse = [
       },
     ],
     shippingAddress: {
-      id: '00000000-0000-0000-0000-000000000000',
+      id: '00000000-0000-0000-0000-000000000000' as const,
       firstName: 'John',
       lastName: 'Doe',
       addressLine1: 'Rua As Camponesas do Corvo 1',
@@ -4353,7 +4353,7 @@ export const mockOrderShippingAddressChangeRequestsPayload = {
     },
   ],
   shippingAddress: {
-    id: '00000000-0000-0000-0000-000000000000',
+    id: '00000000-0000-0000-0000-000000000000' as const,
     firstName: 'John',
     lastName: 'Doe',
     addressLine1: 'Rua As Camponesas do Corvo 1',

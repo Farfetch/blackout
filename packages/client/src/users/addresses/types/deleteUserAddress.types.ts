@@ -11,4 +11,4 @@ export type DeleteUserAddressProps = {
 export type DeleteUserAddress = (
   props: DeleteUserAddressProps,
   config?: Config,
-) => void;
+) => Promise<number>;

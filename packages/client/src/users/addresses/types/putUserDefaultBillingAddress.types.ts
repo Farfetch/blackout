@@ -5,4 +5,4 @@ export type PutUserDefaultBillingAddress = (
   userId: User['id'],
   addressId: UserAddress['id'],
   config?: Config,
-) => void;
+) => Promise<number>;

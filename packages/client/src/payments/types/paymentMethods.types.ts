@@ -3,21 +3,29 @@ export type Issuer = {
   id: string;
 };
 
+export type CustomerAccountPaymentMethod = {
+  type: string;
+  id: string;
+  description: string;
+  code: string;
+  paymentOptions: string[];
+  issuers?: Issuer[];
+  min?: number;
+  max?: number;
+};
+
+export type CreditCard = {
+  id: string;
+  description: string;
+  code: string;
+};
+
+export type CreditCardPaymentMethod = {
+  type: string;
+  creditCards: CreditCard[];
+};
+
 export type PaymentMethods = {
-  customerAccounts: {
-    type: string;
-    id: string;
-    description: string;
-    code: string;
-    paymentOptions: string[];
-    issuers?: Issuer[];
-  }[];
-  creditCard: {
-    type: string;
-    creditCards: {
-      id: string;
-      description: string;
-      code: string;
-    }[];
-  };
+  customerAccounts: CustomerAccountPaymentMethod[];
+  creditCard: CreditCardPaymentMethod;
 };

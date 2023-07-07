@@ -75,6 +75,18 @@ export type AddressWithOptionalLocation<T extends AddressBase> = Omit<
   country?: T['country'];
 };
 
+export type PaymentTokenBillingAddress =
+  AddressWithOptionalLocation<AddressWithRecipient> & {
+    /** @deprecated id should not be used as its value never changes */
+    id?: '00000000-0000-0000-0000-000000000000';
+    /** @deprecated userId should not be used as its value never changes */
+    userId?: 0;
+    /** @deprecated isDefaultBillingAddress should not be used as its value never changes */
+    isDefaultBillingAddress?: false;
+    /** @deprecated isDefaultShippingAddress should not be used as its value never changes */
+    isDefaultShippingAddress?: false;
+  };
+
 export type PhoneContact = {
   value: string;
   countryCode?: CountryAddress['alpha2Code'];
@@ -84,16 +96,34 @@ export type PhoneContact = {
 export type StoreAddress = AddressWithRecipient & {
   latitude?: string;
   longitude?: string;
+  subfolder?: string;
 };
 
 export type CheckoutAddress = CategorisedAddress & {
+  /** @deprecated id should not be used as its value never changes */
+  id?: '00000000-0000-0000-0000-000000000000';
   phoneContact?: PhoneContact;
   identityDocument?: string;
   customsClearanceCode?: string;
   title?: string;
+  /** @deprecated userId should not be used as its value never changes */
+  userId?: 0;
+  /** @deprecated isDefaultBillingAddress should not be used as its value never changes */
+  isDefaultBillingAddress?: false;
+  /** @deprecated isDefaultShippingAddress should not be used as its value never changes */
+  isDefaultShippingAddress?: false;
 };
 
-export type UserAddress = CheckoutAddress & {
+export type CheckoutShippingAddress = Omit<CheckoutAddress, 'country'> & {
+  country: CountryAddress & {
+    subfolder: string;
+  };
+};
+
+export type UserAddress = Omit<
+  CheckoutAddress,
+  'id' | 'userId' | 'isDefaultBillingAddress' | 'isDefaultShippingAddress'
+> & {
   id: string;
   isCurrentShipping?: boolean;
   isCurrentBilling?: boolean;

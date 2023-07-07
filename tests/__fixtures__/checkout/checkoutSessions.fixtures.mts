@@ -853,11 +853,4 @@ export const mockCheckoutSession: CheckoutSession = {
       sizeDescription: '38.5',
     },
   ],
-  paymentMethods: {
-    customerAccounts: [],
-    creditCard: {
-      type: '',
-      creditCards: [],
-    },
-  },
 };
