@@ -21,7 +21,7 @@ const setUserDefaultContactAddressFactory =
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (
     dispatch: Dispatch<SetUserDefaultContactAddressAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         meta: { addressId },

@@ -21,7 +21,7 @@ const setUserDefaultBillingAddressFactory =
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (
     dispatch: Dispatch<SetUserDefaultBillingAddressAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         meta: { addressId },

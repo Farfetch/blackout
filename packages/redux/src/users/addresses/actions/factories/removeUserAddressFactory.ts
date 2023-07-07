@@ -19,7 +19,7 @@ import type { RemoveUserAddressAction } from '../../types/index.js';
 const removeUserAddressFactory =
   (deleteUserAddress: DeleteUserAddress) =>
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
-  async (dispatch: Dispatch<RemoveUserAddressAction>): Promise<void> => {
+  async (dispatch: Dispatch<RemoveUserAddressAction>): Promise<number> => {
     try {
       dispatch({
         meta: { addressId },

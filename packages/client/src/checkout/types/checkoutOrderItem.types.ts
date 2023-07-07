@@ -9,6 +9,7 @@ import type {
   ProductImageGroup,
   ProductVariant,
   ProductVariantAttribute,
+  SaleIntent,
 } from '../../index.js';
 
 export type CheckoutOrderItem = {
@@ -35,7 +36,10 @@ export type CheckoutOrderItem = {
   isExclusive: boolean;
   merchantId: number;
   merchantName: string;
-  price: Price;
+  price: Omit<
+    Price,
+    'formattedPriceWithoutCurrency' | 'formattedPriceWithoutDiscountAndCurrency'
+  >;
   productAggregator: {
     id?: number;
     images: ProductImageGroup;
@@ -72,4 +76,5 @@ export type CheckoutOrderItem = {
     subTotalAmount: number;
     subTotalOriginalAmount: number;
   };
+  selectedSaleIntent?: SaleIntent & string;
 };

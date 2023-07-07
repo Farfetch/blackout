@@ -27,7 +27,7 @@ const updatePaymentIntentInstrumentFactory =
   ) =>
   async (
     dispatch: Dispatch<UpdatePaymentIntentInstrumentAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_PAYMENT_INTENT_INSTRUMENT_REQUEST,

@@ -19,7 +19,7 @@ import type { RemovePaymentTokensAction } from '../../types/index.js';
 const removePaymentTokenFactory =
   (deletePaymentToken: DeletePaymentToken) =>
   (id: PaymentToken['id'], config?: Config) =>
-  async (dispatch: Dispatch<RemovePaymentTokensAction>): Promise<void> => {
+  async (dispatch: Dispatch<RemovePaymentTokensAction>): Promise<number> => {
     try {
       dispatch({
         type: actionTypes.REMOVE_PAYMENT_TOKEN_REQUEST,

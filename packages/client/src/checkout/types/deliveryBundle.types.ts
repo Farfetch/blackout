@@ -3,6 +3,7 @@ import type { CheckoutOrderDeliveryWindow } from './index.js';
 export type CheckoutOrderDeliveryBundleItemDeliveryOption = {
   itemId: number;
   name: string;
+  tags?: string[];
   deliveryWindow: CheckoutOrderDeliveryWindow;
 };
 

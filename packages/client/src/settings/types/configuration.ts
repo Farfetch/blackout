@@ -1,8 +1,8 @@
 export enum ConfigurationSchemaFieldType {
-  Number = 'number',
-  Boolean = 'boolean',
-  String = 'string',
-  Object = 'object',
+  String = 0,
+  Number = 1,
+  Boolean = 2,
+  Object = 4,
 }
 
 export type ConfigurationSecurity = {
@@ -18,7 +18,7 @@ export type ConfigurationProperty = {
   description: string;
   value: string;
   schemaFieldType: ConfigurationSchemaFieldType;
-  security: ConfigurationSecurity;
+  security: ConfigurationSecurity | null;
   contextValues?: Array<{ code: string; value: string }>;
 };
 
@@ -28,5 +28,5 @@ export type Configuration = {
   description: string;
   tenantId: number;
   properties: ConfigurationProperty[];
-  channelCodes?: string[];
+  channelCodes?: string[] | null;
 };

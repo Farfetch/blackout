@@ -21,7 +21,7 @@ const setUserDefaultShippingAddressFactory =
   (userId: User['id'], addressId: UserAddress['id'], config?: Config) =>
   async (
     dispatch: Dispatch<SetUserDefaultShippingAddressAction>,
-  ): Promise<void> => {
+  ): Promise<number> => {
     try {
       dispatch({
         meta: { addressId },

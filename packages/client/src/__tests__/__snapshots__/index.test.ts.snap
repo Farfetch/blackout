@@ -151,10 +151,14 @@ Object {
     "Set": "SET",
   },
   "ConfigurationSchemaFieldType": Object {
-    "Boolean": "boolean",
-    "Number": "number",
-    "Object": "object",
-    "String": "string",
+    "0": "String",
+    "1": "Number",
+    "2": "Boolean",
+    "4": "Object",
+    "Boolean": 2,
+    "Number": 1,
+    "Object": 4,
+    "String": 0,
   },
   "ContentPageStrategy": Object {
     "Default": "default",

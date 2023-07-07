@@ -29,7 +29,6 @@ describe('checkout client', () => {
     it('should handle a client request successfully', async () => {
       const response: CheckoutOrderDetails = {
         checkoutOrder: {
-          bagId: 'string',
           billingAddress: {
             addressLine1: 'string',
             addressLine2: 'string',
@@ -237,8 +236,6 @@ describe('checkout client', () => {
                 tags: ['string'],
                 formattedPrice: 'string',
                 formattedPriceWithoutDiscount: 'string',
-                formattedPriceWithoutCurrency: 'string',
-                formattedPriceWithoutDiscountAndCurrency: 'string',
                 taxType: 'string',
               },
               productAggregator: {
@@ -307,6 +304,7 @@ describe('checkout client', () => {
               nativeName: 'string',
               region: 'string',
               subRegion: 'string',
+              subfolder: '/pt-PT',
               regionId: 0,
               continentId: 0,
             },
