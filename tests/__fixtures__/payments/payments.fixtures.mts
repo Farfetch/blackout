@@ -8,6 +8,7 @@ import {
   PaymentIntentLineItemType,
   PaymentIntentStatus,
   PaymentMethod,
+  type PaymentSession,
   type PaymentToken,
   ShopperInteraction,
 } from '@farfetch/blackout-client';
@@ -587,6 +588,13 @@ export const mockPaymentsResponse = {
 export const mockPaymentIntentInstrumentResponse = {
   data: {},
   headers: { location: 'https://somelocation.com' },
+};
+
+export const mockPaymentSession: PaymentSession = {
+  id: 'a6cf8be4-0941-42de-8f23-c231fa081c37',
+  paymentUrl:
+    'http://payment-gateway.com?sessionId=9abc5129-0d4f-4693-bce8-647b1cb4c153',
+  expiresIn: 90000,
 };
 
 export const mockInitialState = {

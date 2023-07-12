@@ -42,7 +42,7 @@ export enum PaymentMethod {
 }
 
 export type PostPaymentIntentInstrumentData = {
-  method: PaymentMethod;
+  method: string;
   option?: string;
   token?: string;
   createToken?: boolean;

@@ -2,7 +2,6 @@ import type {
   Amounts,
   Payer,
   PaymentInstrumentData,
-  PaymentMethod,
   ShopperInteraction,
 } from './index.js';
 
@@ -17,7 +16,7 @@ export enum PaymentInstrumentStatus {
 
 export type PaymentInstrument = {
   id: string;
-  method: PaymentMethod;
+  method: string;
   option: string;
   amounts: Amounts[];
   status: PaymentInstrumentStatus;

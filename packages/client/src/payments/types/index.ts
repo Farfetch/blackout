@@ -23,4 +23,5 @@ export * from './postPaymentIntentCharge.types.js';
 export * from './getUserCreditBalance.types.js';
 export * from './getGiftCardBalance.types.js';
 export * from './postPaymentIntentInstrument.types.js';
+export * from './postPaymentSession.types.js';
 export * from './putPaymentIntentInstrument.types.js';
