@@ -14,6 +14,7 @@ export { default as putPaymentIntentInstrument } from './putPaymentIntentInstrum
 export { default as getPaymentIntent } from './getPaymentIntent.js';
 export { default as getPaymentIntentCharge } from './getPaymentIntentCharge.js';
 export { default as postPaymentIntentCharge } from './postPaymentIntentCharge.js';
+export { default as postPaymentSession } from './postPaymentSession.js';
 export { default as getUserCreditBalance } from './getUserCreditBalance.js';
 
 export * from './types/index.js';
