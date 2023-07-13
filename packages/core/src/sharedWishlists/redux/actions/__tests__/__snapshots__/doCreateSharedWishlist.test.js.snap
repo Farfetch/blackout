@@ -38,19 +38,7 @@ Object {
           "variants": undefined,
         },
       },
-      "sharedWishlists": Object {
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
-          "dateCreated": "2022-11-24T15:14:43.319Z",
-          "description": "string",
-          "hasMissingItems": false,
-          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "items": Array [
-            481426747,
-          ],
-          "name": "string",
-        },
-      },
-      "sharedWishlistsItems": Object {
+      "sharedWishlistItems": Object {
         "481426747": Object {
           "attributes": undefined,
           "dateCreated": 1669302883319,
@@ -61,6 +49,18 @@ Object {
           "product": 11766695,
           "quantity": 2,
           "size": Object {},
+        },
+      },
+      "sharedWishlists": Object {
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": Object {
+          "dateCreated": "2022-11-24T15:14:43.319Z",
+          "description": "string",
+          "hasMissingItems": false,
+          "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+          "items": Array [
+            481426747,
+          ],
+          "name": "string",
         },
       },
     },

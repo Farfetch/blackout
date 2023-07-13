@@ -1,14 +1,14 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes from '../../actionTypes';
 import { find } from 'lodash';
-import { INITIAL_STATE } from '../reducer';
+import { INITIAL_STATE } from '../../reducer';
 import {
   mockSharedWishlistId,
   mockSharedWishlistNormalizedPayload,
   mockSharedWishlistPostData,
   mockSharedWishlistsResponse,
 } from 'tests/__fixtures__/sharedWishlists';
-import { mockStore } from '../../../../tests';
-import doCreateSharedWishlist from '../actions/doCreateSharedWishlist';
+import { mockStore } from '../../../../../tests';
+import doCreateSharedWishlist from '../../actions/doCreateSharedWishlist';
 import thunk from 'redux-thunk';
 
 const mockMiddlewares = [

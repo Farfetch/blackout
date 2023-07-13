@@ -116,7 +116,7 @@ export default (state, action = {}) => {
     return INITIAL_STATE;
   }
 
-  if (action.type === actionTypes.RESET_SHARED_WISHLIST_ENTITIES) {
+  if (action.type === actionTypes.RESET_SHARED_WISHLIST_STATE) {
     const fieldsToReset = action.payload.fieldsToReset;
 
     if (!fieldsToReset) {

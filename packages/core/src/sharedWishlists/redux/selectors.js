@@ -143,6 +143,7 @@ const denormalizeSharedWishlistItem = (
  *
  * @param {object} state - Application state.
  * @param {number} sharedWishlistItemId - Numeric identifier of the shared wishlist item.
+ * @param _
  *
  * @returns {object} - Shared wishlist item entity for the given id.
  *
@@ -155,23 +156,16 @@ const denormalizeSharedWishlistItem = (
  */
 export const getSharedWishlistItem = createSelector(
   [
-    (state, sharedWishlistItemId) => sharedWishlistItemId,
-    state => getEntity(state, 'sharedWishlists'),
-    state => getEntity(state, 'sharedWishlistsItems'),
+    (_, sharedWishlistItemId) => sharedWishlistItemId,
+    state => getEntity(state, 'sharedWishlistItems'),
     state => getEntity(state, 'products'),
     state => getEntity(state, 'brands'),
     state => getEntity(state, 'categories'),
   ],
-  (
-    sharedWishlistItemId,
-    sharedWishlistsItems,
-    products,
-    brands,
-    categories,
-  ) => {
+  (sharedWishlistItemId, sharedWishlistItems, products, brands, categories) => {
     return denormalizeSharedWishlistItem(
       sharedWishlistItemId,
-      sharedWishlistsItems,
+      sharedWishlistItems,
       products,
       brands,
       categories,
@@ -187,17 +181,17 @@ export const getSharedWishlistItem = createSelector(
  *
  * @param {object} state - Application state.
  * @param {number} sharedWishlistId - Numeric identifier of the shared wishlist.
+ * @param _
  *
  * @returns {object} - Shared wishlist items entity for the given id.
  *
  * @example
- * import { getSharedWishlistItem } from '@farfetch/blackout-core/sharedWishlists/redux';
+ * import { getSharedWishlistItems } from '@farfetch/blackout-core/sharedWishlists/redux';
  *
  * const mapStateToProps = (state, { sharedWishlists: { id } }) => ({
  *    sharedWishlistItems: getSharedWishlistItems(state, id)
  * });
  */
-
 export const getSharedWishlistItems = createSelector(
   [
     (_, sharedWishlistId) => sharedWishlistId,
