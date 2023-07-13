@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.5.1...@farfetch/blackout-client@2.6.0) (2023-07-13)
+
+### Bug Fixes
+
+- fix types ([8ee62ae](https://github.com/Farfetch/blackout/commit/8ee62aed175b371d1914b9899d6226b92d3d1fd3))
+
+### Features
+
+- add postPaymentSession client ([178789f](https://github.com/Farfetch/blackout/commit/178789f0da1872adabe16013a705c4b2e422b0dd))
+
 ## [2.5.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.5.0...@farfetch/blackout-client@2.5.1) (2023-07-06)
 
 ### Bug Fixes
