@@ -32,3 +32,15 @@ export const getUserContactsError = (state: StoreState) =>
  */
 export const getUserContacts = (state: StoreState) =>
   getEntities(state, 'contacts');
+
+/**
+ * Returns the fetched status of the user contacts area.
+ *
+ * @param state - Application state.
+ *
+ * @returns Loader status.
+ */
+export const areUserContactsFetched = (state: StoreState) =>
+  (getUserContacts(state) !== undefined ||
+    getUserContactsError(state) !== null) &&
+  !areUserContactsLoading(state);

@@ -129,6 +129,7 @@ Object {
   "areUserAddressesLoading": [Function],
   "areUserAttributesLoading": [Function],
   "areUserBenefitsLoading": [Function],
+  "areUserContactsFetched": [Function],
   "areUserContactsLoading": [Function],
   "areUserCreditMovementsLoading": [Function],
   "areUserCreditsLoading": [Function],
