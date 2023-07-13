@@ -3,7 +3,7 @@ import { schema } from 'normalizr';
 import product from './product';
 
 export default new schema.Entity(
-  'sharedWishlistsItems',
+  'sharedWishlistItems',
   { product },
   {
     processStrategy: value => {

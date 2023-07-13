@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
-import { mockStore } from '../../../../tests';
-import { reset } from '../actions';
+import * as actionTypes from '../../actionTypes';
+import { mockStore } from '../../../../../tests';
+import { reset } from '../../actions';
 
 let store;
 

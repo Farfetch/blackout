@@ -37,7 +37,6 @@ const mockSharedWishlistItemEntity = {
   id: 481426747,
   isCustomizable: false,
   isExclusive: false,
-  price: undefined,
   product: 11766695,
   quantity: 2,
   size: {},
@@ -45,40 +44,6 @@ const mockSharedWishlistItemEntity = {
 
 export const mockSharedWishlistNormalizedPayload = {
   entities: {
-    brands: {
-      10533: {
-        id: 10533,
-        name: 'Valentino',
-      },
-    },
-    products: {
-      [mockProductId]: {
-        DEPRECATED_images: undefined,
-        brand: 10533,
-        categories: undefined,
-        colorGrouping: undefined,
-        colors: undefined,
-        customAttributes: undefined,
-        description: 'Modern Sneakers',
-        groupedEntries: undefined,
-        grouping: undefined,
-        groupingProperties: undefined,
-        id: 11766695,
-        images: undefined,
-        labels: undefined,
-        merchant: undefined,
-        name: '251 sneakers',
-        price: undefined,
-        prices: undefined,
-        sizes: undefined,
-        slug: 'string',
-        tag: {
-          id: undefined,
-          name: undefined,
-        },
-        variants: undefined,
-      },
-    },
     sharedWishlists: {
       [mockSharedWishlistId]: {
         dateCreated: '2022-11-24T15:14:43.319Z',
@@ -89,14 +54,13 @@ export const mockSharedWishlistNormalizedPayload = {
         name: 'string',
       },
     },
-    sharedWishlistsItems: {
+    sharedWishlistItems: {
       [mockSharedWishlistItemId]: {
         attributes: undefined,
         dateCreated: 1669302883319,
         id: 481426747,
         isCustomizable: false,
         isExclusive: false,
-        price: undefined,
         product: 11766695,
         quantity: 2,
         size: {},
@@ -167,8 +131,8 @@ export const mockSharedWishlistState = {
     products: {
       [mockProductId]: {
         DEPRECATED_images: undefined,
-        brand: 12579,
-        categories: undefined,
+        brand: 2450,
+        categories: [136301],
         colorGrouping: undefined,
         colors: undefined,
         customAttributes: undefined,
@@ -177,6 +141,31 @@ export const mockSharedWishlistState = {
         grouping: undefined,
         groupingProperties: undefined,
         id: 11766695,
+        images: undefined,
+        labels: undefined,
+        merchant: undefined,
+        name: '505 shoes',
+        price: undefined,
+        sizes: undefined,
+        slug: 'string',
+        tag: {
+          id: undefined,
+          name: undefined,
+        },
+        variants: undefined,
+      },
+      1002: {
+        DEPRECATED_images: undefined,
+        brand: 2450,
+        categories: [136301],
+        colorGrouping: undefined,
+        colors: undefined,
+        customAttributes: undefined,
+        description: 'wide leg pant',
+        groupedEntries: undefined,
+        grouping: undefined,
+        groupingProperties: undefined,
+        id: 1002,
         images: undefined,
         labels: undefined,
         merchant: undefined,
@@ -200,6 +189,13 @@ export const mockSharedWishlistState = {
         name: 'Balenciaga',
         priceType: 0,
         slug: 'rockstud-sling-back-flats-12854475',
+      },
+    },
+    categories: {
+      136301: {
+        id: 136301,
+        name: 'Trousers',
+        gender: 'Man',
       },
     },
   },
