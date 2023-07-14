@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.91.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.90.1...@farfetch/blackout-core@1.91.0) (2023-07-14)
+
+
+### Features
+
+* setup size preferences redux structure ([a53143d](https://github.com/Farfetch/blackout/commit/a53143df55f6eb819fa318bec2c06848a1a490ea))
+
+
+
+
+
 ## [1.90.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.90.0...@farfetch/blackout-core@1.90.1) (2023-07-04)
 
 
