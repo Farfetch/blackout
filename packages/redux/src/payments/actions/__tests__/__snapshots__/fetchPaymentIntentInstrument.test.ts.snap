@@ -77,7 +77,7 @@ Object {
             "lastName": "Batista",
           },
           "shopperInteraction": "Ecommerce",
-          "status": 0,
+          "status": "Created",
         },
       },
     },
