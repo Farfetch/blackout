@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.4.1...@farfetch/blackout-redux@1.4.2) (2023-07-17)
+
+### Bug Fixes
+
+- fix recommended product sets slice name ([7003e4f](https://github.com/Farfetch/blackout/commit/7003e4fe23bf245a9f5366ea22e00c94c7f67218))
+
 ## [1.4.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.4.0...@farfetch/blackout-redux@1.4.1) (2023-07-13)
 
 ### Bug Fixes
