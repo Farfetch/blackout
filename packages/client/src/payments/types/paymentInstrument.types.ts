@@ -6,12 +6,12 @@ import type {
 } from './index.js';
 
 export enum PaymentInstrumentStatus {
-  Created,
-  Pending,
-  Cancelled,
-  Authorized,
-  Settled,
-  Refunded,
+  Created = 'Created',
+  Pending = 'Pending',
+  Cancelled = 'Cancelled',
+  Authorized = 'Authorized',
+  Settled = 'Settled',
+  Refunded = 'Refunded',
 }
 
 export type PaymentInstrument = {

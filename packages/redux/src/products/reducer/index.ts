@@ -37,7 +37,7 @@ const reducers = combineReducers({
   measurements: measurementsReducer,
   recentlyViewed: recentlyViewedProductsReducer,
   recommendedProducts: recommendedProductsReducer,
-  recommendedSets: recommendedSetsReducer,
+  recommendedProductSets: recommendedSetsReducer,
   sizeGuides: sizeGuidesReducer,
   sizes: sizesReducer,
   variantsByMerchantsLocations: variantsByMerchantsLocationsReducer,
