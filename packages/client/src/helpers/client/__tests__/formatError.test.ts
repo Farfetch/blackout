@@ -7,6 +7,7 @@ import {
   ApiErrorNoResponse,
   ApiErrorString,
   APIListErrorData,
+  APIListErrorDataWithControls,
   errorAxios,
   legacyApiErrorData,
 } from '../__fixtures__/errors.fixtures.js';
@@ -88,6 +89,22 @@ describe('formatError()', () => {
   it('should format the error properly when the api returns a LIST with errors', () => {
     const result = adaptError(APIListErrorData);
     const { data, status } = APIListErrorData.response as MockAxiosResponse;
+    const { errors } = data as ListErrorData;
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        code: errors[0]?.code,
+        message: errors[0]?.message,
+        status,
+      }),
+    );
+    expect(result).toMatchSnapshot();
+  });
+
+  it('should format the error properly when the api returns a LIST with errors and controls', () => {
+    const result = adaptError(APIListErrorDataWithControls);
+    const { data, status } =
+      APIListErrorDataWithControls.response as MockAxiosResponse;
     const { errors } = data as ListErrorData;
 
     expect(result).toEqual(

@@ -1,7 +1,9 @@
 import * as checkoutClient from '../index.js';
 import {
+  checkoutOrderId,
   deliveryBundleId,
   id,
+  operationId,
   upgradeId,
 } from 'tests/__fixtures__/checkout/index.mjs';
 import client from '../../helpers/client/index.js';
@@ -38,6 +40,27 @@ describe('patchCheckoutOrderDeliveryBundleUpgrades', () => {
         data,
       ),
     ).resolves.toBe(204);
+    expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
+  });
+
+  it('should handle a client request successfully with data', async () => {
+    const response = {
+      '@controls': {
+        order_update_operation: {
+          href: `/v1/orders/${checkoutOrderId}/operations/${operationId}`,
+        },
+      },
+    };
+
+    mswServer.use(fixtures.successWithData(response));
+
+    await expect(
+      checkoutClient.patchCheckoutOrderDeliveryBundleUpgrades(
+        id,
+        deliveryBundleId,
+        data,
+      ),
+    ).resolves.toStrictEqual(response);
     expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
   });
 

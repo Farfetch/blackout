@@ -14,4 +14,5 @@ export type PaymentToken = {
   usedDate: string;
   createdDate: string;
   paymentOption: string;
+  providerToken: string;
 };

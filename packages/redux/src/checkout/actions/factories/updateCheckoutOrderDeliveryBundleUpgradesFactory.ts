@@ -3,6 +3,7 @@ import {
   type CheckoutOrder,
   type CheckoutOrderDeliveryBundle,
   type Config,
+  type Controls,
   type PatchCheckoutOrderDeliveryBundleUpgrades,
   type PatchCheckoutOrderDeliveryBundleUpgradesData,
   toBlackoutError,
@@ -26,7 +27,7 @@ const updateCheckoutOrderDeliveryBundleUpgradesFactory =
     data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData>,
     config?: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<number> => {
+  async (dispatch: Dispatch): Promise<number | Controls> => {
     try {
       dispatch({
         type: actionTypes.UPDATE_CHECKOUT_ORDER_DELIVERY_BUNDLE_UPGRADES_REQUEST,

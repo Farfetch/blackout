@@ -8,7 +8,7 @@ import type {
   CheckoutOrderDeliveryBundleUpgrades,
   CheckoutOrderItemDeliveryProvisioning,
   CheckoutOrderOperations,
-  DeleteCheckoutOrderContextResponse,
+  Controls,
   PatchCheckoutOrderItemData,
   PaymentMethods,
 } from '@farfetch/blackout-client';
@@ -308,7 +308,7 @@ export type CreateCheckoutOrderContextAction =
 
 export interface RemoveCheckoutOrderContextSuccessAction extends Action {
   type: typeof actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS;
-  payload: DeleteCheckoutOrderContextResponse;
+  payload: Controls | number;
   meta: { contextId: CheckoutOrderContext['id'] };
 }
 

@@ -30,7 +30,7 @@ const patchCheckoutOrderItem: PatchCheckoutOrderItem = (
       data,
       config,
     )
-    .then(response => response.status)
+    .then(response => (response.data ? response.data : response.status))
     .catch(error => {
       throw adaptError(error);
     });

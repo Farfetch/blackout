@@ -440,6 +440,11 @@ export const mockResponse = {
   },
   userPaymentTokens: undefined,
   orderStatus: 0,
+  '@controls': {
+    operation: {
+      href: `/v1/orders/${checkoutId}/operations/${operationId}`,
+    },
+  },
 };
 
 export const mockCharges = {
