@@ -1,14 +1,9 @@
 import type { AxiosResponse } from 'axios';
 import type { CheckoutOrder, CheckoutOrderContext } from './index.js';
-import type { Config } from '../../types/index.js';
-import type { HypermediaLink } from '../../index.js';
+import type { Config, Controls } from '../../types/index.js';
 
 export type PostCheckoutOrderContextResponse =
-  AxiosResponse<CheckoutOrderContext> & {
-    '@controls'?: {
-      [key: string]: HypermediaLink;
-    };
-  };
+  AxiosResponse<CheckoutOrderContext> & Controls;
 
 export type PostCheckoutOrderContextData = {
   context: string;

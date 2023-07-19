@@ -1,6 +1,6 @@
 import type { CheckoutOrder } from './checkoutOrder.types.js';
 import type { CheckoutOrderDeliveryBundle } from './deliveryBundle.types.js';
-import type { Config } from '../../types/index.js';
+import type { Config, Controls } from '../../types/index.js';
 import type { ReplacePatch, TestPatch } from 'json-patch';
 
 export type PatchCheckoutOrderDeliveryBundleUpgradesData =
@@ -12,4 +12,4 @@ export type PatchCheckoutOrderDeliveryBundleUpgrades = (
   deliveryBundleId: CheckoutOrderDeliveryBundle['id'],
   data: Array<PatchCheckoutOrderDeliveryBundleUpgradesData>,
   config?: Config,
-) => Promise<number>;
+) => Promise<number | Controls>;

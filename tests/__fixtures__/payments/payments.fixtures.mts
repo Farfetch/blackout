@@ -482,6 +482,7 @@ export const mockPaymentTokensResponse = [
     usedDate: '/Date(1555508011933)/',
     createdDate: '/Date(1547046383000)/',
     paymentOption: 'AMEX',
+    providerToken: '12Abcdef456gh',
   },
   {
     id: paymentTokenId2,
@@ -537,6 +538,7 @@ export const mockPaymentTokensResponse = [
     usedDate: '/Date(-62135596800000)/',
     createdDate: '/Date(1547037124000)/',
     paymentOption: 'MC',
+    providerToken: '12Abcdef456gh',
   },
 ];
 export const mockRemovePaymentTokenResponse = {

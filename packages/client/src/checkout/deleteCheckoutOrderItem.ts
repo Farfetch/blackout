@@ -22,7 +22,7 @@ const deleteCheckoutOrderItem: DeleteCheckoutOrderItem = (
       urlJoin('/checkout/v1/orders/', checkoutOrderId, 'items', itemId),
       config,
     )
-    .then(response => response.status)
+    .then(response => (response.data ? response.data : response.status))
     .catch(error => {
       throw adaptError(error);
     });

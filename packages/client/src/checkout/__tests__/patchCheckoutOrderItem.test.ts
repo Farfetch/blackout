@@ -1,4 +1,8 @@
-import { checkoutOrderId, itemId } from 'tests/__fixtures__/checkout/index.mjs';
+import {
+  checkoutOrderId,
+  itemId,
+  operationId,
+} from 'tests/__fixtures__/checkout/index.mjs';
 import { patchCheckoutOrderItem } from '../index.js';
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/patchCheckoutOrderItem.fixtures.js';
@@ -23,6 +27,23 @@ describe('checkout client', () => {
       await expect(
         patchCheckoutOrderItem(checkoutOrderId, itemId, data),
       ).resolves.toBe(200);
+      expect(getSpy).toHaveBeenCalledWith(expectedUrl, data, expectedConfig);
+    });
+
+    it('should handle a client request successfully with data', async () => {
+      const response = {
+        '@controls': {
+          order_update_operation: {
+            href: `/v1/orders/${checkoutOrderId}/operations/${operationId}`,
+          },
+        },
+      };
+
+      mswServer.use(fixtures.successWithData(response));
+
+      await expect(
+        patchCheckoutOrderItem(checkoutOrderId, itemId, data),
+      ).resolves.toStrictEqual(response);
       expect(getSpy).toHaveBeenCalledWith(expectedUrl, data, expectedConfig);
     });
 
