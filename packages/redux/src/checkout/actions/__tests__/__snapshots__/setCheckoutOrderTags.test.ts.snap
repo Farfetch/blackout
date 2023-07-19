@@ -20,6 +20,11 @@ Object {
       },
       "checkout": Object {
         "15338048": Object {
+          "@controls": Object {
+            "operation": Object {
+              "href": "/v1/orders/15338048/operations/987654321",
+            },
+          },
           "checkoutOrder": 15338048,
           "deliveryBundles": Array [
             "12345678",

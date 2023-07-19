@@ -1,3 +1,5 @@
+import type { Controls } from '../common/controls.types.js';
+
 export type BlackoutError = Error & {
   code: string;
   developerMessage?: string;
@@ -6,4 +8,4 @@ export type BlackoutError = Error & {
   status?: number;
   name?: string;
   transportLayerErrorCode?: string;
-};
+} & Controls;

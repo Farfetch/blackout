@@ -3,6 +3,7 @@ import {
   type CheckoutOrder,
   type CheckoutOrderItem,
   type Config,
+  type Controls,
   type PatchCheckoutOrderItem,
   type PatchCheckoutOrderItemData,
   toBlackoutError,
@@ -24,7 +25,7 @@ const updateCheckoutOrderItemFactory =
     data: PatchCheckoutOrderItemData,
     config?: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<number> => {
+  async (dispatch: Dispatch): Promise<number | Controls> => {
     dispatch({
       type: actionTypes.UPDATE_CHECKOUT_ORDER_ITEM_REQUEST,
     });

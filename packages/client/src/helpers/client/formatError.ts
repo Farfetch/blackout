@@ -95,6 +95,10 @@ export const adaptError = (error: unknown): BlackoutError => {
       });
     }
 
+    if (data['@controls']) {
+      extraParameters['@controls'] = data['@controls'];
+    }
+
     // If the error is an array with 1 or more error object, we only
     // consider the first one.
     const isListErrors = data.hasOwnProperty('errors') && isArray(data.errors);

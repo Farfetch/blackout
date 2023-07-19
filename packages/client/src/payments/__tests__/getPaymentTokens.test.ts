@@ -67,6 +67,7 @@ describe('getPaymentTokens', () => {
       usedDate: '2021-07-08T14:21:50.755Z',
       createdDate: '2021-07-08T14:21:50.755Z',
       paymentOption: 'string',
+      providerToken: 'string',
     };
 
     const response: PaymentTokens = [paymentToken, paymentToken];

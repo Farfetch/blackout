@@ -10,6 +10,22 @@ Object {
 }
 `;
 
+exports[`formatError() should format the error properly when the api returns a LIST with errors and controls 1`] = `
+Object {
+  "@controls": Object {
+    "operation": Object {
+      "href": "string",
+      "isHrefTemplate": true,
+    },
+  },
+  "code": "14",
+  "exception": Object {},
+  "message": "Could not authenticate",
+  "moreInformation": "more information",
+  "status": 400,
+}
+`;
+
 exports[`formatError() should format the error properly when the api returns an OBJECT with the error 1`] = `
 Object {
   "code": "14",

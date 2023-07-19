@@ -123,6 +123,16 @@ export const APIListErrorData = mockAxiosApiError({
   ],
 });
 
+export const APIListErrorDataWithControls = {
+  ...APIListErrorData,
+  '@controls': {
+    operation: {
+      href: 'string',
+      isHrefTemplate: true,
+    },
+  },
+};
+
 export const ApiErrorNoResponse = mockAxiosApiError({}, false);
 
 export const ApiErrorNoRequestDescription = mockAxiosApiError({}, false, true, {

@@ -3,6 +3,7 @@ import type {
   CheckoutOrderDeliveryBundle,
   CheckoutOrderShippingOption,
 } from './index.js';
+import type { Controls } from '../../types/common/controls.types.js';
 import type {
   PaymentMethods,
   PaymentToken,
@@ -26,4 +27,4 @@ export type GetCheckoutOrderResponse = {
   userPaymentTokens?: PaymentToken[];
   paymentRequestId?: string;
   orderStatus: OrderStatusError;
-};
+} & Controls;

@@ -3,6 +3,7 @@ import {
   type CheckoutOrder,
   type CheckoutOrderItem,
   type Config,
+  type Controls,
   type DeleteCheckoutOrderItem,
   toBlackoutError,
 } from '@farfetch/blackout-client';
@@ -22,7 +23,7 @@ const removeCheckoutOrderItemFactory =
     itemId: CheckoutOrderItem['id'],
     config?: Config,
   ) =>
-  async (dispatch: Dispatch): Promise<number> => {
+  async (dispatch: Dispatch): Promise<number | Controls> => {
     dispatch({
       type: actionTypes.REMOVE_CHECKOUT_ORDER_ITEM_REQUEST,
     });

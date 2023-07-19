@@ -3,8 +3,8 @@ import {
   type CheckoutOrder,
   type CheckoutOrderContext,
   type Config,
+  type Controls,
   type DeleteCheckoutOrderContext,
-  type DeleteCheckoutOrderContextResponse,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
@@ -26,7 +26,7 @@ const removeCheckoutOrderContextFactory =
   ) =>
   async (
     dispatch: Dispatch<RemoveCheckoutOrderContextAction>,
-  ): Promise<DeleteCheckoutOrderContextResponse> => {
+  ): Promise<number | Controls> => {
     dispatch({
       type: actionTypes.REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST,
     });

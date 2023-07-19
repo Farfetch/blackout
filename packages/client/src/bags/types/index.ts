@@ -8,5 +8,4 @@ export * from './bagItem.types.js';
 export * from './bagOperation.types.js';
 export * from './getBagOperation.types.js';
 export * from './getBagOperations.types.js';
-export * from './hypermediaLink.types.js';
 export * from './putBagPromocodes.types.js';
