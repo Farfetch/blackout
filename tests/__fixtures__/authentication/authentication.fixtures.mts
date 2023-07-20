@@ -124,3 +124,16 @@ export const mockAuthenticationState = {
     },
   },
 };
+
+export const mockGetUserExternalLoginsResponse = [
+  {
+    id: '',
+    provider: '',
+    providerUserId: '',
+  },
+  {
+    id: '',
+    provider: '',
+    providerUserId: '',
+  },
+];
