@@ -23,5 +23,10 @@ export { default as putUser } from './putUser.js';
 export { default as postPhoneNumberValidation } from './postPhoneNumberValidation.js';
 export { default as postPhoneTokenValidation } from './postPhoneTokenValidation.js';
 export { default as postPhoneToken } from './postPhoneToken.js';
+export { default as postAccountLink } from './postAccountLink.js';
+export { default as postSocialLogin } from './postSocialLogin.js';
+export { default as postSocialTokenValidation } from './postSocialTokenValidation.js';
+export { default as getUserExternalLogins } from './getUserExternalLogins.js';
+export { default as deleteUserExternalLogin } from './deleteUserExternalLogin.js';
 
 export * from './types/index.js';
