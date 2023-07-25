@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.6.1...@farfetch/blackout-client@2.7.0) (2023-07-25)
+
+### Features
+
+- setup product listing facets redux structure ([3d759ce](https://github.com/Farfetch/blackout/commit/3d759ced9902d5dec89e166e7bc8e7282b770821))
+
 ## [2.6.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.6.0...@farfetch/blackout-client@2.6.1) (2023-07-17)
 
 ### Bug Fixes
