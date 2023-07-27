@@ -469,6 +469,28 @@ export const getClientLanguageFromCulture = (culture = '') => {
 };
 
 /**
+ * Mapper from product item to omnitracking product line item.
+ *
+ * @param productData - The product data.
+ *
+ * @returns The mapped `lineItems` in omnitracking contract.
+ */
+export const getOmnitrackingProductMapper = (
+  productData: AnalyticsProduct,
+) => ({
+  productId: getProductId(productData),
+  itemPromotion: productData.discountValue,
+  designerName: productData.brand,
+  category: (productData.category || '').split('/')[0],
+  itemFullPrice: productData.priceWithoutDiscount,
+  sizeID: productData.sizeId,
+  itemQuantity: productData.quantity,
+  promoCode: productData.coupon,
+  storeID: productData.locationId,
+  listIndex: productData.position,
+});
+
+/**
  * Transforms the product list payload into `lineItems` omnitracking parameter.
  *
  * @param data - The event tracking data.
@@ -481,37 +503,13 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
   const productId = getProductId(properties);
 
   if (productsList && productsList.length) {
-    const mappedProductList = productsList.map(product => ({
-      productId: getProductId(product),
-      itemPromotion: product.discountValue,
-      designerName: product.brand,
-      category: (product.category || '').split('/')[0],
-      itemFullPrice: product.priceWithoutDiscount,
-      sizeID: product.sizeId,
-      itemQuantity: product.quantity,
-      promoCode: product.coupon,
-      storeID: product.locationId,
-      listIndex: product.position,
-    }));
+    const mappedProductList = productsList.map(getOmnitrackingProductMapper);
 
     return JSON.stringify(mappedProductList);
   }
 
   if (productId) {
-    return JSON.stringify([
-      {
-        productId,
-        itemPromotion: properties.discountValue,
-        designerName: properties.brand,
-        category: ((properties?.category || '') as string).split('/')[0],
-        itemFullPrice: properties.priceWithoutDiscount,
-        sizeID: properties.sizeId,
-        itemQuantity: properties.quantity,
-        promoCode: properties.coupon,
-        storeID: properties.locationId,
-        listIndex: properties.position,
-      },
-    ]);
+    return JSON.stringify([getOmnitrackingProductMapper(properties)]);
   }
 
   return undefined;
