@@ -15,6 +15,7 @@ import {
 import { cloneDeep, get } from 'lodash-es';
 import {
   DEFAULT_DATA_LAYER_NAME,
+  GA4_UNIQUE_EVENT_ID,
   INIT_ERROR,
   MAX_PRODUCT_CATEGORIES,
   MESSAGE_PREFIX,
@@ -329,7 +330,7 @@ describe('GA4 Integration', () => {
             'event',
             'page_view',
             {
-              [utils.ANALYTICS_UNIQUE_EVENT_ID]: expect.any(String),
+              [GA4_UNIQUE_EVENT_ID]: expect.any(String),
               page_path: pathName + utils.stringifyQuery(query),
               path_clean: pathName,
               analytics_package_version: expect.any(String),

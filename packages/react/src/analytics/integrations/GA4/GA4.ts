@@ -29,6 +29,7 @@ import {
 import {
   DATA_TEST_SELECTOR,
   DEFAULT_DATA_LAYER_NAME,
+  GA4_UNIQUE_EVENT_ID,
   INIT_ERROR,
   MESSAGE_PREFIX,
   NON_INTERACTION_FLAG,
@@ -399,7 +400,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
         `context.event.${utils.ANALYTICS_UNIQUE_EVENT_ID}`,
       ) as string;
 
-      eventProperties[utils.ANALYTICS_UNIQUE_EVENT_ID] = uniqueEventId;
+      eventProperties[GA4_UNIQUE_EVENT_ID] = uniqueEventId;
       eventProperties['analytics_package_version'] = get(
         data,
         'context.library.version',
