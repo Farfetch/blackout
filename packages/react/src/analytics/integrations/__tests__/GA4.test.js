@@ -9,6 +9,7 @@ import {
 } from '@farfetch/blackout-core/analytics';
 import {
   DEFAULT_DATA_LAYER_NAME,
+  GA4_UNIQUE_EVENT_ID,
   INIT_ERROR,
   MAX_PRODUCT_CATEGORIES,
   MESSAGE_PREFIX,
@@ -299,7 +300,7 @@ describe('GA4 Integration', () => {
                 ),
               path_clean: mockedPageData.context.web.window.location.pathname,
               analytics_package_version: expect.any(String),
-              [utils.ANALYTICS_UNIQUE_EVENT_ID]:
+              [GA4_UNIQUE_EVENT_ID]:
                 mockedPageData.context.event[utils.ANALYTICS_UNIQUE_EVENT_ID],
             },
           ],
