@@ -11,6 +11,7 @@ import {
   getGenderValueFromProperties,
   getProductLineItems,
   getProductLineItemsQuantity,
+  getRecommendationsTrackingData,
   getValParameterForEvent,
 } from './omnitracking-helper';
 import { getProductId } from '../../utils/getters';
@@ -481,6 +482,9 @@ export const trackEventsMapper = {
   [eventTypes.PRODUCT_LIST_VIEWED]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
+    actionArea: data.properties?.from,
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [eventTypes.CHECKOUT_ABANDONED]: data => ({
     tid: 2084,
@@ -576,6 +580,8 @@ export const trackEventsMapper = {
     actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => ({
     tid: 131,
@@ -589,6 +595,8 @@ export const trackEventsMapper = {
     priceCurrency: data.properties?.currency,
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => ({
     tid: 2925,
@@ -770,6 +778,7 @@ export const pageEventsMapper = {
     viewType: 'Product',
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
+    recommendationsSource: getRecommendationsTrackingData(data),
   }),
   [pageTypes.PRODUCT_LISTING]: data => ({
     viewType: 'Listing',

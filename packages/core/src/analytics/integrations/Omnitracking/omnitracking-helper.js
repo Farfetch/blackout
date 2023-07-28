@@ -24,6 +24,7 @@ import {
 import { SignupNewsletterGenderMappings } from '../shared/dataMappings/signupNewsletterGenderMappings';
 import { v4 as uuidv4 } from 'uuid';
 import analyticsTrackTypes from '../../types/trackTypes';
+import fromParameterTypes from '../../types/fromParameterTypes';
 import get from 'lodash/get';
 import logger from '../../utils/logger';
 import omit from 'lodash/omit';
@@ -611,3 +612,23 @@ export const getCommonCheckoutStepTrackingData = data => ({
   deliveryInformationDetails: getDeliveryInformationDetails(data),
   interactionType: data.properties?.interactionType,
 });
+
+/**
+ * Obtain Product Recommendation Data.
+ *
+ * @param {object} data - The event's data.
+ *
+ * @returns {object} - Omnitracking's product recommendation parameters.
+ */
+export const getRecommendationsTrackingData = data => {
+  if (data.properties?.from === fromParameterTypes.RECOMMENDATIONS) {
+    return JSON.stringify({
+      recommendationsModuleName: data.properties?.list,
+      recommendationsId: data.properties?.listId,
+      recommendationsPosition: data.properties?.index,
+      recommendationsStrategy: data.properties?.recommendationsStrategy,
+    });
+  }
+
+  return undefined;
+};
