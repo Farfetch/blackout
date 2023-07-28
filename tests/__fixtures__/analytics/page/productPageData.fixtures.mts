@@ -1,4 +1,4 @@
-import { PageType } from '@farfetch/blackout-analytics';
+import { FromParameterType, PageType } from '@farfetch/blackout-analytics';
 import basePageData from './basePageData.fixtures.mjs';
 
 const fixtures = {
@@ -16,6 +16,11 @@ const fixtures = {
     sizeId: '20',
     locationId: 20000,
     coupon: 'EASTER2022',
+    from: FromParameterType.Recommendations,
+    list: 'Recommendations',
+    listId: '5c1e447a-b14b-43a5-b010-2190f3366fad',
+    index: 1,
+    recommendationsStrategy: 'rec_123',
   },
 };
 
