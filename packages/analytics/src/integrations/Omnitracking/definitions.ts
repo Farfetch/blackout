@@ -5,6 +5,7 @@ import {
   getGenderValueFromProperties,
   getProductLineItems,
   getProductLineItemsQuantity,
+  getRecommendationsTrackingData,
 } from './omnitracking-helper.js';
 import { getProductId, logger } from '../../utils/index.js';
 import { isNil } from 'lodash-es';
@@ -546,6 +547,8 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [EventType.ProductRemovedFromWishlist]: (
     data: EventData<TrackTypesValues>,
@@ -559,6 +562,9 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventType.ProductListViewed]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
+    actionArea: data.properties?.from,
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [EventType.CheckoutAbandoned]: data => ({
     tid: 2084,
@@ -600,6 +606,8 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
+    itemListName: data.properties?.list,
+    moduleId: data.properties?.listId,
   }),
   [EventType.ProductRemovedFromCart]: (data: EventData<TrackTypesValues>) => ({
     tid: 131,
@@ -763,6 +771,7 @@ export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
     viewType: 'Product',
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
+    recommendationsSource: getRecommendationsTrackingData(data),
   }),
   [PageType.ProductListing]: data => ({
     viewType: 'Listing',

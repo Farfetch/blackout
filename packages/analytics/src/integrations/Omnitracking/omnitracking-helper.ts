@@ -7,6 +7,7 @@ import {
 import {
   type AnalyticsProduct,
   type EventData,
+  FromParameterType,
   SignupNewsletterGenderType,
   type TrackType,
   type TrackTypesValues,
@@ -621,4 +622,26 @@ export const getGenderValueFromProperties = (
   });
 
   return genderArray.reduce((acc, item) => `${acc},${item}`);
+};
+
+/**
+ * Obtain Product Recommendation Data.
+ *
+ * @param data - The event's data.
+ *
+ * @returns product recommendation parameters.
+ */
+export const getRecommendationsTrackingData = (
+  data: EventData<TrackTypesValues>,
+) => {
+  if (data.properties?.from === FromParameterType.Recommendations) {
+    return JSON.stringify({
+      recommendationsModuleName: data.properties?.list,
+      recommendationsId: data.properties?.listId,
+      recommendationsPosition: data.properties?.index,
+      recommendationsStrategy: data.properties?.recommendationsStrategy,
+    });
+  }
+
+  return undefined;
 };
