@@ -148,11 +148,15 @@ export const customTrackMockData = {
   [eventTypes.PRODUCT_ADDED_TO_CART]: {
     from: 'PDP',
     currency: 'EUR',
+    list: 'You may like',
+    listId: '1234',
   },
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: {
     from: 'PDP',
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
     currency: 'EUR',
+    list: 'You may like',
+    listId: '1234',
   },
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: {
     from: 'PDP',
@@ -222,6 +226,37 @@ export const customTrackMockData = {
     interactionType: 'click',
     id: '123',
     productId: '12345',
+  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: {
+    category: 'Clothing',
+    list: 'Woman shopping',
+    listId: '12345',
+    from: 'PLP',
+    currency: 'USD',
+    products: [
+      {
+        id: '507f1f77bcf86cd799439011',
+        name: 'Gareth McConnell Dreamscape T-Shirt',
+        position: 2,
+        currency: 'USD',
+        discountValue: 6,
+        price: 19,
+        priceWithoutDiscount: 25,
+        list: 'Woman shopping',
+        listId: '09a35590-bb62-4027-a630-5da04ec64fb5',
+      },
+      {
+        id: '507f1f77bcf86cd799439012',
+        name: 'Gareth McConnell Dreamscape T-Shirt',
+        position: 3,
+        currency: 'USD',
+        discountValue: 6,
+        price: 19,
+        priceWithoutDiscount: 25,
+        list: 'Woman shopping',
+        listId: '09a35590-bb62-4027-a630-5da04ec64fb5',
+      },
+    ],
   },
 };
 

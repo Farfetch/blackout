@@ -166,7 +166,9 @@ Array [
 exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "moduleId": "1234",
   "priceCurrency": "EUR",
   "tid": 2915,
 }
@@ -175,7 +177,9 @@ Object {
 exports[`Omnitracking definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "moduleId": "1234",
   "priceCurrency": "EUR",
   "tid": 2916,
   "wishlistId": "4c040892-cc27-4294-99e3-524b14eddf33",
@@ -193,7 +197,10 @@ Object {
 
 exports[`Omnitracking definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "actionArea": "PLP",
+  "itemListName": "Woman shopping",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":25,\\"sizeID\\":1,\\"listIndex\\":2},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3}]",
+  "moduleId": "12345",
   "tid": 2832,
 }
 `;
@@ -1027,6 +1034,7 @@ Object {
 exports[`Omnitracking definitions \`product-details\` return should match the snapshot 1`] = `
 Object {
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "recommendationsSource": undefined,
   "viewSubType": "Product",
   "viewType": "Product",
 }
