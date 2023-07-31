@@ -181,7 +181,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     const precalculatedParameters: OmnitrackingPreCalculatedEventParameters =
       {};
 
-    const { culture, currencyCode } = data.context;
+    const { culture, currencyCode, library } = data.context;
 
     // First we check if we need to change the values
     // of the uniqueViewId and previousUniqueViewId
@@ -256,6 +256,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
     precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
     precalculatedParameters.viewCurrency = currencyCode;
+    precalculatedParameters.analyticsPackageVersion = library?.version;
 
     return precalculatedParameters;
   }
