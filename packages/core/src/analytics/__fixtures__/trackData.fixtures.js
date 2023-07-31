@@ -233,6 +233,7 @@ export const expectedTrackPayload = {
   event: 'PageAction',
   parameters: {
     ...expectedCommonParameters,
+    analyticsPackageVersion: '0.1.0',
   },
 };
 
