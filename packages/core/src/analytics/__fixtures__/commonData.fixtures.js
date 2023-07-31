@@ -12,4 +12,5 @@ export const expectedCommonParameters = {
   clientTimestamp: new Date(mockCommonData.timestamp).toJSON(),
   uuid: mockAnalyticsUniqueEventId,
   uniqueViewId: null,
+  analyticsPackageVersion: '0.1.0',
 };
