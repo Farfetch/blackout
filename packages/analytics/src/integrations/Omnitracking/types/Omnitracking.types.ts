@@ -40,8 +40,14 @@ export type OmnitrackingCommonEventParameters = {
   [K in (typeof commonTrackAndPageParams)[number]]?: unknown;
 };
 
+type OmnitrackingNonListedParameters = {
+  analyticsPackageVersion?: string;
+};
+
 export type OmnitrackingPreCalculatedEventParameters =
-  OmnitrackingTrackEventParameters & OmnitrackingPageEventParameters;
+  OmnitrackingTrackEventParameters &
+    OmnitrackingPageEventParameters &
+    OmnitrackingNonListedParameters;
 
 export interface OmnitrackingRequestPayload<
   T extends PageViewEvents | PageActionEvents,

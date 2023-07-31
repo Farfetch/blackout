@@ -15,6 +15,7 @@ const fixtures = {
     clientTimestamp: new Date(trackMockData.timestamp).toJSON(),
     uuid: mockedUuid,
     uniqueViewId: mocked_view_uid,
+    analyticsPackageVersion: '0.1.0',
   },
 };
 
