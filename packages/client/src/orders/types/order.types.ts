@@ -32,6 +32,7 @@ export type Order = {
   formattedCredit: string;
   formattedGrandTotal: string;
   formattedSubTotalAmount: string;
+  formattedSubTotalAmountExclTaxes: string;
   formattedTotalDiscount: string;
   formattedTotalShippingFee: string;
   formattedTotalTaxes: string;

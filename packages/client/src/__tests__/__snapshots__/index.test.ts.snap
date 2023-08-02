@@ -1167,6 +1167,7 @@ Object {
   "patchWishlistItem": [Function],
   "patchWishlistSet": [Function],
   "postAccountLink": [Function],
+  "postApplePaySession": [Function],
   "postBagItem": [Function],
   "postBatchTrackings": [Function],
   "postCheckoutOrder": [Function],

@@ -13,6 +13,7 @@ export { default as postPaymentIntentInstrument } from './postPaymentIntentInstr
 export { default as putPaymentIntentInstrument } from './putPaymentIntentInstrument.js';
 export { default as getPaymentIntent } from './getPaymentIntent.js';
 export { default as getPaymentIntentCharge } from './getPaymentIntentCharge.js';
+export { default as postApplePaySession } from './postApplePaySession.js';
 export { default as postPaymentIntentCharge } from './postPaymentIntentCharge.js';
 export { default as postPaymentSession } from './postPaymentSession.js';
 export { default as getUserCreditBalance } from './getUserCreditBalance.js';
