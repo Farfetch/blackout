@@ -326,13 +326,12 @@ The following table contains the exports that were renamed and their new names y
 
 The following table contains the exports that were removed and the alternatives you can use, if any.
 
-| Removed export      | Notes                                                |
-| ------------------- | ---------------------------------------------------- |
-| getPaymentMethods   | Use `getCheckoutOrderPaymentMethods` client instead. |
-| getTransaction      | Removed as it was deprecated                         |
-| postApplePaySession | Removed as it was deprecated                         |
-| postPayments        | Removed as it was deprecated                         |
-| postTransaction     | Removed as it was deprecated                         |
+| Removed export    | Notes                                                |
+| ----------------- | ---------------------------------------------------- |
+| getPaymentMethods | Use `getCheckoutOrderPaymentMethods` client instead. |
+| getTransaction    | Removed as it was deprecated                         |
+| postPayments      | Removed as it was deprecated                         |
+| postTransaction   | Removed as it was deprecated                         |
 
 ### Products
 

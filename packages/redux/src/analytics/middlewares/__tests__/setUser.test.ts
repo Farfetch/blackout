@@ -275,7 +275,6 @@ describe('analyticsSetUserMiddleware', () => {
         loggedInUserEntity,
       );
 
-      // @ts-expect-error This cast is just to facilitate testing as we would need to specify all user properties for it to comply
       assertSetUserSpyCalledWith(loggedInUserId, {
         isGuest: loggedInUserInfo.isGuest,
         membership: loggedInUserInfo.membership,
@@ -384,7 +383,6 @@ describe('analyticsSetUserMiddleware', () => {
         loggedInUserEntity,
       );
 
-      // @ts-expect-error This cast is just to facilitate testing as we would need to specify all user properties for it to comply
       assertSetUserSpyCalledWith(loggedInUserId, {
         isGuest: loggedInUserInfo.isGuest,
         membership: loggedInUserInfo.membership,
