@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.7.1...@farfetch/blackout-client@2.8.0) (2023-08-02)
+
+### Features
+
+- **client:** add social login endpoints ([03283de](https://github.com/Farfetch/blackout/commit/03283de3b765035c6788764172725c35cf71f42c))
+
 ## [2.7.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.7.0...@farfetch/blackout-client@2.7.1) (2023-07-25)
 
 **Note:** Version bump only for package @farfetch/blackout-client

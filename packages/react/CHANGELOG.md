@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.5.1...@farfetch/blackout-react@1.6.0) (2023-08-02)
+
+### Features
+
+- remove invalid fields on ga4 integration for main ([31bead4](https://github.com/Farfetch/blackout/commit/31bead43774df2d1ea41185f5c6853457685ce61))
+
 ## [1.5.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.5.0...@farfetch/blackout-react@1.5.1) (2023-07-25)
 
 **Note:** Version bump only for package @farfetch/blackout-react

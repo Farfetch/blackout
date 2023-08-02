@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.2.8...@farfetch/blackout-analytics@1.3.0) (2023-08-02)
+
+### Features
+
+- **analytics:** add analytics versions to omnitracking ([5b948af](https://github.com/Farfetch/blackout/commit/5b948af14e5af080c703c7a7dce37071a8d06039))
+- **analytics:** update omnitracking contract for main ([5979502](https://github.com/Farfetch/blackout/commit/59795029625d80fbc7f4bfc6443b29da2d873272))
+
 ## [1.2.8](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.2.7...@farfetch/blackout-analytics@1.2.8) (2023-07-25)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
