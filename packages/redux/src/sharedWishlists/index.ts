@@ -1,4 +1,5 @@
-export * as wishlistsActionTypes from './actionTypes.js';
+export * as sharedWishlistsActionTypes from './actionTypes.js';
+export * as sharedWishlistsMiddlewares from './middlewares/index.js';
 
 export * from './actions/index.js';
 export * from './actions/factories/index.js';
