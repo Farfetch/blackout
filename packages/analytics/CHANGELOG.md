@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.3.0...@farfetch/blackout-analytics@1.4.0) (2023-08-03)
+
+### Features
+
+- add postApplePaySession client ([156483b](https://github.com/Farfetch/blackout/commit/156483b99efe2f5edbb2546ae6881d95bb019897))
+
 # [1.3.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.2.8...@farfetch/blackout-analytics@1.3.0) (2023-08-02)
 
 ### Features

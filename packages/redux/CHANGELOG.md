@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.5.2...@farfetch/blackout-redux@1.6.0) (2023-08-03)
+
+### Features
+
+- add postApplePaySession client ([156483b](https://github.com/Farfetch/blackout/commit/156483b99efe2f5edbb2546ae6881d95bb019897))
+
 ## [1.5.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.5.1...@farfetch/blackout-redux@1.5.2) (2023-08-02)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
