@@ -37,6 +37,13 @@ export const mockLoginData = {
   rememberMe: true,
 };
 
+export const mockSocialLoginData = {
+  provider: 'Google',
+  socialAccessToken: 'xxx-xxx-xxx-xxx',
+  rememberMe: true,
+  countryCode: 'PT',
+};
+
 export const mockPasswordRecoverData = {
   username: 'pepe@acme.com',
   uri: 'uri-mock',

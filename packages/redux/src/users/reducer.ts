@@ -88,6 +88,7 @@ export const entitiesMapper = {
     return { ...rest };
   },
   [actionTypes.LOGIN_SUCCESS]: basicEntitiesReducer,
+  [actionTypes.SOCIAL_LOGIN_SUCCESS]: basicEntitiesReducer,
   [actionTypes.FETCH_USER_SUCCESS]: basicEntitiesReducer,
   [actionTypes.REGISTER_SUCCESS]: basicEntitiesReducer,
 };
@@ -99,9 +100,11 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_FAILURE:
     case actionTypes.UPDATE_USER_FAILURE:
+    case actionTypes.CREATE_ACCOUNT_LINK_FAILURE:
     case actionTypes.CREATE_GUEST_USER_FAILURE:
     case actionTypes.FETCH_GUEST_USER_FAILURE:
     case actionTypes.LOGIN_FAILURE:
+    case actionTypes.SOCIAL_LOGIN_FAILURE:
     case actionTypes.LOGOUT_FAILURE:
     case actionTypes.REGISTER_FAILURE:
     case actionTypes.PASSWORD_CHANGE_FAILURE:
@@ -110,10 +113,12 @@ const error = (state = INITIAL_STATE.error, action: AnyAction) => {
       return action.payload.error;
     case actionTypes.FETCH_USER_REQUEST:
     case actionTypes.UPDATE_USER_REQUEST:
+    case actionTypes.CREATE_ACCOUNT_LINK_REQUEST:
     case actionTypes.CREATE_GUEST_USER_REQUEST:
     case actionTypes.FETCH_GUEST_USER_REQUEST:
     case actionTypes.RESET_USER_STATE:
     case actionTypes.LOGIN_REQUEST:
+    case actionTypes.SOCIAL_LOGIN_REQUEST:
     case actionTypes.LOGOUT_REQUEST:
     case actionTypes.PASSWORD_CHANGE_REQUEST:
     case actionTypes.PASSWORD_RECOVER_REQUEST:
@@ -132,9 +137,11 @@ const id = (state = INITIAL_STATE.id, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_SUCCESS:
     case actionTypes.UPDATE_USER_SUCCESS:
+    case actionTypes.CREATE_ACCOUNT_LINK_SUCCESS:
     case actionTypes.CREATE_GUEST_USER_SUCCESS:
     case actionTypes.FETCH_GUEST_USER_SUCCESS:
     case actionTypes.LOGIN_SUCCESS:
+    case actionTypes.SOCIAL_LOGIN_SUCCESS:
     case actionTypes.REGISTER_SUCCESS:
       return action.payload.result;
     default:
@@ -146,9 +153,11 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
   switch (action.type) {
     case actionTypes.FETCH_USER_REQUEST:
     case actionTypes.UPDATE_USER_REQUEST:
+    case actionTypes.CREATE_ACCOUNT_LINK_REQUEST:
     case actionTypes.CREATE_GUEST_USER_REQUEST:
     case actionTypes.FETCH_GUEST_USER_REQUEST:
     case actionTypes.LOGIN_REQUEST:
+    case actionTypes.SOCIAL_LOGIN_REQUEST:
     case actionTypes.LOGOUT_REQUEST:
     case actionTypes.REGISTER_REQUEST:
     case actionTypes.PASSWORD_CHANGE_REQUEST:
@@ -159,6 +168,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.FETCH_USER_SUCCESS:
     case actionTypes.UPDATE_USER_FAILURE:
     case actionTypes.UPDATE_USER_SUCCESS:
+    case actionTypes.CREATE_ACCOUNT_LINK_FAILURE:
+    case actionTypes.CREATE_ACCOUNT_LINK_SUCCESS:
     case actionTypes.CREATE_GUEST_USER_FAILURE:
     case actionTypes.CREATE_GUEST_USER_SUCCESS:
     case actionTypes.FETCH_GUEST_USER_FAILURE:
@@ -166,6 +177,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action: AnyAction) => {
     case actionTypes.RESET_USER_STATE:
     case actionTypes.LOGIN_SUCCESS:
     case actionTypes.LOGIN_FAILURE:
+    case actionTypes.SOCIAL_LOGIN_SUCCESS:
+    case actionTypes.SOCIAL_LOGIN_FAILURE:
     case actionTypes.LOGOUT_SUCCESS:
     case actionTypes.LOGOUT_FAILURE:
     case actionTypes.REGISTER_SUCCESS:

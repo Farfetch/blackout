@@ -22,3 +22,5 @@ export { default as setUserFactory } from './setUserFactory.js';
 export { default as createPhoneTokenFactory } from './createPhoneTokenFactory.js';
 export { default as createPhoneTokenValidationFactory } from './createPhoneTokenValidationFactory.js';
 export { default as createPhoneNumberValidationFactory } from './createPhoneNumberValidationFactory.js';
+export { default as socialLoginFactory } from './socialLoginFactory.js';
+export { default as createAccountLinkFactory } from './createAccountLinkFactory.js';

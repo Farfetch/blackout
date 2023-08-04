@@ -44,6 +44,11 @@ export const INITIAL_STATE: AuthenticationState = {
 };
 
 export const login = reducerFactory('Login', INITIAL_STATE.login, actionTypes);
+export const socialLogin = reducerFactory(
+  'SocialLogin',
+  INITIAL_STATE.login,
+  actionTypes,
+);
 export const logout = reducerFactory(
   'Logout',
   INITIAL_STATE.logout,
