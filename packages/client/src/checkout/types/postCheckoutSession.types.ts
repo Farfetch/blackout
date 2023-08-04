@@ -1,3 +1,4 @@
+import type { Bag } from '../../bags/types/bag.types.js';
 import type {
   CheckoutSession,
   CheckoutSessionMetadata,
@@ -29,9 +30,14 @@ export type PostCheckoutSessionDataWithPaymentLink = PostCheckoutSessionData & {
   removePurchasedItemsFromBag?: boolean;
 };
 
+export type PostCheckoutSessionDataWithBagId = PostCheckoutSessionData & {
+  bagId: Bag['id'];
+};
+
 export type PostCheckoutSession = (
   data:
     | PostCheckoutSessionDataWithItems
-    | PostCheckoutSessionDataWithPaymentLink,
+    | PostCheckoutSessionDataWithPaymentLink
+    | PostCheckoutSessionDataWithBagId,
   config?: Config,
 ) => Promise<CheckoutSession>;
