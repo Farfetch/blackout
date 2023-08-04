@@ -348,6 +348,7 @@ Object {
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
   "useSeoMetadata": [Function],
+  "useSocialLogin": [Function],
   "useSubscriptionPackages": [Function],
   "useTopCategories": [Function],
   "useUser": [Function],

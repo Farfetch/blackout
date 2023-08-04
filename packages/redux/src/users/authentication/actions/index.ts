@@ -5,6 +5,7 @@ export { default as changePassword } from './changePassword.js';
 export { default as createClientCredentialsToken } from './createClientCredentialsToken.js';
 export { default as createUserToken } from './createUserToken.js';
 export { default as login } from './login.js';
+export { default as socialLogin } from './socialLogin.js';
 export { default as logout } from './logout.js';
 export { default as recoverPassword } from './recoverPassword.js';
 export { default as refreshEmailToken } from './refreshEmailToken.js';
@@ -24,5 +25,6 @@ export { default as createPhoneToken } from './createPhoneToken.js';
 export { default as createPhoneTokenValidation } from './createPhoneTokenValidation.js';
 export { default as createPhoneNumberValidation } from './createPhoneNumberValidation.js';
 export { default as resetUser } from './resetUser.js';
+export { default as createAccountLink } from './createAccountLink.js';
 
 export * from './factories/index.js';
