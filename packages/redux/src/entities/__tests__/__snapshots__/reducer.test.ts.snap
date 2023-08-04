@@ -85,6 +85,7 @@ Object {
     "@farfetch/blackout-redux/SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-redux/SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-redux/SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-redux/SOCIAL_LOGIN_SUCCESS": [Function],
     "@farfetch/blackout-redux/UPDATE_USER_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-redux/UPDATE_USER_PREFERENCES_SUCCESS": [Function],
   },

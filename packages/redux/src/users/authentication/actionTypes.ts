@@ -12,6 +12,22 @@ export const LOGIN_REQUEST = '@farfetch/blackout-redux/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = '@farfetch/blackout-redux/LOGIN_SUCCESS';
 
 /**
+ * Action type dispatched when the social login request fails.
+ */
+export const SOCIAL_LOGIN_FAILURE =
+  '@farfetch/blackout-redux/SOCIAL_LOGIN_FAILURE';
+/**
+ * Action type dispatched when the social login request starts.
+ */
+export const SOCIAL_LOGIN_REQUEST =
+  '@farfetch/blackout-redux/SOCIAL_LOGIN_REQUEST';
+/**
+ * Action type dispatched when the social login request succeeds.
+ */
+export const SOCIAL_LOGIN_SUCCESS =
+  '@farfetch/blackout-redux/SOCIAL_LOGIN_SUCCESS';
+
+/**
  * Action type dispatched when the logout request fails.
  */
 export const LOGOUT_FAILURE = '@farfetch/blackout-redux/LOGOUT_FAILURE';
@@ -303,6 +319,24 @@ export const CREATE_PHONE_TOKEN_VALIDATION_REQUEST =
  */
 export const CREATE_PHONE_TOKEN_VALIDATION_SUCCESS =
   '@farfetch/blackout-redux/CREATE_PHONE_TOKEN_VALIDATION_SUCCESS';
+
+/**
+ * Action type dispatched when the post account link request fails.
+ */
+export const CREATE_ACCOUNT_LINK_FAILURE =
+  '@farfetch/blackout-redux/CREATE_ACCOUNT_LINK_FAILURE';
+
+/**
+ * Action type dispatched when the post account link request starts.
+ */
+export const CREATE_ACCOUNT_LINK_REQUEST =
+  '@farfetch/blackout-redux/CREATE_ACCOUNT_LINK_REQUEST';
+
+/**
+ * Action type dispatched when the post account link request succeeds.
+ */
+export const CREATE_ACCOUNT_LINK_SUCCESS =
+  '@farfetch/blackout-redux/CREATE_ACCOUNT_LINK_SUCCESS';
 
 /**
  * Action type dispatched when the client wants to reset the login request redux
