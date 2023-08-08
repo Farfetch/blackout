@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.6.1...@farfetch/blackout-react@1.7.0) (2023-08-08)
+
+### Features
+
+- **react:** use contacts hook ([9ace3f3](https://github.com/Farfetch/blackout/commit/9ace3f30b21b22d13bc170b434bd8b63e6ac8aea))
+
 ## [1.6.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.6.0...@farfetch/blackout-react@1.6.1) (2023-08-03)
 
 **Note:** Version bump only for package @farfetch/blackout-react

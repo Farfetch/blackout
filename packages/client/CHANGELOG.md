@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.9.0...@farfetch/blackout-client@2.10.0) (2023-08-08)
+
+### Bug Fixes
+
+- checkout session types ([9e93ecc](https://github.com/Farfetch/blackout/commit/9e93ecc939649d7b501cdf14f3f9eb969e17efdc))
+
+### Features
+
+- add bagId property to postCheckoutSession body ([50dfe83](https://github.com/Farfetch/blackout/commit/50dfe8357d56aeb803eb8fd41802673d8c078a94))
+
 # [2.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.8.0...@farfetch/blackout-client@2.9.0) (2023-08-03)
 
 ### Features

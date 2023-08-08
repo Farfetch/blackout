@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.6.0...@farfetch/blackout-redux@1.7.0) (2023-08-08)
+
+### Features
+
+- add shared wishlist middle for updating snapshop ([ec02bb8](https://github.com/Farfetch/blackout/commit/ec02bb8a84eeb3312d19be1fafd211c9211a6b9a))
+- **react:** use contacts hook ([9ace3f3](https://github.com/Farfetch/blackout/commit/9ace3f30b21b22d13bc170b434bd8b63e6ac8aea))
+
 # [1.6.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.5.2...@farfetch/blackout-redux@1.6.0) (2023-08-03)
 
 ### Features
