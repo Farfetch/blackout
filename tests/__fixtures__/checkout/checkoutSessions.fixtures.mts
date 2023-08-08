@@ -1,9 +1,44 @@
 import {
   type CheckoutSession,
+  CheckoutSessionOrderStatus,
   CheckoutSessionType,
+  type CheckoutShippingAddress,
 } from '@farfetch/blackout-client';
 
 export const mockCheckoutSessionId = '6c3a577c-01b7-497a-91ab-b4a3388e36d3';
+
+const mockShippingAddress: CheckoutShippingAddress = {
+  addressLine1: 'Rua da Lionesa 446, G12',
+  addressLine2: ' Teste',
+  addressLine3: '',
+  city: {
+    countryId: 0,
+    id: 0,
+    name: 'Leça do Balio',
+  },
+  country: {
+    alpha2Code: 'PT',
+    alpha3Code: 'PRT',
+    culture: 'pt-PT',
+    id: 165,
+    name: 'Portugal',
+    nativeName: 'Portugal',
+    region: 'Europe',
+    subfolder: '/pt-PT',
+    regionId: 0,
+    continentId: 3,
+  },
+  firstName: 'tester',
+  id: '00000000-0000-0000-0000-000000000000',
+  lastName: 'teste',
+  phone: '121525125',
+  state: {
+    countryId: 0,
+    id: 0,
+    name: '',
+  },
+  zipCode: '4465-761',
+};
 
 export const mockCheckoutSession: CheckoutSession = {
   id: mockCheckoutSessionId,
@@ -17,7 +52,9 @@ export const mockCheckoutSession: CheckoutSession = {
   clientId: 2,
   isGuest: false,
   userId: 1,
-  orderId: 1,
+  orderId: '1',
+  checkoutOrderId: 1,
+  orderStatus: CheckoutSessionOrderStatus.NoError,
   grandTotal: 115.0,
   subTotalAmount: 100.0,
   subTotalAmountExclTaxes: 100.0,
@@ -853,4 +890,15 @@ export const mockCheckoutSession: CheckoutSession = {
       sizeDescription: '38.5',
     },
   ],
+  shippingAddress: mockShippingAddress,
+  billingAddress: mockShippingAddress,
+  clickAndCollect: {
+    collectPointId: 0,
+    merchantLocationId: 0,
+  },
+  '@controls': {
+    operation: {
+      href: '/v1/orders/1/operations/123',
+    },
+  },
 };

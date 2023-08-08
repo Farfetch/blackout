@@ -134,6 +134,18 @@ Object {
     "OrderCreated": 3,
     "Paid": 2,
   },
+  "CheckoutSessionOrderStatus": Object {
+    "0": "NoError",
+    "1": "AddressesError",
+    "2": "ShippingOptionsError",
+    "3": "DeliveryBundleError",
+    "4": "Recovered",
+    "AddressesError": 1,
+    "DeliveryBundleError": 3,
+    "NoError": 0,
+    "Recovered": 4,
+    "ShippingOptionsError": 2,
+  },
   "CheckoutSessionType": Object {
     "0": "Checkout",
     "1": "Payment",
