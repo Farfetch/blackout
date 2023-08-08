@@ -1,8 +1,22 @@
+import type {
+  CheckoutAddress,
+  CheckoutShippingAddress,
+  ClickAndCollect,
+  Controls,
+} from '../../index.js';
 import type { CheckoutSessionItem } from './checkoutSessionItem.types.js';
 
 export enum CheckoutSessionType {
   Checkout,
   Payment,
+}
+
+export enum CheckoutSessionOrderStatus {
+  NoError,
+  AddressesError,
+  ShippingOptionsError,
+  DeliveryBundleError,
+  Recovered,
 }
 
 export type CheckoutSessionMetadata = Record<string, string>;
@@ -20,7 +34,9 @@ export type CheckoutSession = {
   clientId: number;
   isGuest: boolean;
   userId: number;
-  orderId: number;
+  checkoutOrderId: number;
+  orderId?: string;
+  orderStatus: CheckoutSessionOrderStatus;
   grandTotal: number;
   subTotalAmount: number;
   subTotalAmountExclTaxes: number;
@@ -31,4 +47,7 @@ export type CheckoutSession = {
   taxType: string;
   metadata?: CheckoutSessionMetadata;
   items: CheckoutSessionItem[];
-};
+  shippingAddress?: CheckoutShippingAddress;
+  billingAddress?: CheckoutAddress;
+  clickAndCollect?: ClickAndCollect;
+} & Controls;
