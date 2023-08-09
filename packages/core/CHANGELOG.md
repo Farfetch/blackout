@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.92.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.91.0...@farfetch/blackout-core@1.92.0) (2023-08-09)
+
+
+### Bug Fixes
+
+* adjust reset shared wishlist state in reducer ([c8d2a60](https://github.com/Farfetch/blackout/commit/c8d2a60342ba5a92e0a8a61850f84e38f303777d))
+
+
+### Features
+
+* add recommendations parameters ([b62076c](https://github.com/Farfetch/blackout/commit/b62076cc8daf7bf868840a23ebefbb73dcee5c2a))
+* **core:** add analytics versions to omnitracking ([ae428e4](https://github.com/Farfetch/blackout/commit/ae428e46330b1836f38711db8c5cac9317cbe978))
+* **core:** update omnitracking contract ([87a2d08](https://github.com/Farfetch/blackout/commit/87a2d0862fb756b2aeba963232bf3b63a4f653a5))
+
+
+
+
+
 # [1.91.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.90.1...@farfetch/blackout-core@1.91.0) (2023-07-14)
 
 
