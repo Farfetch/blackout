@@ -33,6 +33,7 @@ export * from './patchCheckoutOrder.types.js';
 export * from './patchCheckoutOrderDeliveryBundleUpgrades.types.js';
 export * from './patchCheckoutOrderItem.types.js';
 export * from './patchCheckoutOrderItems.types.js';
+export * from './patchCheckoutSession.types.js';
 export * from './postCheckoutOrder.types.js';
 export * from './postCheckoutOrderCharge.types.js';
 export * from './postCheckoutOrderContext.types.js';
