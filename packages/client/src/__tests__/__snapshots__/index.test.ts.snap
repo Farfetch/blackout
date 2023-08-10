@@ -1171,6 +1171,7 @@ Object {
   "patchCheckoutOrderDeliveryBundleUpgrades": [Function],
   "patchCheckoutOrderItem": [Function],
   "patchCheckoutOrderItems": [Function],
+  "patchCheckoutSession": [Function],
   "patchRaffleParticipation": [Function],
   "patchReturn": [Function],
   "patchUserAttribute": [Function],
