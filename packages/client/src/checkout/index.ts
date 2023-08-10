@@ -21,6 +21,7 @@ export { default as patchCheckoutOrder } from './patchCheckoutOrder.js';
 export { default as patchCheckoutOrderDeliveryBundleUpgrades } from './patchCheckoutOrderDeliveryBundleUpgrades.js';
 export { default as patchCheckoutOrderItem } from './patchCheckoutOrderItem.js';
 export { default as patchCheckoutOrderItems } from './patchCheckoutOrderItems.js';
+export { default as patchCheckoutSession } from './patchCheckoutSession.js';
 export { default as postCheckoutOrder } from './postCheckoutOrder.js';
 export { default as postCheckoutOrderCharge } from './postCheckoutOrderCharge.js';
 export { default as postCheckoutOrderContext } from './postCheckoutOrderContext.js';
