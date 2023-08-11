@@ -1,6 +1,6 @@
-import { getTimeInMinutes } from '../../../../helpers/index.js';
+import { getTimeInMinutes } from '../../helpers/index.js';
 import { utils } from '@farfetch/blackout-analytics';
-import type UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions.js';
+import UniqueViewIdStorageOptions from './UniqueViewIdStorageOptions.js';
 
 const CACHE_PREFIX = 'UniqueViewId_';
 
@@ -14,7 +14,11 @@ class UniqueViewIdStorage {
    *
    * @param config - Config parameters.
    */
-  constructor(private config: UniqueViewIdStorageOptions) {}
+  constructor(
+    private config: UniqueViewIdStorageOptions = UniqueViewIdStorageOptions.default(),
+  ) {
+    this.removeExpired();
+  }
 
   /**
    * Gets the unique view id associated with the url received on the key argument
@@ -211,6 +215,7 @@ class UniqueViewIdStorage {
       // do not support setting sessionStorage or localStorage.
 
       return (
+        typeof DOMException === 'function' &&
         e instanceof DOMException &&
         // everything except Firefox
         (e.code === 22 ||

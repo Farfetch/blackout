@@ -30,7 +30,6 @@ import {
   trackDefinitions,
 } from './definitions.js';
 import PlatformType from '../../types/PlatformType.js';
-import uuid from 'uuid';
 import type {
   OmnitrackingCommonEventParameters,
   OmnitrackingPageEventParameters,
@@ -61,22 +60,6 @@ export const getCommonParameters = (
   };
 
   return parameters;
-};
-
-/**
- * Returns the unique view id for the event. If the event properties pass it,
- * return that value. Else, return a newly generated uuid.
- *
- * @param data - Event data passed by analytics.
- *
- * @returns The unique view id for the event.
- */
-export const getUniqueViewIdParameter = (
-  data: EventData<TrackTypesValues>,
-): string => {
-  const uniqueViewId = get(data, 'properties.uniqueViewId');
-
-  return typeof uniqueViewId === 'string' ? uniqueViewId : uuid();
 };
 
 /**
@@ -490,6 +473,27 @@ export const getOmnitrackingProductMapper = (
   storeID: productData.locationId,
   listIndex: productData.position,
 });
+
+/**
+ * Returns the client country from the subfolder code.
+ *
+ * @param subfolder - The current subfolder code.
+ *
+ * @returns The clientCountry to be sent on the event.
+ */
+export const getClientCountryFromSubfolder = (subfolder = '') => {
+  const subfolderHasLanguage = subfolder.includes('-');
+
+  // If the subfolder is only composed by country, return undefined.
+  if (!subfolderHasLanguage) {
+    return undefined;
+  }
+
+  const subfolderSplit = subfolder.split('-');
+  const clientCountry = subfolderSplit[1];
+
+  return clientCountry ? clientCountry.toUpperCase() : undefined;
+};
 
 /**
  * Transforms the product list payload into `lineItems` omnitracking parameter.

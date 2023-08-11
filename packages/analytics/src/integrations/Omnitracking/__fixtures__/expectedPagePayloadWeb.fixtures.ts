@@ -3,7 +3,11 @@ import {
   PageType,
   type TrackTypesValues,
 } from '../../../index.js';
-import { pageEventsData } from 'tests/__fixtures__/analytics/index.mjs';
+import {
+  mockedPreviousViewUid,
+  mockedViewUid,
+  pageEventsData,
+} from 'tests/__fixtures__/analytics/index.mjs';
 import { userGenderValuesMapper } from '../definitions.js';
 import mockedUuid from './mocked_uuid.js';
 
@@ -24,7 +28,8 @@ const fixtures = {
   parameters: {
     storeId: 123123,
     clientTimestamp: new Date(pageMockData.timestamp).toJSON(),
-    uniqueViewId: null,
+    uniqueViewId: mockedViewUid,
+    previousUniqueViewId: mockedPreviousViewUid,
     uuid: mockedUuid,
     deviceLanguage: pageMockData.context.web.window.navigator.language,
     internalRequest: false,
