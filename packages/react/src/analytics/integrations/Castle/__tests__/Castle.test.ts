@@ -19,7 +19,7 @@ import Castle, { CASTLE_MESSAGE_PREFIX } from '../Castle.js';
 import flushPromises from 'tests/flushPromises.mjs';
 import type { CastleIntegrationOptions } from '../types/index.js';
 import type { InternalAxiosRequestConfig } from 'axios';
-import type { WebContextType } from '../../../context.js';
+import type { WebContext } from '../../../context.js';
 
 const mockRequestHeaderValue = '12342342345241342423424';
 const publishableKey = 'pk_mock_111111111111111111111111111';
@@ -169,7 +169,7 @@ describe('Castle integration', () => {
       const castleFormSpy = jest.spyOn(instance.castleJS, 'form');
       const mockPageEvent = analyticsPageData[
         PageType.Homepage
-      ] as EventData<TrackTypesValues> & { context: WebContextType };
+      ] as EventData<TrackTypesValues> & { context: WebContext };
 
       await instance.track(mockPageEvent);
 

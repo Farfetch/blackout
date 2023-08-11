@@ -1,7 +1,8 @@
 import { merge } from 'lodash-es';
 import parse from 'url-parse';
+import type { ContextData, utils } from '@farfetch/blackout-analytics';
 
-export type WebContextType = {
+export type WebContext = ContextData & {
   web: {
     window: {
       location: parse<Record<string, string | undefined>>;
@@ -13,18 +14,26 @@ export type WebContextType = {
       referrer: string;
     };
     pageLocationReferrer: string | undefined;
-  };
+  } & ProcessedContextWeb;
+};
+
+export type ProcessedContextWeb = {
+  [utils.ANALYTICS_UNIQUE_VIEW_ID]?: string | null;
+  [utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID]?: string | null;
+  [utils.LAST_FROM_PARAMETER_KEY]?: string | null;
 };
 
 let lastLocation =
   typeof document !== 'undefined' ? document.referrer : undefined;
 
 /**
- * Returns the web context for the analytics package.
+ * Returns a partial object of web context for the analytics package.
+ * The remaining properties will be added when the this context object gets processed
+ * by analytics, adding the ProcessedContextWeb values.
  *
  * @returns Context object for web applications.
  */
-export const context = (): WebContextType => {
+const webContext = (): Partial<WebContext> => {
   const locationHref = window.location.href;
 
   if (lastLocation !== locationHref) {
@@ -50,4 +59,4 @@ export const context = (): WebContextType => {
   };
 };
 
-export default context;
+export default webContext;

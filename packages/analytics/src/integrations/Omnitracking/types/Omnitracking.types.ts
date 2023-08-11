@@ -94,7 +94,7 @@ export type OmnitrackingPageEventsMapper = {
 export type SearchQueryParameters = string[];
 export type HttpClient = (
   payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
-) => Promise<void>;
+) => Promise<Response | void>;
 export type TransformPayloadFunction = (
   payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
   data: EventData<TrackTypesValues>,

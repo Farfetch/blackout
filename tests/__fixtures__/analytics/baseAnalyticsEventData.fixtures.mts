@@ -1,4 +1,7 @@
 import { UserGender } from '@farfetch/blackout-client';
+import { utils } from '../../../packages/analytics/src/index.js';
+import mockedPreviousViewUid from './context/mocked_previous_view_uid.mjs';
+import mockedViewUid from './context/mocked_view_uid.mjs';
 
 const fixtures = {
   type: null,
@@ -74,6 +77,9 @@ const fixtures = {
         referrer: 'https://example.com',
       },
       pageLocationReferrer: 'https://example.com',
+      [utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID]: mockedPreviousViewUid,
+      [utils.ANALYTICS_UNIQUE_VIEW_ID]: mockedViewUid,
+      [utils.LAST_FROM_PARAMETER_KEY]: null,
     },
     event: {
       __blackoutAnalyticsEventId: '4eabf689-96e3-4952-8176-248a848f1e1f',

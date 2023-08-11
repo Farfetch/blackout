@@ -26,7 +26,7 @@ import type {
   GTMEventData,
   GTMIntegrationOptions,
 } from '../types/index.js';
-import type { WebContextType } from '../../../context.js';
+import type { WebContext } from '../../../context.js';
 
 jest.mock('../gtmTag', () => jest.fn());
 
@@ -155,10 +155,8 @@ describe('GTM', () => {
               [utils.ANALYTICS_UNIQUE_EVENT_ID]: expect.any(String),
             },
             libraryVersion: data.context.library.version,
-            // @ts-expect-error Force cast to facilitate testing
-            location: (data.context as WebContextType).web.window.location,
-            // @ts-expect-error Force cast to facilitate testing
-            userAgent: (data.context as WebContextType).web.window.navigator
+            location: (data.context as WebContext).web.window.location,
+            userAgent: (data.context as WebContext).web.window.navigator
               .userAgent,
           },
         });

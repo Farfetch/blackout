@@ -13,19 +13,24 @@
  * ```
  */
 
+import {
+  ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID,
+  ANALYTICS_UNIQUE_VIEW_ID,
+  getCustomerIdFromUser,
+  LAST_FROM_PARAMETER_KEY,
+} from '../../utils/index.js';
 import { get, isArray, isObject } from 'lodash-es';
 import {
+  getClientCountryFromSubfolder,
   getClientLanguageFromCulture,
   getCommonParameters,
   getPageEvent,
   getPlatformSpecificParameters,
   getSearchQuery,
-  getUniqueViewIdParameter,
   pickPageParameters,
   pickTrackParameters,
   validateOutgoingOmnitrackingPayload,
 } from './omnitracking-helper.js';
-import { getCustomerIdFromUser } from '../../utils/index.js';
 import {
   isPageEventType,
   isScreenEventType,
@@ -79,9 +84,6 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
     | OmnitrackingOptions[typeof OPTION_SEARCH_QUERY_PARAMETERS]
     | undefined
     | null;
-  currentUniqueViewId: string | null;
-  previousUniqueViewId: string | null;
-  lastFromParameter: string | null;
   /**
    * Creates a new Omnitracking instance, validating its options.
    *
@@ -136,13 +138,6 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         '[Omnitracking] - Invalid `httpClient` option. Please make to pass a valid function to perform the http requests to the omnitracking service.',
       );
     }
-
-    // These will be used to track the uniqueViewId and
-    // previousUniqueViewId parameters in Omnitracking
-    this.currentUniqueViewId = null;
-    this.previousUniqueViewId = null;
-
-    this.lastFromParameter = null;
   }
 
   /**
@@ -160,8 +155,10 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
    *
    * @returns Whether the track data complies with basic requirements defined by the service.
    */
-  validateTrackingRequisites() {
-    return !!this.currentUniqueViewId;
+  validateTrackingRequisites(
+    payload: OmnitrackingRequestPayload<PageViewEvents | PageActionEvents>,
+  ) {
+    return !!get(payload, 'parameters.uniqueViewId');
   }
 
   /**
@@ -183,21 +180,11 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
 
     const { culture, currencyCode, library } = data.context;
 
-    // First we check if we need to change the values
-    // of the uniqueViewId and previousUniqueViewId
     if (isPageOrScreenEvent) {
       // We need to cast to allow page view specific parameters to be added to the precalculatedParameters
       // object.
       const precalculatedPageViewParameters =
         precalculatedParameters as OmnitrackingPageEventParameters;
-
-      // Generate a new currentUniqueViewId to be used in all
-      // subsequent page actions (analyticsTrackTypes.Track events).
-      this.previousUniqueViewId = this.currentUniqueViewId;
-      this.currentUniqueViewId = getUniqueViewIdParameter(data);
-
-      precalculatedPageViewParameters.previousUniqueViewId =
-        this.previousUniqueViewId;
 
       // This is a workaround to avoid calculate the parameter on helper's getPlatformSpecificParameters
       // in order to reduce the complexity of passing the options to the function
@@ -209,8 +196,13 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         }
       }
 
-      if (this.lastFromParameter) {
-        precalculatedPageViewParameters.navigatedFrom = this.lastFromParameter;
+      const lastFromParameter = get(
+        data,
+        `context.web.${LAST_FROM_PARAMETER_KEY}`,
+      );
+
+      if (lastFromParameter) {
+        precalculatedPageViewParameters.navigatedFrom = lastFromParameter;
       }
 
       const { user } = data;
@@ -244,17 +236,26 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       precalculatedParameters.clientLanguage =
         getClientLanguageFromCulture(culture);
       precalculatedPageViewParameters.clientCulture = culture;
+
+      const subfolder = get(
+        data,
+        'context.web.window.location.pathname',
+        '',
+      ).split('/')?.[1];
+
+      precalculatedPageViewParameters.clientCountry =
+        getClientCountryFromSubfolder(subfolder);
     }
 
-    // Always set the `lastFromParameter` with what comes from the current event (pageview or not),
-    // so if there's a pageview being tracked right after this one,
-    // it will send the correct `navigatedFrom` parameter.
-    // Here we always set the value even if it comes `undefined` or `null`,
-    // otherwise we could end up with a stale `lastFromParameter` if some events are tracked
-    // without the `from` parameter.
-    this.lastFromParameter = (data?.properties?.from || null) as string | null;
-
-    precalculatedParameters.uniqueViewId = this.currentUniqueViewId;
+    precalculatedParameters.previousUniqueViewId = get(
+      data,
+      `context.web.${ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID}`,
+      null,
+    );
+    precalculatedParameters.uniqueViewId = get(
+      data,
+      `context.web.${ANALYTICS_UNIQUE_VIEW_ID}`,
+    );
     precalculatedParameters.viewCurrency = currencyCode;
     precalculatedParameters.analyticsPackageVersion = library?.version;
 
@@ -278,15 +279,13 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
         const eventMapperFn =
           pageEventsMapper[event as keyof OmnitrackingPageEventsMapper];
 
-        await this.processEvent(data, eventMapperFn);
-        break;
+        return await this.processEvent(data, eventMapperFn);
       }
       case analyticsTrackTypes.Track: {
         const eventMapperFn =
           trackEventsMapper[event as keyof OmnitrackingTrackEventsMapper];
 
-        await this.processEvent(data, eventMapperFn);
-        break;
+        return await this.processEvent(data, eventMapperFn);
       }
       default:
         break;
@@ -309,22 +308,22 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       const mappedEvents = eventMapperFn(data);
 
       if (isArray(mappedEvents)) {
-        await Promise.all(
-          mappedEvents.map(mappedEventData => {
-            return this.processTrackEvents(data, mappedEventData);
+        return await Promise.all(
+          mappedEvents.map(async mappedEventData => {
+            return await this.processTrackEvents(data, mappedEventData);
           }),
         );
       }
 
       if (isObject(mappedEvents)) {
-        return this.processTrackEvents(data, mappedEvents);
+        return await this.processTrackEvents(data, mappedEvents);
       }
 
       // ignore if there's nothing mapped and do not let the event pass
-      return;
+      return Promise.resolve();
     }
 
-    return this.processTrackEvents(data);
+    return await this.processTrackEvents(data);
   }
 
   /**
@@ -364,7 +363,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       );
     }
 
-    if (!this.validateTrackingRequisites()) {
+    if (!this.validateTrackingRequisites(formattedEventData)) {
       logger.error(
         `[Omnitracking] - Event ${data.event} could not be tracked since it had no unique view id.
          A possible cause is trying to track an event before tracking a page view.
@@ -372,7 +371,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
          This event will not be tracked with Omnitracking.`,
       );
 
-      return;
+      return Promise.resolve();
     }
 
     return await this.postTracking(formattedEventData, data);
@@ -403,12 +402,12 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
           eventData,
         );
 
-        return;
+        return Promise.resolve();
       }
     }
 
     if (validateOutgoingOmnitrackingPayload(finalPayload)) {
-      await this.sendEvent(finalPayload);
+      return await this.sendEvent(finalPayload);
     }
   }
 
@@ -426,7 +425,7 @@ class Omnitracking extends Integration<OmnitrackingOptions> {
       return await this.options.httpClient(finalPayload);
     }
 
-    await postTracking({ ...finalPayload });
+    return await postTracking({ ...finalPayload });
   }
 
   /**
