@@ -8,8 +8,13 @@ import Analytics, {
   type IntegrationRuntimeData,
   PlatformType,
   type TrackTypesValues,
+  utils,
 } from '@farfetch/blackout-analytics';
-import webContext from './context.js';
+import UniqueViewIdStorage from './uniqueViewIdStorage/UniqueViewIdStorage.js';
+import webContext, {
+  type ProcessedContextWeb,
+  type WebContext,
+} from './context.js';
 
 const {
   name: PACKAGE_NAME,
@@ -26,13 +31,17 @@ class AnalyticsWeb extends Analytics {
     event: string;
     properties?: EventProperties;
     eventContext?: EventContextData;
-  } | null;
+  } | null = null;
+  uniqueViewIdStorage: UniqueViewIdStorage | null = null;
+  previousUniqueViewId: ProcessedContextWeb[typeof utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
+    null;
+  currentUniqueViewId: ProcessedContextWeb[typeof utils.ANALYTICS_UNIQUE_VIEW_ID] =
+    null;
+  lastFromParameter: ProcessedContextWeb[typeof utils.LAST_FROM_PARAMETER_KEY] =
+    null;
 
   constructor() {
     super(PlatformType.Web);
-
-    // Stores the last page call
-    this.currentPageCallData = null;
 
     // Add default contexts for the web platform
     this.useContext(webContext);
@@ -67,27 +76,6 @@ class AnalyticsWeb extends Analytics {
   }
 
   /**
-   * Gets event data for a track event.
-   *
-   * @param type         - Type of the event being called.
-   * @param event        - Name of the event from analytics.track call.
-   * @param properties   - Event properties from analytics.track call.
-   * @param eventContext - Context data that is specific for this event.
-   *
-   * @returns - Track event data to be sent to integrations.
-   */
-  override async getTrackEventData(
-    type: TrackTypesValues,
-    event: string,
-    properties?: EventProperties,
-    eventContext?: ContextData,
-  ): Promise<EventData<TrackTypesValues>> {
-    this.processContext(eventContext);
-
-    return await super.getTrackEventData(type, event, properties, eventContext);
-  }
-
-  /**
    * Getter for the context object.
    *
    * @param key - Key to retrieve from the context. If not specified, will return the whole data stored
@@ -99,10 +87,9 @@ class AnalyticsWeb extends Analytics {
   override context(key: string): Promise<unknown>;
   override async context(key?: string) {
     const context = await super.context();
+    const processedContext = this.processContext(context as WebContext);
 
-    this.processContext(context);
-
-    return key ? get(context, key) : context;
+    return key ? get(processedContext, key) : processedContext;
   }
 
   /**
@@ -110,13 +97,47 @@ class AnalyticsWeb extends Analytics {
    *
    * @param context - Context data that is specific for this event.
    */
-  processContext(context?: ContextData) {
+  processContext(context: WebContext) {
     if (context) {
       context.library = {
         name: PACKAGE_NAME,
         version: `${context.library.name}@${context.library.version};${PACKAGE_NAME}@${PACKAGE_VERSION};`,
       };
+
+      if (context.web) {
+        context.web[utils.ANALYTICS_UNIQUE_VIEW_ID] = this.currentUniqueViewId;
+        context.web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
+          this.previousUniqueViewId;
+        context.web[utils.LAST_FROM_PARAMETER_KEY] = this.lastFromParameter;
+      }
     }
+
+    return context;
+  }
+
+  /**
+   * Stores the lastFromParameter if available, so it can be used on the next event's context.
+   * @param event        - Name of the event.
+   * @param properties   - Properties of the event.
+   * @param eventContext - Context data that is specific for this event.
+   *
+   * @returns Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
+   */
+  override async track(
+    event: string,
+    properties?: EventProperties | undefined,
+    eventContext?: EventContextData | undefined,
+  ) {
+    // Always set the `lastFromParameter` with what comes from the current event (pageview or not),
+    // so if there's a pageview being tracked right after this one,
+    // it will send the correct `navigatedFrom` parameter.
+    // Here we always set the value even if it comes `undefined` or `null`,
+    // otherwise we could end up with a stale `lastFromParameter` if some events are tracked
+    // without the `from` parameter.
+    this.lastFromParameter = (properties?.from as string) || null;
+
+    return await super.track(event, properties, eventContext);
   }
 
   /**
@@ -141,6 +162,21 @@ class AnalyticsWeb extends Analytics {
       eventContext,
     };
 
+    // Store the previousUniqueViewId with the last current one.
+    this.previousUniqueViewId = this.currentUniqueViewId;
+
+    // Generates a new unique view ID for the new page track,
+    // so it can be used when the context of the current event is processed by `this.context()` (super overridden) method.
+    const newUniqueViewId = utils.getUniqueViewId({
+      properties,
+    } as EventData<TrackTypesValues>);
+
+    // Sets the current unique view ID on the storage for the current URL
+    this.uniqueViewIdStorage?.set(window.location.href, newUniqueViewId);
+
+    // Saves the current unique view ID for the next events
+    this.currentUniqueViewId = newUniqueViewId;
+
     await super.trackInternal(
       analyticsTrackTypes.Page,
       event,
@@ -149,6 +185,24 @@ class AnalyticsWeb extends Analytics {
     );
 
     return this;
+  }
+
+  /**
+   * When webAnalytics is ready to start initializing the integrations, it means that
+   * all conditions are met to access the document object.
+   * Initializes the uniqueViewId storage based on the referrer, in case the user
+   * opens a link of the website in a new tab.
+   * document.referrer will point to the original URL from the previous tab,
+   * so we try to grab a uniqueViewId based on that to keep the user journey correct in terms of tracking.
+   *
+   * @returns - Promise that will resolve with the instance that was used when calling this method to allow
+   * chaining.
+   */
+  override async ready() {
+    this.uniqueViewIdStorage = new UniqueViewIdStorage();
+    this.currentUniqueViewId = this.uniqueViewIdStorage.get(document.referrer);
+
+    return await super.ready();
   }
 }
 

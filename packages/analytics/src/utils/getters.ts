@@ -1,4 +1,5 @@
 import { get } from 'lodash-es';
+import uuid from 'uuid';
 import type {
   AnalyticsProduct,
   EventData,
@@ -17,6 +18,20 @@ export const getProperties = (
   data: EventData<TrackTypesValues>,
 ): EventProperties => {
   return get(data, 'properties', {});
+};
+
+/**
+ * Returns the unique view id for the event. If the event properties pass it,
+ * return that value. Else, return a newly generated uuid.
+ *
+ * @param data - Event data passed by analytics.
+ *
+ * @returns The unique view id for the event.
+ */
+export const getUniqueViewId = (data: EventData<TrackTypesValues>): string => {
+  const uniqueViewId = get(getProperties(data), 'uniqueViewId');
+
+  return typeof uniqueViewId === 'string' ? uniqueViewId : uuid();
 };
 
 export const getProducts = (

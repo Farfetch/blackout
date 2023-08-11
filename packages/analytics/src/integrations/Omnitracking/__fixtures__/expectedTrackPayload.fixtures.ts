@@ -1,6 +1,9 @@
 import { EventType } from '../../../index.js';
-import { trackEventsData } from 'tests/__fixtures__/analytics/index.mjs';
-import mocked_view_uid from './mocked_view_uid.js';
+import {
+  mockedPreviousViewUid,
+  mockedViewUid,
+  trackEventsData,
+} from 'tests/__fixtures__/analytics/index.mjs';
 import mockedUuid from './mocked_uuid.js';
 
 const trackMockData = trackEventsData[EventType.ProductAddedToCart];
@@ -14,7 +17,8 @@ const fixtures = {
   parameters: {
     clientTimestamp: new Date(trackMockData.timestamp).toJSON(),
     uuid: mockedUuid,
-    uniqueViewId: mocked_view_uid,
+    uniqueViewId: mockedViewUid,
+    previousUniqueViewId: mockedPreviousViewUid,
     analyticsPackageVersion: '0.1.0',
   },
 };

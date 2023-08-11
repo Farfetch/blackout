@@ -2,10 +2,12 @@ import analytics from '../analytics.js';
 import AnalyticsCore, {
   TrackType as analyticsTrackTypes,
   type ConsentData,
+  FromParameterType,
   type IntegrationOptions,
   integrations,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
+import type { WebContext } from '../context.js';
 
 console.error = jest.fn();
 
@@ -25,6 +27,14 @@ class MarketingIntegration extends integrations.Integration<IntegrationOptions> 
   override track = jest.fn();
 }
 
+const mockUrl = 'https://api.blackout.com/en-pt/shopping/woman/gucci';
+const mockEvent = 'myEvent';
+const mockEventProperties = {};
+const mockEventContext = { culture: 'pt-PT' };
+const mockAnalyticsContext = {
+  library: { version: '1.0.0', name: '@farfech-package' },
+};
+
 describe('analytics web', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
@@ -34,6 +44,10 @@ describe('analytics web', () => {
     // @ts-expect-error
     analytics.integrations.clear();
     analytics.currentPageCallData = null;
+    analytics.uniqueViewIdStorage = null;
+    analytics.currentUniqueViewId = null;
+    analytics.previousUniqueViewId = null;
+    analytics.lastFromParameter = null;
 
     await analytics.setStorage(new TestStorage());
     await analytics.setUser(123);
@@ -49,7 +63,7 @@ describe('analytics web', () => {
 
   describe('After setConsent is called', () => {
     it('Should load integrations that match the given consent', async () => {
-      await analytics.addIntegration(
+      analytics.addIntegration(
         'marketingIntegration',
         MarketingIntegration,
         {},
@@ -138,38 +152,134 @@ describe('analytics web', () => {
     });
   });
 
+  describe('UniqueViewId and PreviousUniqueViewId', () => {
+    it('Should persist the newly generated uniqueViewId in storage', async () => {
+      Object.defineProperty(window, 'location', {
+        value: { href: mockUrl },
+      });
+
+      await analytics.ready();
+
+      const storage = analytics.uniqueViewIdStorage;
+
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      expect(analytics.currentUniqueViewId).not.toBeNull();
+      expect(storage?.get(mockUrl)).toBe(analytics.currentUniqueViewId);
+
+      const previousUniqueViewId = analytics.currentUniqueViewId;
+
+      const newPageUrl = `${mockUrl}/foo`;
+
+      Object.defineProperty(window, 'location', {
+        value: { href: newPageUrl },
+      });
+
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      expect(analytics.previousUniqueViewId).toBe(previousUniqueViewId);
+      expect(analytics.currentUniqueViewId).not.toBe(previousUniqueViewId);
+    });
+  });
+
+  describe('processContext', () => {
+    it('Should return the context via .context() method', async () => {
+      const context = await analytics.context();
+      const filteredContext = await analytics.context('library');
+
+      expect(filteredContext).toEqual(context.library);
+    });
+
+    it('Should append the web context properties', async () => {
+      await analytics
+        .addIntegration('integration', LoadableIntegration, {})
+        .ready();
+
+      const integrationInstance = analytics.integration('integration');
+
+      // Call the page event so it generates and stores the currentUniqueViewId
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      // Call the track event so it stores the lastFromParameter
+      await analytics.track(
+        mockEvent,
+        {
+          ...mockEventProperties,
+          from: FromParameterType.Bag,
+        },
+        mockEventContext,
+      );
+
+      // Call the page event again so it generates the previousUniqueViewId
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      expect(
+        (integrationInstance as integrations.Integration<IntegrationOptions>)
+          .track,
+      ).toHaveBeenCalledTimes(3);
+
+      // Only test the last page call that will contain all properties we want to verify
+      expect(
+        (integrationInstance as integrations.Integration<IntegrationOptions>)
+          .track,
+      ).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              __uniqueViewId: expect.any(String),
+              __previousUniqueViewId: expect.any(String),
+              __lastFromParameter: FromParameterType.Bag,
+            }),
+          }),
+        }),
+      );
+
+      // Clears the lastFromParameter
+      await analytics.track(mockEvent, mockEventProperties, mockEventContext);
+
+      // Should track the event without the lastFromParameter
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      expect(
+        (integrationInstance as integrations.Integration<IntegrationOptions>)
+          .track,
+      ).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              __lastFromParameter: null,
+            }),
+          }),
+        }),
+      );
+    });
+
+    it('Should append event package versions to eventContext', () => {
+      // This call will be held until the consent is given to the integration
+      analytics.processContext(mockAnalyticsContext as WebContext);
+
+      expect(mockAnalyticsContext).toEqual({
+        library: expect.objectContaining({
+          name: '@farfetch/blackout-react',
+          version: expect.stringContaining(
+            '@farfech-package@1.0.0;@farfetch/blackout-react@',
+          ),
+        }),
+      });
+    });
+  });
+
   it('Should extend the `track() method for tracking of pages`', async () => {
     // @ts-expect-error
     const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
-    const event = 'myEvent';
-    const properties = {};
-    const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
 
-    await analytics.page(event, properties, eventContext);
+    await analytics.page(mockEvent, mockEventProperties, mockEventContext);
 
     expect(coreTrackSpy).toHaveBeenCalledWith(
       analyticsTrackTypes.Page,
-      event,
-      properties,
-      eventContext,
+      mockEvent,
+      mockEventProperties,
+      mockEventContext,
     );
-  });
-
-  it('Should append event package versions to eventContext', async () => {
-    const eventContext = {
-      library: { version: '1.0.0', name: '@farfech-package' },
-    };
-
-    // This call will be held until the consent is given to the integration
-    await analytics.processContext(eventContext);
-
-    expect(eventContext).toEqual({
-      library: expect.objectContaining({
-        name: '@farfetch/blackout-react',
-        version: expect.stringContaining(
-          '@farfech-package@1.0.0;@farfetch/blackout-react@',
-        ),
-      }),
-    });
   });
 });

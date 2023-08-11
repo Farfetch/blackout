@@ -3,4 +3,3 @@ export { default as expectedPagePayloadUnknown } from './expectedPagePayloadUnkn
 export { default as expectedPagePayloadWeb } from './expectedPagePayloadWeb.fixtures.js';
 export { default as expectedTrackPayload } from './expectedTrackPayload.fixtures.js';
 export { default as mockedUuid } from './mocked_uuid.js';
-export { default as mockedViewUid } from './mocked_view_uid.js';

@@ -1,8 +1,11 @@
 import * as clients from '@farfetch/blackout-client';
 import * as definitions from '../definitions.js';
+import { ANALYTICS_UNIQUE_VIEW_ID } from '../../../utils/constants.js';
 import { Integration, Omnitracking } from '../../index.js';
 import {
   loadIntegrationData,
+  mockedPreviousViewUid,
+  mockedViewUid,
   pageEventsData,
   trackEventsData,
 } from 'tests/__fixtures__/analytics/index.mjs';
@@ -23,10 +26,8 @@ import {
 import analyticsTrackTypes from '../../../types/TrackType.js';
 import EventType from '../../../types/EventType.js';
 import InteractionType from '../../../types/InteractionType.js';
-import mocked_view_uid from '../__fixtures__/mocked_view_uid.js';
 import PageType from '../../../types/PageType.js';
 import PlatformType from '../../../types/PlatformType.js';
-import uuid from 'uuid';
 import type {
   EventContext,
   EventData,
@@ -117,11 +118,9 @@ describe('Omnitracking', () => {
 
       expect(postTrackingSpy).toHaveBeenCalledWith({
         ...mockExpectedPagePayloadWeb,
-        parameters: expect.objectContaining({
-          ...mockExpectedPagePayloadWeb.parameters,
-          uniqueViewId: expect.any(String),
-          previousUniqueViewId: null,
-        }),
+        parameters: expect.objectContaining(
+          mockExpectedPagePayloadWeb.parameters,
+        ),
       });
     });
 
@@ -154,6 +153,44 @@ describe('Omnitracking', () => {
           expect.objectContaining({
             parameters: expect.objectContaining({
               clientLanguage: 'en',
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {country-language} format', async () => {
+        const data = generateMockData();
+
+        data.context.culture = undefined;
+
+        // @ts-ignore
+        data.context.web.window.location.pathname = '/en-pt';
+
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: 'PT',
+            }),
+          }),
+        );
+      });
+
+      it('Should send the correct clientCountry when a subfolder has the {language} format', async () => {
+        const data = generateMockData();
+
+        data.context.culture = undefined;
+
+        // @ts-ignore
+        data.context.web.window.location.pathname = '/pt';
+
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              clientCountry: undefined,
             }),
           }),
         );
@@ -351,6 +388,12 @@ describe('Omnitracking', () => {
         it('should not track an event if it has no unique view id', async () => {
           const data = generateTrackMockData({
             event: EventType.PlaceOrderStarted,
+            context: {
+              web: {
+                [ANALYTICS_UNIQUE_VIEW_ID]: null,
+              },
+              library: { name: 'foo', version: '1' },
+            },
           });
 
           await omnitracking.track(data);
@@ -383,10 +426,6 @@ describe('Omnitracking', () => {
     });
 
     describe('Should send track events when', () => {
-      beforeEach(() => {
-        omnitracking.currentUniqueViewId = mocked_view_uid;
-      });
-
       it('event is `Place Order Started`', async () => {
         const placeOrderTid = 188;
 
@@ -537,8 +576,6 @@ describe('Omnitracking', () => {
           },
         });
 
-        // setting unique view id to pass on validation of missing page event before event track
-        omnitracking.currentUniqueViewId = mocked_view_uid;
         await omnitracking.track(data);
 
         expect(mockLoggerError).not.toHaveBeenCalled();
@@ -561,8 +598,6 @@ describe('Omnitracking', () => {
           },
         });
 
-        // setting unique view id to pass on validation of missing page event before event track
-        omnitracking.currentUniqueViewId = mocked_view_uid;
         await omnitracking.track(data);
 
         expect(mockLoggerError).toHaveBeenCalledWith(
@@ -582,8 +617,6 @@ describe('Omnitracking', () => {
           },
         });
 
-        // setting unique view id to pass on validation of missing page event before event track
-        omnitracking.currentUniqueViewId = mocked_view_uid;
         await omnitracking.track(data);
 
         expect(postTrackingSpy).toHaveBeenCalledWith(
@@ -620,8 +653,6 @@ describe('Omnitracking', () => {
           },
         });
 
-        // setting unique view id to pass on validation of missing page event before event track
-        omnitracking.currentUniqueViewId = mocked_view_uid;
         await omnitracking.track(data);
 
         expect(postTrackingSpy).toHaveBeenCalledWith(
@@ -662,8 +693,6 @@ describe('Omnitracking', () => {
           strippedDownAnalytics,
         );
 
-        omnitracking.currentUniqueViewId = mocked_view_uid;
-
         const data = generateMockData();
 
         await omnitracking.track(data);
@@ -674,8 +703,6 @@ describe('Omnitracking', () => {
           parameters: expect.objectContaining({
             ...mockExpectedPagePayloadWeb.parameters,
             promoCode: mockPromoCode,
-            previousUniqueViewId: mocked_view_uid,
-            uniqueViewId: expect.any(String),
           }),
         });
       });
@@ -712,8 +739,6 @@ describe('Omnitracking', () => {
           loadIntegrationData,
           strippedDownAnalytics,
         );
-
-        omnitracking.currentUniqueViewId = mocked_view_uid;
 
         const data = generateTrackMockData({
           event: EventType.PlaceOrderStarted,
@@ -858,11 +883,9 @@ describe('Omnitracking', () => {
 
         expect(mockHttpClient).toHaveBeenCalledWith({
           ...mockExpectedPagePayloadWeb,
-          parameters: expect.objectContaining({
-            ...mockExpectedPagePayloadWeb.parameters,
-            uniqueViewId: expect.any(String),
-            previousUniqueViewId: null,
-          }),
+          parameters: expect.objectContaining(
+            mockExpectedPagePayloadWeb.parameters,
+          ),
         });
         expect(postTrackingSpy).not.toHaveBeenCalled();
       });
@@ -870,7 +893,7 @@ describe('Omnitracking', () => {
   });
 
   describe('parameters', () => {
-    it('Should provide default values for uniqueViewId and previousUniqueViewId when tracking page views and events', async () => {
+    it('Should grab uniqueViewId and previousUniqueViewId from the context when tracking page views and events', async () => {
       let lastPayload!: OmnitrackingRequestPayload<
         PageViewEvents | PageActionEvents
       >;
@@ -900,76 +923,8 @@ describe('Omnitracking', () => {
       expect(postTrackingSpy).toHaveBeenCalledWith(
         expect.objectContaining({
           parameters: expect.objectContaining({
-            previousUniqueViewId: null,
-            uniqueViewId: expect.any(String),
-          }),
-        }),
-      );
-
-      const currentUniqueViewId = lastPayload.parameters.uniqueViewId;
-
-      const trackEventData = generateTrackMockData({
-        event: EventType.PlaceOrderStarted,
-      });
-
-      // Track an event to check if the
-      // uniqueViewId generated by the previous
-      // page event tracked is the value used
-      // for the payload of the track event
-      await omnitracking.track(trackEventData);
-
-      const newUniqueViewId = lastPayload.parameters.uniqueViewId;
-
-      expect(newUniqueViewId).toBe(currentUniqueViewId);
-
-      // Mock uuid function here to return a different value than
-      // the mockedUuid so the uniqueViewId changes
-      // on the next omnitracking.track call with a page event.
-      // Remember that uuid is jest.fn() in this test file.
-      (uuid as unknown as jest.Mock<string>).mockImplementation(
-        () => '981945ad-b9d4-4c21-b3b0-2764b31bdc43',
-      );
-
-      // Track another page event to force
-      // a creation of a new uniqueViewId
-      // and the previousUniqueViewId parameter
-      // will be filled with previous value
-      // of the uniqueViewId.
-      await omnitracking.track(pageEventData);
-
-      // After this, we need to restore the mock for uuid
-      // to use the original implementation in other tests
-      // that may be defined after this one.
-      (uuid as unknown as jest.Mock<string>).mockImplementation(
-        () => mockedUuid,
-      );
-
-      expect(lastPayload.parameters.uniqueViewId).not.toBe(newUniqueViewId);
-      expect(
-        (lastPayload as OmnitrackingRequestPayload<PageViewEvents>).parameters
-          .previousUniqueViewId,
-      ).toBe(newUniqueViewId);
-    });
-
-    it('Should allow the user to provide a value for the uniqueViewId parameter when tracking a page view', async () => {
-      omnitracking = new Omnitracking(
-        {},
-        loadIntegrationData,
-        strippedDownAnalytics,
-      );
-
-      const mockUniqueViewId = '78989d11-8863-4a12-b2ce-48cab737a43b';
-      const pageEventData = generateMockData();
-
-      pageEventData.properties.uniqueViewId = mockUniqueViewId;
-
-      await omnitracking.track(pageEventData);
-
-      expect(postTrackingSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          parameters: expect.objectContaining({
-            previousUniqueViewId: null,
-            uniqueViewId: mockUniqueViewId,
+            previousUniqueViewId: mockedPreviousViewUid,
+            uniqueViewId: mockedViewUid,
           }),
         }),
       );
@@ -989,8 +944,7 @@ describe('Omnitracking', () => {
         ...mockExpectedPagePayloadMobile,
         parameters: expect.objectContaining({
           ...mockExpectedPagePayloadMobile.parameters,
-          previousUniqueViewId: null,
-          uniqueViewId: expect.any(String),
+          uniqueViewId: mockedViewUid,
         }),
       });
     });
@@ -1006,8 +960,7 @@ describe('Omnitracking', () => {
         ...mockExpectedPagePayloadUnknown,
         parameters: expect.objectContaining({
           ...mockExpectedPagePayloadUnknown.parameters,
-          previousUniqueViewId: null,
-          uniqueViewId: expect.any(String),
+          uniqueViewId: mockedViewUid,
         }),
       });
     });

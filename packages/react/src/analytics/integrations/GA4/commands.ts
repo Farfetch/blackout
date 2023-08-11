@@ -33,7 +33,9 @@ const genericCommandsBuilder = (data: TrackEventData): GA4CommandList => {
  *
  * @returns List of events which will be triggered.
  */
-const getProductUpdatedEventList = (data: TrackEventData): Array<string> => {
+export const getProductUpdatedEventList = (
+  data: TrackEventData,
+): Array<string> => {
   const eventProperties = utils.getProperties(data);
   const dispatchGA4EventList = [];
 

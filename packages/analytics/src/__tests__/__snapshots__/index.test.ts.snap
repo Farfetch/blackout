@@ -135,7 +135,9 @@ Object {
     "Omnitracking": [Function],
   },
   "utils": Object {
+    "ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID": "__previousUniqueViewId",
     "ANALYTICS_UNIQUE_EVENT_ID": "__blackoutAnalyticsEventId",
+    "ANALYTICS_UNIQUE_VIEW_ID": "__uniqueViewId",
     "CONSENT_CATEGORIES_PROPERTY": "consentCategories",
     "CONSENT_KEYS": Array [
       "statistics",
@@ -147,6 +149,7 @@ Object {
       "Preferences": "preferences",
       "Statistics": "statistics",
     },
+    "LAST_FROM_PARAMETER_KEY": "__lastFromParameter",
     "LOAD_INTEGRATION_TRACK_TYPE": "loadIntegration",
     "ON_SET_USER_TRACK_TYPE": "onSetUser",
     "StorageWrapper": [Function],
@@ -165,6 +168,7 @@ Object {
     "getProducts": [Function],
     "getProperties": [Function],
     "getPurchaseProperties": [Function],
+    "getUniqueViewId": [Function],
     "hashUserData": [Function],
     "isPageEventType": [Function],
     "isScreenEventType": [Function],

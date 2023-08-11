@@ -5,6 +5,9 @@ export {
   ANALYTICS_UNIQUE_EVENT_ID,
   DefaultConsentKeys,
   CONSENT_CATEGORIES_PROPERTY,
+  ANALYTICS_UNIQUE_VIEW_ID,
+  ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID,
+  LAST_FROM_PARAMETER_KEY,
 } from './constants.js';
 export * from './defaults.js';
 export * from './getters.js';
