@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.7.0...@farfetch/blackout-redux@1.7.1) (2023-08-17)
+
+**Note:** Version bump only for package @farfetch/blackout-redux
+
 # [1.7.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.6.0...@farfetch/blackout-redux@1.7.0) (2023-08-08)
 
 ### Features

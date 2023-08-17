@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.7.0...@farfetch/blackout-react@1.8.0) (2023-08-17)
+
+### Features
+
+- add thumbnail component and adapt components to it ([7b1948a](https://github.com/Farfetch/blackout/commit/7b1948afb5bdb65cbb5675482ee8286e143e2b8c))
+
 # [1.7.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.6.1...@farfetch/blackout-react@1.7.0) (2023-08-08)
 
 ### Features
