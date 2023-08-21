@@ -354,6 +354,8 @@ Object {
   "useUser": [Function],
   "useUserAddress": [Function],
   "useUserAddresses": [Function],
+  "useUserClosetItems": [Function],
+  "useUserClosets": [Function],
   "useUserContacts": [Function],
   "useUserOrders": [Function],
   "useUserProfile": [Function],
