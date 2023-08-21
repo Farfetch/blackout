@@ -146,6 +146,7 @@ export * from './addresses/selectors.js';
 export * from './attributes/selectors.js';
 export * from './authentication/selectors.js';
 export * from './benefits/selectors.js';
+export * from './closets/selectors.js';
 export * from './contacts/selectors.js';
 export * from './credits/selectors.js';
 export * from './personalIds/selectors.js';
