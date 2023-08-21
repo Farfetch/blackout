@@ -10,5 +10,6 @@ export * from './preferences.fixtures.mjs';
 export * from './titles.fixtures.mjs';
 export * from './userAttribute.fixtures.mjs';
 export * from './userAttributes.fixtures.mjs';
+export * from './userCloset.fixtures.mjs';
 export * from './userReturns.fixtures.mjs';
 export * from './users.fixtures.mjs';

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserClosets() action creator should create the correct actions for when the fetch user closets procedure is successful: fetch user closets success payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "createdDate": "2023-08-17T11:52:35.941Z",
+      "id": "3455f70e-f756-4ad5-b8e3-46d32ac74def",
+      "totalItems": 1,
+    },
+  ],
+  "type": "@farfetch/blackout-redux/FETCH_USER_CLOSETS_SUCCESS",
+}
+`;

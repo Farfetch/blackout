@@ -100,12 +100,12 @@ export const responses = {
           {
             criteria: ExchangeFilterLogicOperatorCriteria.ProductId,
             comparator: ExchangeFilterLogicOperatorComparator.Equals,
-            value: '18061196',
+            values: '18061196',
           },
           {
             criteria: ExchangeFilterLogicOperatorCriteria.Price,
             comparator: ExchangeFilterLogicOperatorComparator.LessThanOrEqual,
-            value: '1.0',
+            values: '1.0',
           },
         ],
       },
@@ -113,12 +113,12 @@ export const responses = {
         {
           criteria: ExchangeFilterConditionCriteria.ProductId,
           comparator: ExchangeFilterConditionComparator.Equals,
-          value: '18061196',
+          values: '18061196',
         },
         {
           criteria: ExchangeFilterConditionCriteria.Price,
           comparator: ExchangeFilterConditionComparator.LessThanOrEqual,
-          value: '1.0',
+          values: '1.0',
         },
       ],
     },

@@ -31,7 +31,7 @@ export type ExchangeFilterCondition = ExchangeFilterLogicOperatorData;
 export type ExchangeFilterLogicOperatorData = {
   criteria: ExchangeFilterLogicOperatorCriteria;
   comparator: ExchangeFilterLogicOperatorComparator;
-  value: string | string[];
+  values: string | string[];
 };
 
 export enum ExchangeFilterLogicOperatorCriteria {

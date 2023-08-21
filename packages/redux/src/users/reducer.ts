@@ -15,6 +15,9 @@ import benefitsReducer, {
   entitiesMapper as benefitsEntitiesMapper,
   INITIAL_STATE as INITIAL_BENEFITS_STATE,
 } from './benefits/reducer.js';
+import closetsReducer, {
+  INITIAL_STATE as INITIAL_USER_CLOSETS_STATE,
+} from './closets/reducer.js';
 import contactsReducer, {
   entitiesMapper as contactsEntitiesMapper,
   INITIAL_STATE as INITIAL_CONTACTS_STATE,
@@ -47,6 +50,7 @@ export const INITIAL_STATE: UsersState = {
   attributes: INITIAL_ATTRIBUTES_STATE,
   authentication: INITIAL_AUTHENTICATION_STATE,
   benefits: INITIAL_BENEFITS_STATE,
+  closets: INITIAL_USER_CLOSETS_STATE,
   contacts: INITIAL_CONTACTS_STATE,
   creditMovements: INITIAL_CREDITS_STATE.creditMovements,
   credits: INITIAL_CREDITS_STATE.credits,
@@ -228,6 +232,8 @@ export const getAuthentication = (
 ): UsersState['authentication'] => state.authentication;
 export const getPersonalIds = (state: UsersState): UsersState['personalIds'] =>
   state.personalIds;
+export const getUserClosets = (state: UsersState): UsersState['closets'] =>
+  state.closets;
 
 const reducer: Reducer<UsersState> = combineReducers({
   error,
@@ -237,6 +243,7 @@ const reducer: Reducer<UsersState> = combineReducers({
   attributes: attributesReducer,
   authentication: authenticationReducer,
   benefits: benefitsReducer,
+  closets: closetsReducer,
   contacts: contactsReducer,
   creditMovements: creditsReducers.creditMovements,
   credits: creditsReducers.credits,
