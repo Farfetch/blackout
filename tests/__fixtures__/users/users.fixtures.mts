@@ -193,6 +193,16 @@ export const mockUserInitialState: UsersState = {
       result: null,
     },
   },
+  closets: {
+    error: null,
+    isLoading: false,
+    result: null,
+    closetItems: {
+      error: null,
+      isLoading: false,
+      result: null,
+    },
+  },
 };
 
 export const mockGuestUserEntities = {

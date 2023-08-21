@@ -13,12 +13,12 @@ Object {
       Object {
         "comparator": "Equals",
         "criteria": "ProductId",
-        "value": "18061196",
+        "values": "18061196",
       },
       Object {
         "comparator": "LessThanOrEqual",
         "criteria": "Price",
-        "value": "1.0",
+        "values": "1.0",
       },
     ],
     "id": "25301c32-d738-4315-8e9c-d43d2b57f009",
@@ -28,12 +28,12 @@ Object {
         Object {
           "comparator": "Equals",
           "criteria": "ProductId",
-          "value": "18061196",
+          "values": "18061196",
         },
         Object {
           "comparator": "LessThanOrEqual",
           "criteria": "Price",
-          "value": "1.0",
+          "values": "1.0",
         },
       ],
     },

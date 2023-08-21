@@ -1365,6 +1365,16 @@ export const mockInitialState = {
         result: null,
       },
     },
+    closets: {
+      error: null,
+      isLoading: false,
+      result: null,
+      closetItems: {
+        error: null,
+        isLoading: false,
+        result: null,
+      },
+    },
   },
   payments: {
     paymentIntentCharge: {

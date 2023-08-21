@@ -18,6 +18,7 @@ import type {
 } from '../preferences/types/index.js';
 import type { TitlesState } from '../titles/types/index.js';
 import type { UserAddressesState } from '../addresses/types/index.js';
+import type { UserClosetsState } from '../closets/types/index.js';
 import type { UserPersonalIdsState } from '../personalIds/types/index.js';
 import type { UserReturnsState } from '../returns/types/index.js';
 
@@ -37,4 +38,5 @@ export type UsersState = CombinedState<{
   returns: UserReturnsState;
   titles: TitlesState;
   updatePreferences: UpdatePreferencesState;
+  closets: UserClosetsState;
 }>;
