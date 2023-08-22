@@ -2,6 +2,7 @@ import {
   ADD_ITEM_TO_WISHLIST_SUCCESS,
   DELETE_WISHLIST_ITEM_SUCCESS,
   UPDATE_WISHLIST_ITEM_SUCCESS,
+  UPDATE_WISHLIST_SET_SUCCESS,
 } from '../../../wishlists/redux/actionTypes';
 import { doUpdateSharedWishlist } from '../actions';
 import { getSharedWishlistId } from '../selectors';
@@ -24,7 +25,8 @@ export default store => next => action => {
   if (
     action.type === UPDATE_WISHLIST_ITEM_SUCCESS ||
     action.type === ADD_ITEM_TO_WISHLIST_SUCCESS ||
-    action.type === DELETE_WISHLIST_ITEM_SUCCESS
+    action.type === DELETE_WISHLIST_ITEM_SUCCESS ||
+    action.type === UPDATE_WISHLIST_SET_SUCCESS
   ) {
     const user = getUser(store.getState());
     const isGuestUser = getUserIsGuest(user);

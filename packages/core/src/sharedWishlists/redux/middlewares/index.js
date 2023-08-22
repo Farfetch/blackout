@@ -6,3 +6,4 @@
  * @subcategory Middlewares
  */
 export { default as updateSharedWishlistUponItemsChanges } from './updateSharedWishlistUponItemsChanges';
+export { default as getWishlistSetsUponSharedWishlistIdChanges } from './getWishlistSetsUponSharedWishlistIdChanges';

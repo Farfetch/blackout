@@ -270,6 +270,14 @@ describe('shared wishlists reducer', () => {
       ).toBe(expectedResult);
     });
 
+    it('should handle REMOVE_SHARED_WISHLIST_SUCCESS action type', () => {
+      expect(
+        reducer(currentState, {
+          type: actionTypes.REMOVE_SHARED_WISHLIST_SUCCESS,
+        }).result,
+      ).toBe(initialState.result);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = { result: 'foo' };
 
