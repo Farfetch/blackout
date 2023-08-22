@@ -2,6 +2,7 @@ import {
   ADD_ITEM_TO_WISHLIST_SUCCESS,
   DELETE_WISHLIST_ITEM_SUCCESS,
   UPDATE_WISHLIST_ITEM_SUCCESS,
+  UPDATE_WISHLIST_SET_SUCCESS,
 } from '../../../../wishlists/redux/actionTypes';
 import { mockSharedWishlistState } from 'tests/__fixtures__/sharedWishlists';
 import { mockStore } from '../../../../../tests';
@@ -37,6 +38,7 @@ describe('updateSharedWishlistUponItemsChanges', () => {
     ADD_ITEM_TO_WISHLIST_SUCCESS,
     DELETE_WISHLIST_ITEM_SUCCESS,
     UPDATE_WISHLIST_ITEM_SUCCESS,
+    UPDATE_WISHLIST_SET_SUCCESS,
   ])('should intercept %s, and do nothing for a guest user', actionType => {
     const store = mockStore(
       { sharedWishlist: INITIAL_STATE },
@@ -55,6 +57,7 @@ describe('updateSharedWishlistUponItemsChanges', () => {
     UPDATE_WISHLIST_ITEM_SUCCESS,
     ADD_ITEM_TO_WISHLIST_SUCCESS,
     DELETE_WISHLIST_ITEM_SUCCESS,
+    UPDATE_WISHLIST_SET_SUCCESS,
   ])(
     'should intercept %s, and update the shared wishlist for a non-guest user',
     actionType => {
