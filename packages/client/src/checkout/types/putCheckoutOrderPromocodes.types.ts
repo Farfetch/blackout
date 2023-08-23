@@ -3,12 +3,13 @@ import type { Config } from '../../types/index.js';
 
 /**
  * Put checkout order promocodes data type.
- * The `promocodes` property is typed as a string array
- * but due to a limitation it only supports one element
- * right now.
+ * The `promocodes` property is not supported yet
+ * This will give the flexibility to avoid breaking changes
+ * in the future when the `promocodes` is supported
  */
 export type PutCheckoutOrderPromocodesData = {
-  promocodes: string[];
+  promocodes?: string[];
+  promocode?: string;
 };
 
 export type PutCheckoutOrderPromocodes = (

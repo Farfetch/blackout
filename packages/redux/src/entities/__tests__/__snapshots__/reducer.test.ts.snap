@@ -16,6 +16,7 @@ Object {
     "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS": [Function],
     "@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_ITEM_SUCCESS": [Function],
+    "@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_PROMOCODES_SUCCESS": [Function],
     "@farfetch/blackout-redux/RESET_CHECKOUT": [Function],
     "@farfetch/blackout-redux/SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS": [Function],
     "@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS": [Function],

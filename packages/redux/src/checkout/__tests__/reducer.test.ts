@@ -1685,6 +1685,44 @@ describe('checkout reducer', () => {
         ).toEqual(expectedResult);
       });
 
+      it('should remove promocode prop if it is returned', () => {
+        const result = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+            },
+          },
+        };
+
+        const expectedResult = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+            },
+          },
+        };
+
+        const state = {
+          checkoutOrders: {
+            1: {
+              checkout: 123,
+              promocode: 'promo1',
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS](
+            // @ts-expect-error Simplified state for testing purposes
+            state,
+            {
+              payload: { entities: result, result: 1 },
+              type: actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+
       it(`should replace entity checkout child array after ${actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS}`, () => {
         const state = {
           checkout: mockUpdateCheckoutResponse.checkout,

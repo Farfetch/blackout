@@ -399,7 +399,6 @@ export const mockResponse = {
     grandTotal: 102,
     locale: 'en-US',
     orderId: 'D7XM6Y',
-    promocode: '123',
     subTotalAmount: 100,
     subTotalAmountExclTaxes: 100,
     totalQuantity: 1,

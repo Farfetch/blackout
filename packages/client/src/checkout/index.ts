@@ -3,6 +3,7 @@
  */
 export { default as deleteCheckoutOrderContext } from './deleteCheckoutOrderContext.js';
 export { default as deleteCheckoutOrderItem } from './deleteCheckoutOrderItem.js';
+export { default as deleteCheckoutOrderPromocodes } from './deleteCheckoutOrderPromocodes.js';
 export { default as getCheckoutOrder } from './getCheckoutOrder.js';
 export { default as getCheckoutOrderCharge } from './getCheckoutOrderCharge.js';
 export { default as getCheckoutOrderContext } from './getCheckoutOrderContext.js';

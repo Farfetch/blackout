@@ -310,7 +310,6 @@ Object {
           "locale": "en-US",
           "orderId": "D7XM6Y",
           "paymentIntentId": "123",
-          "promocode": "123",
           "shippingAddress": Object {
             "addressLine1": "Rua da Lionesa 446, G12",
             "addressLine2": "Teste",
@@ -755,7 +754,6 @@ Object {
           "locale": "en-US",
           "orderId": "D7XM6Y",
           "paymentIntentId": "123",
-          "promocode": "123",
           "shippingAddress": Object {
             "addressLine1": "Rua da Lionesa 446, G12",
             "addressLine2": "Teste",
