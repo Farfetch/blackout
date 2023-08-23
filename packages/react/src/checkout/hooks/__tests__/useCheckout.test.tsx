@@ -23,6 +23,7 @@ import {
   fetchCollectPoints as fetchCollectPointsAction,
   isCheckoutOrderAwaitingPayment,
   isCheckoutOrderConfirmed,
+  removeCheckoutOrderPromocodes,
   removePaymentIntentInstrument,
   resetCheckout,
   resetCheckoutOrderChargeState,
@@ -80,6 +81,9 @@ jest.mock('@farfetch/blackout-redux', () => ({
   })),
   setCheckoutOrderPromocodes: jest.fn(() => ({
     type: 'set_checkout_order_promocodes',
+  })),
+  removeCheckoutOrderPromocodes: jest.fn(() => ({
+    type: 'remove_checkout_order_promocodes',
   })),
   setCheckoutOrderTags: jest.fn(() => ({ type: 'set_checkout_order_tags' })),
   updateCheckoutOrder: jest.fn(() => ({ type: 'update_checkout_order' })),
@@ -158,6 +162,7 @@ const defaultReturn = {
     removeInstrument: expect.any(Function),
     setTags: expect.any(Function),
     setPromocodes: expect.any(Function),
+    removePromocodes: expect.any(Function),
     charge: expect.any(Function),
     reset: expect.any(Function),
     resetCheckoutState: expect.any(Function),
@@ -1062,6 +1067,90 @@ describe('useCheckout', () => {
         );
 
         return expect(setPromocodes(setPromocodesData)).rejects.toThrow(
+          'Missing checkout order id.',
+        );
+      });
+    });
+
+    describe('removePromocodes', () => {
+      it('should call `removeCheckoutOrderPromocodes` action with the passed in arguments if checkoutOrderId is passed', async () => {
+        const anotherCheckoutId = checkoutId + 1;
+
+        const {
+          result: {
+            current: {
+              actions: { removePromocodes },
+            },
+          },
+        } = renderHook(
+          () =>
+            useCheckout(anotherCheckoutId, {
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        const requestConfig = {
+          dummy: 'removePromocodes',
+        };
+
+        await removePromocodes(requestConfig);
+
+        expect(removeCheckoutOrderPromocodes).toHaveBeenCalledWith(
+          anotherCheckoutId,
+          requestConfig,
+        );
+      });
+
+      it('should call `removeCheckoutOrderPromocodes` action with the implicit order id if checkoutOrderId parameter is not passed and there is a checkout order in redux state', async () => {
+        const {
+          result: {
+            current: {
+              actions: { removePromocodes },
+            },
+          },
+        } = renderHook(
+          () =>
+            useCheckout(undefined, {
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockCheckoutState),
+          },
+        );
+
+        const requestConfig = {
+          dummy: 'removePromocodes',
+        };
+
+        await removePromocodes(requestConfig);
+
+        expect(removeCheckoutOrderPromocodes).toHaveBeenCalledWith(
+          checkoutId,
+          requestConfig,
+        );
+      });
+
+      it('should throw an error if checkoutOrderId parameter is not passed to the hook and there is not a checkout order available in redux state', () => {
+        const {
+          result: {
+            current: {
+              actions: { removePromocodes },
+            },
+          },
+        } = renderHook(
+          () =>
+            useCheckout(undefined, {
+              enableAutoFetch: false,
+            }),
+          {
+            wrapper: withStore(mockInitialState),
+          },
+        );
+
+        return expect(removePromocodes()).rejects.toThrow(
           'Missing checkout order id.',
         );
       });

@@ -11,6 +11,7 @@ import {
   isCheckoutOrderConfirmed,
   isCheckoutOrderFetched as isCheckoutOrderFetchedSelector,
   isCheckoutOrderLoading as isCheckoutOrderLoadingSelector,
+  removeCheckoutOrderPromocodes,
   resetCheckout,
   setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
@@ -82,6 +83,7 @@ function useCheckout(
   const updateAction = useAction(updateCheckoutOrder);
   const setTagsAction = useAction(setCheckoutOrderTags);
   const setPromocodesAction = useAction(setCheckoutOrderPromocodes);
+  const removePromocodesAction = useAction(removeCheckoutOrderPromocodes);
   const resetCheckoutState = useAction(resetCheckout);
   const { data: user } = useUser();
 
@@ -221,6 +223,17 @@ function useCheckout(
       return setPromocodesAction(implicitCheckoutOrderId, data, config);
     },
     [implicitCheckoutOrderId, setPromocodesAction],
+  );
+
+  const removePromocodes = useCallback(
+    (config?: Config) => {
+      if (!implicitCheckoutOrderId) {
+        return Promise.reject(new Error('Missing checkout order id.'));
+      }
+
+      return removePromocodesAction(implicitCheckoutOrderId, config);
+    },
+    [implicitCheckoutOrderId, removePromocodesAction],
   );
 
   const create = useCallback(
@@ -575,6 +588,7 @@ function useCheckout(
       removeInstrument,
       setTags,
       setPromocodes,
+      removePromocodes,
       charge,
       reset,
       resetCheckoutState,

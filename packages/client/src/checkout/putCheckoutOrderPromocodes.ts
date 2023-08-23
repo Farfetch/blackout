@@ -18,14 +18,25 @@ const putCheckoutOrderPromocodes: PutCheckoutOrderPromocodes = (
   data,
   config,
 ) => {
-  // IMPORTANT: We are adding the `promocode` property alongside the `promocodes`
-  // since the legacy service only accepts one promocode through the `promocode` property
-  // and discards everything else. The new service will look to both properties,
+  // IMPORTANT: We are adding the `promocodes` property alongside the `promocode`
+  // For now the service only accepts one promocode through the `promocode` property
+  // and discards everything else. In the future the service will look to both properties,
   // giving priority to `promocodes` which can be an array.
-  const promocodesData = {
-    ...data,
-    promocode: data.promocodes[0] ?? '',
-  };
+  let promocodesData = {};
+
+  // For now, we are giving priority to `promocode` since is the only
+  // supported by the API for now
+  if (data.promocode) {
+    promocodesData = {
+      ...data,
+      promocodes: [data.promocode],
+    };
+  } else if (data.promocodes?.length) {
+    promocodesData = {
+      ...data,
+      promocode: data.promocodes[0],
+    };
+  }
 
   return client
     .put(

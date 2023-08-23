@@ -288,6 +288,22 @@ export const SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS =
   '@farfetch/blackout-redux/SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS';
 
 /**
+ * Action type dispatched when the remove checkout order promocodes request fails.
+ */
+export const REMOVE_CHECKOUT_ORDER_PROMOCODES_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_PROMOCODES_FAILURE';
+/**
+ * Action type dispatched when the remove checkout order promocodes request starts.
+ */
+export const REMOVE_CHECKOUT_ORDER_PROMOCODES_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_PROMOCODES_REQUEST';
+/**
+ * Action type dispatched when the remove checkout order promocodes request succeeds.
+ */
+export const REMOVE_CHECKOUT_ORDER_PROMOCODES_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_PROMOCODES_SUCCESS';
+
+/**
  * Action type dispatched when resetting the checkout order promocodes state.
  */
 export const RESET_CHECKOUT_ORDER_PROMOCODES_STATE =
@@ -484,17 +500,17 @@ export const FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS =
   '@farfetch/blackout-redux/FETCH_CHECKOUT_ORDER_CONTEXT_SUCCESS';
 
 /**
- * Action type dispatched when the fetch checkout order context request fails.
+ * Action type dispatched when the remove checkout order context request fails.
  */
 export const REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE =
   '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_FAILURE';
 /**
- * Action type dispatched when the fetch checkout order context request starts.
+ * Action type dispatched when the remove checkout order context request starts.
  */
 export const REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST =
   '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST';
 /**
- * Action type dispatched when the fetch checkout order context request succeeds.
+ * Action type dispatched when the remove checkout order context request succeeds.
  */
 export const REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS';
