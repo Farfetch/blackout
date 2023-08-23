@@ -1023,6 +1023,7 @@ Object {
   "deleteBagItem": [Function],
   "deleteCheckoutOrderContext": [Function],
   "deleteCheckoutOrderItem": [Function],
+  "deleteCheckoutOrderPromocodes": [Function],
   "deleteGuestToken": [Function],
   "deletePaymentIntentInstrument": [Function],
   "deletePaymentToken": [Function],

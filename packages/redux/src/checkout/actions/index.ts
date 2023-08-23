@@ -15,10 +15,11 @@ export { default as fetchCollectPoints } from './fetchCollectPoints.js';
 export { default as fetchCheckoutOrderDeliveryBundleUpgrades } from './fetchCheckoutOrderDeliveryBundleUpgrades.js';
 export { default as fetchCheckoutOrderDeliveryBundleProvisioning } from './fetchCheckoutOrderDeliveryBundleProvisioning.js';
 export { default as fetchCheckoutOrderDeliveryBundleUpgradeProvisioning } from './fetchCheckoutOrderDeliveryBundleUpgradeProvisioning.js';
+export { default as fetchCheckoutOrderPaymentMethods } from './fetchCheckoutOrderPaymentMethods.js';
 export { default as removeCheckoutOrderContext } from './removeCheckoutOrderContext.js';
 export { default as removeCheckoutOrderItem } from './removeCheckoutOrderItem.js';
+export { default as removeCheckoutOrderPromocodes } from './removeCheckoutOrderPromocodes.js';
 export { default as resetCheckout } from './resetCheckout.js';
-
 export { default as resetCheckoutOrderChargeState } from './resetCheckoutOrderCharge.js';
 export { default as resetCheckoutOrderContextState } from './resetCheckoutOrderContext.js';
 export { default as resetCheckoutOrderContextsState } from './resetCheckoutOrderContexts.js';
@@ -30,7 +31,6 @@ export { default as resetCheckoutOrderItems } from './resetCheckoutOrderItems.js
 export { default as resetCheckoutOrderItemTags } from './resetCheckoutOrderItemTags.js';
 export { default as resetCheckoutOrderOperations } from './resetCheckoutOrderOperations.js';
 export { default as resetCheckoutOrderOperation } from './resetCheckoutOrderOperation.js';
-export { default as fetchCheckoutOrderPaymentMethods } from './fetchCheckoutOrderPaymentMethods.js';
 export { default as resetCheckoutOrderPromocodes } from './resetCheckoutOrderPromocodes.js';
 export { default as resetCheckoutOrderTags } from './resetCheckoutOrderTags.js';
 export { default as resetCollectPoints } from './resetCollectPoints.js';

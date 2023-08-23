@@ -9,6 +9,7 @@ export * from './checkoutSessionItem.types.js';
 export * from './collectPoint.types.js';
 export * from './deleteCheckoutOrderContext.types.js';
 export * from './deleteCheckoutOrderItem.types.js';
+export * from './deleteCheckoutOrderPromocodes.types.js';
 export * from './deliveryBundle.types.js';
 export * from './deliveryWindow.types.js';
 export * from './getCheckoutOrder.types.js';

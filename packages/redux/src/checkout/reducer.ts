@@ -110,6 +110,7 @@ const id = (state = INITIAL_STATE.id, action: AnyAction) => {
     case actionTypes.FETCH_CHECKOUT_ORDER_DETAILS_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS:
+    case actionTypes.REMOVE_CHECKOUT_ORDER_PROMOCODES_SUCCESS:
     case actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS:
       return action.payload.result;
     default:
@@ -213,6 +214,15 @@ const convertCheckoutOrder = (
     mergedBillingAddressState,
     receivedBillingAddressState,
   );
+  const mergedPromocode = get(
+    mergedState,
+    `checkoutOrders[${result}].promocode`,
+  );
+  const receivedPromocode = get(
+    entities,
+    `checkoutOrders[${result}].promocode`,
+  );
+  const shouldRemovePromocodeProp = mergedPromocode && !receivedPromocode;
 
   return produce(mergedState, draftState => {
     const checkoutOrder = draftState?.checkoutOrders?.[result];
@@ -221,7 +231,8 @@ const convertCheckoutOrder = (
       !checkoutOrder ||
       (!shouldReplaceClickAndCollect &&
         !shouldReplaceBillingState &&
-        !shouldReplaceShippingState)
+        !shouldReplaceShippingState &&
+        !shouldRemovePromocodeProp)
     ) {
       return;
     }
@@ -239,6 +250,10 @@ const convertCheckoutOrder = (
     if (shouldReplaceBillingState) {
       checkoutOrder.billingAddress.state =
         entities.checkoutOrders[result]?.billingAddress?.state;
+    }
+
+    if (shouldRemovePromocodeProp) {
+      delete checkoutOrder.promocode;
     }
   });
 };
@@ -372,6 +387,7 @@ export const entitiesMapper = {
   [actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.CREATE_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_PROMOCODES_SUCCESS]: convertCheckoutOrder,
+  [actionTypes.REMOVE_CHECKOUT_ORDER_PROMOCODES_SUCCESS]: convertCheckoutOrder,
   [actionTypes.FETCH_CHECKOUT_ORDER_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_ITEM_TAGS_SUCCESS]: convertCheckoutOrder,
   [actionTypes.SET_CHECKOUT_ORDER_TAGS_SUCCESS]: convertCheckoutOrder,
@@ -449,7 +465,7 @@ export const checkoutOrderItemTags = reducerFactory(
 );
 
 export const checkoutOrderPromocodes = reducerFactory(
-  'SET_CHECKOUT_ORDER_PROMOCODES',
+  ['SET_CHECKOUT_ORDER_PROMOCODES', 'REMOVE_CHECKOUT_ORDER_PROMOCODES'],
   INITIAL_STATE.checkoutOrderPromocodes,
   actionTypes,
   false,
