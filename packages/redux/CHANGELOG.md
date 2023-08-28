@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.7.1...@farfetch/blackout-redux@1.8.0) (2023-08-28)
+
+### Features
+
+- add delete promocode endpoint ([5ccde47](https://github.com/Farfetch/blackout/commit/5ccde47bb74253d51da04d5beb8ac39dcd6d0fe7))
+
 ## [1.7.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.7.0...@farfetch/blackout-redux@1.7.1) (2023-08-17)
 
 **Note:** Version bump only for package @farfetch/blackout-redux

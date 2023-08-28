@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.8.1...@farfetch/blackout-react@1.9.0) (2023-08-28)
+
+### Features
+
+- add delete promocode endpoint ([5ccde47](https://github.com/Farfetch/blackout/commit/5ccde47bb74253d51da04d5beb8ac39dcd6d0fe7))
+
 ## [1.8.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.8.0...@farfetch/blackout-react@1.8.1) (2023-08-18)
 
 ### Bug Fixes

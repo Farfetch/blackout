@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.11.0...@farfetch/blackout-client@2.12.0) (2023-08-28)
+
+### Features
+
+- add delete promocode endpoint ([5ccde47](https://github.com/Farfetch/blackout/commit/5ccde47bb74253d51da04d5beb8ac39dcd6d0fe7))
+
 # [2.11.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.10.0...@farfetch/blackout-client@2.11.0) (2023-08-17)
 
 ### Features
