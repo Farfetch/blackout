@@ -66,6 +66,20 @@ describe('shared wishlists reducer', () => {
       ).toBe(expectedResult);
     });
 
+    it('should handle REMOVE_SHARED_WISHLIST_SUCCESS action type', () => {
+      const currentState = {
+        error: null,
+        isLoading: false,
+        result: '08a4b1d9-8d50-4b39-8719-3837f58c96c5',
+      };
+
+      expect(
+        reducer(currentState, {
+          type: actionTypes.REMOVE_SHARED_WISHLIST_SUCCESS,
+        }).result,
+      ).toBe(initialState.result);
+    });
+
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...INITIAL_STATE,
