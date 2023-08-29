@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.93.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.92.0...@farfetch/blackout-core@1.93.0) (2023-08-29)
+
+
+### Features
+
+* add shared wishlist middleware for getting wishlist sets ([437b5d5](https://github.com/Farfetch/blackout/commit/437b5d58c81c3ef8bc96227eba15327cb115cee7))
+
+
+
+
+
 # [1.92.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.91.0...@farfetch/blackout-core@1.92.0) (2023-08-09)
 
 
