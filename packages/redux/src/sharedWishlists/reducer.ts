@@ -16,6 +16,8 @@ const result = (state = INITIAL_STATE.result, action: AnyAction) => {
     case actionTypes.FETCH_SHARED_WISHLIST_SUCCESS:
     case actionTypes.UPDATE_SHARED_WISHLIST_SUCCESS:
       return action.payload.result;
+    case actionTypes.REMOVE_SHARED_WISHLIST_SUCCESS:
+      return INITIAL_STATE.result;
     default:
       return state;
   }
