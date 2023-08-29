@@ -27,7 +27,8 @@ const updateSharedWishlistUponItemsChanges: Middleware =
     if (
       action.type === actionTypes.UPDATE_WISHLIST_ITEM_SUCCESS ||
       action.type === actionTypes.ADD_WISHLIST_ITEM_SUCCESS ||
-      action.type === actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS
+      action.type === actionTypes.REMOVE_WISHLIST_ITEM_SUCCESS ||
+      action.type === actionTypes.UPDATE_WISHLIST_SET_SUCCESS
     ) {
       const state = getState();
       const user = getUser(state);
