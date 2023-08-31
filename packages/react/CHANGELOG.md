@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.9.0...@farfetch/blackout-react@1.10.0) (2023-08-31)
+
+### Features
+
+- **analytics|react:** update omnitracking integration to work on the server ([55337b5](https://github.com/Farfetch/blackout/commit/55337b5f4617d2b546e30f4e956e538fc7ce2ddf))
+
 # [1.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.8.1...@farfetch/blackout-react@1.9.0) (2023-08-28)
 
 ### Features

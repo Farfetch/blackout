@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.8.0...@farfetch/blackout-redux@1.9.0) (2023-08-31)
+
+### Bug Fixes
+
+- adjust shared wishlist reducer ([d112504](https://github.com/Farfetch/blackout/commit/d11250417609b5e7ca725e0085cc701e4825fe7a))
+
+### Features
+
+- add share wishlist middleware for refetching wishlist sets ([7b342f2](https://github.com/Farfetch/blackout/commit/7b342f23c36e388caf686cd0474598ade4166a41))
+
 # [1.8.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.7.1...@farfetch/blackout-redux@1.8.0) (2023-08-28)
 
 ### Features
