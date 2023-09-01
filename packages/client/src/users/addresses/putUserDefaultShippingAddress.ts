@@ -20,6 +20,7 @@ const putUserDefaultShippingAddress: PutUserDefaultShippingAddress = (
   client
     .put(
       join('/account/v1/users', userId, 'addresses/shipping', addressId),
+      undefined,
       config,
     )
     .then(response => response.status)
