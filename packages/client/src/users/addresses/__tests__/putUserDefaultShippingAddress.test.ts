@@ -23,6 +23,7 @@ describe('putUserDefaultShippingAddress', () => {
 
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/users/${userId}/addresses/shipping/${id}`,
+        undefined,
         expectedConfig,
       );
     });
@@ -35,6 +36,7 @@ describe('putUserDefaultShippingAddress', () => {
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(
         `/account/v1/users/${userId}/addresses/shipping/${id}`,
+        undefined,
         expectedConfig,
       );
     });
