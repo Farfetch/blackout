@@ -18,7 +18,7 @@ describe('putUserDefaultContactAddress', () => {
     mswServer.use(fixtures.success());
 
     await expect(putUserDefaultContactAddress(userId, id)).resolves.toBe(204);
-    expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
+    expect(spy).toHaveBeenCalledWith(expectedUrl, undefined, expectedConfig);
   });
 
   it('should receive a client request error', async () => {
@@ -27,6 +27,6 @@ describe('putUserDefaultContactAddress', () => {
     await expect(
       putUserDefaultContactAddress(userId, id),
     ).rejects.toMatchSnapshot();
-    expect(spy).toHaveBeenCalledWith(expectedUrl, expectedConfig);
+    expect(spy).toHaveBeenCalledWith(expectedUrl, undefined, expectedConfig);
   });
 });

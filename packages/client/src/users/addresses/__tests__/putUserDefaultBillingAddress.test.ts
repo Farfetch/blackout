@@ -20,6 +20,7 @@ describe('putUserDefaultBillingAddress', () => {
 
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses/billing/${id}`,
+      undefined,
       expectedConfig,
     );
   });
@@ -32,6 +33,7 @@ describe('putUserDefaultBillingAddress', () => {
     ).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
       `/account/v1/users/${userId}/addresses/billing/${id}`,
+      undefined,
       expectedConfig,
     );
   });
