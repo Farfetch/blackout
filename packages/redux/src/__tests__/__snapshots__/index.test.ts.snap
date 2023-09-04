@@ -639,6 +639,7 @@ Object {
   "fetchCheckoutOrderDetails": [Function],
   "fetchCheckoutOrderDetailsFactory": [Function],
   "fetchCheckoutOrderFactory": [Function],
+  "fetchCheckoutOrderOperation": [Function],
   "fetchCheckoutOrderOperationFactory": [Function],
   "fetchCheckoutOrderOperations": [Function],
   "fetchCheckoutOrderOperationsFactory": [Function],

@@ -10,6 +10,7 @@ export { default as fetchCheckoutOrderContext } from './fetchCheckoutOrderContex
 export { default as fetchCheckoutOrderContexts } from './fetchCheckoutOrderContexts.js';
 export { default as fetchCheckoutOrderDetails } from './fetchCheckoutOrderDetails.js';
 export { default as fetchCheckoutOrderCharge } from './fetchCheckoutOrderCharge.js';
+export { default as fetchCheckoutOrderOperation } from './fetchCheckoutOrderOperation.js';
 export { default as fetchCheckoutOrderOperations } from './fetchCheckoutOrderOperations.js';
 export { default as fetchCollectPoints } from './fetchCollectPoints.js';
 export { default as fetchCheckoutOrderDeliveryBundleUpgrades } from './fetchCheckoutOrderDeliveryBundleUpgrades.js';
