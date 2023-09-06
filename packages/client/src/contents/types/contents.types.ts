@@ -46,14 +46,7 @@ export type ComponentType = {
 };
 
 export type ContentMetadata = {
-  custom?: {
-    id: string;
-    gender: string;
-    brand: string;
-    priceType: string;
-    category: string;
-    eventDate?: string;
-  };
+  custom?: Record<string, string>;
 };
 
 export type ContentEntry<T = ComponentType[]> = {
