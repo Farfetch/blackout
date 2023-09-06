@@ -4,9 +4,9 @@ import type {
   ContentMetadata,
 } from '@farfetch/blackout-client';
 
-export type CustomMetadataNormalized = Omit<
-  NonNullable<ContentMetadata['custom']>,
-  'eventDate'
+export type CustomMetadataNormalized = Record<
+  string,
+  string | number | null
 > & {
   eventDate: number | null;
 };
