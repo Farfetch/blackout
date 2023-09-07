@@ -12,10 +12,10 @@ export type CheckoutOrderDeliveryBundle = {
   name: string;
   isSelected: boolean;
   price: number;
-  formattedPrice: string;
+  formattedPrice?: string;
   finalPrice: number;
-  formattedFinalPrice: string;
-  discount: number;
+  formattedFinalPrice?: string;
+  discount?: number;
   currency: string;
   rank: number;
   itemsDeliveryOptions: CheckoutOrderDeliveryBundleItemDeliveryOption[];
