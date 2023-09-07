@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.12.0...@farfetch/blackout-client@2.12.1) (2023-09-07)
+
+### Bug Fixes
+
+- content metadata type ([59e3ef5](https://github.com/Farfetch/blackout/commit/59e3ef5452cb6560e8fdadc11d4ba25c246cf8a5))
+- fix user addresses put requests ([c61b02f](https://github.com/Farfetch/blackout/commit/c61b02f208dd0748e73eddc96dcf72eea84ab614))
+
 # [2.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.11.0...@farfetch/blackout-client@2.12.0) (2023-08-28)
 
 ### Features

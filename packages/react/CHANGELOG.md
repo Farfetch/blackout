@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.10.0...@farfetch/blackout-react@1.11.0) (2023-09-07)
+
+### Features
+
+- **react:** add useSocialLogin hook ([6ecbd58](https://github.com/Farfetch/blackout/commit/6ecbd58c67a38787903e24bd5fec22bf9c358778))
+
 # [1.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.9.0...@farfetch/blackout-react@1.10.0) (2023-08-31)
 
 ### Features

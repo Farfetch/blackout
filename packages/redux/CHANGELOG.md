@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.9.0...@farfetch/blackout-redux@1.10.0) (2023-09-07)
+
+### Bug Fixes
+
+- content metadata type ([59e3ef5](https://github.com/Farfetch/blackout/commit/59e3ef5452cb6560e8fdadc11d4ba25c246cf8a5))
+- fix fetchCheckoutOrderOperation action not exported ([66cb8f4](https://github.com/Farfetch/blackout/commit/66cb8f420a9b8dd2c28a4c69b7cd284a47e69a7f))
+
+### Features
+
+- **react:** add useSocialLogin hook ([6ecbd58](https://github.com/Farfetch/blackout/commit/6ecbd58c67a38787903e24bd5fec22bf9c358778))
+
 # [1.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.8.0...@farfetch/blackout-redux@1.9.0) (2023-08-31)
 
 ### Bug Fixes
