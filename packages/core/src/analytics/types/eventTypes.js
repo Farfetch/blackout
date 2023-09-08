@@ -23,6 +23,10 @@ export default {
   CHECKOUT_STEP_EDITING: 'Checkout Step Editing',
   /** Checkout Step Viewed should be tracked when a new step of a checkout has begun. */
   CHECKOUT_STEP_VIEWED: 'Checkout Step Viewed',
+  /** Click Share Wishlist should be tracked when the user tries to share a wishlist set. */
+  CLICK_SHARE_WISHLIST: 'Click Share Wishlist',
+  /** Create Custom Wishlist should be tracked when the user creates a wishlist set. */
+  CREATE_CUSTOM_WISHLIST: 'Create Custom Wishlist',
   /** Delivery Method Added should be tracked when a delivery method is added. */
   DELIVERY_METHOD_ADDED: 'Delivery Method Added',
   /** Filters Applied should be tracked when the user actively changed filters. */
@@ -66,9 +70,15 @@ export default {
   /** Promocode Applied should be tracked when the user applies a promocode to a checkout. */
   PROMOCODE_APPLIED: 'Promocode Applied',
   /** Select Content should be tracked when the user selects a content, i.e., a product item. */
+  REMOVE_CUSTOM_WISHLIST: 'Remove Custom Wishlist',
+  /** View Shared Wishlist should be tracked when the user views a shared wishlist page. */
   SELECT_CONTENT: 'Select Content',
   /** Share should be tracked when the share feature is clicked. */
   SHARE: 'Share',
+  /** Share Wishlist Link should be tracked when the user copies the sharing link. */
+  SHARE_WISHLIST_LINK: 'Share Wishlist Link',
+  /** Share Wishlist Options should be tracked when the user clicks on any option available for sharing the link of a shared wishlist. */
+  SHARE_WISHLIST_OPTIONS: 'Share Wishlist Options',
   /** Shipping Info Added should be tracked when the user adds the shipping info. */
   SHIPPING_INFO_ADDED: 'Shipping Info Added',
   /** Shipping Method Added should be tracked when a shipping method is added. */
@@ -79,4 +89,8 @@ export default {
   SIGNUP_FORM_VIEWED: 'Sign-up Form Viewed',
   /** Signup Newsletter should be tracked when the user signs-up the newsletter. */
   SIGNUP_NEWSLETTER: 'Sign-up Newsletter',
+  /** Stop Sharing Wishlist should be tracked when the user confirms to stop sharing a wishlist set. */
+  STOP_SHARING_WISHLIST: 'Stop Sharing Wishlist',
+  /** Remove Custom Wishlist should be tracked when the user deletes a wishlist set. */
+  VIEW_SHARED_WISHLIST: 'View Shared Wishlist',
 };
