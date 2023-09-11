@@ -6,7 +6,7 @@ import {
 
 export const mockBrandId = 211376;
 export const mockBrandId2 = 220127;
-export const mockHash = 'brands?id=211376, 220127';
+export const mockHash = 'brands?id=211376%2C%20220127';
 
 export const mockBrandsQuery = {
   id: `${mockBrandId}, ${mockBrandId2}`,
