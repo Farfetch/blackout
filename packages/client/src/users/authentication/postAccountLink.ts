@@ -12,7 +12,7 @@ import type { PostAccountLink } from './types/index.js';
  */
 const postAccountLink: PostAccountLink = (data, config?) =>
   client
-    .post('/account/v1/oidc/accountlinking', data, config)
+    .post('/account/oidc/accountlinking', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

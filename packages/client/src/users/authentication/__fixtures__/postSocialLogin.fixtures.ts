@@ -1,7 +1,7 @@
 import { rest, type RestHandler } from 'msw';
 import type { User } from '../types/index.js';
 
-const path = '/api/account/v1/oidc/login';
+const path = '/api/account/oidc/login';
 
 const fixtures = {
   success: (response: User): RestHandler =>

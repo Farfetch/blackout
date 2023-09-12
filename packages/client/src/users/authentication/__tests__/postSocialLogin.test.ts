@@ -24,7 +24,7 @@ describe('postSocialLogin', () => {
       mockUsersResponse,
     );
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/oidc/login',
+      '/account/oidc/login',
       requestData,
       expectedConfig,
     );
@@ -35,7 +35,7 @@ describe('postSocialLogin', () => {
 
     await expect(postSocialLogin(requestData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/oidc/login',
+      '/account/oidc/login',
       requestData,
       expectedConfig,
     );
