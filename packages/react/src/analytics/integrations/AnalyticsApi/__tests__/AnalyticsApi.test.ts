@@ -69,13 +69,14 @@ describe('AnalyticsApi Integration', () => {
     expect(AnalyticsApi.prototype).toBeInstanceOf(integrations.Integration);
   });
 
-  it('`shouldLoad` should return false if there is no user consent', () => {
-    expect(AnalyticsApi.shouldLoad({ marketing: false }, {})).toBe(false);
-    expect(AnalyticsApi.shouldLoad({}, {})).toBe(false);
-  });
-
-  it('`shouldLoad` should return true if there is user consent', () => {
+  it('`shouldLoad` should return always true', () => {
+    expect(AnalyticsApi.shouldLoad()).toBe(true);
+    // @ts-expect-error
+    expect(AnalyticsApi.shouldLoad({}, {})).toBe(true);
+    // @ts-expect-error
     expect(AnalyticsApi.shouldLoad({ marketing: true }, {})).toBe(true);
+    // @ts-expect-error
+    expect(AnalyticsApi.shouldLoad({ marketing: false }, {})).toBe(true);
   });
 
   describe('AnalyticsApi Instance', () => {

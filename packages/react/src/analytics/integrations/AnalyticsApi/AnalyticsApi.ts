@@ -16,10 +16,17 @@ import {
 import { isArray, omit } from 'lodash-es';
 
 export default class AnalyticsAPI extends integrations.Integration<AnalyticsApiIntegrationOptions> {
-  static override [utils.CONSENT_CATEGORIES_PROPERTY] =
-    utils.DefaultConsentKeys.Marketing;
   private debugMode: boolean | undefined;
   private whitelisted: Array<string> | undefined;
+
+  /**
+   * Method to check if the integration is ready to be loaded.
+   *
+   * @returns If the integration is ready to be loaded.
+   */
+  static override shouldLoad() {
+    return true;
+  }
 
   /**
    * Creates an instance of Analytics Api integration.
