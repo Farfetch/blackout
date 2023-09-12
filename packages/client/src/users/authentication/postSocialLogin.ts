@@ -12,7 +12,7 @@ import type { PostSocialLogin } from './types/index.js';
  */
 const postSocialLogin: PostSocialLogin = (data, config?) =>
   client
-    .post('/account/v1/oidc/login', data, config)
+    .post('/account/oidc/login', data, config)
     .then(response => response.data)
     .catch(error => {
       throw adaptError(error);

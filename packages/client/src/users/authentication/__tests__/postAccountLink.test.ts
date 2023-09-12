@@ -22,7 +22,7 @@ describe('postAccountLink', () => {
       mockUsersResponse,
     );
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/oidc/accountlinking',
+      '/account/oidc/accountlinking',
       requestData,
       expectedConfig,
     );
@@ -33,7 +33,7 @@ describe('postAccountLink', () => {
 
     await expect(postAccountLink(requestData)).rejects.toMatchSnapshot();
     expect(spy).toHaveBeenCalledWith(
-      '/account/v1/oidc/accountlinking',
+      '/account/oidc/accountlinking',
       requestData,
       expectedConfig,
     );
