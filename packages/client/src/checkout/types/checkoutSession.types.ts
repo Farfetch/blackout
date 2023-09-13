@@ -50,4 +50,7 @@ export type CheckoutSession = {
   shippingAddress?: CheckoutShippingAddress;
   billingAddress?: CheckoutAddress;
   clickAndCollect?: ClickAndCollect;
+  promotionEvaluationId?: string;
+  totalCredit?: number;
+  promocode?: string;
 } & Controls;
