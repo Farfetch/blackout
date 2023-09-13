@@ -29,6 +29,7 @@ Object {
         "wishlistId": "1e5232f8-7af0-4fba-b6b1-b87e2cb3a88f",
       },
     },
+    "result": 29556478,
   },
   "type": "@farfetch/blackout-redux/SOCIAL_LOGIN_SUCCESS",
 }

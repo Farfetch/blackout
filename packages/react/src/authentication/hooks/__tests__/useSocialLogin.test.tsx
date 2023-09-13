@@ -1,5 +1,8 @@
 import { cleanup, renderHook } from '@testing-library/react';
-import { mockInitialState } from 'tests/__fixtures__/authentication/index.mjs';
+import {
+  mockInitialState,
+  mockResponse,
+} from 'tests/__fixtures__/authentication/index.mjs';
 import { mockStore } from '../../../../tests/helpers/index.js';
 import { postAccountLink, postSocialLogin } from '@farfetch/blackout-client';
 import { Provider } from 'react-redux';
@@ -24,15 +27,15 @@ jest.mock('@farfetch/blackout-client', () => {
 
   return {
     ...original,
-    postSocialLogin: jest.fn(() => Promise.resolve()),
-    postAccountLink: jest.fn(() => Promise.resolve()),
+    postSocialLogin: jest.fn(() => Promise.resolve(mockResponse)),
+    postAccountLink: jest.fn(() => Promise.resolve(mockResponse)),
   };
 });
 
 const genericMock = {
   actions: {
     createAccountLink: expect.any(Function),
-    login: expect.any(Function),
+    socialLogin: expect.any(Function),
   },
 };
 
@@ -61,19 +64,19 @@ describe('useSocialLogin', () => {
   });
 
   describe('actions', () => {
-    describe('login', () => {
-      it('should call `useSocialLogin` login action with config', async () => {
+    describe('socialLogin', () => {
+      it('should call `useSocialLogin` socialLogin action with config', async () => {
         const current = getRenderedHook(mockInitialState);
 
-        await current.actions.login(mockLoginData, mockConfig);
+        await current.actions.socialLogin(mockLoginData, mockConfig);
 
         expect(postSocialLogin).toHaveBeenCalledWith(mockLoginData, mockConfig);
       });
 
-      it('should call `useSocialLogin` login action without config', async () => {
+      it('should call `useSocialLogin` socialLogin action without config', async () => {
         const current = getRenderedHook(mockInitialState);
 
-        await current.actions.login(mockLoginData);
+        await current.actions.socialLogin(mockLoginData);
 
         expect(postSocialLogin).toHaveBeenCalledWith(mockLoginData, undefined);
       });
