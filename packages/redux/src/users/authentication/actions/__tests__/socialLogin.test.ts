@@ -1,6 +1,6 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
-  expectedNormalizedSocialLoginPayload,
+  expectedNormalizedPayload,
   mockResponse,
 } from 'tests/__fixtures__/authentication/index.mjs';
 import { find } from 'lodash-es';
@@ -71,7 +71,7 @@ describe('socialLogin() action creator', () => {
       { type: actionTypes.SOCIAL_LOGIN_REQUEST },
       {
         type: actionTypes.SOCIAL_LOGIN_SUCCESS,
-        payload: expectedNormalizedSocialLoginPayload,
+        payload: expectedNormalizedPayload,
       },
     ]);
     expect(

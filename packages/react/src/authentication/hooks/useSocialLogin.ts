@@ -5,23 +5,23 @@ import {
 } from '@farfetch/blackout-client';
 import {
   createAccountLink as createAccountLinkAction,
-  socialLogin as socialLoginAction,
+  socialLogin as socialLoginReduxAction,
 } from '@farfetch/blackout-redux';
 import { useCallback } from 'react';
 import useAction from '../../helpers/useAction.js';
 
 function useSocialLogin() {
-  const socialLogin = useAction(socialLoginAction);
+  const socialLoginAction = useAction(socialLoginReduxAction);
   const accountLink = useAction(createAccountLinkAction);
-  const login = useCallback(
+  const socialLogin = useCallback(
     async (data: PostSocialLoginData, config?: Config) => {
       if (!data) {
         return Promise.reject(new Error('No data was specified.'));
       }
 
-      return await socialLogin(data, config);
+      return await socialLoginAction(data, config);
     },
-    [socialLogin],
+    [socialLoginAction],
   );
 
   const createAccountLink = useCallback(
@@ -37,7 +37,7 @@ function useSocialLogin() {
 
   return {
     actions: {
-      login,
+      socialLogin,
       createAccountLink,
     },
   };
