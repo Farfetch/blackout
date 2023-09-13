@@ -6,6 +6,7 @@ Object {
     "entities": Object {
       "user": Object {},
     },
+    "result": undefined,
   },
   "type": "@farfetch/blackout-redux/CREATE_ACCOUNT_LINK_SUCCESS",
 }

@@ -30,6 +30,7 @@ const socialLoginFactory =
 
       const userEntity = {
         entities: { user },
+        result: result.id,
       };
 
       await dispatch({

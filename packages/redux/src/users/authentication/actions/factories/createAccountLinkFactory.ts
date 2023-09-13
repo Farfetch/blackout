@@ -27,6 +27,7 @@ const createAccountLinkFactory =
       const user = result;
       const userEntity = {
         entities: { user },
+        result: result.id,
       };
 
       dispatch({
