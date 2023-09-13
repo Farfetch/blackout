@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.11.0...@farfetch/blackout-react@1.11.1) (2023-09-13)
+
+### Bug Fixes
+
+- **analytics:** remove analytics API consent dependency ([833782b](https://github.com/Farfetch/blackout/commit/833782bfe3dfc5ecb59d19219385e5d7baa939e8))
+- fix social login actions ([88ead15](https://github.com/Farfetch/blackout/commit/88ead15539170524ae852041e1b50a653e72b8b1))
+
 # [1.11.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.10.0...@farfetch/blackout-react@1.11.0) (2023-09-07)
 
 ### Features

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.10.0...@farfetch/blackout-redux@1.11.0) (2023-09-13)
+
+### Bug Fixes
+
+- buildQueryStringFromObject query construction ([871a98d](https://github.com/Farfetch/blackout/commit/871a98db22326e88566f98ce23d235695b39776a))
+- fix social login actions ([88ead15](https://github.com/Farfetch/blackout/commit/88ead15539170524ae852041e1b50a653e72b8b1))
+
+### Features
+
+- **client|redux:** expose closet endpoints ([9653a5f](https://github.com/Farfetch/blackout/commit/9653a5fe580acbab9c3098887a311c75ba7d70ba))
+
 # [1.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.9.0...@farfetch/blackout-redux@1.10.0) (2023-09-07)
 
 ### Bug Fixes

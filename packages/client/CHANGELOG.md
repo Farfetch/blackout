@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.12.1...@farfetch/blackout-client@2.13.0) (2023-09-13)
+
+### Bug Fixes
+
+- fix social login and account link endpoint paths ([5149c44](https://github.com/Farfetch/blackout/commit/5149c44318ba6089dc24347059f02255ce436861))
+
+### Features
+
+- **client|redux:** expose closet endpoints ([9653a5f](https://github.com/Farfetch/blackout/commit/9653a5fe580acbab9c3098887a311c75ba7d70ba))
+- **client:** add delivery bundles endpoints ([c0d1c5b](https://github.com/Farfetch/blackout/commit/c0d1c5b45dbd7ec82940bb5907601aebdf0ccee5))
+
 ## [2.12.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.12.0...@farfetch/blackout-client@2.12.1) (2023-09-07)
 
 ### Bug Fixes
