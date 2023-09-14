@@ -435,6 +435,8 @@ export const mockResponse = {
     creditCard: {
       type: '',
       creditCards: [{ id: '', description: '', code: '' }],
+      supportsInstallments: false,
+      installments: [],
     },
   },
   userPaymentTokens: undefined,
@@ -928,6 +930,8 @@ export const mockUpdateCheckoutResponse = {
               code: '',
             },
           ],
+          supportsInstallments: false,
+          installments: [],
         },
       },
       orderStatus: OrderStatusError.NoError,

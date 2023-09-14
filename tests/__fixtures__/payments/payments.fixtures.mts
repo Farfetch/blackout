@@ -336,6 +336,8 @@ export const mockFetchPaymentMethodsResponse = {
         code: 'VISA',
       },
     ],
+    supportsInstallments: false,
+    installments: [],
   },
 };
 export const mockFetchPaymentIntentChargeResponse = {

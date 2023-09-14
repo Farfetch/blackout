@@ -22,7 +22,9 @@ export type CreditCard = {
 
 export type CreditCardPaymentMethod = {
   type: string;
-  creditCards: CreditCard[];
+  creditCards?: CreditCard[];
+  supportsInstallments?: boolean;
+  installments?: number[];
 };
 
 export type PaymentMethods = {

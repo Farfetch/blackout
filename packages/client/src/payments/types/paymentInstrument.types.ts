@@ -5,6 +5,10 @@ import type {
   ShopperInteraction,
 } from './index.js';
 
+export type InstrumentInstallment = {
+  quantity: number;
+};
+
 export enum PaymentInstrumentStatus {
   Created = 'Created',
   Pending = 'Pending',

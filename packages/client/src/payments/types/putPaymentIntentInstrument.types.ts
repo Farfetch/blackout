@@ -1,5 +1,6 @@
 import type {
   Amounts,
+  InstrumentInstallment,
   PayerAddressType,
   PayerInput,
   PaymentInstrument,
@@ -12,6 +13,7 @@ export type PutPaymentIntentInstrumentData = {
   createToken?: boolean;
   payer?: PayerInput;
   amounts: Amounts[];
+  installments?: InstrumentInstallment;
   shopperInteraction?: ShopperInteraction;
   payerAddressType?: PayerAddressType;
 };

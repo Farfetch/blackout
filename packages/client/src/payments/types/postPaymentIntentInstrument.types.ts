@@ -1,5 +1,6 @@
 import type {
   Amounts,
+  InstrumentInstallment,
   Issuer,
   PayerAddressType,
   PayerInput,
@@ -50,6 +51,7 @@ export type PostPaymentIntentInstrumentData = {
   payer?: PayerInput;
   amounts: Amounts[];
   data?: CreatePaymentInstrumentData;
+  installments?: InstrumentInstallment;
   shopperInteraction?: ShopperInteraction;
 };
 
