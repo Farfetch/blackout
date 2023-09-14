@@ -40,6 +40,8 @@ Object {
                   "id": "",
                 },
               ],
+              "installments": Array [],
+              "supportsInstallments": false,
               "type": "",
             },
             "customerAccounts": Array [],
