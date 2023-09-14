@@ -46,6 +46,8 @@ Object {
           "id": "e13bb06b-392b-49a0-8acd-3f44416e3234",
         },
       ],
+      "installments": Array [],
+      "supportsInstallments": false,
       "type": "CreditCard",
     },
     "customerAccounts": Array [
