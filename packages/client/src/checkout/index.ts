@@ -18,6 +18,7 @@ export { default as getCheckoutOrderOperations } from './getCheckoutOrderOperati
 export { default as getCheckoutOrderPaymentMethods } from './getCheckoutOrderPaymentMethods.js';
 export { default as getCheckoutSession } from './getCheckoutSession.js';
 export { default as getCheckoutSessionCharge } from './getCheckoutSessionCharge.js';
+export { default as getCheckoutSessionTags } from './getCheckoutSessionTags.js';
 export { default as getCollectPoints } from './getCollectPoints.js';
 export { default as patchCheckoutOrder } from './patchCheckoutOrder.js';
 export { default as patchCheckoutOrderDeliveryBundles } from './patchCheckoutOrderDeliveryBundles.js';
@@ -34,6 +35,7 @@ export { default as putCheckoutOrderItemTags } from './putCheckoutOrderItemTags.
 export { default as putCheckoutOrderPromocodes } from './putCheckoutOrderPromocodes.js';
 export { default as putCheckoutOrderTags } from './putCheckoutOrderTags.js';
 export { default as putCheckoutSessionPromocodes } from './putCheckoutSessionPromocodes.js';
+export { default as putCheckoutSessionTags } from './putCheckoutSessionTags.js';
 
 /**
  * Checkout types.
