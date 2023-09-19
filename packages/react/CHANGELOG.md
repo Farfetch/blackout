@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.11.1...@farfetch/blackout-react@1.12.0) (2023-09-19)
+
+### Features
+
+- **react:** user closets hooks ([4ff2dce](https://github.com/Farfetch/blackout/commit/4ff2dce047dfff071ee1b89c4912918d5222765d))
+
 ## [1.11.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.11.0...@farfetch/blackout-react@1.11.1) (2023-09-13)
 
 ### Bug Fixes

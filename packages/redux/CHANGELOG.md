@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.11.0...@farfetch/blackout-redux@1.12.0) (2023-09-19)
+
+### Features
+
+- **client:** update payment installments types ([7f99817](https://github.com/Farfetch/blackout/commit/7f99817a68ffe206fa1bb3e574dfa8082a8c1740))
+- **react:** user closets hooks ([4ff2dce](https://github.com/Farfetch/blackout/commit/4ff2dce047dfff071ee1b89c4912918d5222765d))
+
 # [1.11.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.10.0...@farfetch/blackout-redux@1.11.0) (2023-09-13)
 
 ### Bug Fixes

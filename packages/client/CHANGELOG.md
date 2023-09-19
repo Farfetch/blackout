@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.13.0...@farfetch/blackout-client@2.14.0) (2023-09-19)
+
+### Features
+
+- **client:** add checkout session tags endpoints ([92c08f9](https://github.com/Farfetch/blackout/commit/92c08f93ac3acf131985f29a72b4a6cb1cc9d6ae))
+- **client:** put checkoutSessions promocodes ([6a85c0b](https://github.com/Farfetch/blackout/commit/6a85c0bba61d79cc4faaeca8435606b5c4d9bbfd))
+- **client:** update payment installments types ([7f99817](https://github.com/Farfetch/blackout/commit/7f99817a68ffe206fa1bb3e574dfa8082a8c1740))
+
 # [2.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.12.1...@farfetch/blackout-client@2.13.0) (2023-09-13)
 
 ### Bug Fixes
