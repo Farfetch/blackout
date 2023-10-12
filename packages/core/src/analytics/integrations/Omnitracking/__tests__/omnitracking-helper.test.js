@@ -1,3 +1,4 @@
+import { fromParameterTypes, pageTypes, utils } from '../../..';
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
@@ -6,10 +7,10 @@ import {
   getGenderValueFromProperties,
   getPageEventFromLocation,
   getPlatformSpecificParameters,
+  getRecommendationsTrackingData,
   getValParameterForEvent,
 } from '../omnitracking-helper';
 import { SignupNewsletterGenderMappings } from '../..';
-import { utils } from '../../..';
 import platformTypes from '../../../types/platformTypes';
 import trackTypes from '../../../types/trackTypes';
 
@@ -218,6 +219,66 @@ describe('getCommonCheckoutStepTrackingData', () => {
       deliveryInformationDetails:
         '{"deliveryType":"sample_delivery","courierType":"sample_shipping"}',
       interactionType: 'click',
+    });
+  });
+});
+
+describe('getRecommendationsTrackingData', () => {
+  const mockedRecommendationsValues = {
+    list: 'list123',
+    listId: '09a35590-bb62-4027-a630-5da04ec64fb5',
+  };
+
+  const mockedReturnedRecommendationsValues = {
+    moduleTitle: JSON.stringify([mockedRecommendationsValues.list]),
+    moduleId: JSON.stringify([mockedRecommendationsValues.listId]),
+  };
+
+  it('should return undefined in case its non recommendations product-details event', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: pageTypes.PRODUCT_DETAILS,
+        properties: {
+          from: 'abc',
+        },
+      }),
+    ).toBeUndefined();
+  });
+
+  it('should return empty object if the event is sent without the recommendations parameters filled', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: fromParameterTypes.RECOMMENDATIONS,
+        },
+      }),
+    ).toEqual({});
+  });
+
+  it('should return the json stringified values correctly', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: fromParameterTypes.RECOMMENDATIONS,
+          ...mockedRecommendationsValues,
+        },
+      }),
+    ).toEqual(mockedReturnedRecommendationsValues);
+  });
+
+  it('should return just one stringified parameter in case its sent only one parameter', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: 'abc',
+          list: mockedRecommendationsValues.list,
+        },
+      }),
+    ).toEqual({
+      moduleTitle: mockedReturnedRecommendationsValues.moduleTitle,
     });
   });
 });
