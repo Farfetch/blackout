@@ -269,6 +269,7 @@ const getPrePurchaseParametersFromEvent = (
     wishlist_id: eventProperties.wishlistId,
     items,
     value: getEventTotalValue(eventProperties, items),
+    index: eventProperties.position,
   };
 };
 
@@ -306,6 +307,7 @@ const getProductRemovedFromWishlist = (eventProperties: EventProperties) => {
     item_list_name: eventProperties.list,
     wishlist_name: eventProperties.wishlist,
     wishlist_id: eventProperties.wishlistId,
+    index: eventProperties.position,
     value: getEventTotalValue(eventProperties, new Array(productParameters)),
     ...productParameters,
   };
@@ -686,6 +688,7 @@ const getProductClickedParametersFromEvent = (
   items: getProductItemsFromEvent(eventProperties),
   item_list_id: eventProperties.listId,
   item_list_name: eventProperties.list,
+  index: eventProperties.position,
 });
 
 /**
