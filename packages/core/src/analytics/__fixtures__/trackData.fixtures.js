@@ -144,12 +144,16 @@ export const customTrackMockData = {
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: {
     from: 'PDP',
     currency: 'EUR',
+    list: 'You may like',
+    listId: '1234',
+    position: 3,
   },
   [eventTypes.PRODUCT_ADDED_TO_CART]: {
     from: 'PDP',
     currency: 'EUR',
     list: 'You may like',
     listId: '1234',
+    position: 3,
   },
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: {
     from: 'PDP',
@@ -157,15 +161,27 @@ export const customTrackMockData = {
     currency: 'EUR',
     list: 'You may like',
     listId: '1234',
+    position: 3,
   },
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: {
     from: 'PDP',
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
     currency: 'EUR',
+    list: 'You may like',
+    listId: '1234',
+    position: 3,
   },
   [eventTypes.PRODUCT_CLICKED]: {
     from: 'PDP',
     id: 123,
+    list: 'You may like',
+    listId: '1234',
+    position: 3,
+  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: {
+    from: 'PDP',
+    list: 'You may like',
+    listId: '1234',
   },
   [eventTypes.PRODUCT_UPDATED]: {
     from: 'PDP',
