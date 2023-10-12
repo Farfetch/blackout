@@ -151,9 +151,10 @@ Object {
 exports[`Omnitracking track events definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Wishlist",
-  "itemListName": "my_wishlist",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
-  "moduleId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+  "listIndex": 2,
+  "moduleId": "[\\"d3618128-5aa9-4caa-a452-1dd1377a6190\\"]",
+  "moduleTitle": "[\\"my_wishlist\\"]",
   "priceCurrency": "USD",
   "tid": 2915,
 }
@@ -162,9 +163,10 @@ Object {
 exports[`Omnitracking track events definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
-  "itemListName": "Woman shopping",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
-  "moduleId": "/en-pt/shopping/woman",
+  "listIndex": 2,
+  "moduleId": "[\\"/en-pt/shopping/woman\\"]",
+  "moduleTitle": "[\\"Woman shopping\\"]",
   "priceCurrency": "USD",
   "tid": 2916,
   "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
@@ -175,6 +177,9 @@ exports[`Omnitracking track events definitions \`Product Clicked\` return should
 Object {
   "actionArea": "Plp",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":3}]",
+  "listIndex": 3,
+  "moduleId": "[\\"/en-pt/shopping/woman\\"]",
+  "moduleTitle": "[\\"Woman shopping\\"]",
   "productId": "507f1f77bcf86cd799439011",
   "tid": 2926,
 }
@@ -183,9 +188,9 @@ Object {
 exports[`Omnitracking track events definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
-  "itemListName": "Woman shopping",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":2},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3}]",
-  "moduleId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
+  "moduleId": "[\\"d3618128-5aa9-4caa-a452-1dd1377a6190\\"]",
+  "moduleTitle": "[\\"Woman shopping\\"]",
   "tid": 2832,
 }
 `;
@@ -194,6 +199,9 @@ exports[`Omnitracking track events definitions \`Product Removed From Wishlist\`
 Object {
   "actionArea": "Plp",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
+  "listIndex": 2,
+  "moduleId": "[\\"/en-pt/shopping/woman\\"]",
+  "moduleTitle": "[\\"Woman shopping\\"]",
   "priceCurrency": "USD",
   "tid": 2925,
   "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
@@ -204,6 +212,9 @@ exports[`Omnitracking track events definitions \`Product Removed from Cart\` ret
 Object {
   "actionArea": "Bag",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":1}]",
+  "listIndex": 1,
+  "moduleId": "[\\"e0030b3c-b970-4496-bc72-f9a38d6270b1\\"]",
+  "moduleTitle": "[\\"Bag\\"]",
   "priceCurrency": "USD",
   "tid": 131,
 }
@@ -1061,8 +1072,10 @@ Object {
 
 exports[`Omnitracking track events definitions \`product-details\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeID\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeID\\":20000}]",
-  "recommendationsSource": "{\\"recommendationsModuleName\\":\\"Recommendations\\",\\"recommendationsId\\":\\"5c1e447a-b14b-43a5-b010-2190f3366fad\\",\\"recommendationsPosition\\":1,\\"recommendationsStrategy\\":\\"rec_123\\"}",
+  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeID\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeID\\":20000,\\"listIndex\\":2}]",
+  "listIndex": 2,
+  "moduleId": "[\\"5c1e447a-b14b-43a5-b010-2190f3366fad\\"]",
+  "moduleTitle": "[\\"Recommendations\\"]",
   "viewSubType": "Product",
   "viewType": "Product",
 }

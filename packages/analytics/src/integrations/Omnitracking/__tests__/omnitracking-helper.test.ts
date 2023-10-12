@@ -1,4 +1,9 @@
-import { EventType, SignupNewsletterGenderType } from '../../../types/index.js';
+import {
+  EventType,
+  FromParameterType,
+  PageType,
+  SignupNewsletterGenderType,
+} from '../../../types/index.js';
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
@@ -8,6 +13,7 @@ import {
   getPageEventFromLocation,
   getPlatformSpecificParameters,
   getProductLineItemsQuantity,
+  getRecommendationsTrackingData,
   getValParameterForEvent,
 } from '../omnitracking-helper.js';
 import { logger } from '../../../utils/index.js';
@@ -235,5 +241,65 @@ describe('getGenderValueFromProperties', () => {
         } as Record<string, unknown>,
       } as EventData<TrackTypesValues>),
     ).toBe('W,M');
+  });
+});
+
+describe('getRecommendationsTrackingData', () => {
+  const mockedRecommendationsValues = {
+    list: 'list123',
+    listId: '09a35590-bb62-4027-a630-5da04ec64fb5',
+  };
+
+  const mockedReturnedRecommendationsValues = {
+    moduleTitle: JSON.stringify([mockedRecommendationsValues.list]),
+    moduleId: JSON.stringify([mockedRecommendationsValues.listId]),
+  };
+
+  it('should return undefined in case its non recommendations product-details event', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: PageType.ProductDetails,
+        properties: {
+          from: 'abc',
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toBeUndefined();
+  });
+
+  it('should return empty object if the event is sent without the recommendations parameters filled', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: FromParameterType.Recommendations,
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual({});
+  });
+
+  it('should return the json stringified values correctly', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: FromParameterType.Recommendations,
+          ...mockedRecommendationsValues,
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual(mockedReturnedRecommendationsValues);
+  });
+
+  it('should return just one stringified parameter in case its sent only one parameter', () => {
+    expect(
+      getRecommendationsTrackingData({
+        event: 'abc',
+        properties: {
+          from: 'abc',
+          list: mockedRecommendationsValues.list,
+        } as Record<string, unknown>,
+      } as EventData<TrackTypesValues>),
+    ).toEqual({
+      moduleTitle: mockedReturnedRecommendationsValues.moduleTitle,
+    });
   });
 });

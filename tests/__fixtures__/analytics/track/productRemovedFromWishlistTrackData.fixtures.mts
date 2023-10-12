@@ -9,6 +9,7 @@ const fixtures = {
     id: '507f1f77bcf86cd799439011',
     list: 'Woman shopping',
     listId: '/en-pt/shopping/woman',
+    position: 2,
     category: 'Clothing/Tops/T-shirts',
     name: 'Gareth McConnell Dreamscape T-Shirt',
     brand: 'Just A T-Shirt',
