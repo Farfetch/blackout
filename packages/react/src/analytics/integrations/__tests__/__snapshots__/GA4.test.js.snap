@@ -536,6 +536,7 @@ Array [
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Wishlist",
+      "index": 2,
       "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
       "item_list_name": "my_wishlist",
       "items": Array [
@@ -578,6 +579,7 @@ Array [
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "PLP",
+      "index": 2,
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -619,6 +621,7 @@ Array [
       "analytics_package_version": "0.1.0",
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "from": "PLP",
+      "index": 3,
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -655,8 +658,8 @@ Array [
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "error": undefined,
       "filters": undefined,
-      "from": undefined,
-      "item_list_id": undefined,
+      "from": "PLP",
+      "item_list_id": "09a35590-bb62-4027-a630-5da04ec64fb5",
       "item_list_name": "Woman shopping",
       "items": Array [
         Object {
@@ -750,6 +753,7 @@ Array [
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Bag",
+      "index": 1,
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
       "item_list_name": "Bag",
       "items": Array [
@@ -996,6 +1000,7 @@ Array [
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
       "currency": "USD",
       "from": "Bag",
+      "index": undefined,
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
       "item_list_name": "Bag",
       "items": Array [

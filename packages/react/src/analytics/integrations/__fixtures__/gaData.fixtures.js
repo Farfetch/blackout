@@ -208,6 +208,8 @@ const validTrackEvents = {
     properties: {
       category: 'Clothing',
       list: 'Woman shopping',
+      listId: '09a35590-bb62-4027-a630-5da04ec64fb5',
+      from: 'PLP',
       currency: 'USD',
       products: [
         {
