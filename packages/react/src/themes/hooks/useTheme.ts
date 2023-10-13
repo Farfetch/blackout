@@ -7,7 +7,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseThemeOptions } from './types/useTheme.types.js';
 
@@ -17,6 +17,8 @@ const useTheme = ({
   fetchConfig,
   ...queryParams
 }: UseThemeOptions) => {
+  const store = useStore();
+
   const query = queryParams;
 
   // Selectors
@@ -37,10 +39,15 @@ const useTheme = ({
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isThemeLoading(updatedState, code);
+    const updatedIsFetched = isThemeFetched(updatedState, code);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading, store, code]);
 
   return {
     error,

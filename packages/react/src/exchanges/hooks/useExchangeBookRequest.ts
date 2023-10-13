@@ -6,9 +6,10 @@ import {
   isExchangeBookRequestFetched,
   isExchangeBookRequestLoading,
   resetExchangeBookRequestState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   Config,
@@ -26,6 +27,7 @@ function useExchangeBookRequest(
   bookRequestId?: ExchangeBookRequest['id'],
   options: UseExchangeBookRequestOptions = {},
 ) {
+  const store = useStore();
   const exchangeIdHookParameter = exchangeId;
   const bookRequestIdHookParameter = bookRequestId;
   const { enableAutoFetch = true, fetchConfig } = options;
@@ -109,9 +111,13 @@ function useExchangeBookRequest(
   );
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = isExchangeBookRequestLoading(updatedState);
+    const updatedIsFetched = isExchangeBookRequestFetched(updatedState);
+
     if (
-      !isLoading &&
-      !isFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       enableAutoFetch &&
       exchangeIdHookParameter &&
       bookRequestIdHookParameter
@@ -125,6 +131,7 @@ function useExchangeBookRequest(
     exchangeIdHookParameter,
     bookRequestIdHookParameter,
     fetch,
+    store,
   ]);
 
   const data = useMemo(() => {

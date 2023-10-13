@@ -13,11 +13,12 @@ import {
   isWishlistLoading,
   removeWishlistItem,
   resetWishlist,
+  type StoreState,
   updateWishlistItem,
   type WishlistItemActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 // Types
 import type {
@@ -35,6 +36,7 @@ import type { UseWishlistOptions } from './types/index.js';
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
 const useWishlist = (options: UseWishlistOptions = {}) => {
+  const store = useStore();
   const { enableAutoFetch = true, fetchConfig } = options;
   // Selectors
   const error = useSelector(getWishlistError);
@@ -134,7 +136,17 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const isEmpty = count === 0 || count === undefined;
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && userWishlistId) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isWishlistLoading(updatedState);
+    const updatedIsFetched = isWishlistFetched(updatedState);
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      userWishlistId
+    ) {
       fetch(fetchConfig);
     }
   }, [
@@ -144,6 +156,7 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
     isFetched,
     isLoading,
     userWishlistId,
+    store,
   ]);
 
   const data = useMemo(() => {

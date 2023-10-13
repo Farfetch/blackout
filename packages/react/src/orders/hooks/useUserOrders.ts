@@ -15,7 +15,7 @@ import {
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { usePrevious } from '../../helpers/index.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useUser from '../../users/hooks/useUser.js';
 import type { Config, Order, User } from '@farfetch/blackout-client';
@@ -25,6 +25,8 @@ import type { UseUserOrdersOptions } from './types/index.js';
  * Obtains the user orders and actions to perform on them.
  */
 function useUserOrders(options: UseUserOrdersOptions = {}) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
 
   const fetchUserOrders = useAction(fetchUserOrdersAction);
@@ -100,13 +102,18 @@ function useUserOrders(options: UseUserOrdersOptions = {}) {
   );
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserOrdersLoading(updatedState, fetchQuery);
+    const updatedIsFetched = areUserOrdersFetched(updatedState, fetchQuery);
+
     if (
-      ((!isLoading && !isFetched) || hasQueryHashChanged) &&
+      ((!updatedIsLoading && !updatedIsFetched) || hasQueryHashChanged) &&
       enableAutoFetch
     ) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, hasQueryHashChanged, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, hasQueryHashChanged, store, fetchQuery]);
 
   const data = useMemo(() => {
     if (!ordersResult && !ordersResultByOrderId) {

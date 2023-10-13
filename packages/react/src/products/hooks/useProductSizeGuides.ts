@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseProductSizeGuidesOptions } from './types/index.js';
 
@@ -16,6 +16,8 @@ const useProductSizeGuides = (
   productId: ProductEntity['id'],
   options: UseProductSizeGuidesOptions = {},
 ) => {
+  const store = useStore();
+
   const { fetchConfig, enableAutoFetch = true } = options;
   const fetchAction = useAction(fetchProductSizeGuides);
 
@@ -32,17 +34,23 @@ const useProductSizeGuides = (
     getProductSizeGuides(state, productId),
   );
 
-  const shouldLoadSizeGuides =
-    enableAutoFetch && !isLoading && !productSizeGuides;
-
   const fetch = useCallback(
     () => fetchAction(productId, fetchConfig),
     [fetchAction, fetchConfig, productId],
   );
 
   useEffect(() => {
-    shouldLoadSizeGuides && fetch();
-  }, [fetch, shouldLoadSizeGuides]);
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areProductSizeGuidesLoading(
+      updatedState,
+      productId,
+    );
+
+    if (enableAutoFetch && !updatedIsLoading && !productSizeGuides) {
+      fetch();
+    }
+  }, [fetch, enableAutoFetch, store, productSizeGuides, productId]);
 
   return {
     error,

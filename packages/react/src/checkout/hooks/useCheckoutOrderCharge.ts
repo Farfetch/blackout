@@ -6,9 +6,10 @@ import {
   isCheckoutOrderChargeFetched,
   isCheckoutOrderChargeLoading,
   resetCheckoutOrderChargeState,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   CheckoutOrder,
@@ -23,6 +24,8 @@ function useCheckoutOrderCharge(
   chargeId?: CheckoutOrderCharge['id'],
   options: UseCheckoutOrderChargeOptions = {},
 ) {
+  const store = useStore();
+
   const chargeIdHookParameter = chargeId;
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector(isCheckoutOrderChargeLoading);
@@ -72,9 +75,13 @@ function useCheckoutOrderCharge(
   }
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = isCheckoutOrderChargeLoading(updatedState);
+    const updatedIsFetched = isCheckoutOrderChargeFetched(updatedState);
+
     if (
-      !isLoading &&
-      !isFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       enableAutoFetch &&
       checkoutOrderId &&
       chargeId
@@ -89,6 +96,7 @@ function useCheckoutOrderCharge(
     fetchConfig,
     isFetched,
     isLoading,
+    store,
   ]);
 
   return {

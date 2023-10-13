@@ -9,7 +9,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { ComponentType } from '@farfetch/blackout-client';
 import type { UseCommercePagesOptions } from './types/useCommercePages.types.js';
@@ -17,6 +17,8 @@ import type { UseCommercePagesOptions } from './types/useCommercePages.types.js'
 const useCommercePages = <T = ComponentType[]>(
   options: UseCommercePagesOptions,
 ) => {
+  const store = useStore();
+
   const {
     enableAutoFetch = true,
     fetchConfig,
@@ -69,10 +71,15 @@ const useCommercePages = <T = ComponentType[]>(
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isContentLoading(updatedState, query);
+    const updatedIsFetched = isContentFetched(updatedState, query);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, store, query]);
 
   return {
     isLoading,

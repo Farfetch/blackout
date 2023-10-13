@@ -5,13 +5,16 @@ import {
   getConfigurations,
   getConfigurationsError,
   resetConfigurations,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseConfigurationsOptions } from './types/index.js';
 
 const useConfigurations = (options: UseConfigurationsOptions = {}) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchQuery, fetchConfig } = options;
   const error = useSelector(getConfigurationsError);
   const isLoading = useSelector(areConfigurationsLoading);
@@ -21,10 +24,23 @@ const useConfigurations = (options: UseConfigurationsOptions = {}) => {
   const reset = useAction(resetConfigurations);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areConfigurationsLoading(updatedState);
+    const updatedIsFetched = areConfigurationsFetched(updatedState);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [enableAutoFetch, isFetched, isLoading, fetch, fetchQuery, fetchConfig]);
+  }, [
+    enableAutoFetch,
+    isFetched,
+    isLoading,
+    fetch,
+    fetchQuery,
+    fetchConfig,
+    store,
+  ]);
 
   return {
     isLoading,

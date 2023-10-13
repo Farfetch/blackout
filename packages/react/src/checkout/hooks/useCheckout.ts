@@ -15,6 +15,7 @@ import {
   resetCheckout,
   setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
+  type StoreState,
   updateCheckoutOrder,
 } from '@farfetch/blackout-redux';
 import {
@@ -40,7 +41,7 @@ import {
   useCountryAddressSchemas,
   validateShippingAddressZipCode,
 } from '../../index.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { useUser } from '../../users/index.js';
 import useAction from '../../helpers/useAction.js';
 import useCheckoutOrderCharge from './useCheckoutOrderCharge.js';
@@ -59,6 +60,8 @@ function useCheckout(
   checkoutOrderId?: CheckoutOrder['id'],
   options: UseCheckoutOptions = {},
 ) {
+  const store = useStore();
+
   const {
     enableAutoFetch = true,
     fetchConfig,
@@ -532,10 +535,14 @@ function useCheckout(
   );
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = isCheckoutOrderLoadingSelector(updatedState);
+    const updatedIsFetched = isCheckoutOrderFetchedSelector(updatedState);
+
     if (
       enableAutoCreate &&
-      !isCheckoutOrderLoading &&
-      !isCheckoutOrderFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       !checkoutOrderId &&
       createData &&
       isAuthorized
@@ -551,12 +558,17 @@ function useCheckout(
     isCheckoutOrderFetched,
     create,
     createConfig,
+    store,
   ]);
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = isCheckoutOrderLoadingSelector(updatedState);
+    const updatedIsFetched = isCheckoutOrderFetchedSelector(updatedState);
+
     if (
-      !isCheckoutOrderLoading &&
-      !isCheckoutOrderFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       enableAutoFetch &&
       checkoutOrderId &&
       user
@@ -572,6 +584,7 @@ function useCheckout(
     isCheckoutOrderFetched,
     isCheckoutOrderLoading,
     user,
+    store,
   ]);
 
   return {

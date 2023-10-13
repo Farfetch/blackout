@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   ComponentType,
@@ -22,6 +22,8 @@ const useContentPage = <T = [ComponentType]>(
   fetchQuery: QueryContentPage,
   options: UseContentPageOptions = {},
 ) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
 
   const query = useMemo(
@@ -64,10 +66,15 @@ const useContentPage = <T = [ComponentType]>(
   }, [contentPageType, fetchConfig, fetchContentPage, fetchQueryWithoutSlug]);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isContentLoading(updatedState, query);
+    const updatedIsFetched = isContentFetched(updatedState, query);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, store, query]);
 
   return {
     data: contentPage,

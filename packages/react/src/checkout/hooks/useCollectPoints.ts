@@ -9,7 +9,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { Config, GetCollectPointsQuery } from '@farfetch/blackout-client';
 import type { UseCollectPointsOptions } from './types/index.js';
@@ -18,6 +18,7 @@ function useCollectPoints(
   query?: GetCollectPointsQuery,
   options: UseCollectPointsOptions = {},
 ) {
+  const store = useStore();
   const queryHookParameter = query;
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector((state: StoreState) =>
@@ -54,10 +55,14 @@ function useCollectPoints(
   }
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = areCollectPointsLoading(updatedState, query);
+    const updatedIsFetched = areCollectPointsFetched(updatedState, query);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch();
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, isFetched, isLoading, store, query]);
 
   return {
     actions: {

@@ -26,9 +26,10 @@ import {
   registerLegacy as registerLegacyAction,
   resetPassword as resetPasswordAction,
   setUser as setUserAction,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   Config,
@@ -42,6 +43,8 @@ import type {
 import type { UseUserOptions } from './types/index.js';
 
 function useUser(options: UseUserOptions = {}) {
+  const store = useStore();
+
   const {
     enableAutoFetch = false,
     fetchConfig,
@@ -131,7 +134,11 @@ function useUser(options: UseUserOptions = {}) {
   );
 
   useEffect(() => {
-    if (enableAutoFetch && !isUserLoading && !userError) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isUserLoadingSelector(updatedState);
+
+    if (enableAutoFetch && !updatedIsLoading && !userError) {
       fetch(fetchConfig);
     }
   }, [
@@ -141,6 +148,7 @@ function useUser(options: UseUserOptions = {}) {
     fetchLegacy,
     isUserLoading,
     userError,
+    store,
   ]);
 
   return {
