@@ -8,11 +8,13 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseBrandsOptions } from './types/useBrands.js';
 
 const useBrands = (options: UseBrandsOptions = {}) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, query = {}, useCache, fetchConfig } = options;
 
   const isLoading = useSelector((state: StoreState) =>
@@ -31,18 +33,15 @@ const useBrands = (options: UseBrandsOptions = {}) => {
   const reset = useAction(resetBrands);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areBrandsLoading(updatedState, query);
+    const updatedIsFetched = areBrandsFetched(updatedState, query);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(query, useCache, fetchConfig);
     }
-  }, [
-    fetchConfig,
-    enableAutoFetch,
-    fetch,
-    isFetched,
-    isLoading,
-    query,
-    useCache,
-  ]);
+  }, [fetchConfig, enableAutoFetch, fetch, store, query, useCache]);
 
   return {
     isLoading,

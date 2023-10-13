@@ -7,9 +7,10 @@ import {
   getRecentlyViewedProductsPagination,
   removeRecentlyViewedProduct,
   saveRecentlyViewedProduct,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useProductListing from './useProductListing.js';
 import type { UseRecentlyViewedProductsOptions } from './types/index.js';
@@ -17,6 +18,8 @@ import type { UseRecentlyViewedProductsOptions } from './types/index.js';
 const useRecentlyViewedProducts = (
   options: UseRecentlyViewedProductsOptions = {},
 ) => {
+  const store = useStore();
+
   const {
     excludeProductId,
     fetchQuery,
@@ -67,10 +70,15 @@ const useRecentlyViewedProducts = (
     );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areRecentlyViewedProductsLoading(updatedState);
+    const updatedIsFetched = areRecentlyViewedProductsFetched(updatedState);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, store]);
 
   return {
     isLoading: isLoading || !!isProductListingLoading,

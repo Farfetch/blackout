@@ -7,7 +7,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { Configuration } from '@farfetch/blackout-client';
 import type { UseConfigurationOptions } from './types/index.js';
@@ -16,6 +16,8 @@ const useConfiguration = (
   configurationCode: Configuration['code'],
   options: UseConfigurationOptions = {},
 ) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchQuery, fetchConfig } = options;
 
   const error = useSelector((state: StoreState) =>
@@ -43,7 +45,23 @@ const useConfiguration = (
   }, [fetch, configurationCode, fetchQuery, fetchConfig]);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && configurationCode) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isConfigurationLoading(
+      updatedState,
+      configurationCode,
+    );
+    const updatedIsFetched = isConfigurationFetched(
+      updatedState,
+      configurationCode,
+    );
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      configurationCode
+    ) {
       fetchConfiguration();
     }
   }, [
@@ -52,6 +70,7 @@ const useConfiguration = (
     isFetched,
     enableAutoFetch,
     configurationCode,
+    store,
   ]);
 
   return {

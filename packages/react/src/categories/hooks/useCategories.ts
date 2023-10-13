@@ -5,13 +5,16 @@ import {
   getCategories,
   getCategoriesError,
   resetCategories,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseCategoriesOptions } from './types/index.js';
 
 const useCategories = (options: UseCategoriesOptions = {}) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   const error = useSelector(getCategoriesError);
   const isLoading = useSelector(areCategoriesLoading);
@@ -21,10 +24,14 @@ const useCategories = (options: UseCategoriesOptions = {}) => {
   const reset = useAction(resetCategories);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = areCategoriesLoading(updatedState);
+    const updatedIsFetched = areCategoriesFetched(updatedState);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, store]);
 
   const data = useMemo(
     () => categories && Object.values(categories),

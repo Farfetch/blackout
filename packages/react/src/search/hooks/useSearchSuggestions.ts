@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { GetSearchSuggestionsQuery } from '@farfetch/blackout-client';
 import type { UseSearchSuggestionsOptions } from './types/index.js';
@@ -17,6 +17,8 @@ const useSearchSuggestions = (
   query: GetSearchSuggestionsQuery,
   options: UseSearchSuggestionsOptions = {},
 ) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
 
   const error = useSelector((state: StoreState) =>
@@ -36,10 +38,15 @@ const useSearchSuggestions = (
   const reset = useAction(resetSearchSuggestions);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areSearchSuggestionsLoading(updatedState, query);
+    const updatedIsFetched = areSearchSuggestionsFetched(updatedState, query);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(query, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query, store]);
 
   return {
     error,

@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { Config, Return } from '@farfetch/blackout-client';
 import type { UseReturnPickupCapabilityOptions } from './types/useReturnPickupCapability.js';
@@ -21,6 +21,8 @@ function useReturnPickupCapability(
   pickupDay?: string,
   options: UseReturnPickupCapabilityOptions = {},
 ) {
+  const store = useStore();
+
   const returnIdHookParameter = returnId;
   const pickupDayHookParameter = pickupDay;
   const { enableAutoFetch = true, fetchConfig } = options;
@@ -128,23 +130,31 @@ function useReturnPickupCapability(
   );
 
   useEffect(() => {
-    if (
-      !isLoading &&
-      !isFetched &&
-      enableAutoFetch &&
-      returnIdHookParameter &&
-      pickupDay
-    ) {
-      fetch();
+    if (pickupDayHookParameter && returnIdHookParameter) {
+      const updatedState = store.getState() as StoreState;
+
+      const updatedIsLoading = isReturnPickupCapabilityLoading(
+        updatedState,
+        returnIdHookParameter,
+        pickupDayHookParameter,
+      );
+      const updatedIsFetched = isReturnPickupCapabilityFetched(
+        updatedState,
+        returnIdHookParameter,
+        pickupDayHookParameter,
+      );
+
+      if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
+        fetch();
+      }
     }
   }, [
     enableAutoFetch,
     fetch,
-    isFetched,
-    isLoading,
-    pickupDay,
     fetchConfig,
     returnIdHookParameter,
+    store,
+    pickupDayHookParameter,
   ]);
 
   return {

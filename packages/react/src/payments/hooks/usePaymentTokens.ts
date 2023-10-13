@@ -5,13 +5,16 @@ import {
   getPaymentTokens,
   getPaymentTokensError,
   removePaymentToken,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UsePaymentTokensOptions } from './types/index.js';
 
 function usePaymentTokens(options: UsePaymentTokensOptions = {}) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchQuery, fetchConfig } = options;
   // Selectors
   const paymentTokens = useSelector(getPaymentTokens);
@@ -23,10 +26,15 @@ function usePaymentTokens(options: UsePaymentTokensOptions = {}) {
   const remove = useAction(removePaymentToken);
 
   useEffect(() => {
-    if (enableAutoFetch && !isLoading && !isFetched) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = arePaymentTokensLoading(updatedState);
+    const updatedIsFetched = arePaymentTokensFetched(updatedState);
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched) {
       fetch(fetchQuery, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, isFetched, isLoading]);
+  }, [enableAutoFetch, fetch, fetchConfig, fetchQuery, store]);
 
   const items = useMemo(
     () => (paymentTokens ? Object.values(paymentTokens) : undefined),

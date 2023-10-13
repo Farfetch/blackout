@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseProductGroupingOptions } from './types/index.js';
 
@@ -16,6 +16,8 @@ const useProductGrouping = (
   productId: ProductEntity['id'],
   options: UseProductGroupingOptions = {},
 ) => {
+  const store = useStore();
+
   const {
     fetchConfig,
     enableAutoFetch = true,
@@ -37,16 +39,29 @@ const useProductGrouping = (
     getProductGrouping(state, productId, fetchQuery),
   );
 
-  const shouldLoadProductGrouping = enableAutoFetch && !isLoading && !isFetched;
-
   const fetch = useCallback(
     () => fetchAction(productId, fetchQuery, fetchConfig),
     [fetchAction, fetchConfig, productId, fetchQuery],
   );
 
   useEffect(() => {
-    shouldLoadProductGrouping && fetch();
-  }, [fetch, shouldLoadProductGrouping]);
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isProductGroupingLoading(
+      updatedState,
+      productId,
+      fetchQuery,
+    );
+    const updatedIsFetched = isProductGroupingFetched(
+      updatedState,
+      productId,
+      fetchQuery,
+    );
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched) {
+      fetch();
+    }
+  }, [fetch, enableAutoFetch, store, productId, fetchQuery]);
 
   return {
     error,

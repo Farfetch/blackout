@@ -10,11 +10,12 @@ import {
   setUserDefaultBillingAddress as setDefaultBillingAddressAction,
   setUserDefaultContactAddress as setDefaultContactAddressAction,
   setUserDefaultShippingAddress as setDefaultShippingAddressAction,
+  type StoreState,
   updateUserAddress as updateAddressAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
 import { usePrevious, useUser } from '../../index.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   Config,
@@ -35,6 +36,8 @@ function useUserAddresses(
     manageDefaultsOnRemoveAddress: true,
   },
 ) {
+  const store = useStore();
+
   const { enableAutoFetch, manageDefaultsOnRemoveAddress, fetchConfig } =
     options;
   const { data: user } = useUser();
@@ -170,7 +173,17 @@ function useUserAddresses(
   }, [addresses]);
 
   useEffect(() => {
-    if (enableAutoFetch && !isFetched && !isLoading && isAuthenticated) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserAddressesLoadingSelector(updatedState);
+    const updatedIsFetched = areUserAddressesFetchedSelector(updatedState);
+
+    if (
+      enableAutoFetch &&
+      !updatedIsFetched &&
+      !updatedIsLoading &&
+      isAuthenticated
+    ) {
       fetchAddresses(fetchConfig);
     }
   }, [
@@ -180,6 +193,7 @@ function useUserAddresses(
     isLoading,
     isAuthenticated,
     isFetched,
+    store,
   ]);
 
   const updateDefaultAddresses = useCallback(

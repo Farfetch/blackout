@@ -7,9 +7,10 @@ import {
   isAuthenticated as isAuthenticatedSelector,
   removeUserClosetItem as removeUserClosetItemAction,
   resetUserClosetItems,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useUser from './useUser.js';
 import type {
@@ -25,6 +26,7 @@ function useUserClosetItems(
   closetId: Closet['id'],
   options: UseUserClosetItemsOptions = {},
 ) {
+  const store = useStore();
   const closetIdHookParameter = closetId;
   const { enableAutoFetch = true, fetchConfig, fetchQuery } = options;
   const { data: user } = useUser();
@@ -127,10 +129,15 @@ function useUserClosetItems(
   );
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserClosetItemsLoading(updatedState);
+    const updatedIsFetched = areUserClosetItemsFetched(updatedState);
+
     if (
       enableAutoFetch &&
-      !isFetched &&
-      !isLoading &&
+      !updatedIsFetched &&
+      !updatedIsLoading &&
       isAuthenticated &&
       closetIdHookParameter
     ) {
@@ -145,6 +152,7 @@ function useUserClosetItems(
     fetchQuery,
     isFetched,
     isLoading,
+    store,
   ]);
 
   const data = useMemo(() => {

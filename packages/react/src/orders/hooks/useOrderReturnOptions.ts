@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { Config, Order } from '@farfetch/blackout-client';
 import type { UseOrderReturnOptions } from './types/index.js';
@@ -20,6 +20,8 @@ function useOrderReturnOptions(
   orderId: Order['id'],
   options: UseOrderReturnOptions = {},
 ) {
+  const store = useStore();
+
   const orderIdHookParameter = orderId;
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector((state: StoreState) =>
@@ -77,17 +79,26 @@ function useOrderReturnOptions(
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && orderIdHookParameter) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areOrderReturnOptionsLoading(
+      updatedState,
+      orderIdHookParameter,
+    );
+    const updatedIsFetched = areOrderReturnOptionsFetched(
+      updatedState,
+      orderIdHookParameter,
+    );
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      orderIdHookParameter
+    ) {
       fetch();
     }
-  }, [
-    enableAutoFetch,
-    fetch,
-    fetchConfig,
-    isFetched,
-    isLoading,
-    orderIdHookParameter,
-  ]);
+  }, [enableAutoFetch, fetch, fetchConfig, store, orderIdHookParameter]);
 
   return {
     actions: {

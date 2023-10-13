@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { useUser, useUserAddresses } from '../../index.js';
 import useAction from '../../helpers/useAction.js';
 import type {
@@ -25,6 +25,8 @@ function useUserAddress(
     enableAutoFetch: true,
   },
 ) {
+  const store = useStore();
+
   const { enableAutoFetch, fetchConfig } = options;
   const { data: user } = useUser();
   const {
@@ -114,7 +116,17 @@ function useUserAddress(
   );
 
   useEffect(() => {
-    if (enableAutoFetch && !isFetched && !isLoading && isAuthenticated) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isUserAddressLoading(updatedState, addressId);
+    const updatedIsFetched = isUserAddressFetched(updatedState, addressId);
+
+    if (
+      enableAutoFetch &&
+      !updatedIsFetched &&
+      !updatedIsLoading &&
+      isAuthenticated
+    ) {
       fetchUserAddress(fetchConfig);
     }
   }, [
@@ -124,6 +136,8 @@ function useUserAddress(
     isAuthenticated,
     isFetched,
     isLoading,
+    store,
+    addressId,
   ]);
 
   return {

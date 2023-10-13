@@ -8,7 +8,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseProductGroupingPropertiesOptions } from './types/index.js';
 
@@ -16,6 +16,8 @@ const useProductGroupingProperties = (
   productId: ProductEntity['id'],
   options: UseProductGroupingPropertiesOptions = {},
 ) => {
+  const store = useStore();
+
   const { fetchConfig, enableAutoFetch = true, fetchQuery } = options;
   const fetchAction = useAction(fetchProductGroupingProperties);
 
@@ -33,16 +35,29 @@ const useProductGroupingProperties = (
     getProductGroupingProperties(state, productId, fetchQuery),
   );
 
-  const shouldLoadProductGrouping = enableAutoFetch && !isLoading && !isFetched;
-
   const fetch = useCallback(
     () => fetchAction(productId, fetchQuery, fetchConfig),
     [fetchAction, fetchConfig, productId, fetchQuery],
   );
 
   useEffect(() => {
-    shouldLoadProductGrouping && fetch();
-  }, [fetch, shouldLoadProductGrouping]);
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areProductGroupingPropertiesLoading(
+      updatedState,
+      productId,
+      fetchQuery,
+    );
+    const updatedIsFetched = areProductGroupingPropertiesFetched(
+      updatedState,
+      productId,
+      fetchQuery,
+    );
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched) {
+      fetch();
+    }
+  }, [fetch, enableAutoFetch, store, productId, fetchQuery]);
 
   return {
     error,

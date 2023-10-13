@@ -6,15 +6,18 @@ import {
   getUserClosetsError,
   isAuthenticated as isAuthenticatedSelector,
   resetUserClosets,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useUser from './useUser.js';
 import type { Config, User } from '@farfetch/blackout-client';
 import type { UseUserClosetsOptions } from './types/index.js';
 
 function useUserClosets(options: UseUserClosetsOptions = {}) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   const { data: user } = useUser();
   const userId = user?.id;
@@ -46,7 +49,17 @@ function useUserClosets(options: UseUserClosetsOptions = {}) {
   );
 
   useEffect(() => {
-    if (enableAutoFetch && !isFetched && !isLoading && isAuthenticated) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserClosetsLoading(updatedState);
+    const updatedIsFetched = areUserClosetsFetched(updatedState);
+
+    if (
+      enableAutoFetch &&
+      !updatedIsFetched &&
+      !updatedIsLoading &&
+      isAuthenticated
+    ) {
       fetch(fetchConfig);
     }
   }, [
@@ -56,6 +69,7 @@ function useUserClosets(options: UseUserClosetsOptions = {}) {
     isAuthenticated,
     isFetched,
     isLoading,
+    store,
   ]);
 
   const data = useMemo(() => {

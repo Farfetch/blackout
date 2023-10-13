@@ -14,7 +14,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useReturnPickupCapability from './useReturnPickupCapability.js';
 import useReturnPickupRescheduleRequests from './useReturnPickupRescheduleRequests.js';
 import useUserReturns from './useUserReturns.js';
@@ -24,6 +24,8 @@ import type { UseReturnOptions } from './types/index.js';
  * Provides facilities to manage a return.
  */
 function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
+  const store = useStore();
+
   const returnIdHookParameter = returnId;
   const { enableAutoFetch = true, fetchConfig } = options;
   const [createdReturnId, setCreatedReturnId] = useState<
@@ -233,10 +235,23 @@ function useReturn(returnId?: Return['id'], options: UseReturnOptions = {}) {
   }, [returnEntity, pickupRescheduleRequests]);
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && returnIdHookParameter) {
-      fetch();
+    if (returnIdHookParameter) {
+      const updatedState = store.getState() as StoreState;
+
+      const updatedIsLoading = isReturnLoading(
+        updatedState,
+        returnIdHookParameter,
+      );
+      const updatedIsFetched = isReturnFetched(
+        updatedState,
+        returnIdHookParameter,
+      );
+
+      if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
+        fetch();
+      }
     }
-  }, [enableAutoFetch, fetch, isFetched, isLoading, returnIdHookParameter]);
+  }, [enableAutoFetch, fetch, returnIdHookParameter, store]);
 
   return {
     actions: {

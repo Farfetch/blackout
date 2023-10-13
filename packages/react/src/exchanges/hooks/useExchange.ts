@@ -6,9 +6,10 @@ import {
   getExchangeError,
   isExchangeFetched,
   resetExchanges,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useExchangeBookRequest from './useExchangeBookRequest.js';
 import useExchangeFilters from './useExchangeFilters.js';
@@ -26,6 +27,8 @@ function useExchange(
   exchangeId?: Exchange['id'],
   options: UseExchangeOptions = {},
 ) {
+  const store = useStore();
+
   const exchangeIdHookParameter = exchangeId;
   const { enableAutoFetch = true, fetchConfig, orderItemUuid } = options;
   const isLoading = useSelector(areExchangesLoading);
@@ -96,15 +99,26 @@ function useExchange(
   } = useExchangeFilters(orderItemUuid);
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = areExchangesLoading(updatedState);
+    const updatedIsFetched = isExchangeFetched(updatedState);
+
     if (
-      !isLoading &&
-      !isFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       enableAutoFetch &&
       exchangeIdHookParameter
     ) {
       fetch();
     }
-  }, [isFetched, isLoading, enableAutoFetch, exchangeIdHookParameter, fetch]);
+  }, [
+    isFetched,
+    isLoading,
+    enableAutoFetch,
+    exchangeIdHookParameter,
+    fetch,
+    store,
+  ]);
 
   const data = useMemo(() => {
     if (!exchangeResult) {
