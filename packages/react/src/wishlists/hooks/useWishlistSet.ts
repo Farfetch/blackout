@@ -13,7 +13,7 @@ import {
   type WishlistSetActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useWishlistSets from './useWishlistSets.js';
 import type {
   Config,
@@ -34,6 +34,7 @@ const useWishlistSet = (
   setId: WishlistSet['setId'],
   options: UseWishlistSetOptions = {},
 ) => {
+  const store = useStore();
   const { enableAutoFetch = true, fetchConfig } = options;
 
   const error = useSelector((state: StoreState) =>
@@ -101,10 +102,15 @@ const useWishlistSet = (
   );
 
   useEffect(() => {
-    if (setId && !isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isWishlistSetLoading(updatedState, setId);
+    const updatedIsFetched = isWishlistSetFetched(updatedState, setId);
+
+    if (setId && !updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(fetchConfig);
     }
-  }, [isFetched, fetch, isLoading, setId, enableAutoFetch, fetchConfig]);
+  }, [isFetched, fetch, isLoading, setId, enableAutoFetch, fetchConfig, store]);
 
   const data = useMemo(() => {
     if (!wishlistSet) {

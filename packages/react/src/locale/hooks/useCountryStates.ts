@@ -7,7 +7,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { UseCountryStatesOptions } from './types/useCountryStates.types.js';
 
@@ -15,6 +15,8 @@ export function useCountryStates(
   countryCode: string,
   options: UseCountryStatesOptions = {},
 ) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   // Actions
   const fetch = useAction(fetchCountryStatesAction);
@@ -29,10 +31,15 @@ export function useCountryStates(
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areCountryStatesLoading(updatedState);
+    const updatedIsFetched = areCountryStatesFetched(updatedState, countryCode);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(countryCode, fetchConfig);
     }
-  }, [countryCode, enableAutoFetch, fetch, fetchConfig, isFetched, isLoading]);
+  }, [countryCode, enableAutoFetch, fetch, fetchConfig, store]);
 
   return {
     error,

@@ -128,6 +128,7 @@ const useBag = (options: UseBagOptions = {}) => {
     internalMetadataList = DEFAULT_INTERNAL_METADATA_LIST,
   } = options;
   const { getState } = useStore<StoreState>();
+  const store = useStore();
   // Selectors
   const bag = useSelector(getBag);
   const error = useSelector(getBagError);
@@ -159,7 +160,16 @@ const useBag = (options: UseBagOptions = {}) => {
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && userBagId) {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = isBagLoading(updatedState);
+    const updatedIsFetched = isBagFetched(updatedState);
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      userBagId
+    ) {
       fetch(fetchQuery, fetchConfig);
     }
   }, [
@@ -170,6 +180,7 @@ const useBag = (options: UseBagOptions = {}) => {
     isFetched,
     isLoading,
     userBagId,
+    store,
   ]);
 
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = useCallback(

@@ -7,10 +7,11 @@ import {
   getUserContactsError,
   isAuthenticated as isAuthenticatedSelector,
   removeUserContact as removeUserContactAction,
+  type StoreState,
   updateUserContact as updateUserContactAction,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { useUser } from '../../index.js';
 import useAction from '../../helpers/useAction.js';
 import type {
@@ -26,6 +27,7 @@ function useUserContacts(
     enableAutoFetch: true,
   },
 ) {
+  const store = useStore();
   const { enableAutoFetch = true, fetchConfig } = options;
   const { data: user } = useUser();
   const userId = user?.id;
@@ -120,7 +122,17 @@ function useUserContacts(
   );
 
   useEffect(() => {
-    if (enableAutoFetch && !isFetched && !isLoading && isAuthenticated) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserContactsLoading(updatedState);
+    const updatedIsFetched = areUserContactsFetched(updatedState);
+
+    if (
+      enableAutoFetch &&
+      !updatedIsFetched &&
+      !updatedIsLoading &&
+      isAuthenticated
+    ) {
       fetchUserContacts(fetchConfig);
     }
   }, [
@@ -130,6 +142,7 @@ function useUserContacts(
     isAuthenticated,
     isFetched,
     isLoading,
+    store,
   ]);
 
   return {

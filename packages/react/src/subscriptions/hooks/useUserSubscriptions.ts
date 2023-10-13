@@ -5,12 +5,13 @@ import {
   getUserSubscriptions,
   getUserSubscriptionsError,
   resetUserSubscriptions,
+  type StoreState,
   unsubscribeSubscription,
   unsubscribeSubscriptionTopicRecipient,
   updateUserSubscriptions,
 } from '@farfetch/blackout-redux';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { GetSubscriptionsQuery } from '@farfetch/blackout-client';
 import type { UseUserSubscriptionsOptions } from './types/index.js';
@@ -19,6 +20,7 @@ function useUserSubscriptions(
   query: GetSubscriptionsQuery,
   options: UseUserSubscriptionsOptions = {},
 ) {
+  const store = useStore();
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector(areUserSubscriptionsLoading);
   const error = useSelector(getUserSubscriptionsError);
@@ -33,10 +35,15 @@ function useUserSubscriptions(
   );
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areUserSubscriptionsLoading(updatedState);
+    const updatedIsFetched = areUserSubscriptionsFetched(updatedState);
+
+    if (!updatedIsLoading && !updatedIsFetched && enableAutoFetch) {
       fetch(query, fetchConfig);
     }
-  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query]);
+  }, [enableAutoFetch, fetch, fetchConfig, isFetched, isLoading, query, store]);
 
   return {
     isLoading,

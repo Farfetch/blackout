@@ -19,7 +19,7 @@ import {
   type UseProductListingTypeSetOptions,
 } from './types/index.js';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 
 const isUseProductListingTypeSetOptions = (
@@ -31,6 +31,8 @@ const useProductListing = (
   slug: Slug,
   options: UseProductListingOptions = { type: ProductListingType.Listing },
 ) => {
+  const store = useStore();
+
   const {
     query,
     fetchConfig,
@@ -100,12 +102,22 @@ const useProductListing = (
     ],
   );
 
-  const shouldLoadListing =
-    enableAutoFetch && !isLoading && !isFetched && !listing;
-
   useEffect(() => {
-    shouldLoadListing && fetch();
-  }, [fetch, shouldLoadListing]);
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isProductListingLoading(
+      updatedState,
+      productListingHash,
+    );
+    const updatedIsFetched = isProductListingFetched(
+      updatedState,
+      productListingHash,
+    );
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched && !listing) {
+      fetch();
+    }
+  }, [fetch, enableAutoFetch, store, productListingHash, listing]);
 
   return {
     error,

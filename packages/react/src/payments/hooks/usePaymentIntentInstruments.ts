@@ -7,10 +7,11 @@ import {
   getPaymentIntentInstrumentsError,
   removePaymentIntentInstrument,
   resetPaymentIntentInstruments,
+  type StoreState,
   updatePaymentIntentInstrument,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   Config,
@@ -25,6 +26,8 @@ function usePaymentIntentInstruments(
   paymentIntentId?: PaymentIntent['id'],
   options: UsePaymentIntentInstrumentsOptions = {},
 ) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   const areInstrumentsLoading = useSelector(
     arePaymentIntentInstrumentsLoadingSelector,
@@ -123,22 +126,22 @@ function usePaymentIntentInstruments(
   }, [resetInstrumentsState]);
 
   useEffect(() => {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading =
+      arePaymentIntentInstrumentsLoadingSelector(updatedState);
+    const updatedIsFetched =
+      arePaymentIntentInstrumentsFetchedSelector(updatedState);
+
     if (
-      !areInstrumentsLoading &&
-      !areInstrumentsFetched &&
+      !updatedIsLoading &&
+      !updatedIsFetched &&
       enableAutoFetch &&
       paymentIntentId
     ) {
       fetch();
     }
-  }, [
-    areInstrumentsFetched,
-    areInstrumentsLoading,
-    enableAutoFetch,
-    fetch,
-    fetchConfig,
-    paymentIntentId,
-  ]);
+  }, [enableAutoFetch, fetch, fetchConfig, paymentIntentId, store]);
 
   return {
     actions: {

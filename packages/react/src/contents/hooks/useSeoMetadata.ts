@@ -13,7 +13,7 @@ import {
   SeoSubPageType,
 } from '@farfetch/blackout-client';
 import { useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { AppIconLinks, Link, Meta } from '../types/index.js';
 import type { UseSeoMetadataOptions } from './types/useSeoMetadataOptions.types.js';
@@ -39,6 +39,8 @@ const useSeoMetadata = (
   },
   options: UseSeoMetadataOptions = {},
 ) => {
+  const store = useStore();
+
   const { enableAutoFetch = true } = options;
   const error = useSelector((state: StoreState) =>
     getSEOMetadataError(state, query),
@@ -70,10 +72,13 @@ const useSeoMetadata = (
     [seo, metas, appIconLinks, links],
   );
 
-  const shouldLoadMetaTags = enableAutoFetch && !isLoading && !isFetched;
-
   useEffect(() => {
-    if (shouldLoadMetaTags) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isSEOMetadataLoading(updatedState, query);
+    const updatedIsFetched = isSEOMetadataFetched(updatedState, query);
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched) {
       fetch({
         ...query,
         pageType: query.pageType || SeoPageType.Pages,
@@ -81,7 +86,7 @@ const useSeoMetadata = (
         path,
       });
     }
-  }, [fetch, shouldLoadMetaTags, path, query]);
+  }, [fetch, path, query, enableAutoFetch, store]);
 
   return {
     error,

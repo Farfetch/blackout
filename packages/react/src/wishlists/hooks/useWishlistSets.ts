@@ -15,11 +15,12 @@ import {
   isAnyWishlistSetLoading as isAnyWishlistSetLoadingSelector,
   removeWishlistSet as removeWishlistSetAction,
   resetWishlistSets as resetWishlistSetsAction,
+  type StoreState,
   updateWishlistSet as updateWishlistSetAction,
   type WishlistSetActionMetadata,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type {
   Config,
@@ -38,6 +39,8 @@ import type { UseWishlistSetsOptions } from './types/index.js';
  */
 
 const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   // Selectors
   const allWishlistSetsErrors = useSelector(getAllWishlistSetsErrors);
@@ -152,7 +155,17 @@ const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
   );
 
   useEffect(() => {
-    if (!areLoading && !areFetched && enableAutoFetch && userWishlistId) {
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = areWishlistSetsLoading(updatedState);
+    const updatedIsFetched = areWishlistSetsFetched(updatedState);
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      userWishlistId
+    ) {
       fetchWishlistSets(userWishlistId, fetchConfig);
     }
   }, [
@@ -162,6 +175,7 @@ const useWishlistSets = (options: UseWishlistSetsOptions = {}) => {
     fetchConfig,
     fetchWishlistSets,
     userWishlistId,
+    store,
   ]);
 
   return {

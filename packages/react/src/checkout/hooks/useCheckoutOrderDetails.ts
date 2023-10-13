@@ -5,9 +5,10 @@ import {
   getCheckoutOrderDetails,
   getCheckoutOrderDetailsError,
   resetCheckout,
+  type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { CheckoutOrder, Config } from '@farfetch/blackout-client';
 import type { UseCheckoutOrderDetailsOptions } from './types/index.js';
@@ -16,6 +17,8 @@ function useCheckoutOrderDetails(
   checkoutOrderId?: CheckoutOrder['id'],
   options: UseCheckoutOrderDetailsOptions = {},
 ) {
+  const store = useStore();
+
   const { enableAutoFetch = true, fetchConfig } = options;
   const isLoading = useSelector(areCheckoutOrderDetailsLoading);
   const error = useSelector(getCheckoutOrderDetailsError);
@@ -49,10 +52,19 @@ function useCheckoutOrderDetails(
   }
 
   useEffect(() => {
-    if (!isLoading && !isFetched && enableAutoFetch && checkoutOrderId) {
+    const updatedState = store.getState() as StoreState;
+    const updatedIsLoading = areCheckoutOrderDetailsLoading(updatedState);
+    const updatedIsFetched = areCheckoutOrderDetailsFetched(updatedState);
+
+    if (
+      !updatedIsLoading &&
+      !updatedIsFetched &&
+      enableAutoFetch &&
+      checkoutOrderId
+    ) {
       fetch();
     }
-  }, [checkoutOrderId, enableAutoFetch, fetch, isFetched, isLoading]);
+  }, [checkoutOrderId, enableAutoFetch, fetch, isFetched, isLoading, store]);
 
   return {
     actions: {

@@ -10,7 +10,7 @@ import {
   type StoreState,
 } from '@farfetch/blackout-redux';
 import { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import type { ProductId, UseProductDetailsOptions } from './types/index.js';
 
@@ -18,6 +18,8 @@ const useProductDetails = (
   productId: ProductId,
   options: UseProductDetailsOptions = {},
 ) => {
+  const store = useStore();
+
   const {
     fetchQuery,
     fetchConfig,
@@ -56,18 +58,23 @@ const useProductDetails = (
     [fetchAction, productId, fetchQuery, fetchForceDispatch, fetchConfig],
   );
 
-  const shouldLoadDetails = enableAutoFetch && !isLoading && !isFetched;
-
   useEffect(() => {
-    shouldLoadDetails &&
+    const updatedState = store.getState() as StoreState;
+
+    const updatedIsLoading = isProductLoading(updatedState, productId);
+    const updatedIsFetched = isProductFetched(updatedState, productId);
+
+    if (enableAutoFetch && !updatedIsLoading && !updatedIsFetched) {
       fetchAction(productId, fetchQuery, fetchForceDispatch, fetchConfig);
+    }
   }, [
     fetchAction,
     productId,
     fetchQuery,
     fetchConfig,
-    shouldLoadDetails,
     fetchForceDispatch,
+    enableAutoFetch,
+    store,
   ]);
 
   return {
