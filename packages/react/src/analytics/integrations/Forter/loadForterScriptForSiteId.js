@@ -1,230 +1,342 @@
+/* Script info: used sdk version from Forter published on 2023-10-03  */
 /* eslint-disable */
 
 export default function loadForterScriptForSiteId(siteId) {
   (function () {
-    var eu = 'g68x4yj4t5;e6z1forxgiurqw1qhw2vq2(VQ(2vfulsw1mv';
-    function t(t, e) {
-      for (var n = t.split(''), r = 0; r < n.length; ++r)
-        n[r] = String.fromCharCode(n[r].charCodeAt(0) + e);
-      return n.join('');
+    var merchantConfig = {
+      csp: false,
+    };
+
+    function t(t, n) {
+      for (var e = t.split(''), r = 0; r < e.length; ++r)
+        e[r] = String.fromCharCode(e[r].charCodeAt(0) + n);
+      return e.join('');
     }
-    function e(e) {
-      return t(e, -v).replace(/%SN%/g, siteId);
+    function n(n) {
+      return t(n, -S).replace(/%SN%/g, siteId);
     }
-    function n() {
+    function e() {
       var t = 'no' + 'op' + 'fn',
-        e = 'g' + 'a',
-        n = 'n' + 'ame';
-      return window[e] && window[e][n] === t;
+        n = 'g' + 'a',
+        e = 'n' + 'ame';
+      return window[n] && window[n][e] === t;
     }
-    function r(t) {
+    function r() {
+      return !(
+        !navigator.brave || 'function' != typeof navigator.brave.isBrave
+      );
+    }
+    function o() {
+      return document.currentScript && document.currentScript.src;
+    }
+    function i(t) {
       try {
-        (D.ex = t), n() && D.ex.indexOf(S.uB) === -1 && (D.ex += S.uB), y(D);
-      } catch (e) {}
+        (B.ex = t),
+          e() && -1 === B.ex.indexOf(R.uB) && (B.ex += R.uB),
+          r() && -1 === B.ex.indexOf(R.uBr) && (B.ex += R.uBr),
+          o() && -1 === B.ex.indexOf(R.nIL) && (B.ex += R.nIL),
+          window.ftr__snp_cwc || (B.ex += R.s),
+          F(B);
+      } catch (t) {}
     }
-    function o(t, e, n, r) {
-      function o(e) {
+    function c(t, n) {
+      function e(o) {
         try {
-          e.blockedURI === t &&
-            (r(!0),
-            (i = !0),
-            document.removeEventListener('securitypolicyviolation', o));
-        } catch (n) {
-          document.removeEventListener('securitypolicyviolation', o);
+          o.blockedURI === t && (n(), document.removeEventListener(r, e));
+        } catch (t) {
+          document.removeEventListener(r, e);
         }
       }
-      var i = !1;
-      (t = 'https://' + t),
-        document.addEventListener('securitypolicyviolation', o),
+      var r = 'securitypolicyviolation';
+      document.addEventListener(r, e),
         setTimeout(function () {
-          document.removeEventListener('securitypolicyviolation', o);
+          document.removeEventListener(r, e);
         }, 2 * 60 * 1e3);
-      var c = document.createElement('script');
-      (c.onerror = function () {
-        if (!i)
+    }
+    function a(t, n, e, r) {
+      var o = !1;
+      (t = 'https://' + t),
+        c(t, function () {
+          r(!0), (o = !0);
+        });
+      var i = document.createElement('script');
+      (i.onerror = function () {
+        if (!o)
           try {
-            r(!1), (i = !0);
+            r(!1), (o = !0);
           } catch (t) {}
       }),
-        (c.onload = n),
-        (c.type = 'text/javascript'),
-        (c.id = 'ftr__script'),
-        (c.async = !0),
-        (c.src = t);
+        (i.onload = e),
+        (i.type = 'text/javascript'),
+        (i.id = 'ftr__script'),
+        (i.async = !0),
+        (i.src = t);
       var a = document.getElementsByTagName('script')[0];
-      a.parentNode.insertBefore(c, a);
+      a.parentNode.insertBefore(i, a);
     }
-    function i() {
-      I(S.uAL), setTimeout(c, w, S.uAL);
+    function u(t, n, e, r) {
+      var o = !1,
+        i = new XMLHttpRequest();
+      if (
+        (c('https:' + t, function () {
+          e(new Error('CSP Violation'), !0), (o = !0);
+        }),
+        'withCredentials' in i)
+      )
+        i.open('GET', t, !0);
+      else {
+        if ('undefined' == typeof XDomainRequest) return;
+        (i = new XDomainRequest()), i.open('GET', t);
+      }
+      Object.keys(r).forEach(function (t) {
+        i.setRequestHeader(t, r[t]);
+      }),
+        (i.onload = function () {
+          'function' == typeof n && n(i);
+        }),
+        (i.onerror = function (t) {
+          if ('function' == typeof e && !o)
+            try {
+              e(t, !1), (o = !0);
+            } catch (t) {}
+        }),
+        (i.onprogress = function () {}),
+        (i.ontimeout = function () {
+          'function' == typeof e && e('tim' + 'eo' + 'ut', !1);
+        }),
+        setTimeout(function () {
+          i.send();
+        }, 0);
     }
-    function c(t) {
+    function d(t, siteId, n) {
+      function e(t) {
+        var n = t.toString(16);
+        return n.length % 2 ? '0' + n : n;
+      }
+      function r(t) {
+        if (t <= 0) return '';
+        for (var n = '0123456789abcdef', e = '', r = 0; r < t; r++)
+          e += n[Math.floor(Math.random() * n.length)];
+        return e;
+      }
+      function o(t) {
+        for (var n = '', r = 0; r < t.length; r++) n += e(t.charCodeAt(r));
+        return n;
+      }
+      function i(t) {
+        for (var n = t.split(''), e = 0; e < n.length; ++e)
+          n[e] = String.fromCharCode(255 ^ n[e].charCodeAt(0));
+        return n.join('');
+      }
+      n = n ? '1' : '0';
+      var c = [];
+      return (
+        c.push(t),
+        c.push(siteId),
+        c.push(n),
+        (function (t) {
+          var n = 40,
+            e = '';
+          return (
+            t.length < n / 2 && (e = ',' + r(n / 2 - t.length - 1)), o(i(t + e))
+          );
+        })(c.join(','))
+      );
+    }
+    function f() {
+      function t() {
+        C && (Q(R.dUAL), setTimeout(s, E, R.dUAL));
+      }
+      function n(t, n) {
+        i(n ? R.uAS + R.uF + R.cP : R.uAS + R.uF);
+      }
+      window.ftr__fdad(t, n);
+    }
+    function s(t) {
       try {
-        var e = t === S.uDF ? h : p,
-          n = function () {
+        var n = t === R.uDF ? q : C;
+        if (!n) return;
+        a(
+          n,
+          void 0,
+          function () {
             try {
-              b(), r(t + S.uS);
-            } catch (e) {}
+              X(), i(t + R.uS);
+            } catch (t) {}
           },
-          c = function (e) {
+          function (n) {
             try {
-              b(),
-                (D.td = 1 * new Date() - D.ts),
-                r(e ? t + S.uF + S.cP : t + S.uF),
-                t === S.uDF && i();
-            } catch (n) {
-              r(S.eUoe);
+              X(),
+                (B.td = 1 * new Date() - B.ts),
+                i(n ? t + R.uF + R.cP : t + R.uF),
+                t === R.uDF && f();
+            } catch (t) {
+              i(R.eUoe);
             }
-          };
-        o(e, void 0, n, c);
-      } catch (a) {
-        r(t + S.eTlu);
+          },
+        );
+      } catch (n) {
+        i(t + R.eTlu);
       }
     }
-    var a = {
-        write: function (t, e, n, r) {
+    var h = '22g6otrwjeq6qsu1forxgiurqw1qhw2vwdwxv',
+      v = 'fort',
+      w = 'erTo',
+      l = 'ken';
+    window.ftr__config = { m: merchantConfig, s: '15', si: siteId };
+    var m = !1,
+      p = v + w + l,
+      g = 10,
+      _ = {
+        write: function (t, n, e, r) {
           void 0 === r && (r = !0);
           var o, i;
           if (
-            (n
+            (e
               ? ((o = new Date()),
-                o.setTime(o.getTime() + 24 * n * 60 * 60 * 1e3),
+                o.setTime(o.getTime() + 24 * e * 60 * 60 * 1e3),
                 (i = '; expires=' + o.toGMTString()))
               : (i = ''),
             !r)
           )
             return void (document.cookie =
-              escape(t) + '=' + escape(e) + i + '; path=/');
-          var c, a, u;
-          if (((u = location.host), 1 === u.split('.').length))
-            document.cookie = escape(t) + '=' + escape(e) + i + '; path=/';
-          else {
-            (a = u.split('.')),
-              a.shift(),
-              (c = '.' + a.join('.')),
+              escape(t) + '=' + escape(n) + i + '; path=/');
+          for (
+            var c = 1, a = document.domain.split('.'), u = g, d = !0;
+            d && a.length >= c && u > 0;
+
+          ) {
+            var f = a.slice(-c).join('.');
+            document.cookie =
+              escape(t) + '=' + escape(n) + i + '; path=/; domain=' + f;
+            var s = _.read(t);
+            (null != s && s == n) ||
+              ((f = '.' + f),
               (document.cookie =
-                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + c);
-            var d = this.read(t);
-            (null != d && d == e) ||
-              ((c = '.' + u),
-              (document.cookie =
-                escape(t) + '=' + escape(e) + i + '; path=/; domain=' + c));
+                escape(t) + '=' + escape(n) + i + '; path=/; domain=' + f)),
+              (d = -1 === document.cookie.indexOf(t + '=' + n)),
+              c++,
+              u--;
           }
         },
         read: function (t) {
-          var e = null;
+          var n = null;
           try {
             for (
-              var n = escape(t) + '=', r = document.cookie.split(';'), o = 0;
-              o < r.length;
-              o++
+              var e = escape(t) + '=',
+                r = document.cookie.split(';'),
+                o = 32,
+                i = 0;
+              i < r.length;
+              i++
             ) {
-              for (var i = r[o]; ' ' == i.charAt(0); )
-                i = i.substring(1, i.length);
-              0 === i.indexOf(n) &&
-                (e = unescape(i.substring(n.length, i.length)));
+              for (var c = r[i]; c.charCodeAt(0) === o; )
+                c = c.substring(1, c.length);
+              0 === c.indexOf(e) &&
+                (n = unescape(c.substring(e.length, c.length)));
             }
           } finally {
-            return e;
+            return n;
           }
         },
       },
-      u = 'fort',
-      d = 'erTo',
-      s = 'ken',
-      f = u + d + s,
-      l = '11';
-    l += 'ck';
-    var m = function (t) {
-        var e = function () {
-          var e = document.createElement('link');
-          return (
-            e.setAttribute('rel', 'pre' + 'con' + 'nect'),
-            e.setAttribute('cros' + 'sori' + 'gin', 'anonymous'),
-            (e.onload = function () {
-              document.head.removeChild(e);
-            }),
-            (e.onerror = function (t) {
-              document.head.removeChild(e);
-            }),
-            e.setAttribute('href', t),
-            document.head.appendChild(e),
-            e
-          );
-        };
+      y = window.ftr__config.s;
+    y += 'ck';
+    var T = function (t) {
         if (document.head) {
-          var n = e();
+          var n = (function () {
+            var n = document.createElement('link');
+            return (
+              n.setAttribute('rel', 'pre' + 'con' + 'nect'),
+              n.setAttribute('cros' + 'sori' + 'gin', 'anonymous'),
+              (n.onload = function () {
+                document.head.removeChild(n);
+              }),
+              (n.onerror = function (t) {
+                document.head.removeChild(n);
+              }),
+              n.setAttribute('href', t),
+              document.head.appendChild(n),
+              n
+            );
+          })();
           setTimeout(function () {
             document.head.removeChild(n);
           }, 3e3);
         }
       },
-      v = 3,
-      h = e('(VQ(1fgq71iruwhu1frp2vq2(VQ(2vfulsw1mv'),
-      p = e(eu || 'g68x4yj4t5;e6z1forxgiurqw1qhw2vq2(VQ(2vfulsw1mv'),
-      w = 10;
+      S = 3,
+      x = n(h || '22g6otrwjeq6qsu1forxgiurqw1qhw2vwdwxv'),
+      A = t('[0Uhtxhvw0LG', -S),
+      L = t('[0Fruuhodwlrq0LG', -S),
+      k = t('Li0Qrqh0Pdwfk', -S),
+      C,
+      U = 'fgq71iruwhu1frp',
+      q = n('(VQ(1' + U + '2vq2(VQ(2vfulsw1mv'),
+      D = n('(VQ(1' + U + '2vqV2(VQ(2vfulsw1mv'),
+      E = 10;
     window.ftr__startScriptLoad = 1 * new Date();
-    var g = function (t) {
-        var e = 1e3,
-          n = 'ft' + 'r:tok' + 'enR' + 'eady';
+    var b = function (t) {
+        var n = 'ft' + 'r:tok' + 'enR' + 'eady';
         window.ftr__tt && clearTimeout(window.ftr__tt),
           (window.ftr__tt = setTimeout(function () {
             try {
               delete window.ftr__tt, (t += '_tt');
               var e = document.createEvent('Event');
               e.initEvent(n, !1, !1), (e.detail = t), document.dispatchEvent(e);
-            } catch (r) {}
-          }, e));
+            } catch (t) {}
+          }, 1e3));
       },
-      y = function (t) {
-        var e = function (t) {
+      F = function (t) {
+        var n = function (t) {
             return t || '';
           },
-          n =
-            e(t.id) +
+          e =
+            n(t.id) +
             '_' +
-            e(t.ts) +
+            n(t.ts) +
             '_' +
-            e(t.td) +
+            n(t.td) +
             '_' +
-            e(t.ex) +
+            n(t.ex) +
             '_' +
-            e(l);
-        a.write(f, n, 1825, !0), g(n);
+            n(y);
+        _.write(p, e, 400, !0), b(e), (window.ftr__gt = e);
       },
-      T = function () {
-        var t = a.read(f) || '',
-          e = t.split('_'),
-          n = function (t) {
-            return e[t] || void 0;
+      I = function () {
+        var t = _.read(p) || '',
+          n = t.split('_'),
+          e = function (t) {
+            return n[t] || void 0;
           };
-        return { id: n(0), ts: n(1), td: n(2), ex: n(3), vr: n(4) };
+        return { id: e(0), ts: e(1), td: e(2), ex: e(3), vr: e(4) };
       },
-      _ = (function () {
-        for (var t = {}, e = 'fgu', n = [], r = 0; r < 256; r++)
-          n[r] = (r < 16 ? '0' : '') + r.toString(16);
-        var o = function (t, e, r, o, i) {
+      V = (function () {
+        for (var t = {}, n = 'fgu', e = [], r = 0; r < 256; r++)
+          e[r] = (r < 16 ? '0' : '') + r.toString(16);
+        var o = function (t, n, r, o, i) {
             var c = i ? '-' : '';
             return (
-              n[255 & t] +
-              n[(t >> 8) & 255] +
-              n[(t >> 16) & 255] +
-              n[(t >> 24) & 255] +
+              e[255 & t] +
+              e[(t >> 8) & 255] +
+              e[(t >> 16) & 255] +
+              e[(t >> 24) & 255] +
               c +
-              n[255 & e] +
-              n[(e >> 8) & 255] +
+              e[255 & n] +
+              e[(n >> 8) & 255] +
               c +
-              n[((e >> 16) & 15) | 64] +
-              n[(e >> 24) & 255] +
+              e[((n >> 16) & 15) | 64] +
+              e[(n >> 24) & 255] +
               c +
-              n[(63 & r) | 128] +
-              n[(r >> 8) & 255] +
+              e[(63 & r) | 128] +
+              e[(r >> 8) & 255] +
               c +
-              n[(r >> 16) & 255] +
-              n[(r >> 24) & 255] +
-              n[255 & o] +
-              n[(o >> 8) & 255] +
-              n[(o >> 16) & 255] +
-              n[(o >> 24) & 255]
+              e[(r >> 16) & 255] +
+              e[(r >> 24) & 255] +
+              e[255 & o] +
+              e[(o >> 8) & 255] +
+              e[(o >> 16) & 255] +
+              e[(o >> 24) & 255]
             );
           },
           i = function () {
@@ -248,15 +360,15 @@ export default function loadForterScriptForSiteId(siteId) {
           },
           c = function () {
             var t = '',
-              e = function (t, e) {
-                for (var n = '', r = t; r > 0; --r)
-                  n += e.charAt((1e3 * Math.random()) % e.length);
-                return n;
+              n = function (t, n) {
+                for (var e = '', r = t; r > 0; --r)
+                  e += n.charAt((1e3 * Math.random()) % n.length);
+                return e;
               };
             return (
-              (t += e(2, '0123456789')),
-              (t += e(1, '123456789')),
-              (t += e(8, '0123456789'))
+              (t += n(2, '0123456789')),
+              (t += n(1, '123456789')),
+              (t += n(8, '0123456789'))
             );
           };
         return (
@@ -264,10 +376,10 @@ export default function loadForterScriptForSiteId(siteId) {
             try {
               var t = i();
               return o(t.d0, t.d1, t.d2, t.d3, !1);
-            } catch (n) {
+            } catch (t) {
               try {
-                return e + c();
-              } catch (n) {}
+                return n + c();
+              } catch (t) {}
             }
           }),
           (t.isValidNumericalToken = function (t) {
@@ -283,14 +395,15 @@ export default function loadForterScriptForSiteId(siteId) {
             return t && 32 === t.toString().length && /^[a-z0-9]+$/.test(t);
           }),
           (t.isValidFGUToken = function (t) {
-            return 0 == t.indexOf(e) && t.length >= 12;
+            return 0 == t.indexOf(n) && t.length >= 12;
           }),
           t
         );
       })(),
-      S = {
+      R = {
         uDF: 'UDF',
-        uAL: 'UAL',
+        dUAL: 'dUAL',
+        uAS: 'UAS',
         mLd: '1',
         eTlu: '2',
         eUoe: '3',
@@ -300,47 +413,95 @@ export default function loadForterScriptForSiteId(siteId) {
         tmosSecs: [5, 10, 15, 30, 60],
         bIR: '43',
         uB: 'u',
+        uBr: 'b',
         cP: 'c',
-      },
-      k = function (t, e) {
-        for (var n = S.tmos, r = 0; r < n.length; r++)
-          if (t + n[r] === e) return !0;
-        return !1;
+        nIL: 'i',
+        s: 's',
       };
     try {
-      var D = T();
+      var B = I();
       try {
-        D.id &&
-        (_.isValidNumericalToken(D.id) ||
-          _.isValidUUIDToken(D.id) ||
-          _.isValidFGUToken(D.id))
+        B.id &&
+        (V.isValidNumericalToken(B.id) ||
+          V.isValidUUIDToken(B.id) ||
+          V.isValidFGUToken(B.id))
           ? (window.ftr__ncd = !1)
-          : ((D.id = _.safeGenerateNoDash()), (window.ftr__ncd = !0)),
-          (D.ts = window.ftr__startScriptLoad),
-          y(D);
+          : ((B.id = V.safeGenerateNoDash()), (window.ftr__ncd = !0)),
+          (B.ts = window.ftr__startScriptLoad),
+          F(B),
+          (window.ftr__snp_cwc = !!_.read(p)),
+          window.ftr__snp_cwc || (q = D);
         for (
-          var x = 'for' + 'ter' + '.co' + 'm',
-            A = 'ht' + 'tps://c' + 'dn9.' + x,
-            U = 'ht' + 'tps://' + D.id + '-' + siteId + '.cd' + 'n.' + x,
-            F = 'http' + 's://cd' + 'n3.' + x,
-            L = [A, U, F],
-            E = 0;
-          E < L.length;
-          E++
+          var G = 'for' + 'ter' + '.co' + 'm',
+            M = 'ht' + 'tps://c' + 'dn9.' + G,
+            O = 'ht' + 'tps://' + B.id + '-' + siteId + '.cd' + 'n.' + G,
+            j = 'http' + 's://cd' + 'n3.' + G,
+            N = [M, O, j],
+            H = 0;
+          H < N.length;
+          H++
         )
-          m(L[E]);
-        var V = new Array(S.tmosSecs.length),
-          I = function (t) {
-            for (var e = 0; e < S.tmosSecs.length; e++)
-              V[e] = setTimeout(r, 1e3 * S.tmosSecs[e], t + S.tmos[e]);
+          T(N[H]);
+        var P = new Array(R.tmosSecs.length),
+          Q = function (t) {
+            for (var n = 0; n < R.tmosSecs.length; n++)
+              P[n] = setTimeout(i, 1e3 * R.tmosSecs[n], t + R.tmos[n]);
           },
-          b = function () {
-            for (var t = 0; t < S.tmosSecs.length; t++) clearTimeout(V[t]);
+          X = function () {
+            for (var t = 0; t < R.tmosSecs.length; t++) clearTimeout(P[t]);
           };
-        k(S.uDF, D.ex) ? i() : (I(S.uDF), setTimeout(c, w, S.uDF));
-      } catch (C) {
-        r(S.mLd);
+        (window.ftr__fdad = function (n, e) {
+          if (!m) {
+            m = !0;
+            var r = {};
+            (r[k] = d(window.ftr__config.s, siteId, window.ftr__config.m.csp)),
+              u(
+                x,
+                function (e) {
+                  try {
+                    var r = e.getAllResponseHeaders().toLowerCase();
+                    if (r.indexOf(L.toLowerCase()) >= 0) {
+                      var o = e.getResponseHeader(L);
+                      window.ftr__altd2 = t(atob(o), -S - 1);
+                    }
+                    if (r.indexOf(A.toLowerCase()) < 0) return;
+                    var i = e.getResponseHeader(A),
+                      c = t(atob(i), -S - 1);
+                    if (c) {
+                      var a = c.split(':');
+                      if (a && 2 === a.length) {
+                        for (
+                          var u = a[0], d = a[1], f = '', s = 0, h = 0;
+                          s < 20;
+                          ++s
+                        )
+                          f +=
+                            s % 3 > 0 && h < 12
+                              ? siteId.charAt(h++)
+                              : B.id.charAt(s);
+                        var v = d.split(',');
+                        if (v.length > 1) {
+                          var w = v[0],
+                            l = v[1];
+                          C = u + '/' + w + '.' + f + '.' + l;
+                        }
+                      }
+                    }
+                    n();
+                  } catch (t) {}
+                },
+                function (t, n) {
+                  e && e(t, n);
+                },
+                r,
+              );
+          }
+        }),
+          Q(R.uDF),
+          setTimeout(s, E, R.uDF);
+      } catch (t) {
+        i(R.mLd);
       }
-    } catch (C) {}
+    } catch (t) {}
   })();
 }
