@@ -7,6 +7,8 @@ import type {
 } from '@farfetch/blackout-client';
 import type { ProductEntity } from './product.types.js';
 
+export type FacetGroupWithListingHash = FacetGroup & { hash?: string };
+
 export type FacetGroupsNormalized = Array<
   Omit<FacetGroup, 'values'> & {
     values: FacetEntity['id'][][];

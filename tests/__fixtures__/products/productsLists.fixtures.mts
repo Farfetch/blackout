@@ -248,8 +248,9 @@ export const mockFacets = [
     description: 'Women',
     groupsOn: 0,
     groupType: 6,
-    id: 'categories_144307',
-    parentId: 'categories_0',
+    id: 'categories_144307_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'categories_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'women',
     url: 'women',
     value: 144307,
@@ -260,8 +261,9 @@ export const mockFacets = [
     description: 'Accessories',
     groupsOn: 0,
     groupType: 6,
-    id: 'categories_144331',
-    parentId: 'categories_144307',
+    id: 'categories_144331_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'categories_144307_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'women-accessories',
     url: 'women-accessories',
     value: 144331,
@@ -272,8 +274,9 @@ export const mockFacets = [
     description: 'Special Accessories',
     groupsOn: 0,
     groupType: 6,
-    id: 'categories_144424',
-    parentId: 'categories_144418',
+    id: 'categories_144424_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'categories_144418_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'women-specials-special-accessories',
     url: 'women-specials-special-accessories',
     value: 144424,
@@ -284,8 +287,9 @@ export const mockFacets = [
     description: 'BLACK',
     groupsOn: 0,
     groupType: 11,
-    id: 'colors_1',
-    parentId: 'colors_0',
+    id: 'colors_1_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'colors_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'colors',
     url: '?colors=1',
     value: 1,
@@ -296,8 +300,9 @@ export const mockFacets = [
     description: 'FullPrice',
     groupsOn: 0,
     groupType: 14,
-    id: 'pricetype_0',
-    parentId: 'pricetype_0',
+    id: 'pricetype_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'pricetype_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'fullprice',
     url: 'fullprice',
     value: 0,
@@ -308,8 +313,9 @@ export const mockFacets = [
     description: '36',
     groupsOn: 144307,
     groupType: 9,
-    id: 'sizes_22_144307',
-    parentId: 'sizes_0',
+    id: 'sizes_22_144307_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizes_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     slug: 'sizes',
     url: '?sizes=22',
     value: 22,
@@ -507,6 +513,7 @@ export const mockFacetGroupsNormalized = mockFacetGroups.map((facet, index) => {
   return {
     ...facet,
     values,
+    hash: mockProductsListHash,
   };
 });
 
@@ -665,7 +672,8 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
             parentId: 0,
             fromQueryString: false,
             negativeFilter: false,
-            facetId: 'categories_144307',
+            facetId:
+              'categories_144307_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
           },
         ],
         config: { pageSize: 20 },
@@ -752,7 +760,7 @@ const getMockProductsListForSetsWithIdNormalized = (
       },
     },
     facets: {
-      categories_136103: {
+      'categories_136103_sets/1050': {
         value: 136103,
         count: 1,
         description: 'A-Line Skirts',
@@ -760,8 +768,8 @@ const getMockProductsListForSetsWithIdNormalized = (
         groupType: 6,
         slug: 'skirts-a-line-skirts',
         url: 'woman/skirts-a-line-skirts',
-        id: 'categories_136103',
-        parentId: 'categories_0',
+        id: 'categories_136103_sets/1050',
+        parentId: 'categories_0_sets/1050',
         valueUpperBound: 0,
         _isActive: false,
         _isDisabled: false,
@@ -822,12 +830,13 @@ const getMockProductsListForSetsWithIdNormalized = (
             description: 'Categories',
             dynamic: 1,
             type: 6,
-            values: [['categories_136103']],
+            values: [['categories_136103_sets/1050']],
             key: FacetGroupKey.Categories,
             format: FacetGroupFormat.Hierarchical,
             _clearUrl: null,
             _isClearHidden: false,
             _isClosed: false,
+            hash: 'sets/1050',
           },
         ],
         facetsBaseUrl: '/sets/unisex/active-life',
@@ -886,6 +895,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       key: FacetGroupKey.Categories,
       type: 6,
       values: [{ ...mockFacets[0], _isDisabled: false, _isActive: false }],
+      hash: mockProductsListHash,
     },
     {
       _clearUrl: '',
@@ -899,6 +909,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       key: FacetGroupKey.Categories,
       type: 6,
       values: [{ ...mockFacets[1], _isDisabled: false, _isActive: false }],
+      hash: mockProductsListHash,
     },
     {
       _clearUrl: '',
@@ -912,6 +923,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       key: FacetGroupKey.Colors,
       type: 11,
       values: [{ ...mockFacets[2], _isDisabled: false, _isActive: false }],
+      hash: mockProductsListHash,
     },
     {
       _clearUrl: '',
@@ -925,6 +937,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       order: 5,
       type: 24,
       values: [],
+      hash: mockProductsListHash,
     },
   ],
   [mockProductsListHashWithoutParameters]: [
@@ -940,6 +953,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       _isClearHidden: true,
       _isClosed: true,
       order: 1,
+      hash: mockProductsListHashWithoutParameters,
     },
     {
       deep: 2,
@@ -953,6 +967,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       _isClearHidden: true,
       _isClosed: true,
       order: 2,
+      hash: mockProductsListHashWithoutParameters,
     },
     {
       deep: 1,
@@ -966,6 +981,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       _isClearHidden: true,
       _isClosed: true,
       order: 1,
+      hash: mockProductsListHashWithoutParameters,
     },
     {
       deep: 0,
@@ -979,6 +995,7 @@ export const mockProductsListDenormalizedFacetGroups = {
       _clearUrl: '',
       _isClearHidden: true,
       _isClosed: true,
+      hash: mockProductsListHashWithoutParameters,
     },
   ],
 };
@@ -1049,6 +1066,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithoutParameters,
           },
           {
             deep: 2,
@@ -1062,6 +1080,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 2,
+            hash: mockProductsListHashWithoutParameters,
           },
           {
             deep: 1,
@@ -1075,6 +1094,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithoutParameters,
           },
           {
             deep: 0,
@@ -1088,6 +1108,7 @@ export const mockProductsListNormalizedPayload = {
             _clearUrl: '',
             _isClearHidden: true,
             _isClosed: true,
+            hash: mockProductsListHashWithoutParameters,
           },
         ],
         filterSegments: [
@@ -1118,7 +1139,7 @@ export const mockProductsListNormalizedPayload = {
         genderName: '',
         breadCrumbs: [],
         name: null,
-        hash: '',
+        hash: mockProductsListHashWithoutParameters,
       },
       [mockProductsListHash]: {
         breadCrumbs: mockBreadCrumbs,
@@ -1142,6 +1163,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHash,
           },
           {
             deep: 2,
@@ -1155,6 +1177,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHash,
           },
           {
             deep: 1,
@@ -1168,6 +1191,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHash,
           },
           {
             deep: 0,
@@ -1181,6 +1205,7 @@ export const mockProductsListNormalizedPayload = {
             _clearUrl: '',
             _isClearHidden: true,
             _isClosed: true,
+            hash: mockProductsListHash,
           },
         ],
         filterSegments: [
@@ -1238,7 +1263,7 @@ export const mockProductsListNormalizedPayload = {
         _clearUrl: '',
         _isClearHidden: false,
         genderName: '',
-        hash: '',
+        hash: mockProductsListHash,
       },
       [mockProductsListHashWithPageIndex2]: {
         products: {
@@ -1284,6 +1309,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndex2,
           },
           {
             deep: 2,
@@ -1297,6 +1323,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndex2,
           },
           {
             deep: 1,
@@ -1310,6 +1337,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndex2,
           },
           {
             deep: 0,
@@ -1323,6 +1351,7 @@ export const mockProductsListNormalizedPayload = {
             _clearUrl: '',
             _isClearHidden: true,
             _isClosed: true,
+            hash: mockProductsListHashWithPageIndex2,
           },
         ],
         filterSegments: [
@@ -1353,7 +1382,7 @@ export const mockProductsListNormalizedPayload = {
         genderName: '',
         breadCrumbs: [],
         name: null,
-        hash: '',
+        hash: mockProductsListHashWithPageIndex2,
       },
       [mockProductsListHashWithoutPageIndex]: {
         products: {
@@ -1399,6 +1428,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithoutPageIndex,
           },
           {
             deep: 2,
@@ -1412,6 +1442,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithoutPageIndex,
           },
           {
             deep: 1,
@@ -1425,6 +1456,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithoutPageIndex,
           },
           {
             deep: 0,
@@ -1438,6 +1470,7 @@ export const mockProductsListNormalizedPayload = {
             _clearUrl: '',
             _isClearHidden: true,
             _isClosed: true,
+            hash: mockProductsListHashWithoutPageIndex,
           },
         ],
         filterSegments: [
@@ -1468,7 +1501,7 @@ export const mockProductsListNormalizedPayload = {
         genderName: '',
         breadCrumbs: [],
         name: null,
-        hash: '',
+        hash: mockProductsListHashWithoutPageIndex,
       },
       [mockProductsListHashWithPageIndexParameter]: {
         products: {
@@ -1514,6 +1547,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndexParameter,
           },
           {
             deep: 2,
@@ -1527,6 +1561,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndexParameter,
           },
           {
             deep: 1,
@@ -1540,6 +1575,7 @@ export const mockProductsListNormalizedPayload = {
             _isClearHidden: true,
             _isClosed: true,
             order: 1,
+            hash: mockProductsListHashWithPageIndexParameter,
           },
           {
             deep: 0,
@@ -1553,6 +1589,7 @@ export const mockProductsListNormalizedPayload = {
             _clearUrl: '',
             _isClearHidden: true,
             _isClosed: true,
+            hash: mockProductsListHashWithPageIndexParameter,
           },
         ],
         filterSegments: [
@@ -1583,7 +1620,7 @@ export const mockProductsListNormalizedPayload = {
         genderName: '',
         breadCrumbs: [],
         name: null,
-        hash: '',
+        hash: mockProductsListHashWithPageIndexParameter,
       },
       [mockProductsListHashForSetsWithId]: {
         breadCrumbs: mockBreadCrumbs,
@@ -1620,6 +1657,7 @@ export const mockProductsListNormalizedPayload = {
             _isClosed: true,
             order: 1,
             dynamic: 0,
+            hash: mockProductsListHashForSetsWithId,
           },
         ],
         filterSegments: [
@@ -1692,7 +1730,7 @@ export const mockProductsListNormalizedPayload = {
         _clearUrl: '',
         _isClearHidden: false,
         genderName: '',
-        hash: '',
+        hash: mockProductsListHashForSetsWithId,
       },
     },
   },
@@ -1770,7 +1808,8 @@ export const mockProductsListEntity = {
       parentId: 0,
       fromQueryString: false,
       negativeFilter: false,
-      facetId: 'categories_144307',
+      facetId:
+        'categories_144307_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
     },
   ],
   config: mockProductsListResponse.config,

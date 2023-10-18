@@ -6,6 +6,7 @@ import type {
   FilterSegment,
   Product,
 } from '@farfetch/blackout-client';
+import type { FacetGroupWithListingHash } from '../index.js';
 
 const SIZE_BY_CATEGORY_TYPE = 24;
 const SIZES_TYPE = 9;
@@ -28,6 +29,7 @@ export default new schema.Entity(
       const {
         facetGroups,
         filterSegments,
+        hash,
         productImgQueryParam,
         products,
         wishList, // omit this, it makes no sense to let it pass
@@ -37,12 +39,19 @@ export default new schema.Entity(
         ...entry,
         productImgQueryParam,
       }));
+
+      // Add the hash in the facetGroups for creating facets id in normalisation
+      const newFacetGroups = facetGroups.map((facetGroup: FacetGroup) => ({
+        ...facetGroup,
+        hash,
+      }));
+
       // Hydrate the `filterSegment` with the respective facet id to allow a direct mapping
       // This presumes that all facet IDs are unique values, which might not be the case for
       // `sizes` when the catalog has misconfigured products
       const newFilterSegments = filterSegments.map(
         (filterSegment: FilterSegment) => {
-          const filteredFacetGroups: FacetGroup[] = facetGroups.filter(
+          const filteredFacetGroups: FacetGroup[] = newFacetGroups.filter(
             ({ type, deep }: FacetGroup) => {
               // There's no 1:1 relation between the "size" selected and the "sizes by category"
               // facetGroup, so when we have type 24 (size by category), we know we must find
@@ -78,7 +87,7 @@ export default new schema.Entity(
               ...filterSegment,
               description: filterSegment.description || facet?.description,
               facetId: facet
-                ? getId(facet, facetGroup as FacetGroup)
+                ? getId(facet, facetGroup as FacetGroupWithListingHash)
                 : undefined,
             };
           }
@@ -91,14 +100,18 @@ export default new schema.Entity(
             ...filterSegment,
             description: filterSegment.description || facet?.description,
             facetId: facet
-              ? getId(facet, filteredFacetGroups?.[0] as FacetGroup)
+              ? getId(
+                  facet,
+                  filteredFacetGroups?.[0] as FacetGroupWithListingHash,
+                )
               : undefined,
           };
         },
       );
       const productsList = {
-        facetGroups,
+        facetGroups: newFacetGroups,
         filterSegments: newFilterSegments,
+        hash,
         products: {
           ...products,
           entries: newEntries,
