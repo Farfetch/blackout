@@ -4,13 +4,23 @@
  */
 enum FromParameterType {
   Bag = 'Bag',
-  Wishlist = 'Wishlist',
-  Plp = 'Plp',
-  Pdp = 'Pdp',
-  Recommendations = 'Recommendations',
-  RecentlyViewed = 'Recently Viewed',
   Editorial = 'Editorial',
+  Hero = 'Hero',
+  Homepage = 'Homepage',
+  MiniBag = 'Mini Bag',
+  MiniPdp = 'Mini Pdp',
+  MiniWishlist = 'Mini Wishlist',
+  Navigation = 'Navigation',
   Other = 'Other',
+  Pdp = 'Pdp',
+  Plp = 'Plp',
+  QuickShop = 'Quick Shop',
+  RecentlyViewed = 'Recently Viewed',
+  Recommendations = 'Recommendations',
+  SearchPreview = 'Search Preview',
+  SearchSuggestion = 'Search Suggestion',
+  Search = 'Search',
+  Wishlist = 'Wishlist',
 }
 
 export default FromParameterType;
