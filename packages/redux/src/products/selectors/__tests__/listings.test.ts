@@ -791,6 +791,7 @@ describe('product listing redux selectors', () => {
           _isClearHidden: false,
           _isClosed: false,
           order: 0,
+          hash: '',
         },
       ];
 
