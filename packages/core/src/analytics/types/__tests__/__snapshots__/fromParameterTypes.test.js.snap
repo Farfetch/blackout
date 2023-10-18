@@ -4,11 +4,21 @@ exports[`Should export fromParameterTypes 1`] = `
 Object {
   "BAG": "Bag",
   "EDITORIAL": "Editorial",
+  "HERO": "Hero",
+  "HOMEPAGE": "Homepage",
+  "MINI_BAG": "Mini Bag",
+  "MINI_PDP": "Mini PDP",
+  "MINI_WISHLIST": "Mini Wishlist",
+  "NAVIGATION": "Navigation",
   "OTHER": "Other",
   "PDP": "PDP",
   "PLP": "PLP",
+  "QUICK_SHOP": "Quick Shop",
   "RECENTLY_VIEWED": "Recently Viewed",
   "RECOMMENDATIONS": "Recommendations",
+  "SEARCH": "Search",
+  "SEARCH_PREVIEW": "Search Preview",
+  "SEARCH_SUGGESTION": "Search Suggestion",
   "WISHLIST": "Wishlist",
 }
 `;
