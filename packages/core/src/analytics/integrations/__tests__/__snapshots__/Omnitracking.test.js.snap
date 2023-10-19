@@ -142,6 +142,8 @@ Object {
   "checkoutStep": "1",
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\"}",
   "interactionType": "click",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
   "selectedPaymentMethod": "credit",
   "tid": 2912,
 }
