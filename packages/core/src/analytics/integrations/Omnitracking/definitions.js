@@ -559,6 +559,7 @@ export const trackEventsMapper = {
     promocode: data.properties.coupon,
   }),
   [eventTypes.PAYMENT_INFO_ADDED]: data => ({
+    ...getCheckoutEventGenericProperties(data, true),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2912,
     selectedPaymentMethod: data.properties?.paymentType,

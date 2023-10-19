@@ -124,6 +124,8 @@ export const customTrackMockData = {
     deliveryType: 'Standard/Standard',
     interactionType: 'click',
     paymentType: 'credit',
+    checkoutOrderId: 12345678,
+    orderId: 'ABC12',
   },
   [eventTypes.SHIPPING_METHOD_ADDED]: {
     step: '2',
