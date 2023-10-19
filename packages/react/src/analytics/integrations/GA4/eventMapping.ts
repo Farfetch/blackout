@@ -328,6 +328,7 @@ const getCheckoutParametersFromEvent = (eventProperties: EventProperties) => {
     coupon: eventProperties.coupon,
     items,
     value: eventProperties.total,
+    transaction_id: eventProperties.orderId,
   };
 };
 
@@ -345,7 +346,6 @@ const getCheckoutStartedParametersFromEvent = (
     ...getCheckoutParametersFromEvent(eventProperties),
     checkout_step: eventProperties.step,
     delivery_type: eventProperties.deliveryType,
-    transaction_id: eventProperties.orderId,
     payment_type: eventProperties.paymentType,
     packaging_type: eventProperties.packagingType,
     shipping: eventProperties.shipping,
@@ -411,7 +411,6 @@ const getDeliveryMethodAddedParametersFromEvent = (
 ) => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
-    transaction_id: eventProperties.orderId,
     shipping_tier: eventProperties.shippingTier,
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
@@ -478,7 +477,6 @@ const getShippingInfoAddedParametersFromEvent = (
     delivery_type: eventProperties.deliveryType,
     packaging_type: eventProperties.packagingType,
     checkout_step: eventProperties.step,
-    transaction_id: eventProperties.orderId,
   };
 };
 
@@ -578,7 +576,6 @@ const getOrderPurchaseOrRefundGenericParametersFromEvent = (
 ) => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
-    transaction_id: eventProperties.orderId,
     affiliation: eventProperties.affiliation,
     shipping: eventProperties.shipping,
     tax: eventProperties.tax,

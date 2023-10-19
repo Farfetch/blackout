@@ -513,6 +513,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     checkoutStep: data.properties?.step,
   }),
   [EventType.PaymentInfoAdded]: data => ({
+    ...getCheckoutEventGenericProperties(data),
     ...getCommonCheckoutStepTrackingData(data),
     tid: 2912,
   }),

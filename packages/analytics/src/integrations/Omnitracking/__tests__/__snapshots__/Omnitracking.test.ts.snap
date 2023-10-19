@@ -130,9 +130,11 @@ Object {
 
 exports[`Omnitracking track events definitions \`Payment Info Added\` return should match the snapshot 1`] = `
 Object {
+  "checkoutOrderId": 15338048,
   "checkoutStep": undefined,
   "deliveryInformationDetails": undefined,
   "interactionType": undefined,
+  "orderCode": "50314b8e9bcf000000000000",
   "selectedPaymentMethod": "credit card",
   "tid": 2912,
 }
