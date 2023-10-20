@@ -158,6 +158,10 @@ enum EventType {
    * Signup Newsletter should be tracked when the user signs-up the newsletter.
    */
   SignupNewsletter = 'Sign-up Newsletter',
+  /**
+   * Track the performance of the site.
+   */
+  SitePerformance = 'Site Performance',
 }
 
 export default EventType;

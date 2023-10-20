@@ -765,6 +765,22 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
 
     return eventList;
   },
+  [EventType.SitePerformance]: (data: EventData<TrackTypesValues>) => {
+    const performanceStats = data?.properties?.performanceStats;
+
+    if (performanceStats && typeof performanceStats === 'object') {
+      return {
+        tid: 1217,
+        performanceTimings: JSON.stringify(data.properties.performanceStats),
+      };
+    }
+
+    logger.error(
+      `[Omnitracking] - Event "${data.event}": To track this event, a valid "performanceStats" property should be added to the payload.`,
+    );
+
+    return;
+  },
 } as const;
 
 /**
