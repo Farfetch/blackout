@@ -58,6 +58,7 @@ Object {
     "SignupFormCompleted": "Sign-up Form Completed",
     "SignupFormViewed": "Sign-up Form Viewed",
     "SignupNewsletter": "Sign-up Newsletter",
+    "SitePerformance": "Site Performance",
   },
   "FromParameterType": Object {
     "Bag": "Bag",

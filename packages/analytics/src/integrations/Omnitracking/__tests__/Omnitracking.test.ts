@@ -527,6 +527,44 @@ describe('Omnitracking', () => {
       );
     });
 
+    describe('Site Performance', () => {
+      it('should not track "Site Performance" event if the required parameters are missing', async () => {
+        const data = generateTrackMockData({
+          event: EventType.SitePerformance,
+          properties: {
+            performanceStats: undefined,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'To track this event, a valid "performanceStats" property should be added to the payload.',
+          ),
+        );
+        expect(postTrackingSpy).not.toHaveBeenCalled();
+      });
+
+      it('should not track "Site Performance"event if the required parameters have the wrong type', async () => {
+        const data = generateTrackMockData({
+          event: EventType.SitePerformance,
+          properties: {
+            performanceStats: 'wrong value',
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerError).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'To track this event, a valid "performanceStats" property should be added to the payload.',
+          ),
+        );
+        expect(postTrackingSpy).not.toHaveBeenCalled();
+      });
+    });
+
     describe('select content', () => {
       const expectedErrorMessage =
         'properties "contentType" and "id" should be sent';
