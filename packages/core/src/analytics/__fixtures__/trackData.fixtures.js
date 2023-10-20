@@ -245,6 +245,13 @@ export const customTrackMockData = {
     id: '123',
     productId: '12345',
   },
+  [eventTypes.SITE_PERFORMANCE]: {
+    performanceStats: {
+      ttfb: 766.2,
+      dcl: 2716.1,
+      fp: 1545.1,
+    },
+  },
   [eventTypes.PRODUCT_LIST_VIEWED]: {
     category: 'Clothing',
     list: 'Woman shopping',
