@@ -341,6 +341,13 @@ Object {
 }
 `;
 
+exports[`Omnitracking definitions \`Site Performance\` return should match the snapshot 1`] = `
+Object {
+  "performanceTimings": "{\\"ttfb\\":766.2,\\"dcl\\":2716.1,\\"fp\\":1545.1}",
+  "tid": 1217,
+}
+`;
+
 exports[`Omnitracking definitions \`bag\` return should match the snapshot 1`] = `
 Object {
   "basketQuantity": 8,

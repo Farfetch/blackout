@@ -772,6 +772,20 @@ export const trackEventsMapper = {
 
     return eventList;
   },
+  [eventTypes.SITE_PERFORMANCE]: data => {
+    const performanceStats = data?.properties?.performanceStats;
+    if (performanceStats && typeof performanceStats === 'object') {
+      return {
+        tid: 1217,
+        performanceTimings: JSON.stringify(performanceStats),
+      };
+    }
+
+    logger.error(
+      `[Omnitracking] - Event "${data.event}": To track this event, a valid "performanceStats" property should be added to the payload.`,
+    );
+    return;
+  },
 };
 
 /**
