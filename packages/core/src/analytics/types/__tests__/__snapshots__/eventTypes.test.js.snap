@@ -37,5 +37,6 @@ Object {
   "SIGNUP_FORM_COMPLETED": "Sign-up Form Completed",
   "SIGNUP_FORM_VIEWED": "Sign-up Form Viewed",
   "SIGNUP_NEWSLETTER": "Sign-up Newsletter",
+  "SITE_PERFORMANCE": "Site Performance",
 }
 `;
