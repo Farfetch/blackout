@@ -1635,7 +1635,8 @@ describe('GA4 Integration', () => {
 
             clonedEvent.properties.interactionType = InteractionType.Scroll;
             clonedEvent.properties.target = document.body;
-            clonedEvent.properties.percentageScrolled = 25;
+            clonedEvent.properties.percentageScrolled = 100;
+            clonedEvent.properties.pageNumber = 2;
 
             await ga4Instance.track(clonedEvent);
 
