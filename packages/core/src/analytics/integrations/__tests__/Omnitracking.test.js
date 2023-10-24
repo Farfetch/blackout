@@ -383,6 +383,29 @@ describe('Omnitracking', () => {
               }),
             );
           });
+
+          it('should track scroll event and deal with endless scroll feature', async () => {
+            const data = generateTrackMockData({
+              event: eventTypes.INTERACT_CONTENT,
+              properties: {
+                interactionType: interactionTypes.SCROLL,
+                target: document.body,
+                percentageScrolled: 100,
+                pageNumber: 2,
+              },
+            });
+            await omnitracking.track(data);
+
+            expect(postTrackingsSpy).toHaveBeenCalledWith(
+              expect.objectContaining({
+                parameters: expect.objectContaining({
+                  tid: 668,
+                  scrollDepth: 100,
+                  pageNumber: 2,
+                }),
+              }),
+            );
+          });
         });
 
         it('should not track an event when interactionType is scroll but target is not document.body', async () => {

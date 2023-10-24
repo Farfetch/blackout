@@ -647,6 +647,7 @@ export const trackEventsMapper = {
         return {
           tid: 668,
           scrollDepth: properties.percentageScrolled,
+          pageNumber: data.properties?.pageNumber,
         };
 
       return;
