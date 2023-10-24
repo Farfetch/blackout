@@ -657,6 +657,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         return {
           tid: 668,
           scrollDepth: data.properties?.percentageScrolled,
+          pageNumber: data.properties?.pageNumber,
         };
       }
 
