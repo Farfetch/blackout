@@ -84,6 +84,7 @@ const currencyCode = 'USD';
 const listId = 'related_products';
 const list = 'Related products';
 const wishlistName = 'my_wishlist';
+const isMainWishlist = true;
 const getMockState = (data: Record<string, unknown> = {}): StoreState =>
   merge({}, wishlistMockData.state, data);
 
@@ -288,6 +289,7 @@ describe('analyticsWishlistMiddleware', () => {
               wishlistMockData.wishListItemId
             ]?.size.scale,
           value,
+          isMainWishlist,
         },
       });
 
@@ -314,6 +316,7 @@ describe('analyticsWishlistMiddleware', () => {
         variant: colorName,
         wishlistId: wishlistMockData.wishlistId,
         locationId: expect.any(String),
+        isMainWishlist,
       });
     });
   });
@@ -342,6 +345,7 @@ describe('analyticsWishlistMiddleware', () => {
           position,
           productId: wishlistMockData.productId,
           wishlistItemId: wishlistMockData.wishListItemId,
+          isMainWishlist,
         },
       });
 
@@ -370,6 +374,7 @@ describe('analyticsWishlistMiddleware', () => {
           variant: colorName,
           wishlistId: wishlistMockData.wishlistId,
           locationId: expect.any(String),
+          isMainWishlist,
         },
       );
     });
@@ -400,6 +405,7 @@ describe('analyticsWishlistMiddleware', () => {
             listId,
             position,
             wishlistSetId,
+            isMainWishlist,
           },
         });
 
@@ -428,6 +434,7 @@ describe('analyticsWishlistMiddleware', () => {
             variant: colorName,
             wishlistId: wishlistSetId,
             locationId: expect.any(String),
+            isMainWishlist,
           },
         );
       });
@@ -447,6 +454,7 @@ describe('analyticsWishlistMiddleware', () => {
             position,
             wishlistSetId,
             wishlistItemId: wishlistMockData.wishListItemId,
+            isMainWishlist,
           },
         });
 
@@ -475,6 +483,7 @@ describe('analyticsWishlistMiddleware', () => {
             variant: colorName,
             wishlistId: wishlistSetId,
             locationId: expect.any(String),
+            isMainWishlist,
           },
         );
       });
@@ -569,6 +578,7 @@ describe('analyticsWishlistMiddleware', () => {
             listId,
             position,
             wishlistSetId,
+            isMainWishlist,
           },
         });
 
@@ -597,6 +607,7 @@ describe('analyticsWishlistMiddleware', () => {
             variant: colorName,
             wishlistId: wishlistSetId,
             locationId: expect.any(String),
+            isMainWishlist,
           },
         );
       });
@@ -616,6 +627,7 @@ describe('analyticsWishlistMiddleware', () => {
             position,
             wishlistSetId,
             wishlistItemId: wishlistMockData.wishListItemId,
+            isMainWishlist,
           },
         });
 
@@ -644,6 +656,7 @@ describe('analyticsWishlistMiddleware', () => {
             variant: colorName,
             wishlistId: wishlistSetId,
             locationId: expect.any(String),
+            isMainWishlist,
           },
         );
       });
