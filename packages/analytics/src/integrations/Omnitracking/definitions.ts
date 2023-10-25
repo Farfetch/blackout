@@ -549,6 +549,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    isMainWishlist: data.properties?.isMainWishlist,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromWishlist]: (
@@ -558,6 +559,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     actionArea: data.properties?.from,
     priceCurrency: data.properties?.currency,
     wishlistId: data.properties?.wishlistId,
+    isMainWishlist: data.properties?.isMainWishlist,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     ...getRecommendationsTrackingData(data),

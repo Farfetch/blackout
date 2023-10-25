@@ -19,6 +19,7 @@ const fixtures = {
     priceWithoutDiscount: 25,
     currency: 'USD',
     wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+    isMainWishlist: true,
   },
 };
 

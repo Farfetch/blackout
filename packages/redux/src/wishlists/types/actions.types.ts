@@ -33,6 +33,7 @@ export type WishlistItemActionMetadata = {
   coupon?: string;
   position?: number;
   value?: number;
+  isMainWishlist?: boolean;
 } & Record<string, unknown>;
 
 export type WishlistSetsNormalizedPayload = NormalizedSchema<
