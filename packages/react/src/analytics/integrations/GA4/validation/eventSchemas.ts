@@ -132,6 +132,10 @@ const sortOptionSchema = yup.object({
   sortOption: yup.string().notRequired(),
 });
 
+const isMainWishlistSchema = yup.object({
+  isMainWishlist: yup.boolean().notRequired(),
+});
+
 const viewItemSchema = fullProductSchema.concat(imageCountSchema);
 
 const viewItemListSchema = productsSchema
@@ -168,8 +172,9 @@ const manageProductInCartSchema = fromSchema
   .concat(currencyRequiredSchema)
   .concat(productUpdatesInCartWishlistSchema);
 
-const manageProductInWishlistSchema =
-  manageProductInCartSchema.concat(wishlistIdSchema);
+const manageProductInWishlistSchema = manageProductInCartSchema
+  .concat(wishlistIdSchema)
+  .concat(isMainWishlistSchema);
 
 const productUpdatedSchema = fromSchema.concat(productRequiredSchema).concat(
   yup.object({

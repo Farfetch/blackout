@@ -121,6 +121,7 @@ const getWishlistData = (
     list: get(action, 'meta.list'),
     listId: get(action, 'meta.listId'),
     position: get(action, 'meta.position'),
+    isMainWishlist: get(action, 'meta.isMainWishlist'),
     value:
       get(action, 'meta.value') || get(wishlistItem, 'price.includingTaxes'),
   };

@@ -267,6 +267,7 @@ const getPrePurchaseParametersFromEvent = (
     item_list_name: eventProperties.list,
     wishlist_name: eventProperties.wishlist,
     wishlist_id: eventProperties.wishlistId,
+    is_main_wishlist: eventProperties.isMainWishlist,
     items,
     value: getEventTotalValue(eventProperties, items),
     index: eventProperties.position,
@@ -308,6 +309,7 @@ const getProductRemovedFromWishlist = (eventProperties: EventProperties) => {
     wishlist_name: eventProperties.wishlist,
     wishlist_id: eventProperties.wishlistId,
     index: eventProperties.position,
+    is_main_wishlist: eventProperties.isMainWishlist,
     value: getEventTotalValue(eventProperties, new Array(productParameters)),
     ...productParameters,
   };

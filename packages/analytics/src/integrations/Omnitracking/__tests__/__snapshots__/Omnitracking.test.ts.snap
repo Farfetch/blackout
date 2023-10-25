@@ -165,6 +165,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
+  "isMainWishlist": true,
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
   "listIndex": 2,
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
@@ -200,6 +201,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product Removed From Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
+  "isMainWishlist": true,
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
   "listIndex": 2,
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
