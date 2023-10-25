@@ -47,6 +47,7 @@ const wishlistSetId = 'cde0389b-c362-4d46-ae4f-a467df08ec4b';
 const wishlistSetName = 'test_wishlist_set';
 const listId = 'related_products';
 const list = 'Related products';
+const isMainWishlist = true;
 
 /**
  * Gets the store state to be used by tests.
@@ -309,6 +310,7 @@ describe('wishlistMiddleware()', () => {
           productId,
           size: size.id,
           scale: size.scale,
+          isMainWishlist,
         },
       });
 
@@ -334,6 +336,7 @@ describe('wishlistMiddleware()', () => {
         value,
         variant: colorName,
         wishlistId,
+        isMainWishlist,
       });
     });
   });
@@ -360,6 +363,7 @@ describe('wishlistMiddleware()', () => {
           position,
           productId,
           wishlistItemId,
+          isMainWishlist,
         },
       });
 
@@ -387,6 +391,7 @@ describe('wishlistMiddleware()', () => {
           value,
           variant: colorName,
           wishlistId,
+          isMainWishlist,
         },
       );
     });
@@ -415,6 +420,7 @@ describe('wishlistMiddleware()', () => {
             listId,
             position,
             wishlistSetId,
+            isMainWishlist,
           },
         });
 
@@ -442,6 +448,7 @@ describe('wishlistMiddleware()', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            isMainWishlist,
           },
         );
       });
@@ -461,6 +468,7 @@ describe('wishlistMiddleware()', () => {
             position,
             wishlistSetId,
             wishlistItemId,
+            isMainWishlist,
           },
         });
 
@@ -488,6 +496,7 @@ describe('wishlistMiddleware()', () => {
             value,
             variant: colorName,
             wishlistId: wishlistSetId,
+            isMainWishlist,
           },
         );
       });
@@ -580,6 +589,7 @@ describe('wishlistMiddleware()', () => {
             listId,
             position,
             wishlistSetId,
+            isMainWishlist,
           },
         });
 
@@ -605,6 +615,7 @@ describe('wishlistMiddleware()', () => {
           value,
           variant: colorName,
           wishlistId: wishlistSetId,
+          isMainWishlist,
         });
       });
     });
@@ -623,6 +634,7 @@ describe('wishlistMiddleware()', () => {
             position,
             wishlistItemId,
             wishlistSetId,
+            isMainWishlist,
           },
         });
 
@@ -648,6 +660,7 @@ describe('wishlistMiddleware()', () => {
           value,
           variant: colorName,
           wishlistId: wishlistSetId,
+          isMainWishlist,
         });
       });
     });
@@ -751,6 +764,7 @@ describe('wishlistMiddleware()', () => {
           position,
           productId,
           wishlistItemId,
+          isMainWishlist,
         },
       });
 
@@ -774,6 +788,7 @@ describe('wishlistMiddleware()', () => {
         value,
         variant: colorName,
         wishlistId,
+        isMainWishlist,
       });
     });
 
