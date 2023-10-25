@@ -160,6 +160,7 @@ export const customTrackMockData = {
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: {
     from: 'PDP',
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
+    isMainWishlist: true,
     currency: 'EUR',
     list: 'You may like',
     listId: '1234',
@@ -168,6 +169,7 @@ export const customTrackMockData = {
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: {
     from: 'PDP',
     wishlistId: '4c040892-cc27-4294-99e3-524b14eddf33',
+    isMainWishlist: true,
     currency: 'EUR',
     list: 'You may like',
     listId: '1234',

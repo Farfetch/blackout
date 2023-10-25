@@ -116,6 +116,7 @@ const validTrackEvents = {
       list: 'Woman shopping',
       listId: '/en-pt/shopping/woman',
       wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+      isMainWishlist: true,
       position: 2,
     },
   },
@@ -138,6 +139,7 @@ const validTrackEvents = {
       discountValue: 6,
       currency: 'USD',
       wishlistId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+      isMainWishlist: true,
     },
   },
 
@@ -158,6 +160,7 @@ const validTrackEvents = {
       currency: 'USD',
       list: 'my_wishlist',
       listId: 'd3618128-5aa9-4caa-a452-1dd1377a6190',
+      isMainWishlist: true,
     },
   },
 

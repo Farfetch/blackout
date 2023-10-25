@@ -538,6 +538,7 @@ Array [
       "currency": "USD",
       "from": "Wishlist",
       "index": 2,
+      "is_main_wishlist": undefined,
       "item_list_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
       "item_list_name": "my_wishlist",
       "items": Array [
@@ -581,6 +582,7 @@ Array [
       "currency": "USD",
       "from": "PLP",
       "index": 2,
+      "is_main_wishlist": true,
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
       "items": Array [
@@ -721,6 +723,7 @@ Array [
       "discount": 6,
       "from": "PLP",
       "index": undefined,
+      "is_main_wishlist": true,
       "item_brand": "Just A T-Shirt",
       "item_category": "Clothing",
       "item_category2": "Tops",
@@ -755,6 +758,7 @@ Array [
       "currency": "USD",
       "from": "Bag",
       "index": 1,
+      "is_main_wishlist": undefined,
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
       "item_list_name": "Bag",
       "items": Array [
@@ -1002,6 +1006,7 @@ Array [
       "currency": "USD",
       "from": "Bag",
       "index": undefined,
+      "is_main_wishlist": undefined,
       "item_list_id": "e0030b3c-b970-4496-bc72-f9a38d6270b1",
       "item_list_name": "Bag",
       "items": Array [

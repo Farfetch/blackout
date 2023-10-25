@@ -180,6 +180,7 @@ Object {
 exports[`Omnitracking definitions \`Product Added to Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "isMainWishlist": true,
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
@@ -215,6 +216,7 @@ Object {
 exports[`Omnitracking definitions \`Product Removed From Wishlist\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "isMainWishlist": true,
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
