@@ -23,7 +23,7 @@
     "url": "https://github.com/Farfetch/blackout.git"
   },
   "dependencies": {
-    "crypto-es": "^1.2.7",
+    "crypto-es": "^2.1.0",
     "url-parse": "^1.4.4",
     "uuid": "^3.3.2"
   },
