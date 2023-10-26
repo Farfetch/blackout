@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.94.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.93.0...@farfetch/blackout-core@1.94.0) (2023-10-26)
+
+
+### Features
+
+* add new locations to Analytics FROM types for `v1` ([d213ff4](https://github.com/Farfetch/blackout/commit/d213ff49f2a33a468d3bf4e0c83588ef4f45e0ff))
+* add parameters to interact content event for `v1` ([149e59d](https://github.com/Farfetch/blackout/commit/149e59d795025b41cfde36d20db92eeaa966a5e4))
+* add parameters to payment info added event ([d60611a](https://github.com/Farfetch/blackout/commit/d60611a6a7ee0c2ce43a1325d186a51ebee52521))
+* add site performance measuring event to analytics ([c51ef97](https://github.com/Farfetch/blackout/commit/c51ef979caf43dbe3afdd66248d113976cebd08f))
+* **core|react:** update recommendations tracking parameters ([6637780](https://github.com/Farfetch/blackout/commit/6637780725597cd1c0d136bcf8dc9fc1da75a61c))
+
+
+
+
+
 # [1.93.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.92.0...@farfetch/blackout-core@1.93.0) (2023-08-29)
 
 

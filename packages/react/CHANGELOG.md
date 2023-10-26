@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.63.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.62.0...@farfetch/blackout-react@0.63.0) (2023-10-26)
+
+
+### Features
+
+* add parameters to interact content event for `v1` ([149e59d](https://github.com/Farfetch/blackout/commit/149e59d795025b41cfde36d20db92eeaa966a5e4))
+* add parameters to payment info added event ([d60611a](https://github.com/Farfetch/blackout/commit/d60611a6a7ee0c2ce43a1325d186a51ebee52521))
+* **core|react:** update recommendations tracking parameters ([6637780](https://github.com/Farfetch/blackout/commit/6637780725597cd1c0d136bcf8dc9fc1da75a61c))
+* update forter script ([3e13a12](https://github.com/Farfetch/blackout/commit/3e13a12d29da3e99a67b7a0e76911789cc32b0f5))
+
+
+
+
+
 # [0.62.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.61.0...@farfetch/blackout-react@0.62.0) (2023-08-09)
 
 
