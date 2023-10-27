@@ -483,6 +483,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       ...getCheckoutEventGenericProperties(data),
       promocode: data.properties?.coupon,
       shippingTotalValue: data.properties?.shipping,
+      checkoutStep: data.properties?.step,
     };
   },
   [EventType.CheckoutStarted]: data => ({
