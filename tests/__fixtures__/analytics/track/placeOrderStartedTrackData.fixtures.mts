@@ -12,6 +12,7 @@ const fixtures = {
     tax: 2.04,
     coupon: 'ACME2019',
     currency: 'USD',
+    step: 1,
   },
 };
 
