@@ -90,6 +90,7 @@ export const customTrackMockData = {
   [eventTypes.PLACE_ORDER_STARTED]: {
     orderId: 'ABC12',
     coupon: 'promo',
+    step: 1,
   },
   [eventTypes.ORDER_COMPLETED]: {
     orderId: 'ABC12',

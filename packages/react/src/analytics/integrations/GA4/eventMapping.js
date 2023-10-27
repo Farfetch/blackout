@@ -340,6 +340,7 @@ const getCheckoutPaymentStepParametersFromEvent = eventProperties => {
   return {
     ...getCheckoutParametersFromEvent(eventProperties),
     payment_type: eventProperties.paymentType,
+    checkout_step: eventProperties.step,
   };
 };
 
@@ -571,6 +572,7 @@ const getPlaceOrderStartedParametersFromEvent = eventProperties => {
     affiliation: eventProperties.affiliation,
     shipping: eventProperties.shipping,
     tax: eventProperties.tax,
+    checkout_step: eventProperties.step,
   };
 };
 

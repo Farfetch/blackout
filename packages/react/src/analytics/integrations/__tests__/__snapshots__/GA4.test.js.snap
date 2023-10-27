@@ -471,6 +471,7 @@ Array [
     Object {
       "analytics_package_version": "0.1.0",
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "checkout_step": 1,
       "coupon": "HARRODS2019",
       "currency": "USD",
       "items": Array [
@@ -514,6 +515,7 @@ Array [
       "affiliation": undefined,
       "analytics_package_version": "0.1.0",
       "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "checkout_step": 1,
       "coupon": "HARRODS2019",
       "currency": "USD",
       "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
