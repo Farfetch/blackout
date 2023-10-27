@@ -156,6 +156,7 @@ Array [
     "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
   },
   Object {
+    "checkoutStep": 1,
     "orderCode": "ABC12",
     "promocode": "promo",
     "shippingTotalValue": 10,
