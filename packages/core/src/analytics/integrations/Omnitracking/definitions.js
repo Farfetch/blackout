@@ -473,6 +473,7 @@ export const trackEventsMapper = {
         ...getCheckoutEventGenericProperties(data),
         promocode: data.properties.coupon,
         shippingTotalValue: data.properties?.shipping,
+        checkoutStep: data.properties?.step,
       },
     ];
   },
