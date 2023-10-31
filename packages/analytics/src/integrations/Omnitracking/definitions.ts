@@ -3,6 +3,7 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
+  getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -551,6 +552,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     isMainWishlist: data.properties?.isMainWishlist,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromWishlist]: (

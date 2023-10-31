@@ -522,6 +522,27 @@ export const getProductLineItems = (data: EventData<TrackTypesValues>) => {
 };
 
 /**
+ * Get the first product id from line items omnitracking parameter.
+ *
+ * @param data - The event tracking data.
+ *
+ * @returns The first product id from line items parameter.
+ */
+export const getProductIdFromLineItems = (
+  data: EventData<TrackTypesValues>,
+) => {
+  const lineItems = getProductLineItems(data);
+
+  if (lineItems) {
+    const products = JSON.parse(lineItems);
+
+    return products[0]['productId'];
+  }
+
+  return undefined;
+};
+
+/**
  * Obtain checkout generic omnitracking's properties.
  *
  * @param data - The event's data.
