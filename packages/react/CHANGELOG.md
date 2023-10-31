@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.12.0...@farfetch/blackout-react@1.13.0) (2023-10-31)
+
+### Features
+
+- add checkout step to analytics events main ([2d4bd6a](https://github.com/Farfetch/blackout/commit/2d4bd6a78b29771e48e782c91c16f27713e15e40))
+- add isMainWishlist parameter to main ([923a37c](https://github.com/Farfetch/blackout/commit/923a37c93aedd76eb8ebee453429f250b39562d4))
+- add new locations to Analytics FROM types for `main` ([7193846](https://github.com/Farfetch/blackout/commit/7193846699e4f3ba9eb3045de35242355de012fb))
+- add parameters to interact content event for `main` ([e4bd28e](https://github.com/Farfetch/blackout/commit/e4bd28ef88c812ae62c499231e91271220a25ad1))
+- add parameters to payment info added event ([42e5ea1](https://github.com/Farfetch/blackout/commit/42e5ea143aaf5ea3b436909efeebad0c070ced83))
+- add site performance measuring event to analytics ([ed9dec1](https://github.com/Farfetch/blackout/commit/ed9dec17ab982532c323e3455abb67c8f067fc80))
+- **analytics|react:** update recommendations tracking parameters ([3ec76e2](https://github.com/Farfetch/blackout/commit/3ec76e24db505697af618f78b7a840b8b7ddd9b2))
+- update forter script ([3759e65](https://github.com/Farfetch/blackout/commit/3759e65c8315f58163c51a91de842f928caba8b4))
+
 # [1.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.11.1...@farfetch/blackout-react@1.12.0) (2023-09-19)
 
 ### Features

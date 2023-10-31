@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.12.0...@farfetch/blackout-redux@1.13.0) (2023-10-31)
+
+### Features
+
+- add isMainWishlist parameter to main ([923a37c](https://github.com/Farfetch/blackout/commit/923a37c93aedd76eb8ebee453429f250b39562d4))
+
 # [1.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.11.0...@farfetch/blackout-redux@1.12.0) (2023-09-19)
 
 ### Features
