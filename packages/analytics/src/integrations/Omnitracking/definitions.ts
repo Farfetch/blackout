@@ -7,6 +7,7 @@ import {
   getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
+  getProductUnitSalePrice,
   getRecommendationsTrackingData,
 } from './omnitracking-helper.js';
 import { getProductId, logger } from '../../utils/index.js';
@@ -820,6 +821,7 @@ export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     productId: getProductIdFromLineItems(data),
+    unitSalePrice: getProductUnitSalePrice(data.properties),
     ...getRecommendationsTrackingData(data),
   }),
   [PageType.ProductListing]: data => ({
