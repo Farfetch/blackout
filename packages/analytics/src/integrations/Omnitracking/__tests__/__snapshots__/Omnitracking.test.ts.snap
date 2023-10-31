@@ -159,6 +159,7 @@ Object {
   "moduleId": "[\\"d3618128-5aa9-4caa-a452-1dd1377a6190\\"]",
   "moduleTitle": "[\\"my_wishlist\\"]",
   "priceCurrency": "USD",
+  "productId": "507f1f77bcf86cd799439011",
   "tid": 2915,
 }
 `;
@@ -172,6 +173,7 @@ Object {
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
   "priceCurrency": "USD",
+  "productId": "507f1f77bcf86cd799439011",
   "tid": 2916,
   "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
 }
@@ -208,6 +210,7 @@ Object {
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
   "priceCurrency": "USD",
+  "productId": "507f1f77bcf86cd799439011",
   "tid": 2925,
   "wishlistId": "d3618128-5aa9-4caa-a452-1dd1377a6190",
 }
@@ -221,6 +224,7 @@ Object {
   "moduleId": "[\\"e0030b3c-b970-4496-bc72-f9a38d6270b1\\"]",
   "moduleTitle": "[\\"Bag\\"]",
   "priceCurrency": "USD",
+  "productId": "507f1f77bcf86cd799439011",
   "tid": 131,
 }
 `;
@@ -1089,6 +1093,7 @@ Object {
   "listIndex": 2,
   "moduleId": "[\\"5c1e447a-b14b-43a5-b010-2190f3366fad\\"]",
   "moduleTitle": "[\\"Recommendations\\"]",
+  "productId": "12122479",
   "viewSubType": "Product",
   "viewType": "Product",
 }

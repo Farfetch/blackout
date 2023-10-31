@@ -4,6 +4,7 @@ import {
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
   getLoginSignupRecommendedParameters,
+  getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -552,6 +553,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     isMainWishlist: data.properties?.isMainWishlist,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromWishlist]: (
@@ -564,6 +566,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     isMainWishlist: data.properties?.isMainWishlist,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductListViewed]: data => ({
@@ -606,7 +609,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   [EventType.ProductClicked]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
-    productId: getProductId(data.properties),
+    productId: getProductIdFromLineItems(data),
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     ...getRecommendationsTrackingData(data),
@@ -617,6 +620,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromCart]: (data: EventData<TrackTypesValues>) => ({
@@ -625,6 +629,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.SelectContent]: data => {
@@ -802,6 +807,7 @@ export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [PageType.ProductListing]: data => ({
