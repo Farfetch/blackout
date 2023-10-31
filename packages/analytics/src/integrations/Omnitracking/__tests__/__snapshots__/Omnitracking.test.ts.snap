@@ -44,7 +44,7 @@ Object {
   "checkoutOrderId": 12345678,
   "checkoutStep": 1,
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/standard\\",\\"courierType\\":\\"Next Day\\"}",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"unitSalePrice\\":19}]",
   "loginType": "guest",
   "orderCode": "50314b8e9bcf000000000000",
   "orderVAT": 2.04,
@@ -71,7 +71,7 @@ Object {
   "checkoutStep": 2,
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
   "interactionType": "click",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"unitSalePrice\\":19}]",
   "orderCode": "50314b8e9bcf000000000000",
   "promoCode": "ACME2019",
   "selectedPaymentMethod": "credit",
@@ -154,7 +154,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Wishlist",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":19}]",
   "listIndex": 2,
   "moduleId": "[\\"d3618128-5aa9-4caa-a452-1dd1377a6190\\"]",
   "moduleTitle": "[\\"my_wishlist\\"]",
@@ -168,7 +168,7 @@ exports[`Omnitracking track events definitions \`Product Added to Wishlist\` ret
 Object {
   "actionArea": "Plp",
   "isMainWishlist": true,
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":19}]",
   "listIndex": 2,
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
@@ -182,7 +182,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product Clicked\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":3}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":3,\\"unitSalePrice\\":19}]",
   "listIndex": 3,
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
@@ -194,7 +194,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Plp",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":2},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":2,\\"unitSalePrice\\":19},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3,\\"unitSalePrice\\":19}]",
   "moduleId": "[\\"d3618128-5aa9-4caa-a452-1dd1377a6190\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
   "tid": 2832,
@@ -205,7 +205,7 @@ exports[`Omnitracking track events definitions \`Product Removed From Wishlist\`
 Object {
   "actionArea": "Plp",
   "isMainWishlist": true,
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":19}]",
   "listIndex": 2,
   "moduleId": "[\\"/en-pt/shopping/woman\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
@@ -219,7 +219,7 @@ Object {
 exports[`Omnitracking track events definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "Bag",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"listIndex\\":1,\\"unitSalePrice\\":19}]",
   "listIndex": 1,
   "moduleId": "[\\"e0030b3c-b970-4496-bc72-f9a38d6270b1\\"]",
   "moduleTitle": "[\\"Bag\\"]",
@@ -338,7 +338,7 @@ exports[`Omnitracking track events definitions \`bag\` return should match the s
 Object {
   "basketQuantity": 1,
   "basketValue": 13,
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"Just A T-Shirt\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":25,\\"itemQuantity\\":1,\\"unitSalePrice\\":19}]",
   "viewSubType": "Bag",
   "viewType": "Shopping Bag",
 }
@@ -1089,11 +1089,12 @@ Object {
 
 exports[`Omnitracking track events definitions \`product-details\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":2,\\"unitSalePrice\\":1}]",
   "listIndex": 2,
   "moduleId": "[\\"5c1e447a-b14b-43a5-b010-2190f3366fad\\"]",
   "moduleTitle": "[\\"Recommendations\\"]",
   "productId": "12122479",
+  "unitSalePrice": 1,
   "viewSubType": "Product",
   "viewType": "Product",
 }
@@ -1101,7 +1102,7 @@ Object {
 
 exports[`Omnitracking track events definitions \`product-listing\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"unitSalePrice\\":0}]",
   "viewSubType": "Listing",
   "viewType": "Listing",
 }
@@ -1282,7 +1283,7 @@ Array [
 
 exports[`Omnitracking track events definitions \`wishlist\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":1},{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"21\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"20\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":1,\\"unitSalePrice\\":1},{\\"productId\\":\\"12122479\\",\\"itemPromotion\\":1,\\"designerName\\":\\"Saint Laurent\\",\\"category\\":\\"Clothing\\",\\"itemFullPrice\\":2,\\"sizeId\\":\\"21\\",\\"itemQuantity\\":13,\\"promoCode\\":\\"EASTER2022\\",\\"storeId\\":20000,\\"listIndex\\":1,\\"unitSalePrice\\":1}]",
   "viewSubType": "Wishlist",
   "viewType": "Wishlist",
   "wishlistQuantity": 26,
