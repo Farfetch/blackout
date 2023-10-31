@@ -135,4 +135,5 @@ export type AnalyticsProduct = {
   list?: string;
   listId?: string;
   size?: string;
+  unitSalePrice?: number;
 } & Record<string, unknown>;
