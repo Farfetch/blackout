@@ -519,6 +519,27 @@ export const getProductLineItems = data => {
 };
 
 /**
+ * Get the first product id from line items omnitracking parameter.
+ *
+ * @param {object} data - The event tracking data.
+ *
+ * @returns {string} - The first product id from line items parameter.
+ */
+export const getProductIdFromLineItems = data => {
+  const lineItems = getProductLineItems(data);
+
+  if (lineItems) {
+    const products = JSON.parse(lineItems);
+
+    if (Array.isArray(products) && products.length) {
+      return products[0]['productId'];
+    }
+  }
+
+  return undefined;
+};
+
+/**
  * Obtain sum all quantities from product line item list.
  *
  * @param {object} productList - The item list with quantity inside each element.

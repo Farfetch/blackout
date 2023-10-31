@@ -10,6 +10,7 @@ import {
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
   getLoginSignupRecommendedParameters,
+  getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -583,6 +584,7 @@ export const trackEventsMapper = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => ({
@@ -591,6 +593,7 @@ export const trackEventsMapper = {
     priceCurrency: data.properties?.currency,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => ({
@@ -601,6 +604,7 @@ export const trackEventsMapper = {
     isMainWishlist: data.properties?.isMainWishlist,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => ({
@@ -611,12 +615,13 @@ export const trackEventsMapper = {
     isMainWishlist: data.properties?.isMainWishlist,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [eventTypes.PRODUCT_CLICKED]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
-    productId: getProductId(data.properties),
+    productId: getProductIdFromLineItems(data),
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     ...getRecommendationsTrackingData(data),
@@ -805,6 +810,7 @@ export const pageEventsMapper = {
     viewSubType: 'Product',
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [pageTypes.PRODUCT_LISTING]: data => ({
