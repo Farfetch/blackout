@@ -185,6 +185,7 @@ Object {
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
   "priceCurrency": "EUR",
+  "productId": "12345678",
   "tid": 2916,
   "wishlistId": "4c040892-cc27-4294-99e3-524b14eddf33",
 }

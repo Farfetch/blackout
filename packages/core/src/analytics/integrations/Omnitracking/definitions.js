@@ -9,6 +9,7 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
+  getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -598,6 +599,7 @@ export const trackEventsMapper = {
     wishlistId: data.properties?.wishlistId,
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    productId: getProductIdFromLineItems(data),
     ...getRecommendationsTrackingData(data),
   }),
   [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => ({
