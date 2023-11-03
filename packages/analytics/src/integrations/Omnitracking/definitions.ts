@@ -3,6 +3,7 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
+  getLoginSignupRecommendedParameters,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -37,7 +38,7 @@ const commonPageParams = [
   'basketQuantity',
   'categoryIdList',
   'checkboxFilter',
-  'clientAdvertisingID',
+  'clientAdvertisingId',
   'clientCulture',
   'clientGender',
   'clientInstallId',
@@ -53,7 +54,7 @@ const commonPageParams = [
   'domainUrl',
   'elementsSeen',
   'exitInteraction',
-  'fittingRoomID',
+  'fittingRoomId',
   'fittingRoomList',
   'geoLocationCity',
   'geoLocationState',
@@ -110,7 +111,7 @@ const commonPageParams = [
   'viewGender',
   'viewSubType',
   'viewType',
-  'weChatOpenID',
+  'weChatOpenId',
   'weChatUnionId',
   'wishlistQuantity',
 ] as const;
@@ -327,7 +328,7 @@ export const pageActionParameters = [
   'loadItemCoordinate',
   'moduleBenefit',
   'moduleContentDepartment',
-  'moduleContentID',
+  'moduleContentId',
   'moduleContentName',
   'moduleContentPublicationDate',
   'moduleContentVersion',
@@ -594,12 +595,14 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
   }),
   [EventType.Login]: data => ({
     tid: 2924,
-    loginType: data.properties?.method,
+    ...getLoginSignupRecommendedParameters(data),
   }),
+
   [EventType.SignupFormCompleted]: data => ({
     tid: 2927,
-    loginType: data.properties?.method,
+    ...getLoginSignupRecommendedParameters(data),
   }),
+
   [EventType.ProductClicked]: data => ({
     tid: 2926,
     actionArea: data.properties?.from,
@@ -692,7 +695,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       productId: getProductId(properties),
       actionArea: properties?.from,
       listIndex: properties?.position,
-      storeID: properties?.locationId,
+      storeId: properties?.locationId,
     };
 
     if (properties.colour && properties.oldColour !== properties.colour) {
@@ -751,6 +754,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
         ...genericEventProperties,
         ...additionalParameters,
         tid: 2920,
+        itemSize: properties?.size,
       });
     }
 
