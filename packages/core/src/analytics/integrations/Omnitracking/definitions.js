@@ -9,6 +9,7 @@ import {
   getCommonCheckoutStepTrackingData,
   getDeliveryInformationDetails,
   getGenderValueFromProperties,
+  getLoginSignupRecommendedParameters,
   getProductLineItems,
   getProductLineItemsQuantity,
   getRecommendationsTrackingData,
@@ -34,7 +35,7 @@ const commonPageParams = [
   'basketQuantity',
   'categoryIdList',
   'checkboxFilter',
-  'clientAdvertisingID',
+  'clientAdvertisingId',
   'clientCulture',
   'clientGender',
   'clientInstallId',
@@ -50,7 +51,7 @@ const commonPageParams = [
   'domainUrl',
   'elementsSeen',
   'exitInteraction',
-  'fittingRoomID',
+  'fittingRoomId',
   'fittingRoomList',
   'geoLocationCity',
   'geoLocationState',
@@ -107,7 +108,7 @@ const commonPageParams = [
   'viewGender',
   'viewSubType',
   'viewType',
-  'weChatOpenID',
+  'weChatOpenId',
   'weChatUnionId',
   'wishlistQuantity',
 ];
@@ -323,7 +324,7 @@ export const pageActionParameters = [
   'loadItemCoordinate',
   'moduleBenefit',
   'moduleContentDepartment',
-  'moduleContentID',
+  'moduleContentId',
   'moduleContentName',
   'moduleContentPublicationDate',
   'moduleContentVersion',
@@ -636,11 +637,11 @@ export const trackEventsMapper = {
   }),
   [eventTypes.LOGIN]: data => ({
     tid: 2924,
-    loginType: data.properties?.method,
+    ...getLoginSignupRecommendedParameters(data),
   }),
   [eventTypes.SIGNUP_FORM_COMPLETED]: data => ({
     tid: 2927,
-    loginType: data.properties?.method,
+    ...getLoginSignupRecommendedParameters(data),
   }),
   [eventTypes.INTERACT_CONTENT]: data => {
     const properties = data.properties;
@@ -700,7 +701,7 @@ export const trackEventsMapper = {
       productId: getProductId(properties),
       actionArea: properties?.from,
       listIndex: properties?.position,
-      storeID: properties?.locationId,
+      storeId: properties?.locationId,
     };
 
     if (properties.colour && properties.oldColour !== properties.colour) {
@@ -758,6 +759,7 @@ export const trackEventsMapper = {
         ...genericEventProperties,
         ...additionalParameters,
         tid: 2920,
+        itemSize: properties?.size,
       });
     }
 
