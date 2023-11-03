@@ -381,6 +381,55 @@ describe('Omnitracking', () => {
             expect(postTrackingsSpy).toHaveBeenCalledTimes(0);
           });
         });
+        describe('Login', () => {
+          const missingMethodWarn = expect.stringContaining(
+            'The "method" property must be included in the payload',
+          );
+
+          it('should log a warning message when "Login" event has missing properties on payload', async () => {
+            const data = generateTrackMockData({
+              event: eventTypes.LOGIN,
+              properties: {
+                method: 'Tenant',
+              },
+            });
+
+            await omnitracking.track(data);
+
+            expect(mockLoggerWarn).not.toHaveBeenCalledWith(missingMethodWarn);
+
+            data.properties.method = undefined;
+
+            await omnitracking.track(data);
+
+            expect(mockLoggerWarn).toHaveBeenCalledWith(missingMethodWarn);
+          });
+        });
+
+        describe('Sign-up', () => {
+          const missingMethodWarn = expect.stringContaining(
+            'The "method" property must be included in the payload',
+          );
+
+          it('should log a warning message when "Sign-up" event has missing properties on payload', async () => {
+            const data = generateTrackMockData({
+              event: eventTypes.SIGNUP_FORM_COMPLETED,
+              properties: {
+                method: 'Tenant',
+              },
+            });
+
+            await omnitracking.track(data);
+
+            expect(mockLoggerWarn).not.toHaveBeenCalledWith(missingMethodWarn);
+
+            data.properties.method = undefined;
+
+            await omnitracking.track(data);
+
+            expect(mockLoggerWarn).toHaveBeenCalledWith(missingMethodWarn);
+          });
+        });
         describe('Interact Content', () => {
           it('should not track an interact content event if the required parameters are missing', async () => {
             const data = generateTrackMockData({

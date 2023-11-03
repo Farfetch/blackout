@@ -44,7 +44,7 @@ Object {
   "checkoutStep": 1,
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\"}",
   "interactionType": "click",
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "loginType": "guest",
   "orderCode": "ABC12",
   "orderId": 12345678,
@@ -78,7 +78,7 @@ Object {
   "checkoutStep": 2,
   "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
   "interactionType": "click",
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "orderCode": "ABC12",
   "orderId": 12345678,
   "promoCode": "PROMO_ABC",
@@ -169,7 +169,7 @@ Array [
 exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
@@ -182,7 +182,7 @@ exports[`Omnitracking definitions \`Product Added to Wishlist\` return should ma
 Object {
   "actionArea": "PDP",
   "isMainWishlist": true,
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
@@ -195,7 +195,7 @@ Object {
 exports[`Omnitracking definitions \`Product Clicked\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
@@ -207,7 +207,7 @@ Object {
 exports[`Omnitracking definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PLP",
-  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":25,\\"sizeID\\":1,\\"listIndex\\":2},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3}]",
+  "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":25,\\"sizeId\\":1,\\"listIndex\\":2},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3}]",
   "moduleId": "[\\"12345\\"]",
   "moduleTitle": "[\\"Woman shopping\\"]",
   "tid": 2832,
@@ -218,7 +218,7 @@ exports[`Omnitracking definitions \`Product Removed From Wishlist\` return shoul
 Object {
   "actionArea": "PDP",
   "isMainWishlist": true,
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
@@ -231,7 +231,7 @@ Object {
 exports[`Omnitracking definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"listIndex\\":2}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
   "moduleTitle": "[\\"You may like\\"]",
@@ -247,16 +247,17 @@ Array [
     "colourList": "2, 1",
     "listIndex": 2,
     "productId": "12345",
-    "storeID": "123",
+    "storeId": "123",
     "tid": 2098,
   },
   Object {
     "actionArea": "PDP",
+    "itemSize": "S",
     "listIndex": 2,
     "productId": "12345",
     "scaleList": "10, 12",
     "sizeList": "11, 10",
-    "storeID": "123",
+    "storeId": "123",
     "tid": 2920,
   },
   Object {
@@ -264,7 +265,7 @@ Array [
     "itemQuantity": 2,
     "listIndex": 2,
     "productId": "12345",
-    "storeID": "123",
+    "storeId": "123",
     "tid": 2919,
   },
 ]
@@ -355,7 +356,7 @@ exports[`Omnitracking definitions \`bag\` return should match the snapshot 1`] =
 Object {
   "basketQuantity": 8,
   "basketValue": 100,
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":5},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":3}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"itemQuantity\\":5},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"itemQuantity\\":3}]",
   "viewSubType": "Bag",
   "viewType": "Shopping Bag",
 }
@@ -382,7 +383,7 @@ Object {
     "basketQuantity",
     "categoryIdList",
     "checkboxFilter",
-    "clientAdvertisingID",
+    "clientAdvertisingId",
     "clientCulture",
     "clientGender",
     "clientInstallId",
@@ -398,7 +399,7 @@ Object {
     "domainUrl",
     "elementsSeen",
     "exitInteraction",
-    "fittingRoomID",
+    "fittingRoomId",
     "fittingRoomList",
     "geoLocationCity",
     "geoLocationState",
@@ -455,7 +456,7 @@ Object {
     "viewGender",
     "viewSubType",
     "viewType",
-    "weChatOpenID",
+    "weChatOpenId",
     "weChatUnionId",
     "wishlistQuantity",
     "accessTier",
@@ -554,7 +555,7 @@ Object {
     "basketQuantity",
     "categoryIdList",
     "checkboxFilter",
-    "clientAdvertisingID",
+    "clientAdvertisingId",
     "clientCulture",
     "clientGender",
     "clientInstallId",
@@ -570,7 +571,7 @@ Object {
     "domainUrl",
     "elementsSeen",
     "exitInteraction",
-    "fittingRoomID",
+    "fittingRoomId",
     "fittingRoomList",
     "geoLocationCity",
     "geoLocationState",
@@ -627,7 +628,7 @@ Object {
     "viewGender",
     "viewSubType",
     "viewType",
-    "weChatOpenID",
+    "weChatOpenId",
     "weChatUnionId",
     "wishlistQuantity",
     "accessTier",
@@ -735,7 +736,7 @@ Object {
     "basketQuantity",
     "categoryIdList",
     "checkboxFilter",
-    "clientAdvertisingID",
+    "clientAdvertisingId",
     "clientCulture",
     "clientGender",
     "clientInstallId",
@@ -751,7 +752,7 @@ Object {
     "domainUrl",
     "elementsSeen",
     "exitInteraction",
-    "fittingRoomID",
+    "fittingRoomId",
     "fittingRoomList",
     "geoLocationCity",
     "geoLocationState",
@@ -808,7 +809,7 @@ Object {
     "viewGender",
     "viewSubType",
     "viewType",
-    "weChatOpenID",
+    "weChatOpenId",
     "weChatUnionId",
     "wishlistQuantity",
     "accessTier",
@@ -904,7 +905,7 @@ Object {
     "basketQuantity",
     "categoryIdList",
     "checkboxFilter",
-    "clientAdvertisingID",
+    "clientAdvertisingId",
     "clientCulture",
     "clientGender",
     "clientInstallId",
@@ -920,7 +921,7 @@ Object {
     "domainUrl",
     "elementsSeen",
     "exitInteraction",
-    "fittingRoomID",
+    "fittingRoomId",
     "fittingRoomList",
     "geoLocationCity",
     "geoLocationState",
@@ -977,7 +978,7 @@ Object {
     "viewGender",
     "viewSubType",
     "viewType",
-    "weChatOpenID",
+    "weChatOpenId",
     "weChatUnionId",
     "wishlistQuantity",
     "accessTier",
@@ -1105,7 +1106,7 @@ Object {
 
 exports[`Omnitracking definitions \`product-details\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeId\\":1}]",
   "listIndex": 3,
   "moduleId": "[\\"5c1e447a-b14b-43a5-b010-2190f3366fad\\"]",
   "moduleTitle": "[\\"Recommendations\\"]",
@@ -1116,7 +1117,7 @@ Object {
 
 exports[`Omnitracking definitions \`product-listing\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeId\\":1}]",
   "viewSubType": "Listing",
   "viewType": "Listing",
 }
@@ -1151,7 +1152,7 @@ Array [
   "loadItemCoordinate",
   "moduleBenefit",
   "moduleContentDepartment",
-  "moduleContentID",
+  "moduleContentId",
   "moduleContentName",
   "moduleContentPublicationDate",
   "moduleContentVersion",
@@ -1297,7 +1298,7 @@ Array [
 
 exports[`Omnitracking definitions \`wishlist\` return should match the snapshot 1`] = `
 Object {
-  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":2},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeID\\":1,\\"itemQuantity\\":3}]",
+  "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"itemQuantity\\":2},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"itemQuantity\\":3}]",
   "viewSubType": "Wishlist",
   "viewType": "Wishlist",
   "wishlistQuantity": 5,
