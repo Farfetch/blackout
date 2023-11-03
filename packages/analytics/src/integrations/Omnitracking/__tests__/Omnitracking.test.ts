@@ -565,6 +565,56 @@ describe('Omnitracking', () => {
       });
     });
 
+    describe('Login', () => {
+      it('should log a warning message when "Login" event has missing properties on payload', async () => {
+        const data = generateTrackMockData({
+          event: EventType.Login,
+          properties: {
+            method: 'Tenant',
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).not.toHaveBeenCalled();
+
+        data.properties.method = undefined;
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'The "method" property must be included in the payload',
+          ),
+        );
+      });
+    });
+
+    describe('Sign-up', () => {
+      it('should log a warning message when "Sign-up" event has missing properties on payload', async () => {
+        const data = generateTrackMockData({
+          event: EventType.SignupFormCompleted,
+          properties: {
+            method: 'Tenant',
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).not.toHaveBeenCalled();
+
+        data.properties.method = undefined;
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).toHaveBeenCalledWith(
+          expect.stringContaining(
+            'The "method" property must be included in the payload',
+          ),
+        );
+      });
+    });
+
     describe('select content', () => {
       const expectedErrorMessage =
         'properties "contentType" and "id" should be sent';
