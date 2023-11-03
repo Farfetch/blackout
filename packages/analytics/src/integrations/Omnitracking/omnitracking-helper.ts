@@ -468,10 +468,10 @@ export const getOmnitrackingProductMapper = (
   designerName: productData.brand,
   category: (productData.category || '').split('/')[0],
   itemFullPrice: productData.priceWithoutDiscount,
-  sizeID: productData.sizeId,
+  sizeId: productData.sizeId,
   itemQuantity: productData.quantity,
   promoCode: productData.coupon,
-  storeID: productData.locationId,
+  storeId: productData.locationId,
   listIndex: productData.position,
 });
 
@@ -663,4 +663,29 @@ export const getRecommendationsTrackingData = (
   // In case it's a non recommendations Product Details event,
   // we do not need to send these recommendations parameters.
   return;
+};
+
+/**
+ * Get Login/Signup Recommended Parameters, logging a warnings if the recommended properties are missing.
+ *
+ * @param data - The event's data.
+ *
+ * @returns This function return common data from login or signup events.
+ */
+export const getLoginSignupRecommendedParameters = (
+  data: EventData<TrackTypesValues>,
+) => {
+  const mappedData: Record<string, unknown> = {};
+
+  if (data.properties?.method) {
+    mappedData['loginType'] = data.properties?.method;
+  } else {
+    logger.warn(
+      `[Omnitracking] - Event ${data.event}: The "method" property must be included in the payload
+                    when triggering an ${data.event} event. To track this event, please ensure that includes
+                    this property.`,
+    );
+  }
+
+  return mappedData;
 };

@@ -180,7 +180,7 @@ const getProductData = async (
     sizeScaleId: sizeScale,
     locationId:
       wishlistItem && 'merchant' in wishlistItem
-        ? `${wishlistItem.merchant}`
+        ? wishlistItem.merchant?.toString()
         : undefined,
   };
 };
