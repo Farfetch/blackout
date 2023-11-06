@@ -322,6 +322,28 @@ export const getValParameterForEvent = (valParameters = {}) => {
 };
 
 /**
+ * Get the product unit sale price from a specific product.
+ *
+ * @param {object} productData - Product data.
+ *
+ * @returns {number|undefined} The unit sale price value, or undefined if no pricing data was found in productData argument.
+ */
+export const getProductUnitSalePrice = productData => {
+  if (typeof productData.unitSalePrice === 'number') {
+    return productData.unitSalePrice;
+  }
+
+  if (
+    typeof productData.priceWithoutDiscount === 'number' &&
+    typeof productData.discountValue === 'number'
+  ) {
+    return productData.priceWithoutDiscount - productData.discountValue;
+  }
+
+  return undefined;
+};
+
+/**
  * Generates a payment attempt reference ID based on the correlationID (user local ID) and the timestamp of the event.
  *
  * @param {object} data - Event data passed by analytics.
@@ -491,6 +513,7 @@ export const getOmnitrackingProductMapper = productData => ({
   promoCode: productData.coupon,
   storeId: productData.locationId,
   listIndex: productData.position,
+  unitSalePrice: getProductUnitSalePrice(productData),
 });
 
 /**
