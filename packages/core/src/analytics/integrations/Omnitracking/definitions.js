@@ -13,6 +13,7 @@ import {
   getProductIdFromLineItems,
   getProductLineItems,
   getProductLineItemsQuantity,
+  getProductUnitSalePrice,
   getRecommendationsTrackingData,
   getValParameterForEvent,
 } from './omnitracking-helper';
@@ -811,6 +812,7 @@ export const pageEventsMapper = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     productId: getProductIdFromLineItems(data),
+    unitSalePrice: getProductUnitSalePrice(data.properties),
     ...getRecommendationsTrackingData(data),
   }),
   [pageTypes.PRODUCT_LISTING]: data => ({
