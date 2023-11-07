@@ -314,11 +314,11 @@ export const getOrderItemsByMerchant = (state, orderId) =>
     [(state, orderId) => getOrder(state, orderId), getOrderItems],
     (order, orderItems) => {
       const orderDetailsByMerchant = get(order, 'byMerchant');
-      // If the property checkoutOrderId exists, it means the store is not split by merchantOrderCode.
+      // If the property orderItems exists, it means the store is not split by merchantOrderCode.
       // Otherwise, merchants are split by merchantOrderCode and the selector will consider this when getting that info.
       const isSplitByMerchantOrderCode = !Object.values(
         orderDetailsByMerchant || {},
-      )[0]?.checkoutOrderId;
+      )[0]?.orderItems;
 
       if (!orderDetailsByMerchant) return;
 
