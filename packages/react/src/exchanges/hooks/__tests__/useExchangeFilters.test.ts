@@ -2,11 +2,12 @@ import { cleanup, renderHook } from '@testing-library/react';
 import { createExchangeFilter } from '@farfetch/blackout-redux';
 import {
   mockState,
+  orderItemUuid,
   requestData,
 } from 'tests/__fixtures__/exchanges/exchanges.fixtures.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import { withStore } from '../../../../tests/helpers/index.js';
-import useCreateExchangeFilter from '../useCreateExchangeFilter.js';
+import useExchangeFilters from '../useExchangeFilters.js';
 
 jest.mock('@farfetch/blackout-redux', () => {
   const original = jest.requireActual('@farfetch/blackout-redux');
@@ -21,64 +22,77 @@ jest.mock('@farfetch/blackout-redux', () => {
 
 const defaultExchangeFilter = {
   data: undefined,
-  isCreating: false,
+  isLoading: false,
   error: null,
   actions: {
     create: expect.any(Function),
+    reset: expect.any(Function),
   },
 };
 
-const mockInitialStateNoData = {
+const mockInitialState = {
+  ...mockState,
   exchanges: {
     error: null,
     isLoading: false,
     result: null,
-    exchangeFilter: {
-      error: null,
-      isLoading: false,
-      result: null,
+    exchangeFilters: {
+      ...mockState.exchanges.exchangeFilters,
     },
     exchangeBookRequest: {
-      error: null,
-      isLoading: false,
-      result: null,
+      ...mockState.exchanges.exchangeBookRequest,
     },
+  },
+  entities: {
+    ...mockState.entities,
+    exchangeFilters: undefined,
   },
 };
 
 const mockInitialStateWithData = {
+  ...mockInitialState,
   exchanges: {
-    ...mockInitialStateNoData.exchanges,
-    exchangeFilter: {
-      ...mockState.exchanges.exchangeFilter,
-      error: null,
+    ...mockInitialState.exchanges,
+    exchangeFilters: {
+      ...mockState.exchanges.exchangeFilters,
     },
+  },
+  entities: {
+    ...mockState.entities,
   },
 };
 
 const mockErrorState = {
+  ...mockInitialState,
   exchanges: {
     ...mockState.exchanges,
-    exchangeFilter: {
-      error: toBlackoutError(new Error('dummy error')),
-      isLoading: false,
-      result: null,
+    exchangeFilters: {
+      error: {
+        [orderItemUuid]: toBlackoutError(new Error('dummy error')),
+      },
+      isLoading: {
+        [orderItemUuid]: false,
+      },
     },
   },
 };
 
 const mockLoadingState = {
+  ...mockInitialState,
   exchanges: {
     ...mockState.exchanges,
-    exchangeFilter: {
-      error: null,
-      isLoading: true,
-      result: null,
+    exchangeFilters: {
+      error: {
+        [orderItemUuid]: null,
+      },
+      isLoading: {
+        [orderItemUuid]: true,
+      },
     },
   },
 };
 
-describe('useCreateExchangeFilter', () => {
+describe('useExchangeFilters', () => {
   beforeEach(jest.clearAllMocks);
 
   afterEach(cleanup);
@@ -86,8 +100,8 @@ describe('useCreateExchangeFilter', () => {
   it('should return correctly with initial state', () => {
     const {
       result: { current },
-    } = renderHook(() => useCreateExchangeFilter(), {
-      wrapper: withStore(mockInitialStateNoData),
+    } = renderHook(() => useExchangeFilters(orderItemUuid), {
+      wrapper: withStore(mockInitialState),
     });
 
     expect(current).toStrictEqual(defaultExchangeFilter);
@@ -96,39 +110,39 @@ describe('useCreateExchangeFilter', () => {
   it('should return correctly when the exchange filter is fetched', () => {
     const {
       result: { current },
-    } = renderHook(() => useCreateExchangeFilter(), {
+    } = renderHook(() => useExchangeFilters(orderItemUuid), {
       wrapper: withStore(mockInitialStateWithData),
     });
 
     expect(current).toStrictEqual({
       ...defaultExchangeFilter,
-      data: mockInitialStateWithData.exchanges.exchangeFilter.result,
+      data: mockInitialStateWithData.entities.exchangeFilters[orderItemUuid],
     });
   });
 
   it('should return correctly when there is an error', () => {
     const {
       result: { current },
-    } = renderHook(() => useCreateExchangeFilter(), {
+    } = renderHook(() => useExchangeFilters(orderItemUuid), {
       wrapper: withStore(mockErrorState),
     });
 
     expect(current).toStrictEqual({
       ...defaultExchangeFilter,
-      error: mockErrorState.exchanges.exchangeFilter.error,
+      error: mockErrorState.exchanges.exchangeFilters.error[orderItemUuid],
     });
   });
 
   it('should return correctly when it is loading', () => {
     const {
       result: { current },
-    } = renderHook(() => useCreateExchangeFilter(), {
+    } = renderHook(() => useExchangeFilters(orderItemUuid), {
       wrapper: withStore(mockLoadingState),
     });
 
     expect(current).toStrictEqual({
       ...defaultExchangeFilter,
-      isCreating: true,
+      isLoading: true,
     });
   });
 
@@ -140,8 +154,8 @@ describe('useCreateExchangeFilter', () => {
             actions: { create },
           },
         },
-      } = renderHook(() => useCreateExchangeFilter(), {
-        wrapper: withStore(mockInitialStateNoData),
+      } = renderHook(() => useExchangeFilters(orderItemUuid), {
+        wrapper: withStore(mockInitialState),
       });
 
       const anotherConfig = {};
@@ -154,19 +168,36 @@ describe('useCreateExchangeFilter', () => {
       );
     });
 
-    it('should fail when exchangeFilterData parameter is not passed to both the hook and the function', () => {
+    it('should fail when exchangeFilterData parameter is not passed to the function', () => {
       const {
         result: {
           current: {
             actions: { create },
           },
         },
-      } = renderHook(() => useCreateExchangeFilter(), {
-        wrapper: withStore(mockInitialStateNoData),
+      } = renderHook(() => useExchangeFilters(orderItemUuid), {
+        wrapper: withStore(mockInitialState),
       });
 
       // @ts-expect-error
       return expect(create()).rejects.toThrow('No data to filter provided');
+    });
+
+    it('should fail when orderItemUuid parameter is not passed to either the hook or function', () => {
+      const {
+        result: {
+          current: {
+            actions: { create },
+          },
+        },
+      } = renderHook(() => useExchangeFilters(), {
+        wrapper: withStore(mockInitialState),
+      });
+
+      return expect(
+        // @ts-expect-error
+        create(requestData.postExchangeFilterWithoutOrderItemUuid),
+      ).rejects.toThrow('No orderItemUuid provided');
     });
   });
 });

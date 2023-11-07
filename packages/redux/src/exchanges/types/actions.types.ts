@@ -5,7 +5,19 @@ import type {
   Exchange,
   ExchangeBookRequest,
   ExchangeFilter,
+  ExchangeFilterItem,
 } from '@farfetch/blackout-client';
+import type { NormalizedSchema } from 'normalizr';
+
+export type ExchangeFilterEntity = NormalizedSchema<
+  {
+    exchangeFilters: Record<
+      ExchangeFilterItem['orderItemUuid'],
+      ExchangeFilter
+    >;
+  },
+  ExchangeFilterItem['orderItemUuid']
+>;
 
 export interface FetchExchangeRequestAction extends Action {
   type: typeof actionTypes.FETCH_EXCHANGE_REQUEST;
@@ -62,13 +74,16 @@ export type CreateExchangeAction =
 
 export interface CreateExchangeFilterRequestAction extends Action {
   type: typeof actionTypes.CREATE_EXCHANGE_FILTER_REQUEST;
+  meta: { orderItemUuid: ExchangeFilterItem['orderItemUuid'] };
 }
 export interface CreateExchangeFilterSuccessAction extends Action {
   type: typeof actionTypes.CREATE_EXCHANGE_FILTER_SUCCESS;
-  payload: ExchangeFilter;
+  meta: { orderItemUuid: ExchangeFilterItem['orderItemUuid'] };
+  payload: ExchangeFilterEntity;
 }
 export interface CreateExchangeFilterFailureAction extends Action {
   type: typeof actionTypes.CREATE_EXCHANGE_FILTER_FAILURE;
+  meta: { orderItemUuid: ExchangeFilterItem['orderItemUuid'] };
   payload: { error: BlackoutError };
 }
 
@@ -102,10 +117,15 @@ export interface ResetExchangesStateAction extends Action {
 
 /** Actions dispatched when the reset exchange filter state request is made. */
 export interface ResetExchangeFilterStateAction extends Action {
-  type: typeof actionTypes.RESET_EXCHANGE_FILTER_STATE;
+  type: typeof actionTypes.RESET_EXCHANGE_FILTERS_STATE;
 }
 
 /** Actions dispatched when the reset exchange book request state request is made. */
 export interface ResetExchangeBookRequestStateAction extends Action {
   type: typeof actionTypes.RESET_EXCHANGE_BOOK_REQUEST_STATE;
+}
+
+/** Actions dispatched when the reset exchange filters entities request is made. */
+export interface ResetExchangeFiltersEntitiesAction extends Action {
+  type: typeof actionTypes.RESET_EXCHANGE_FILTERS_ENTITIES;
 }

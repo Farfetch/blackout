@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import useAction from '../../helpers/useAction.js';
 import useExchangeBookRequest from './useExchangeBookRequest.js';
-import useExchangeFilter from './useCreateExchangeFilter.js';
+import useExchangeFilters from './useExchangeFilters.js';
 import type {
   Config,
   Exchange,
@@ -27,7 +27,7 @@ function useExchange(
   options: UseExchangeOptions = {},
 ) {
   const exchangeIdHookParameter = exchangeId;
-  const { enableAutoFetch = true, fetchConfig } = options;
+  const { enableAutoFetch = true, fetchConfig, orderItemUuid } = options;
   const isLoading = useSelector(areExchangesLoading);
   const error = useSelector(getExchangeError);
   const exchangeResult = useSelector(getExchange);
@@ -93,7 +93,7 @@ function useExchange(
 
   const {
     actions: { create: createExchangeFilter },
-  } = useExchangeFilter();
+  } = useExchangeFilters(orderItemUuid);
 
   useEffect(() => {
     if (

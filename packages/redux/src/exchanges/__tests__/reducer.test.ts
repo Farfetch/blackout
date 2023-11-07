@@ -1,15 +1,12 @@
 import * as actionTypes from '../actionTypes.js';
 import {
   ExchangeBookRequestStatus,
-  ExchangeFilterLogicOperatorComparator,
-  ExchangeFilterLogicOperatorCriteria,
-  ExchangeFilterLogicOperatorType,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {
   exchangeReturnItemId,
+  expectedExchangeFiltersNormalizedPayload,
   mockState,
-  orderId,
   orderItemUuid,
   returnId,
 } from 'tests/__fixtures__/exchanges/index.mjs';
@@ -182,103 +179,133 @@ describe('exchanges reducer', () => {
 
   describe('exchangeFilter() reducer', () => {
     it('should return the initial state', () => {
-      const state = reducer(undefined, randomAction).exchangeFilter;
+      const state = reducer(undefined, randomAction).exchangeFilters;
 
-      expect(state).toEqual(initialState.exchangeFilter);
-      expect(state).toEqual({ error: null, isLoading: false, result: null });
+      expect(state).toEqual(initialState.exchangeFilters);
+      expect(state).toEqual({ error: {}, isLoading: {} });
     });
 
     it('should handle CREATE_EXCHANGE_FILTER_REQUEST action type', () => {
       const state: ExchangesState = {
         ...fromReducer.INITIAL_STATE,
-        exchangeFilter: {
-          error: toBlackoutError(new Error('dummy error')),
-          isLoading: false,
-          result: null,
+        exchangeFilters: {
+          error: {
+            [orderItemUuid]: toBlackoutError(new Error('dummy error')),
+          },
+          isLoading: {
+            [orderItemUuid]: false,
+          },
         },
       };
 
       expect(
         reducer(state, {
           type: actionTypes.CREATE_EXCHANGE_FILTER_REQUEST,
-        }).exchangeFilter,
+          meta: { orderItemUuid },
+        }).exchangeFilters,
       ).toEqual({
-        error: null,
-        isLoading: true,
+        error: {
+          [orderItemUuid]: null,
+        },
+        isLoading: {
+          [orderItemUuid]: true,
+        },
       });
     });
 
     it('should handle CREATE_EXCHANGE_FILTER_FAILURE action type', () => {
       const state: ExchangesState = {
         ...fromReducer.INITIAL_STATE,
-        exchangeFilter: {
-          error: null,
-          isLoading: true,
-          result: null,
+        exchangeFilters: {
+          error: {
+            [orderItemUuid]: null,
+          },
+          isLoading: {
+            [orderItemUuid]: true,
+          },
         },
       };
 
       expect(
         reducer(state, {
           type: actionTypes.CREATE_EXCHANGE_FILTER_FAILURE,
+          meta: { orderItemUuid },
           payload: { error: toBlackoutError(new Error('dummy error')) },
-        }).exchangeFilter,
+        }).exchangeFilters,
       ).toEqual({
-        error: toBlackoutError(new Error('dummy error')),
-        isLoading: false,
+        error: {
+          [orderItemUuid]: toBlackoutError(new Error('dummy error')),
+        },
+        isLoading: {
+          [orderItemUuid]: false,
+        },
+      });
+    });
+
+    it('should handle CREATE_EXCHANGE_FILTER_FAILURE action type when no orderItemUuid was provided', () => {
+      const state: ExchangesState = {
+        ...fromReducer.INITIAL_STATE,
+        exchangeFilters: {
+          error: {},
+          isLoading: {},
+        },
+      };
+
+      expect(
+        reducer(state, {
+          type: actionTypes.CREATE_EXCHANGE_FILTER_FAILURE,
+          meta: { orderItemUuid: '' },
+          payload: { error: toBlackoutError(new Error('dummy error')) },
+        }).exchangeFilters,
+      ).toEqual({
+        error: {
+          '': toBlackoutError(new Error('dummy error')),
+        },
+        isLoading: {
+          '': false,
+        },
       });
     });
 
     it('should handle CREATE_EXCHANGE_FILTER_SUCCESS action type', () => {
       const state: ExchangesState = {
         ...fromReducer.INITIAL_STATE,
-        exchangeFilter: {
-          error: null,
-          isLoading: true,
-          result: null,
+        exchangeFilters: {
+          error: {
+            [orderItemUuid]: null,
+          },
+          isLoading: {
+            [orderItemUuid]: true,
+          },
         },
       };
 
-      const expectedResult = {
-        id: '123456',
-        exchangeFilterItems: [
-          {
-            orderCode: orderId,
-            orderItemUuid: orderItemUuid,
-          },
-        ],
-        logicOperator: {
-          logicOperatorType: ExchangeFilterLogicOperatorType.And,
-          operators: [
-            {
-              criteria: ExchangeFilterLogicOperatorCriteria.MerchantId,
-              comparator: ExchangeFilterLogicOperatorComparator.Equals,
-              value: 'merchantId',
-            },
-          ],
-        },
-      };
+      const expectedResult = expectedExchangeFiltersNormalizedPayload;
 
       expect(
         reducer(state, {
           type: actionTypes.CREATE_EXCHANGE_FILTER_SUCCESS,
+          meta: { orderItemUuid },
           payload: expectedResult,
-        }).exchangeFilter,
+        }).exchangeFilters,
       ).toEqual({
-        error: null,
-        isLoading: false,
-        result: expectedResult,
+        error: {
+          [orderItemUuid]: null,
+        },
+        isLoading: {
+          [orderItemUuid]: false,
+        },
       });
     });
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
         ...initialState,
-        exchangeFilter: { error: null, isLoading: false, result: null },
+        exchangeFilters: { error: {}, isLoading: {} },
       };
 
-      expect(reducer(state, randomAction).exchangeFilter).toEqual(
-        state.exchangeFilter,
+      expect(reducer(state, randomAction).exchangeFilters).toEqual(
+        state.exchangeFilters,
       );
     });
   });
@@ -397,10 +424,10 @@ describe('exchanges reducer', () => {
     });
   });
 
-  describe('getExchangeFilter() selector', () => {
+  describe('getExchangeFilters() selector', () => {
     it('should return the `exchangeFilter` property from a given state', () => {
-      expect(fromReducer.getExchangeFilter(initialState)).toBe(
-        initialState.exchangeFilter,
+      expect(fromReducer.getExchangeFilters(initialState)).toBe(
+        initialState.exchangeFilters,
       );
     });
   });

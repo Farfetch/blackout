@@ -3,10 +3,6 @@ import type { Order, OrderItem } from '../../orders/index.js';
 export type ExchangeFilter = {
   id: string;
   exchangeFilterItems: Array<ExchangeFilterItem>;
-  /**
-   * @deprecated logicOperator property is deprecated, use the filters property instead.
-   */
-  logicOperator: ExchangeFilterLogicOperator;
   filters: Array<ExchangeFilterCondition>;
 };
 

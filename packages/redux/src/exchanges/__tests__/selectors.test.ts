@@ -1,6 +1,9 @@
 import * as fromExchanges from '../reducer.js';
 import * as selectors from '../selectors.js';
-import { mockState } from 'tests/__fixtures__/exchanges/index.mjs';
+import {
+  mockState,
+  orderItemUuid,
+} from 'tests/__fixtures__/exchanges/index.mjs';
 import { toBlackoutError } from '@farfetch/blackout-client';
 
 describe('exchanges redux selectors', () => {
@@ -16,7 +19,7 @@ describe('exchanges redux selectors', () => {
     });
   });
 
-  describe('isExchangesLoading()', () => {
+  describe('areExchangesLoading()', () => {
     it('should get the return loading property from state', () => {
       const expectedResult = mockState.exchanges.isLoading;
       const spy = jest.spyOn(fromExchanges, 'getIsLoading');
@@ -66,20 +69,39 @@ describe('exchanges redux selectors', () => {
     });
   });
 
-  describe('getExchangeFilter()', () => {
-    it('should get the exchange from state', () => {
-      const expectedResult = mockState.exchanges.exchangeFilter.result;
-      const spy = jest.spyOn(fromExchanges, 'getExchangeFilter');
+  describe('getExchangeFiltersById()', () => {
+    it('should get the exchange filter by id from entities', () => {
+      const expectedResult = mockState.entities.exchangeFilters[orderItemUuid];
+      const result = selectors.getExchangeFilterById(mockState, orderItemUuid);
 
-      expect(selectors.getExchangeFilter(mockState)).toEqual(expectedResult);
-      expect(spy).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('getExchangeFilters()', () => {
+    it('should get the exchange fitlers from entities', () => {
+      const expectedResult = mockState.entities.exchangeFilters;
+      const result = selectors.getExchangeFilters(mockState);
+
+      expect(result).toEqual(expectedResult);
     });
   });
 
   describe('isExchangeFilterLoading()', () => {
     it('should get the exchange filters loading property from state', () => {
-      const expectedResult = mockState.exchanges.exchangeFilter.isLoading;
-      const spy = jest.spyOn(fromExchanges, 'getExchangeFilter');
+      const expectedResult =
+        mockState.exchanges.exchangeFilters.isLoading[orderItemUuid];
+      const spy = jest.spyOn(fromExchanges, 'getExchangeFilters');
+
+      expect(selectors.isExchangeFilterLoading(mockState, orderItemUuid)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get the exchange filters loading property from state with an empty orderItemUuid', () => {
+      const expectedResult = mockState.exchanges.exchangeFilters.isLoading[''];
+      const spy = jest.spyOn(fromExchanges, 'getExchangeFilters');
 
       expect(selectors.isExchangeFilterLoading(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -88,8 +110,19 @@ describe('exchanges redux selectors', () => {
 
   describe('getExchangeFilterError()', () => {
     it('should get the exchanges error property from state', () => {
-      const expectedResult = mockState.exchanges.exchangeFilter.error;
-      const spy = jest.spyOn(fromExchanges, 'getExchangeFilter');
+      const expectedResult =
+        mockState.exchanges.exchangeFilters.error[orderItemUuid];
+      const spy = jest.spyOn(fromExchanges, 'getExchangeFilters');
+
+      expect(selectors.getExchangeFilterError(mockState, orderItemUuid)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get the exchanges error property from state with an empty orderItemUuid', () => {
+      const expectedResult = mockState.exchanges.exchangeFilters.error[''];
+      const spy = jest.spyOn(fromExchanges, 'getExchangeFilters');
 
       expect(selectors.getExchangeFilterError(mockState)).toBe(expectedResult);
       expect(spy).toHaveBeenCalledTimes(1);

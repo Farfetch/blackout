@@ -12,7 +12,7 @@ jest.mock('@farfetch/blackout-client', () => ({
 }));
 
 const exchangesMockStore = (state = {}) =>
-  mockStore({ returns: INITIAL_STATE }, state);
+  mockStore({ exchanges: INITIAL_STATE }, state);
 
 describe('fetchExchange() action creator', () => {
   const expectedConfig = undefined;

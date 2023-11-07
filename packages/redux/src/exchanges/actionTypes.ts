@@ -51,10 +51,14 @@ export const CREATE_EXCHANGE_BOOK_REQUEST_SUCCESS =
 /** Action type dispatched when resetting the exchanges state. */
 export const RESET_EXCHANGES = '@farfetch/blackout-redux/RESET_EXCHANGES';
 
-/** Action type dispatched when resetting the exchange filter slice state. */
-export const RESET_EXCHANGE_FILTER_STATE =
-  '@farfetch/blackout-redux/RESET_EXCHANGE_FILTER_STATE';
+/** Action type dispatched when resetting the exchange filters slice state. */
+export const RESET_EXCHANGE_FILTERS_STATE =
+  '@farfetch/blackout-redux/RESET_EXCHANGE_FILTERS_STATE';
 
 /** Action type dispatched when resetting the exchange book request slice state. */
 export const RESET_EXCHANGE_BOOK_REQUEST_STATE =
   '@farfetch/blackout-redux/RESET_EXCHANGE_BOOK_REQUEST_STATE';
+
+/** Action type dispatched when the reset exchange filters state entities occurs. */
+export const RESET_EXCHANGE_FILTERS_ENTITIES =
+  '@farfetch/blackout-redux/RESET_EXCHANGE_FILTERS_ENTITIES';

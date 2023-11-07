@@ -27,6 +27,10 @@ Object {
   "configurations": Object {
     "@farfetch/blackout-redux/RESET_CONFIGURATIONS_STATE": [Function],
   },
+  "exchangeFilters": Object {
+    "@farfetch/blackout-redux/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-redux/RESET_EXCHANGE_FILTERS_ENTITIES": [Function],
+  },
   "merchantsLocations": Object {
     "@farfetch/blackout-redux/RESET_MERCHANTS_LOCATIONS_STATE": [Function],
   },
