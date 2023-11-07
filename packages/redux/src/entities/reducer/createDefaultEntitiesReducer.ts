@@ -1,5 +1,6 @@
 import { entitiesMapper as entitiesMapperBag } from '../../bags/reducer.js';
 import { entitiesMapper as entitiesMapperCheckout } from '../../checkout/reducer.js';
+import { entitiesMapper as entitiesMapperExchangeFilters } from '../../exchanges/reducer.js';
 import { entitiesMapper as entitiesMapperMerchantsLocations } from '../../merchantsLocations/reducer.js';
 import { entitiesMapper as entitiesMapperOrders } from '../../orders/reducer.js';
 import { entitiesMapper as entitiesMapperPayments } from '../../payments/reducer.js';
@@ -50,15 +51,16 @@ export const defaultEntitiesReducers: DefaultEntitiesReducers = {
   bag: entitiesMapperBag,
   checkout: entitiesMapperCheckout,
   configurations: settingsEntitiesMapper,
+  exchangeFilters: entitiesMapperExchangeFilters,
   merchantsLocations: entitiesMapperMerchantsLocations,
   orders: entitiesMapperOrders,
   payments: entitiesMapperPayments,
   products: productsEntitiesMapper,
-  users: entitiesMapperUsers,
+  raffles: entitiesMapperRaffles,
   returns: entitiesMapperReturns,
   subscriptions: subscriptionsEntitiesMapper,
+  users: entitiesMapperUsers,
   wishlist: entitiesMapperWishlist,
-  raffles: entitiesMapperRaffles,
 };
 
 // Function that merges entities mappers and runs duplicate action keys.

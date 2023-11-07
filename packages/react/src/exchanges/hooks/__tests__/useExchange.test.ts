@@ -41,16 +41,17 @@ const mockInitialStateNoData = {
     error: null,
     isLoading: false,
     result: null,
-    exchangeFilter: {
-      error: null,
-      isLoading: false,
-      result: null,
+    exchangeFilters: {
+      ...mockState.exchanges.exchangeFilters,
     },
     exchangeBookRequest: {
       error: null,
       isLoading: false,
       result: null,
     },
+  },
+  entities: {
+    ...mockState.entities,
   },
 };
 
@@ -59,9 +60,13 @@ const mockInitialStateWithData = {
     ...mockState.exchanges,
     error: null,
   },
+  entities: {
+    ...mockState.entities,
+  },
 };
 
 const mockErrorState = {
+  ...mockInitialStateNoData,
   exchanges: {
     ...mockState.exchanges,
     error: toBlackoutError(new Error('dummy error')),
@@ -71,6 +76,7 @@ const mockErrorState = {
 };
 
 const mockLoadingState = {
+  ...mockInitialStateNoData,
   exchanges: {
     ...mockState.exchanges,
     error: null,

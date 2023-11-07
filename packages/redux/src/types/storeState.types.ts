@@ -56,6 +56,8 @@ import type {
   CheckoutOrderDeliveryBundleUpgrades,
   Country,
   CountryAddressSchema,
+  ExchangeFilter,
+  ExchangeFilterItem,
   MerchantLocation,
   ProgramMembership,
   SizeScale,
@@ -131,6 +133,10 @@ export type StoreState = Partial<{
     deliveryBundleUpgrades: Record<
       CheckoutOrderDeliveryBundle['id'],
       CheckoutOrderDeliveryBundleUpgrades
+    >;
+    exchangeFilters: Record<
+      ExchangeFilterItem['orderItemUuid'],
+      ExchangeFilter
     >;
     facets: Record<FacetEntity['id'], FacetEntity>;
     paymentInstruments: Record<

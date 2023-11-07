@@ -4,7 +4,7 @@ import { mockStore } from '../../../../tests/index.js';
 import { resetExchanges } from '../index.js';
 
 const exchangesMockStore = (state = {}) =>
-  mockStore({ returns: INITIAL_STATE }, state);
+  mockStore({ exchanges: INITIAL_STATE }, state);
 let store: ReturnType<typeof exchangesMockStore>;
 
 describe('resetExchanges() action creator', () => {
