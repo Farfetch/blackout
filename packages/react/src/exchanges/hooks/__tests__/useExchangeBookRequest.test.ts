@@ -42,10 +42,9 @@ const mockInitialStateNoData = {
     error: null,
     isLoading: false,
     result: null,
-    exchangeFilter: {
-      error: null,
-      isLoading: false,
-      result: null,
+    exchangeFilters: {
+      error: {},
+      isLoading: {},
     },
     exchangeBookRequest: {
       error: null,

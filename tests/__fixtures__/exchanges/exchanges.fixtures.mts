@@ -6,7 +6,6 @@ import {
   ExchangeFilterLogicOperatorCriteria,
   ExchangeFilterLogicOperatorType,
   ExchangeStatus,
-  toBlackoutError,
 } from '@farfetch/blackout-client';
 
 export const returnId = 123456;
@@ -166,6 +165,35 @@ export const responses = {
   },
 };
 
+export const expectedExchangeFiltersNormalizedPayload = {
+  entities: {
+    exchangeFilters: {
+      [orderItemUuid]: {
+        id: exchangeFilterId,
+        exchangeFilterItems: [
+          {
+            orderCode: orderId,
+            orderItemUuid: orderItemUuid,
+          },
+        ],
+        filters: [
+          {
+            criteria: ExchangeFilterConditionCriteria.ProductId,
+            comparator: ExchangeFilterConditionComparator.Equals,
+            values: '18061196',
+          },
+          {
+            criteria: ExchangeFilterConditionCriteria.Price,
+            comparator: ExchangeFilterConditionComparator.LessThanOrEqual,
+            values: '1.0',
+          },
+        ],
+      },
+    },
+  },
+  result: orderItemUuid,
+};
+
 export const requestData = {
   postExchangeBookRequest: {
     exchangeReturnAssociations: [
@@ -180,6 +208,13 @@ export const requestData = {
       {
         orderCode: orderId,
         orderItemUuid: orderItemUuid,
+      },
+    ],
+  },
+  postExchangeFilterWithoutOrderItemUuid: {
+    exchangeFilterItems: [
+      {
+        orderCode: orderId,
       },
     ],
   },
@@ -208,18 +243,49 @@ export const requestData = {
 
 export const mockState = {
   exchanges: {
-    error: toBlackoutError(new Error('error')),
+    error: null,
     isLoading: false,
     result: responses.getExchange.success,
-    exchangeFilter: {
-      error: toBlackoutError(new Error('error')),
-      isLoading: false,
-      result: responses.postExchangeFilter.success,
+    exchangeFilters: {
+      error: {
+        [orderItemUuid]: null,
+        '': null,
+      },
+      isLoading: {
+        [orderItemUuid]: false,
+        '': false,
+      },
     },
     exchangeBookRequest: {
-      error: toBlackoutError(new Error('error')),
+      error: null,
       isLoading: false,
       result: responses.getExchangeBookRequest.success,
     },
   },
+  entities: {
+    exchangeFilters: {
+      [orderItemUuid]: {
+        id: exchangeFilterId,
+        exchangeFilterItems: [
+          {
+            orderCode: orderId,
+            orderItemUuid: orderItemUuid,
+          },
+        ],
+        filters: [
+          {
+            criteria: ExchangeFilterConditionCriteria.ProductId,
+            comparator: ExchangeFilterConditionComparator.Equals,
+            values: '18061196',
+          },
+          {
+            criteria: ExchangeFilterConditionCriteria.Price,
+            comparator: ExchangeFilterConditionComparator.LessThanOrEqual,
+            values: '1.0',
+          },
+        ],
+      },
+    },
+  },
+  result: orderItemUuid,
 };
