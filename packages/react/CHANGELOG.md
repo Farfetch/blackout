@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.64.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.63.0...@farfetch/blackout-react@0.64.0) (2023-11-08)
+
+
+### Features
+
+* add checkout step to analytics events v1 ([04775fb](https://github.com/Farfetch/blackout/commit/04775fb4116fd1f6c1e91499642a7fbe188cda7a))
+* add isMainWishlist parameter to v1 ([c0692fd](https://github.com/Farfetch/blackout/commit/c0692fd07d81897d3e7bb17c9128479d27567dbc))
+
+
+
+
+
 # [0.63.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.62.0...@farfetch/blackout-react@0.63.0) (2023-10-26)
 
 

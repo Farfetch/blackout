@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.95.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.94.0...@farfetch/blackout-core@1.95.0) (2023-11-08)
+
+
+### Bug Fixes
+
+* **core:** fix guest orders not returning items by merchant ([e2ac453](https://github.com/Farfetch/blackout/commit/e2ac45373c460cb51cb8cb096c9f899ef2a43ea9))
+
+
+### Features
+
+* add checkout step to analytics events v1 ([04775fb](https://github.com/Farfetch/blackout/commit/04775fb4116fd1f6c1e91499642a7fbe188cda7a))
+* add isMainWishlist parameter to v1 ([c0692fd](https://github.com/Farfetch/blackout/commit/c0692fd07d81897d3e7bb17c9128479d27567dbc))
+
+
+
+
+
 # [1.94.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.93.0...@farfetch/blackout-core@1.94.0) (2023-10-26)
 
 
