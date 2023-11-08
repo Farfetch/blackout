@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.12.0...@farfetch/blackout-redux@1.14.0) (2023-11-08)
+
+### Bug Fixes
+
+- avoid facets replacement when multiple listing requests ([b9b29ba](https://github.com/Farfetch/blackout/commit/b9b29baeb3925c845d840f32ca169789b040019f))
+- commerce pages merge strategy not merging correctly ([1f71943](https://github.com/Farfetch/blackout/commit/1f719430d91297bd74d2588dd599b5ecab09ed6c))
+
+### Features
+
+- add isMainWishlist parameter to main ([923a37c](https://github.com/Farfetch/blackout/commit/923a37c93aedd76eb8ebee453429f250b39562d4))
+
 # [1.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.12.0...@farfetch/blackout-redux@1.13.0) (2023-11-08)
 
 ### Bug Fixes
