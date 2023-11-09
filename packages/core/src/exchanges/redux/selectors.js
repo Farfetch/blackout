@@ -4,10 +4,11 @@
  * @subcategory Selectors
  */
 
+import { getEntity } from '../../entities/redux/selectors';
 import {
   getError,
   getExchangeBookRequests as getExchangeBookRequestsGetter,
-  getExchangeFilter as getExchangeFilterGetter,
+  getExchangeFilters as getExchangeFiltersGetter,
   getIsLoading,
   getResult as Result,
 } from './reducer';
@@ -47,15 +48,24 @@ export const isExchangesLoading = state => getIsLoading(state.exchanges);
 
 /**
  * Returns the exchange filter.
- *
- * @function
+ * Returns the exchange filter by id.
  *
  * @param {object} state - Application state.
+ * @param {string} orderItemUuid - ShippingOrderLineId value from OrderItem.
  *
  * @returns {object} Exchange filter.
  */
-export const getExchangeFilter = state =>
-  getExchangeFilterGetter(state.exchanges).result;
+export const getExchangeFilterById = (state, orderItemUuid) =>
+  getEntity(state, 'exchangeFilters', orderItemUuid);
+
+/**
+ * Returns the exchange filters.
+ *
+ * @param {object} state - Application state.
+ *
+ * @returns {object} Exchange filters.
+ */
+export const getExchangeFilters = state => getEntity(state, 'exchangeFilters');
 
 /**
  * Returns the loading status for the create exchange filter request.
@@ -63,11 +73,12 @@ export const getExchangeFilter = state =>
  * @function
  *
  * @param {object} state - Application state.
+ * @param {string} orderItemUuid - ShippingOrderLineId value from OrderItem.
  *
  * @returns {boolean} Loading status.
  */
-export const isExchangeFilterLoading = state =>
-  getExchangeFilterGetter(state.exchanges).isLoading;
+export const isExchangeFilterLoading = (state, orderItemUuid = '') =>
+  getExchangeFiltersGetter(state.exchanges).isLoading[orderItemUuid];
 
 /**
  * Returns the error for the create exchange filter request.
@@ -75,11 +86,12 @@ export const isExchangeFilterLoading = state =>
  * @function
  *
  * @param {object} state - Application state.
+ * @param {string} orderItemUuid - ShippingOrderLineId value from OrderItem.
  *
  * @returns {object} Exchange filter error.
  */
-export const getExchangeFilterError = state =>
-  getExchangeFilterGetter(state.exchanges).error;
+export const getExchangeFilterError = (state, orderItemUuid = '') =>
+  getExchangeFiltersGetter(state.exchanges).error[orderItemUuid];
 
 /**
  * Returns the exchange book requests.

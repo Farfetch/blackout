@@ -3,6 +3,7 @@ import { entitiesMapper as authenticationEntitiesMapper } from '../../../authent
 import { entitiesMapper as bagEntitiesMapper } from '../../../bags/redux';
 import { entitiesMapper as checkoutEntitiesMapper } from '../../../checkout/redux';
 import { entitiesMapper as detailsEntitiesMapper } from '../../../products/details/redux';
+import { entitiesMapper as exchangeFiltersEntitiesMapper } from '../../../exchanges/redux';
 import { entitiesMapper as listingEntitiesMapper } from '../../../products/listing/redux';
 import { entitiesMapper as merchantsLocationsEntitiesMapper } from '../../../merchantsLocations/redux';
 import { entitiesMapper as ordersEntitiesMapper } from '../../../orders/redux';
@@ -22,6 +23,7 @@ export const defaultMappers = {
   bag: bagEntitiesMapper,
   checkout: checkoutEntitiesMapper,
   details: detailsEntitiesMapper,
+  exchangeFilters: exchangeFiltersEntitiesMapper,
   listing: listingEntitiesMapper,
   merchantsLocations: merchantsLocationsEntitiesMapper,
   orders: ordersEntitiesMapper,
@@ -39,6 +41,7 @@ export default ({ ...extraMappers }) =>
     ...bagEntitiesMapper,
     ...checkoutEntitiesMapper,
     ...detailsEntitiesMapper,
+    ...exchangeFiltersEntitiesMapper,
     ...listingEntitiesMapper,
     ...merchantsLocationsEntitiesMapper,
     ...ordersEntitiesMapper,

@@ -23,21 +23,18 @@ export const responses = {
           orderItemUuid: orderItemUuid,
         },
       ],
-      logicOperator: {
-        logicOperatorType: 'And',
-        operators: [
-          {
-            criteria: 'ProductId',
-            comparator: 'Equals',
-            value: 18061196,
-          },
-          {
-            criteria: 'Price',
-            comparator: 'LessThanEqual',
-            value: 1.0,
-          },
-        ],
-      },
+      filters: [
+        {
+          criteria: 'ProductId',
+          comparator: 'Equals',
+          values: '18061196',
+        },
+        {
+          criteria: 'Price',
+          comparator: 'LessThanOrEqual',
+          values: '1.0',
+        },
+      ],
     },
   },
   postExchange: {
@@ -130,6 +127,13 @@ export const requestData = {
       },
     ],
   },
+  postExchangeFilterWithoutOrderItemUuid: {
+    exchangeFilterItems: [
+      {
+        orderCode: orderId,
+      },
+    ],
+  },
   postExchange: {
     exchangeGroups: [
       {
@@ -152,4 +156,33 @@ export const requestData = {
       },
     ],
   },
+};
+
+export const expectedExchangeFiltersNormalizedPayload = {
+  entities: {
+    exchangeFilters: {
+      [orderItemUuid]: {
+        id: exchangeFilterId,
+        exchangeFilterItems: [
+          {
+            orderCode: orderId,
+            orderItemUuid: orderItemUuid,
+          },
+        ],
+        filters: [
+          {
+            criteria: 'ProductId',
+            comparator: 'Equals',
+            values: '18061196',
+          },
+          {
+            criteria: 'Price',
+            comparator: 'LessThanOrEqual',
+            values: '1.0',
+          },
+        ],
+      },
+    },
+  },
+  result: orderItemUuid,
 };

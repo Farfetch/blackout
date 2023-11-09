@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
-import reducer from './reducer';
+import reducer, { entitiesMapper } from './reducer';
 
 export * from './actions';
 export * from './selectors';
 
-export { actionTypes };
+export { actionTypes, entitiesMapper };
 
 export default reducer;
