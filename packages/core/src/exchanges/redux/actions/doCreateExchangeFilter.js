@@ -3,6 +3,8 @@ import {
   CREATE_EXCHANGE_FILTER_REQUEST,
   CREATE_EXCHANGE_FILTER_SUCCESS,
 } from '../actionTypes';
+import { normalize } from 'normalizr';
+import exchangeFiltersSchema from '../../../entities/schemas/exchangeFilter.js';
 
 /**
  * @typedef {object} ExchangeFilterItem
@@ -37,15 +39,26 @@ import {
  * @returns {CreateExchangeFilterThunkFactory} Thunk factory.
  */
 export default postExchangeFilter => (data, config) => async dispatch => {
-  dispatch({
-    type: CREATE_EXCHANGE_FILTER_REQUEST,
-  });
+  // Although exchangeFilterItems is an array, it only has 1 object at a time, so it's safe to
+  // directly access the first index.
+  const orderItemUuid = data.exchangeFilterItems[0]?.orderItemUuid || '';
 
   try {
-    const result = await postExchangeFilter(data, config);
+    if (!orderItemUuid) {
+      throw new Error('No orderItemUuid found');
+    }
 
     dispatch({
-      payload: result,
+      meta: { orderItemUuid },
+      type: CREATE_EXCHANGE_FILTER_REQUEST,
+    });
+
+    const result = await postExchangeFilter(data, config);
+    const normalizedResult = normalize(result, exchangeFiltersSchema);
+
+    dispatch({
+      payload: normalizedResult,
+      meta: { orderItemUuid },
       type: CREATE_EXCHANGE_FILTER_SUCCESS,
     });
 
@@ -53,6 +66,7 @@ export default postExchangeFilter => (data, config) => async dispatch => {
   } catch (error) {
     dispatch({
       payload: { error },
+      meta: { orderItemUuid },
       type: CREATE_EXCHANGE_FILTER_FAILURE,
     });
 
