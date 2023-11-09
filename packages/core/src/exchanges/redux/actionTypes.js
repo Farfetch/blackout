@@ -56,3 +56,11 @@ export const CREATE_EXCHANGE_SUCCESS =
 
 /** Action type dispatched when reseting the exchanges. */
 export const RESET_EXCHANGES = '@farfetch/blackout-core/RESET_EXCHANGES';
+
+/** Action type dispatched when reseting the exchange filters. */
+export const RESET_EXCHANGE_FILTERS_STATE =
+  '@farfetch/blackout-core/RESET_EXCHANGE_FILTERS_STATE';
+
+/** Action type dispatched when reseting the exchange filters entities. */
+export const RESET_EXCHANGE_FILTERS_ENTITIES =
+  '@farfetch/blackout-core/RESET_EXCHANGE_FILTERS_ENTITIES';

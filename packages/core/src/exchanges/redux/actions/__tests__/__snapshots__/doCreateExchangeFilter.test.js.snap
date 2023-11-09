@@ -2,29 +2,36 @@
 
 exports[`doCreateExchangeFilter() action creator should create the correct actions for when the create exchange filter procedure is successful: create exchange filter success payload 1`] = `
 Object {
+  "meta": Object {
+    "orderItemUuid": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
+  },
   "payload": Object {
-    "exchangeFilterItems": Array [
-      Object {
-        "orderCode": "ABC123",
-        "orderItemUuid": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
+    "entities": Object {
+      "exchangeFilters": Object {
+        "25C0AF64-7D1A-40B2-BA58-155A4B0C6878": Object {
+          "exchangeFilterItems": Array [
+            Object {
+              "orderCode": "ABC123",
+              "orderItemUuid": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
+            },
+          ],
+          "filters": Array [
+            Object {
+              "comparator": "Equals",
+              "criteria": "ProductId",
+              "values": "18061196",
+            },
+            Object {
+              "comparator": "LessThanOrEqual",
+              "criteria": "Price",
+              "values": "1.0",
+            },
+          ],
+          "id": "25301c32-d738-4315-8e9c-d43d2b57f009",
+        },
       },
-    ],
-    "id": "25301c32-d738-4315-8e9c-d43d2b57f009",
-    "logicOperator": Object {
-      "logicOperatorType": "And",
-      "operators": Array [
-        Object {
-          "comparator": "Equals",
-          "criteria": "ProductId",
-          "value": 18061196,
-        },
-        Object {
-          "comparator": "LessThanEqual",
-          "criteria": "Price",
-          "value": 1,
-        },
-      ],
     },
+    "result": "25C0AF64-7D1A-40B2-BA58-155A4B0C6878",
   },
   "type": "@farfetch/blackout-core/CREATE_EXCHANGE_FILTER_SUCCESS",
 }

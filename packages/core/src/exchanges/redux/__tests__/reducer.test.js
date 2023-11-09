@@ -1,6 +1,13 @@
 import * as fromReducer from '../reducer';
+import {
+  exchangeFilterId,
+  orderId,
+  orderItemUuid,
+} from '../__fixtures__/exchanges.fixtures';
 import { getInitialState } from '../../../../tests';
-import reducer, { actionTypes } from '..';
+import { LOGOUT_SUCCESS } from '../../../authentication/redux/actionTypes';
+import { reducerAssertions } from '../../../../tests/helpers';
+import reducer, { actionTypes, entitiesMapper } from '..';
 
 let initialState;
 
@@ -136,6 +143,68 @@ describe('exchanges reducer', () => {
     });
   });
 
+  describe('exchangeFilters() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer().exchangeFilters;
+
+      expect(state).toEqual(initialState.exchangeFilters);
+      expect(state).toEqual({ error: {}, isLoading: {} });
+    });
+
+    it('should handle CREATE_EXCHANGE_FILTER_REQUEST action type', () => {
+      expect(
+        reducer(undefined, {
+          meta: { orderItemUuid },
+          type: actionTypes.CREATE_EXCHANGE_FILTER_REQUEST,
+        }).exchangeFilters,
+      ).toEqual({
+        error: { [orderItemUuid]: null },
+        isLoading: { [orderItemUuid]: true },
+      });
+    });
+
+    it('should handle CREATE_EXCHANGE_FILTER_FAILURE action type', () => {
+      expect(
+        reducer(undefined, {
+          meta: { orderItemUuid },
+          type: actionTypes.CREATE_EXCHANGE_FILTER_FAILURE,
+          payload: { error: '' },
+        }).exchangeFilters,
+      ).toEqual({
+        error: { [orderItemUuid]: '' },
+        isLoading: { [orderItemUuid]: false },
+      });
+    });
+
+    it('should handle CREATE_EXCHANGE_FILTER_FAILURE action type without orderItemUuid', () => {
+      expect(
+        reducer(undefined, {
+          meta: { orderItemUuid: '' },
+          type: actionTypes.CREATE_EXCHANGE_FILTER_FAILURE,
+          payload: { error: '' },
+        }).exchangeFilters,
+      ).toEqual({
+        error: { '': '' },
+        isLoading: { '': false },
+      });
+    });
+
+    it('should handle CREATE_EXCHANGE_FILTER_SUCCESS action type', () => {
+      expect(
+        reducer(undefined, {
+          meta: { orderItemUuid },
+          type: actionTypes.CREATE_EXCHANGE_FILTER_SUCCESS,
+        }).exchangeFilters,
+      ).toEqual({ error: {}, isLoading: { [orderItemUuid]: false } });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = { exchangeFilters: { isLoading: { foo: false } } };
+
+      expect(reducer(state).exchangeFilters).toEqual(state.exchangeFilters);
+    });
+  });
+
   describe('getError() selector', () => {
     it('should return the `error` property from a given state', () => {
       const error = 'foo';
@@ -160,12 +229,12 @@ describe('exchanges reducer', () => {
     });
   });
 
-  describe('getExchangeFilter() selector', () => {
-    it('should return the `exchangeFilter` property from a given state', () => {
-      const exchangeFilter = 'foo';
+  describe('getExchangeFilters() selector', () => {
+    it('should return the `exchangeFilters` property from a given state', () => {
+      const exchangeFilters = 'foo';
 
-      expect(fromReducer.getExchangeFilter({ exchangeFilter })).toBe(
-        exchangeFilter,
+      expect(fromReducer.getExchangeFilters({ exchangeFilters })).toBe(
+        exchangeFilters,
       );
     });
   });
@@ -180,7 +249,27 @@ describe('exchanges reducer', () => {
     });
   });
 
-  describe('Sub-areas', () => {
+  describe('Sub-areas WITHOUT result property', () => {
+    const subAreaResult = {
+      error: {},
+      isLoading: {},
+    };
+
+    const subAreas = {
+      exchangeFilters: { ...subAreaResult },
+    };
+
+    const subAreaNames = ['ExchangeFilters'];
+
+    reducerAssertions.assertSubAreasReducer(
+      fromReducer,
+      subAreaNames,
+      subAreas,
+      subAreaResult,
+    );
+  });
+
+  describe('Sub-areas WITH result property', () => {
     const subAreaResult = {
       result: null,
       error: null,
@@ -188,18 +277,64 @@ describe('exchanges reducer', () => {
     };
 
     const subAreas = {
-      exchangeFilter: { ...subAreaResult },
       exchangeBookRequests: { ...subAreaResult },
     };
 
-    const subAreaNames = ['ExchangeFilter', 'ExchangeBookRequests'];
+    const subAreaNames = ['ExchangeBookRequests'];
 
-    it.each(subAreaNames)(
-      'return the `%s` property from a given state',
-      subArea => {
-        const { [`get${subArea}`]: reducerSelector } = fromReducer;
-        expect(reducerSelector(subAreas)).toEqual(subAreaResult);
-      },
+    reducerAssertions.assertSubAreasReducer(
+      fromReducer,
+      subAreaNames,
+      subAreas,
+      subAreaResult,
     );
+  });
+
+  describe('entitiesMapper()', () => {
+    describe('reset exchange filters', () => {
+      const state = {
+        exchangeFilters: {
+          [orderItemUuid]: {
+            id: exchangeFilterId,
+            exchangeFilterItems: [
+              {
+                orderCode: [orderId],
+                orderItemUuid: orderItemUuid,
+              },
+            ],
+            filters: [
+              {
+                criteria: 'ProductId',
+                comparator: 'Equals',
+                values: '18061196',
+              },
+              {
+                criteria: 'Price',
+                comparator: 'LessThanOrEqual',
+                values: '1.0',
+              },
+            ],
+          },
+        },
+      };
+
+      const expectedResult = {};
+
+      it('should handle RESET_EXCHANGE_FILTERS_ENTITIES action type', () => {
+        expect(
+          entitiesMapper[actionTypes.RESET_EXCHANGE_FILTERS_ENTITIES](state, {
+            type: actionTypes.RESET_EXCHANGE_FILTERS_ENTITIES,
+          }),
+        ).toEqual(expectedResult);
+      });
+
+      it('should handle LOGOUT_SUCCESS action type', () => {
+        expect(
+          entitiesMapper[LOGOUT_SUCCESS](state, {
+            type: LOGOUT_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
   });
 });
