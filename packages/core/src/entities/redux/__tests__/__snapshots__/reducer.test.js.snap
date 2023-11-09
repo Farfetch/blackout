@@ -38,6 +38,10 @@ Object {
     "@farfetch/blackout-core/GET_MEASUREMENTS_SUCCESS": [Function],
     "@farfetch/blackout-core/RESET_DETAILS_ENTITIES": [Function],
   },
+  "exchangeFilters": Object {
+    "@farfetch/blackout-core/LOGOUT_SUCCESS": [Function],
+    "@farfetch/blackout-core/RESET_EXCHANGE_FILTERS_ENTITIES": [Function],
+  },
   "listing": Object {
     "@farfetch/blackout-core/RESET_LISTING_ENTITIES": [Function],
   },

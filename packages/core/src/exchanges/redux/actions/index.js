@@ -11,4 +11,5 @@ export { default as doCreateExchangeBookRequest } from './doCreateExchangeBookRe
 export { default as doCreateExchangeFilter } from './doCreateExchangeFilter';
 export { default as doGetExchange } from './doGetExchange';
 export { default as doGetExchangeBookRequest } from './doGetExchangeBookRequest';
+export { default as doResetExchangeFilters } from './doResetExchangeFilters';
 export { default as reset } from './reset';
