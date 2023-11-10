@@ -15,7 +15,6 @@ const getUserExternalLogins: GetUserExternalLogins = (userId, config) =>
     .get(join('/account/v1/users', userId, '/externalLogins/'), config)
     .then(response => response.data)
     .catch(error => {
-      // console.log(error);
       throw adaptError(error);
     });
 

@@ -242,6 +242,7 @@ export const mockSortOptions = [
     value: 0,
   },
 ];
+
 export const mockFacets = [
   {
     count: 13,
@@ -517,6 +518,251 @@ export const mockFacetGroupsNormalized = mockFacetGroups.map((facet, index) => {
   };
 });
 
+export const mockFacetGroupValuesWithSizesByCategory = [
+  {
+    value: 19,
+    valueUpperBound: 0,
+    description: 'XS',
+    slug: 'clothing-dresses',
+    url: 'clothing-dresses?sizes=19',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182544,
+    count: 1,
+  },
+  {
+    value: 19,
+    valueUpperBound: 0,
+    description: 'XS',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=19',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182569,
+    count: 1,
+  },
+  {
+    value: 20,
+    valueUpperBound: 0,
+    description: 'S',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=20',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182569,
+    count: 1,
+  },
+  {
+    value: 21,
+    valueUpperBound: 0,
+    description: 'M',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=21',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182569,
+    count: 1,
+  },
+  {
+    value: 22,
+    valueUpperBound: 0,
+    description: 'L',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=22',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182569,
+    count: 1,
+  },
+  {
+    value: 23,
+    valueUpperBound: 0,
+    description: 'XL',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=23',
+    parentId: 0,
+    _isDisabled: false,
+    _isActive: false,
+    groupsOn: 182569,
+    count: 1,
+  },
+] as const;
+
+export const mockSizesByCategoryFacetGroups = [
+  {
+    deep: 0,
+    description: 'SizesByCategory',
+    type: 24,
+    values: [[mockFacetGroupValuesWithSizesByCategory[0]]],
+    order: 6,
+    key: FacetGroupKey.SizesByCategory,
+    format: FacetGroupFormat.Multiple,
+    _clearUrl: null,
+    _isClearHidden: false,
+    _isClosed: false,
+    dynamic: 182544,
+  },
+  {
+    deep: 0,
+    description: 'SizesByCategory',
+    type: 24,
+    values: [
+      [
+        mockFacetGroupValuesWithSizesByCategory[1],
+        mockFacetGroupValuesWithSizesByCategory[2],
+        mockFacetGroupValuesWithSizesByCategory[3],
+        mockFacetGroupValuesWithSizesByCategory[4],
+        mockFacetGroupValuesWithSizesByCategory[5],
+      ],
+    ],
+    order: 6,
+    key: FacetGroupKey.SizesByCategory,
+    format: FacetGroupFormat.Multiple,
+    _clearUrl: null,
+    _isClearHidden: false,
+    _isClosed: false,
+    dynamic: 182569,
+  },
+];
+
+export const mockFacetGroupsWithSizesByCategory: FacetGroup[] = [
+  ...mockFacetGroups,
+  ...mockSizesByCategoryFacetGroups,
+];
+
+export const mockFacetEntitiesWithSizesByCategory = [
+  ...mockFacets,
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'XS',
+    groupType: 24,
+    groupsOn: 182544,
+    id: 'sizesbycategory_19_182544_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-dresses',
+    url: 'clothing-dresses?sizes=19',
+    value: 19,
+    valueUpperBound: 0,
+  },
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'XS',
+    groupType: 24,
+    groupsOn: 182569,
+    id: 'sizesbycategory_19_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=19',
+    value: 19,
+    valueUpperBound: 0,
+  },
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'S',
+    groupType: 24,
+    groupsOn: 182569,
+    id: 'sizesbycategory_20_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=20',
+    value: 20,
+    valueUpperBound: 0,
+  },
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'M',
+    groupType: 24,
+    groupsOn: 182569,
+    id: 'sizesbycategory_21_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=21',
+    value: 21,
+    valueUpperBound: 0,
+  },
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'L',
+    groupType: 24,
+    groupsOn: 182569,
+    id: 'sizesbycategory_22_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=22',
+    value: 22,
+    valueUpperBound: 0,
+  },
+  {
+    _isActive: false,
+    _isDisabled: false,
+    count: 1,
+    description: 'XL',
+    groupType: 24,
+    groupsOn: 182569,
+    id: 'sizesbycategory_23_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    parentId:
+      'sizesbycategory_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+    slug: 'clothing-jumpsuits',
+    url: 'clothing-jumpsuits?sizes=23',
+    value: 23,
+    valueUpperBound: 0,
+  },
+];
+
+export const mockFacetEntitiesWithSizesByCategoryNormalized =
+  mockFacetEntitiesWithSizesByCategory.reduce(
+    (oldFacet, newFacet) => ({
+      ...oldFacet,
+      [newFacet.id]: {
+        ...newFacet,
+        _isActive: false,
+        _isDisabled: false,
+      },
+    }),
+    {},
+  ) as Record<string, FacetEntity>;
+
+export const mockFacetGroupsWithSizesByCategoryNormalized = [
+  ...mockFacetGroupsNormalized,
+  ...mockSizesByCategoryFacetGroups.map(facet => {
+    const dynamic = facet.dynamic;
+
+    const mockFacetGroupValues = mockFacetEntitiesWithSizesByCategory
+      .filter(facetEntity => {
+        return facetEntity.groupsOn === dynamic;
+      })
+      .map(facetEntity => facetEntity.id);
+
+    const values = [mockFacetGroupValues];
+
+    return {
+      ...facet,
+      values,
+      hash: mockProductsListHash,
+    };
+  }),
+];
+
 export const mockProductsList = {
   breadCrumbs: mockBreadCrumbs,
   name: null,
@@ -578,6 +824,44 @@ export const mockProductsList = {
   config: {
     pageSize: 20,
   },
+};
+
+export const mockProductsListWithSizesFilterSegment = {
+  ...mockProductsList,
+  facetGroups: mockFacetGroupsWithSizesByCategory,
+  filterSegments: [
+    ...mockProductsList.filterSegments,
+    {
+      order: 0,
+      type: 9,
+      key: 'sizes',
+      gender: null,
+      value: 19,
+      valueUpperBound: 0,
+      slug: null,
+      description: null,
+      deep: 0,
+      parentId: 0,
+      fromQueryString: true,
+      negativeFilter: false,
+      prefixValue: '',
+    },
+    {
+      order: 0,
+      type: 9,
+      key: 'sizes',
+      gender: null,
+      value: 20,
+      valueUpperBound: 0,
+      slug: null,
+      description: null,
+      deep: 0,
+      parentId: 0,
+      fromQueryString: true,
+      negativeFilter: false,
+      prefixValue: '',
+    },
+  ],
 };
 
 const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
@@ -686,6 +970,61 @@ const getMockProductsListNormalized = (includeImageQueryParam = true) => ({
 export const mockProductsListNormalized = getMockProductsListNormalized();
 export const mockProductsListNormalizedWithoutImageOptions =
   getMockProductsListNormalized(false);
+
+export const mockProductsListNormalizedWithSizesFilterSegment = {
+  ...mockProductsListNormalizedWithoutImageOptions,
+  entities: {
+    ...mockProductsListNormalizedWithoutImageOptions.entities,
+    facets: mockFacetEntitiesWithSizesByCategoryNormalized,
+    productsLists: {
+      ...mockProductsListNormalizedWithoutImageOptions.entities.productsLists,
+      [mockProductsListHash]: {
+        ...mockProductsListNormalizedWithoutImageOptions.entities.productsLists[
+          mockProductsListHash
+        ],
+        facetGroups: mockFacetGroupsWithSizesByCategoryNormalized,
+        filterSegments: [
+          ...mockProductsListNormalizedWithoutImageOptions.entities
+            .productsLists[mockProductsListHash].filterSegments,
+          {
+            order: 0,
+            type: 9,
+            key: 'sizes',
+            gender: null,
+            value: 19,
+            valueUpperBound: 0,
+            slug: null,
+            deep: 0,
+            parentId: 0,
+            fromQueryString: true,
+            negativeFilter: false,
+            prefixValue: '',
+            description: 'XS',
+            facetId:
+              'sizes_19_182544_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          },
+          {
+            order: 0,
+            type: 9,
+            key: 'sizes',
+            gender: null,
+            value: 20,
+            valueUpperBound: 0,
+            slug: null,
+            deep: 0,
+            parentId: 0,
+            fromQueryString: true,
+            negativeFilter: false,
+            prefixValue: '',
+            description: 'S',
+            facetId:
+              'sizes_20_182569_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          },
+        ],
+      },
+    },
+  },
+};
 
 const getMockProductsListForSetsWithIdNormalized = (
   includeImageQueryParam = true,
