@@ -271,6 +271,22 @@ Object {
 }
 `;
 
+exports[`Omnitracking track events definitions \`Review Checkout\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 24.64,
+  "checkoutOrderId": 15338048,
+  "checkoutStep": "2",
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
+  "orderCode": "50314b8e9bcf000000000000",
+  "orderVAT": 2.04,
+  "paymentType": "credit",
+  "promoCode": "ACME2019",
+  "shippingTotalValue": 3.6,
+  "tid": 3648,
+}
+`;
+
 exports[`Omnitracking track events definitions \`Select Content\` return should match the snapshot 1`] = `
 Object {
   "contentType": "biz",

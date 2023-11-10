@@ -54,6 +54,7 @@ const eventMapping = {
   [EventType.ShippingMethodAdded]: 'add_shipping_method',
   [EventType.InteractContent]: 'interact_content',
   [EventType.SignupNewsletter]: 'sign_up_newsletter',
+  [EventType.ReviewCheckout]: 'review_checkout',
   // internal ga4 cases
   [InternalEventTypes.ProductUpdated.CHANGE_QUANTITY]:
     InternalEventTypes.ProductUpdated.CHANGE_QUANTITY,
@@ -775,6 +776,32 @@ const getCheckoutStepEditingParametersFromEvent = (
 };
 
 /**
+ * Returns the review checkout custom event properties formatted for the GA4 event.
+ *
+ * @param eventProperties - Properties from a track event.
+ *
+ * @returns Properties formatted for the GA4's review checkout custom event.
+ */
+const getReviewCheckoutParametersFromEvent = (
+  eventProperties: EventProperties,
+) => {
+  return {
+    affiliation: eventProperties.affiliation,
+    checkout_step: eventProperties.step,
+    coupon: eventProperties.coupon,
+    currency: eventProperties.currency,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    payment_type: eventProperties.paymentType,
+    shipping_tier: eventProperties.shippingTier,
+    shipping: eventProperties.shipping,
+    tax: eventProperties.tax,
+    transaction_id: eventProperties.orderId,
+    value: eventProperties.total,
+  };
+};
+
+/**
  * Returns the share properties formatted for the GA4 event.
  *
  * @param eventProperties - Properties from a track event.
@@ -923,6 +950,9 @@ export function getEventProperties(
 
     case EventType.CheckoutAbandoned:
       return getCheckoutAbandonedParametersFromEvent(eventProperties);
+
+    case EventType.ReviewCheckout:
+      return getReviewCheckoutParametersFromEvent(eventProperties);
 
     case EventType.PlaceOrderStarted:
       return getPlaceOrderStartedParametersFromEvent(eventProperties);
