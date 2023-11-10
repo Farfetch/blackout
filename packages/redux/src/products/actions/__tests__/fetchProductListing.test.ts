@@ -8,7 +8,9 @@ import {
   mockProductsListNormalized,
   mockProductsListNormalizedPayload,
   mockProductsListNormalizedWithoutImageOptions,
+  mockProductsListNormalizedWithSizesFilterSegment,
   mockProductsListSlug,
+  mockProductsListWithSizesFilterSegment,
   mockQuery,
 } from 'tests/__fixtures__/products/index.mjs';
 import { mockStore } from '../../../../tests/index.js';
@@ -319,6 +321,46 @@ describe('fetchListing() action creator', () => {
       {
         meta: { hash: mockProductsListHash },
         payload: mockProductsListNormalized,
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
+      },
+    ]);
+  });
+
+  it('should create the correct actions for when the fetch listing procedure is successful and a filter segment description is not on the first facet group', async () => {
+    store = productsListsMockStoreWithoutMiddlewares(state);
+    (getProductListing as jest.Mock).mockResolvedValueOnce(
+      mockProductsListWithSizesFilterSegment,
+    );
+
+    await fetchProductListing(mockProductsListSlug, mockQuery)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      {} as GetOptionsArgument,
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockProductsListWithSizesFilterSegment);
+    });
+
+    const actionResults = store.getActions();
+
+    expect(normalizeSpy).toHaveBeenCalledTimes(1);
+    expect(getProductListing).toHaveBeenCalledTimes(1);
+    expect(getProductListing).toHaveBeenCalledWith(
+      mockProductsListSlug,
+      mockQuery,
+      expectedConfig,
+    );
+    expect(actionResults).toEqual([
+      {
+        meta: { hash: mockProductsListHash },
+        type: productsActionTypes.SET_PRODUCT_LISTING_HASH,
+      },
+      {
+        meta: { hash: mockProductsListHash },
+        type: productsActionTypes.FETCH_PRODUCT_LISTING_REQUEST,
+      },
+      {
+        meta: { hash: mockProductsListHash },
+        payload: mockProductsListNormalizedWithSizesFilterSegment,
         type: productsActionTypes.FETCH_PRODUCT_LISTING_SUCCESS,
       },
     ]);
