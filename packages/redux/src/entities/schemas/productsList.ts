@@ -67,7 +67,7 @@ export default new schema.Entity(
           // If the filter segment is an ProductVariantAttribute, filteredFacetGroups will be an array with
           // all attributes so the flow is a little different.
           if (filterSegment.type === ATTRIBUTES_TYPE) {
-            let facetIndex;
+            let facetIndex: number | undefined;
             const facetGroup = filteredFacetGroups.find(facet =>
               facet.values[0]?.find(({ value }, i) => {
                 if (value === filterSegment.value) {
@@ -79,9 +79,10 @@ export default new schema.Entity(
                 return false;
               }),
             );
-            const facet = facetIndex
-              ? facetGroup?.values[0]?.[facetIndex]
-              : undefined;
+            const facet =
+              typeof facetIndex === 'number'
+                ? facetGroup?.values[0]?.[facetIndex]
+                : undefined;
 
             return {
               ...filterSegment,
@@ -92,7 +93,13 @@ export default new schema.Entity(
             };
           }
 
-          const facet = filteredFacetGroups[0]?.values[0]?.find(
+          const allFacetGroupValues = filteredFacetGroups.reduce<
+            FacetGroup['values'][number]
+          >((acc, facetGroup) => {
+            return [...acc, ...facetGroup.values.flat()];
+          }, []);
+
+          const facet = allFacetGroupValues?.find(
             ({ value }) => value === filterSegment.value,
           );
 
