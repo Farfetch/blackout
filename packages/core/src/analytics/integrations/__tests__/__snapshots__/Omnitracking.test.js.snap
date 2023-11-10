@@ -18,7 +18,7 @@ Object {
   "basketValue": 100,
   "checkoutStep": "1",
   "orderCode": "ABC12",
-  "promocode": "promo",
+  "promoCode": "promo",
   "tid": 3647,
 }
 `;
@@ -158,7 +158,7 @@ Array [
   Object {
     "checkoutStep": 1,
     "orderCode": "ABC12",
-    "promocode": "promo",
+    "promoCode": "promo",
     "shippingTotalValue": 10,
     "tid": 188,
     "val": "{\\"type\\":\\"TRANSACTION\\",\\"paymentAttemptReferenceId\\":\\"d9864a1c112d-47ff-8ee4-968c-5acecae23_1567010265879\\"}",
@@ -283,6 +283,23 @@ Object {
   "orderId": 12345678,
   "promoCode": "PROMO_ABC",
   "tid": 311,
+}
+`;
+
+exports[`Omnitracking definitions \`Review Checkout\` return should match the snapshot 1`] = `
+Object {
+  "basketCurrency": "USD",
+  "basketValue": 100,
+  "checkoutStep": 1,
+  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
+  "interactionType": "click",
+  "orderCode": "ABC12",
+  "orderId": 12345678,
+  "orderVAT": 1.23,
+  "paymentType": "credit",
+  "promoCode": "PROMO_ABC",
+  "shippingTotalValue": 10,
+  "tid": 3648,
 }
 `;
 

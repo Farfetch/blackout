@@ -852,6 +852,33 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Review Checkout event correctly 1`] = `
+Array [
+  Array [
+    "event",
+    "review_checkout",
+    Object {
+      "affiliation": undefined,
+      "analytics_package_version": "0.1.0",
+      "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "checkout_step": 5,
+      "coupon": "HARRODS2019",
+      "currency": "USD",
+      "delivery_type": "Standard/Standard",
+      "packaging_type": "foo",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
+      "payment_type": "credit card",
+      "shipping": 3.6,
+      "shipping_tier": "Next Day",
+      "tax": 2.04,
+      "transaction_id": "50314b8e9bcf000000000000",
+      "value": 24.64,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Should map the Select Content event correctly 1`] = `
 Array [
   Array [
