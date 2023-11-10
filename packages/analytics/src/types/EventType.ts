@@ -129,6 +129,11 @@ enum EventType {
    */
   PromocodeApplied = 'Promocode Applied',
   /**
+   * Review Checkout should be tracked when the user reaches the review checkout
+   * step page.
+   */
+  ReviewCheckout = 'Review Checkout',
+  /**
    * Select Content should be tracked when the user selects a content, i.e., a
    * product item.
    */

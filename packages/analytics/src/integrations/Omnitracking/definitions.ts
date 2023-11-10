@@ -794,6 +794,18 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
 
     return;
   },
+  [EventType.ReviewCheckout]: data => ({
+    tid: 3648,
+    ...getCheckoutEventGenericProperties(data),
+    basketCurrency: data.properties?.currency,
+    basketValue: data.properties?.total,
+    checkoutStep: data.properties?.step,
+    deliveryInformationDetails: getDeliveryInformationDetails(data),
+    orderVAT: data.properties?.tax,
+    paymentType: data.properties?.paymentType,
+    promoCode: data.properties?.coupon,
+    shippingTotalValue: data.properties?.shipping,
+  }),
 } as const;
 
 /**
