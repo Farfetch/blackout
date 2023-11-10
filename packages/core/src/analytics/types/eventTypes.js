@@ -65,6 +65,8 @@ export default {
   PRODUCT_VIEWED: 'Product Viewed',
   /** Promocode Applied should be tracked when the user applies a promocode to a checkout. */
   PROMOCODE_APPLIED: 'Promocode Applied',
+  /** Review Checkout should be tracked when the user reaches the review checkout page. */
+  REVIEW_CHECKOUT: 'Review Checkout',
   /** Select Content should be tracked when the user selects a content, i.e., a product item. */
   SELECT_CONTENT: 'Select Content',
   /** Share should be tracked when the share feature is clicked. */

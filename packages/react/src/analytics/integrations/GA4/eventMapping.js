@@ -47,6 +47,7 @@ export default {
   [eventTypes.FILTERS_CLEARED]: 'clear_all_filters',
   [eventTypes.SHARE]: 'share',
   [eventTypes.CHECKOUT_ABANDONED]: 'view_checkout_abandon_confirmation',
+  [eventTypes.REVIEW_CHECKOUT]: 'review_checkout',
   [eventTypes.PLACE_ORDER_STARTED]: 'place_order',
   [eventTypes.PROMOCODE_APPLIED]: 'apply_promo_code',
   [eventTypes.CHECKOUT_STEP_EDITING]: 'edit_checkout_step',
@@ -476,6 +477,30 @@ const getCheckoutAbandonedParametersFromEvent = eventProperties => {
 };
 
 /**
+ * Returns the review checkout custom event parameters formatted for the GA4 event.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ *
+ * @returns {object} Parameters for the GA4's review checkout custom event.
+ */
+const getReviewCheckoutParametersFromEvent = eventProperties => {
+  return {
+    affiliation: eventProperties.affiliation,
+    checkout_step: eventProperties.step,
+    coupon: eventProperties.coupon,
+    currency: eventProperties.currency,
+    delivery_type: eventProperties.deliveryType,
+    packaging_type: eventProperties.packagingType,
+    payment_type: eventProperties.paymentType,
+    shipping_tier: eventProperties.shippingTier,
+    shipping: eventProperties.shipping,
+    tax: eventProperties.tax,
+    transaction_id: eventProperties.orderId,
+    value: eventProperties.total,
+  };
+};
+
+/**
  * Returns the Interact Content parameters for the (custom) event.
  *
  * @param {object} eventProperties - Properties from a track event.
@@ -848,6 +873,9 @@ export function getEventProperties(event, data) {
 
     case eventTypes.CHECKOUT_ABANDONED:
       return getCheckoutAbandonedParametersFromEvent(eventProperties);
+
+    case eventTypes.REVIEW_CHECKOUT:
+      return getReviewCheckoutParametersFromEvent(eventProperties);
 
     case eventTypes.PLACE_ORDER_STARTED:
       return getPlaceOrderStartedParametersFromEvent(eventProperties);

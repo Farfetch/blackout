@@ -533,7 +533,7 @@ describe('Omnitracking', () => {
               parameters: {
                 ...expectedPayload.parameters,
                 tid: placeOrderTid2,
-                promocode: 'promo',
+                promoCode: 'promo',
                 shippingTotalValue: 12,
                 orderCode: 'ABC12',
               },
