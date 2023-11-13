@@ -2,6 +2,7 @@ import { CommercePagesType } from '../types/index.js';
 import { getCommercePages } from '../index.js';
 import client from '../../helpers/client/index.js';
 import fixtures from '../__fixtures__/commercepages.fixtures.js';
+import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer.js';
 
 describe('getCommercePages()', () => {
@@ -64,6 +65,23 @@ describe('getCommercePages()', () => {
       '/content/v2/commercepages?id=100200&type=PRODUCT',
       expectedConfig,
     );
+  });
+
+  it('should handle a client request successfully with target benefits and target segments', async () => {
+    mswServer.use(fixtures.get.success(response));
+
+    const query = {
+      type: CommercePagesType.Product,
+      id: 100200,
+      'target.benefits': 'private-sale,vip',
+      'target.segments': '45,full',
+    };
+
+    await expect(getCommercePages(query)).resolves.toEqual(response);
+
+    const url = join('content/v2/commercepages', { query });
+
+    expect(spy).toHaveBeenCalledWith(url, expectedConfig);
   });
 
   it('should handle a client request error', async () => {
