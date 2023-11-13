@@ -15,6 +15,10 @@ export enum ContentPageStrategy {
 export type QueryContentPage = {
   slug: string;
   strategy?: ContentPageStrategy;
+  // Query by a specified Benefit, separated by commas.
+  'target.benefits'?: string;
+  // Query by a specified Segment, separated by commas.
+  'target.segments'?: string;
 };
 
 export type ContentPage = PagedResponse<ContentEntry<[ComponentType]>>;
