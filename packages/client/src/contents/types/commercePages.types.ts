@@ -27,6 +27,10 @@ export type QueryCommercePages = {
   pageIndex?: number;
   // Size of each page, as a number between 1 and 180. The default is 60.
   pageSize?: number;
+  // Query by a specified Benefit, separated by commas.
+  'target.benefits'?: string;
+  // Query by a specified Segment, separated by commas.
+  'target.segments'?: string;
 };
 
 export type CommercePages = Contents;

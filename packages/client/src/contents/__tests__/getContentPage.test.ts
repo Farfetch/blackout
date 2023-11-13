@@ -2,6 +2,7 @@ import { type ContentPage, ContentPageType } from '../types/index.js';
 import { getContentPage } from '../index.js';
 import client from '../../helpers/client/index.js';
 import fixture from '../__fixtures__/contentPage.fixtures.js';
+import join from 'proper-url-join';
 import mswServer from '../../../tests/mswServer.js';
 
 describe('getContentPage()', () => {
@@ -63,6 +64,22 @@ describe('getContentPage()', () => {
       `/wl/v1/content/pages/${contentType}?slug=%2Fshopping%2Ftest`,
       expectedConfig,
     );
+  });
+
+  it('should handle a client request successfully with target benefits and target segments', async () => {
+    mswServer.use(fixture.get.success(response));
+
+    const query = {
+      slug: '/shopping/test',
+      'target.benefits': 'private-sale,vip',
+      'target.segments': '45,full',
+    };
+
+    await expect(getContentPage(contentType, query)).resolves.toEqual(response);
+
+    const url = join('/wl/v1/content/pages/', contentType, { query });
+
+    expect(spy).toHaveBeenCalledWith(url, expectedConfig);
   });
 
   it('should handle a client request error', async () => {
