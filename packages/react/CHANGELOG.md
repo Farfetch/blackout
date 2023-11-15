@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.14.0...@farfetch/blackout-react@1.15.0) (2023-11-15)
+
+### Features
+
+- add review checkout analytics event to main ([4a080eb](https://github.com/Farfetch/blackout/commit/4a080ebd70734e945074514ef728d41273ca182a))
+
 # [1.14.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.12.0...@farfetch/blackout-react@1.14.0) (2023-11-08)
 
 ### Features

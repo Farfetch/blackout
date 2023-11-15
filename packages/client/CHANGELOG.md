@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.14.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.14.2...@farfetch/blackout-client@2.14.3) (2023-11-15)
+
+### Bug Fixes
+
+- add segments and benefits targets to commerce pages fetch ([3616f28](https://github.com/Farfetch/blackout/commit/3616f2871bbbf1091f048f813ca0c9e11298f63a))
+- fix `productsList` schema handling of `filterSegments` ([14e1652](https://github.com/Farfetch/blackout/commit/14e1652c7ba0b538f4199c75bc55df8f46477e3a))
+
 ## [2.14.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.14.0...@farfetch/blackout-client@2.14.2) (2023-11-08)
 
 **Note:** Version bump only for package @farfetch/blackout-client

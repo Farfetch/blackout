@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.8.0...@farfetch/blackout-analytics@1.9.0) (2023-11-15)
+
+### Features
+
+- add productId to add-to-wishlist event main ([c704165](https://github.com/Farfetch/blackout/commit/c7041657f2cddb5ed44264d4d3fae17abf38fda5))
+- add review checkout analytics event to main ([4a080eb](https://github.com/Farfetch/blackout/commit/4a080ebd70734e945074514ef728d41273ca182a))
+- add unitSalePrice to analytics events main ([593c0a3](https://github.com/Farfetch/blackout/commit/593c0a3bcd60414e0e5ea86168ba479f5e274aa2))
+- omnitracking minor changes for `main` ([83c1183](https://github.com/Farfetch/blackout/commit/83c11832305f3009a4c0055d1c02d42a4ef61133))
+
 # [1.8.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.6.3...@farfetch/blackout-analytics@1.8.0) (2023-11-08)
 
 ### Features

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.14.0...@farfetch/blackout-redux@1.15.0) (2023-11-15)
+
+### Bug Fixes
+
+- fix `productsList` schema handling of `filterSegments` ([14e1652](https://github.com/Farfetch/blackout/commit/14e1652c7ba0b538f4199c75bc55df8f46477e3a))
+
+### Features
+
+- omnitracking minor changes for `main` ([83c1183](https://github.com/Farfetch/blackout/commit/83c11832305f3009a4c0055d1c02d42a4ef61133))
+
 # [1.14.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.12.0...@farfetch/blackout-redux@1.14.0) (2023-11-08)
 
 ### Bug Fixes
