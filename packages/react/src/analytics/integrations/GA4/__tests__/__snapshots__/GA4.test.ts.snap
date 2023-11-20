@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Interact content events Should map correctly the interact content event in case its a recommendations related event 1`] = `
+Array [
+  Array [
+    "event",
+    "interact_content",
+    Object {
+      "analytics_package_version": "0.1.0",
+      "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "content_name": "recommendations module forwards",
+      "content_type": "carousel",
+      "interaction_type": "Scroll",
+      "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/en-pt/",
+      "some_other_property": 12312312,
+      "state": "dummy",
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Interact content events Should map to a page scroll event when the interaction type is scroll and target is document.body 1`] = `
 Array [
   Array [
@@ -442,6 +462,7 @@ Array [
     Object {
       "analytics_package_version": "0.1.0",
       "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "content_name": "dummy",
       "content_type": "biz",
       "interaction_type": "Click",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",

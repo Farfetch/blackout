@@ -7,6 +7,7 @@ const fixtures = {
   properties: {
     interactionType: InteractionType.Click,
     contentType: 'biz',
+    contentName: 'dummy',
     someOtherProperty: 12312312,
     state: 'dummy',
   },
