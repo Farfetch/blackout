@@ -35,3 +35,35 @@ export const FETCH_CONFIGURATION_SUCCESS =
  */
 export const RESET_CONFIGURATIONS_STATE =
   '@farfetch/blackout-redux/RESET_CONFIGURATIONS_STATE';
+
+/**
+ * Action type dispatched when the fetch settings request fails.
+ */
+export const FETCH_ACCOUNT_SETTINGS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTINGS_FAILURE';
+/**
+ * Action type dispatched when the fetch settings request starts.
+ */
+export const FETCH_ACCOUNT_SETTINGS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTINGS_REQUEST';
+/**
+ * Action type dispatched when the fetch settings request succeeds.
+ */
+export const FETCH_ACCOUNT_SETTINGS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTINGS_SUCCESS';
+
+/**
+ * Action type dispatched when the fetch setting request fails.
+ */
+export const FETCH_ACCOUNT_SETTING_FAILURE =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTING_FAILURE';
+/**
+ * Action type dispatched when the fetch setting request starts.
+ */
+export const FETCH_ACCOUNT_SETTING_REQUEST =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTING_REQUEST';
+/**
+ * Action type dispatched when the fetch setting request succeeds.
+ */
+export const FETCH_ACCOUNT_SETTING_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_ACCOUNT_SETTING_SUCCESS';
