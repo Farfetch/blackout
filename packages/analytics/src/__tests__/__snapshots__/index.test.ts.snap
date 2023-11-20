@@ -2,6 +2,28 @@
 
 exports[`root index file should export all public modules 1`] = `
 Object {
+  "ElementType": Object {
+    "Accordion": "Accordion",
+    "Banner": "Banner",
+    "Button": "Button",
+    "Card": "Card",
+    "Carousel": "Carousel",
+    "Checkbox": "Checkbox",
+    "Dropdown": "Dropdown",
+    "Form": "Form",
+    "Icon": "Icon",
+    "Image": "Image",
+    "InputField": "Input Field",
+    "Link": "Link",
+    "Menu": "Menu",
+    "Modal": "Modal",
+    "Page": "Page",
+    "Radial": "Radial",
+    "Slider": "Slider",
+    "Tab": "Tab",
+    "Text": "Text",
+    "Video": "Video",
+  },
   "EventType": Object {
     "AddressInfoAdded": "Address Info Added",
     "BillingInfoAdded": "Billing Info Added",

@@ -24,6 +24,7 @@ import {
   OPTION_TRANSFORM_PAYLOAD,
 } from '../constants.js';
 import analyticsTrackTypes from '../../../types/TrackType.js';
+import ElementType from '../../../types/ElementType.js';
 import EventType from '../../../types/EventType.js';
 import InteractionType from '../../../types/InteractionType.js';
 import PageType from '../../../types/PageType.js';
@@ -695,6 +696,46 @@ describe('Omnitracking', () => {
         );
       });
 
+      it('should send a warning when tracking an interact content event with contentType parameter', async () => {
+        const data = generateTrackMockData({
+          event: EventType.InteractContent,
+          properties: {
+            contentType: 'dummy',
+            elementType: 'dummy',
+            interactionType: InteractionType.Click,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(mockLoggerWarn).toHaveBeenCalledWith(
+          expect.stringContaining(
+            '"contentType" will be deprecated and should be sent as "elementType"',
+          ),
+        );
+      });
+
+      it('should prioritize elementType over contentType when tracking an interact content event with both parameters', async () => {
+        const data = generateTrackMockData({
+          event: EventType.InteractContent,
+          properties: {
+            contentType: 'biz',
+            elementType: 'dummy',
+            interactionType: InteractionType.Click,
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              elementType: 'dummy',
+            }),
+          }),
+        );
+      });
+
       it('should track scroll event', async () => {
         const data = generateTrackMockData({
           event: EventType.InteractContent,
@@ -771,6 +812,30 @@ describe('Omnitracking', () => {
           expect.objectContaining({
             parameters: expect.objectContaining({
               tid: 2882,
+              elementType: 'logo',
+            }),
+          }),
+        );
+      });
+
+      it('should track correctly a recommendations interact content event', async () => {
+        const data = generateTrackMockData({
+          event: EventType.InteractContent,
+          properties: {
+            interactionType: InteractionType.Scroll,
+            contentType: ElementType.Carousel,
+            contentName: 'recommendations module forwards',
+          },
+        });
+
+        await omnitracking.track(data);
+
+        expect(postTrackingSpy).toHaveBeenCalledWith(
+          expect.objectContaining({
+            parameters: expect.objectContaining({
+              tid: 2882,
+              elementType: ElementType.Carousel,
+              elementName: 'recommendations module forwards',
             }),
           }),
         );

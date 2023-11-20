@@ -34,7 +34,7 @@ export type ValParameter = Record<string, unknown>;
 
 export type OmnitrackingTrackEventParameters = {
   [K in (typeof trackDefinitions)[number]]?: unknown;
-} & { val?: string };
+};
 
 export type OmnitrackingCommonEventParameters = {
   [K in (typeof commonTrackAndPageParams)[number]]?: unknown;
