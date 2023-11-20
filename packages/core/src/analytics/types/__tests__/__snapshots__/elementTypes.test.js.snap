@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export elementTypes 1`] = `
+Object {
+  "ACCORDION": "Accordion",
+  "BANNER": "Banner",
+  "BUTTON": "Button",
+  "CARD": "Card",
+  "CAROUSEL": "Carousel",
+  "CHECKBOX": "Checkbox",
+  "DROPDOWN": "Dropdown",
+  "FORM": "Form",
+  "ICON": "Icon",
+  "IMAGE": "Image",
+  "INPUT_FIELD": "Input Field",
+  "LINK": "Link",
+  "MENU": "Menu",
+  "MODAL": "Modal",
+  "PAGE": "Page",
+  "RADIAL": "Radial",
+  "SLIDER": "Slider",
+  "TAB": "Tab",
+  "TEXT": "Text",
+  "VIDEO": "Video",
+}
+`;

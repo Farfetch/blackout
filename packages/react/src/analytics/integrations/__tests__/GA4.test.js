@@ -1460,6 +1460,24 @@ describe('GA4 Integration', () => {
           expect(ga4Spy.mock.calls).toMatchSnapshot();
         });
 
+        it('Should map correctly the interact content event in case its a recommendations related event', async () => {
+          ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
+
+          const ga4Spy = getWindowGa4Spy();
+          const clonedEvent = cloneDeep(
+            validTrackEvents[eventTypes.INTERACT_CONTENT],
+          );
+
+          clonedEvent.properties.interactionType = interactionTypes.SCROLL;
+          clonedEvent.properties.contentName =
+            'recommendations module forwards';
+          clonedEvent.properties.contentType = 'carousel';
+
+          await ga4Instance.track(clonedEvent);
+
+          expect(ga4Spy.mock.calls).toMatchSnapshot();
+        });
+
         it('Should not map to a page scroll event when the interaction type is scroll and target is not document.body', async () => {
           ga4Instance = await createGA4InstanceAndLoad(validOptions, loadData);
 

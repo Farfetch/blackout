@@ -306,6 +306,12 @@ export default (analyticsInstance, customActionTypes) => {
         const wishlistSetId = get(action, 'meta.wishlistSetId');
         const wishlistSet = getWishlistSet(state, wishlistSetId);
         const wishlistItemId = getWishlistItemIdFromAction(action);
+        const wishlistName = get(wishlistSet, 'name');
+        const wishlistSetMeta = {
+          wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
+          wishlist: wishlistName,
+          isMainWishlist: get(action, 'meta.isMainWishlist', false),
+        };
 
         // Here we add support for a generic approach where
         // the middleware does not need to parse the action
@@ -317,7 +323,7 @@ export default (analyticsInstance, customActionTypes) => {
           analyticsInstance.track(eventTypes.PRODUCT_REMOVED_FROM_WISHLIST, {
             ...(await getProductData(analyticsInstance, state, wishlistItem)),
             ...getWishlistData(action, wishlistItem),
-            wishlistId: wishlistSetId, // We can infer the wishlistId parameter from the wishlistSet
+            ...wishlistSetMeta,
           });
 
           return next(action);

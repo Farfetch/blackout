@@ -1,6 +1,7 @@
 import * as integrations from './integrations';
 import * as utils from './utils';
 import Analytics from './Analytics';
+import elementTypes from './types/elementTypes';
 import eventTypes from './types/eventTypes';
 import fromParameterTypes from './types/fromParameterTypes';
 import interactionTypes from './types/interactionTypes';
@@ -14,6 +15,7 @@ export {
   fromParameterTypes,
   integrations,
   interactionTypes,
+  elementTypes,
   loginMethodParameterTypes,
   pageTypes,
   platformTypes,
