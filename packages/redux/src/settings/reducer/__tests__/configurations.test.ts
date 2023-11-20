@@ -4,7 +4,7 @@ import {
   mockConfiguration,
   mockConfigurationCode,
 } from 'tests/__fixtures__/settings/index.mjs';
-import { settingsReducer as reducer } from '..//index.js';
+import { configurationsReducer as reducer } from '../index.js';
 import { toBlackoutError } from '@farfetch/blackout-client';
 import type { ConfigurationsState } from '../../types/index.js';
 

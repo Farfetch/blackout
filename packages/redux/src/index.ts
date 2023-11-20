@@ -1,6 +1,7 @@
 /**
  * Blackout Redux.
  */
+export * from './settings/index.js';
 export * from './addresses/index.js';
 export * from './analytics/index.js';
 export * from './bags/index.js';
@@ -22,7 +23,6 @@ export * from './promotionEvaluations/index.js';
 export * from './raffles/index.js';
 export * from './returns/index.js';
 export * from './search/index.js';
-export * from './settings/index.js';
 export * from './sizeGuides/index.js';
 export * from './sizeScales/index.js';
 export * from './staffMembers/index.js';

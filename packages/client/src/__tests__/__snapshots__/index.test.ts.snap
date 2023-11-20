@@ -1041,6 +1041,8 @@ Object {
   "deleteUserPersonalId": [Function],
   "deleteWishlistItem": [Function],
   "deleteWishlistSet": [Function],
+  "getAccountSetting": [Function],
+  "getAccountSettings": [Function],
   "getAddressPredictionDetails": [Function],
   "getAddressPredictions": [Function],
   "getBag": [Function],

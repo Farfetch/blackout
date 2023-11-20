@@ -42,6 +42,16 @@ export const mockConfigurationsInitialState = {
         isLoading: {},
       },
     } as ConfigurationsState,
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
   },
   entities: {
     configurations: {},
@@ -62,6 +72,16 @@ export const mockConfigurationsState = {
           [mockConfigurationCode]: false,
         },
       },
+    },
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
     },
   },
   entities: {
@@ -87,6 +107,16 @@ export const mockConfigurationsLoadingState = {
       },
       result: null,
     },
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
   },
   entities: {
     configurations: {},
@@ -108,6 +138,16 @@ export const mockConfigurationLoadingState = {
       },
       result: null,
     },
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
   },
   entities: {
     configurations: {},
@@ -128,6 +168,16 @@ export const mockConfigurationsErrorState = {
         isLoading: {},
       },
       result: null,
+    },
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
     },
   },
   entities: {
@@ -153,6 +203,16 @@ export const mockConfigurationErrorState = {
         },
       },
       result: null,
+    },
+    accountSettings: {
+      error: null,
+      result: null,
+      isLoading: {},
+    },
+    accountSetting: {
+      error: null,
+      result: null,
+      isLoading: {},
     },
   },
   entities: {

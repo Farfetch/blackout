@@ -82,7 +82,7 @@ const reducers = combineReducers({
  *
  * @returns New state.
  */
-const settingsReducer: Reducer<ConfigurationsState> = (state, action) => {
+const configurationsReducer: Reducer<ConfigurationsState> = (state, action) => {
   if (action.type === actionTypes.RESET_CONFIGURATIONS_STATE) {
     return reducers(INITIAL_STATE, action);
   }
@@ -90,4 +90,4 @@ const settingsReducer: Reducer<ConfigurationsState> = (state, action) => {
   return reducers(state, action);
 };
 
-export default settingsReducer;
+export default configurationsReducer;
