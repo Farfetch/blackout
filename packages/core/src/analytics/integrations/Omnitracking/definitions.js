@@ -663,7 +663,11 @@ export const trackEventsMapper = {
   [eventTypes.INTERACT_CONTENT]: data => {
     const properties = data.properties;
 
-    if (properties?.interactionType === interactionTypes.SCROLL) {
+    if (
+      properties?.interactionType === interactionTypes.SCROLL &&
+      !properties?.contentType &&
+      !properties?.elementType
+    ) {
       if (properties.target === document.body)
         return {
           tid: 668,
@@ -674,18 +678,33 @@ export const trackEventsMapper = {
       return;
     }
 
-    if (!properties?.contentType || !properties?.interactionType) {
+    if (
+      (!properties?.contentType && !properties?.elementType) ||
+      !properties?.interactionType
+    ) {
       logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "interactionType" should be sent
-                        on the payload when triggering a "interact content" event. If you want to track this event, make
+                        on the payload when triggering a "${data.event}" event. If you want to track this event, make
                         sure to pass these two properties.`,
       );
       return;
     }
 
+    if (
+      (properties?.contentType && !properties?.elementType) ||
+      properties?.contentType === properties?.elementType
+    ) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} property "contentType" will be deprecated and should be sent as "elementType"
+                        on the payload when triggering a "${data.event}" event. If you want to track this event, make
+                        sure to update this property.`,
+      );
+    }
+
     return {
       tid: 2882,
-      contentType: properties?.contentType,
+      elementType: properties?.elementType || properties?.contentType,
+      elementName: properties?.contentName,
       interactionType: properties?.interactionType,
       val: properties?.id,
       actionArea: properties?.state,

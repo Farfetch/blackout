@@ -497,6 +497,7 @@ describe('wishlistMiddleware()', () => {
             variant: colorName,
             wishlistId: wishlistSetId,
             isMainWishlist,
+            wishlist: wishlistSetName,
           },
         );
       });

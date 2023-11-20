@@ -1122,6 +1122,25 @@ Array [
 ]
 `;
 
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Interact content events Should map correctly the interact content event in case its a recommendations related event 1`] = `
+Array [
+  Array [
+    "event",
+    "interact_content",
+    Object {
+      "analytics_package_version": "0.1.0",
+      "blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
+      "content_name": "recommendations module forwards",
+      "content_type": "carousel",
+      "interaction_type": "Scroll",
+      "page_path": "/pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/pt/",
+      "some_other_property": 12312312,
+    },
+  ],
+]
+`;
+
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Interact content events Should map to a page scroll event when the interaction type is scroll and target is document.body 1`] = `
 Array [
   Array [
