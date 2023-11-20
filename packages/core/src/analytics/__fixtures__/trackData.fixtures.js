@@ -252,6 +252,7 @@ export const customTrackMockData = {
   },
   [eventTypes.INTERACT_CONTENT]: {
     contentType: 'Navbar',
+    contentName: 'dummy',
     interactionType: 'click',
     id: '123',
     state: 'expanded',

@@ -7,6 +7,7 @@
 
 import * as integrations from './integrations';
 import {
+  elementTypes,
   eventTypes,
   fromParameterTypes,
   interactionTypes,
@@ -22,6 +23,7 @@ export {
   eventTypes,
   fromParameterTypes,
   interactionTypes,
+  elementTypes,
   loginMethodParameterTypes,
   pageTypes,
   platformTypes,
