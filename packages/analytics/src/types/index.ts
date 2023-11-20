@@ -1,3 +1,4 @@
+import ElementType from './ElementType.js';
 import EventType from './EventType.js';
 import FromParameterType from './FromParameterType.js';
 import InteractionType from './InteractionType.js';
@@ -11,6 +12,7 @@ import TrackType from './TrackType.js';
 export {
   EventType,
   FromParameterType,
+  ElementType,
   InteractionType,
   LoginMethodParameterType,
   PageType,

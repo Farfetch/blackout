@@ -16,6 +16,7 @@ import { mockWishlistItem } from 'tests/__fixtures__/wishlists/index.mjs';
 import {
   wishlistMockData,
   wishlistSetId,
+  wishlistSetName,
 } from 'tests/__fixtures__/analytics/wishlist/index.mjs';
 import Analytics, {
   EventType,
@@ -484,6 +485,7 @@ describe('analyticsWishlistMiddleware', () => {
             wishlistId: wishlistSetId,
             locationId: expect.any(String),
             isMainWishlist,
+            wishlist: wishlistSetName,
           },
         );
       });

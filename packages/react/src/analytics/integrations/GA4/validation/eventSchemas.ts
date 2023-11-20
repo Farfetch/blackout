@@ -231,6 +231,8 @@ const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 const interactContentSchema = yup
   .object({
+    contentType: yup.string(),
+    contentName: yup.string(),
     interactionType: yup
       .string()
       .test(
@@ -246,7 +248,11 @@ const interactContentSchema = yup
     'scroll_invalid_target_parameter',
     "invalid 'target' parameter for 'Scroll' interaction type. It must be a DOM Element.",
     (value: Record<string, unknown>) => {
-      if (value.interactionType === InteractionType.Scroll) {
+      if (
+        value.interactionType === InteractionType.Scroll &&
+        !value.contentType &&
+        !value.elementType
+      ) {
         return isElement(value.target);
       }
 
@@ -257,7 +263,11 @@ const interactContentSchema = yup
     'scroll_invalid_percentage_scrolled_parameter',
     "invalid 'percentageScrolled' parameter for 'Scroll' interaction type. It must be a number representing a percentage between [0,100].",
     (value: Record<string, unknown>) => {
-      if (value.interactionType === InteractionType.Scroll) {
+      if (
+        value.interactionType === InteractionType.Scroll &&
+        !value.contentType &&
+        !value.elementType
+      ) {
         return (
           typeof value.percentageScrolled === 'number' &&
           value.percentageScrolled >= 0 &&

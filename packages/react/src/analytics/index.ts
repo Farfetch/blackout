@@ -3,6 +3,7 @@
  */
 import * as integrations from './integrations/index.js';
 import {
+  ElementType,
   EventType,
   FromParameterType,
   InteractionType,
@@ -17,6 +18,7 @@ export {
   EventType,
   FromParameterType,
   InteractionType,
+  ElementType,
   LoginMethodParameterType,
   PageType,
   PlatformType,

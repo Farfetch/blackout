@@ -1,1 +1,5 @@
-export { wishlistMockData, wishlistSetId } from './wishlist.fixtures.mjs';
+export {
+  wishlistMockData,
+  wishlistSetId,
+  wishlistSetName,
+} from './wishlist.fixtures.mjs';

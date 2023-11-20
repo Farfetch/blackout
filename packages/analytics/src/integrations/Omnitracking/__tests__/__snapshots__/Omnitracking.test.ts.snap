@@ -96,7 +96,8 @@ Object {
 exports[`Omnitracking track events definitions \`Interact Content\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "dummy",
-  "contentType": "biz",
+  "elementName": "dummy",
+  "elementType": "biz",
   "interactionType": "Click",
   "tid": 2882,
   "val": "507f1f77bcf86cd799439011",

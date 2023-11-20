@@ -640,7 +640,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     if (!properties?.contentType || isNil(properties?.id)) {
       logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
-                        on the payload when triggering a "select content" event. If you want to track this
+                        on the payload when triggering a "${data.event}" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
 
@@ -664,7 +664,11 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     filtersApplied: getFilterParametersFromEvent(data.properties),
   }),
   [EventType.InteractContent]: (data: EventData<TrackTypesValues>) => {
-    if (data.properties?.interactionType === InteractionType.Scroll) {
+    if (
+      data.properties?.interactionType === InteractionType.Scroll &&
+      !data.properties.contentType &&
+      !data.properties.elementType
+    ) {
       if (data.properties?.target === document.body) {
         return {
           tid: 668,
@@ -676,19 +680,34 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
       return;
     }
 
-    if (!data.properties?.contentType || !data.properties?.id) {
+    if (
+      (!data.properties?.contentType && !data.properties?.elementType) ||
+      !data.properties?.id
+    ) {
       logger.error(
         `[Omnitracking] - Event ${data.event} properties "contentType" and "id" should be sent
-                        on the payload when triggering a "select content" event. If you want to track this
+                        on the payload when triggering a "${data.event}" event. If you want to track this
                         event, make sure to pass these two properties.`,
       );
 
       return;
     }
 
+    if (
+      (data.properties?.contentType && !data.properties?.elementType) ||
+      data.properties?.contentType === data.properties?.elementType
+    ) {
+      logger.warn(
+        `[Omnitracking] - Event ${data.event} property "contentType" will be deprecated and should be sent as "elementType"
+                        on the payload when triggering a "${data.event}" event. If you want to track this event, make
+                        sure to update this property.`,
+      );
+    }
+
     return {
       tid: 2882,
-      contentType: data.properties?.contentType,
+      elementType: data.properties?.elementType || data.properties?.contentType,
+      elementName: data.properties?.contentName,
       interactionType: data.properties?.interactionType,
       val: data.properties?.id,
       actionArea: data.properties?.state,
