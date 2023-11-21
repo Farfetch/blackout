@@ -49,7 +49,8 @@ Blackout is a project maintained by some awesome [contributors](https://github.c
 ## Maintainers
 
 - [Bruno Oliveira](https://github.com/boliveira)
-- [Nelson Leite](https://github.com/nelsonleite)
+- [Diego Griep](https://github.com/diegogriep)
+- [Duarte Amorim](https://github.com/dnamorim)
 - [Rui Nunes](https://github.com/ruifcnunes)
 
 ## License
