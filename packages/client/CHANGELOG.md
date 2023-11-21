@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.14.3...@farfetch/blackout-client@2.15.0) (2023-11-21)
+
+### Bug Fixes
+
+- save exchanges filters by id ([e1959ba](https://github.com/Farfetch/blackout/commit/e1959bac6eefb6405d9e623d38b2f7a698e21c07))
+
+### BREAKING CHANGES
+
+- - Exchange filters are now stored under entities by orderItemUuid (shippingOrderLineId).
+    Previously the user wasn't able to fetch multiple filters because each request cleared
+    the previous data, which this PR aims to fix.
+
+* useCreateExchangeFilter hook renamed to useExchangeFilters.
+* isCreating selector from the hook, renamed to isLoading.
+
 ## [2.14.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.14.2...@farfetch/blackout-client@2.14.3) (2023-11-15)
 
 ### Bug Fixes
