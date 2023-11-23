@@ -40,8 +40,6 @@ const ids = (state = INITIAL_STATE.ids, action: AnyAction) => {
         : [action.payload.result];
     case actionTypes.REMOVE_WISHLIST_SET_SUCCESS:
       return state?.filter(id => id !== action.meta.wishlistSetId);
-    case actionTypes.FETCH_WISHLIST_SUCCESS:
-      return INITIAL_STATE.ids;
     default:
       return state;
   }
