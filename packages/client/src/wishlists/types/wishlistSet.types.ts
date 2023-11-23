@@ -13,5 +13,6 @@ export type WishlistSet = {
   description?: string;
   name: string;
   setId: string;
+  sharedWishlistId?: string;
   wishlistSetItems: Array<WishlistSetItem>;
 };
