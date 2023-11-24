@@ -33,7 +33,7 @@ describe('products lists serverInitialState()', () => {
 
   it('should build the correct sorted hash with encoded query params', () => {
     const slug = '/en-pt/shopping?colors=11%7C6&another=foo';
-    const expectedHash = 'listing?colors=11%7C6&another=foo';
+    const expectedHash = 'listing?colors=11|6&another=foo';
     // @ts-expect-error A lot of properties would need to be added to make the value comply with the type which are irrelevant for the test
     const model = {
       ...mockProductsListModel,
