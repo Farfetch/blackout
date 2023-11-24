@@ -88,6 +88,26 @@ export const mockSearchIntentsResponseListingWithParameters = {
   ],
 };
 
+export const mockSearchIntentsResponseListingWithParameterAndUnescapedCharacters =
+  {
+    typeRequest: 0,
+    redirectUrl: '',
+    resources: [
+      { values: [{ value: '10533', slug: 'valentino' }], typeFilter: 1 },
+      {
+        values: [
+          { value: '137520', slug: 'women-shoes' },
+          { value: '137641', slug: 'men-shoes' },
+        ],
+        typeFilter: 2,
+      },
+      {
+        values: [{ value: 'Shoes & Stuff', slug: '' }],
+        typeFilter: 10,
+      },
+    ],
+  };
+
 export const mockSearchIntentsInvalidResponse = {
   typeRequest: 9999,
   redirectUrl: '',
