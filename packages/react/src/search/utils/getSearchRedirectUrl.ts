@@ -105,7 +105,11 @@ const getSearchRedirectUrl = (
           const queryParam = Object.entries(SearchIntentsTypeFilter).find(
             type => type[1] === typeFilter,
           );
-          const queryValues = values.map(({ value }) => value);
+          const queryValues = values.map(({ value }) =>
+            typeFilter === SearchIntentsTypeFilter.Text
+              ? encodeURIComponent(value)
+              : value,
+          );
           const queryKey =
             // If the typeFilter is 10(Text) should be treated as a query.
             // Otherwise the queryParam found before (Categories) should be used.
