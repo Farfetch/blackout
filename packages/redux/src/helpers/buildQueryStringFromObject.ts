@@ -32,11 +32,7 @@ const buildQueryStringFromObject = (
     const parsedValue = Array.isArray(value) ? value.join('|') : value;
 
     (parsedValue || typeof parsedValue === 'boolean') &&
-      paramsToUrl.push([
-        `${key.toLowerCase()}=${encodeURIComponent(
-          parsedValue as string | number | boolean,
-        )}`,
-      ]);
+      paramsToUrl.push([`${key.toLowerCase()}=${parsedValue}`]);
   }
 
   const prefix = useQuestionMark ? '?' : '';
