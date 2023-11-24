@@ -2,6 +2,7 @@ import {
   mockSearchIntentsInvalidResponse,
   mockSearchIntentsRedirectUrl,
   mockSearchIntentsResponseListing,
+  mockSearchIntentsResponseListingWithParameterAndUnescapedCharacters,
   mockSearchIntentsResponseListingWithParameters,
   mockSearchIntentsResponseProduct,
   mockSearchIntentsResponseRedirect,
@@ -61,6 +62,17 @@ describe('searchRedirectUrl()', () => {
 
     expect(searchRedirectUrl).toBe(
       `${BASE_URL}/valentino?categories=137520%7C137641&pageindex=1&query=akdksaldkasld`,
+    );
+  });
+
+  it('should encode the text query if the `typeRequest` is LISTING and there is unescaped input', () => {
+    const searchRedirectUrl = getSearchRedirectUrl(
+      mockSearchIntentsResponseListingWithParameterAndUnescapedCharacters,
+      BASE_URL,
+    );
+
+    expect(searchRedirectUrl).toBe(
+      `${BASE_URL}/valentino?categories=137520%7C137641&pageindex=1&query=Shoes%20%26%20Stuff`,
     );
   });
 });
