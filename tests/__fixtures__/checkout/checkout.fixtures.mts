@@ -1054,6 +1054,8 @@ export const deliveryBundlesEntity = {
   },
 };
 
+export const mockDeliveryBundlesEntityDenormalized = [deliveryBundle];
+
 export const deliveryBundleUpgradesEntity = {
   [deliveryBundleId]: {
     [itemId1]: {
@@ -1491,6 +1493,7 @@ export const mockCheckoutState = {
       error: null,
       result: [contextId],
     },
+    deliveryBundles: [deliveryBundleId, '090998'],
   },
   payments: {
     ...mockInitialState.payments,

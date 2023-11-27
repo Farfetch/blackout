@@ -3,6 +3,7 @@ import {
   areCheckoutOrderTagsLoading as areCheckoutOrderTagsLoadingSelector,
   createCheckoutOrder,
   fetchCheckoutOrder,
+  getCheckoutOrderDeliveryBundles,
   getCheckoutOrderError,
   getCheckoutOrderPromocodesError,
   getCheckoutOrderResult,
@@ -16,7 +17,6 @@ import {
   setCheckoutOrderPromocodes,
   setCheckoutOrderTags,
   updateCheckoutOrder,
-  getCheckoutOrderDeliveryBundles,
 } from '@farfetch/blackout-redux';
 import {
   type CheckoutAddress,
@@ -86,8 +86,12 @@ function useCheckout(
   const setPromocodesAction = useAction(setCheckoutOrderPromocodes);
   const removePromocodesAction = useAction(removeCheckoutOrderPromocodes);
   const resetCheckoutState = useAction(resetCheckout);
-  const getDeliveryBundles = useSelector(getCheckoutOrderDeliveryBundles);
-  const deliveryBundlesSelect = getDeliveryBundles?.find((item: { isSelected: boolean; }) => item.isSelected);
+  const deliveryBundles = useSelector(getCheckoutOrderDeliveryBundles);
+  const getSelectedDeliveryBundle = useCallback(
+    () =>
+      deliveryBundles?.find((item: { isSelected: boolean }) => item.isSelected),
+    [deliveryBundles],
+  );
   const { data: user } = useUser();
 
   const isAuthorized =
@@ -461,12 +465,14 @@ function useCheckout(
       details: checkoutOrderDetails,
       instruments,
       collectPoints,
+      deliveryBundles,
     };
   }, [
     chargeResult,
     checkoutOrderDetails,
     checkoutOrderResult,
     collectPoints,
+    deliveryBundles,
     instruments,
   ]);
 
@@ -606,8 +612,7 @@ function useCheckout(
       isOrderConfirmed,
       isOrderAwaitingPayment,
       getSelectedShippingOption,
-      getDeliveryBundles,
-      deliveryBundlesSelect,
+      getSelectedDeliveryBundle,
       isShippingAddressZipCodeValid,
     },
     data,
