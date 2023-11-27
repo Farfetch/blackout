@@ -6,6 +6,7 @@ import {
   mockCheckoutState,
   mockCheckoutStateWithGuestUser,
   mockCheckoutStateWithoutDetails,
+  mockDeliveryBundlesEntityDenormalized,
   mockErrorState,
   mockInitialState,
   mockInitialStateWithGuestUser,
@@ -177,6 +178,7 @@ const defaultReturn = {
     isOrderConfirmed: expect.any(Function),
     isOrderAwaitingPayment: expect.any(Function),
     getSelectedShippingOption: expect.any(Function),
+    getSelectedDeliveryBundle: expect.any(Function),
     isShippingAddressZipCodeValid: expect.any(Function),
   },
 };
@@ -257,6 +259,7 @@ describe('useCheckout', () => {
         collectPoints:
           mockCheckoutState.checkout.collectPoints[`${checkoutId}|false|false`]
             ?.result,
+        deliveryBundles: mockDeliveryBundlesEntityDenormalized,
       },
     });
   });
