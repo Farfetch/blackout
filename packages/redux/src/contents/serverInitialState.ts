@@ -23,16 +23,14 @@ const serverInitialState: ServerInitialState = ({ model }) => {
   const { searchContentRequests, slug, seoMetadata, subfolder } = model;
 
   const contents = searchContentRequests.reduce((acc, item) => {
-    const { searchResponse } = item;
-    const firstSearchResponseItem = searchResponse.entries[0];
-
-    if (!firstSearchResponseItem) {
-      return acc;
-    }
+    const {
+      filters: { codes, contentTypeCode },
+      searchResponse,
+    } = item;
 
     const hash = generateContentHash({
-      codes: firstSearchResponseItem.code,
-      contentTypeCode: firstSearchResponseItem.contentTypeCode,
+      codes,
+      contentTypeCode,
     });
 
     const { entities, result } = {

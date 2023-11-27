@@ -6,14 +6,15 @@ import {
 import { mockState as brandsMockState } from '../brands/index.mjs';
 import { mockBagItemEntity } from '../bags/bagItem.fixtures.mjs';
 import { mockCategoriesState } from '../categories/index.mjs';
+import {
+  mockCustomListingPageHash,
+  mockProductsListHash,
+  mockProductsListNormalizedPayload,
+} from './productsLists.fixtures.mjs';
 import { mockMerchantId, mockProductId } from './ids.fixtures.mjs';
 import { mockProduct } from './products.fixtures.mjs';
 import { mockProductGroupingAdapted } from './productGrouping.fixtures.mjs';
 import { mockProductGroupingPropertiesAdapted } from './productGroupingProperties.fixtures.mjs';
-import {
-  mockProductsListHash,
-  mockProductsListNormalizedPayload,
-} from './productsLists.fixtures.mjs';
 import { mockRecentlyViewedState } from './recentlyViewed.fixtures.mjs';
 import { mockRecommendedProductSetState } from './recommendedProductSet.fixtures.mjs';
 import { mockRecommendedProductsState } from './recommendedProducts.fixtures.mjs';
@@ -125,6 +126,7 @@ export const mockProductsListsState = {
     },
   },
 };
+
 export const mockMeasurementsState = {
   measurements: {
     isLoading: {
@@ -285,6 +287,26 @@ export const mockProductsState = {
         ProductEntity
       >),
       [mockProductId]: mockProduct,
+    },
+  },
+};
+
+export const mockCustomListingPageState = {
+  ...mockProductsState,
+  products: {
+    ...mockProductsState.products,
+    lists: {
+      error: { [mockCustomListingPageHash]: undefined },
+      isHydrated: {
+        [mockCustomListingPageHash]: true,
+      },
+      isLoading: { [mockCustomListingPageHash]: false },
+      hash: mockCustomListingPageHash,
+      productListingFacets: {
+        isLoading: false,
+        error: null,
+        result: [],
+      },
     },
   },
 };

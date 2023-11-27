@@ -14,11 +14,17 @@ import join from 'proper-url-join';
  *
  * @returns Result with the correct path do call the endpoint.
  */
-const getSlug = (pathname: string): string => {
+const getSlug = (pathname: string, isCustomListingPage?: boolean): string => {
   const segments = pathname.replace(/\/+$/, '').split('/');
   const type = segments.find(entry =>
     ['shopping', 'sets', 'categories'].includes(entry),
   );
+
+  // When it is a Custom Listing Page it will return the last segment
+  // Example: '/en-pt/customlisting'
+  if (isCustomListingPage) {
+    return `/${segments[segments.length - 1]}`;
+  }
 
   if (!type) {
     return '';

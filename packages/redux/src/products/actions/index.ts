@@ -14,6 +14,7 @@ export { default as fetchProductListing } from './fetchProductListing.js';
 export { default as fetchProductMeasurements } from './fetchProductMeasurements.js';
 export { default as fetchProductOutfits } from './fetchProductOutfits.js';
 export { default as fetchProductSet } from './fetchProductSet.js';
+export { default as fetchCustomListing } from './fetchCustomListing.js';
 export { default as fetchProductSizeGuides } from './fetchProductSizeGuides.js';
 export { default as fetchProductSizes } from './fetchProductSizes.js';
 export { default as fetchProductVariantsByMerchantsLocations } from './fetchProductVariantsByMerchantsLocations.js';

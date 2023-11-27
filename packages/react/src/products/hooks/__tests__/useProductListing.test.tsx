@@ -1,4 +1,5 @@
 import {
+  fetchCustomListing,
   fetchProductListing,
   fetchProductSet,
   getSlug,
@@ -7,6 +8,8 @@ import {
 import { mockBrandResponse } from 'tests/__fixtures__/brands/index.mjs';
 import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
 import {
+  mockCustomListingPageHash,
+  mockCustomListingPageState,
   mockProductsListDenormalizedFacetGroups,
   mockProductsListHash,
   mockProductsListHashWithoutParameters,
@@ -25,6 +28,7 @@ jest.mock('@farfetch/blackout-redux', () => ({
   ...jest.requireActual('@farfetch/blackout-redux'),
   fetchProductListing: jest.fn(() => () => Promise.resolve()),
   fetchProductSet: jest.fn(() => () => Promise.resolve()),
+  fetchCustomListing: jest.fn(() => () => Promise.resolve()),
   resetProductListings: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -203,6 +207,41 @@ describe('useProductListing', () => {
       });
     });
 
+    it('should fetch data if `enableAutoFetch` is true, is custom listing page and there is no loaded data', () => {
+      const slug = getSlug('en/customlistingpage', true);
+      const state = {
+        entities: {},
+        products: {
+          ...mockProductsState.products,
+          lists: {
+            error: {},
+            isHydrated: {},
+            isLoading: {},
+            hash: null,
+            productListingFacets: {
+              isLoading: false,
+              error: null,
+              result: [],
+            },
+          },
+        },
+      };
+
+      renderHook(
+        () =>
+          useProductListing(slug, {
+            isCustomListingPage: true,
+          }),
+        {
+          wrapper: withStore(state),
+        },
+      );
+
+      expect(fetchProductSet).not.toHaveBeenCalled();
+      expect(fetchProductListing).not.toHaveBeenCalled();
+      expect(fetchCustomListing).toHaveBeenCalled();
+    });
+
     it('should fetch data if `enableAutoFetch` is true and there is no loaded data', () => {
       const slug = getSlug('shopping/men/clothing');
 
@@ -235,6 +274,45 @@ describe('useProductListing', () => {
           facetGroups:
             mockProductsListDenormalizedFacetGroups[mockProductsListHash],
           hash: mockProductsListHash,
+          items: expectedProductsDenormalized,
+          pagination: {
+            number: mockList.products.number,
+            pageSize: mockList.config.pageSize,
+            totalItems: mockList.products.totalItems,
+            totalPages: mockList.products.totalPages,
+          },
+        },
+        actions: {
+          reset: expect.any(Function),
+          refetch: expect.any(Function),
+        },
+      });
+    });
+
+    it('should return data correctly when `isCustomListingPage` is true', () => {
+      const slug = getSlug('en/customlistingpage', true);
+
+      const { result } = renderHook(
+        () => useProductListing(slug, { isCustomListingPage: true }),
+        {
+          wrapper: withStore(mockCustomListingPageState),
+        },
+      );
+
+      const mockList =
+        mockProductsListNormalizedPayload.entities.productsLists[
+          mockCustomListingPageHash
+        ];
+
+      expect(result.current).toStrictEqual({
+        error: undefined,
+        isFetched: true,
+        isLoading: false,
+        data: {
+          ...mockList,
+          facetGroups:
+            mockProductsListDenormalizedFacetGroups[mockCustomListingPageHash],
+          hash: mockCustomListingPageHash,
           items: expectedProductsDenormalized,
           pagination: {
             number: mockList.products.number,
@@ -322,6 +400,34 @@ describe('useProductListing', () => {
       expect(fetchProductSet).toHaveBeenCalledWith(
         slug,
         mockQuery,
+        { setProductsListHash: undefined, useCache: false },
+        undefined,
+      );
+    });
+
+    it('should call `fetchCustomListing` successfully when `refetch` action is called and type is `listing`', () => {
+      const {
+        result: {
+          current: {
+            actions: { refetch },
+          },
+        },
+      } = renderHook(
+        () =>
+          useProductListing(slug, {
+            useCache: false,
+            isCustomListingPage: true,
+          }),
+        {
+          wrapper: withStore(mockCustomListingPageState),
+        },
+      );
+
+      refetch();
+
+      expect(fetchCustomListing).toHaveBeenCalledWith(
+        slug,
+        undefined,
         { setProductsListHash: undefined, useCache: false },
         undefined,
       );

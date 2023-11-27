@@ -55,7 +55,17 @@ type Common = {
   };
 };
 
+export type RelatedCommerceData = {
+  referencedListing: [ProductListing & { explanation?: string }];
+  referencedSets: [];
+  referencedBrands: [];
+  referencedCategories: [];
+  referencedProducts: [];
+};
+
 export type Model = ProductListing &
   ProductSet &
   Product &
-  Common & { seoMetadata: SEOMetadata };
+  Common & { relatedCommerceData: RelatedCommerceData } & {
+    seoMetadata: SEOMetadata;
+  };

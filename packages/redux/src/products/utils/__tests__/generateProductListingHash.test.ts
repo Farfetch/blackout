@@ -44,4 +44,20 @@ describe('generateProductListingHash', () => {
 
     expect(result).toBe(expectedResult);
   });
+
+  it('should correctly construct the product list hash when a custom listing page', () => {
+    const mockQueryString = undefined;
+    const expectedResult = 'listing/woman/clothing';
+    const isCustomListingPage = true;
+
+    const result = generateProductListingHash(
+      mockProductsListSlug,
+      mockQueryString,
+      {
+        isCustomListingPage,
+      },
+    );
+
+    expect(result).toBe(expectedResult);
+  });
 });
