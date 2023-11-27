@@ -1,5 +1,5 @@
 import { generateProductListingHash, getSlug } from '../utils/index.js';
-import { get } from 'lodash-es';
+import { get, isEmpty } from 'lodash-es';
 import { INITIAL_STATE } from '../reducer/lists.js';
 import { normalize } from 'normalizr';
 import { toBlackoutError } from '@farfetch/blackout-client';
@@ -27,13 +27,74 @@ const serverInitialState: ProductListingsServerInitialState = ({
 
   const dataLayerType = model?.dataLayer?.general?.type;
   const isListing = dataLayerType === 'Listing';
+  const isCustomListingPage = !isEmpty(
+    model?.relatedCommerceData?.referencedListing,
+  );
 
-  const builtSlug = getSlug(pathname);
+  const builtSlug = getSlug(pathname, isCustomListingPage);
   const isSetFallback = /\/sets\//.test(pathname) && isListing;
   const isSet = model?.pageType === 'set' || isSetFallback;
   const hash = generateProductListingHash(builtSlug, query, {
     isSet,
   });
+
+  if (get(model, 'relatedCommerceData.referencedListing')) {
+    const {
+      breadCrumbs,
+      config,
+      didYouMean,
+      facetGroups,
+      facetsBaseUrl,
+      filterSegments,
+      gender,
+      genderName,
+      name,
+      products,
+      redirectInformation,
+      searchTerm,
+    } = model.relatedCommerceData?.referencedListing?.[0];
+
+    // Normalize it
+    const { entities } = normalize(
+      {
+        breadCrumbs,
+        config,
+        didYouMean,
+        facetGroups,
+        facetsBaseUrl,
+        filterSegments,
+        gender,
+        genderName,
+        hash,
+        name,
+        productImgQueryParam, // Send this to the entity's `adaptProductImages`
+        products,
+        redirectInformation,
+        searchTerm,
+        slug,
+      },
+      productsList,
+    );
+
+    return {
+      lists: {
+        error: {},
+        hash,
+        isHydrated: {
+          [hash]: true,
+        },
+        isLoading: {
+          [hash]: false,
+        },
+        productListingFacets: {
+          isLoading: false,
+          error: null,
+          result: [],
+        },
+      },
+      entities,
+    };
+  }
 
   if (!get(model, 'products')) {
     if (isListing) {

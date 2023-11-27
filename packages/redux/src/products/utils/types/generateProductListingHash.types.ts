@@ -13,5 +13,7 @@ export type GenerateProductListingHash = (
   options?: {
     // If the hash represents a set or not.
     isSet?: boolean;
+    // If the slug represents a custom listing page or not.
+    isCustomListingPage?: boolean;
   },
 ) => ProductListingEntity['hash'];

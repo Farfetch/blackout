@@ -15,6 +15,7 @@ export interface UseProductListingCommonOptions {
   useCache?: boolean;
   enableAutoFetch?: boolean;
   setProductsListHash?: boolean;
+  isCustomListingPage?: boolean;
   fetchConfig?: Config;
 }
 

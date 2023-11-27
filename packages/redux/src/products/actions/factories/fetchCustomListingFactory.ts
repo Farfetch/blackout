@@ -1,9 +1,9 @@
 import fetchProductListFactory from './fetchProductListFactory.js';
 import type {
   Config,
-  GetProductSet,
-  GetProductSetQuery,
-  ProductSet,
+  GetProductListing,
+  GetProductListingQuery,
+  ProductListing,
 } from '@farfetch/blackout-client';
 import type { Dispatch } from 'redux';
 import type { GetOptionsArgument, StoreState } from '../../../types/index.js';
@@ -11,17 +11,17 @@ import type { ProductListActionOptions } from '../../types/index.js';
 
 /**
  * Creates a thunk factory configured with the specified client to fetch a specific
- * set by its id.
+ * custom listing page by its id.
  *
- * @param getProductSet - Get product set client.
+ * @param getProductSet - Get custom listing page produts client.
  *
  * @returns Thunk factory.
  */
-const fetchProductSetFactory =
-  (getSet: GetProductSet) =>
+const fetchCustomListingFactory =
+  (getListing: GetProductListing) =>
   (
     slug: string | number,
-    query: GetProductSetQuery = {},
+    query: GetProductListingQuery = {},
     actionOptions?: ProductListActionOptions,
     config?: Config,
   ) =>
@@ -29,9 +29,9 @@ const fetchProductSetFactory =
     dispatch: Dispatch,
     getState: () => StoreState,
     options: GetOptionsArgument,
-  ): Promise<ProductSet | undefined> =>
+  ): Promise<ProductListing | undefined> =>
     fetchProductListFactory(
-      getSet,
+      getListing,
       slug,
       query,
       actionOptions,
@@ -39,8 +39,8 @@ const fetchProductSetFactory =
       dispatch,
       getState,
       options,
-      true,
       false,
-    ) as Promise<ProductSet | undefined>;
+      true,
+    ) as Promise<ProductListing | undefined>;
 
-export default fetchProductSetFactory;
+export default fetchCustomListingFactory;

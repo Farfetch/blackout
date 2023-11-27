@@ -28,15 +28,16 @@ import type { ProductListActionOptions } from '../../types/index.js';
  * Creates a thunk configured with the specified client to fetch a product listing
  * for a given slug with specific query parameters.
  *
- * @param client        - Get listing or sets client.
- * @param slug          - Slug to load product list for.
- * @param query         - Query parameters to apply.
- * @param actionOptions - Additional options to apply to the action.
- * @param config        - Custom configurations to send to the client instance (axios).
- * @param dispatch      - Redux dispatch.
- * @param getState      - Store state.
- * @param options       - Thunk options.
- * @param isSet         - If is sets scope or not.
+ * @param client                - Get listing or sets client.
+ * @param slug                  - Slug to load product list for.
+ * @param query                 - Query parameters to apply.
+ * @param actionOptions         - Additional options to apply to the action.
+ * @param config                - Custom configurations to send to the client instance (axios).
+ * @param dispatch              - Redux dispatch.
+ * @param getState              - Store state.
+ * @param options               - Thunk options.
+ * @param isSet                 - If is sets scope or not.
+ * @param isCustomListingPage  - If is custom listing page scope or not.
  *
  * @returns Thunk to be dispatched to the redux store.
  */
@@ -55,11 +56,15 @@ const fetchProductListFactory = async (
     getOptions = arg => ({ productImgQueryParam: arg.productImgQueryParam }),
   }: GetOptionsArgument,
   isSet: boolean,
+  isCustomListingPage: boolean,
 ): Promise<ProductListing | ProductSet | undefined> => {
   let hash: Nullable<string> = null;
 
   try {
-    hash = generateProductListingHash(slug, query, { isSet });
+    hash = generateProductListingHash(slug, query, {
+      isSet,
+      isCustomListingPage,
+    });
 
     const { productImgQueryParam } = getOptions(getState);
     const isHydrated = isProductListingHydrated(getState(), hash);
@@ -108,8 +113,12 @@ const fetchProductListFactory = async (
       type: actionTypes.FETCH_PRODUCT_LISTING_REQUEST,
     });
 
-    // @ts-expect-error Property slug can be a string or a number.
-    const result = await client(slug, query, config);
+    const result = await client(
+      // @ts-expect-error Property slug can be a string or a number.
+      isCustomListingPage ? '' : slug,
+      query,
+      config,
+    );
 
     dispatch({
       meta: { hash },

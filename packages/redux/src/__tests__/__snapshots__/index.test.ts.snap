@@ -705,6 +705,8 @@ Object {
   "fetchCountryStateCitiesFactory": [Function],
   "fetchCountryStates": [Function],
   "fetchCountryStatesFactory": [Function],
+  "fetchCustomListing": [Function],
+  "fetchCustomListingFactory": [Function],
   "fetchExchange": [Function],
   "fetchExchangeBookRequest": [Function],
   "fetchExchangeBookRequestFactory": [Function],

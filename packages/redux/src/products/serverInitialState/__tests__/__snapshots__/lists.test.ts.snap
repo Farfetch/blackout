@@ -1,5 +1,343 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`products lists serverInitialState() should initialize server state for a custom listing page 1`] = `
+Object {
+  "entities": Object {
+    "facets": Object {
+      "categories_144307_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 13,
+        "description": "Women",
+        "groupType": 6,
+        "groupsOn": 0,
+        "id": "categories_144307_listing/customlistingpage",
+        "parentId": "categories_0_listing/customlistingpage",
+        "slug": "women",
+        "url": "women",
+        "value": 144307,
+        "valueUpperBound": 0,
+      },
+      "categories_144331_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 2,
+        "description": "Accessories",
+        "groupType": 6,
+        "groupsOn": 0,
+        "id": "categories_144331_listing/customlistingpage",
+        "parentId": "categories_144307_listing/customlistingpage",
+        "slug": "women-accessories",
+        "url": "women-accessories",
+        "value": 144331,
+        "valueUpperBound": 0,
+      },
+      "categories_144424_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 1,
+        "description": "Special Accessories",
+        "groupType": 6,
+        "groupsOn": 0,
+        "id": "categories_144424_listing/customlistingpage",
+        "parentId": "categories_144418_listing/customlistingpage",
+        "slug": "women-specials-special-accessories",
+        "url": "women-specials-special-accessories",
+        "value": 144424,
+        "valueUpperBound": 0,
+      },
+      "colors_1_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 4,
+        "description": "BLACK",
+        "groupType": 11,
+        "groupsOn": 0,
+        "id": "colors_1_listing/customlistingpage",
+        "parentId": "colors_0_listing/customlistingpage",
+        "slug": "colors",
+        "url": "?colors=1",
+        "value": 1,
+        "valueUpperBound": 0,
+      },
+      "pricetype_0_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 13,
+        "description": "FullPrice",
+        "groupType": 14,
+        "groupsOn": 0,
+        "id": "pricetype_0_listing/customlistingpage",
+        "parentId": "pricetype_0_listing/customlistingpage",
+        "slug": "fullprice",
+        "url": "fullprice",
+        "value": 0,
+        "valueUpperBound": 0,
+      },
+      "sizes_22_144307_listing/customlistingpage": Object {
+        "_isActive": false,
+        "_isDisabled": false,
+        "count": 5,
+        "description": "36",
+        "groupType": 9,
+        "groupsOn": 144307,
+        "id": "sizes_22_144307_listing/customlistingpage",
+        "parentId": "sizes_0_listing/customlistingpage",
+        "slug": "sizes",
+        "url": "?sizes=22",
+        "value": 22,
+        "valueUpperBound": 0,
+      },
+    },
+    "products": Object {
+      "123": Object {
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 123,
+        "images": undefined,
+        "merchant": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+      "321": Object {
+        "customAttributes": undefined,
+        "groupedEntries": undefined,
+        "id": 321,
+        "images": undefined,
+        "merchant": undefined,
+        "price": Object {
+          "discount": Object {
+            "excludingTaxes": undefined,
+            "includingTaxes": undefined,
+            "rate": undefined,
+          },
+          "excludingTaxes": undefined,
+          "formatted": Object {
+            "includingTaxes": undefined,
+            "includingTaxesWithoutDiscount": undefined,
+          },
+          "includingTaxes": undefined,
+          "includingTaxesWithoutDiscount": undefined,
+          "isFormatted": true,
+          "priceType": undefined,
+          "promotionType": undefined,
+          "tags": undefined,
+          "taxes": Object {
+            "amount": undefined,
+            "rate": undefined,
+            "type": undefined,
+          },
+          "type": undefined,
+        },
+        "prices": undefined,
+        "sizes": undefined,
+        "tag": Object {
+          "id": undefined,
+          "name": undefined,
+        },
+        "variants": undefined,
+      },
+    },
+    "productsLists": Object {
+      "listing/customlistingpage": Object {
+        "breadCrumbs": Array [],
+        "config": Object {
+          "pageIndex": 1,
+        },
+        "didYouMean": undefined,
+        "facetGroups": Array [
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 1,
+            "description": "Categories",
+            "dynamic": 0,
+            "format": "hierarchical",
+            "hash": "listing/customlistingpage",
+            "key": "categories",
+            "order": 0,
+            "type": 6,
+            "values": Array [
+              Array [
+                "categories_144307_listing/customlistingpage",
+              ],
+            ],
+          },
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 2,
+            "description": "Categories",
+            "dynamic": 0,
+            "format": "hierarchical",
+            "hash": "listing/customlistingpage",
+            "key": "categories",
+            "order": 0,
+            "type": 6,
+            "values": Array [
+              Array [
+                "categories_144331_listing/customlistingpage",
+              ],
+            ],
+          },
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 3,
+            "description": "Categories",
+            "dynamic": 0,
+            "format": "hierarchical",
+            "hash": "listing/customlistingpage",
+            "key": "categories",
+            "order": 0,
+            "type": 6,
+            "values": Array [
+              Array [
+                "categories_144424_listing/customlistingpage",
+              ],
+            ],
+          },
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 0,
+            "description": "Colors",
+            "dynamic": 0,
+            "format": "multiple",
+            "hash": "listing/customlistingpage",
+            "key": "colors",
+            "order": 5,
+            "type": 11,
+            "values": Array [
+              Array [
+                "colors_1_listing/customlistingpage",
+              ],
+            ],
+          },
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 0,
+            "description": "PriceType",
+            "dynamic": 0,
+            "format": "multiple",
+            "hash": "listing/customlistingpage",
+            "key": "pricetype",
+            "order": 6,
+            "type": 14,
+            "values": Array [
+              Array [
+                "pricetype_0_listing/customlistingpage",
+              ],
+            ],
+          },
+          Object {
+            "_clearUrl": null,
+            "_isClearHidden": false,
+            "_isClosed": false,
+            "deep": 0,
+            "description": "Sizes",
+            "dynamic": 0,
+            "format": "multiple",
+            "hash": "listing/customlistingpage",
+            "key": "sizes",
+            "order": 4,
+            "type": 9,
+            "values": Array [
+              Array [
+                "sizes_22_144307_listing/customlistingpage",
+              ],
+            ],
+          },
+        ],
+        "facetsBaseUrl": "/en-pt/shopping",
+        "filterSegments": Array [
+          Object {
+            "deep": 1,
+            "description": "Women",
+            "facetId": "categories_144307_listing/customlistingpage",
+            "fromQueryString": false,
+            "gender": 0,
+            "key": "categories",
+            "negativeFilter": false,
+            "order": 0,
+            "parentId": 0,
+            "slug": "women",
+            "type": 6,
+            "value": 144307,
+            "valueUpperBound": 0,
+          },
+        ],
+        "gender": 0,
+        "genderName": "Woman",
+        "hash": "listing/customlistingpage",
+        "name": "New arrivals",
+        "products": Object {
+          "entries": Array [
+            123,
+            321,
+          ],
+          "totalItems": 193,
+          "totalPages": 10,
+        },
+        "redirectInformation": null,
+        "searchTerm": null,
+        "slug": "/en-pt/customlistingpage",
+      },
+    },
+  },
+  "lists": Object {
+    "error": Object {},
+    "hash": "listing/customlistingpage",
+    "isHydrated": Object {
+      "listing/customlistingpage": true,
+    },
+    "isLoading": Object {
+      "listing/customlistingpage": false,
+    },
+    "productListingFacets": Object {
+      "error": null,
+      "isLoading": false,
+      "result": Array [],
+    },
+  },
+}
+`;
+
 exports[`products lists serverInitialState() should initialize server state for a listing 1`] = `
 Object {
   "entities": Object {
@@ -339,13 +677,35 @@ Object {
 }
 `;
 
-exports[`products lists serverInitialState() should initialize server state for a non product list 1`] = `
+exports[`products lists serverInitialState() should initialize server state for a non product list with initial state 1`] = `
 Object {
   "lists": Object {
     "error": Object {},
     "hash": null,
     "isHydrated": Object {},
     "isLoading": Object {},
+    "productListingFacets": Object {
+      "error": null,
+      "isLoading": false,
+      "result": Array [],
+    },
+  },
+}
+`;
+
+exports[`products lists serverInitialState() should initialize server state for listing that has returned no products and it is not a custom listing page 1`] = `
+Object {
+  "lists": Object {
+    "error": Object {
+      "listing": [Error: Unexpected error],
+    },
+    "hash": "listing",
+    "isHydrated": Object {
+      "listing": true,
+    },
+    "isLoading": Object {
+      "listing": false,
+    },
     "productListingFacets": Object {
       "error": null,
       "isLoading": false,
