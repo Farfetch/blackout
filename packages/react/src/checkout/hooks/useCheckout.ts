@@ -17,6 +17,7 @@ import {
   setCheckoutOrderTags,
   type StoreState,
   updateCheckoutOrder,
+  getCheckoutOrderDeliveryBundles,
 } from '@farfetch/blackout-redux';
 import {
   type CheckoutAddress,
@@ -88,6 +89,8 @@ function useCheckout(
   const setPromocodesAction = useAction(setCheckoutOrderPromocodes);
   const removePromocodesAction = useAction(removeCheckoutOrderPromocodes);
   const resetCheckoutState = useAction(resetCheckout);
+  const getDeliveryBundles = useSelector(getCheckoutOrderDeliveryBundles);
+  const deliveryBundlesSelect = getDeliveryBundles?.find((item: { isSelected: boolean; }) => item.isSelected);
   const { data: user } = useUser();
 
   const isAuthorized =
@@ -616,6 +619,8 @@ function useCheckout(
       isOrderConfirmed,
       isOrderAwaitingPayment,
       getSelectedShippingOption,
+      getDeliveryBundles,
+      deliveryBundlesSelect,
       isShippingAddressZipCodeValid,
     },
     data,
