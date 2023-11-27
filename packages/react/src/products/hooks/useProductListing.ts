@@ -1,4 +1,5 @@
 import {
+  fetchCustomListing,
   fetchProductListing,
   fetchProductSet,
   generateProductListingHash,
@@ -39,15 +40,18 @@ const useProductListing = (
     useCache = true,
     setProductsListHash,
     enableAutoFetch = true,
+    isCustomListingPage = false,
   } = options;
 
   const isSetPage = isUseProductListingTypeSetOptions(options);
   const productListingHash = generateProductListingHash(slug, query, {
     isSet: isSetPage,
+    isCustomListingPage,
   });
 
   const fetchListingAction = useAction(fetchProductListing);
   const fetchSetAction = useAction(fetchProductSet);
+  const fetchCustomListingAction = useAction(fetchCustomListing);
   const resetAction = useAction(resetProductListings);
   const reset = useCallback(() => {
     resetAction([productListingHash]);
@@ -84,6 +88,13 @@ const useProductListing = (
             { useCache, setProductsListHash },
             fetchConfig,
           )
+        : isCustomListingPage
+        ? fetchCustomListingAction(
+            slug,
+            options.query,
+            { useCache, setProductsListHash },
+            fetchConfig,
+          )
         : fetchListingAction(
             slug,
             options.query,
@@ -99,6 +110,8 @@ const useProductListing = (
       setProductsListHash,
       slug,
       useCache,
+      isCustomListingPage,
+      fetchCustomListingAction,
     ],
   );
 

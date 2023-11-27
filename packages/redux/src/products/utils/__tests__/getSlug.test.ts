@@ -24,4 +24,12 @@ describe('getSlug', () => {
 
     expect(result).toBe(expectedResult);
   });
+
+  it('should return the second segment if it is a custom listing page', () => {
+    const mockPathname = '/us/elephant';
+    const expectedResult = '/elephant';
+    const result = getSlug(mockPathname, true);
+
+    expect(result).toBe(expectedResult);
+  });
 });

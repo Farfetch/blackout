@@ -41,6 +41,7 @@ const fetchProductListingFactory =
       getState,
       options,
       false,
+      false,
     );
 
 export default fetchProductListingFactory;

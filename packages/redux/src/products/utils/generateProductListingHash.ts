@@ -17,6 +17,16 @@ import type { GenerateProductListingHash } from './types/index.js';
  * Result of productListHash === 'listing/woman/clothing?sort=price';
  *
  * ```
+ * In case of custom listig page
+ *
+ * @example
+ * ```
+ * const productListHash = generateProductListingHash(slug, query, {
+ *    isCustomListingPage: true
+ * });
+ *
+ * Result of productListHash === 'listing/customlistingpage';
+ * ```
  *
  * @param slug        - Slug from pathname.
  * @param query       - Object or string with query parameters.
@@ -27,7 +37,7 @@ import type { GenerateProductListingHash } from './types/index.js';
 const generateProductListingHash: GenerateProductListingHash = (
   slug,
   query,
-  { isSet } = {},
+  { isSet, isCustomListingPage } = {},
 ) => {
   let finalQuery = {};
   let productsListScope = 'listing';
@@ -56,6 +66,11 @@ const generateProductListingHash: GenerateProductListingHash = (
     slug && (typeof slug === 'number' || slug.charAt(0) !== '/')
       ? `/${slug}`
       : slug;
+
+  if (isCustomListingPage) {
+    return `${productsListScope}${parsedSlug}`;
+  }
+
   const parsedQueryString = buildQueryStringFromObject(finalQuery);
 
   return `${productsListScope}${parsedSlug}${parsedQueryString}`;

@@ -13,6 +13,7 @@ export { default as fetchProductListingFactory } from './fetchProductListingFact
 export { default as fetchProductMeasurementsFactory } from './fetchProductMeasurementsFactory.js';
 export { default as fetchProductOutfitsFactory } from './fetchProductOutfitsFactory.js';
 export { default as fetchProductSetFactory } from './fetchProductSetFactory.js';
+export { default as fetchCustomListingFactory } from './fetchCustomListingFactory.js';
 export { default as fetchProductSizeGuidesFactory } from './fetchProductSizeGuidesFactory.js';
 export { default as fetchProductSizesFactory } from './fetchProductSizesFactory.js';
 export { default as fetchProductVariantsByMerchantsLocationsFactory } from './fetchProductVariantsByMerchantsLocationsFactory.js';
