@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { SearchDidYouMeanSuggestion } from '../types/index.js';
 
-const path = '/api/commerce/v1/search/didyoumean';
+const path = `${defaultBaseURL}/commerce/v1/search/didyoumean`;
 
 const fixtures = {
   success: (response: SearchDidYouMeanSuggestion[]): RestHandler =>

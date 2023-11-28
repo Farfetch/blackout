@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { SearchIntents } from '../types/index.js';
 
-const path = '/api/commerce/v1/search/intent';
+const path = `${defaultBaseURL}/commerce/v1/search/intent`;
 
 const fixtures = {
   success: (response: SearchIntents): RestHandler =>

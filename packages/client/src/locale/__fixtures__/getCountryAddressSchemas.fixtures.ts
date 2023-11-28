@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { CountryAddressSchema } from '../types/index.js';
 
-const path = '/api/account/v1/countries/:isoCode/addressSchemas';
+const path = `${defaultBaseURL}/account/v1/countries/:isoCode/addressSchemas`;
 
 const fixtures = {
   success: (response: CountryAddressSchema[]): RestHandler =>

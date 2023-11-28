@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ReturnPickupCapability } from '../types/returnPickupCapability.types.js';
 
-const path = '/api/account/v1/returns/:id/pickupcapabilities/:pickupDay';
+const path = `${defaultBaseURL}/account/v1/returns/:id/pickupcapabilities/:pickupDay`;
 
 const fixtures = {
   success: (response: ReturnPickupCapability): RestHandler =>

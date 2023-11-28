@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { FormSchema } from '../types/index.js';
 
-const path = '/api/communication/v1/forms/:schemaCode';
+const path = `${defaultBaseURL}/communication/v1/forms/:schemaCode`;
 
 const fixtures = {
   success: (response: FormSchema): RestHandler =>

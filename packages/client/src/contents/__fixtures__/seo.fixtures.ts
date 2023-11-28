@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { SEOMetadata } from '../types/index.js';
 
-const path = '/api/content/v1/seometadata';
+const path = `${defaultBaseURL}/content/v1/seometadata`;
 
 const fixtures = {
   get: {

@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ContentTypes } from '../types/index.js';
 
-const path = '/api/content/v1/spaces/:spaceCode/contentTypes';
+const path = `${defaultBaseURL}/content/v1/spaces/:spaceCode/contentTypes`;
 
 const fixtures = {
   success: (response: ContentTypes): RestHandler =>

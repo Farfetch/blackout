@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Order } from '../types/index.js';
 
-const path = '/api/legacy/v1/guestorders/:id';
+const path = `${defaultBaseURL}/legacy/v1/guestorders/:id`;
 
 const fixtures = {
   success: (response: Order): RestHandler =>

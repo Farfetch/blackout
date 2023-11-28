@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { AddressPrediction } from '../types/index.js';
 
-const path = '/api/account/v1/addressesprediction/:text';
+const path = `${defaultBaseURL}/account/v1/addressesprediction/:text`;
 
 const fixtures = {
   success: (response: AddressPrediction[]): RestHandler =>

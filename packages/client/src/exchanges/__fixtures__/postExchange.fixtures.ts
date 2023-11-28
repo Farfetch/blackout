@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Exchange } from '../index.js';
 
-const path = '/api/account/v1/exchanges';
+const path = `${defaultBaseURL}/account/v1/exchanges`;
 
 const fixtures = {
   success: (response: Exchange): RestHandler =>

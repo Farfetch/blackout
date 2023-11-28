@@ -1,8 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { PromotionEvaluationItem } from '../types/index.js';
 
-const path =
-  '/api/commerce/v1/promotionEvaluations/:promotionEvaluationId/promotionEvaluationItems';
+const path = `${defaultBaseURL}/commerce/v1/promotionEvaluations/:promotionEvaluationId/promotionEvaluationItems`;
 
 const fixtures = {
   success: (response: PromotionEvaluationItem[]): RestHandler =>

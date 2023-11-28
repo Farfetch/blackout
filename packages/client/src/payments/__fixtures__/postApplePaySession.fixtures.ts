@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { PostApplePaySessionResponse } from '../types/postApplePaySession.types.js';
 
-const path = '/api/payment/v1/applePaySession';
+const path = `${defaultBaseURL}/payment/v1/applePaySession`;
 
 const fixtures = {
   success: (response: PostApplePaySessionResponse): RestHandler =>

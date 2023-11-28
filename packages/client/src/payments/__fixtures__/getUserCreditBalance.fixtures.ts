@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Balance } from '../types/index.js';
 
-const path = '/api/payment/v1/checkCreditBalance';
+const path = `${defaultBaseURL}/payment/v1/checkCreditBalance`;
 
 const fixtures = {
   success: (response: Balance): RestHandler =>

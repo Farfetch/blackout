@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { SizeScale } from '../types/index.js';
 
-const path = '/api/commerce/v1/sizeScales/:id';
+const path = `${defaultBaseURL}/commerce/v1/sizeScales/:id`;
 
 const fixtures = {
   success: (response: SizeScale): RestHandler =>

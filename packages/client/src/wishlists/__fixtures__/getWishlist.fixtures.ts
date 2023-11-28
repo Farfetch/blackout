@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Wishlist } from '../types/index.js';
 
-const path = '/api/commerce/v1/wishlists/:wishlistId';
+const path = `${defaultBaseURL}/commerce/v1/wishlists/:wishlistId`;
 
 const fixtures = {
   success: (response: Wishlist): RestHandler =>

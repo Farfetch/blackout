@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ExternalLogin } from '../types/index.js';
 
-const path = '/api/account/v1/users/123123/externalLogins';
+const path = `${defaultBaseURL}/account/v1/users/123123/externalLogins`;
 
 const fixtures = {
   success: (response: ExternalLogin[]): RestHandler =>

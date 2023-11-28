@@ -1014,12 +1014,13 @@ Object {
   "adaptError": [Function],
   "client": [Function],
   "configApiBlackAndWhite": Object {
-    "baseURL": "https://api.blackandwhite-ff.com",
+    "baseURL": "https://api-next.blackandwhite-ff.com",
     "headers": Object {
       "Content-Type": "application/json",
     },
   },
   "defaultAuthorizationHeaderFormatter": [Function],
+  "defaultBaseURL": "/api-next",
   "deleteBagItem": [Function],
   "deleteCheckoutOrderContext": [Function],
   "deleteCheckoutOrderItem": [Function],

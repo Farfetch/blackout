@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { CommercePages } from '../types/index.js';
 
-const path = '/api/content/v2/commercepages';
+const path = `${defaultBaseURL}/content/v2/commercepages`;
 
 const fixtures = {
   get: {
