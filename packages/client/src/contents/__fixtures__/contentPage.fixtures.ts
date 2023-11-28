@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ContentPage } from '../types/index.js';
 
-const path = '/api/wl/v1/content/pages/LISTING';
+const path = `${defaultBaseURL}/wl/v1/content/pages/LISTING`;
 
 /**
  * Response payloads.

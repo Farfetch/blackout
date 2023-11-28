@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { UserLegacy } from '../types/index.js';
 
-const path = '/api/legacy/v1/account/register';
+const path = `${defaultBaseURL}/legacy/v1/account/register`;
 
 const fixtures = {
   success: (response: UserLegacy): RestHandler =>

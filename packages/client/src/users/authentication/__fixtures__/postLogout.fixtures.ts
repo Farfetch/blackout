@@ -1,6 +1,7 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 
-const path = '/api/legacy/v1/account/logout';
+const path = `${defaultBaseURL}/legacy/v1/account/logout`;
 
 const fixtures = {
   success: (): RestHandler =>

@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { CollectPoint } from '../types/index.js';
 
-const path = '/api/checkout/v1/collectpoints';
+const path = `${defaultBaseURL}/checkout/v1/collectpoints`;
 
 const fixtures = {
   success: (response: CollectPoint): RestHandler =>

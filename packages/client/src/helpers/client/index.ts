@@ -3,11 +3,12 @@ import {
   isBlackoutErrorType,
   toBlackoutError,
 } from './formatError.js';
-import { configApiBlackAndWhite } from './configs.js';
+import { configApiBlackAndWhite, defaultBaseURL } from './configs.js';
 import { HttpHeaders } from './httpHeaders.js';
 
 export {
   configApiBlackAndWhite,
+  defaultBaseURL,
   HttpHeaders,
   isBlackoutErrorType,
   toBlackoutError,

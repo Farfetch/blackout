@@ -3,6 +3,7 @@ import {
   defaultAuthorizationHeaderFormatter,
   getDefaultTokenDataSerializer,
 } from '../defaults.js';
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { getUser } from '../../../../../users/index.js';
 import { DEFAULT_STORAGE_KEY as GuestTokenDefaultStorageKey } from '../token-providers/GuestTokenProvider.js';
 import {
@@ -112,7 +113,7 @@ describe('AuthenticationTokenManager', () => {
     describe('Guest flow', () => {
       it('should create new guest tokens when there are no tokens and a request that needs authentication is made', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
           ),
         );
@@ -138,7 +139,7 @@ describe('AuthenticationTokenManager', () => {
         const mockUserId = 10000;
 
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: mockUserId, isGuest: true })),
           ),
         );
@@ -178,7 +179,7 @@ describe('AuthenticationTokenManager', () => {
 
       it('should wait for pending access token request if there is one', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
           ),
         );
@@ -218,21 +219,23 @@ describe('AuthenticationTokenManager', () => {
 
       it('should not create a new guest token if the request does not need authentication and there are no guest tokens', async () => {
         mswServer.use(
-          rest.post('/api/authentication/v1/guestTokens', (_req, res, ctx) =>
-            res(
-              ctx.status(200),
-              ctx.json({
-                accessToken: 'dummy_access_token',
-                expiresIn: '12000',
-              }),
-            ),
+          rest.post(
+            `${defaultBaseURL}/authentication/v1/guestTokens`,
+            (_req, res, ctx) =>
+              res(
+                ctx.status(200),
+                ctx.json({
+                  accessToken: 'dummy_access_token',
+                  expiresIn: '12000',
+                }),
+              ),
           ),
         );
 
         await postGuestToken(
           { guestUserId: 0, guestUserEmail: '', guestUserSecret: '' },
           {
-            baseURL: '/api',
+            baseURL: '/api-next',
             [AuthenticationConfigOption.NoAuthentication]: true,
           },
         );
@@ -242,10 +245,10 @@ describe('AuthenticationTokenManager', () => {
 
       it('should create a new guest token when a request fails with 401 and retry the request with the new token', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res.once(ctx.status(401)),
           ),
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
           ),
         );
@@ -275,10 +278,10 @@ describe('AuthenticationTokenManager', () => {
 
       it('should return an error if after refreshing an access token successfully the request still fails', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res.once(ctx.status(401)),
           ),
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(500)),
           ),
         );
@@ -295,7 +298,7 @@ describe('AuthenticationTokenManager', () => {
 
       it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(401)),
           ),
         );
@@ -329,7 +332,7 @@ describe('AuthenticationTokenManager', () => {
         // Set initial users/me request mock to return a successful result
         // so that guest token data is set.
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res.once(ctx.status(200), ctx.json({ id: 10000, isGuest: true })),
           ),
         );
@@ -362,10 +365,10 @@ describe('AuthenticationTokenManager', () => {
         );
 
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res.once(ctx.status(400)),
           ),
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 20000, isGuest: true })),
           ),
         );
@@ -444,7 +447,7 @@ describe('AuthenticationTokenManager', () => {
         );
 
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 10000, isGuest: false })),
           ),
         );
@@ -480,7 +483,7 @@ describe('AuthenticationTokenManager', () => {
         );
 
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(200), ctx.json({ id: 10000, isGuest: false })),
           ),
         );
@@ -521,11 +524,13 @@ describe('AuthenticationTokenManager', () => {
 
       it('should create a new user token when a request fails with 401 and retry the request with the new token', async () => {
         mswServer.use(
-          rest.post('/api/marketing/v1/trackings', (_req, res, ctx) =>
-            res.once(ctx.status(401)),
+          rest.post(
+            `${defaultBaseURL}/marketing/v1/trackings`,
+            (_req, res, ctx) => res.once(ctx.status(401)),
           ),
-          rest.post('/api/marketing/v1/trackings', (_req, res, ctx) =>
-            res(ctx.status(200), ctx.json({})),
+          rest.post(
+            `${defaultBaseURL}/marketing/v1/trackings`,
+            (_req, res, ctx) => res(ctx.status(200), ctx.json({})),
           ),
         );
 
@@ -614,10 +619,10 @@ describe('AuthenticationTokenManager', () => {
 
       it('should return an error if after refreshing an access token successfully the request still fails', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res.once(ctx.status(401)),
           ),
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(500)),
           ),
         );
@@ -634,7 +639,7 @@ describe('AuthenticationTokenManager', () => {
 
       it('should return an error if a request fails with 401 and the access token refresh fails', async () => {
         mswServer.use(
-          rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+          rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
             res(ctx.status(401)),
           ),
         );
@@ -709,7 +714,7 @@ describe('AuthenticationTokenManager', () => {
       expect(tokenManagerInstance.isLoading).toBe(true);
 
       mswServer.use(
-        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+        rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
           res(ctx.status(200), ctx.json(mockGetUserResponse)),
         ),
       );
@@ -1354,7 +1359,7 @@ describe('AuthenticationTokenManager', () => {
       );
 
       mswServer.use(
-        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+        rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
           res(ctx.status(200), ctx.json(mockGetUserResponse)),
         ),
       );
@@ -1398,7 +1403,7 @@ describe('AuthenticationTokenManager', () => {
       });
 
       mswServer.use(
-        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+        rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
           res(ctx.status(200), ctx.json(mockGetUserResponse)),
         ),
       );
@@ -1477,7 +1482,7 @@ describe('AuthenticationTokenManager', () => {
       );
 
       mswServer.use(
-        rest.get('/api/account/v1/users/me', (_req, res, ctx) =>
+        rest.get(`${defaultBaseURL}/account/v1/users/me`, (_req, res, ctx) =>
           res(ctx.status(200), ctx.json({})),
         ),
       );

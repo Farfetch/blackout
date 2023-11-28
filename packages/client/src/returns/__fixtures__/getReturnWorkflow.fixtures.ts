@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ReturnWorkflow } from '../types/getReturnWorkflow.types.js';
 
-const path = '/api/account/v1/returns/:id/workflow';
+const path = `${defaultBaseURL}/account/v1/returns/:id/workflow`;
 
 const fixtures = {
   success: (response: ReturnWorkflow): RestHandler =>

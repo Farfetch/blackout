@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { CheckoutOrderOperation } from '../types/index.js';
 
-const URL = '/api/checkout/v1/orders/:orderId/operations/:operationId';
+const URL = `${defaultBaseURL}/checkout/v1/orders/:orderId/operations/:operationId`;
 
 const fixtures = {
   success: (response: CheckoutOrderOperation): RestHandler =>

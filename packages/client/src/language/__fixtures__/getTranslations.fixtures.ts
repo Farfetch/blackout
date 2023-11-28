@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Translations } from '../types/index.js';
 
-const path = '/api/language/v1/search/translations';
+const path = `${defaultBaseURL}/language/v1/search/translations`;
 
 const fixtures = {
   success: (response: Translations): RestHandler =>

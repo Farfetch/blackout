@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { PaymentIntentCharge } from '../types/index.js';
 
-const path = '/api/payment/v1/intents/:id/charges/:chargeId';
+const path = `${defaultBaseURL}/payment/v1/intents/:id/charges/:chargeId`;
 
 const fixtures = {
   success: (response: PaymentIntentCharge): RestHandler =>

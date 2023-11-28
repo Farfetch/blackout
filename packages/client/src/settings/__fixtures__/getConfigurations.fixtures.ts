@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Configurations } from '../types/index.js';
 
-const path = '/api/settings/v1/configurations';
+const path = `${defaultBaseURL}/settings/v1/configurations`;
 
 const fixtures = {
   success: (response: Configurations): RestHandler =>

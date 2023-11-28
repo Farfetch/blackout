@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { UserReturns } from '../types/index.js';
 
-const path = '/api/legacy/v1/users/:userId/returns';
+const path = `${defaultBaseURL}/legacy/v1/users/:userId/returns`;
 
 const fixtures = {
   success: (response: UserReturns): RestHandler =>

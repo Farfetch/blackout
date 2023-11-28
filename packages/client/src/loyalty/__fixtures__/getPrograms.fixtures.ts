@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Program } from '../types/index.js';
 
-const path = '/api/loyalty/v1/programs';
+const path = `${defaultBaseURL}/loyalty/v1/programs`;
 
 const fixtures = {
   success: (response: Program[]): RestHandler =>

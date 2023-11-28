@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { ExchangeBookRequest } from '../types/index.js';
 
-const path = '/api/account/v1/exchanges/:id/bookrequests/:bookRequestId';
+const path = `${defaultBaseURL}/account/v1/exchanges/:id/bookrequests/:bookRequestId`;
 
 const fixtures = {
   success: (response: ExchangeBookRequest): RestHandler =>

@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { FacetGroup } from '../types/index.js';
 
-const path = '/api/commerce/v1/listingFacets';
+const path = `${defaultBaseURL}/commerce/v1/listingFacets`;
 
 const fixtures = {
   success: (response: FacetGroup[]): RestHandler =>

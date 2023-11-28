@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { GuestToken } from '../types/index.js';
 
-const path = '/api/authentication/v1/guestTokens';
+const path = `${defaultBaseURL}/authentication/v1/guestTokens`;
 
 const fixtures = {
   success: (response: GuestToken): RestHandler =>

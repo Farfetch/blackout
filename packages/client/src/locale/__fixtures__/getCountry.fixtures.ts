@@ -1,7 +1,8 @@
+import { defaultBaseURL } from '@farfetch/blackout-client';
 import { rest, type RestHandler } from 'msw';
 import type { Country } from '../types/index.js';
 
-const path = '/api/settings/v1/countries/:countryCode';
+const path = `${defaultBaseURL}/settings/v1/countries/:countryCode`;
 
 const fixtures = {
   get: {
