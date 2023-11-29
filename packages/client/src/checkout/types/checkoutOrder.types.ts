@@ -78,4 +78,7 @@ export type CheckoutOrder = {
   shippingMode: ShippingMode;
   paymentIntentId?: PaymentIntent['id'];
   promotionEvaluationId?: PromotionEvaluationId;
+  customerId?: number;
+  tenantId?: number;
+  isGuesUser?: boolean;
 };
