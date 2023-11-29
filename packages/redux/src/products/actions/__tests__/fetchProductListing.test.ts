@@ -328,6 +328,7 @@ describe('fetchListing() action creator', () => {
 
   it('should create the correct actions for when the fetch listing procedure is successful and a filter segment description is not on the first facet group', async () => {
     store = productsListsMockStoreWithoutMiddlewares(state);
+
     (getProductListing as jest.Mock).mockResolvedValueOnce(
       mockProductsListWithSizesFilterSegment,
     );

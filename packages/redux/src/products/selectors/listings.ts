@@ -413,8 +413,10 @@ export const getProductListingActiveFilters: (
           valueUpperBound !== 0 ? `${value}-${valueUpperBound}` : value;
       }
 
-      if (acc[key]) {
-        acc[key]?.push(activeFilterValue);
+      const currentFacetGroupActiveFilters = acc[key];
+
+      if (currentFacetGroupActiveFilters) {
+        currentFacetGroupActiveFilters.push(activeFilterValue);
       } else {
         if (valueUpperBound !== 0 && !isDiscount) {
           acc[key] = [value, valueUpperBound];
@@ -747,15 +749,20 @@ export const getProductListingFacetGroups = createSelector(
   (listing, allFacets) =>
     listing?.facetGroups?.map(facetGroup => ({
       ...facetGroup,
-      values: facetGroup.values[0]?.reduce((acc, facetGroupId) => {
-        const facetEntity = allFacets?.[facetGroupId];
+      values: facetGroup.values.reduce<FacetEntity[]>(
+        (acc, facetGroupValues) => {
+          facetGroupValues.forEach(facetId => {
+            const facetEntity = allFacets?.[facetId];
 
-        if (facetEntity) {
-          acc.push(facetEntity);
-        }
+            if (facetEntity) {
+              acc.push(facetEntity);
+            }
+          });
 
-        return acc;
-      }, [] as FacetEntity[]),
+          return acc;
+        },
+        [],
+      ),
     })),
 ) as (
   state: StoreState,

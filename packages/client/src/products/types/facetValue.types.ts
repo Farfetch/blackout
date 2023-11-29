@@ -2,7 +2,7 @@ export type FacetValue = {
   value: number;
   valueUpperBound: number;
   description: string;
-  slug: string;
+  slug: string | null;
   url: string;
   parentId: number;
   groupsOn: number;
