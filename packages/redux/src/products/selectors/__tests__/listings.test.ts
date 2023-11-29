@@ -12,11 +12,12 @@ import {
   mockFacets,
   mockFacetsNormalized,
   mockGroupedEntries,
-  mockProductsListDenormalizedFacetGroups,
+  mockProductsListDenormalizedFacetGroupsWithMultipleValues,
   mockProductsListHash,
   mockProductsListHashWithPageIndexParameter,
   mockProductsListNormalizedPayload,
   mockProductsState,
+  mockProductsWithMultipleFacetGroupValuesState,
   mockSetId,
 } from 'tests/__fixtures__/products/index.mjs';
 import { mockCategory } from 'tests/__fixtures__/categories/index.mjs';
@@ -1008,11 +1009,13 @@ describe('product listing redux selectors', () => {
   describe('getProductListingFacetGroups()', () => {
     it('should return all the facet groups correctly', () => {
       const expectedResult =
-        mockProductsListDenormalizedFacetGroups[mockProductsListHash];
+        mockProductsListDenormalizedFacetGroupsWithMultipleValues[
+          mockProductsListHash
+        ];
 
       expect(
         selectors.getProductListingFacetGroups(
-          mockProductsState,
+          mockProductsWithMultipleFacetGroupValuesState,
           mockProductsListHash,
         ),
       ).toEqual(expectedResult);

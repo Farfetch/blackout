@@ -1,3 +1,8 @@
+import {
+  type BlackoutError,
+  FacetGroupFormat,
+  FacetGroupKey,
+} from '@farfetch/blackout-client';
 import { mockState as brandsMockState } from '../brands/index.mjs';
 import { mockBagItemEntity } from '../bags/bagItem.fixtures.mjs';
 import { mockCategoriesState } from '../categories/index.mjs';
@@ -12,7 +17,6 @@ import {
 import { mockRecentlyViewedState } from './recentlyViewed.fixtures.mjs';
 import { mockRecommendedProductSetState } from './recommendedProductSet.fixtures.mjs';
 import { mockRecommendedProductsState } from './recommendedProducts.fixtures.mjs';
-import type { BlackoutError } from '@farfetch/blackout-client';
 import type { ProductEntity } from '@farfetch/blackout-redux';
 
 export const mockAttributesState = {
@@ -281,6 +285,79 @@ export const mockProductsState = {
         ProductEntity
       >),
       [mockProductId]: mockProduct,
+    },
+  },
+};
+
+export const mockProductsWithMultipleFacetGroupValuesState = {
+  ...mockProductsState,
+  entities: {
+    ...mockProductsState.entities,
+    facets: {
+      ...mockProductsState.entities.facets,
+      'sizes_17_148305_listing/woman/clothing?categories=135971&colors=6&pageindex=1':
+        {
+          value: 17,
+          valueUpperBound: 0,
+          description: '1 mth',
+          slug: null,
+          url: '?sizes=17',
+          parentId:
+            'sizes_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          _isDisabled: false,
+          _isActive: false,
+          groupsOn: 148305,
+          count: 7,
+          id: 'sizes_17_148305_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          groupType: 9,
+        },
+      'sizes_26_148177_listing/woman/clothing?categories=135971&colors=6&pageindex=1':
+        {
+          value: 26,
+          valueUpperBound: 0,
+          description: '38',
+          slug: null,
+          url: '?sizes=26',
+          parentId:
+            'sizes_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          _isDisabled: false,
+          _isActive: false,
+          groupsOn: 148177,
+          count: 2200,
+          id: 'sizes_26_148177_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          groupType: 9,
+        },
+    },
+    productsLists: {
+      ...mockProductsState.entities.productsLists,
+      [mockProductsListHash]: {
+        ...mockProductsState.entities.productsLists[mockProductsListHash],
+        facetGroups: [
+          ...mockProductsState.entities.productsLists[mockProductsListHash]
+            .facetGroups,
+          {
+            deep: 0,
+            description: 'Sizes',
+            type: 9,
+            order: 4,
+            key: FacetGroupKey.Sizes,
+            format: FacetGroupFormat.Multiple,
+            values: [
+              [
+                'sizes_17_148305_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+              ],
+              [
+                'sizes_26_148177_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+              ],
+            ],
+            _clearUrl: null,
+            _isClearHidden: false,
+            _isClosed: false,
+            dynamic: 0,
+            hash: mockProductsListHash,
+          },
+        ],
+      },
     },
   },
 };

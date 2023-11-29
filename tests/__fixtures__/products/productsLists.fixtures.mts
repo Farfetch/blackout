@@ -2075,6 +2075,58 @@ export const mockProductsListNormalizedPayload = {
   },
 };
 
+export const mockProductsListDenormalizedFacetGroupsWithMultipleValues = {
+  ...mockProductsListDenormalizedFacetGroups,
+  [mockProductsListHash]: [
+    ...mockProductsListDenormalizedFacetGroups[mockProductsListHash],
+    {
+      _clearUrl: null,
+      _isClearHidden: false,
+      _isClosed: false,
+      deep: 0,
+      description: 'Sizes',
+      dynamic: 0,
+      format: 'multiple',
+      hash: 'listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+      key: 'sizes',
+      order: 4,
+      type: 9,
+      values: [
+        {
+          value: 17,
+          valueUpperBound: 0,
+          description: '1 mth',
+          slug: null,
+          url: '?sizes=17',
+          parentId:
+            'sizes_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          _isDisabled: false,
+          _isActive: false,
+          groupsOn: 148305,
+          count: 7,
+          id: 'sizes_17_148305_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          groupType: 9,
+        },
+        {
+          value: 26,
+          valueUpperBound: 0,
+          description: '38',
+          slug: null,
+          url: '?sizes=26',
+          parentId:
+            'sizes_0_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          _isDisabled: false,
+          _isActive: false,
+          groupsOn: 148177,
+          count: 2200,
+          id: 'sizes_26_148177_listing/woman/clothing?categories=135971&colors=6&pageindex=1',
+          groupType: 9,
+        },
+      ],
+    },
+  ],
+};
+
 export const mockProductsListModel = {
   slug: mockProductsListSlug,
   subfolder: 'us',
