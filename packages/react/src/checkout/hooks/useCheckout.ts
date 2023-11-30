@@ -22,6 +22,7 @@ import {
 import {
   type CheckoutAddress,
   type CheckoutOrder,
+  type CheckoutOrderDeliveryBundle,
   type Config,
   type CountryAddressSchema,
   type GetCheckoutOrderQuery,
@@ -92,7 +93,10 @@ function useCheckout(
   const deliveryBundles = useSelector(getCheckoutOrderDeliveryBundles);
   const getSelectedDeliveryBundle = useCallback(
     () =>
-      deliveryBundles?.find((item: { isSelected: boolean }) => item.isSelected),
+      deliveryBundles?.find(
+        (deliveryBundle: CheckoutOrderDeliveryBundle) =>
+          deliveryBundle.isSelected,
+      ),
     [deliveryBundles],
   );
   const { data: user } = useUser();
