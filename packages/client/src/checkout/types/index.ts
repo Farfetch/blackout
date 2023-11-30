@@ -43,6 +43,7 @@ export * from './postCheckoutOrderCharge.types.js';
 export * from './postCheckoutOrderContext.types.js';
 export * from './postCheckoutSession.types.js';
 export * from './postCheckoutSessionCharge.types.js';
+export * from './postDraftOrders.types.js';
 export * from './putCheckoutOrderItemTags.types.js';
 export * from './putCheckoutOrderPromocodes.types.js';
 export * from './putCheckoutOrderTags.types.js';

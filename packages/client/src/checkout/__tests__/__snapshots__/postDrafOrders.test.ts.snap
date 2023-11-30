@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`creates a new Orders postCheckoutSession should receive a client request error 1`] = `
+Object {
+  "code": "-1",
+  "message": "stub error",
+  "name": "AxiosError",
+  "status": 404,
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
+}
+`;
+
+exports[`creates a new draftOrders postDraftOrders should receive a client request error 1`] = `
+Object {
+  "code": "-1",
+  "message": "Network Error",
+  "name": "AxiosError",
+  "status": 200,
+  "transportLayerErrorCode": "ERR_NETWORK",
+}
+`;

@@ -31,6 +31,7 @@ export { default as postCheckoutOrderCharge } from './postCheckoutOrderCharge.js
 export { default as postCheckoutOrderContext } from './postCheckoutOrderContext.js';
 export { default as postCheckoutSession } from './postCheckoutSession.js';
 export { default as postCheckoutSessionCharge } from './postCheckoutSessionCharge.js';
+export { default as postDraftOrders } from './postDraftOrders.js';
 export { default as putCheckoutOrderItemTags } from './putCheckoutOrderItemTags.js';
 export { default as putCheckoutOrderPromocodes } from './putCheckoutOrderPromocodes.js';
 export { default as putCheckoutOrderTags } from './putCheckoutOrderTags.js';
