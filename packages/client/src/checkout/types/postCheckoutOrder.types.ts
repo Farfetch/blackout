@@ -18,9 +18,9 @@ export type PostCheckoutOrderItem = {
   quantity: number;
   customAttributes: string;
   productAggregatorId: number;
-  tenantId: number;
-  customerId: number;
-  isGuestUser: boolean;
+  tenantId?: number;
+  customerId?: number;
+  isGuestUser?: boolean;
 };
 
 export type PostCheckoutOrderDataWithItems = PostCheckoutOrderData & {

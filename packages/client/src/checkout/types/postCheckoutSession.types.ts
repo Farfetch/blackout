@@ -11,9 +11,9 @@ export type PostCheckoutSessionData = {
   metadata?: CheckoutSessionMetadata;
   successUrl: string;
   cancelUrl: string;
-  tenantId: number;
-  customerId: number;
-  isGuestUser: boolean;
+  tenantId?: number;
+  customerId?: number;
+  isGuestUser?: boolean;
 };
 
 export type PostCheckoutSessionItem = Omit<
