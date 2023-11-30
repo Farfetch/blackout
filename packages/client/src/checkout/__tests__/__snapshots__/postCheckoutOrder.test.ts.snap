@@ -1,6 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`checkout client postCheckoutOrder should receive a client request error 1`] = `
+exports[`checkout client PostCheckoutOrderDataWithBag postCheckoutOrder should receive a client request error 1`] = `
+Object {
+  "code": "-1",
+  "message": "stub error",
+  "name": "AxiosError",
+  "status": 404,
+  "transportLayerErrorCode": "ERR_BAD_REQUEST",
+}
+`;
+
+exports[`checkout client PostCheckoutOrderDataWithDraftOrder postCheckoutOrder should receive a client request error 1`] = `
 Object {
   "code": "-1",
   "message": "stub error",

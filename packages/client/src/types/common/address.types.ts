@@ -29,7 +29,9 @@ export type AddressBase = {
   state?: State;
   country: CountryAddress;
   zipCode: string;
+  /** @deprecated use phoneContact field instead  */
   phone?: string;
+  phoneContact?: PhoneContact;
   neighbourhood?: string | null;
   ddd?: string | null;
   continent?: Continent | null;
@@ -77,8 +79,7 @@ export type AddressWithOptionalLocation<T extends AddressBase> = Omit<
 
 export type PaymentTokenBillingAddress =
   AddressWithOptionalLocation<AddressWithRecipient> & {
-    /** @deprecated id should not be used as its value never changes */
-    id?: '00000000-0000-0000-0000-000000000000';
+    id?: string;
     /** @deprecated userId should not be used as its value never changes */
     userId?: 0;
     /** @deprecated isDefaultBillingAddress should not be used as its value never changes */
@@ -99,13 +100,8 @@ export type StoreAddress = AddressWithRecipient & {
   subfolder?: string;
 };
 
-export type CheckoutAddress = CategorisedAddress & {
-  /** @deprecated id should not be used as its value never changes */
-  id?: '00000000-0000-0000-0000-000000000000';
-  phoneContact?: PhoneContact;
-  identityDocument?: string;
-  customsClearanceCode?: string;
-  title?: string;
+export type CheckoutAddress = Omit<AddressWithRecipient, 'continent'> & {
+  id?: string;
   /** @deprecated userId should not be used as its value never changes */
   userId?: 0;
   /** @deprecated isDefaultBillingAddress should not be used as its value never changes */
@@ -116,14 +112,16 @@ export type CheckoutAddress = CategorisedAddress & {
 
 export type CheckoutShippingAddress = Omit<CheckoutAddress, 'country'> & {
   country: CountryAddress & {
-    subfolder: string;
+    subfolder?: string;
   };
 };
 
-export type UserAddress = Omit<
+export type DraftOrderAddress = Omit<
   CheckoutAddress,
-  'id' | 'userId' | 'isDefaultBillingAddress' | 'isDefaultShippingAddress'
-> & {
+  'userId' | 'isDefaultBillingAddress' | 'isDefaultShippingAddress'
+>;
+
+export type UserAddress = CategorisedAddress & {
   id: string;
   isCurrentShipping?: boolean;
   isCurrentBilling?: boolean;
