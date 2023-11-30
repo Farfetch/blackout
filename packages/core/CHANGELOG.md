@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.96.0...@farfetch/blackout-core@2.0.0) (2023-11-30)
+
+
+### Bug Fixes
+
+* save exchange filters by id ([70a657f](https://github.com/Farfetch/blackout/commit/70a657f80164a9b6d17c784ca97fd0eaf484b78f))
+
+
+### Features
+
+* add new parameters to interact content event v1 ([af64981](https://github.com/Farfetch/blackout/commit/af64981dbbeaa09e2bbadae9b828fedb8b894ca5))
+
+
+### BREAKING CHANGES
+
+* - Exchange filters are now stored under entities by orderItemUuid (shippingOrderLineId).
+Previously the user wasn't able to fetch multiple filters because each request
+cleared the previous data, which this PR aims to fix.
+
+
+
+
+
 # [1.96.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.95.0...@farfetch/blackout-core@1.96.0) (2023-11-16)
 
 
