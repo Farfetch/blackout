@@ -997,7 +997,7 @@ export const checkoutEntity = {
   checkoutOrder: checkoutOrderId,
   id: checkoutId,
   shippingOptions: [shippingOption],
-  deliveryBundles: [deliveryBundleId],
+  deliveryBundles: [deliveryBundleId, '090998'],
   orderStatus: OrderStatusError.NoError,
 };
 
@@ -1054,7 +1054,10 @@ export const deliveryBundlesEntity = {
   },
 };
 
-export const mockDeliveryBundlesEntityDenormalized = [deliveryBundle];
+export const mockDeliveryBundlesEntityDenormalized = [
+  deliveryBundle,
+  { ...deliveryBundle, id: '090998', name: 'fake bundle', isSelected: false },
+];
 
 export const deliveryBundleUpgradesEntity = {
   [deliveryBundleId]: {

@@ -54,7 +54,10 @@ describe('checkout redux selectors', () => {
     it('should get the checkout delivery bundles', () => {
       expect(
         selectors.getCheckoutOrderDeliveryBundles(mockCheckoutState),
-      ).toEqual([deliveryBundlesEntity[deliveryBundleId]]);
+      ).toEqual([
+        deliveryBundlesEntity[deliveryBundleId],
+        deliveryBundlesEntity['090998'],
+      ]);
     });
   });
 
