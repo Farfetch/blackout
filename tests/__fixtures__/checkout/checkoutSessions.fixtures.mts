@@ -53,6 +53,7 @@ export const mockCheckoutSession: CheckoutSession = {
   isGuest: false,
   userId: 1,
   orderId: '1',
+  customerId: 123,
   checkoutOrderId: 1,
   orderStatus: CheckoutSessionOrderStatus.NoError,
   grandTotal: 115.0,

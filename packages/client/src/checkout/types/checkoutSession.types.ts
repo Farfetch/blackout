@@ -53,4 +53,5 @@ export type CheckoutSession = {
   promotionEvaluationId?: string;
   totalCredit?: number;
   promocode?: string;
+  customerId: number;
 } & Controls;

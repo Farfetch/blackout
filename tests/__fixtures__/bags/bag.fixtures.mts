@@ -463,6 +463,7 @@ export const mockResponse = {
     },
   },
   promocodes: ['code-1'],
+  customerId: 1,
 };
 
 export const mockNormalizedPayload = {

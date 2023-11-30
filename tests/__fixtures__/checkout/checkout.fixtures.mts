@@ -382,6 +382,7 @@ export const mockResponse = {
     ],
     items: [mockCheckoutOrderItem],
     currency: 'EUR',
+    customerId: 231,
     customerType: CustomerTypeLegacy.Normal,
     paymentIntentId: '123',
     countryId: 165,

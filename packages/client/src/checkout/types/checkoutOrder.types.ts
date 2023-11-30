@@ -41,6 +41,7 @@ export type CheckoutOrder = {
     userId: string;
   }[];
   currency: string;
+  customerId: number;
   customerType: CustomerTypeLegacy;
   grandTotal: number;
   items: CheckoutOrderItem[];

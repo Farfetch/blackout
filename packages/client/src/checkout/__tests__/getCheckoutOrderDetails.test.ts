@@ -105,6 +105,7 @@ describe('checkout client', () => {
           ],
           currency: 'string',
           customerType: CustomerTypeLegacy.Normal,
+          customerId: 234,
           grandTotal: 0,
           id: 0,
           items: [
