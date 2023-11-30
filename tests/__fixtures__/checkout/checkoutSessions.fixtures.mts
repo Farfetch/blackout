@@ -8,6 +8,7 @@ import {
 export const mockCheckoutSessionId = '6c3a577c-01b7-497a-91ab-b4a3388e36d3';
 
 const mockShippingAddress: CheckoutShippingAddress = {
+  id: '00000000-0000-0000-0000-000000000000',
   addressLine1: 'Rua da Lionesa 446, G12',
   addressLine2: ' Teste',
   addressLine3: '',
@@ -24,12 +25,11 @@ const mockShippingAddress: CheckoutShippingAddress = {
     name: 'Portugal',
     nativeName: 'Portugal',
     region: 'Europe',
-    subfolder: '/pt-PT',
     regionId: 0,
     continentId: 3,
+    subfolder: '/pt-PT',
   },
   firstName: 'tester',
-  id: '00000000-0000-0000-0000-000000000000',
   lastName: 'teste',
   phone: '121525125',
   state: {
