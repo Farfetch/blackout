@@ -29,7 +29,14 @@ export type PostCheckoutOrderDataWithBag = PostCheckoutOrderData & {
   removePurchasedItemsFromBag?: boolean;
 };
 
+export type PostCheckoutOrderDataWithDraftOrder = {
+  draftOrderId: string;
+};
+
 export type PostCheckoutOrder = (
-  data: PostCheckoutOrderDataWithItems | PostCheckoutOrderDataWithBag,
+  data:
+    | PostCheckoutOrderDataWithItems
+    | PostCheckoutOrderDataWithBag
+    | PostCheckoutOrderDataWithDraftOrder,
   config?: Config,
 ) => Promise<GetCheckoutOrderResponse>;

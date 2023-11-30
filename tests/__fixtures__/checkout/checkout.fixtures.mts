@@ -52,7 +52,8 @@ export const productId = 12640693;
 
 const brandId = 121212;
 
-const address: CheckoutShippingAddress = {
+export const address: CheckoutShippingAddress = {
+  id: '00000000-0000-0000-0000-000000000000',
   addressLine1: 'Rua da Lionesa 446, G12',
   addressLine2: ' Teste',
   addressLine3: '',
@@ -60,7 +61,7 @@ const address: CheckoutShippingAddress = {
     countryId: 0,
     id: 0,
     name: 'Leça do Balio',
-    stateId: undefined,
+    stateId: 0,
   },
   country: {
     alpha2Code: 'PT',
@@ -70,24 +71,23 @@ const address: CheckoutShippingAddress = {
     name: 'Portugal',
     nativeName: 'Portugal',
     region: 'Europe',
-    subRegion: undefined,
     subfolder: '/pt-PT',
+    subRegion: null,
     regionId: 0,
     continentId: 3,
   },
-  ddd: undefined,
+  ddd: null,
   firstName: 'tester',
-  id: '00000000-0000-0000-0000-000000000000',
   lastName: 'teste',
-  neighbourhood: undefined,
+  neighbourhood: null,
   phone: '121525125',
   state: {
-    code: undefined,
+    code: 'test',
     countryId: 0,
     id: 0,
     name: '',
   },
-  vatNumber: undefined,
+  vatNumber: '1233432',
   zipCode: '4465-761',
 };
 
