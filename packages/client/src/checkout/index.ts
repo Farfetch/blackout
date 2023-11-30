@@ -36,6 +36,7 @@ export { default as putCheckoutOrderPromocodes } from './putCheckoutOrderPromoco
 export { default as putCheckoutOrderTags } from './putCheckoutOrderTags.js';
 export { default as putCheckoutSessionPromocodes } from './putCheckoutSessionPromocodes.js';
 export { default as putCheckoutSessionTags } from './putCheckoutSessionTags.js';
+export * from './draftOrders/index.js';
 
 /**
  * Checkout types.

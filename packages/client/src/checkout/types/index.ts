@@ -50,3 +50,4 @@ export * from './putCheckoutSessionPromocodes.types.js';
 export * from './putCheckoutSessionTags.types.js';
 export * from './shippingCostType.types.js';
 export * from './shippingOption.types.js';
+export * from '../draftOrders/types/index.js';
