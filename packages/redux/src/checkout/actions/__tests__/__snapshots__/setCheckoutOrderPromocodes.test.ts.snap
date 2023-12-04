@@ -293,6 +293,7 @@ Object {
             },
           ],
           "currency": "EUR",
+          "customerId": 231,
           "customerType": 0,
           "formattedGrandTotal": "102 €",
           "formattedSubTotalAmount": "100 €",

@@ -286,6 +286,7 @@ Object {
         "totalTaxes": 0,
       },
       "count": 1,
+      "customerId": 1,
       "hadUnavailableItems": false,
       "id": "7894746",
       "items": Array [
@@ -589,6 +590,7 @@ Object {
         "totalTaxes": 0,
       },
       "count": 1,
+      "customerId": 1,
       "hadUnavailableItems": false,
       "id": "7894746",
       "items": Array [
