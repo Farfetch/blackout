@@ -13,6 +13,7 @@ import {
   checkoutOrderItemId,
   contextId,
   deliveryBundleId,
+  deliveryBundleId_2,
   deliveryBundlesEntity,
   deliveryBundleUpgradeId_1,
   deliveryBundleUpgradesEntity,
@@ -56,7 +57,7 @@ describe('checkout redux selectors', () => {
         selectors.getCheckoutOrderDeliveryBundles(mockCheckoutState),
       ).toEqual([
         deliveryBundlesEntity[deliveryBundleId],
-        deliveryBundlesEntity['090998'],
+        deliveryBundlesEntity[deliveryBundleId_2],
       ]);
     });
   });
