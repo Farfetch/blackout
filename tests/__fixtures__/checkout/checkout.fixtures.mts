@@ -38,6 +38,7 @@ export const operationId = '987654321';
 export const upgradeId = '123456';
 export const chargeId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
 export const deliveryBundleId = '1234';
+export const deliveryBundleId_2 = '090998';
 export const merchantLocationId = 1212121212;
 export const collectPointId = 999;
 export const itemId1 = 0;
@@ -997,7 +998,7 @@ export const checkoutEntity = {
   checkoutOrder: checkoutOrderId,
   id: checkoutId,
   shippingOptions: [shippingOption],
-  deliveryBundles: [deliveryBundleId, '090998'],
+  deliveryBundles: [deliveryBundleId, deliveryBundleId_2],
   orderStatus: OrderStatusError.NoError,
 };
 
@@ -1046,9 +1047,9 @@ const deliveryBundle = {
 
 export const deliveryBundlesEntity = {
   [deliveryBundleId]: deliveryBundle,
-  '090998': {
+  [deliveryBundleId_2]: {
     ...deliveryBundle,
-    id: '090998',
+    id: deliveryBundleId_2,
     name: 'fake bundle',
     isSelected: false,
   },
@@ -1056,7 +1057,12 @@ export const deliveryBundlesEntity = {
 
 export const mockDeliveryBundlesEntityDenormalized = [
   deliveryBundle,
-  { ...deliveryBundle, id: '090998', name: 'fake bundle', isSelected: false },
+  {
+    ...deliveryBundle,
+    id: deliveryBundleId_2,
+    name: 'fake bundle',
+    isSelected: false,
+  },
 ];
 
 export const deliveryBundleUpgradesEntity = {
@@ -1496,7 +1502,7 @@ export const mockCheckoutState = {
       error: null,
       result: [contextId],
     },
-    deliveryBundles: [deliveryBundleId, '090998'],
+    deliveryBundles: [deliveryBundleId, deliveryBundleId_2],
   },
   payments: {
     ...mockInitialState.payments,
