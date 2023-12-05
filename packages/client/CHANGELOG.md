@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.15.0...@farfetch/blackout-client@2.15.1) (2023-12-05)
+
+### Bug Fixes
+
+- fix `getProductListingFacetGroups` selector ([6f19eca](https://github.com/Farfetch/blackout/commit/6f19ecaa51f88d1ebeea2f3d83f262e159b0f523))
+
 # [2.15.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.14.3...@farfetch/blackout-client@2.15.0) (2023-11-21)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.9.1...@farfetch/blackout-analytics@1.10.0) (2023-12-05)
+
+### Features
+
+- add new parameters to interact content event main ([b853f03](https://github.com/Farfetch/blackout/commit/b853f03f16b9076af1d93647be46a21934c91ad5))
+
 ## [1.9.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.9.0...@farfetch/blackout-analytics@1.9.1) (2023-11-21)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics

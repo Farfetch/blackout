@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.16.0...@farfetch/blackout-redux@1.17.0) (2023-12-05)
+
+### Bug Fixes
+
+- fix `getProductListingFacetGroups` selector ([6f19eca](https://github.com/Farfetch/blackout/commit/6f19ecaa51f88d1ebeea2f3d83f262e159b0f523))
+- fix `ids` slice reducer in wishlist sets ([d6a0dc5](https://github.com/Farfetch/blackout/commit/d6a0dc59444a512c7a41a3c7192d899620232d4d))
+
+### Features
+
+- add id delivery bundle in tests ([fb6e6b0](https://github.com/Farfetch/blackout/commit/fb6e6b07bf1424d6f2e2526d8d324a58a5f4816a))
+- add new parameters to interact content event main ([b853f03](https://github.com/Farfetch/blackout/commit/b853f03f16b9076af1d93647be46a21934c91ad5))
+
+### Reverts
+
+- Revert "fix: buildQueryStringFromObject query construction" ([487436b](https://github.com/Farfetch/blackout/commit/487436b3536c7b3b86fb7511d4c5789ea87b5284))
+
 # [1.16.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.15.0...@farfetch/blackout-redux@1.16.0) (2023-11-21)
 
 ### Bug Fixes

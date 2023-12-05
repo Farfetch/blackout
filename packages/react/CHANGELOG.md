@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.16.0...@farfetch/blackout-react@1.17.0) (2023-12-05)
+
+### Bug Fixes
+
+- url encode text resources in getSearchRedirectUrl ([38be180](https://github.com/Farfetch/blackout/commit/38be18039f1ac7bb85337e51577fdecfe9eb4cdc))
+
+### Features
+
+- add new parameters to interact content event main ([b853f03](https://github.com/Farfetch/blackout/commit/b853f03f16b9076af1d93647be46a21934c91ad5))
+- add type in delivery bundle ([3277960](https://github.com/Farfetch/blackout/commit/327796031fdc75d93713d60c1a5f4f9b58da9dfd))
+- **react-client:** Exposes delivery bundles in hook of use checkout ([3f6ed8b](https://github.com/Farfetch/blackout/commit/3f6ed8b7535c59aee2902ee915116d5298d0974f))
+
 # [1.16.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.15.0...@farfetch/blackout-react@1.16.0) (2023-11-21)
 
 ### Bug Fixes
