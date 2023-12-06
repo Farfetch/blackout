@@ -7,4 +7,4 @@ export * from './getDraftOrder.types.js';
 export * from './getDraftOrders.types.js';
 export * from './patchDraftOrder.types.js';
 export * from './patchDraftOrderItem.types.js';
-export * from './postDraftOrders.types.js';
+export * from './postDraftOrder.types.js';
