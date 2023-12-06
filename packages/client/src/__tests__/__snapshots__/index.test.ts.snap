@@ -1241,7 +1241,7 @@ Object {
   "postCheckoutOrderContext": [Function],
   "postCheckoutSession": [Function],
   "postCheckoutSessionCharge": [Function],
-  "postDraftOrders": [Function],
+  "postDraftOrder": [Function],
   "postExchange": [Function],
   "postExchangeBookRequest": [Function],
   "postExchangeFilter": [Function],

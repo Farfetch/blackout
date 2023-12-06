@@ -18,6 +18,7 @@ export * from './convert.types.js';
 export * from './countries.types.js';
 export * from './credit.types.js';
 export * from './deliveryBundles.types.js';
+export * from './draftOrder.types.js';
 export * from './facet.types.js';
 export * from './instrument.types.js';
 export * from './instruments.types.js';

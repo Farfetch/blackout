@@ -3,10 +3,10 @@ import { mockDraftOrderResponse } from 'tests/__fixtures__/checkout/draftOrders.
 import client from '../../../helpers/client/index.js';
 import fixtures from '../__fixtures__/postDraftsOrders.fixtures.js';
 import mswServer from '../../../../tests/mswServer.js';
-import type { DraftOrder, PostDraftOrdersData } from '../types/index.js';
+import type { DraftOrder, PostDraftOrderData } from '../types/index.js';
 
 describe('checkout client', () => {
-  const data: PostDraftOrdersData = {
+  const data: PostDraftOrderData = {
     orderId: 12343243,
     customerId: '123',
   };
@@ -15,14 +15,14 @@ describe('checkout client', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  describe('postDraftOrders', () => {
+  describe('postDraftOrder', () => {
     const spy = jest.spyOn(client, 'post');
     const urlToBeCalled = '/checkout/v1/draftOrders';
 
     it('should handle a client request successfully', async () => {
       mswServer.use(fixtures.success(response));
 
-      await expect(checkoutClient.postDraftOrders(data)).resolves.toStrictEqual(
+      await expect(checkoutClient.postDraftOrder(data)).resolves.toStrictEqual(
         response,
       );
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
@@ -32,7 +32,7 @@ describe('checkout client', () => {
       mswServer.use(fixtures.failure());
 
       await expect(
-        checkoutClient.postDraftOrders(data),
+        checkoutClient.postDraftOrder(data),
       ).rejects.toMatchSnapshot();
       expect(spy).toHaveBeenCalledWith(urlToBeCalled, data, expectedConfig);
     });
