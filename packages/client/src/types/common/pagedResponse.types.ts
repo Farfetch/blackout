@@ -4,3 +4,8 @@ export type PagedResponse<T> = {
   totalItems: number;
   totalPages: number;
 };
+
+export type PagedResponseWithPageSize<T> = Omit<PagedResponse<T>, 'number'> & {
+  pageSize: number;
+  pageNumber: number;
+};
