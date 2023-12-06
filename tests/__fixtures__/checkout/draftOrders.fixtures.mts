@@ -1,11 +1,20 @@
-import { mockDeliveryBundlesResponse as deliveryBundles } from './index.mjs';
+import {
+  checkoutId,
+  mockDeliveryBundlesResponse as deliveryBundles,
+} from './index.mjs';
 import { DraftOrderStatus } from '@farfetch/blackout-client';
+import type { StoreState } from '@farfetch/blackout-redux';
 
-const customerId = '123';
+export const customerId = '123';
 
 export const draftOrderId = 'eb92d414-68de-496e-96db-a0c6582b74d4';
 export const mockDraftOrdersQuery = {
   customerId,
+};
+
+export const mockDataDraftOrder = {
+  orderId: checkoutId,
+  customerId: customerId,
 };
 
 export const mockDraftOrderItemId = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
@@ -83,3 +92,83 @@ export const mockDraftOrderResponse = {
   deliveryBundles: deliveryBundles,
 };
 export const mockDraftOrdersResponse = [mockDraftOrderResponse];
+
+export const mockDraftOrdersResponses = {
+  entries: [mockDraftOrderResponse],
+  pageSize: 0,
+  pageNumber: 0,
+  totalPages: 0,
+  totalItems: 0,
+};
+
+export const mockFetchDraftOrderNormalizedPayload = {
+  result: draftOrderId,
+  entities: {
+    draftOrders: {
+      [draftOrderId]: mockDraftOrderResponse,
+    },
+  },
+};
+
+export const mockFetchDraftOrdersNormalizedPayload = {
+  entities: {
+    draftOrders: {
+      [draftOrderId]: mockDraftOrderResponse,
+    },
+  },
+  result: {
+    entries: [draftOrderId],
+    pageSize: 0,
+    pageNumber: 0,
+    totalPages: 0,
+    totalItems: 0,
+  },
+};
+
+export const draftOrderQuery = '?customerid=123';
+
+export const mockDraftOrderState: StoreState = {
+  entities: {
+    ...mockFetchDraftOrdersNormalizedPayload.entities,
+    ...mockFetchDraftOrderNormalizedPayload.entities,
+  },
+  draftOrders: {
+    draftOrder: {
+      [draftOrderId]: {
+        isLoading: false,
+        error: null,
+      },
+    },
+    allDraftOrders: {
+      [draftOrderQuery]: {
+        result: {
+          entries: [draftOrderId],
+          pageSize: 0,
+          pageNumber: 0,
+          totalPages: 0,
+          totalItems: 0,
+        },
+        isLoading: false,
+        error: null,
+      },
+    },
+    draftOrderCreations: {
+      [checkoutId]: {
+        isLoading: false,
+        error: null,
+      },
+    },
+    updateDraftOrder: {
+      [draftOrderId]: {
+        isLoading: false,
+        error: null,
+      },
+    },
+    removeDraftOrder: {
+      [draftOrderId]: {
+        isLoading: false,
+        error: null,
+      },
+    },
+  },
+};

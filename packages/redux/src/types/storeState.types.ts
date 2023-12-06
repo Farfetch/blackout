@@ -16,6 +16,7 @@ import type {
   ConvertEntity,
   CountryEntity,
   CourierEntity,
+  DraftOrdersEntity,
   FacetEntity,
   LabelTrackingEntity,
   MerchantEntity,
@@ -67,6 +68,7 @@ import type { CategoriesState } from '../categories/types/index.js';
 import type { CheckoutState } from '../checkout/types/index.js';
 import type { ConfigurationEntity } from '../entities/types/configurations.types.js';
 import type { ContentsState } from '../contents/types/index.js';
+import type { DraftOrdersState } from '../checkout/draftOrders/index.js';
 import type { ExchangesState } from '../exchanges/index.js';
 import type { FormsState } from '../forms/types/index.js';
 import type { LocaleState } from '../locale/types/index.js';
@@ -192,6 +194,7 @@ export type StoreState = Partial<{
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;
     wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity>;
     // Keep adding/changing here as we migrate chunks
+    draftOrders: Record<DraftOrdersEntity['id'], DraftOrdersEntity>;
   }>;
   addresses: AddressesState;
   bag: BagsState;
@@ -220,5 +223,6 @@ export type StoreState = Partial<{
   themes: ThemeState;
   users: UsersState;
   wishlist: WishlistsState;
+  draftOrders: DraftOrdersState;
   // Keep adding here as we migrate chunks
 }>;
