@@ -1,7 +1,7 @@
 import * as schemaProperties from './schemas/schemaProperties.js';
 import {
+  generateSchemaOrgProperty,
   getCategories,
-  getMetatag,
   stripUrlSubfolder,
 } from '../utils/index.js';
 import { renderScriptTag } from '../helpers/index.js';
@@ -62,50 +62,52 @@ const structuredArticle = (
   publisher: Publisher,
   space?: number,
 ): ReactElement => {
-  const generateSchemaOrgProperty = (property: string) =>
-    getMetatag(property, metadata?.metatags);
-
   const ARTICLE: WithContext<Article> = {
     '@context': schemaProperties.DEFAULT_CONTEXT,
     '@type': schemaProperties.DEFAULT_TYPE,
-    name: generateSchemaOrgProperty('og:title') || metadata?.title,
+    name: generateSchemaOrgProperty('og:title', metadata) || metadata?.title,
     headline: metadata?.h1 || title,
     description:
-      generateSchemaOrgProperty('og:description') || metadata?.description,
-    url: generateSchemaOrgProperty('og:url') || stripUrlSubfolder(url),
+      generateSchemaOrgProperty('og:description', metadata) ||
+      metadata?.description,
+    url:
+      generateSchemaOrgProperty('og:url', metadata) || stripUrlSubfolder(url),
     mainEntityOfPage: {
       '@type': schemaProperties.DEFAULT_TYPE_WEBPAGE,
       '@id': url,
     },
     datePublished:
-      generateSchemaOrgProperty('article:datePublished') ||
+      generateSchemaOrgProperty('article:datePublished', metadata) ||
       date?.publicationDate,
     dateModified:
-      generateSchemaOrgProperty('article:dateModified') ||
+      generateSchemaOrgProperty('article:dateModified', metadata) ||
       date?.modificationDate,
     publisher: {
       '@type': schemaProperties.DEFAULT_ORGANISATION,
       name:
-        generateSchemaOrgProperty('article:publisher:name') || publisher?.name,
-      url: generateSchemaOrgProperty('article:publisher:url') || publisher?.url,
+        generateSchemaOrgProperty('article:publisher:name', metadata) ||
+        publisher?.name,
+      url:
+        generateSchemaOrgProperty('article:publisher:url', metadata) ||
+        publisher?.url,
       logo: {
         '@type': schemaProperties.DEFAULT_IMAGE_OBJECT,
         url:
-          generateSchemaOrgProperty('article:publisher:logo') ||
+          generateSchemaOrgProperty('article:publisher:logo', metadata) ||
           publisher?.logo,
       },
     },
     author: {
       '@type': schemaProperties.DEFAULT_ORGANISATION,
-      name: generateSchemaOrgProperty('og:site_name') || author,
+      name: generateSchemaOrgProperty('og:site_name', metadata) || author,
     },
-    articleBody: generateSchemaOrgProperty('article:body'),
+    articleBody: generateSchemaOrgProperty('article:body', metadata),
     articleSection:
-      generateSchemaOrgProperty('article:section') ||
+      generateSchemaOrgProperty('article:section', metadata) ||
       getCategories(breadcrumbs),
     image:
-      generateSchemaOrgProperty('article:image') ||
-      generateSchemaOrgProperty('og:image') ||
+      generateSchemaOrgProperty('article:image', metadata) ||
+      generateSchemaOrgProperty('og:image', metadata) ||
       image,
     keywords: metadata?.keywords ?? undefined,
   };

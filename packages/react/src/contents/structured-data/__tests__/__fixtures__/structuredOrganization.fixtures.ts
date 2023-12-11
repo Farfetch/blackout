@@ -18,7 +18,11 @@ export const organization = {
     headPrefix: '',
   },
   name: 'Organization',
+  legalName: 'Organization legal',
   url: 'http://www.farfetch.com',
+  description: 'Description',
+  urlTemplate: 'http://www.farfetch.com/shopping',
+  searchTitle: 'Search Title',
   logoUrl: 'http://www.farfetch.com/static/logo.jpg',
   address: {
     street: 'Street name',
@@ -70,5 +74,28 @@ export const organizationResult = {
     email: 'foo@gmail.com',
     contactOption: 'foo',
     areaServed: 'Europe',
+  },
+};
+
+export const organizationResultWithLegalNameDescription = {
+  ...organizationResult,
+  legalName: 'Organization legal',
+  description: 'Description',
+};
+
+export const organizationResultWithPotentialAction = {
+  ...organizationResult,
+  potentialAction: {
+    '@type': 'SearchAction',
+    name: 'Search Title',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'http://www.farfetch.com/shopping{search_term_string}',
+    },
+    'query-input': {
+      '@type': 'PropertyValueSpecification',
+      valueRequired: 'True',
+      valueName: 'search_term_string',
+    },
   },
 };

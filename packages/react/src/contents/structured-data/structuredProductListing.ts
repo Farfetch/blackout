@@ -1,6 +1,6 @@
 import * as schemaProperties from './schemas/schemaProperties.js';
-import { getMetatag } from '../utils/index.js';
 import { renderScriptTag } from '../helpers/index.js';
+import generateSchemaOrgProperty from '../utils/generateSchemaOrgProperty.js';
 import type { ItemList, WithContext } from 'schema-dts';
 import type { ReactElement } from 'react';
 import type { SEOMetadata } from '@farfetch/blackout-client';
@@ -40,9 +40,6 @@ const structuredProductListing = (
   url: string,
   space?: number,
 ): ReactElement => {
-  const generateSchemaOrgProperty = (property: string) =>
-    getMetatag(property, metadata?.metatags);
-
   const generateProductUrl = (slug: string) => {
     const initialUrl = url?.substring(0, url?.lastIndexOf('/'));
 
@@ -53,7 +50,7 @@ const structuredProductListing = (
     '@context': schemaProperties.DEFAULT_CONTEXT,
     '@type': schemaProperties.DEFAULT_ITEM_LIST,
     name:
-      generateSchemaOrgProperty('productsList:name') ||
+      generateSchemaOrgProperty('productsList:name', metadata) ||
       listing?.name ||
       'Products Listing',
     url: url,
@@ -63,8 +60,10 @@ const structuredProductListing = (
         '@type': schemaProperties.DEFAULT_LIST_ITEM,
         position: index + 1,
         name:
-          generateSchemaOrgProperty(`productsList:${product.id}:name`) ||
-          product.name,
+          generateSchemaOrgProperty(
+            `productsList:${product.id}:name`,
+            metadata,
+          ) || product.name,
         url: product.slug ? generateProductUrl(product.slug) : undefined,
       }),
     ),
