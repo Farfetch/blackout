@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.67.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.65.0...@farfetch/blackout-react@0.67.0) (2023-12-11)
+
+
+### Features
+
+* add new parameters to interact content event v1 ([5c1e406](https://github.com/Farfetch/blackout/commit/5c1e406b7ce32fa9eb64d711852232a8b17dacb0))
+
+
+
+
+
 # [0.66.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.65.0...@farfetch/blackout-react@0.66.0) (2023-11-30)
 
 

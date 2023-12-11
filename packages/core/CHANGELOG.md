@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.97.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.96.0...@farfetch/blackout-core@1.97.0) (2023-12-11)
+
+
+### Bug Fixes
+
+* save exchange filters by id ([ce6f47c](https://github.com/Farfetch/blackout/commit/ce6f47c76c6ea805c8f7990e64f03ef60a4b4af5))
+
+
+### Features
+
+* add new parameters to interact content event v1 ([5c1e406](https://github.com/Farfetch/blackout/commit/5c1e406b7ce32fa9eb64d711852232a8b17dacb0))
+
+
+
+
+
 
 # [1.96.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.95.0...@farfetch/blackout-core@1.96.0) (2023-11-16)
 
