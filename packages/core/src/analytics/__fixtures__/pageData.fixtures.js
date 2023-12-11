@@ -130,6 +130,7 @@ export const customPageMockData = {
     orderId: 'ASH12',
   },
   [pageTypes.PRODUCT_DETAILS]: {
+    from: 'Recommendations',
     list: 'Recommendations',
     listId: '5c1e447a-b14b-43a5-b010-2190f3366fad',
     position: 3,

@@ -28,7 +28,6 @@ import fromParameterTypes from '../../types/fromParameterTypes';
 import get from 'lodash/get';
 import logger from '../../utils/logger';
 import omit from 'lodash/omit';
-import pageTypes from '../../types/pageTypes';
 import pick from 'lodash/pick';
 import platformTypes from '../../types/platformTypes';
 
@@ -666,10 +665,7 @@ export const getCommonCheckoutStepTrackingData = data => ({
  * @returns {object} - Omnitracking's product recommendation parameters.
  */
 export const getRecommendationsTrackingData = data => {
-  if (
-    data.event !== pageTypes.PRODUCT_DETAILS ||
-    data.properties.from === fromParameterTypes.RECOMMENDATIONS
-  ) {
+  if (data.properties.from === fromParameterTypes.RECOMMENDATIONS) {
     const recommendationsParameters = {};
 
     if (data.properties?.listId) {
@@ -687,7 +683,7 @@ export const getRecommendationsTrackingData = data => {
     return recommendationsParameters;
   }
 
-  // In case it's a non recommendations Product Details event,
+  // In case it's a non recommendations event,
   // we do not need to send these recommendations parameters.
   return;
 };
