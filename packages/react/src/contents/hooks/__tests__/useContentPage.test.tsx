@@ -2,6 +2,7 @@ import { cleanup, renderHook } from '@testing-library/react';
 import { ContentPageType } from '@farfetch/blackout-client';
 import { fetchContentPage } from '@farfetch/blackout-redux';
 import {
+  mockCommercePageWithDataState,
   mockContentPageEntry,
   mockContentPageErrorState,
   mockContentPageInitialState,
@@ -101,6 +102,34 @@ describe('useContentPage', () => {
       );
 
       expect(fetchContentPage).not.toHaveBeenCalled();
+    });
+
+    it('should return values correctly with commercePagesHash option', () => {
+      const { result } = renderHook(
+        () =>
+          useContentPage(
+            ContentPageType.Listing,
+            { slug },
+            { isCommercePage: true },
+          ),
+        {
+          wrapper: withStore(mockCommercePageWithDataState),
+        },
+      );
+
+      expect(result.current).toStrictEqual({
+        data: [
+          mockCommercePageWithDataState.entities.contents[
+            mockContentPageEntry.publicationId
+          ],
+        ],
+        isLoading: false,
+        error: null,
+        isFetched: true,
+        actions: {
+          fetch: expect.any(Function),
+        },
+      });
     });
   });
 

@@ -9,15 +9,9 @@ import {
   generateContentHash,
 } from '@farfetch/blackout-redux';
 
-export const commercePagesQuery = {
-  type: CommercePagesType.Listing,
-  gender: 0,
-  brand: 5030844,
-  category: '136643',
-};
-
 export const slug = 'woman/gucci';
-export const commercePageQuery = {
+
+export const commercePageQueryWithoutSlug = {
   brand: 5030844,
   category: '136643',
   type: CommercePagesType.Listing,
@@ -25,10 +19,18 @@ export const commercePageQuery = {
   contentTypeCode: 'commerce_pages',
 };
 
+export const commercePageQuery = {
+  slug,
+  ...commercePageQueryWithoutSlug,
+};
+
 export const commercePageContentPublicationId =
   'dc9c0c95-9485-45c2-a76c-6923bb39b544';
 
-export const commercePagesHash = generateContentHash(commercePageQuery);
+export const commercePagesHash = generateContentHash({
+  contentTypeCode: commercePageQuery.contentTypeCode,
+  codes: commercePageQuery.slug,
+});
 
 export const mockCommercePages = {
   number: 1,

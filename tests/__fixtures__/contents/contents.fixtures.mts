@@ -319,7 +319,7 @@ export const mockModel = {
     {
       filters: {
         spaceCode: 'website',
-        codes: 'career-test',
+        codes: ['career-test'],
         contentTypeCode: 'careers',
         environmentCode: 'live',
         sort: 'publicationDate:desc',

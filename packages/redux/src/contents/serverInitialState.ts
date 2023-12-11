@@ -1,11 +1,14 @@
+import {
+  applyCommercePagesRankingStrategy,
+  generateContentHash,
+} from './utils.js';
 import { buildQueryStringFromObject } from '../helpers/index.js';
 import { contentEntries } from '../entities/schemas/content.js';
-import { generateContentHash } from './utils.js';
+import { type ContentsState } from './types/index.js';
 import { get, merge } from 'lodash-es';
 import { INITIAL_STATE_CONTENT } from './reducer.js';
 import { normalize } from 'normalizr';
 import parse from 'url-parse';
-import type { ContentsState } from './types/index.js';
 import type { ServerInitialState } from '../types/serverInitialState.types.js';
 
 /**
@@ -15,28 +18,36 @@ import type { ServerInitialState } from '../types/serverInitialState.types.js';
  *
  * @returns Initial state for the contents reducer.
  */
-const serverInitialState: ServerInitialState = ({ model }) => {
+const serverInitialState: ServerInitialState = ({ model, strategy }) => {
   if (!get(model, 'searchContentRequests')) {
     return { contents: INITIAL_STATE_CONTENT };
   }
 
   const { searchContentRequests, slug, seoMetadata, subfolder } = model;
+  const url = subfolder !== '/' ? slug?.replace(subfolder, '') : slug;
+  const normalizedUrl = url
+    ?.replace('?json=true', '')
+    .replace('&json=true', '');
 
   const contents = searchContentRequests.reduce((acc, item) => {
-    const { searchResponse } = item;
-    const firstSearchResponseItem = searchResponse.entries[0];
-
-    if (!firstSearchResponseItem) {
-      return acc;
-    }
-
+    const {
+      searchResponse,
+      filters: { codes, contentTypeCode },
+    } = item;
+    let response = searchResponse;
+    const isCommercePage = contentTypeCode === 'commerce_pages';
+    const code = isCommercePage ? normalizedUrl : codes?.[0];
     const hash = generateContentHash({
-      codes: firstSearchResponseItem.code,
-      contentTypeCode: firstSearchResponseItem.contentTypeCode,
+      codes: code,
+      contentTypeCode: contentTypeCode,
     });
 
+    if (isCommercePage) {
+      response = applyCommercePagesRankingStrategy(searchResponse, strategy);
+    }
+
     const { entities, result } = {
-      ...normalize({ hash, ...searchResponse }, contentEntries),
+      ...normalize({ hash, ...response }, contentEntries),
     };
 
     return merge(acc, {
@@ -53,7 +64,6 @@ const serverInitialState: ServerInitialState = ({ model }) => {
     });
   }, {});
 
-  const url = subfolder !== '/' ? slug?.replace(subfolder, '') : slug;
   const { pathname, query } = parse(url, true);
 
   delete query.json;

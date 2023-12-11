@@ -15,6 +15,12 @@ const contentQuery = {
 
 export const contentPagesHash = generateContentHash(contentQuery);
 
+const commerceQuery = {
+  codes: slugContentWithoutQuery,
+  contentTypeCode: 'commerce_pages',
+};
+const commercePagesHash = generateContentHash(commerceQuery);
+
 export const mockContentPageEntry = {
   publicationId: 'dc9c0c95-9485-45c2-a76c-6923bb39b544',
   versionId: '78f1922d-0ef1-46ed-b02c-ca541d0a0d80',
@@ -63,6 +69,11 @@ export const mockContentPageEntry = {
       displayOptions: {},
     },
   ],
+};
+
+const mockCommercePageEntry = {
+  ...mockContentPageEntry,
+  contentTypeCode: 'commerce_pages',
 };
 
 export const mockContentPage = {
@@ -148,6 +159,38 @@ export const mockContentPageWithDataState = {
           hash: contentPagesHash,
           ...mockContentPage,
           entries: [mockContentPageEntry.publicationId],
+        },
+      },
+    },
+  },
+};
+
+export const mockCommercePageWithDataState = {
+  entities: {
+    contents: {
+      [mockCommercePageEntry.publicationId]: {
+        ...mockCommercePageEntry,
+        publicationDate: 0,
+        metadata: {
+          ...mockCommercePageEntry.metadata,
+          custom: {
+            ...mockCommercePageEntry.metadata.custom,
+            eventDate: 0,
+          },
+        },
+      },
+    },
+  },
+  contents: {
+    ...mockContentPageInitialState.contents,
+    searchResults: {
+      [commercePagesHash]: {
+        isLoading: false,
+        error: null,
+        result: {
+          hash: commercePagesHash,
+          ...mockContentPage,
+          entries: [mockCommercePageEntry.publicationId],
         },
       },
     },
