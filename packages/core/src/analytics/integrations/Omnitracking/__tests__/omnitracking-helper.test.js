@@ -1,4 +1,4 @@
-import { fromParameterTypes, pageTypes, utils } from '../../..';
+import { fromParameterTypes, utils } from '../../..';
 import {
   generatePaymentAttemptReferenceId,
   getCheckoutEventGenericProperties,
@@ -240,10 +240,10 @@ describe('omnitracking-helper', () => {
       moduleId: JSON.stringify([mockedRecommendationsValues.listId]),
     };
 
-    it('should return undefined in case its non recommendations product-details event', () => {
+    it('should return undefined in case its non recommendations event', () => {
       expect(
         getRecommendationsTrackingData({
-          event: pageTypes.PRODUCT_DETAILS,
+          event: 'abc',
           properties: {
             from: 'abc',
           },
@@ -279,7 +279,7 @@ describe('omnitracking-helper', () => {
         getRecommendationsTrackingData({
           event: 'abc',
           properties: {
-            from: 'abc',
+            from: fromParameterTypes.RECOMMENDATIONS,
             list: mockedRecommendationsValues.list,
           },
         }),

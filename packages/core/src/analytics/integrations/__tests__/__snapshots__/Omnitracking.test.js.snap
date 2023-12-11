@@ -170,10 +170,9 @@ Array [
 exports[`Omnitracking definitions \`Product Added to Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":0}]",
   "listIndex": 3,
-  "moduleId": "[\\"1234\\"]",
-  "moduleTitle": "[\\"You may like\\"]",
   "priceCurrency": "EUR",
   "productId": "12345678",
   "tid": 2915,
@@ -184,10 +183,9 @@ exports[`Omnitracking definitions \`Product Added to Wishlist\` return should ma
 Object {
   "actionArea": "PDP",
   "isMainWishlist": true,
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":0}]",
   "listIndex": 3,
-  "moduleId": "[\\"1234\\"]",
-  "moduleTitle": "[\\"You may like\\"]",
   "priceCurrency": "EUR",
   "productId": "12345678",
   "tid": 2916,
@@ -197,7 +195,8 @@ Object {
 
 exports[`Omnitracking definitions \`Product Clicked\` return should match the snapshot 1`] = `
 Object {
-  "actionArea": "PDP",
+  "actionArea": "Recommendations",
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":0}]",
   "listIndex": 3,
   "moduleId": "[\\"1234\\"]",
@@ -210,9 +209,8 @@ Object {
 exports[`Omnitracking definitions \`Product List Viewed\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PLP",
+  "itemListName": "Woman shopping",
   "lineItems": "[{\\"productId\\":\\"507f1f77bcf86cd799439011\\",\\"itemPromotion\\":6,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":25,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":19},{\\"productId\\":\\"507f1f77bcf86cd799439012\\",\\"itemPromotion\\":6,\\"category\\":\\"\\",\\"itemFullPrice\\":25,\\"listIndex\\":3,\\"unitSalePrice\\":19}]",
-  "moduleId": "[\\"12345\\"]",
-  "moduleTitle": "[\\"Woman shopping\\"]",
   "tid": 2832,
 }
 `;
@@ -221,10 +219,9 @@ exports[`Omnitracking definitions \`Product Removed From Wishlist\` return shoul
 Object {
   "actionArea": "PDP",
   "isMainWishlist": true,
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":0}]",
   "listIndex": 3,
-  "moduleId": "[\\"1234\\"]",
-  "moduleTitle": "[\\"You may like\\"]",
   "priceCurrency": "EUR",
   "productId": "12345678",
   "tid": 2925,
@@ -235,10 +232,9 @@ Object {
 exports[`Omnitracking definitions \`Product Removed from Cart\` return should match the snapshot 1`] = `
 Object {
   "actionArea": "PDP",
+  "itemListName": "You may like",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"listIndex\\":2,\\"unitSalePrice\\":0}]",
   "listIndex": 3,
-  "moduleId": "[\\"1234\\"]",
-  "moduleTitle": "[\\"You may like\\"]",
   "priceCurrency": "EUR",
   "productId": "12345678",
   "tid": 131,
