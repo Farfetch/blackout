@@ -191,7 +191,7 @@ export const customTrackMockData = {
     position: 3,
   },
   [eventTypes.PRODUCT_CLICKED]: {
-    from: 'PDP',
+    from: 'Recommendations',
     id: 123,
     list: 'You may like',
     listId: '1234',
