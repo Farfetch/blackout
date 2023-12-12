@@ -1,7 +1,6 @@
 import {
   EventType,
   FromParameterType,
-  PageType,
   SignupNewsletterGenderType,
 } from '../../../types/index.js';
 import {
@@ -262,12 +261,13 @@ describe('omnitracking-helper', () => {
       moduleId: JSON.stringify([mockedRecommendationsValues.listId]),
     };
 
-    it('should return undefined in case its non recommendations product-details event', () => {
+    it('should return undefined in case its non recommendations event', () => {
       expect(
         getRecommendationsTrackingData({
-          event: PageType.ProductDetails,
+          event: 'abc',
           properties: {
             from: 'abc',
+            list: 'dummy',
           } as Record<string, unknown>,
         } as EventData<TrackTypesValues>),
       ).toBeUndefined();
@@ -301,7 +301,7 @@ describe('omnitracking-helper', () => {
         getRecommendationsTrackingData({
           event: 'abc',
           properties: {
-            from: 'abc',
+            from: FromParameterType.Recommendations,
             list: mockedRecommendationsValues.list,
           } as Record<string, unknown>,
         } as EventData<TrackTypesValues>),

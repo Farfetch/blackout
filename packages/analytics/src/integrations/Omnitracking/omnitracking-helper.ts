@@ -8,7 +8,6 @@ import {
   type AnalyticsProduct,
   type EventData,
   FromParameterType,
-  PageType,
   SignupNewsletterGenderType,
   type TrackType,
   type TrackTypesValues,
@@ -687,10 +686,7 @@ export const getGenderValueFromProperties = (
 export const getRecommendationsTrackingData = (
   data: EventData<TrackTypesValues>,
 ) => {
-  if (
-    data.event !== PageType.ProductDetails ||
-    data.properties.from === FromParameterType.Recommendations
-  ) {
+  if (data.properties.from === FromParameterType.Recommendations) {
     const recommendationsParameters: Record<string, unknown> = {};
 
     if (data.properties?.listId) {
@@ -708,7 +704,7 @@ export const getRecommendationsTrackingData = (
     return recommendationsParameters;
   }
 
-  // In case it's a non recommendations Product Details event,
+  // In case it's a non recommendations event,
   // we do not need to send these recommendations parameters.
   return;
 };
