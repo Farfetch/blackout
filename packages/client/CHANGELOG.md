@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.15.1...@farfetch/blackout-client@2.16.0) (2023-12-12)
+
+### Features
+
+- **client|redux:** add settings endpoints ([043c9a9](https://github.com/Farfetch/blackout/commit/043c9a9226b1d3cf727bfc4bf0d1d392bbfe4f83))
+
 ## [2.15.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.15.0...@farfetch/blackout-client@2.15.1) (2023-12-05)
 
 ### Bug Fixes

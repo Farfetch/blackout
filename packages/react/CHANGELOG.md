@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.17.0...@farfetch/blackout-react@1.18.0) (2023-12-12)
+
+### Features
+
+- add itemListName parameter to analytics events main ([192ab69](https://github.com/Farfetch/blackout/commit/192ab69856720f1da6ec23ab0a880289326397db))
+
 # [1.17.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.16.0...@farfetch/blackout-react@1.17.0) (2023-12-05)
 
 ### Bug Fixes
