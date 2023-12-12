@@ -5,7 +5,7 @@ const fixtures = {
   ...baseTrackData,
   event: EventType.ProductClicked,
   properties: {
-    from: FromParameterType.Plp,
+    from: FromParameterType.Recommendations,
     id: '507f1f77bcf86cd799439011',
     name: 'Gareth McConnell Dreamscape T-Shirt',
     position: 3,

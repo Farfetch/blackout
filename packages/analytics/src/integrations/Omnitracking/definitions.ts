@@ -555,6 +555,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     listIndex: data.properties?.position,
     isMainWishlist: data.properties?.isMainWishlist,
     productId: getProductIdFromLineItems(data),
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromWishlist]: (
@@ -568,12 +569,14 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     productId: getProductIdFromLineItems(data),
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductListViewed]: data => ({
     tid: 2832,
     lineItems: getProductLineItems(data),
     actionArea: data.properties?.from,
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.CheckoutAbandoned]: data => ({
@@ -613,6 +616,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     productId: getProductIdFromLineItems(data),
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductAddedToCart]: data => ({
@@ -622,6 +626,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     productId: getProductIdFromLineItems(data),
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.ProductRemovedFromCart]: (data: EventData<TrackTypesValues>) => ({
@@ -631,6 +636,7 @@ export const trackEventsMapper: Readonly<OmnitrackingTrackEventsMapper> = {
     lineItems: getProductLineItems(data),
     listIndex: data.properties?.position,
     productId: getProductIdFromLineItems(data),
+    itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
   [EventType.SelectContent]: data => {

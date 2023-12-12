@@ -746,7 +746,7 @@ Array [
     Object {
       "analytics_package_version": "0.1.0",
       "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
-      "from": "Plp",
+      "from": "Recommendations",
       "index": 3,
       "item_list_id": "/en-pt/shopping/woman",
       "item_list_name": "Woman shopping",
