@@ -36,7 +36,7 @@ import type { UseWishlistOptions } from './types/index.js';
  * @returns All the handlers, state, actions and relevant data needed to manage any wishlist operation.
  */
 const useWishlist = (options: UseWishlistOptions = {}) => {
-  const store = useStore();
+  const { getState } = useStore<StoreState>();
   const { enableAutoFetch = true, fetchConfig } = options;
   // Selectors
   const error = useSelector(getWishlistError);
@@ -80,9 +80,17 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
         );
       }
 
-      return addItemAction(userWishlistId, data, metadata, config);
+      const currentUserWishlistId = getUser(getState())?.wishlistId;
+
+      // Check if we have the updated user wishlist Id
+      const wishlistId =
+        currentUserWishlistId && currentUserWishlistId !== userWishlistId
+          ? currentUserWishlistId
+          : userWishlistId;
+
+      return addItemAction(wishlistId, data, metadata, config);
     },
-    [addItemAction, fetchConfig, userWishlistId],
+    [addItemAction, fetchConfig, userWishlistId, getState],
   );
 
   const updateItem = useCallback(
@@ -136,7 +144,7 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
   const isEmpty = count === 0 || count === undefined;
 
   useEffect(() => {
-    const updatedState = store.getState() as StoreState;
+    const updatedState = getState();
 
     const updatedIsLoading = isWishlistLoading(updatedState);
     const updatedIsFetched = isWishlistFetched(updatedState);
@@ -156,7 +164,7 @@ const useWishlist = (options: UseWishlistOptions = {}) => {
     isFetched,
     isLoading,
     userWishlistId,
-    store,
+    getState,
   ]);
 
   const data = useMemo(() => {

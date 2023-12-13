@@ -12,6 +12,7 @@ import {
 } from '../errors/index.js';
 import { type BlackoutError, toBlackoutError } from '@farfetch/blackout-client';
 import { cleanup, renderHook } from '@testing-library/react';
+import { cloneDeep } from 'lodash-es';
 import {
   mockBagId,
   mockBagItemId,
@@ -596,6 +597,49 @@ describe('useBag', () => {
 
         expect(error.code).toBe(3);
         expect(error).toEqual(new AddUpdateItemBagError(3));
+      });
+
+      it("should use the updated user bag id from the store when the user bag id reference on the hook wasn't updated yet", async () => {
+        const mockStateWihUpdatedBagId = cloneDeep(mockState);
+        const newUserBagId = '1234567890';
+
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(() => useBag(), {
+          wrapper: withStore(mockStateWihUpdatedBagId),
+        });
+
+        mockStateWihUpdatedBagId.entities.user.bagId = newUserBagId;
+
+        await addItem(
+          mockProductId,
+          { quantity: 1, sizeId: 1 },
+          metadata,
+          myConfig,
+        );
+
+        expect(addBagItem).toHaveBeenCalledTimes(1);
+        expect(addBagItem).toHaveBeenCalledWith(
+          newUserBagId,
+          {
+            authCode: undefined,
+            customAttributes: '',
+            merchantId: mockMerchantId,
+            productAggregatorId: undefined,
+            productId: mockProductId,
+            quantity: 1,
+            scale: mockSizeScaleId,
+            size: 1,
+            metadata: externalMetadata,
+          },
+          undefined,
+          metadata,
+          myConfig,
+        );
       });
     });
 
