@@ -8,6 +8,7 @@ import {
   type WishlistNormalized,
 } from '@farfetch/blackout-redux';
 import { cleanup, renderHook } from '@testing-library/react';
+import { cloneDeep } from 'lodash-es';
 import {
   mockUserInitialState,
   mockUsersResponse,
@@ -317,7 +318,7 @@ describe('useWishlist', () => {
     });
 
     describe('addItem', () => {
-      it('should call `addWishlistItem` action when user is set', () => {
+      it('should call `addWishlistItem` action when user is set', async () => {
         const {
           result: {
             current: {
@@ -328,10 +329,50 @@ describe('useWishlist', () => {
           wrapper: withStore(stateMockData),
         });
 
-        addItem({ productId: 123, quantity: 1, size: 17 }, { from: 'Pdp' });
+        await addItem(
+          { productId: 123, quantity: 1, size: 17 },
+          { from: 'Pdp' },
+        );
 
         expect(addWishlistItem).toHaveBeenCalledWith(
           stateMockData.entities?.user?.wishlistId,
+          {
+            productId: 123,
+            quantity: 1,
+            size: 17,
+          },
+          { from: 'Pdp' },
+          undefined,
+        );
+      });
+
+      it("should use the updated user wishlist id from the store when the user wishlist id reference on the hook wasn't updated yet", async () => {
+        const mockStateWihUpdatedWishlistId = cloneDeep(stateMockData);
+        const newUserWishlistId = '1234567890';
+
+        const {
+          result: {
+            current: {
+              actions: { addItem },
+            },
+          },
+        } = renderHook(() => useWishlist(), {
+          wrapper: withStore(mockStateWihUpdatedWishlistId),
+        });
+
+        if (mockStateWihUpdatedWishlistId.entities?.user?.wishlistId) {
+          mockStateWihUpdatedWishlistId.entities.user.wishlistId =
+            newUserWishlistId;
+        }
+
+        await addItem(
+          { productId: 123, quantity: 1, size: 17 },
+          { from: 'Pdp' },
+        );
+
+        expect(addWishlistItem).toHaveBeenCalledTimes(1);
+        expect(addWishlistItem).toHaveBeenCalledWith(
+          newUserWishlistId,
           {
             productId: 123,
             quantity: 1,
