@@ -128,7 +128,6 @@ const useBag = (options: UseBagOptions = {}) => {
     internalMetadataList = DEFAULT_INTERNAL_METADATA_LIST,
   } = options;
   const { getState } = useStore<StoreState>();
-  const store = useStore();
   // Selectors
   const bag = useSelector(getBag);
   const error = useSelector(getBagError);
@@ -160,7 +159,7 @@ const useBag = (options: UseBagOptions = {}) => {
   );
 
   useEffect(() => {
-    const updatedState = store.getState() as StoreState;
+    const updatedState = getState();
     const updatedIsLoading = isBagLoading(updatedState);
     const updatedIsFetched = isBagFetched(updatedState);
 
@@ -180,7 +179,7 @@ const useBag = (options: UseBagOptions = {}) => {
     isFetched,
     isLoading,
     userBagId,
-    store,
+    getState,
   ]);
 
   const handleAddOrUpdateItem: HandleAddOrUpdateItem = useCallback(
@@ -266,8 +265,16 @@ const useBag = (options: UseBagOptions = {}) => {
             }
           }
         } else {
+          const currentUserBagId = getUser(getState())?.bagId;
+
+          // Check if we have the updated user bag Id
+          const bagId =
+            currentUserBagId && currentUserBagId !== userBagId
+              ? currentUserBagId
+              : userBagId;
+
           // When the item is not in the bag, we add it
-          await addBagItem(userBagId, requestData, undefined, metadata, config);
+          await addBagItem(bagId, requestData, undefined, metadata, config);
 
           // Now we have less quantity to add to the next merchant
           quantityToHandle -= quantityToAdd;
