@@ -4,7 +4,7 @@ export type AccountSetting = {
   id: string;
   channelCode?: string;
   type: string;
-  details: object;
+  details: Record<string, unknown>;
 };
 
 export type GetAccountSetting = (

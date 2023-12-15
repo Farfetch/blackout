@@ -1816,6 +1816,7 @@ Object {
   "settingsEntitiesMapper": Object {
     "@farfetch/blackout-redux/RESET_CONFIGURATIONS_STATE": [Function],
   },
+  "settingsReducer": [Function],
   "sizeGuidesActionTypes": Object {
     "FETCH_SIZE_GUIDES_FAILURE": "@farfetch/blackout-redux/FETCH_SIZE_GUIDES_FAILURE",
     "FETCH_SIZE_GUIDES_REQUEST": "@farfetch/blackout-redux/FETCH_SIZE_GUIDES_REQUEST",

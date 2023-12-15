@@ -12,7 +12,7 @@ export {
   accountSettingReducer,
 };
 
-const settingsReducer = combineReducers({
+export const settingsReducer = combineReducers({
   configurations: configurationsReducer,
   accountSetting: accountSettingReducer,
   accountSettings: accountSettingsReducer,
