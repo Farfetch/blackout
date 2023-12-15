@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.18.0...@farfetch/blackout-redux@1.18.1) (2023-12-15)
+
+### Bug Fixes
+
+- **client|redux:** account settings type and reducer export ([685f64e](https://github.com/Farfetch/blackout/commit/685f64e7dacc40f6a60947834366e6ba0b003754))
+
 # [1.18.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.17.0...@farfetch/blackout-redux@1.18.0) (2023-12-12)
 
 ### Features
