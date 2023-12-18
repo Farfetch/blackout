@@ -75,6 +75,22 @@ export const FETCH_SEO_METADATA_SUCCESS =
   '@farfetch/blackout-redux/FETCH_SEO_METADATA_SUCCESS';
 
 /**
+ * Action type dispatched when the fetch SEO Files request fails.
+ */
+export const FETCH_SEO_FILES_FAILURE =
+  '@farfetch/blackout-redux/FETCH_SEO_FILES_FAILURE';
+/**
+ * Action type dispatched when the fetch SEO Files request starts.
+ */
+export const FETCH_SEO_FILES_REQUEST =
+  '@farfetch/blackout-redux/FETCH_SEO_FILES_REQUEST';
+/**
+ * Action type dispatched when the fetch SEO Files request succeeds.
+ */
+export const FETCH_SEO_FILES_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_SEO_FILES_SUCCESS';
+
+/**
  * Action type dispatched when reset contents.
  */
 export const RESET_CONTENTS = '@farfetch/blackout-redux/RESET_CONTENTS';

@@ -4,6 +4,7 @@ import type {
   BlackoutError,
   Contents,
   ContentType,
+  SEOFiles,
   SEOMetadata,
 } from '@farfetch/blackout-client';
 import type { ContentEntity } from '../../entities/index.js';
@@ -118,6 +119,35 @@ export interface FetchSEOMetadataFailureAction extends Action {
     pathname: Pathname;
   };
   type: typeof actionTypes.FETCH_SEO_METADATA_FAILURE;
+}
+
+/**
+ * Fetch SEO Files Action
+ */
+export type FetchSEOFilesAction =
+  | FetchSEOFilesRequestAction
+  | FetchSEOFilesSuccessAction
+  | FetchSEOFilesFailureAction;
+
+export interface FetchSEOFilesRequestAction extends Action {
+  payload: { hash: Hash };
+  type: typeof actionTypes.FETCH_SEO_FILES_REQUEST;
+}
+
+export interface FetchSEOFilesSuccessAction extends Action {
+  payload: {
+    hash: Hash;
+    result: SEOFiles;
+  };
+  type: typeof actionTypes.FETCH_SEO_FILES_SUCCESS;
+}
+
+export interface FetchSEOFilesFailureAction extends Action {
+  payload: {
+    error: BlackoutError;
+    hash: Hash;
+  };
+  type: typeof actionTypes.FETCH_SEO_FILES_FAILURE;
 }
 
 /**

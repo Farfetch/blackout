@@ -93,6 +93,11 @@ export const mockContentPageInitialState = {
       isLoading: {},
       result: {},
     },
+    seoFiles: {
+      error: {},
+      isLoading: {},
+      result: {},
+    },
   },
 };
 

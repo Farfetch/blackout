@@ -6,7 +6,9 @@ import {
   contentPublicationId,
   contentQuery,
   contentTypesResult,
+  hash,
   pathname,
+  seoFilesResponse,
   seoQuery,
   seoResponse,
 } from 'tests/__fixtures__/contents/index.mjs';
@@ -41,6 +43,15 @@ describe('contents redux selectors', () => {
           [pathname]: false,
         },
         result: { ...seoResponse },
+      },
+      seoFiles: {
+        error: {
+          [hash]: toBlackoutError(new Error('Error - SEO Files not loaded.')),
+        },
+        isLoading: {
+          [hash]: false,
+        },
+        result: { ...seoFilesResponse },
       },
     },
     entities: {

@@ -6,3 +6,4 @@ export { default as fetchContentsFactory } from './fetchContentsFactory.js';
 export { default as fetchContentPageFactory } from './fetchContentPageFactory.js';
 export { default as fetchContentTypesFactory } from './fetchContentTypesFactory.js';
 export { default as fetchSEOMetadataFactory } from './fetchSEOMetadataFactory.js';
+export { default as fetchSEOFilesFactory } from './fetchSEOFilesFactory.js';

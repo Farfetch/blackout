@@ -7,12 +7,17 @@ export const INITIAL_STATE_CONTENT: ContentsState = {
   contentTypes: {
     error: undefined,
     isLoading: false,
-    result: null,
+    result: undefined,
   },
   metadata: {
     error: {},
     isLoading: {},
-    result: null,
+    result: undefined,
+  },
+  seoFiles: {
+    error: {},
+    isLoading: {},
+    result: undefined,
   },
 };
 
@@ -127,6 +132,52 @@ const metadata = (
   }
 };
 
+const seoFiles = (
+  state = INITIAL_STATE_CONTENT.seoFiles,
+  action: AnyAction,
+): ContentsState['seoFiles'] => {
+  switch (action.type) {
+    case actionTypes.FETCH_SEO_FILES_REQUEST:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.hash]: true,
+        },
+        error: {
+          ...state.error,
+          [action.payload.hash]: null,
+        },
+      };
+    case actionTypes.FETCH_SEO_FILES_SUCCESS:
+      return {
+        ...state,
+        result: {
+          ...state.result,
+          [action.payload.hash]: action.payload.result,
+        },
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.hash]: false,
+        },
+      };
+    case actionTypes.FETCH_SEO_FILES_FAILURE:
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          [action.payload.hash]: false,
+        },
+        error: {
+          ...state.error,
+          [action.payload.hash]: action.payload.error,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 export const getContentResult = (
   state: ContentsState,
 ): ContentsState['searchResults'] => state.searchResults;
@@ -136,6 +187,8 @@ export const getContentTypes = (
 export const getSEOmetadata = (
   state: ContentsState,
 ): ContentsState['metadata'] => state.metadata;
+export const getSEOFiles = (state: ContentsState): ContentsState['seoFiles'] =>
+  state.seoFiles;
 export const getContentTypesError = (
   state: ContentsState,
 ): ContentsState['contentTypes']['error'] => state.contentTypes.error;
@@ -144,6 +197,7 @@ const reducers = combineReducers({
   searchResults,
   contentTypes,
   metadata,
+  seoFiles,
 });
 
 /**

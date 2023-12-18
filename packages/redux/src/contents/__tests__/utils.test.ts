@@ -1,6 +1,7 @@
 import {
   applyCommercePagesRankingStrategy,
   generateContentHash,
+  generateSEOFilesHash,
   generateSEOPathname,
   getBestRankedCommercePageUsingDefaultStrategy,
   getBestRankedCommercePageUsingMergeStrategy,
@@ -12,6 +13,7 @@ import {
   mergeStrategyResult,
   mergeStrategyResultOneEntry,
   mockCommercePages,
+  seoFilesQuery,
 } from 'tests/__fixtures__/contents/index.mjs';
 import { SeoPageType } from '@farfetch/blackout-client';
 
@@ -158,6 +160,16 @@ describe('generateSEOPathname', () => {
     const expectedResult = '';
     // @ts-expect-error Force invalid pageType for test
     const result = generateSEOPathname(mockQuery);
+
+    expect(result).toBe(expectedResult);
+  });
+});
+
+describe('generateSEOFilesHash', () => {
+  it('should correctly construct the correct hash with a query object', () => {
+    const expectedResult = 'siteSEOFiles!1234';
+
+    const result = generateSEOFilesHash(seoFilesQuery);
 
     expect(result).toBe(expectedResult);
   });

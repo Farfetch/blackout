@@ -16,6 +16,7 @@ import { mockStore } from '../../../../tests/index.js';
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'content_pages!woman/gucci',
   generateSEOPathname: jest.fn(),
+  generateSEOFilesHash: jest.fn(),
 }));
 
 jest.mock('@farfetch/blackout-client/contents', () => ({

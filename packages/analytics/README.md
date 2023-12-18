@@ -75,9 +75,9 @@ transformIgnorePatterns: [
 You just need to import and use what you need. All imports should be done from the root of the package like in the following example:
 
 ```js
-import { FromParameterTypes } from '@farfetch/blackout-analytics';
+import { FromParameterType } from '@farfetch/blackout-analytics';
 
-console.log(FromParameterTypes.BAG);
+console.log(FromParameterType.BAG);
 ```
 
 ## Contributing
