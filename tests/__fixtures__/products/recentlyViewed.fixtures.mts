@@ -1,3 +1,5 @@
+import { sortBy } from 'lodash-es';
+
 export const id = 1345678;
 export const expectedRecentlyViewedRemotePayload = {
   number: 1,
@@ -15,6 +17,14 @@ export const expectedRecentlyViewedRemotePayload = {
   ],
 };
 
+export const expectedRecentlyViewedRemotePayloadSorted = {
+  ...expectedRecentlyViewedRemotePayload,
+  entries: sortBy(
+    expectedRecentlyViewedRemotePayload.entries,
+    entry => new Date(entry.lastVisitDate),
+  ),
+};
+
 export const expectedRecentlyViewedLocalPayload = [
   {
     productId: 22222222,
@@ -22,9 +32,15 @@ export const expectedRecentlyViewedLocalPayload = [
   },
   {
     productId: 33333333,
-    lastVisitDate: '2020-02-03T11:08:50.010Z',
+    lastVisitDate: '2020-02-03T12:08:50.010Z',
   },
+  { productId: 44444444, lastVisitDate: '2020-02-03T10:08:50.010Z' },
 ];
+
+export const expectRecentlyViewedLocalPayloadSorted = sortBy(
+  expectedRecentlyViewedLocalPayload,
+  entry => new Date(entry.lastVisitDate),
+);
 
 export const mockRecentlyViewedState = {
   recentlyViewed: {
