@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.98.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.97.0...@farfetch/blackout-core@1.98.0) (2023-12-19)
+
+
+### Features
+
+* add itemListName parameter to analytics events v1 ([e32788d](https://github.com/Farfetch/blackout/commit/e32788dc79a218a6140bbe7550aaf7566074cd3f))
+
+
+
+
+
 # [1.97.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.96.0...@farfetch/blackout-core@1.97.0) (2023-12-11)
 
 
