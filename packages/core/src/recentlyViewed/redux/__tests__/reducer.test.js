@@ -4,6 +4,7 @@ import {
   expectedRemotePayload,
 } from '../__mocks__/getRecentlyViewed';
 import reducer, { actionTypes } from '..';
+import sortBy from 'lodash/sortBy';
 
 let initialState;
 
@@ -137,6 +138,20 @@ describe('Recently Viewed reducer', () => {
       expect(state.result).toEqual(initialState.result);
     });
 
+    it('should return the products ordered by date', () => {
+      const state = reducer(undefined, {
+        type: actionTypes.GET_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        payload: expectedRemotePayload,
+      });
+
+      expect(state.result?.computed).toEqual(
+        sortBy(
+          expectedRemotePayload.entries,
+          entry => new Date(entry.lastVisitDate),
+        ),
+      );
+    });
+
     it(`should handle ${actionTypes.GET_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const state = reducer(undefined, {
         type: actionTypes.GET_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
@@ -152,7 +167,9 @@ describe('Recently Viewed reducer', () => {
         payload: expectedLocalPayload,
       });
 
-      expect(state.result.computed).toEqual(expectedLocalPayload);
+      expect(state.result.computed).toEqual(
+        sortBy(expectedLocalPayload, entry => new Date(entry.lastVisitDate)),
+      );
     });
 
     it(`should handle ${actionTypes.DELETE_RECENTLY_VIEWED_PRODUCT_SUCCESS} action type`, () => {

@@ -21,6 +21,6 @@ export const expectedLocalPayload = [
   },
   {
     productId: 33333333,
-    lastVisitDate: '2020-02-03T11:08:50.010Z',
+    lastVisitDate: '2020-02-02T11:08:50.010Z',
   },
 ];
