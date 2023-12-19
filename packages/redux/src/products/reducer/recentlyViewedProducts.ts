@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes/index.js';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { omit, uniqBy } from 'lodash-es';
+import { omit, sortBy, uniqBy } from 'lodash-es';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
 import type { RecentlyViewedState } from '../types/index.js';
 
@@ -54,7 +54,13 @@ const result = (
       return {
         remote: action.payload,
         pagination: omit(action.payload, 'entries') as RecentlyViewedProducts,
-        computed: uniqBy([...action.payload.entries, ...computed], 'productId'),
+        computed: uniqBy(
+          sortBy(
+            [...action.payload.entries, ...computed],
+            entry => new Date(entry.lastVisitDate),
+          ),
+          'productId',
+        ),
       };
     }
     case actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT: {
@@ -64,7 +70,13 @@ const result = (
       return {
         remote: state?.remote,
         pagination: state?.pagination,
-        computed: uniqBy([...action.payload, ...computed], 'productId'),
+        computed: uniqBy(
+          sortBy(
+            [...action.payload, ...computed],
+            entry => new Date(entry.lastVisitDate),
+          ),
+          'productId',
+        ),
       };
     }
     case actionTypes.REMOVE_RECENTLY_VIEWED_PRODUCT_SUCCESS: {

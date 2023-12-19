@@ -1,6 +1,8 @@
 import {
   expectedRecentlyViewedLocalPayload,
   expectedRecentlyViewedRemotePayload,
+  expectedRecentlyViewedRemotePayloadSorted,
+  expectRecentlyViewedLocalPayloadSorted,
 } from 'tests/__fixtures__/products/index.mjs';
 import { productsActionTypes } from '../../index.js';
 import reducer, {
@@ -155,6 +157,17 @@ describe('Recently Viewed reducer', () => {
       expect(state.result).toEqual(initialState.result);
     });
 
+    it('should return the products ordered by date', () => {
+      const state = reducer(undefined, {
+        type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
+        payload: expectedRecentlyViewedRemotePayload,
+      });
+
+      expect(state.result?.computed).toEqual(
+        expectedRecentlyViewedRemotePayloadSorted.entries,
+      );
+    });
+
     it(`should handle ${productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS} action type`, () => {
       const state = reducer(undefined, {
         type: productsActionTypes.FETCH_RECENTLY_VIEWED_PRODUCTS_SUCCESS,
@@ -171,7 +184,7 @@ describe('Recently Viewed reducer', () => {
       });
 
       expect(state.result?.computed).toEqual(
-        expectedRecentlyViewedLocalPayload,
+        expectRecentlyViewedLocalPayloadSorted,
       );
     });
 
@@ -191,6 +204,10 @@ describe('Recently Viewed reducer', () => {
           {
             productId: 22222222,
             lastVisitDate: '2020-02-03T11:08:50.010Z',
+          },
+          {
+            productId: 44444444,
+            lastVisitDate: '2020-02-03T10:08:50.010Z',
           },
         ],
       };
