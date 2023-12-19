@@ -6,6 +6,7 @@
 import * as actionTypes from './actionTypes';
 import { combineReducers } from 'redux';
 import omit from 'lodash/omit';
+import sortBy from 'lodash/sortBy';
 import uniqBy from 'lodash/uniqBy';
 
 export const INITIAL_STATE = {
@@ -61,7 +62,13 @@ const result = (
       return {
         remote: action.payload,
         pagination: omit(action.payload, 'entries'),
-        computed: uniqBy([...action.payload.entries, ...computed], 'productId'),
+        computed: uniqBy(
+          sortBy(
+            [...action.payload.entries, ...computed],
+            entry => new Date(entry.lastVisitDate),
+          ),
+          'productId',
+        ),
       };
     }
     case actionTypes.SAVE_RECENTLY_VIEWED_PRODUCT: {
@@ -70,7 +77,13 @@ const result = (
       // Merge the new payload before the previously computed entries and filter the repeated ones
       return {
         ...state,
-        computed: uniqBy([...action.payload, ...computed], 'productId'),
+        computed: uniqBy(
+          sortBy(
+            [...action.payload, ...computed],
+            entry => new Date(entry.lastVisitDate),
+          ),
+          'productId',
+        ),
       };
     }
     case actionTypes.DELETE_RECENTLY_VIEWED_PRODUCT_SUCCESS: {
