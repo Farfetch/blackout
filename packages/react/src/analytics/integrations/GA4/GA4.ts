@@ -15,6 +15,7 @@
 import {
   PageType as analyticsPageTypes,
   TrackType as analyticsTrackTypes,
+  type ConsentData,
   type EventData,
   integrations,
   type LoadIntegrationEventData,
@@ -36,6 +37,7 @@ import {
   OPTION_DATA_LAYER_NAME,
   OPTION_DEBUG_MODE,
   OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS,
+  OPTION_GOOGLE_CONSENT_CONFIG,
   OPTION_LOAD_SCRIPT_FUNCTION,
   OPTION_MEASUREMENT_ID,
   OPTION_NON_INTERACTION_EVENTS,
@@ -46,6 +48,7 @@ import {
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from './constants.js';
 import { each, get, merge } from 'lodash-es';
+import { GoogleConsentMode } from '../shared/index.js';
 import { validateFields } from './validation/optionsValidator.js';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas.js';
 import eventValidator from '../shared/validation/eventValidator.js';
@@ -70,6 +73,7 @@ import type {
  * Google Analytics 4 Integration.
  */
 class GA4 extends integrations.Integration<GA4IntegrationOptions> {
+  private googleConsentMode!: GoogleConsentMode;
   private enableAutomaticPageViews!: boolean;
   private schemaEventsMap!: Schemas;
   private initializePromise!: Promise<void>;
@@ -100,7 +104,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
     strippedDownAnalytics: StrippedDownAnalytics,
   ) {
     super(options, loadData, strippedDownAnalytics);
-    this.initialize(options);
+    this.initialize(options, loadData);
     this.onSetUser(loadData);
   }
 
@@ -111,9 +115,13 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * Initializes member variables from options and tries to initialize Google
    * Analytics 4.
    *
-   * @param options - Options passed for the GA4 integration.
+   * @param options   - Options passed for the GA4 integration.
+   * @param loadData              - Analytics's load event data.
    */
-  initialize(options: GA4IntegrationOptions) {
+  initialize(
+    options: GA4IntegrationOptions,
+    loadData: LoadIntegrationEventData,
+  ) {
     this.optionsValidationResultsMap = validateFields(options);
 
     this.measurementId = options[OPTION_MEASUREMENT_ID];
@@ -148,7 +156,31 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       true,
     );
 
+    this.googleConsentMode = new GoogleConsentMode(
+      this.getDataLayerName(),
+      loadData.consent,
+      get(options, OPTION_GOOGLE_CONSENT_CONFIG),
+    );
+
     this.loadGtagScript(options);
+  }
+
+  getDataLayerName(): string {
+    return get(this.options, OPTION_DATA_LAYER_NAME, DEFAULT_DATA_LAYER_NAME);
+  }
+
+  /**
+   * Sets the consent object. This method is called by analytics whenever the consent
+   * changes, so there's no need to validate if it has changed or not.
+   *
+   * @param consent - Object to be written on the dataLayer.
+   *
+   * @returns This allows chaining of class methods.
+   */
+  override setConsent(this: this, consent: ConsentData): this {
+    this.googleConsentMode.updateConsent(consent);
+
+    return this;
   }
 
   /**
@@ -725,9 +757,7 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
    * @param options - User configured options.
    */
   internalLoadScript(options: GA4IntegrationOptions) {
-    const customDataLayerAttr = options[OPTION_DATA_LAYER_NAME]
-      ? options[OPTION_DATA_LAYER_NAME]
-      : DEFAULT_DATA_LAYER_NAME;
+    const customDataLayerAttr = this.getDataLayerName();
     const debugMode = options[OPTION_DEBUG_MODE] || false;
     const script = document.createElement('script');
 
