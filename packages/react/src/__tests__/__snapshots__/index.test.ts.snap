@@ -273,6 +273,10 @@ Object {
     "GA": [Function],
     "GA4": [Function],
     "GTM": [Function],
+    "GoogleConsentType": Object {
+      "Denied": "denied",
+      "Granted": "granted",
+    },
     "Integration": [Function],
     "Omnitracking": [Function],
     "Riskified": [Function],

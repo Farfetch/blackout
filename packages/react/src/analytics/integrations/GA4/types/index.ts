@@ -10,6 +10,7 @@ import type {
 import type {
   OPTION_DATA_LAYER_NAME,
   OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS,
+  OPTION_GOOGLE_CONSENT_CONFIG,
   OPTION_LOAD_SCRIPT_FUNCTION,
   OPTION_MEASUREMENT_ID,
   OPTION_NON_INTERACTION_EVENTS,
@@ -20,6 +21,8 @@ import type {
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from '../constants.js';
 import type { Schema } from '../../shared/types/shared.types.js';
+
+import { type GoogleConsentModeConfig } from '../../shared/index.js';
 
 export type Schemas = Record<string, Schema>;
 
@@ -34,6 +37,7 @@ export interface GA4IntegrationOptions extends IntegrationOptions {
   [OPTION_DATA_LAYER_NAME]?: string;
   [OPTION_LOAD_SCRIPT_FUNCTION]?: () => Promise<void>;
   [OPTION_ON_PRE_PROCESS_COMMANDS]?: OnPreProcessCommandsHandler;
+  [OPTION_GOOGLE_CONSENT_CONFIG]?: GoogleConsentModeConfig;
 }
 
 export type ProductMappings = Record<string, string | string[]>;
