@@ -2,6 +2,10 @@ import { integrations } from '@farfetch/blackout-analytics';
 
 const { Integration, Omnitracking } = integrations;
 
+export {
+  type GoogleConsentModeConfig,
+  GoogleConsentType,
+} from './shared/index.js';
 export { Integration };
 export { Omnitracking };
 export { default as GA, validationSchemaBuilder } from './GA/index.js';

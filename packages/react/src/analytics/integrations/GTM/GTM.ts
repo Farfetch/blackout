@@ -23,6 +23,8 @@ import {
   DATA_LAYER_SET_USER_EVENT,
   EVENT_SCHEMAS_KEY,
   EVENTS_MAPPER_KEY,
+  GOOGLE_CONSENT_CONFIG_KEY,
+  GTM_DATA_LAYER,
   GTM_LABEL_PREFIX,
   GTM_TYPE_ERROR_PREFIX,
   INVALID_FUNCTION_ERROR_SUFFIX,
@@ -46,6 +48,7 @@ import {
 } from '@farfetch/blackout-analytics';
 import { get, isEqual, isPlainObject, merge } from 'lodash-es';
 import { getContextParameters, getUserParameters } from './utils.js';
+import { GoogleConsentMode } from '../shared/index.js';
 import eventSchemas from '../shared/validation/eventSchemas.js';
 import eventsMapper from './eventsMapper.js';
 import eventValidator from '../shared/validation/eventValidator.js';
@@ -61,6 +64,7 @@ import type { Schemas } from '../GA/index.js';
  * GTM Integration.
  */
 class GTM extends integrations.Integration<GTMIntegrationOptions> {
+  protected googleConsentMode!: GoogleConsentMode;
   protected consentKey?: string;
   protected contextKey?: string;
   protected setUserKey?: string;
@@ -132,6 +136,12 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
     options: GTMIntegrationOptions,
     loadData: LoadIntegrationEventData,
   ) {
+    this.googleConsentMode = new GoogleConsentMode(
+      GTM_DATA_LAYER,
+      loadData.consent,
+      get(options, GOOGLE_CONSENT_CONFIG_KEY),
+    );
+
     this.runGTMScript(options);
     this.setConsent(loadData.consent as ConsentData);
     this.setContext(loadData.context);
@@ -175,6 +185,7 @@ class GTM extends integrations.Integration<GTMIntegrationOptions> {
    * @returns This allows chaining of class methods.
    */
   override setConsent(this: this, consent: ConsentData): this {
+    this.googleConsentMode.updateConsent(consent);
     this.write({
       consent,
       event: this.consentKey as string,

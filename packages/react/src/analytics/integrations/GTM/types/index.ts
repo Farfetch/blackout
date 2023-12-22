@@ -2,6 +2,7 @@ import type {
   CONTAINER_ID_KEY,
   EVENT_SCHEMAS_KEY,
   EVENTS_MAPPER_KEY,
+  GOOGLE_CONSENT_CONFIG_KEY,
   SET_CONSENT_KEY,
   SET_CONTEXT_FN_KEY,
   SET_CONTEXT_KEY,
@@ -18,6 +19,8 @@ import type {
 import type { Schemas } from '../../GA/index.js';
 import type URLParse from 'url-parse';
 
+import { type GoogleConsentModeConfig } from '../../shared/index.js';
+
 export type EventMappers = Record<
   string,
   (data: EventData<TrackTypesValues>) => unknown
@@ -32,6 +35,7 @@ export interface GTMIntegrationOptions extends IntegrationOptions {
   [SET_USER_FN_KEY]?: (user: UserData) => void;
   [EVENTS_MAPPER_KEY]?: EventMappers;
   [EVENT_SCHEMAS_KEY]?: Schemas;
+  [GOOGLE_CONSENT_CONFIG_KEY]?: GoogleConsentModeConfig;
 }
 
 export type GTMEventContext = {

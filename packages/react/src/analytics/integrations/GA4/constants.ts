@@ -19,5 +19,6 @@ export const OPTION_SCHEMAS = 'schemas';
 export const OPTION_DATA_LAYER_NAME = 'dataLayerName';
 export const OPTION_SET_CUSTOM_USER_ID_PROPERTY = 'setCustomUserIdProperty';
 export const OPTION_DEBUG_MODE = 'debugMode';
+export const OPTION_GOOGLE_CONSENT_CONFIG = 'googleConsentConfig';
 
 export const GA4_UNIQUE_EVENT_ID = 'blackoutAnalyticsEventId';

@@ -1,0 +1,353 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoogleConsentMode Basic Google Consent Mode Configuration should initialize GoogleConsentMode 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Basic Google Consent Mode Configuration should not update twice dataLayer consent when "updateConsent" is called with same values 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Basic Google Consent Mode Configuration should update dataLayer consent when "updateConsent" is called 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Basic Google Consent Mode Configuration should update dataLayer consent when "updateConsent" is called 2`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with regions should initialize GoogleConsentMode 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "granted",
+      "region": Array [
+        "pt",
+        "en",
+      ],
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with regions should update dataLayer consent when "updateConsent" is called 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "granted",
+      "region": Array [
+        "pt",
+        "en",
+      ],
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with regions should update dataLayer consent when "updateConsent" is called 2`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "granted",
+      "region": Array [
+        "pt",
+        "en",
+      ],
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with regions should update dataLayer consent when "updateConsent" is called with \`wait_for_update\` property 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+      "wait_for_update": 400,
+    },
+  ],
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "granted",
+      "region": Array [
+        "pt",
+        "en",
+      ],
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with regions should update dataLayer consent when "updateConsent" is called with \`wait_for_update\` property 2`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+      "wait_for_update": 400,
+    },
+  ],
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "granted",
+      "region": Array [
+        "pt",
+        "en",
+      ],
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "granted",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with unusual scenarios should deal with custom assignments on google consents 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration with unusual scenarios should deal with no categories or getConsentValue function set 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
