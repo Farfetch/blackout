@@ -1,4 +1,8 @@
-import type { BlackoutError, DraftOrder } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  CheckoutOrder,
+  DraftOrder,
+} from '@farfetch/blackout-client';
 
 export type DraftOrdersNormalized = Omit<DraftOrdersEntries, 'entries'> & {
   entries: Array<DraftOrder['id']> | null;
@@ -26,7 +30,7 @@ export type DraftOrdersState = {
     }
   >;
   draftOrderCreations: Record<
-    DraftOrder['id'],
+    CheckoutOrder['id'],
     { error: BlackoutError | null; isLoading: boolean }
   >;
   updateDraftOrder: Record<

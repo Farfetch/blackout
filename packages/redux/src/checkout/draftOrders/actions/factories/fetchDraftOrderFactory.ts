@@ -9,6 +9,7 @@ import {
 import { normalize } from 'normalizr';
 import draftOrderSchema from '../../../../entities/schemas/draftOrder.js';
 import type { Dispatch } from 'redux';
+import type { DraftOrderEntity } from '../../../../index.js';
 import type { FetchDraftOrderAction } from '../../index.js';
 
 /**
@@ -29,7 +30,11 @@ const fetchDraftOrderFactory =
       });
 
       const result = await getDraftOrder(draftOrderId, query, config);
-      const normalizedResult = normalize(result, draftOrderSchema);
+      const normalizedResult = normalize<
+        DraftOrderEntity,
+        { draftOrders: DraftOrderEntity },
+        DraftOrder['id']
+      >(result, draftOrderSchema);
 
       dispatch({
         meta: { draftOrderId },

@@ -3,7 +3,7 @@ import {
   mockDeliveryBundlesResponse as deliveryBundles,
 } from './index.mjs';
 import { DraftOrderStatus } from '@farfetch/blackout-client';
-import type { StoreState } from '@farfetch/blackout-redux';
+// import type { StoreState } from '@farfetch/blackout-redux';
 
 export const customerId = '123';
 
@@ -127,7 +127,7 @@ export const mockFetchDraftOrdersNormalizedPayload = {
 
 export const draftOrderQuery = '?customerid=123';
 
-export const mockDraftOrderState: StoreState = {
+export const mockDraftOrderState = {
   entities: {
     ...mockFetchDraftOrdersNormalizedPayload.entities,
     ...mockFetchDraftOrderNormalizedPayload.entities,
@@ -170,5 +170,16 @@ export const mockDraftOrderState: StoreState = {
         error: null,
       },
     },
+  },
+};
+
+export const mockInitialStateDraftOrders = {
+  entities: {},
+  draftOrders: {
+    draftOrder: {},
+    allDraftOrders: {},
+    draftOrderCreations: {},
+    updateDraftOrder: {},
+    removeDraftOrder: {},
   },
 };

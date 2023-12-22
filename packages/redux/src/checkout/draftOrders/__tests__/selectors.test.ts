@@ -97,7 +97,8 @@ describe('draftOrders redux selectors', () => {
 
   describe('areDraftOrdersLoading', () => {
     it('should return the loading status for the draft order request', () => {
-      const hash = `?customerid=${customerId}`;
+      const hash = `?customerid=${customerId}` as const;
+
       const expectedResult =
         mockDraftOrderState.draftOrders?.allDraftOrders[hash]?.isLoading;
       const query = { customerId };
@@ -113,7 +114,7 @@ describe('draftOrders redux selectors', () => {
 
   describe('getDraftOrdersError', () => {
     it('should return the error status for the draft order request', () => {
-      const hash = `?customerid=${customerId}`;
+      const hash = `?customerid=${customerId}` as const;
       const expectedResult =
         mockDraftOrderState.draftOrders?.allDraftOrders[hash]?.error;
       const query = { customerId };
@@ -307,14 +308,14 @@ describe('draftOrders redux selectors', () => {
     });
   });
 
-  describe('isLoadingRemoveDraftOrder', () => {
+  describe('isRemovingDraftOrder', () => {
     it('should return the loading status for a delete draft order', () => {
       const expectedResult =
         mockDraftOrderState.draftOrders?.removeDraftOrder[draftOrderId]
           ?.isLoading;
 
       expect(
-        selectors.isLoadingRemoveDraftOrder(
+        selectors.isRemovingDraftOrder(
           mockDraftOrderState as StoreState,
           draftOrderId,
         ),

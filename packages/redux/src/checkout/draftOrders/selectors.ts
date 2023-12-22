@@ -60,19 +60,20 @@ export const getDraftOrderCreationError = (
  */
 export const getDraftOrders: (
   state: StoreState,
-  query?: DraftOrdersQuery,
+  query: DraftOrdersQuery,
 ) => DraftOrder[] | undefined = createSelector(
   [
     getDraftOrdersEntities,
-    (state: StoreState, query?: DraftOrdersQuery) => ({ state, query }),
-  ],
-  (draftOrderEntities, props) => {
-    const draftOrderHash = buildQueryStringFromObject(props.query || {});
-    const allDraftOrders = getAllDraftOrdersFromReducer(
-      props.state.draftOrders as DraftOrdersState,
-    );
-    const draftOrders = allDraftOrders[draftOrderHash];
+    (state: StoreState, query: DraftOrdersQuery) => {
+      const draftOrderHash = buildQueryStringFromObject(query || {});
+      const allDraftOrders = getAllDraftOrdersFromReducer(
+        state.draftOrders as DraftOrdersState,
+      );
 
+      return allDraftOrders[draftOrderHash];
+    },
+  ],
+  (draftOrderEntities, draftOrders) => {
     return draftOrders?.result?.entries
       ? (draftOrders?.result?.entries
           .map(
@@ -146,7 +147,7 @@ export const getDraftOrdersError = (
  */
 export const areDraftOrdersFetched = (
   state: StoreState,
-  query?: DraftOrdersQuery,
+  query: DraftOrdersQuery,
 ) =>
   (!!getDraftOrders(state, query) || !!getDraftOrdersError(state, query)) &&
   !areDraftOrdersLoading(state, query);
@@ -263,7 +264,7 @@ export const getUpdateDraftOrderError = (
  *
  * @returns Boolean indicating if the request is loading or not.
  */
-export const isLoadingRemoveDraftOrder = (
+export const isRemovingDraftOrder = (
   state: StoreState,
   draftOrderId: DraftOrder['id'],
 ) =>

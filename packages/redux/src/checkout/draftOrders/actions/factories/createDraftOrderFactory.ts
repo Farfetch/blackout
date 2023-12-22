@@ -8,8 +8,9 @@ import {
 } from '@farfetch/blackout-client';
 import { normalize } from 'normalizr';
 import draftOrderSchema from '../../../../entities/schemas/draftOrder.js';
+import type { CreateDraftOrderAction } from '../../index.js';
 import type { Dispatch } from 'redux';
-import type { FetchCreateDraftOrderAction } from '../../index.js';
+import type { DraftOrderEntity } from '../../../../index.js';
 
 /**
  * Method responsible for creating the draft order.
@@ -21,9 +22,7 @@ import type { FetchCreateDraftOrderAction } from '../../index.js';
 const createDraftOrderFactory =
   (postDraftOrder: PostDraftOrder) =>
   (data: PostDraftOrderData, config?: Config) =>
-  async (
-    dispatch: Dispatch<FetchCreateDraftOrderAction>,
-  ): Promise<DraftOrder> => {
+  async (dispatch: Dispatch<CreateDraftOrderAction>): Promise<DraftOrder> => {
     const { orderId } = data;
 
     try {
@@ -34,7 +33,11 @@ const createDraftOrderFactory =
 
       const result = await postDraftOrder(data, config);
 
-      const normalizedResult = normalize(result, draftOrderSchema);
+      const normalizedResult = normalize<
+        DraftOrderEntity,
+        { draftOrders: DraftOrderEntity },
+        DraftOrder['id']
+      >(result, draftOrderSchema);
 
       dispatch({
         meta: { orderId },

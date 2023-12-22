@@ -11,8 +11,8 @@ import { buildQueryStringFromObject as generateDraftOrdersHash } from '../../../
 import { normalize } from 'normalizr';
 import draftOrderSchema from '../../../../entities/schemas/draftOrder.js';
 import type { Dispatch } from 'redux';
+import type { DraftOrderEntity, Nullable } from '../../../../index.js';
 import type { FetchDraftOrdersAction } from '../../index.js';
-import type { Nullable } from '../../../../index.js';
 
 /**
  * Method responsible for get all draft orders.
@@ -38,7 +38,19 @@ const fetchDraftOrdersFactory =
       });
 
       const result = await getDraftOrders(query, config);
-      const normalizedResult = normalize(result, {
+      const normalizedResult = normalize<
+        DraftOrderEntity,
+        {
+          entries: {
+            draftOrders: [DraftOrderEntity];
+            pageSize: number;
+            pageNumber: number;
+            totalPages: number;
+            totalItems: number;
+          };
+        },
+        DraftOrder['id']
+      >(result, {
         entries: [draftOrderSchema],
       });
 

@@ -6,45 +6,41 @@ import type {
   DraftOrder,
   DraftOrderItem,
 } from '@farfetch/blackout-client';
+import type { DraftOrderEntity, Nullable } from '../../../index.js';
 import type { NormalizedSchema } from 'normalizr';
-import type { Nullable } from '../../../index.js';
 
 /**
- * Fetch create a draft order Action.
+ * Create a draft order Action.
  */
-export type FetchCreateDraftOrderAction =
-  | FetchCreateDraftOrderFailureAction
-  | FetchCreateDraftOrderRequestAction
-  | FetchCreateDraftOrderSuccessAction;
+export type CreateDraftOrderAction =
+  | CreateDraftOrderFailureAction
+  | CreateDraftOrderRequestAction
+  | CreateDraftOrderSuccessAction;
 
-export interface FetchCreateDraftOrderFailureAction extends Action {
+export interface CreateDraftOrderFailureAction extends Action {
   meta: { orderId: CheckoutOrder['id'] };
   payload: { error: BlackoutError };
   type: typeof actionTypes.CREATE_DRAFT_ORDER_FAILURE;
 }
 
-export interface FetchCreateDraftOrderRequestAction extends Action {
+export interface CreateDraftOrderRequestAction extends Action {
   meta: { orderId: CheckoutOrder['id'] };
   type: typeof actionTypes.CREATE_DRAFT_ORDER_REQUEST;
 }
 
-export interface FetchCreateDraftOrderSuccessAction extends Action {
+export interface CreateDraftOrderSuccessAction extends Action {
   meta: { orderId: CheckoutOrder['id'] };
   payload: NormalizedSchema<
     {
-      [key: string]:
-        | {
-            [key: string]: unknown;
-          }
-        | undefined;
+      draftOrders: DraftOrderEntity;
     },
-    unknown
+    DraftOrder['id']
   >;
   type: typeof actionTypes.CREATE_DRAFT_ORDER_SUCCESS;
 }
 
 /**
- * Fetch get a draft order Action.
+ * Fetch a draft order Action.
  */
 export type FetchDraftOrderAction =
   | FetchDraftOrderFailureAction
@@ -66,13 +62,9 @@ export interface FetchDraftOrderSuccessAction extends Action {
   meta: { draftOrderId: DraftOrder['id'] };
   payload: NormalizedSchema<
     {
-      [key: string]:
-        | {
-            [key: string]: unknown;
-          }
-        | undefined;
+      draftOrders: DraftOrderEntity;
     },
-    unknown
+    DraftOrder['id']
   >;
   type: typeof actionTypes.FETCH_DRAFT_ORDER_SUCCESS;
 }
@@ -100,13 +92,15 @@ export interface FetchDraftOrdersSuccessAction extends Action {
   meta: { hash: Nullable<string> };
   payload: NormalizedSchema<
     {
-      [key: string]:
-        | {
-            [key: string]: unknown;
-          }
-        | undefined;
+      entries: {
+        draftOrders: [DraftOrderEntity];
+        pageSize: number;
+        pageNumber: number;
+        totalPages: number;
+        totalItems: number;
+      };
     },
-    unknown
+    DraftOrder['id']
   >;
   type: typeof actionTypes.FETCH_DRAFT_ORDERS_SUCCESS;
 }
