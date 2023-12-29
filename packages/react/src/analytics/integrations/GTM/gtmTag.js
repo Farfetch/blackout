@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import { GTM_DATA_LAYER } from './constants';
+
 /**
  * Script from google tag manager.
  *
@@ -18,4 +20,4 @@ export default containerId =>
     j.async = true;
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', containerId);
+  })(window, document, 'script', GTM_DATA_LAYER, containerId);
