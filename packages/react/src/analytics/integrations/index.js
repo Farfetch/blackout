@@ -3,7 +3,8 @@ import { integrations } from '@farfetch/blackout-core/analytics';
 const { Integration } = integrations;
 
 export { Integration };
-export { AnalyticsConstants } from './shared/constants';
+
+export { AnalyticsConstants, googleConsentTypes } from './shared';
 
 export { default as AnalyticsApi } from './AnalyticsApi';
 export { default as AnalyticsService } from './AnalyticsService';

@@ -22,6 +22,8 @@ import {
   DATA_LAYER_CONSENT_EVENT,
   DATA_LAYER_CONTEXT_EVENT,
   DATA_LAYER_SET_USER_EVENT,
+  GOOGLE_CONSENT_CONFIG_KEY,
+  GTM_DATA_LAYER,
   GTM_LABEL_PREFIX,
   GTM_TYPE_ERROR_PREFIX,
   INVALID_FUNCTION_ERROR_SUFFIX,
@@ -34,6 +36,7 @@ import {
 } from './constants';
 import { utils as coreUtils } from '@farfetch/blackout-core/analytics';
 import { getContextParameters, getUserParameters } from './utils';
+import { GoogleConsentMode } from '../shared';
 import { Integration } from '@farfetch/blackout-core/analytics/integrations';
 import eventSchemas from '../shared/validation/eventSchemas';
 import eventsMapper from './eventsMapper';
@@ -107,6 +110,12 @@ class GTM extends Integration {
    * @param {object} loadData - Analytics's load event data.
    */
   initialize(options, loadData) {
+    this.googleConsentMode = new GoogleConsentMode(
+      GTM_DATA_LAYER,
+      loadData?.consent,
+      get(options, GOOGLE_CONSENT_CONFIG_KEY),
+    );
+
     this.runGTMScript(options);
     this.setConsent(loadData.consent);
     this.setContext(loadData.context);
@@ -150,6 +159,7 @@ class GTM extends Integration {
    * @returns {GTM} This allows chaining of class methods.
    */
   setConsent(consent) {
+    this.googleConsentMode.updateConsent(consent);
     this.write({
       consent,
       event: this.consentKey,
