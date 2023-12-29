@@ -30,6 +30,7 @@ import {
   OPTION_DATA_LAYER_NAME,
   OPTION_DEBUG_MODE,
   OPTION_ENABLE_AUTOMATIC_PAGE_VIEWS,
+  OPTION_GOOGLE_CONSENT_CONFIG,
   OPTION_LOAD_SCRIPT_FUNCTION,
   OPTION_MEASUREMENT_ID,
   OPTION_NON_INTERACTION_EVENTS,
@@ -39,6 +40,7 @@ import {
   OPTION_SCOPE_COMMANDS,
   OPTION_SET_CUSTOM_USER_ID_PROPERTY,
 } from './constants';
+import { GoogleConsentMode } from '../shared';
 import { validateFields } from './validation/optionsValidator';
 import defaultSchemaEventsMap from '../shared/validation/eventSchemas';
 import each from 'lodash/each';
@@ -76,7 +78,7 @@ class GA4 extends integrations.Integration {
    */
   constructor(options, loadData, analytics) {
     super(options, loadData, analytics);
-    this.initialize(options);
+    this.initialize(options, loadData);
     this.onSetUser(loadData);
   }
 
@@ -87,8 +89,9 @@ class GA4 extends integrations.Integration {
    * Initializes member variables from options and tries to initialize Google Analytics 4.
    *
    * @param {object} options - Options passed for the GA4 integration.
+   * @param {object} loadData - Analytics's load event data.
    */
-  initialize(options) {
+  initialize(options, loadData) {
     this.optionsValidationResultsMap = validateFields(options);
 
     this.measurementId = options[OPTION_MEASUREMENT_ID];
@@ -123,7 +126,36 @@ class GA4 extends integrations.Integration {
       true,
     );
 
+    this.googleConsentMode = new GoogleConsentMode(
+      this.getDataLayerName(),
+      loadData?.consent,
+      get(options, OPTION_GOOGLE_CONSENT_CONFIG),
+    );
+
     this.loadGtagScript(options);
+  }
+
+  /**
+   * Sets the consent object.
+   * This method is called by analytics whenever the consent changes, so there's no need to validate if it has changed or not.
+   *
+   * @param {object} consent - Object to be written on the dataLayer.
+   *
+   * @returns {GA4} This allows chaining of class methods.
+   */
+  setConsent(consent) {
+    this.googleConsentMode.updateConsent(consent);
+
+    return this;
+  }
+
+  /**
+   *  Returns the data layer name.
+   *
+   * @returns {string} - Data Layer Name.
+   */
+  getDataLayerName() {
+    return get(this.options, OPTION_DATA_LAYER_NAME, DEFAULT_DATA_LAYER_NAME);
   }
 
   /**
@@ -654,9 +686,7 @@ class GA4 extends integrations.Integration {
    *
    */
   internalLoadScript(options) {
-    const customDataLayerAttr = options[OPTION_DATA_LAYER_NAME]
-      ? options[OPTION_DATA_LAYER_NAME]
-      : DEFAULT_DATA_LAYER_NAME;
+    const customDataLayerAttr = this.getDataLayerName();
     const debugMode = options[OPTION_DEBUG_MODE] || false;
     const script = document.createElement('script');
     script.setAttribute(
