@@ -655,6 +655,7 @@ const getSearchParametersFromEvent = (eventProperties: EventProperties) => {
       'searchTerm',
       get(eventProperties, 'searchQuery'),
     ),
+    search_result_count: get(eventProperties, 'itemCount'),
   };
 };
 

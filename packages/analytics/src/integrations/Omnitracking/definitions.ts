@@ -853,6 +853,9 @@ export const pageEventsMapper: Readonly<OmnitrackingPageEventsMapper> = {
     viewType: 'Listing',
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
+    filtersApplied: data.properties?.filters,
+    listIndex: data.properties?.position,
+    sortOption: data.properties?.sortOption,
   }),
   [PageType.Checkout]: data => ({
     ...getCheckoutEventGenericProperties(data),
