@@ -157,6 +157,7 @@ Array [
       "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
       "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
       "path_clean": "/en-pt/",
+      "search_result_count": 3,
       "search_term": "shoes",
     },
   ],
@@ -221,6 +222,7 @@ Array [
     "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/en-pt/",
+    "search_result_count": 3,
     "search_term": "term",
   },
 ]
@@ -235,6 +237,7 @@ Array [
     "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
     "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
     "path_clean": "/en-pt/",
+    "search_result_count": 3,
     "search_term": "query",
   },
 ]

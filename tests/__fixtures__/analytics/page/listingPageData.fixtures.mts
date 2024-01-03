@@ -5,6 +5,9 @@ const fixtures = {
   ...basePageData,
   event: PageType.ProductListing,
   properties: {
+    filters: 'dummy',
+    position: 3,
+    sortOption: 'abc',
     products: [
       {
         id: '12345678',

@@ -4,6 +4,7 @@
  */
 enum FromParameterType {
   Bag = 'Bag',
+  DidYouMean = 'Did you mean',
   Editorial = 'Editorial',
   Hero = 'Hero',
   Homepage = 'Homepage',
@@ -14,8 +15,10 @@ enum FromParameterType {
   Other = 'Other',
   Pdp = 'Pdp',
   Plp = 'Plp',
+  PopularSearches = 'Popular Searches',
   QuickShop = 'Quick Shop',
   RecentlyViewed = 'Recently Viewed',
+  RecentSearches = 'Recent Searches',
   Recommendations = 'Recommendations',
   SearchPreview = 'Search Preview',
   SearchSuggestion = 'Search Suggestion',
