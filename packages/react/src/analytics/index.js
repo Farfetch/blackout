@@ -10,22 +10,28 @@ import {
   elementTypes,
   eventTypes,
   fromParameterTypes,
+  inputTypes,
   interactionTypes,
   loginMethodParameterTypes,
   pageTypes,
   platformTypes,
+  searchTypes,
+  sortOptions,
 } from '@farfetch/blackout-core/analytics';
 import analyticsWeb from './analytics';
 
 export default analyticsWeb;
 export {
-  integrations,
+  elementTypes,
   eventTypes,
   fromParameterTypes,
+  inputTypes,
+  integrations,
   interactionTypes,
-  elementTypes,
   loginMethodParameterTypes,
   pageTypes,
   platformTypes,
+  searchTypes,
+  sortOptions,
 };
 export { default as webContext } from './context';

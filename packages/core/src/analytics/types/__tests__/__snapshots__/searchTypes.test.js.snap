@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export searchTypes 1`] = `
+Object {
+  "DID_YOU_MEAN": "Did you mean",
+  "FREE_TEXT": "Free Text",
+  "PERCOLATORS": "Percolators",
+  "STOP_WORDS": "Stop Words",
+  "SUGGESTION": "Suggestion",
+}
+`;

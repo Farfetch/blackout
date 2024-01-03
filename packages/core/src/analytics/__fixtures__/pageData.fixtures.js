@@ -135,6 +135,11 @@ export const customPageMockData = {
     listId: '5c1e447a-b14b-43a5-b010-2190f3366fad',
     position: 3,
   },
+  [pageTypes.PRODUCT_LISTING]: {
+    filters: 'dummy',
+    position: 3,
+    sortOption: 'abc',
+  },
 };
 
 const getPageMockParametersForPlatform = platform => {

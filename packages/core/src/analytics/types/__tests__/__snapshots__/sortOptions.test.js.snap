@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export sortOptions 1`] = `
+Object {
+  "DISCOUNT": "Discount: high to low",
+  "NEWEST_FIRST": "Newest First",
+  "OUR_PICKS": "Our Picks",
+  "PRICE_HIGH_TO_LOW": "Price: high to low",
+  "PRICE_LOW_TO_HIGH": "Price: low to high",
+  "RANKING": "Ranking",
+  "UPLOADED_DATE": "Uploaded date",
+}
+`;

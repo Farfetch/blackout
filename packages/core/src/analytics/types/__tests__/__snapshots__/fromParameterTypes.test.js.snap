@@ -3,6 +3,7 @@
 exports[`Should export fromParameterTypes 1`] = `
 Object {
   "BAG": "Bag",
+  "DID_YOU_MEAN": "Did you mean",
   "EDITORIAL": "Editorial",
   "HERO": "Hero",
   "HOMEPAGE": "Homepage",
@@ -13,8 +14,10 @@ Object {
   "OTHER": "Other",
   "PDP": "PDP",
   "PLP": "PLP",
+  "POPULAR_SEARCHES": "Popular Searches",
   "QUICK_SHOP": "Quick Shop",
   "RECENTLY_VIEWED": "Recently Viewed",
+  "RECENT_SEARCHES": "Recent Searches",
   "RECOMMENDATIONS": "Recommendations",
   "SEARCH": "Search",
   "SEARCH_PREVIEW": "Search Preview",

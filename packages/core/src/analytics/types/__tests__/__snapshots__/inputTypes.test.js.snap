@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should export inputTypes 1`] = `
+Object {
+  "IMAGE": "Image",
+  "MICROPHONE": "Microphone",
+  "SPELLCHECKER": "Spellchecker",
+  "TEXT": "Text",
+}
+`;

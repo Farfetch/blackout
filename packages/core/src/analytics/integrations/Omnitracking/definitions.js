@@ -855,6 +855,9 @@ export const pageEventsMapper = {
     viewType: 'Listing',
     viewSubType: 'Listing',
     lineItems: getProductLineItems(data),
+    filtersApplied: data.properties?.filters,
+    listIndex: data.properties?.position,
+    sortOption: data.properties?.sortOption,
   }),
   [pageTypes.WISHLIST]: data => ({
     viewType: 'Wishlist',
