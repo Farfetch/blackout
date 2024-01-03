@@ -1137,7 +1137,10 @@ Object {
 
 exports[`Omnitracking definitions \`product-listing\` return should match the snapshot 1`] = `
 Object {
+  "filtersApplied": "dummy",
   "lineItems": "[{\\"productId\\":\\"12345678\\",\\"itemPromotion\\":1,\\"designerName\\":\\"designer name\\",\\"category\\":\\"shoes\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"unitSalePrice\\":0},{\\"productId\\":\\"98765\\",\\"itemPromotion\\":1,\\"designerName\\":\\"shirt designer name\\",\\"category\\":\\"shirt\\",\\"itemFullPrice\\":1,\\"sizeId\\":1,\\"unitSalePrice\\":0}]",
+  "listIndex": 3,
+  "sortOption": "abc",
   "viewSubType": "Listing",
   "viewType": "Listing",
 }
