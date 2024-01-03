@@ -617,6 +617,7 @@ const validTrackEvents = {
     event: pageTypes.SEARCH,
     properties: {
       searchQuery: 'shoes',
+      itemCount: 2,
       currency: 'EUR',
       products: [{ id: 10000 }, { id: 20000 }],
     },

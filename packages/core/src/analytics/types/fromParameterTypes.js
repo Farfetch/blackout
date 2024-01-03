@@ -10,6 +10,7 @@
  */
 export default {
   BAG: 'Bag',
+  DID_YOU_MEAN: 'Did you mean',
   EDITORIAL: 'Editorial',
   HERO: 'Hero',
   HOMEPAGE: 'Homepage',
@@ -20,7 +21,9 @@ export default {
   OTHER: 'Other',
   PDP: 'PDP',
   PLP: 'PLP',
+  POPULAR_SEARCHES: 'Popular Searches',
   QUICK_SHOP: 'Quick Shop',
+  RECENT_SEARCHES: 'Recent Searches',
   RECENTLY_VIEWED: 'Recently Viewed',
   RECOMMENDATIONS: 'Recommendations',
   SEARCH_PREVIEW: 'Search Preview',
