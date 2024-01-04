@@ -9,6 +9,7 @@ export type PostCheckoutOrderData = {
   guestUserEmail?: string;
   shippingMode?: ShippingMode;
   metadata?: PostCheckoutOrderMetadata;
+  customerId?: string;
 };
 
 export type PostCheckoutOrderItem = {
