@@ -17,6 +17,7 @@ import {
   mockBagId,
   mockBagItemId,
   mockInitialStateWithoutBagId,
+  mockProductAggregatorId,
   mockState,
   mockStateWithoutUser,
   mockStateWithSizeWithoutStock,
@@ -291,7 +292,6 @@ describe('useBag', () => {
             authCode: undefined,
             customAttributes: '',
             merchantId: mockMerchantId,
-            productAggregatorId: undefined,
             productId: mockProductId,
             quantity: 1,
             scale: mockSizeScaleId,
@@ -341,7 +341,11 @@ describe('useBag', () => {
 
         await addItem(
           mockProductId,
-          { quantity: 1, sizeId: 1 },
+          {
+            quantity: 1,
+            sizeId: 1,
+            productAggregatorId: mockProductAggregatorId,
+          },
           metadata,
           myConfig,
         );
@@ -352,7 +356,7 @@ describe('useBag', () => {
             authCode: undefined,
             customAttributes: '',
             merchantId: mockMerchantId,
-            productAggregatorId: undefined,
+            productAggregatorId: 321,
             productId: mockProductId,
             quantity: 1,
             scale: mockSizeScaleId,
@@ -408,7 +412,6 @@ describe('useBag', () => {
             authCode: undefined,
             customAttributes: '',
             merchantId: mockMerchantId,
-            productAggregatorId: undefined,
             productId: mockProductId,
             quantity: 1,
             scale: mockSizeScaleId,
@@ -438,7 +441,11 @@ describe('useBag', () => {
 
         await addItem(
           mockProductId,
-          { quantity: 1, sizeId: 1 },
+          {
+            quantity: 1,
+            sizeId: 1,
+            productAggregatorId: mockProductAggregatorId,
+          },
           metadata,
           myConfig,
         );
@@ -449,7 +456,7 @@ describe('useBag', () => {
             authCode: undefined,
             customAttributes: '',
             merchantId: mockMerchantId,
-            productAggregatorId: undefined,
+            productAggregatorId: 321,
             productId: mockProductId,
             quantity: 1,
             scale: mockSizeScaleId,
@@ -493,7 +500,6 @@ describe('useBag', () => {
             quantity: 6,
             scale: mockSizeScaleId,
             size: 23,
-            productAggregatorId: undefined,
             metadata: externalMetadata,
           },
           undefined,
@@ -514,7 +520,11 @@ describe('useBag', () => {
         });
 
         await expect(() =>
-          addItem(999, { quantity: 1, sizeId: 1 }),
+          addItem(999, {
+            quantity: 1,
+            sizeId: 1,
+            productAggregatorId: mockProductAggregatorId,
+          }),
         ).rejects.toThrow(
           "User's bag id is not loaded. Please, fetch the user before using this action",
         );
@@ -532,7 +542,11 @@ describe('useBag', () => {
         });
 
         await expect(() =>
-          addItem(999, { quantity: 1, sizeId: 1 }),
+          addItem(999, {
+            quantity: 1,
+            sizeId: 1,
+            productAggregatorId: mockProductAggregatorId,
+          }),
         ).rejects.toThrow('The product data is not fetched.');
       });
 
@@ -548,7 +562,11 @@ describe('useBag', () => {
         });
 
         await expect(() =>
-          addItem(mockProductId, { quantity: 1, sizeId: 99 }),
+          addItem(mockProductId, {
+            quantity: 1,
+            sizeId: 99,
+            productAggregatorId: mockProductAggregatorId,
+          }),
         ).rejects.toThrow('Invalid size id');
       });
 
@@ -567,7 +585,11 @@ describe('useBag', () => {
         let error = toBlackoutError({});
 
         try {
-          await addItem(mockProductId, { quantity: 1, sizeId: 1 });
+          await addItem(mockProductId, {
+            quantity: 1,
+            sizeId: 1,
+            productAggregatorId: mockProductAggregatorId,
+          });
         } catch (e) {
           error = e as BlackoutError;
         }
@@ -590,7 +612,10 @@ describe('useBag', () => {
         let error = toBlackoutError({});
 
         try {
-          await addItem(mockProductId, { quantity: 1, sizeId: 23 });
+          await addItem(mockProductId, {
+            quantity: 1,
+            sizeId: 23,
+          });
         } catch (e) {
           error = e as BlackoutError;
         }
