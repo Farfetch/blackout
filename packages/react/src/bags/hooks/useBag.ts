@@ -39,7 +39,7 @@ import type {
   BagQueryBase,
   Config,
   DeleteBagItemQuery,
-  Product,
+  PostBagItemData,
 } from '@farfetch/blackout-client';
 import type { UseBagOptions } from './types/index.js';
 
@@ -298,9 +298,17 @@ const useBag = (options: UseBagOptions = {}) => {
 
   const addItem = useCallback(
     (
-      productId: Product['result']['id'],
-      { quantity, sizeId }: { quantity: number; sizeId: number },
-      metadata?: BagItemActionMetadata,
+      productId: PostBagItemData['productId'],
+      {
+        quantity,
+        sizeId,
+        productAggregatorId,
+      }: {
+        quantity: PostBagItemData['quantity'];
+        sizeId: PostBagItemData['size'];
+        productAggregatorId?: PostBagItemData['productAggregatorId'];
+      },
+      metadata?: PostBagItemData['metadata'],
       config: Config | undefined = fetchConfig,
     ) => {
       if (!userBagId) {
@@ -328,6 +336,7 @@ const useBag = (options: UseBagOptions = {}) => {
         {
           customAttributes: product?.customAttributes,
           product,
+          productAggregatorId,
           quantity,
           size,
         },
