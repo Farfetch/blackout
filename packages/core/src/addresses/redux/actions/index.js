@@ -19,5 +19,7 @@ export { default as doSetDefaultShippingAddress } from './doSetDefaultShippingAd
 export { default as doGetAddressSchema } from './doGetAddressSchema';
 export { default as doSetDefaultContactAddress } from './doSetDefaultContactAddress';
 export { default as doDeleteDefaultContactAddress } from './doDeleteDefaultContactAddress';
+export { default as doDeleteDefaultBillingAddress } from './doDeleteDefaultBillingAddress';
+export { default as doDeleteDefaultShippingAddress } from './doDeleteDefaultShippingAddress';
 export { default as doGetDefaultContactAddress } from './doGetDefaultContactAddress';
 export { default as reset } from './reset';

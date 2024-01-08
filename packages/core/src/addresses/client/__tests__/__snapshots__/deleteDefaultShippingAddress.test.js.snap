@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteDefaultShippingAddress should receive a client request error 1`] = `
+Object {
+  "code": 0,
+  "developerMessage": "This is developer message",
+  "exception": Object {},
+  "message": "error",
+  "moreInformation": "Error more information",
+  "status": 400,
+}
+`;
