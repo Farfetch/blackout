@@ -1,5 +1,7 @@
 export * from './deleteUserAddress.types.js';
+export * from './deleteUserDefaultBillingAddress.types.js';
 export * from './deleteUserDefaultContactAddress.types.js';
+export * from './deleteUserDefaultShippingAddress.types.js';
 export * from './getDefaultContactAddress.types.js';
 export * from './getUserAddress.types.js';
 export * from './getUserAddresses.types.js';

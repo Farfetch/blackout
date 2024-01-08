@@ -166,6 +166,54 @@ export interface RemoveUserDefaultContactAddressSuccessAction extends Action {
 }
 
 /**
+ * Remove default billing address Action.
+ */
+export type RemoveUserDefaultBillingAddressAction =
+  | RemoveUserDefaultBillingAddressFailureAction
+  | RemoveUserDefaultBillingAddressRequestAction
+  | RemoveUserDefaultBillingAddressSuccessAction;
+
+export interface RemoveUserDefaultBillingAddressFailureAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE;
+}
+
+export interface RemoveUserDefaultBillingAddressRequestAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST;
+}
+
+export interface RemoveUserDefaultBillingAddressSuccessAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS;
+}
+
+/**
+ * Remove default shipping address Action.
+ */
+export type RemoveUserDefaultShippingAddressAction =
+  | RemoveUserDefaultShippingAddressFailureAction
+  | RemoveUserDefaultShippingAddressRequestAction
+  | RemoveUserDefaultShippingAddressSuccessAction;
+
+export interface RemoveUserDefaultShippingAddressFailureAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE;
+}
+
+export interface RemoveUserDefaultShippingAddressRequestAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST;
+}
+
+export interface RemoveUserDefaultShippingAddressSuccessAction extends Action {
+  meta: { userId: User['id']; addressId: UserAddress['id'] };
+  type: typeof actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS;
+}
+
+/**
  * Set default billing address Action.
  */
 export type SetUserDefaultBillingAddressAction =
