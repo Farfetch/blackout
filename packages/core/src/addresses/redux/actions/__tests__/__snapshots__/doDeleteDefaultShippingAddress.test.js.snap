@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`doDeleteDefaultShippingAddress() action creator should create the correct actions for when the delete default shipping address procedure is successful: delete default shipping address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+    "userId": "121212",
+  },
+  "type": "@farfetch/blackout-core/DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS",
+}
+`;

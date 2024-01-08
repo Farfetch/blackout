@@ -5,7 +5,9 @@ Object {
   "addresses": Object {
     "@farfetch/blackout-core/CREATE_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-core/DELETE_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-core/DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-core/DELETE_DEFAULT_CONTACT_ADDRESS_SUCCESS": [Function],
+    "@farfetch/blackout-core/DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-core/GET_ADDRESS_SCHEMA_SUCCESS": [Function],
     "@farfetch/blackout-core/SET_DEFAULT_BILLING_ADDRESS_SUCCESS": [Function],
     "@farfetch/blackout-core/SET_DEFAULT_CONTACT_ADDRESS_SUCCESS": [Function],
