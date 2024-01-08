@@ -136,6 +136,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.GET_DEFAULT_CONTACT_ADDRESS_FAILURE,
     ])('should handle %s action type', actionType => {
       const error = 'foo';
@@ -175,6 +177,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.GET_DEFAULT_CONTACT_ADDRESS_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
@@ -194,6 +198,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       actionTypes.GET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
@@ -215,6 +221,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.GET_DEFAULT_CONTACT_ADDRESS_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
@@ -770,6 +778,76 @@ describe('Addresses reducers', () => {
         ).toEqual(expectedResult);
       });
     });
+
+    describe('delete default billing address', () => {
+      it('should handle DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentBilling: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: 1, userId: '1' },
+              type: actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('delete default shipping address', () => {
+      it('should handle DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: true,
+            },
+          },
+        };
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          addresses: {
+            1: {
+              id: 1,
+              address: 'data',
+              isCurrentShipping: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS](
+            state,
+            {
+              meta: { addressId: 1, userId: '1' },
+              type: actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+            },
+          ),
+        ).toEqual(expectedResult);
+      });
+    });
   });
 
   describe('address() reducer', () => {
@@ -802,6 +880,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_REQUEST,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -822,6 +902,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {
@@ -843,6 +925,8 @@ describe('Addresses reducers', () => {
       actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_SUCCESS,
+      actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
     ])('should handle %s action type', actionType => {
       expect(
         reducer(undefined, {

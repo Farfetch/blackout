@@ -137,5 +137,37 @@ export const GET_DEFAULT_CONTACT_ADDRESS_REQUEST =
 export const GET_DEFAULT_CONTACT_ADDRESS_SUCCESS =
   '@farfetch/blackout-core/GET_DEFAULT_CONTACT_ADDRESS_SUCCESS';
 
+/**
+ * Action type dispatched when delete default billing address request fails.
+ */
+export const DELETE_DEFAULT_BILLING_ADDRESS_FAILURE =
+  '@farfetch/blackout-core/DELETE_DEFAULT_BILLING_ADDRESS_FAILURE';
+/**
+ * Action type dispatched when delete default billing address request starts.
+ */
+export const DELETE_DEFAULT_BILLING_ADDRESS_REQUEST =
+  '@farfetch/blackout-core/DELETE_DEFAULT_BILLING_ADDRESS_REQUEST';
+/**
+ * Action type dispatched when delete default billing address request succeeds.
+ */
+export const DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS =
+  '@farfetch/blackout-core/DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS';
+
+/**
+ * Action type dispatched when delete default shipping address request fails.
+ */
+export const DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE =
+  '@farfetch/blackout-core/DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE';
+/**
+ * Action type dispatched when delete default shipping address request starts.
+ */
+export const DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST =
+  '@farfetch/blackout-core/DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST';
+/**
+ * Action type dispatched when delete default shipping address request succeeds.
+ */
+export const DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS =
+  '@farfetch/blackout-core/DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS';
+
 /** Action type dispatched when reseting the addresses. */
 export const RESET_ADDRESSES = '@farfetch/blackout-core/RESET_ADDRESSES';

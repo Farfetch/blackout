@@ -83,6 +83,8 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE:
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE:
     case actionTypes.GET_DEFAULT_CONTACT_ADDRESS_FAILURE:
       return action.payload.error;
     case actionTypes.GET_PREDICTION_REQUEST:
@@ -96,6 +98,8 @@ const error = (state = INITIAL_STATE.error, action = {}) => {
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.GET_DEFAULT_CONTACT_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST:
       return INITIAL_STATE.error;
     default:
       return state;
@@ -114,6 +118,8 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.GET_DEFAULT_CONTACT_ADDRESS_REQUEST:
       return true;
     case actionTypes.GET_PREDICTION_FAILURE:
@@ -136,6 +142,10 @@ const isLoading = (state = INITIAL_STATE.isLoading, action = {}) => {
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_SUCCESS:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
     case actionTypes.GET_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.GET_DEFAULT_CONTACT_ADDRESS_SUCCESS:
       return INITIAL_STATE.isLoading;
@@ -298,6 +308,54 @@ export const entitiesMapper = {
       draftState.addresses[addressId].isPreferredAddress = false;
     });
   },
+  [actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS]: (state, action) => {
+    const { addressId } = action.meta;
+
+    return produce(state, draftState => {
+      if (!draftState) {
+        return draftState;
+      }
+
+      const addresses = draftState.addresses;
+
+      if (!addresses) {
+        return draftState;
+      }
+
+      // Unmark the selected address as default
+      const defaultBillingAddress = addresses[addressId];
+
+      if (defaultBillingAddress) {
+        defaultBillingAddress.isCurrentBilling = false;
+      }
+
+      return draftState;
+    });
+  },
+  [actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS]: (state, action) => {
+    const { addressId } = action.meta;
+
+    return produce(state, draftState => {
+      if (!draftState) {
+        return draftState;
+      }
+
+      const addresses = draftState.addresses;
+
+      if (!addresses) {
+        return draftState;
+      }
+
+      // Unmark the selected address as default
+      const defaultShippingAddress = addresses[addressId];
+
+      if (defaultShippingAddress) {
+        defaultShippingAddress.isCurrentShipping = false;
+      }
+
+      return draftState;
+    });
+  },
 };
 
 export const address = (state = INITIAL_STATE.address, action = {}) => {
@@ -314,6 +372,8 @@ export const address = (state = INITIAL_STATE.address, action = {}) => {
     case actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_REQUEST:
       return {
         isLoading: {
           ...state.isLoading,
@@ -328,6 +388,8 @@ export const address = (state = INITIAL_STATE.address, action = {}) => {
     case actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_SUCCESS:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_SUCCESS:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_SUCCESS:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
       return {
         ...state,
         isLoading: {
@@ -342,6 +404,8 @@ export const address = (state = INITIAL_STATE.address, action = {}) => {
     case actionTypes.SET_DEFAULT_SHIPPING_ADDRESS_FAILURE:
     case actionTypes.SET_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.DELETE_DEFAULT_CONTACT_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_BILLING_ADDRESS_FAILURE:
+    case actionTypes.DELETE_DEFAULT_SHIPPING_ADDRESS_FAILURE:
       return {
         ...state,
         isLoading: {
