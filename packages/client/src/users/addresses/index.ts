@@ -1,5 +1,7 @@
 export { default as deleteUserAddress } from './deleteUserAddress.js';
 export { default as deleteUserDefaultContactAddress } from './deleteUserDefaultContactAddress.js';
+export { default as deleteUserDefaultBillingAddress } from './deleteUserDefaultBillingAddress.js';
+export { default as deleteUserDefaultShippingAddress } from './deleteUserDefaultShippingAddress.js';
 export { default as getUserAddress } from './getUserAddress.js';
 export { default as getUserAddresses } from './getUserAddresses.js';
 export { default as getUserDefaultContactAddress } from './getUserDefaultContactAddress.js';

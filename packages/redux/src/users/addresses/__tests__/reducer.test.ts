@@ -151,7 +151,9 @@ describe('addresses reducers', () => {
       actionTypes.CREATE_USER_ADDRESS_FAILURE,
       actionTypes.UPDATE_USER_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
@@ -173,7 +175,9 @@ describe('addresses reducers', () => {
       actionTypes.CREATE_USER_ADDRESS_REQUEST,
       actionTypes.UPDATE_USER_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
@@ -220,7 +224,9 @@ describe('addresses reducers', () => {
       actionTypes.CREATE_USER_ADDRESS_REQUEST,
       actionTypes.UPDATE_USER_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
@@ -240,7 +246,9 @@ describe('addresses reducers', () => {
       actionTypes.CREATE_USER_ADDRESS_SUCCESS,
       actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
@@ -261,7 +269,9 @@ describe('addresses reducers', () => {
       actionTypes.CREATE_USER_ADDRESS_FAILURE,
       actionTypes.UPDATE_USER_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
@@ -682,6 +692,74 @@ describe('addresses reducers', () => {
         ).toEqual(expectedResult);
       });
     });
+
+    describe('delete default billing address', () => {
+      it('should handle REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              ...address1,
+              id: '1',
+              address: 'data',
+              isCurrentBilling: true,
+            },
+          },
+        } as NonNullable<StoreState['entities']>;
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          addresses: {
+            1: {
+              ...state.addresses!['1'],
+              isCurrentBilling: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[
+            actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS
+          ](state, {
+            meta: { addressId: 1, userId: '1' },
+            type: actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
+
+    describe('delete default shipping address', () => {
+      it('should handle REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS action type', () => {
+        const state = {
+          addresses: {
+            1: {
+              ...address1,
+              id: '1',
+              address: 'data',
+              isCurrentShipping: true,
+            },
+          },
+        } as NonNullable<StoreState['entities']>;
+
+        // Should unmark the previous default as the default address
+        const expectedResult = {
+          addresses: {
+            1: {
+              ...state.addresses!['1'],
+              isCurrentShipping: false,
+            },
+          },
+        };
+
+        expect(
+          entitiesMapper[
+            actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS
+          ](state, {
+            meta: { addressId: 1, userId: '1' },
+            type: actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+          }),
+        ).toEqual(expectedResult);
+      });
+    });
   });
 
   describe('address() reducer', () => {
@@ -709,9 +787,12 @@ describe('addresses reducers', () => {
 
     it.each([
       actionTypes.FETCH_USER_ADDRESS_REQUEST,
+      actionTypes.UPDATE_USER_ADDRESS_REQUEST,
       actionTypes.REMOVE_USER_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST,
     ])('should handle %s action type', actionType => {
@@ -729,9 +810,12 @@ describe('addresses reducers', () => {
 
     it.each([
       actionTypes.FETCH_USER_ADDRESS_FAILURE,
+      actionTypes.UPDATE_USER_ADDRESS_FAILURE,
       actionTypes.REMOVE_USER_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE,
     ])('should handle %s action type', actionType => {
@@ -750,9 +834,12 @@ describe('addresses reducers', () => {
     // Error and loading status on SUCCESS for address details
     it.each([
       actionTypes.FETCH_USER_ADDRESS_SUCCESS,
+      actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
       actionTypes.REMOVE_USER_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
+      actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS,
       actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
       actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS,
     ])('should handle %s action type', actionType => {

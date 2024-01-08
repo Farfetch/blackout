@@ -102,7 +102,9 @@ const error = (
     case actionTypes.CREATE_USER_ADDRESS_FAILURE:
     case actionTypes.UPDATE_USER_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
@@ -112,7 +114,9 @@ const error = (
     case actionTypes.CREATE_USER_ADDRESS_REQUEST:
     case actionTypes.UPDATE_USER_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
@@ -132,7 +136,9 @@ const isLoading = (
     case actionTypes.CREATE_USER_ADDRESS_REQUEST:
     case actionTypes.UPDATE_USER_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.FETCH_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
@@ -147,8 +153,12 @@ const isLoading = (
     case actionTypes.UPDATE_USER_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
@@ -369,6 +379,60 @@ export const entitiesMapper = {
       return draftState;
     });
   },
+  [actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ) => {
+    const { addressId } = action.meta;
+
+    return produce(state, draftState => {
+      if (!draftState) {
+        return draftState;
+      }
+
+      const addresses = draftState.addresses;
+
+      if (!addresses) {
+        return draftState;
+      }
+
+      // Unmark the selected address as default
+      const defaultBillingAddress = addresses[addressId];
+
+      if (defaultBillingAddress) {
+        defaultBillingAddress.isCurrentBilling = false;
+      }
+
+      return draftState;
+    });
+  },
+  [actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS]: (
+    state: NonNullable<StoreState['entities']>,
+    action: AnyAction,
+  ) => {
+    const { addressId } = action.meta;
+
+    return produce(state, draftState => {
+      if (!draftState) {
+        return draftState;
+      }
+
+      const addresses = draftState.addresses;
+
+      if (!addresses) {
+        return draftState;
+      }
+
+      // Unmark the selected address as default
+      const defaultShippingAddress = addresses[addressId];
+
+      if (defaultShippingAddress) {
+        defaultShippingAddress.isCurrentShipping = false;
+      }
+
+      return draftState;
+    });
+  },
 };
 
 export const address = (
@@ -385,7 +449,9 @@ export const address = (
     case actionTypes.UPDATE_USER_ADDRESS_REQUEST:
     case actionTypes.REMOVE_USER_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_REQUEST:
       return {
@@ -399,7 +465,9 @@ export const address = (
     case actionTypes.UPDATE_USER_ADDRESS_SUCCESS:
     case actionTypes.REMOVE_USER_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_SUCCESS:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS:
       return {
@@ -413,7 +481,9 @@ export const address = (
     case actionTypes.UPDATE_USER_ADDRESS_FAILURE:
     case actionTypes.REMOVE_USER_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
+    case actionTypes.REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE:
     case actionTypes.SET_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
     case actionTypes.REMOVE_USER_DEFAULT_CONTACT_ADDRESS_FAILURE:
       return {

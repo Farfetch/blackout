@@ -95,6 +95,38 @@ export const REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_CONTACT_ADDRESS_SUCCESS';
 
 /**
+ * Action type dispatched when delete default billing address request fails.
+ */
+export const REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_BILLING_ADDRESS_FAILURE';
+/**
+ * Action type dispatched when delete default billing address request starts.
+ */
+export const REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_BILLING_ADDRESS_REQUEST';
+/**
+ * Action type dispatched when delete default billing address request succeeds.
+ */
+export const REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS';
+
+/**
+ * Action type dispatched when delete default shipping address request fails.
+ */
+export const REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_FAILURE';
+/**
+ * Action type dispatched when delete default shipping address request starts.
+ */
+export const REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_REQUEST';
+/**
+ * Action type dispatched when delete default shipping address request succeeds.
+ */
+export const REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_USER_DEFAULT_SHIPPING_ADDRESS_SUCCESS';
+
+/**
  * Action type dispatched when set default billing address request fails.
  */
 export const SET_USER_DEFAULT_BILLING_ADDRESS_FAILURE =
