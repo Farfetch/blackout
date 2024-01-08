@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removeUserDefaultBillingAddress() action creator should create the correct actions for when the delete user default billing address procedure is successful: delete user default billing address success payload 1`] = `
+Object {
+  "meta": Object {
+    "addressId": "2222222",
+    "userId": 29556478,
+  },
+  "type": "@farfetch/blackout-redux/REMOVE_USER_DEFAULT_BILLING_ADDRESS_SUCCESS",
+}
+`;
