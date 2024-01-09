@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.18.1...@farfetch/blackout-redux@1.19.0) (2024-01-09)
+
+### Bug Fixes
+
+- add sort by date on recently viewed main ([4a10c9e](https://github.com/Farfetch/blackout/commit/4a10c9ee21192a8ee8c317076222e187cc21a64b))
+
+### Features
+
+- **client:** draft orders endpoints ([3a50465](https://github.com/Farfetch/blackout/commit/3a504655bd1e320bdecff9725cb5415b66d2f2ce))
+
 ## [1.18.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.18.0...@farfetch/blackout-redux@1.18.1) (2023-12-15)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.11.1...@farfetch/blackout-analytics@1.12.0) (2024-01-09)
+
+### Features
+
+- add search changes to analytics events for main ([c97cb9a](https://github.com/Farfetch/blackout/commit/c97cb9a7b29db338962416e6a8a1aa21b3cdca38))
+
 ## [1.11.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.11.0...@farfetch/blackout-analytics@1.11.1) (2023-12-15)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics

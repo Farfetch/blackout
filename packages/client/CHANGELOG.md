@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.16.1...@farfetch/blackout-client@2.17.0) (2024-01-09)
+
+### Features
+
+- **client:** draft orders endpoints ([3a50465](https://github.com/Farfetch/blackout/commit/3a504655bd1e320bdecff9725cb5415b66d2f2ce))
+
 ## [2.16.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.16.0...@farfetch/blackout-client@2.16.1) (2023-12-15)
 
 ### Bug Fixes

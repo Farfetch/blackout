@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.18.1...@farfetch/blackout-react@1.19.0) (2024-01-09)
+
+### Bug Fixes
+
+- add profix: add product aggregator id to the add item to bag ([668c67e](https://github.com/Farfetch/blackout/commit/668c67e8cbd4447e56aaf5f1243687c580e9efc6))
+- **react:** add id validation before add to bag and wishlist ([f17eb9e](https://github.com/Farfetch/blackout/commit/f17eb9e23d8d7eabbad4e61feef5d48ce4b6f4f9))
+
+### Features
+
+- add search changes to analytics events for main ([c97cb9a](https://github.com/Farfetch/blackout/commit/c97cb9a7b29db338962416e6a8a1aa21b3cdca38))
+- add support to consent management protocol v2 to `main` ([005c894](https://github.com/Farfetch/blackout/commit/005c894716c0ff10156bd41be0511bc6457dbd2e))
+
 ## [1.18.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.18.0...@farfetch/blackout-react@1.18.1) (2023-12-15)
 
 **Note:** Version bump only for package @farfetch/blackout-react
