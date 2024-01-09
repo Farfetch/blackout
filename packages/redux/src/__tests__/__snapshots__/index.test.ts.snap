@@ -1721,6 +1721,7 @@ Object {
   "resetCollectPoints": [Function],
   "resetConfigurations": [Function],
   "resetContents": [Function],
+  "resetDraftOrders": [Function],
   "resetEntities": [Function],
   "resetExchangeBookRequestState": [Function],
   "resetExchangeFilters": [Function],

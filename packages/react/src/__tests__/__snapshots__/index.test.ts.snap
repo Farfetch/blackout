@@ -335,6 +335,8 @@ Object {
   "useCountryAddressSchemas": [Function],
   "useCountryStateCities": [Function],
   "useCountryStates": [Function],
+  "useDraftOrder": [Function],
+  "useDraftOrders": [Function],
   "useExchange": [Function],
   "useExchangeBookRequest": [Function],
   "useExchangeFilters": [Function],
