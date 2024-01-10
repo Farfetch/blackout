@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0-next.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.15.1-next.0...@farfetch/blackout-client@2.16.0-next.0) (2024-01-10)
+
+### Features
+
+- **client:** checkout draftOrders clients ([5561b4d](https://github.com/Farfetch/blackout/commit/5561b4d38b8540ab0c8f1713539d1051c704b043))
+- **redux:** create draft orders actions redux ([5cfbdc2](https://github.com/Farfetch/blackout/commit/5cfbdc273952c9d44881b25488fc8ae483bc6acd))
+
 ## [2.15.1-next.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.15.0...@farfetch/blackout-client@2.15.1-next.0) (2023-12-06)
 
 **Note:** Version bump only for package @farfetch/blackout-client
