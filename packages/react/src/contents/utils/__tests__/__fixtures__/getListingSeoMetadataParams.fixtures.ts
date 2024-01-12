@@ -13,6 +13,7 @@ export const mockFilterSegments = {
     fromQueryString: false,
     negativeFilter: false,
     facetId: 'brands_43279979',
+    prefixValue: '',
   },
   belts: {
     order: 0,
@@ -44,6 +45,7 @@ export const mockFilterSegments = {
     fromQueryString: true,
     negativeFilter: false,
     facetId: 'categories_137569',
+    prefixValue: '',
   },
   pricetype: {
     order: 0,
@@ -59,6 +61,7 @@ export const mockFilterSegments = {
     fromQueryString: false,
     negativeFilter: false,
     facetId: 'pricetype_1',
+    prefixValue: '',
   },
   baubles: {
     order: 0,
@@ -73,7 +76,7 @@ export const mockFilterSegments = {
     parentId: 141508,
     fromQueryString: false,
     negativeFilter: false,
-    prefixValue: null,
+    prefixValue: '',
   },
 };
 
