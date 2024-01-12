@@ -435,6 +435,7 @@ describe('product listing redux selectors', () => {
                   parentId: 1,
                   negativeFilter: false,
                   facetId: '10',
+                  prefixValue: '',
                 },
                 {
                   order: 0,
@@ -450,6 +451,7 @@ describe('product listing redux selectors', () => {
                   parentId: 1,
                   negativeFilter: false,
                   facetId: '20',
+                  prefixValue: '',
                 },
               ],
             },
@@ -487,6 +489,7 @@ describe('product listing redux selectors', () => {
                   parentId: 1,
                   negativeFilter: false,
                   facetId: '20',
+                  prefixValue: '',
                 },
               ],
             },

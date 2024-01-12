@@ -1,16 +1,13 @@
+import {
+  type FacetGroup,
+  FacetGroupFormat,
+  type FilterSegment,
+  type Product,
+} from '@farfetch/blackout-client';
 import { schema } from 'normalizr';
 import facet, { getId } from './facet.js';
 import product from './product.js';
-import type {
-  FacetGroup,
-  FilterSegment,
-  Product,
-} from '@farfetch/blackout-client';
 import type { FacetGroupWithListingHash } from '../index.js';
-
-const SIZE_BY_CATEGORY_TYPE = 24;
-const SIZES_TYPE = 9;
-const ATTRIBUTES_TYPE = 7;
 
 // This entity should be used to aggregate products lists (listings and sets)
 export default new schema.Entity(
@@ -35,6 +32,7 @@ export default new schema.Entity(
         wishList, // omit this, it makes no sense to let it pass
         ...rest
       } = value;
+
       const newEntries = products.entries.map((entry: Product) => ({
         ...entry,
         productImgQueryParam,
@@ -53,42 +51,25 @@ export default new schema.Entity(
         (filterSegment: FilterSegment) => {
           const filteredFacetGroups: FacetGroup[] = newFacetGroups.filter(
             ({ type, deep }: FacetGroup) => {
-              // There's no 1:1 relation between the "size" selected and the "sizes by category"
-              // facetGroup, so when we have type 24 (size by category), we know we must find
-              // the type 9 (sizes) in the filterSegments.
-              if (type === SIZE_BY_CATEGORY_TYPE) {
-                return filterSegment.type === SIZES_TYPE;
-              }
-
               return type === filterSegment.type && deep === filterSegment.deep;
             },
           );
 
-          // If the filter segment is an ProductVariantAttribute, filteredFacetGroups will be an array with
-          // all attributes so the flow is a little different.
-          if (filterSegment.type === ATTRIBUTES_TYPE) {
-            let facetIndex: number | undefined;
-            const facetGroup = filteredFacetGroups.find(facet =>
-              facet.values[0]?.find(({ value }, i) => {
-                if (value === filterSegment.value) {
-                  facetIndex = i;
+          const firstFacetGroupForFilterSegment = filteredFacetGroups[0];
 
-                  return true;
-                }
-
-                return false;
-              }),
-            );
-            const facet =
-              typeof facetIndex === 'number'
-                ? facetGroup?.values[0]?.[facetIndex]
-                : undefined;
+          // For filter segments of type range, the matching algorithm with facets
+          // is a little bit different since the facet will not contain the same
+          // value and valueUpperBound.
+          if (
+            firstFacetGroupForFilterSegment?.format === FacetGroupFormat.Range
+          ) {
+            const facet = firstFacetGroupForFilterSegment.values[0]?.[0];
 
             return {
               ...filterSegment,
-              description: filterSegment.description || facet?.description,
+              description: `${filterSegment.value}-${filterSegment.valueUpperBound}`,
               facetId: facet
-                ? getId(facet, facetGroup as FacetGroupWithListingHash)
+                ? getId(facet, firstFacetGroupForFilterSegment)
                 : undefined,
             };
           }
@@ -99,9 +80,19 @@ export default new schema.Entity(
             return [...acc, ...facetGroup.values.flat()];
           }, []);
 
-          const facet = allFacetGroupValues?.find(
-            ({ value }) => value === filterSegment.value,
-          );
+          const facet = allFacetGroupValues?.find(({ value, groupsOn }) => {
+            let result = value === filterSegment.value;
+
+            // If the filter segment has a prefix value, compare it with the groupsOn
+            // groupsOn is a number but prefixValue is a string, so we need to convert
+            // groupsOn to a string.
+            if (filterSegment.prefixValue && groupsOn !== 0) {
+              result =
+                result && filterSegment.prefixValue === groupsOn.toString();
+            }
+
+            return result;
+          });
 
           return {
             ...filterSegment,

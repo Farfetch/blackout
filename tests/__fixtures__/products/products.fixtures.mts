@@ -198,6 +198,7 @@ export const mockSet = {
       type: 6,
       value: 144307,
       valueUpperBound: 0,
+      prefixValue: '',
     },
   ],
   facetsBaseUrl: '/sets/unisex/active-life',

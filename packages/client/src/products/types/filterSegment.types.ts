@@ -14,4 +14,5 @@ export type FilterSegment = {
   parentId: number;
   fromQueryString: boolean;
   negativeFilter: boolean;
+  prefixValue: string;
 };
