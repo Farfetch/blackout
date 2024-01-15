@@ -1,4 +1,6 @@
 import * as actionTypes from '../actionTypes.js';
+import { expectedUserExternalLoginsPayload } from 'tests/__fixtures__/users/authentication.fixtures.mjs';
+import { toBlackoutError } from '@farfetch/blackout-client';
 import reducer, * as fromReducer from '../reducer.js';
 import type { AuthenticationState } from '../types/index.js';
 
@@ -110,14 +112,139 @@ describe('authentication reducer', () => {
 
     it('should handle other actions by returning the previous state', () => {
       const state = {
+        ...fromReducer.INITIAL_STATE,
         token: {
           result: null,
-          error: 'error',
+          error: toBlackoutError(new Error('dummy error')),
           isLoading: false,
         },
-      } as unknown as AuthenticationState;
+      };
 
       expect(reducer(state, mockAction).token).toBe(state.token);
+    });
+  });
+
+  describe('externalLogins() reducer', () => {
+    it('should return the initial state', () => {
+      const state = reducer(undefined, mockAction).externalLogins;
+
+      expect(state).toEqual(initialState.externalLogins);
+    });
+
+    it.each([
+      actionTypes.FETCH_USER_EXTERNAL_LOGINS_REQUEST,
+      actionTypes.REMOVE_USER_EXTERNAL_LOGIN_REQUEST,
+    ])('should handle %s action type', actionType => {
+      const state: AuthenticationState = {
+        ...fromReducer.INITIAL_STATE,
+        externalLogins: {
+          result: null,
+          error: toBlackoutError(new Error('dummy error')),
+          isLoading: false,
+        },
+      };
+
+      const externalLogins = {
+        result: null,
+        error: null,
+        isLoading: true,
+      };
+
+      expect(
+        reducer(state, {
+          type: actionType,
+        }).externalLogins,
+      ).toEqual(externalLogins);
+    });
+
+    it.each([
+      actionTypes.FETCH_USER_EXTERNAL_LOGINS_FAILURE,
+      actionTypes.REMOVE_USER_EXTERNAL_LOGIN_FAILURE,
+    ])('should handle %s action type', actionType => {
+      const state: AuthenticationState = {
+        ...fromReducer.INITIAL_STATE,
+        externalLogins: {
+          result: null,
+          error: null,
+          isLoading: true,
+        },
+      };
+
+      const externalLogins = {
+        result: null,
+        error: toBlackoutError(new Error('dummy error')),
+        isLoading: false,
+      };
+
+      expect(
+        reducer(state, {
+          type: actionType,
+          payload: { error: toBlackoutError(new Error('dummy error')) },
+        }).externalLogins,
+      ).toEqual(externalLogins);
+    });
+
+    it('should handle FETCH_USER_EXTERNAL_LOGINS_SUCCESS action type', () => {
+      const state: AuthenticationState = {
+        ...fromReducer.INITIAL_STATE,
+        externalLogins: {
+          result: null,
+          error: null,
+          isLoading: true,
+        },
+      };
+
+      const expectedResult = expectedUserExternalLoginsPayload;
+
+      expect(
+        reducer(state, {
+          type: actionTypes.FETCH_USER_EXTERNAL_LOGINS_SUCCESS,
+          payload: expectedResult,
+        }).externalLogins,
+      ).toEqual({
+        error: null,
+        isLoading: false,
+        result: expectedResult,
+      });
+    });
+
+    it('should handle REMOVE_USER_EXTERNAL_LOGIN_SUCCESS action type', () => {
+      const state: AuthenticationState = {
+        ...fromReducer.INITIAL_STATE,
+        externalLogins: {
+          result: null,
+          error: null,
+          isLoading: true,
+        },
+      };
+
+      const expectedResult = expectedUserExternalLoginsPayload;
+
+      expect(
+        reducer(state, {
+          type: actionTypes.REMOVE_USER_EXTERNAL_LOGIN_SUCCESS,
+          payload: expectedResult,
+        }).externalLogins,
+      ).toEqual({
+        error: null,
+        isLoading: false,
+        result: [],
+      });
+    });
+
+    it('should handle other actions by returning the previous state', () => {
+      const state = {
+        ...fromReducer.INITIAL_STATE,
+        externalLogins: {
+          result: null,
+          error: toBlackoutError(new Error('dummy error')),
+          isLoading: false,
+        },
+      };
+
+      expect(reducer(state, mockAction).externalLogins).toBe(
+        state.externalLogins,
+      );
     });
   });
 
@@ -137,6 +264,7 @@ describe('authentication reducer', () => {
       validateEmail: { ...subAreaResult },
       refreshEmailToken: { ...subAreaResult },
       token: { ...subAreaResult, result: null },
+      externalLogins: { ...subAreaResult, result: null },
     };
 
     const extendedSubAreasNames = ['Token'];

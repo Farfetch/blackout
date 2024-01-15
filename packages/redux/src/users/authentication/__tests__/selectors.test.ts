@@ -1,3 +1,4 @@
+import * as fromAuthentication from '../reducer.js';
 import * as selectors from '../selectors.js';
 import { mockResponse as mockUserEntity } from 'tests/__fixtures__/authentication/index.mjs';
 import { mockUserInitialState } from 'tests/__fixtures__/users/index.mjs';
@@ -45,6 +46,11 @@ describe('authentication redux selectors', () => {
           isLoading: false,
         },
         token: {
+          result: null,
+          error: null,
+          isLoading: false,
+        },
+        externalLogins: {
           result: null,
           error: null,
           isLoading: false,
@@ -109,7 +115,7 @@ describe('authentication redux selectors', () => {
     });
   });
 
-  const subAreasWithResult = ['Token'] as const;
+  const subAreasWithResult = ['Token', 'ExternalLogins'] as const;
 
   describe('sub-areas with result', () => {
     it.each(subAreasWithResult)(
@@ -132,6 +138,30 @@ describe('authentication redux selectors', () => {
   describe('isAuthenticated()', () => {
     it('should get the authentication isAuthenticated property from state', () => {
       expect(selectors.isAuthenticated(mockState)).toBe(true);
+    });
+  });
+
+  describe('areExternalLoginsLoading()', () => {
+    it('should get the external logins loading property from state', () => {
+      const expectedResult =
+        mockState.users.authentication.externalLogins.isLoading;
+      const spy = jest.spyOn(fromAuthentication, 'getExternalLogins');
+
+      expect(selectors.areExternalLoginsLoading(mockState)).toBe(
+        expectedResult,
+      );
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getExternalLoginsError()', () => {
+    it('should get the external logins error property from state', () => {
+      const expectedResult =
+        mockState.users.authentication.externalLogins.error;
+      const spy = jest.spyOn(fromAuthentication, 'getExternalLogins');
+
+      expect(selectors.getExternalLoginsError(mockState)).toBe(expectedResult);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });

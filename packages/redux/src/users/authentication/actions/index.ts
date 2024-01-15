@@ -26,5 +26,7 @@ export { default as createPhoneTokenValidation } from './createPhoneTokenValidat
 export { default as createPhoneNumberValidation } from './createPhoneNumberValidation.js';
 export { default as resetUser } from './resetUser.js';
 export { default as createAccountLink } from './createAccountLink.js';
+export { default as fetchUserExternalLogins } from './fetchUserExternalLogins.js';
+export { default as removeUserExternalLogin } from './removeUserExternalLogin.js';
 
 export * from './factories/index.js';
