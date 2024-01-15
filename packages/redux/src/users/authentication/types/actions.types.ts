@@ -1,6 +1,10 @@
 import type * as actionTypes from '../actionTypes.js';
 import type { Action } from 'redux';
-import type { BlackoutError, Config } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  Config,
+  ExternalLogin,
+} from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 import type { UserEntity } from '../../../entities/index.js';
 
@@ -92,6 +96,50 @@ export type CreateGuestUserAction =
   | CreateGuestUserRequestAction
   | CreateGuestUserFailureAction
   | CreateGuestUserSuccessAction;
+
+//
+// Fetch user external logins
+//
+export interface FetchUserExternalLoginsFailureAction extends Action {
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.FETCH_USER_EXTERNAL_LOGINS_FAILURE;
+}
+
+export interface FetchUserExternalLoginsRequestAction extends Action {
+  type: typeof actionTypes.FETCH_USER_EXTERNAL_LOGINS_REQUEST;
+}
+
+export interface FetchUserExternalLoginsSuccessAction extends Action {
+  payload: ExternalLogin[];
+  type: typeof actionTypes.FETCH_USER_EXTERNAL_LOGINS_SUCCESS;
+}
+
+export type FetchUserExternalLoginsAction =
+  | FetchUserExternalLoginsRequestAction
+  | FetchUserExternalLoginsFailureAction
+  | FetchUserExternalLoginsSuccessAction;
+
+//
+// Remove user external login
+//
+export interface RemoveUserExternalLoginFailureAction extends Action {
+  payload: { error: BlackoutError };
+  type: typeof actionTypes.REMOVE_USER_EXTERNAL_LOGIN_FAILURE;
+}
+
+export interface RemoveUserExternalLoginRequestAction extends Action {
+  type: typeof actionTypes.REMOVE_USER_EXTERNAL_LOGIN_REQUEST;
+}
+
+export interface RemoveUserExternalLoginSuccessAction extends Action {
+  meta: { externalLoginId: ExternalLogin['id'] };
+  type: typeof actionTypes.REMOVE_USER_EXTERNAL_LOGIN_SUCCESS;
+}
+
+export type RemoveUserExternalLoginAction =
+  | RemoveUserExternalLoginRequestAction
+  | RemoveUserExternalLoginFailureAction
+  | RemoveUserExternalLoginSuccessAction;
 
 export interface LogoutSuccessAction extends Action {
   type: typeof actionTypes.LOGOUT_SUCCESS;

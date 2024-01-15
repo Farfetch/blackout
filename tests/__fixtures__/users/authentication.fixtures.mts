@@ -1,4 +1,5 @@
 export const userTokenId = '1234';
+export const externalLoginId = 'a3cb94a2-28ec-42a7-bbe8-fad1d71cce3c';
 
 export const mockPasswordChangeData = {
   oldPassword: 'thisisOLDpassword',
@@ -63,3 +64,19 @@ export const mockPasswordResetData = {
   token: '1293819283sdfs23',
   password: 'thisIsUserPassword',
 };
+
+export const mockFetchUserExternalLoginsResponse = [
+  {
+    id: externalLoginId,
+    provider: 'google',
+    providerUserId: '112797446162677409484',
+  },
+];
+
+export const expectedUserExternalLoginsPayload = [
+  {
+    id: externalLoginId,
+    provider: 'google',
+    providerUserId: '112797446162677409484',
+  },
+];

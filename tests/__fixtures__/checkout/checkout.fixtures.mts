@@ -1335,6 +1335,11 @@ export const mockInitialState = {
         error: null,
         isLoading: false,
       },
+      externalLogins: {
+        result: null,
+        error: null,
+        isLoading: false,
+      },
     },
     benefits: {
       error: null,

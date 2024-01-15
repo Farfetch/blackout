@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchUserExternalLogins action creator should create the correct actions for when the get user external logins procedure is successful: get user external logins success payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "id": "a3cb94a2-28ec-42a7-bbe8-fad1d71cce3c",
+      "provider": "google",
+      "providerUserId": "112797446162677409484",
+    },
+  ],
+  "type": "@farfetch/blackout-redux/FETCH_USER_EXTERNAL_LOGINS_SUCCESS",
+}
+`;

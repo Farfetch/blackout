@@ -1,6 +1,7 @@
 import { getAuthentication } from '../reducer.js';
 import {
   getChangePassword,
+  getExternalLogins,
   getLogin,
   getLogout,
   getRecoverPassword,
@@ -213,3 +214,33 @@ export const getTokenError = (state: StoreState) =>
  */
 export const getTokenResult = (state: StoreState) =>
   getToken(getAuthentication(state.users as UsersState)).result;
+
+/**
+ * Returns the loading status for the fetch/delete external logins operations.
+ *
+ * @param state - Application state.
+ *
+ * @returns Fetch/delete external logins operations loading status.
+ */
+export const areExternalLoginsLoading = (state: StoreState) =>
+  getExternalLogins(getAuthentication(state.users as UsersState)).isLoading;
+
+/**
+ * Returns the fetch/delete external logins operations error.
+ *
+ * @param state - Application state.
+ *
+ * @returns Fetch/delete external logins operations error.
+ */
+export const getExternalLoginsError = (state: StoreState) =>
+  getExternalLogins(getAuthentication(state.users as UsersState)).error;
+
+/**
+ * Returns the result for the fetch/delete external logins operations.
+ *
+ * @param state - Application state.
+ *
+ * @returns Fetch/delete external logins operations result.
+ */
+export const getExternalLoginsResult = (state: StoreState) =>
+  getExternalLogins(getAuthentication(state.users as UsersState)).result;
