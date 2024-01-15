@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.19.0...@farfetch/blackout-react@1.19.1) (2024-01-15)
+
+### Bug Fixes
+
+- fix `productsList` schema ([c9e0f50](https://github.com/Farfetch/blackout/commit/c9e0f50d0b1203c20da7ecfcd77278c211197a05))
+
 # [1.19.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.18.1...@farfetch/blackout-react@1.19.0) (2024-01-09)
 
 ### Bug Fixes

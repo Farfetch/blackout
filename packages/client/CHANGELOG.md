@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.17.0...@farfetch/blackout-client@2.17.1) (2024-01-15)
+
+### Bug Fixes
+
+- fix `productsList` schema ([c9e0f50](https://github.com/Farfetch/blackout/commit/c9e0f50d0b1203c20da7ecfcd77278c211197a05))
+
 # [2.17.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.16.1...@farfetch/blackout-client@2.17.0) (2024-01-09)
 
 ### Features
