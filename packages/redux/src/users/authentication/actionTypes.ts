@@ -339,6 +339,38 @@ export const CREATE_ACCOUNT_LINK_SUCCESS =
   '@farfetch/blackout-redux/CREATE_ACCOUNT_LINK_SUCCESS';
 
 /**
+ * Action type dispatched when the fetch user external logins request fails.
+ */
+export const FETCH_USER_EXTERNAL_LOGINS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_USER_EXTERNAL_LOGINS_FAILURE';
+/**
+ * Action type dispatched when the fetch user external logins request starts.
+ */
+export const FETCH_USER_EXTERNAL_LOGINS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_USER_EXTERNAL_LOGINS_REQUEST';
+/**
+ * Action type dispatched when the fetch user external logins request succeeds.
+ */
+export const FETCH_USER_EXTERNAL_LOGINS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_USER_EXTERNAL_LOGINS_SUCCESS';
+
+/**
+ * Action type dispatched when the remove user external login request fails.
+ */
+export const REMOVE_USER_EXTERNAL_LOGIN_FAILURE =
+  '@farfetch/blackout-redux/REMOVE_USER_EXTERNAL_LOGIN_FAILURE';
+/**
+ * Action type dispatched when the remove user external login request starts.
+ */
+export const REMOVE_USER_EXTERNAL_LOGIN_REQUEST =
+  '@farfetch/blackout-redux/REMOVE_USER_EXTERNAL_LOGIN_REQUEST';
+/**
+ * Action type dispatched when the remove user external login request succeeds.
+ */
+export const REMOVE_USER_EXTERNAL_LOGIN_SUCCESS =
+  '@farfetch/blackout-redux/REMOVE_USER_EXTERNAL_LOGIN_SUCCESS';
+
+/**
  * Action type dispatched when the client wants to reset the login request redux
  * data.
  */

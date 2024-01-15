@@ -24,3 +24,5 @@ export { default as createPhoneTokenValidationFactory } from './createPhoneToken
 export { default as createPhoneNumberValidationFactory } from './createPhoneNumberValidationFactory.js';
 export { default as socialLoginFactory } from './socialLoginFactory.js';
 export { default as createAccountLinkFactory } from './createAccountLinkFactory.js';
+export { default as fetchUserExternalLoginsFactory } from './fetchUserExternalLoginsFactory.js';
+export { default as removeUserExternalLoginFactory } from './removeUserExternalLoginFactory.js';

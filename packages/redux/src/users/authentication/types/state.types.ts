@@ -1,4 +1,8 @@
-import type { BlackoutError, Token } from '@farfetch/blackout-client';
+import type {
+  BlackoutError,
+  ExternalLogin,
+  Token,
+} from '@farfetch/blackout-client';
 
 export type TokenState = {
   result: Token | null;
@@ -40,4 +44,9 @@ export type AuthenticationState = {
     isLoading: boolean;
   };
   token: TokenState;
+  externalLogins: {
+    result: ExternalLogin[] | null;
+    error: BlackoutError | null;
+    isLoading: boolean;
+  };
 };

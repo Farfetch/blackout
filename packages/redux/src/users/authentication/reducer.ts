@@ -41,6 +41,11 @@ export const INITIAL_STATE: AuthenticationState = {
     error: null,
     isLoading: false,
   },
+  externalLogins: {
+    result: null,
+    error: null,
+    isLoading: false,
+  },
 };
 
 export const login = reducerFactory('Login', INITIAL_STATE.login, actionTypes);
@@ -128,6 +133,48 @@ export const token = (
       return state;
   }
 };
+export const externalLogins = (
+  state = INITIAL_STATE.externalLogins,
+  action: AnyAction,
+): AuthenticationState['externalLogins'] => {
+  switch (action?.type) {
+    case actionTypes.FETCH_USER_EXTERNAL_LOGINS_REQUEST:
+    case actionTypes.REMOVE_USER_EXTERNAL_LOGIN_REQUEST:
+      return {
+        ...state,
+        error: INITIAL_STATE.externalLogins.error,
+        isLoading: true,
+      };
+
+    case actionTypes.FETCH_USER_EXTERNAL_LOGINS_SUCCESS:
+      return {
+        result: action?.payload,
+        error: INITIAL_STATE.externalLogins.error,
+        isLoading: false,
+      };
+    case actionTypes.REMOVE_USER_EXTERNAL_LOGIN_SUCCESS:
+      const externalLogins =
+        state.result?.filter(obj => obj.id !== action.meta.externalLoginId) ||
+        [];
+
+      return {
+        result: externalLogins,
+        error: INITIAL_STATE.externalLogins.error,
+        isLoading: false,
+      };
+
+    case actionTypes.FETCH_USER_EXTERNAL_LOGINS_FAILURE:
+    case actionTypes.REMOVE_USER_EXTERNAL_LOGIN_FAILURE:
+      return {
+        ...state,
+        error: action?.payload?.error,
+        isLoading: false,
+      };
+
+    default:
+      return state;
+  }
+};
 
 export const getLogin = (state: AuthenticationState) => state.login;
 export const getLogout = (state: AuthenticationState) => state.logout;
@@ -143,6 +190,8 @@ export const getValidateEmail = (state: AuthenticationState) =>
 export const getRefreshEmailToken = (state: AuthenticationState) =>
   state.refreshEmailToken;
 export const getToken = (state: AuthenticationState) => state.token;
+export const getExternalLogins = (state: AuthenticationState) =>
+  state.externalLogins;
 
 /**
  * Reducer for authentication state.
@@ -162,6 +211,7 @@ const authenticationReducer: Reducer<AuthenticationState> = combineReducers({
   validateEmail,
   refreshEmailToken,
   token,
+  externalLogins,
 });
 
 export default authenticationReducer;
