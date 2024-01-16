@@ -58,7 +58,9 @@ const updateCheckoutOrderFactory =
         delete (result.checkoutOrder as { productImgQueryParam?: string })
           .productImgQueryParam;
 
-        delete normalizedResult.entities.checkoutOrders?.[checkoutOrderId]
+        const updatedOrderId = result.checkoutOrder.id;
+
+        delete normalizedResult.entities.checkoutOrders?.[updatedOrderId]
           .productImgQueryParam;
       }
 

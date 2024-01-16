@@ -145,4 +145,75 @@ describe('updateCheckoutOrder() action creator', () => {
       'update checkout order success payload with config to apply the new axios headers',
     );
   });
+
+  it('should create the correct actions for when the update checkout order procedure is successful but the order was recovered and a new id is generated', async () => {
+    const newCheckoutOrderId = 12345678;
+
+    const mockResponseWithDifferentOrderId = {
+      ...mockResponse,
+      id: newCheckoutOrderId,
+      checkoutOrder: {
+        ...mockResponse.checkoutOrder,
+        id: newCheckoutOrderId,
+      },
+    };
+
+    const expectedResponseEntities = {
+      ...expectedNormalizedPayload.entities,
+      checkout: {
+        [newCheckoutOrderId]: {
+          ...expectedNormalizedPayload.entities.checkout[checkoutId],
+          id: newCheckoutOrderId,
+          checkoutOrder: newCheckoutOrderId,
+        },
+      },
+      checkoutOrders: {
+        [newCheckoutOrderId]: {
+          ...expectedNormalizedPayload.entities.checkoutOrders[checkoutId],
+          id: newCheckoutOrderId,
+        },
+      },
+    };
+
+    const expectedPayload = {
+      entities: {
+        ...expectedResponseEntities,
+      },
+    };
+
+    (patchCheckoutOrder as jest.Mock).mockResolvedValueOnce(
+      mockResponseWithDifferentOrderId,
+    );
+
+    await updateCheckoutOrder(checkoutId, data)(
+      store.dispatch,
+      store.getState as () => StoreState,
+      { getOptions },
+    ).then(clientResult => {
+      expect(clientResult).toBe(mockResponseWithDifferentOrderId);
+    });
+
+    const actionResults = store.getActions();
+
+    expect(patchCheckoutOrder).toHaveBeenCalledTimes(1);
+    expect(patchCheckoutOrder).toHaveBeenCalledWith(
+      checkoutId,
+      data,
+      undefined,
+    );
+    expect(actionResults).toMatchObject([
+      { type: actionTypes.UPDATE_CHECKOUT_ORDER_REQUEST },
+      {
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
+        payload: expectedPayload,
+      },
+    ]);
+    expect(
+      find(actionResults, {
+        type: actionTypes.UPDATE_CHECKOUT_ORDER_SUCCESS,
+      }),
+    ).toMatchSnapshot(
+      'update checkout order success payload with config to apply the new axios headers',
+    );
+  });
 });
