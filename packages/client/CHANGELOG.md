@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.17.1...@farfetch/blackout-client@2.18.0) (2024-01-16)
+
+### Features
+
+- expose missing address endpoints ([7c37f1b](https://github.com/Farfetch/blackout/commit/7c37f1b5e505131fc4b165888825d451f913c702))
+
 ## [2.17.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-client@2.17.0...@farfetch/blackout-client@2.17.1) (2024-01-15)
 
 ### Bug Fixes

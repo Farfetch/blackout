@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.19.1...@farfetch/blackout-redux@1.20.0) (2024-01-16)
+
+### Bug Fixes
+
+- fix updateCheckoutOrder factory recovery case ([42ca931](https://github.com/Farfetch/blackout/commit/42ca9310a14986c187f38bbf8a4403bbf5dd491e))
+
+### Features
+
+- add external logins redux actions ([5c4df80](https://github.com/Farfetch/blackout/commit/5c4df801b8c73a59dae3a9a47dcc1e31aecaceed))
+- expose missing address endpoints ([7c37f1b](https://github.com/Farfetch/blackout/commit/7c37f1b5e505131fc4b165888825d451f913c702))
+
 ## [1.19.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.19.0...@farfetch/blackout-redux@1.19.1) (2024-01-15)
 
 ### Bug Fixes
