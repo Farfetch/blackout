@@ -5,12 +5,12 @@ Object {
   "payload": Object {
     "entries": Array [
       Object {
-        "lastVisitDate": "2020-02-02T15:57:30.238Z",
-        "productId": 11111111,
-      },
-      Object {
         "lastVisitDate": "2020-02-01T15:57:30.238Z",
         "productId": 22222222,
+      },
+      Object {
+        "lastVisitDate": "2020-02-02T15:57:30.238Z",
+        "productId": 11111111,
       },
     ],
     "number": 1,
