@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.20.0...@farfetch/blackout-redux@1.20.1) (2024-01-17)
+
+### Bug Fixes
+
+- fix recentleViewedProducts reducer to sort descending ([8b8602c](https://github.com/Farfetch/blackout/commit/8b8602c6b7c3af700c55e74f8ac46da19c0350ae))
+
 # [1.20.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.19.1...@farfetch/blackout-redux@1.20.0) (2024-01-16)
 
 ### Bug Fixes
