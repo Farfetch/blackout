@@ -1,3 +1,5 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
+
 export const creditId = 123456;
 
 export const mockGetCreditResponse = [
@@ -17,4 +19,11 @@ export const creditMovementsQuery = {
   to: 'to',
   page: 1,
   pageSize: 20,
+};
+
+export const mockStateCredits = {
+  credits: {
+    error: toBlackoutError(new Error('error')),
+    isLoading: false,
+  },
 };
