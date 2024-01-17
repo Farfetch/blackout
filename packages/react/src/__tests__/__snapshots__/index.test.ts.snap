@@ -420,6 +420,7 @@ Object {
   "useUserClosetItems": [Function],
   "useUserClosets": [Function],
   "useUserContacts": [Function],
+  "useUserCredit": [Function],
   "useUserOrders": [Function],
   "useUserProfile": [Function],
   "useUserReturns": [Function],

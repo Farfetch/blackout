@@ -10,7 +10,7 @@ import type {
 } from './credit.types.js';
 
 export type UserEntity = (User | UserLegacy) & {
-  credits?: UserCreditEntity;
+  credits?: Array<UserCreditEntity>;
   creditMovements?: UserCreditMovementsEntity;
   preferences?: Array<UserPreference['code']>;
   contacts?: Array<UserContact['id']>;

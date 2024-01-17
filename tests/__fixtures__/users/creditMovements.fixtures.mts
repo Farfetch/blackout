@@ -1,3 +1,5 @@
+import { toBlackoutError } from '@farfetch/blackout-client';
+
 export const mockGetCreditMovementsResponse = {
   entries: [
     {
@@ -33,5 +35,12 @@ export const mockGetCreditMovementsResponse = {
 export const expectedCreditMovementsNormalizedPayload = {
   creditMovements: {
     ...mockGetCreditMovementsResponse,
+  },
+};
+
+export const mockStateCreditMovements = {
+  credits: {
+    error: toBlackoutError(new Error('error')),
+    isLoading: false,
   },
 };
