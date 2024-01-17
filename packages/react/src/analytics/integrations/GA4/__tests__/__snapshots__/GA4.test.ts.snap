@@ -94,6 +94,21 @@ Array [
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the bag event correctly 1`] = `
 Array [
   Array [
+    "set",
+    "page_referrer",
+    "https://example.com",
+  ],
+  Array [
+    "event",
+    "page_view",
+    Object {
+      "analytics_package_version": "0.1.0",
+      "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
+      "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
+      "path_clean": "/en-pt/",
+    },
+  ],
+  Array [
     "event",
     "view_cart",
     Object {
@@ -134,6 +149,16 @@ Array [
       "wishlist_name": undefined,
     },
   ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the search event correctly 1`] = `
+Array [
+  Array [
+    "set",
+    "page_referrer",
+    "https://example.com",
+  ],
   Array [
     "event",
     "page_view",
@@ -144,11 +169,6 @@ Array [
       "path_clean": "/en-pt/",
     },
   ],
-]
-`;
-
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the search event correctly 1`] = `
-Array [
   Array [
     "event",
     "search",
@@ -161,6 +181,16 @@ Array [
       "search_term": "shoes",
     },
   ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the wishlist event correctly 1`] = `
+Array [
+  Array [
+    "set",
+    "page_referrer",
+    "https://example.com",
+  ],
   Array [
     "event",
     "page_view",
@@ -171,11 +201,6 @@ Array [
       "path_clean": "/en-pt/",
     },
   ],
-]
-`;
-
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Page events Should map the wishlist event correctly 1`] = `
-Array [
   Array [
     "event",
     "view_wishlist",
@@ -187,6 +212,16 @@ Array [
       "wishlist_id": "d3618128-5aa9-4caa-a452-1dd1377a6190",
     },
   ],
+]
+`;
+
+exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should not track search event with invalid search term or query, only page event. 1`] = `
+Array [
+  Array [
+    "set",
+    "page_referrer",
+    "https://example.com",
+  ],
   Array [
     "event",
     "page_view",
@@ -200,46 +235,19 @@ Array [
 ]
 `;
 
-exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should not track search event with invalid search term or query, only page event. 1`] = `
-Array [
-  "event",
-  "page_view",
-  Object {
-    "analytics_package_version": "0.1.0",
-    "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
-    "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
-    "path_clean": "/en-pt/",
-  },
-]
-`;
-
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search term instead of search query. 1`] = `
 Array [
-  "event",
-  "search",
-  Object {
-    "analytics_package_version": "0.1.0",
-    "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
-    "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
-    "path_clean": "/en-pt/",
-    "search_result_count": 3,
-    "search_term": "term",
-  },
+  "set",
+  "page_referrer",
+  "https://example.com",
 ]
 `;
 
 exports[`GA4 Integration GA4 instance When it is instantiated correctly Event Mappings Search events should track search event search without search term but with search query instead. 1`] = `
 Array [
-  "event",
-  "search",
-  Object {
-    "analytics_package_version": "0.1.0",
-    "blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
-    "page_path": "/en-pt/?utm_term=utm_term&utm_source=utm_source&utm_medium=utm_medium&utm_content=utm_content&utm_campaign=utm_campaign",
-    "path_clean": "/en-pt/",
-    "search_result_count": 3,
-    "search_term": "query",
-  },
+  "set",
+  "page_referrer",
+  "https://example.com",
 ]
 `;
 

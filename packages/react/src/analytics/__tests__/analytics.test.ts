@@ -5,6 +5,7 @@ import AnalyticsCore, {
   FromParameterType,
   type IntegrationOptions,
   integrations,
+  PageType,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
 import type { WebContext } from '../context.js';
@@ -123,10 +124,14 @@ describe('analytics web', () => {
       await analytics.page(event, properties, eventContext);
 
       expect(coreTrackSpy).toHaveBeenCalledWith(
-        analyticsTrackTypes.Page,
-        event,
-        properties,
-        eventContext,
+        expect.objectContaining({
+          type: analyticsTrackTypes.Page,
+          event,
+          properties,
+          context: expect.objectContaining({
+            event: expect.objectContaining(eventContext),
+          }),
+        }),
       );
 
       // Allow the integration to run - this will trigger the flow to track the previously stored page() event
@@ -276,10 +281,130 @@ describe('analytics web', () => {
     await analytics.page(mockEvent, mockEventProperties, mockEventContext);
 
     expect(coreTrackSpy).toHaveBeenCalledWith(
-      analyticsTrackTypes.Page,
-      mockEvent,
-      mockEventProperties,
-      mockEventContext,
+      expect.objectContaining({
+        type: analyticsTrackTypes.Page,
+        event: mockEvent,
+        properties: mockEventProperties,
+        context: expect.objectContaining({
+          event: expect.objectContaining(mockEventContext),
+        }),
+      }),
     );
+  });
+
+  describe('Page Location Referrer Property', () => {
+    // The 'page location referrer' property is significant within the analytics context, specifically concerning web pages.
+    // It is essential to ensure, through various tests, that different scenarios verify the proper operation of references,
+    // especially in the case of a Single Page Application (SPA).
+
+    const newAnalyticsIntance = () =>
+      new (analytics.constructor as {
+        new (): typeof analytics;
+      })();
+    // @ts-expect-error
+    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
+
+    beforeEach(() => {
+      coreTrackSpy.mockClear();
+    });
+
+    it('Should retrieve pageLocationReferrer value from origin on first page view', async () => {
+      const origin = 'www.example.com';
+
+      jest.spyOn(document, 'referrer', 'get').mockReturnValueOnce(origin);
+
+      const analyticsClean = newAnalyticsIntance();
+
+      await analyticsClean.page(PageType.Homepage);
+
+      expect(coreTrackSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: analyticsTrackTypes.Page,
+          event: PageType.Homepage,
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              pageLocationReferrer: origin,
+            }),
+          }),
+        }),
+      );
+    });
+
+    it('Should set `pageLocationReferrer` value to the previous page instead of document.referrer after the first navigation event', async () => {
+      const origin = 'www.example.com';
+
+      jest.spyOn(document, 'referrer', 'get').mockReturnValueOnce(origin);
+      window.location.href = `${origin}/${PageType.Homepage}`;
+
+      const analyticsClean = newAnalyticsIntance();
+
+      await analyticsClean.page(PageType.Homepage);
+
+      expect(coreTrackSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: analyticsTrackTypes.Page,
+          event: PageType.Homepage,
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              pageLocationReferrer: origin,
+            }),
+          }),
+        }),
+      );
+
+      // set another page location
+      window.location.href = `${origin}/${PageType.About}`;
+
+      await analyticsClean.page(PageType.About);
+
+      expect(coreTrackSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: analyticsTrackTypes.Page,
+          event: PageType.About,
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              pageLocationReferrer: `${origin}/${PageType.Homepage}`,
+            }),
+          }),
+        }),
+      );
+    });
+
+    it('should set `pageLocationReferrer` value to the previous page instead of document.referrer on track actions', async () => {
+      const origin = 'www.example.com';
+
+      jest.spyOn(document, 'referrer', 'get').mockReturnValueOnce(origin);
+      window.location.href = `${origin}/${PageType.Homepage}`;
+
+      const analyticsClean = newAnalyticsIntance();
+
+      await analyticsClean.track(mockEvent, mockEventProperties);
+
+      expect(coreTrackSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: analyticsTrackTypes.Track,
+          event: mockEvent,
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              pageLocationReferrer: origin,
+            }),
+          }),
+        }),
+      );
+
+      await analyticsClean.page(PageType.Homepage);
+
+      expect(coreTrackSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: analyticsTrackTypes.Page,
+          event: PageType.Homepage,
+          context: expect.objectContaining({
+            web: expect.objectContaining({
+              pageLocationReferrer: `${origin}/${PageType.Homepage}`,
+            }),
+          }),
+        }),
+      );
+    });
   });
 });

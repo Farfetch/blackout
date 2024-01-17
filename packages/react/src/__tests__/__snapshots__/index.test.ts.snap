@@ -251,6 +251,7 @@ Object {
     "integrations": Map {},
     "isReady": false,
     "lastFromParameter": null,
+    "lastPageLocation": "",
     "platform": "web",
     "previousUniqueViewId": null,
     "setStoragePromise": Promise {},

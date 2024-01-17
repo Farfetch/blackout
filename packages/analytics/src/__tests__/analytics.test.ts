@@ -319,7 +319,10 @@ describe('analytics', () => {
         const spyTrack = jest.spyOn(integrationInstance, 'track');
 
         // @ts-expect-error Forcing call to trackInternal
-        analytics.trackInternal(TrackType.Page, PageType.Homepage);
+        analytics.trackInternal({
+          type: TrackType.Page,
+          event: PageType.Homepage,
+        });
 
         analytics.track('myEvent');
 
@@ -951,7 +954,10 @@ describe('analytics', () => {
           );
 
           // @ts-expect-error
-          await analytics.trackInternal(TrackType.Page, PageType.Homepage);
+          await analytics.trackInternal({
+            type: TrackType.Page,
+            event: PageType.Homepage,
+          });
 
           expect(spyTrack).toHaveBeenCalled();
 
