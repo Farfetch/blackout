@@ -366,15 +366,30 @@ class Analytics {
 .
    */
   async track(type = trackTypes.TRACK, event, properties, eventContext) {
+    return this.internalTrack(
+      await this.getTrackEventData(type, event, properties, eventContext),
+    );
+  }
+
+  /**
+   * Track method for custom events.
+   * Call integration's track for active integrations.
+   *
+   * @param {object} trackData    -  Track event data to be sent to integrations.
+   * 
+   * @returns {Promise<Analytics>}    Promise that will resolve with the instance that was used when calling this method to allow chaining.
+.
+   */
+  async internalTrack(trackData) {
     if (!this.isReady) {
       logger.error(
-        `Analytics tried to track the event ${event} but failed. Did you forget to call "analytics.ready()?"`,
+        `Analytics tried to track the event ${trackData.event} but failed. Did you forget to call "analytics.ready()?"`,
       );
 
       return this;
     }
 
-    if (!event) {
+    if (!trackData.event) {
       logger.error(
         "Please provide a valid event name when calling 'analytics.track(eventName, properties)'.",
       );
@@ -385,17 +400,10 @@ class Analytics {
     await this.setUserPromise;
 
     try {
-      const data = await this.getTrackEventData(
-        type,
-        event,
-        properties,
-        eventContext,
-      );
-
-      this.callIntegrationsMethod(this.activeIntegrations, 'track', data);
+      this.callIntegrationsMethod(this.activeIntegrations, 'track', trackData);
     } catch (error) {
       logger.error(
-        `An error occurred when trying to track event: ${event}: ${error}`,
+        `An error occurred when trying to track event: ${trackData.event}: ${error}`,
       );
     }
 
