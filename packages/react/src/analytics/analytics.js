@@ -52,18 +52,10 @@ class AnalyticsWeb extends Analytics {
   async onLoadedIntegrations(loadedIntegrations) {
     // If there is a previous page call data stored, send a page event to the integrations that were loaded by the consent
     if (this.currentPageCallData) {
-      const { event, properties } = this.currentPageCallData;
-
-      const pageEventData = await super.getTrackEventData(
-        analyticsTrackTypes.PAGE,
-        event,
-        properties,
-      );
-
       super.callIntegrationsMethod(
         loadedIntegrations,
-        analyticsTrackTypes.TRACK,
-        pageEventData,
+        'track', // call 'track' method of new integrations loaded
+        this.currentPageCallData,
       );
     }
   }
@@ -100,8 +92,15 @@ class AnalyticsWeb extends Analytics {
    * @private
    */
   async getTrackEventData(type, event, properties, eventContext) {
-    this.processContext(eventContext);
-    return super.getTrackEventData(type, event, properties, eventContext);
+    const eventData = super.getTrackEventData(
+      type,
+      event,
+      properties,
+      eventContext,
+    );
+
+    this.processContext(eventData.context);
+    return eventData;
   }
 
   /**
@@ -111,10 +110,23 @@ class AnalyticsWeb extends Analytics {
    */
   processContext(context) {
     if (context) {
-      context.library = {
+      const webLibrary = {
         name: PCKG_NAME,
-        version: `${context.library.name}@${context.library.version};${PCKG_NAME}@${PCKG_VERSION};`,
+        version: `${PCKG_NAME}@${PCKG_VERSION};`,
       };
+
+      if (context.library) {
+        if (context.library.name === PCKG_NAME) {
+          // in this case, then context already processed by analyticsWeb
+          return;
+        }
+
+        // Library already set by analytics core
+        const { name, version } = context.library;
+        webLibrary.version = `${name}@${version};${PCKG_NAME}@${PCKG_VERSION};`;
+      }
+
+      context.library = webLibrary;
     }
   }
 
@@ -144,18 +156,15 @@ class AnalyticsWeb extends Analytics {
    */
   async page(event, properties, eventContext) {
     // Override the last page call data with the current one
-    this.currentPageCallData = {
-      event,
-      properties,
-      eventContext,
-    };
 
-    await super.track(
+    this.currentPageCallData = await this.getTrackEventData(
       analyticsTrackTypes.PAGE,
       event,
       properties,
       eventContext,
     );
+
+    await super.internalTrack(this.currentPageCallData);
 
     return this;
   }

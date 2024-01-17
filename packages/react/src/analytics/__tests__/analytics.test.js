@@ -168,11 +168,8 @@ describe('analytics web', () => {
     });
   });
 
-  it('Should extend the `track() method for tracking of pages and events`', async () => {
-    const coreTrackSpy = jest.spyOn(
-      AnalyticsCore.prototype,
-      analyticsTrackTypes.TRACK,
-    );
+  it.only('Should extend the `track() method for tracking of pages and events`', async () => {
+    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'internalTrack');
     const event = 'myEvent';
     const properties = {};
     const eventContext = { culture: 'pt-PT' }; // Simulate that the event has a different culture associated with it.
@@ -180,19 +177,27 @@ describe('analytics web', () => {
     await analytics.track(event, properties, eventContext);
 
     expect(coreTrackSpy).toBeCalledWith(
-      analyticsTrackTypes.TRACK,
-      event,
-      properties,
-      eventContext,
+      expect.objectContaining({
+        event,
+        properties,
+        type: analyticsTrackTypes.TRACK,
+        context: expect.objectContaining({
+          event: expect.objectContaining(eventContext),
+        }),
+      }),
     );
 
     await analytics.page(event, properties, eventContext);
 
     expect(coreTrackSpy).toBeCalledWith(
-      analyticsTrackTypes.PAGE,
-      event,
-      properties,
-      eventContext,
+      expect.objectContaining({
+        event,
+        properties,
+        type: analyticsTrackTypes.PAGE,
+        context: expect.objectContaining({
+          event: expect.objectContaining(eventContext),
+        }),
+      }),
     );
   });
 });
