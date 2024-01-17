@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes/index.js';
 import * as authenticationActionTypes from '../../users/authentication/actionTypes.js';
 import { type AnyAction, combineReducers, type Reducer } from 'redux';
-import { omit, sortBy, uniqBy } from 'lodash-es';
+import { omit, orderBy, uniqBy } from 'lodash-es';
 import type { RecentlyViewedProducts } from '@farfetch/blackout-client';
 import type { RecentlyViewedState } from '../types/index.js';
 
@@ -55,9 +55,10 @@ const result = (
         remote: action.payload,
         pagination: omit(action.payload, 'entries') as RecentlyViewedProducts,
         computed: uniqBy(
-          sortBy(
+          orderBy(
             [...action.payload.entries, ...computed],
             entry => new Date(entry.lastVisitDate),
+            'desc',
           ),
           'productId',
         ),
@@ -71,9 +72,10 @@ const result = (
         remote: state?.remote,
         pagination: state?.pagination,
         computed: uniqBy(
-          sortBy(
+          orderBy(
             [...action.payload, ...computed],
             entry => new Date(entry.lastVisitDate),
+            'desc',
           ),
           'productId',
         ),

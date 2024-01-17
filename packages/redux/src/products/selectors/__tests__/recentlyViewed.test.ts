@@ -1,10 +1,10 @@
 import * as recentlyViewedReducer from '../../reducer/recentlyViewedProducts.js';
 import * as selectors from '../recentlyViewedProducts.js';
 import {
-  expectedRecentlyViewedLocalPayload,
   expectedRecentlyViewedRemotePayload,
+  expectRecentlyViewedLocalPayloadSorted,
 } from 'tests/__fixtures__/products/index.mjs';
-import { omit, uniqBy } from 'lodash-es';
+import { omit } from 'lodash-es';
 import type { StoreState } from '../../../types/index.js';
 
 describe('RecentlyViewed redux selectors', () => {
@@ -15,13 +15,7 @@ describe('RecentlyViewed redux selectors', () => {
         error: null,
         result: {
           remote: expectedRecentlyViewedRemotePayload,
-          computed: uniqBy(
-            [
-              ...expectedRecentlyViewedLocalPayload,
-              ...expectedRecentlyViewedRemotePayload.entries,
-            ],
-            'productId',
-          ),
+          computed: expectRecentlyViewedLocalPayloadSorted,
           pagination: omit(expectedRecentlyViewedRemotePayload, 'entries'),
         },
       },
@@ -52,15 +46,9 @@ describe('RecentlyViewed redux selectors', () => {
     it('should get the result', () => {
       const spy = jest.spyOn(recentlyViewedReducer, 'getResult');
 
-      expect(selectors.getRecentlyViewedProducts(mockState)).toEqual([
-        ...expectedRecentlyViewedLocalPayload,
-        // mimic the lodash `uniqBy` method effect for the given payload
-        ...expectedRecentlyViewedRemotePayload.entries.filter(
-          item =>
-            item.productId !==
-            expectedRecentlyViewedLocalPayload?.[0]?.productId,
-        ),
-      ]);
+      expect(selectors.getRecentlyViewedProducts(mockState)).toEqual(
+        expectRecentlyViewedLocalPayloadSorted,
+      );
       expect(spy).toHaveBeenCalledTimes(1);
     });
 

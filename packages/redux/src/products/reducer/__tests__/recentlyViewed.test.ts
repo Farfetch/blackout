@@ -194,7 +194,7 @@ describe('Recently Viewed reducer', () => {
         result: {
           pagination: initialState.result?.pagination,
           remote: expectedRecentlyViewedRemotePayload,
-          computed: expectedRecentlyViewedLocalPayload,
+          computed: expectRecentlyViewedLocalPayloadSorted,
         },
       };
       const productId = 33333333;
