@@ -1,6 +1,6 @@
+import { type ContextData, type utils } from '@farfetch/blackout-analytics';
 import { merge } from 'lodash-es';
 import parse from 'url-parse';
-import type { ContextData, utils } from '@farfetch/blackout-analytics';
 
 export type WebContext = ContextData & {
   web: {
@@ -13,7 +13,6 @@ export type WebContext = ContextData & {
       title: string;
       referrer: string;
     };
-    pageLocationReferrer: string | undefined;
   } & ProcessedContextWeb;
 };
 
@@ -21,10 +20,8 @@ export type ProcessedContextWeb = {
   [utils.ANALYTICS_UNIQUE_VIEW_ID]?: string | null;
   [utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID]?: string | null;
   [utils.LAST_FROM_PARAMETER_KEY]?: string | null;
+  [utils.PAGE_LOCATION_REFERRER_KEY]?: string;
 };
-
-let lastLocation =
-  typeof document !== 'undefined' ? document.referrer : undefined;
 
 /**
  * Returns a partial object of web context for the analytics package.
@@ -33,30 +30,19 @@ let lastLocation =
  *
  * @returns Context object for web applications.
  */
-const webContext = (): Partial<WebContext> => {
-  const locationHref = window.location.href;
 
-  if (lastLocation !== locationHref) {
-    lastLocation = locationHref;
-  }
-
-  return {
-    web: {
-      window: {
-        location: parse(locationHref, true),
-        navigator: merge({}, window.navigator),
-        screen: merge({}, window.screen),
-      },
-      document: {
-        title: document.title,
-        referrer: document.referrer,
-      },
-      // Since document.referrer stays the same on single page applications,
-      // we have this alternative that will hold the previous page location
-      // based on page track calls with `analyticsWeb.page()`.
-      pageLocationReferrer: lastLocation,
+const webContext = (): Partial<WebContext> => ({
+  web: {
+    window: {
+      location: parse(window.location.href, true),
+      navigator: merge({}, window.navigator),
+      screen: merge({}, window.screen),
     },
-  };
-};
+    document: {
+      title: document.title,
+      referrer: document.referrer,
+    },
+  },
+});
 
 export default webContext;

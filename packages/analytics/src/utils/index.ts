@@ -8,6 +8,7 @@ export {
   ANALYTICS_UNIQUE_VIEW_ID,
   ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID,
   LAST_FROM_PARAMETER_KEY,
+  PAGE_LOCATION_REFERRER_KEY,
 } from './constants.js';
 export * from './defaults.js';
 export * from './getters.js';

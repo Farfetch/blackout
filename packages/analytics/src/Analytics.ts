@@ -236,10 +236,10 @@ class Analytics {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  protected async onLoadedIntegrations(
+  protected onLoadedIntegrations(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     loadedIntegrations: IntegrationRuntimeData[],
-  ): Promise<void> {
+  ): void | Promise<void> {
     // Do nothing
   }
 
@@ -442,10 +442,12 @@ class Analytics {
     eventContext?: EventContextData,
   ): Promise<this> {
     return await this.trackInternal(
-      TrackType.Track,
-      event,
-      properties,
-      eventContext,
+      await this.getTrackEventData(
+        TrackType.Track,
+        event,
+        properties,
+        eventContext,
+      ),
     );
   }
 
@@ -453,20 +455,16 @@ class Analytics {
    * Internal track method used by the public track method. Builds the track object
    * with page default properties on the context.
    *
-   * @param type         - Type of event to be tracked.
-   * @param event        - Name of the event.
-   * @param properties   - Properties of the event.
-   * @param eventContext - Context data that is specific for this event.
+   * @param trackData    - Data for the event.
    *
    * @returns Promise that will resolve with the instance that was used when calling this method to allow
    * chaining.
    */
   protected async trackInternal(
-    type: TrackTypesValues = TrackType.Track,
-    event: string,
-    properties?: EventProperties,
-    eventContext?: EventContextData,
+    trackData: EventData<TrackTypesValues>,
   ): Promise<this> {
+    const { event } = trackData;
+
     if (!this.isReady) {
       logger.error(
         `Analytics tried to track the event ${event} but failed. Did you forget to call "analytics.ready()?"`,
@@ -486,15 +484,8 @@ class Analytics {
     await this.setUserPromise;
 
     try {
-      const data = await this.getTrackEventData(
-        type,
-        event,
-        properties,
-        eventContext,
-      );
-
       this.forEachIntegrationSafe(this.activeIntegrations, integration =>
-        integration.track(data),
+        integration.track(trackData),
       );
     } catch (error) {
       logger.error(

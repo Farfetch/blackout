@@ -211,6 +211,7 @@ Object {
     "LAST_FROM_PARAMETER_KEY": "__lastFromParameter",
     "LOAD_INTEGRATION_TRACK_TYPE": "loadIntegration",
     "ON_SET_USER_TRACK_TYPE": "onSetUser",
+    "PAGE_LOCATION_REFERRER_KEY": "pageLocationReferrer",
     "StorageWrapper": [Function],
     "getCheckoutOrderIdentificationProperties": [Function],
     "getCheckoutProperties": [Function],

@@ -1,12 +1,12 @@
 import { get } from 'lodash-es';
 import Analytics, {
-  TrackType as analyticsTrackTypes,
   type ContextData,
   type EventContextData,
   type EventData,
   type EventProperties,
   type IntegrationRuntimeData,
   PlatformType,
+  TrackType,
   type TrackTypesValues,
   utils,
 } from '@farfetch/blackout-analytics';
@@ -27,11 +27,7 @@ const {
  * documentation to know the inherited methods from Analytics.
  */
 class AnalyticsWeb extends Analytics {
-  currentPageCallData: {
-    event: string;
-    properties?: EventProperties;
-    eventContext?: EventContextData;
-  } | null = null;
+  currentPageCallData: EventData<TrackTypesValues> | null = null;
   uniqueViewIdStorage: UniqueViewIdStorage | null = null;
   previousUniqueViewId: ProcessedContextWeb[typeof utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
     null;
@@ -39,9 +35,13 @@ class AnalyticsWeb extends Analytics {
     null;
   lastFromParameter: ProcessedContextWeb[typeof utils.LAST_FROM_PARAMETER_KEY] =
     null;
+  lastPageLocation: string | undefined;
 
   constructor() {
     super(PlatformType.Web);
+
+    this.lastPageLocation =
+      typeof document !== 'undefined' ? document.referrer : undefined;
 
     // Add default contexts for the web platform
     this.useContext(webContext);
@@ -56,21 +56,15 @@ class AnalyticsWeb extends Analytics {
    *
    * @returns Promise that will resolve when the method finishes.
    */
-  protected override async onLoadedIntegrations(
+  protected override onLoadedIntegrations(
     loadedIntegrations: IntegrationRuntimeData[],
   ) {
     // If there is a previous page call data stored, send a page event to the integrations that were loaded by the consent
-    if (this.currentPageCallData) {
-      const { event, properties } = this.currentPageCallData;
-
-      const pageEventData = await super.getTrackEventData(
-        analyticsTrackTypes.Page,
-        event,
-        properties,
-      );
-
+    if (this.currentPageCallData !== null) {
       super.forEachIntegrationSafe(loadedIntegrations, integration =>
-        integration.track(pageEventData),
+        integration.track(
+          this.currentPageCallData as EventData<TrackTypesValues>,
+        ),
       );
     }
   }
@@ -109,6 +103,11 @@ class AnalyticsWeb extends Analytics {
         context.web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
           this.previousUniqueViewId;
         context.web[utils.LAST_FROM_PARAMETER_KEY] = this.lastFromParameter;
+
+        // Since document.referrer stays the same on single page applications,
+        // we have this alternative that will hold the previous page location
+        // based on page track calls with `analyticsWeb.page()`.
+        context.web[utils.PAGE_LOCATION_REFERRER_KEY] = this.lastPageLocation;
       }
     }
 
@@ -137,7 +136,20 @@ class AnalyticsWeb extends Analytics {
     // without the `from` parameter.
     this.lastFromParameter = (properties?.from as string) || null;
 
-    return await super.track(event, properties, eventContext);
+    await super.track(event, properties, eventContext);
+
+    this.updatePageReferrer();
+
+    return this;
+  }
+
+  updatePageReferrer() {
+    const locationHref = window.location.href;
+
+    if (this.lastPageLocation !== locationHref) {
+      // The 'pageLocationReferrer' should not change on loadIntegration and onSetUser events.
+      this.lastPageLocation = locationHref;
+    }
   }
 
   /**
@@ -155,13 +167,6 @@ class AnalyticsWeb extends Analytics {
     properties?: EventProperties,
     eventContext?: EventContextData,
   ) {
-    // Override the last page call data with the current one
-    this.currentPageCallData = {
-      event,
-      properties,
-      eventContext,
-    };
-
     // Store the previousUniqueViewId with the last current one.
     this.previousUniqueViewId = this.currentUniqueViewId;
 
@@ -177,12 +182,19 @@ class AnalyticsWeb extends Analytics {
     // Saves the current unique view ID for the next events
     this.currentUniqueViewId = newUniqueViewId;
 
-    await super.trackInternal(
-      analyticsTrackTypes.Page,
+    // Override the last page call data with the current one
+    const pageEventData = await this.getTrackEventData(
+      TrackType.Page,
       event,
       properties,
       eventContext,
     );
+
+    this.currentPageCallData = pageEventData;
+
+    await super.trackInternal(pageEventData);
+
+    this.updatePageReferrer();
 
     return this;
   }
