@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.68.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.67.0...@farfetch/blackout-react@0.68.0) (2024-01-17)
+
+
+### Features
+
+* add search changes to analytics events v1 ([366751c](https://github.com/Farfetch/blackout/commit/366751c4d3dc3547e3dceff30793bb68b860f46d))
+* add support to google consent mode for `v1` ([573b5b2](https://github.com/Farfetch/blackout/commit/573b5b2230096d8406036970f800006ec90ecad6))
+
+
+
+
+
 # [0.67.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.65.0...@farfetch/blackout-react@0.67.0) (2023-12-11)
 
 

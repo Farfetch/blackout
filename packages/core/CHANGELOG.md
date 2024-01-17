@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.99.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.98.0...@farfetch/blackout-core@1.99.0) (2024-01-17)
+
+
+### Bug Fixes
+
+* add sort by date on recently viewed v1 ([ecc2606](https://github.com/Farfetch/blackout/commit/ecc26060b3b723fa25f89766d2bd83039dcbbde3))
+
+
+### Features
+
+* add search changes to analytics events v1 ([366751c](https://github.com/Farfetch/blackout/commit/366751c4d3dc3547e3dceff30793bb68b860f46d))
+
+
+
+
+
 # [1.98.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.97.0...@farfetch/blackout-core@1.98.0) (2023-12-19)
 
 
