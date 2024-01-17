@@ -158,6 +158,19 @@ class GA4 extends integrations.Integration {
         pageViewCommandList.push(...extraCommands);
       }
 
+      const pageLocationReferrer = get(
+        data,
+        'context.web.pageLocationReferrer',
+      );
+
+      if (pageLocationReferrer) {
+        pageViewCommandList.push([
+          'set',
+          'page_referrer',
+          pageLocationReferrer,
+        ]);
+      }
+
       pageViewCommandList.push([
         'event',
         'page_view',
