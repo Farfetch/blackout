@@ -15,7 +15,6 @@ describe('context', () => {
           title: document.title,
           referrer: document.referrer,
         },
-        pageLocationReferrer: window.location.href,
       },
     };
 

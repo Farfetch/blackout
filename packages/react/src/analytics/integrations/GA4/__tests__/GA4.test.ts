@@ -326,6 +326,7 @@ describe('GA4 Integration', () => {
         );
 
         const expectedCalls = [
+          ['set', 'page_referrer', 'https://example.com'],
           [
             'event',
             'page_view',
@@ -1256,7 +1257,9 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(clonedEvent);
             // @ts-ignore expect obtain fixed value
-            expect(ga4Spy.mock.calls[0][2].value).toBe(10);
+            expect(ga4Spy.mock.calls[2][2].value).toBe(10);
+
+            ga4Spy.mockClear();
 
             // @ts-ignore
             delete clonedEvent.properties.value;
@@ -1388,7 +1391,7 @@ describe('GA4 Integration', () => {
 
             await ga4Instance.track(data);
 
-            expect(ga4Spy.mock.calls[0]).toMatchSnapshot();
+            expect(ga4Spy.mock.calls).toMatchSnapshot();
           });
 
           it('should track search event search term instead of search query.', async () => {

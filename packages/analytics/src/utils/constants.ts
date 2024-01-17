@@ -25,3 +25,4 @@ export const ANALYTICS_UNIQUE_EVENT_ID = '__blackoutAnalyticsEventId';
 export const ANALYTICS_UNIQUE_VIEW_ID = '__uniqueViewId';
 export const ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID = '__previousUniqueViewId';
 export const LAST_FROM_PARAMETER_KEY = '__lastFromParameter';
+export const PAGE_LOCATION_REFERRER_KEY = 'pageLocationReferrer';

@@ -213,6 +213,19 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
         pageViewCommandList.push(...extraCommands);
       }
 
+      const pageLocationReferrer = get(
+        data,
+        'context.web.pageLocationReferrer',
+      );
+
+      if (pageLocationReferrer) {
+        pageViewCommandList.push([
+          'set',
+          'page_referrer',
+          pageLocationReferrer,
+        ]);
+      }
+
       pageViewCommandList.push([
         'event',
         'page_view',
@@ -245,8 +258,8 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
       case analyticsPageTypes.Search:
       case analyticsPageTypes.Wishlist:
         return await Promise.all([
-          this.trackEvent({ ...data, type: TrackType.Track }),
           this.trackPage(data),
+          this.trackEvent({ ...data, type: TrackType.Track }),
         ]);
       default:
         return await this.trackPage(data);
