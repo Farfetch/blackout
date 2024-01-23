@@ -104,3 +104,19 @@ export const CLEAR_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_REQUEST =
  */
 export const CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS =
   '@farfetch/blackout-redux/CLEAR_ALL_UNSUBSCRIBE_SUBSCRIPTION_TOPIC_RECIPIENT_FROM_REQUESTS';
+
+/**
+ * xNext - Action type dispatched when the fetch user subscriptions request fails.
+ */
+export const FETCH_USER_SUBSCRIPTIONS_FAILURE_VNEXT =
+  '@farfetch/blackout-redux/FETCH_USER_SUBSCRIPTIONS_FAILURE_VNEXT';
+/**
+ * xNext - Action type dispatched when the fetch user subscriptions request starts.
+ */
+export const FETCH_USER_SUBSCRIPTIONS_REQUEST_VNEXT =
+  '@farfetch/blackout-redux/FETCH_USER_SUBSCRIPTIONS_REQUEST_VNEXT';
+/**
+ * xNext - Action type dispatched when the fetch user subscriptions request succeeds.
+ */
+export const FETCH_USER_SUBSCRIPTIONS_SUCCESS_VNEXT =
+  '@farfetch/blackout-redux/FETCH_USER_SUBSCRIPTIONS_SUCCESS_VNEXT';

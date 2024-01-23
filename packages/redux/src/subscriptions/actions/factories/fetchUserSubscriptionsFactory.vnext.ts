@@ -1,31 +1,30 @@
 import * as actionTypes from '../../actionTypes.js';
 import {
-  type GetSubscriptions,
+  type GetSubscriptionsVNext,
   toBlackoutError,
 } from '@farfetch/blackout-client';
-import type { FetchUserSubscriptionsFactory } from './types/index.js';
+import type { FetchUserSubscriptionsFactoryVNext } from './types/index.js';
 
 /**
- * @deprecated Prefer to use `fetchUserSubscriptionsFactoryVNext`
  * Method to create a thunk factory configured with the specified client.
  *
- * @param getSubscriptions - Get subscriptions client.
+ * @param getSubscriptionsVNext - Get subscriptions client.
  *
  * @returns Thunk factory.
  */
-const fetchUserSubscriptionsFactory: FetchUserSubscriptionsFactory<
-  GetSubscriptions
+const fetchUserSubscriptionsFactoryVNext: FetchUserSubscriptionsFactoryVNext<
+  GetSubscriptionsVNext
 > = getSubscriptions => (query, config) => async dispatch => {
   try {
     dispatch({
-      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST,
+      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST_VNEXT,
     });
 
     const result = await getSubscriptions(query, config);
 
     dispatch({
       payload: result,
-      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS,
+      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS_VNEXT,
     });
 
     return result;
@@ -34,11 +33,11 @@ const fetchUserSubscriptionsFactory: FetchUserSubscriptionsFactory<
 
     dispatch({
       payload: { error: errorAsBlackoutError },
-      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE,
+      type: actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE_VNEXT,
     });
 
     throw errorAsBlackoutError;
   }
 };
 
-export default fetchUserSubscriptionsFactory;
+export default fetchUserSubscriptionsFactoryVNext;
