@@ -2,9 +2,10 @@
  * @module utils
  * @private
  */
-
+import { isArray } from 'lodash';
+import { MAX_PRODUCT_CATEGORIES } from '../GA4/constants';
+import { utils } from '@farfetch/blackout-core/analytics';
 import get from 'lodash/get';
-import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 
 /**
@@ -54,13 +55,26 @@ export const getContextParameters = context => ({
  * @returns {Array} - The product categories.
  */
 export const getProductCategory = categories => {
+  let productCategories = [];
+
   if (isArray(categories)) {
-    return categories;
+    productCategories = categories;
+  } else if (isString(categories)) {
+    productCategories = categories.split('/');
   }
 
-  if (isString(categories)) {
-    return categories.split('/');
+  if (productCategories.length > MAX_PRODUCT_CATEGORIES) {
+    productCategories = [
+      productCategories[0],
+      ...productCategories.slice(-MAX_PRODUCT_CATEGORIES + 1),
+    ];
+
+    utils.logger.warn(
+      `[GTM] - Product category hierarchy exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GTM only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
+    );
   }
+
+  return productCategories;
 };
 
 /**
@@ -71,14 +85,21 @@ export const getProductCategory = categories => {
  * @returns {object} - The filtered product object.
  */
 export const getProductData = product => ({
-  id: product.id,
-  name: product.name,
-  category: getProductCategory(product.category),
+  affiliation: product.affiliation,
   brand: product.brand,
-  variant: product.variant,
+  category: getProductCategory(product.category),
+  coupon: product.coupon,
+  currency: product.currency,
+  discount: product.discountValue,
+  id: product.productId ?? product.id,
+  list: product.list,
+  listId: product.listId,
+  locationId: product.locationId,
+  name: product.name,
   position: product.position,
   price: product.price,
-  size: product.size,
+  priceWithoutDiscount: product.priceWithoutDiscount,
   quantity: product.quantity,
-  list: product.list,
+  size: product.size,
+  variant: product.variant,
 });

@@ -1,26 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GTM EventsMapper Should match the snapshot for the event: Address Info Added 1`] = `
+Object {
+  "addressFinder": true,
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "shippingTier": "Next Day",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Billing Info Added 1`] = `
+Object {
+  "addressFinder": true,
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "orderId": "OFH1213",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Abandoned 1`] = `
+Object {
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "paymentType": "paypal",
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "tax": 23,
+  "value": 1000,
+}
+`;
+
 exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Started 1`] = `
 Object {
-  "orderId": "OFH1213",
-  "products": Array [
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "items": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
     },
   ],
-  "total": 1000,
+  "method": undefined,
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "paymentType": "paypal",
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "tax": 23,
   "value": 1000,
 }
 `;
@@ -32,20 +89,34 @@ Object {
 }
 `;
 
+exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Step Editing 1`] = `
+Object {
+  "checkoutStep": 1,
+  "orderId": "OFH1213",
+}
+`;
+
 exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Step Viewed 1`] = `
 Object {
   "products": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
@@ -55,31 +126,161 @@ Object {
 }
 `;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: Order Completed 1`] = `
+exports[`GTM EventsMapper Should match the snapshot for the event: Delivery Method Added 1`] = `
 Object {
-  "coupon": undefined,
-  "currency": undefined,
-  "orderId": "OFH1213",
-  "products": Array [
+  "coupon": "dummy",
+  "currency": "USD",
+  "items": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
     },
   ],
+  "orderId": "OFH1213",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Filters Applied 1`] = `
+Object {
+  "filters": undefined,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Filters Cleared 1`] = `
+Object {
+  "filters": undefined,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Interact Content 1`] = `
+Object {
+  "address_finder": true,
+  "affiliation": "ABC123",
+  "brand": "RALPH LAUREN",
+  "category": "Clothing/Tops/T-shirts",
+  "coupon": "dummy",
+  "currency": "USD",
+  "delivery_type": "Standard/Standard",
+  "discount": 2,
+  "from": "PLP",
+  "id": "100",
+  "is_main_wishlist": true,
+  "list": "product listing",
+  "list_id": "ABC",
+  "location_id": "ABC123",
+  "name": "embroidered logo polo shirt",
+  "option": "DHL",
+  "order_id": "OFH1213",
+  "packaging_type": "foo",
+  "payment_type": "paypal",
+  "position": 1,
+  "price": 19.5,
+  "price_without_discount": 19.5,
+  "quantity": 1,
   "shipping": 10,
+  "shipping_tier": "Next Day",
+  "size": "M",
+  "step": 1,
   "tax": 23,
   "total": 1000,
+  "value": 123123,
+  "variant": "Black",
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Login 1`] = `
+Object {
+  "method": undefined,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Logout 1`] = `
+Object {
+  "product": Object {
+    "affiliation": "ABC123",
+    "brand": "RALPH LAUREN",
+    "category": Array [
+      "Clothing",
+      "Tops",
+      "T-shirts",
+    ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
+    "id": "100",
+    "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
+    "name": "embroidered logo polo shirt",
+    "position": 1,
+    "price": 19.5,
+    "priceWithoutDiscount": 19.5,
+    "quantity": 1,
+    "size": "M",
+    "variant": "Black",
+  },
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Order Completed 1`] = `
+Object {
+  "addressFinder": true,
+  "affiliation": "ABC123",
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "paymentType": "paypal",
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "tax": 23,
+  "total": 1000,
+  "value": 1000,
 }
 `;
 
@@ -88,16 +289,23 @@ Object {
   "orderId": "OFH1213",
   "products": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
@@ -108,32 +316,99 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Payment Info Added 1`] = `
 Object {
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "items": Array [
+    Object {
+      "affiliation": undefined,
+      "brand": undefined,
+      "category": Array [],
+      "coupon": undefined,
+      "currency": undefined,
+      "discount": undefined,
+      "id": undefined,
+      "list": undefined,
+      "listId": undefined,
+      "locationId": undefined,
+      "name": undefined,
+      "position": undefined,
+      "price": undefined,
+      "priceWithoutDiscount": undefined,
+      "quantity": undefined,
+      "size": undefined,
+      "variant": undefined,
+    },
+  ],
+  "orderId": "OFH1213",
   "paymentType": "paypal",
   "total": 1000,
   "value": 1000,
 }
 `;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: Place Order Started 1`] = `
+exports[`GTM EventsMapper Should match the snapshot for the event: Place Order Failed 1`] = `
 Object {
-  "orderId": "OFH1213",
   "products": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
     },
   ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Place Order Started 1`] = `
+Object {
+  "affiliation": "ABC123",
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "orderId": "OFH1213",
+  "products": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "shipping": 10,
+  "tax": 23,
   "total": 1000,
   "value": 1000,
 }
@@ -141,60 +416,175 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Cart 1`] = `
 Object {
+  "currency": "USD",
+  "from": "PLP",
+  "index": 1,
+  "isMainWishlist": true,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlistId": undefined,
+  "wishlistName": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Wishlist 1`] = `
 Object {
+  "currency": "USD",
+  "from": "PLP",
+  "index": 1,
+  "isMainWishlist": true,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlistId": undefined,
+  "wishlistName": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Clicked 1`] = `
 Object {
+  "from": "PLP",
+  "index": 1,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
@@ -204,84 +594,207 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product List Viewed 1`] = `
 Object {
-  "currency": undefined,
-  "list": "product listing",
-  "products": Array [
+  "currency": "USD",
+  "error": undefined,
+  "filters": undefined,
+  "from": "PLP",
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
     Object {
+      "affiliation": "ABC123",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
         "category 2",
       ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
       "id": "100",
       "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
       "name": "embroidered logo polo shirt",
       "position": 1,
       "price": 19.5,
+      "priceWithoutDiscount": 19.5,
       "quantity": 1,
       "size": "M",
       "variant": "Black",
     },
   ],
+  "products": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "sortOption": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed From Wishlist 1`] = `
 Object {
+  "currency": "USD",
+  "from": "PLP",
+  "index": 1,
+  "isMainWishlist": true,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlistId": undefined,
+  "wishlistName": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed from Cart 1`] = `
 Object {
+  "currency": "USD",
+  "from": "PLP",
+  "index": 1,
+  "isMainWishlist": true,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlistId": undefined,
+  "wishlistName": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Updated In Wishlist 1`] = `
 Object {
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
@@ -291,28 +804,210 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Viewed 1`] = `
 Object {
+  "currency": "USD",
+  "from": "PLP",
+  "imageCount": undefined,
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
   "product": Object {
+    "affiliation": "ABC123",
     "brand": "RALPH LAUREN",
     "category": Array [
       "Clothing",
       "Tops",
       "T-shirts",
     ],
+    "coupon": "dummy",
+    "currency": "USD",
+    "discount": undefined,
     "id": "100",
     "list": "product listing",
+    "listId": "ABC",
+    "locationId": "ABC123",
     "name": "embroidered logo polo shirt",
     "position": 1,
     "price": 19.5,
+    "priceWithoutDiscount": 19.5,
     "quantity": 1,
     "size": "M",
     "variant": "Black",
   },
+  "value": 1000,
 }
 `;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Completed 1`] = `Object {}`;
+exports[`GTM EventsMapper Should match the snapshot for the event: Promocode Applied 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "affiliation": undefined,
+      "brand": undefined,
+      "category": Array [],
+      "coupon": undefined,
+      "currency": undefined,
+      "discount": undefined,
+      "id": undefined,
+      "list": undefined,
+      "listId": undefined,
+      "locationId": undefined,
+      "name": undefined,
+      "position": undefined,
+      "price": undefined,
+      "priceWithoutDiscount": undefined,
+      "quantity": undefined,
+      "size": undefined,
+      "variant": undefined,
+    },
+  ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Review Checkout 1`] = `
+Object {
+  "affiliation": "ABC123",
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "paymentType": "paypal",
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "tax": 23,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Select Content 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "affiliation": undefined,
+      "brand": undefined,
+      "category": Array [],
+      "coupon": undefined,
+      "currency": undefined,
+      "discount": undefined,
+      "id": undefined,
+      "list": undefined,
+      "listId": undefined,
+      "locationId": undefined,
+      "name": undefined,
+      "position": undefined,
+      "price": undefined,
+      "priceWithoutDiscount": undefined,
+      "quantity": undefined,
+      "size": undefined,
+      "variant": undefined,
+    },
+  ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Share 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "affiliation": undefined,
+      "brand": undefined,
+      "category": Array [],
+      "coupon": undefined,
+      "currency": undefined,
+      "discount": undefined,
+      "id": undefined,
+      "list": undefined,
+      "listId": undefined,
+      "locationId": undefined,
+      "name": undefined,
+      "position": undefined,
+      "price": undefined,
+      "priceWithoutDiscount": undefined,
+      "quantity": undefined,
+      "size": undefined,
+      "variant": undefined,
+    },
+  ],
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Shipping Info Added 1`] = `
+Object {
+  "coupon": "dummy",
+  "currency": "USD",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "orderId": "OFH1213",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Shipping Method Added 1`] = `
+Object {
+  "checkoutStep": 1,
+  "coupon": "dummy",
+  "currency": "USD",
+  "deliveryType": "Standard/Standard",
+  "orderId": "OFH1213",
+  "packagingType": "foo",
+  "shippingTier": "Next Day",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Completed 1`] = `
+Object {
+  "method": undefined,
+}
+`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Viewed 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Newsletter 1`] = `Object {}`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: about 1`] = `Object {}`;
 
@@ -320,7 +1015,43 @@ exports[`GTM EventsMapper Should match the snapshot for the event: account 1`] =
 
 exports[`GTM EventsMapper Should match the snapshot for the event: article 1`] = `Object {}`;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: bag 1`] = `Object {}`;
+exports[`GTM EventsMapper Should match the snapshot for the event: bag 1`] = `
+Object {
+  "currency": "USD",
+  "from": "PLP",
+  "index": 1,
+  "isMainWishlist": true,
+  "itemListId": "ABC",
+  "itemListName": "product listing",
+  "items": Array [
+    Object {
+      "affiliation": "ABC123",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "coupon": "dummy",
+      "currency": "USD",
+      "discount": undefined,
+      "id": "100",
+      "list": "product listing",
+      "listId": "ABC",
+      "locationId": "ABC123",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "priceWithoutDiscount": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "value": 1000,
+  "wishlistId": undefined,
+  "wishlistName": undefined,
+}
+`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: biography 1`] = `Object {}`;
 
@@ -378,7 +1109,12 @@ exports[`GTM EventsMapper Should match the snapshot for the event: returns 1`] =
 
 exports[`GTM EventsMapper Should match the snapshot for the event: sale 1`] = `Object {}`;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: search 1`] = `Object {}`;
+exports[`GTM EventsMapper Should match the snapshot for the event: search 1`] = `
+Object {
+  "searchResultCount": undefined,
+  "searchTerm": undefined,
+}
+`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: social 1`] = `Object {}`;
 
@@ -386,20 +1122,56 @@ exports[`GTM EventsMapper Should match the snapshot for the event: stores 1`] = 
 
 exports[`GTM EventsMapper Should match the snapshot for the event: unsubscribe 1`] = `Object {}`;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: wishlist 1`] = `Object {}`;
+exports[`GTM EventsMapper Should match the snapshot for the event: wishlist 1`] = `
+Object {
+  "wishlistId": undefined,
+}
+`;
 
 exports[`GTM eventSchemas Should allow to extend the eventSchema 1`] = `
 Object {
   "__blackoutAnalyticsEventId": "111945ad-b9d4-4c21-b3b0-2764b31bd1111",
   "event": "Product Clicked",
+  "from": undefined,
+  "index": undefined,
+  "itemListId": undefined,
+  "itemListName": undefined,
+  "items": Array [
+    Object {
+      "affiliation": undefined,
+      "brand": undefined,
+      "category": Array [],
+      "coupon": undefined,
+      "currency": undefined,
+      "discount": undefined,
+      "id": undefined,
+      "list": undefined,
+      "listId": undefined,
+      "locationId": undefined,
+      "name": undefined,
+      "position": undefined,
+      "price": undefined,
+      "priceWithoutDiscount": undefined,
+      "quantity": undefined,
+      "size": undefined,
+      "variant": undefined,
+    },
+  ],
   "product": Object {
+    "affiliation": undefined,
     "brand": undefined,
-    "category": undefined,
+    "category": Array [],
+    "coupon": undefined,
+    "currency": undefined,
+    "discount": undefined,
     "id": undefined,
     "list": undefined,
+    "listId": undefined,
+    "locationId": undefined,
     "name": undefined,
     "position": undefined,
     "price": undefined,
+    "priceWithoutDiscount": undefined,
     "quantity": undefined,
     "size": undefined,
     "variant": undefined,
