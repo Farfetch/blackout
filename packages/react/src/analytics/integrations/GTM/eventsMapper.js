@@ -3,93 +3,164 @@
  * @private
  */
 
-import { eventTypes, pageTypes } from '@farfetch/blackout-core/analytics';
+import {
+  eventTypes,
+  pageTypes,
+  utils,
+} from '@farfetch/blackout-core/analytics';
 import { getEventProperties, getProductData } from './utils';
+import { isObject, round, snakeCase } from 'lodash';
 import get from 'lodash/get';
 
 const noPropertiesMappedFn = () => ({});
+
+/**
+ * Returns the total event value for GTM ecommerce events.
+ *
+ * @param {object} eventProperties - Properties from a track event.
+ * @param {Array} items - Items contained on event tracking.
+ *
+ * @returns {number} Event total value calculated.
+ */
+const getEventTotalValue = (eventProperties, items) => {
+  if (typeof eventProperties.total === 'number') {
+    return eventProperties.total;
+  }
+
+  // There could be cases where the client is not using the bag middleware and wants to pass a value.
+  if (typeof eventProperties.value === 'number') {
+    return eventProperties.value;
+  }
+
+  const value = items?.reduce((acc, item) => {
+    const lineValue =
+      (get(item, 'price', 0) - get(item, 'discount', 0)) *
+      get(item, 'quantity', 1);
+
+    return acc + lineValue;
+  }, 0);
+  return round(value, 3);
+};
+
+/**
+ * Retrieves the product (or products) from the eventProperties in an Array.
+ *
+ * @param {object} properties - Properties from a track event.
+ *
+ * @returns {Array} Product list with properties formatted for GTM ecommerce events.
+ */
+const getProductItemsFromEvent = properties => {
+  return Array.isArray(properties.products)
+    ? properties.products.map(product => getProductData(product))
+    : new Array(getProductData(properties));
+};
+
+const getPrePurchaseParametersFromEvent = properties => {
+  const products = getProductItemsFromEvent(properties);
+
+  const result = {
+    currency: properties.currency,
+    from: properties.from,
+    listId: properties.listId,
+    list: properties.list,
+    position: properties.position,
+    wishlist: properties.wishlist,
+    wishlistId: properties.wishlistId,
+    isMainWishlist: properties.isMainWishlist,
+    value: getEventTotalValue(properties, products),
+  };
+
+  return result;
+};
+
+/**
+ * Returns checkout event properties formatted to GTM ecommerce events.
+ *
+ * @param {object} properties - Properties from a track event.
+ *
+ * @returns {object} Common properties formatted to GTM's checkout ecommerce events.
+ */
+const getCheckoutParametersFromEvent = properties => {
+  const products = getProductItemsFromEvent(properties);
+
+  return {
+    currency: properties.currency,
+    coupon: properties.coupon,
+    products,
+    orderId: properties.orderId,
+    value: getEventTotalValue(properties, products),
+  };
+};
 
 /**
  * Event mapper with all supported events. This mapper can be extended via the integration's options.
  * It maps all necessary properties for each event appart from context, consent and user properties.
  */
 const eventsMapper = {
-  [eventTypes.PRODUCT_LIST_VIEWED]: data => {
+  [eventTypes.ADDRESS_INFO_ADDED]: data => {
     const properties = getEventProperties(data);
 
     return {
-      products: get(properties, 'products', []).map(getProductData),
-      list: properties.list,
+      ...getCheckoutParametersFromEvent(properties),
+      shippingTier: properties.shippingTier,
+      addressFinder: properties.addressFinder,
+      deliveryType: properties.deliveryType,
+      packagingType: properties.packagingType,
+      step: properties.step,
+    };
+  },
+  [eventTypes.BILLING_INFO_ADDED]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(data);
+
+    return {
+      addressFinder: properties.addressFinder,
+      step: properties.step,
+      coupon: properties.coupon,
       currency: properties.currency,
+      orderId: properties.orderId,
+      value: getEventTotalValue(properties, products),
     };
   },
-  [eventTypes.PRODUCT_VIEWED]: data => {
+  [eventTypes.CHECKOUT_ABANDONED]: data => {
     const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(data);
 
     return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_CLICKED]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
-    };
-  },
-  [eventTypes.PRODUCT_UPDATED_WISHLIST]: data => {
-    const properties = getEventProperties(data);
-
-    return {
-      product: getProductData(properties),
+      step: properties.step,
+      coupon: properties.coupon,
+      currency: properties.currency,
+      deliveryType: properties.deliveryType,
+      packagingType: properties.packagingType,
+      paymentType: properties.paymentType,
+      shippingTier: properties.shippingTier,
+      shipping: properties.shipping,
+      tax: properties.tax,
+      orderId: properties.orderId,
+      value: getEventTotalValue(properties, products),
     };
   },
   [eventTypes.CHECKOUT_STARTED]: data => {
     const properties = getEventProperties(data);
 
     return {
-      products: get(properties, 'products', []).map(getProductData),
-      orderId: properties.orderId,
-      total: properties.total,
-      value: get(properties, 'total', get(properties, 'value')),
+      ...getCheckoutParametersFromEvent(properties),
+      step: properties.step,
+      deliveryType: properties.deliveryType,
+      paymentType: properties.paymentType,
+      packagingType: properties.packagingType,
+      shippingTier: properties.shippingTier,
+      shipping: properties.shipping,
+      tax: properties.tax,
+      method: properties.method,
     };
   },
-  [eventTypes.PLACE_ORDER_STARTED]: data => {
+  [eventTypes.CHECKOUT_STEP_EDITING]: data => {
     const properties = getEventProperties(data);
 
     return {
+      step: properties.step,
       orderId: properties.orderId,
-      products: get(properties, 'products', []).map(getProductData),
-      total: properties.total,
-      value: get(properties, 'total', get(properties, 'value')),
     };
   },
   [eventTypes.CHECKOUT_STEP_VIEWED]: data => {
@@ -108,43 +179,301 @@ const eventsMapper = {
       option: properties.option,
     };
   },
-  [eventTypes.PAYMENT_INFO_ADDED]: data => {
+  [eventTypes.DELIVERY_METHOD_ADDED]: data => {
     const properties = getEventProperties(data);
 
     return {
-      paymentType: properties.paymentType,
-      total: properties.total,
-      value: get(properties, 'total', get(properties, 'value')),
+      ...getCheckoutParametersFromEvent(properties),
+      shippingTier: properties.shippingTier,
+      deliveryType: properties.deliveryType,
+      packagingType: properties.packagingType,
+      step: properties.step,
+    };
+  },
+  [eventTypes.FILTERS_APPLIED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      filters: properties.filters
+        ? JSON.stringify(properties.filters)
+        : undefined,
+    };
+  },
+  [eventTypes.FILTERS_CLEARED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      filters: properties.filters
+        ? JSON.stringify(properties.filters)
+        : undefined,
+    };
+  },
+  [eventTypes.INTERACT_CONTENT]: data => {
+    const properties = getEventProperties(data);
+    const formattedProperties = {};
+
+    Object.keys(properties).forEach(key => {
+      const value = properties[key];
+
+      if (isObject(value)) {
+        return;
+      }
+
+      formattedProperties[snakeCase(key)] = value;
+    });
+
+    return formattedProperties;
+  },
+  [eventTypes.LOGIN]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      method: properties.method,
+    };
+  },
+  [eventTypes.LOGOUT]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      product: getProductData(properties),
     };
   },
   [eventTypes.ORDER_COMPLETED]: data => {
     const properties = getEventProperties(data);
 
     return {
-      products: get(properties, 'products', []).map(getProductData),
-      total: properties.total,
+      ...getCheckoutParametersFromEvent(properties),
       tax: properties.tax,
       shipping: properties.shipping,
-      coupon: properties.coupon,
-      currency: properties.currency,
-      orderId: properties.orderId,
+      addressFinder: properties.addressFinder,
+      step: properties.step,
+      deliveryType: properties.deliveryType,
+      paymentType: properties.paymentType,
+      packagingType: properties.packagingType,
+      shippingTier: properties.shippingTier,
+      affiliation: properties.affiliation,
     };
   },
   [eventTypes.ORDER_REFUNDED]: data => {
     const properties = getEventProperties(data);
 
     return {
+      ...getCheckoutParametersFromEvent(properties),
+      affiliation: properties.affiliation,
+      shipping: properties.shipping,
+      tax: properties.tax,
+    };
+  },
+  [eventTypes.PRODUCT_LIST_VIEWED]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(properties);
+
+    return {
+      currency: properties.currency,
+      from: properties.from,
+      error: properties.error,
+      listId: properties.listId,
+      list: properties.list,
+      products,
+      filters: properties.filters
+        ? JSON.stringify(properties.filters)
+        : undefined,
+      sortOption: properties.sortOption,
+    };
+  },
+  [eventTypes.PRODUCT_VIEWED]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(properties);
+
+    return {
+      product: getProductData(properties),
+      currency: properties.currency,
+      from: properties.from,
+      imageCount: properties.imageCount,
+      value: getEventTotalValue(properties, products),
+    };
+  },
+  [eventTypes.PRODUCT_CLICKED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      product: getProductData(properties),
+      from: properties.from,
+      position: properties.position,
+      list: properties.list,
+      listId: properties.listId,
+    };
+  },
+  [eventTypes.PRODUCT_ADDED_TO_CART]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getPrePurchaseParametersFromEvent(properties),
+      product: getProductData(properties),
+    };
+  },
+  [eventTypes.PRODUCT_REMOVED_FROM_CART]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getPrePurchaseParametersFromEvent(properties),
+      product: getProductData(properties),
+    };
+  },
+  [eventTypes.PRODUCT_ADDED_TO_WISHLIST]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getPrePurchaseParametersFromEvent(properties),
+      product: getProductData(properties),
+    };
+  },
+  [eventTypes.PRODUCT_REMOVED_FROM_WISHLIST]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getPrePurchaseParametersFromEvent(properties),
+      product: getProductData(properties),
+    };
+  },
+  [eventTypes.PRODUCT_UPDATED_WISHLIST]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      product: getProductData(properties),
+    };
+  },
+  [eventTypes.PLACE_ORDER_FAILED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
       products: get(properties, 'products', []).map(getProductData),
+    };
+  },
+  [eventTypes.PLACE_ORDER_STARTED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getCheckoutParametersFromEvent(properties),
+      affiliation: properties.affiliation,
+      shipping: properties.shipping,
+      tax: properties.tax,
+      step: properties.step,
+    };
+  },
+  [eventTypes.PAYMENT_INFO_ADDED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getCheckoutParametersFromEvent(properties),
+      paymentType: properties.paymentType,
+      step: properties.step,
+    };
+  },
+  [eventTypes.PROMOCODE_APPLIED]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(data);
+
+    return {
+      currency: properties.currency,
+      coupon: properties.coupon,
+      value: getEventTotalValue(properties, products),
       orderId: properties.orderId,
     };
   },
-  [eventTypes.SIGNUP_FORM_COMPLETED]: noPropertiesMappedFn,
+  [eventTypes.SELECT_CONTENT]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      contentType: properties.contentType,
+      id: properties.id,
+    };
+  },
+  [eventTypes.SHARE]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      method: properties.method,
+      contentType: properties.contentType,
+      id: utils.getProductId(properties),
+    };
+  },
+  [eventTypes.SHIPPING_INFO_ADDED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getCheckoutParametersFromEvent(properties),
+      shippingTier: properties.shippingTier,
+      deliveryType: properties.deliveryType,
+      packagingType: properties.packagingType,
+      step: properties.step,
+    };
+  },
+  [eventTypes.SHIPPING_METHOD_ADDED]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(data);
+
+    return {
+      coupon: properties.coupon,
+      currency: properties.currency,
+      deliveryType: properties.deliveryType,
+      orderId: properties.orderId,
+      packagingType: properties.packagingType,
+      shippingTier: properties.shippingTier,
+      step: properties.step,
+      value: getEventTotalValue(properties, products),
+    };
+  },
+  [eventTypes.SIGNUP_FORM_COMPLETED]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      method: properties.method,
+    };
+  },
+  [eventTypes.OrderRefunded]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      ...getCheckoutParametersFromEvent(properties),
+      affiliation: properties.affiliation,
+      shipping: properties.shipping,
+      tax: properties.tax,
+    };
+  },
   [eventTypes.SIGNUP_FORM_VIEWED]: noPropertiesMappedFn,
+  [eventTypes.SIGNUP_NEWSLETTER]: noPropertiesMappedFn,
+  [pageTypes.BAG]: data => {
+    const properties = getEventProperties(data);
+    const products = getProductItemsFromEvent(properties);
+
+    return {
+      ...getPrePurchaseParametersFromEvent(properties),
+      products,
+    };
+  },
+  [pageTypes.WISHLIST]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      wishlistId: properties.wishlistId,
+    };
+  },
+  [pageTypes.SEARCH]: data => {
+    const properties = getEventProperties(data);
+
+    return {
+      searchTerm: get(properties, 'searchTerm', get(properties, 'searchQuery')),
+      searchResultCount: get(properties, 'itemCount'),
+    };
+  },
 };
 
 // Add all page types to the mapper so they can be considered by the integration
 Object.values(pageTypes).forEach(pageType => {
-  eventsMapper[pageType] = noPropertiesMappedFn;
+  if (!eventsMapper[pageType]) {
+    eventsMapper[pageType] = noPropertiesMappedFn;
+  }
 });
 
 export default eventsMapper;

@@ -490,17 +490,6 @@ export const trackEventsMapper = {
     itemListName: data.properties?.list,
     ...getRecommendationsTrackingData(data),
   }),
-  [eventTypes.REVIEW_CHECKOUT]: data => ({
-    tid: 3648,
-    ...getCheckoutEventGenericProperties(data, true),
-    ...getCommonCheckoutStepTrackingData(data),
-    basketValue: data.properties?.total,
-    basketCurrency: data.properties?.currency,
-    orderVAT: data.properties?.tax,
-    paymentType: data.properties?.paymentType,
-    promoCode: data.properties?.coupon,
-    shippingTotalValue: data.properties?.shipping,
-  }),
   [eventTypes.CHECKOUT_ABANDONED]: data => ({
     tid: 2084,
     ...getCheckoutEventGenericProperties(data, true),
