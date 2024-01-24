@@ -283,23 +283,6 @@ Object {
 }
 `;
 
-exports[`Omnitracking definitions \`Review Checkout\` return should match the snapshot 1`] = `
-Object {
-  "basketCurrency": "USD",
-  "basketValue": 100,
-  "checkoutStep": 1,
-  "deliveryInformationDetails": "{\\"deliveryType\\":\\"Standard/Standard\\",\\"courierType\\":\\"Next Day\\",\\"packagingType\\":\\"foo\\"}",
-  "interactionType": "click",
-  "orderCode": "ABC12",
-  "orderId": 12345678,
-  "orderVAT": 1.23,
-  "paymentType": "credit",
-  "promoCode": "PROMO_ABC",
-  "shippingTotalValue": 10,
-  "tid": 3648,
-}
-`;
-
 exports[`Omnitracking definitions \`Select Content\` return should match the snapshot 1`] = `
 Object {
   "contentType": "Navbar",

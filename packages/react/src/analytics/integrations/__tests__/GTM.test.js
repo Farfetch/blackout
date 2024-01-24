@@ -13,13 +13,16 @@ import {
   utils,
 } from '@farfetch/blackout-core/analytics';
 import { GTM, validationSchemaBuilder } from '..';
+import { MAX_PRODUCT_CATEGORIES } from '../GA4/constants';
 import analyticsTrackDataMock from '../__fixtures__/analyticsTrackData.fixtures';
 import eventsMapper from '../GTM/eventsMapper';
 
 jest.mock('../GTM/gtmTag.js', () => jest.fn());
 
 utils.logger.error = jest.fn();
+utils.logger.warn = jest.fn();
 const loggerErrorSpy = utils.logger.error;
+const loggerWarnSpy = utils.logger.warn;
 
 describe('GTM', () => {
   let gtm;
@@ -328,33 +331,70 @@ describe('GTM', () => {
         .toHaveBeenCalledWith(`Google Tag Manager - TypeError: The properties mapped for event "${event}" did not return an object.
                 If you are passing a custom event mapping for this event, make sure that a valid object is returned.`);
     });
+
+    it('Should pass the first and last four categories whenever there´s a list of more than five categories', () => {
+      const analyticsEvent = {
+        ...analyticsTrackDataMock,
+        event: eventTypes.PRODUCT_CLICKED,
+        properties: {
+          id: 123,
+          category: 'man/clothing/tops/t-shirt/dummy/abc123',
+        },
+      };
+
+      gtm.track(analyticsEvent);
+
+      expect(loggerWarnSpy).toHaveBeenCalledWith(
+        `[GTM] - Product category hierarchy exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GTM only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
+      );
+
+      let dataLayerEntry = getDataLayerEntryByEvent(analyticsEvent.event);
+
+      expect(dataLayerEntry).toBeDefined();
+      // Check that the last category is actually the fifth
+      expect(dataLayerEntry.product.category[4]).toEqual('abc123');
+    });
   });
 
   describe('EventsMapper', () => {
     const mockProduct = {
-      id: '100',
-      name: 'embroidered logo polo shirt',
-      category: 'Clothing/Tops/T-shirts',
+      affiliation: 'ABC123',
       brand: 'RALPH LAUREN',
-      variant: 'Black',
-      price: 19.5,
-      quantity: 1,
-      position: 1,
-      size: 'M',
+      category: 'Clothing/Tops/T-shirts',
+      coupon: 'dummy',
+      currency: 'USD',
+      discount: 2,
+      id: '100',
       list: 'product listing',
+      listId: 'ABC',
+      locationId: 'ABC123',
+      name: 'embroidered logo polo shirt',
+      position: 1,
+      price: 19.5,
+      priceWithoutDiscount: 19.5,
+      quantity: 1,
+      size: 'M',
+      variant: 'Black',
     };
     const mockEventData = {
       ...analyticsEventMock,
       properties: {
         // checkout generic properties
+        addressFinder: true,
+        deliveryType: 'Standard/Standard',
+        from: 'PLP',
+        isMainWishlist: true,
         option: 'DHL',
-        step: 1,
+        orderId: 'OFH1213',
+        packagingType: 'foo',
+        paymentType: 'paypal',
         shipping: 10,
+        shippingTier: 'Next Day',
+        method: 'guest',
+        step: 1,
         tax: 23,
         total: 1000,
-        paymentType: 'paypal',
         value: 123123,
-        orderId: 'OFH1213',
         // product generic properties - Array of products
         products: [
           {

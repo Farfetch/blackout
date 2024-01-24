@@ -420,25 +420,6 @@ const validTrackEvents = {
     },
   },
 
-  [eventTypes.REVIEW_CHECKOUT]: {
-    type: analyticsTrackTypes.TRACK,
-    event: eventTypes.REVIEW_CHECKOUT,
-    context: mockedContext,
-    properties: {
-      coupon: 'HARRODS2019',
-      currency: 'USD',
-      deliveryType: 'Standard/Standard',
-      orderId: '50314b8e9bcf000000000000',
-      packagingType: 'foo',
-      paymentType: 'credit card',
-      shipping: 3.6,
-      shippingTier: 'Next Day',
-      step: 5,
-      tax: 2.04,
-      total: 24.64,
-    },
-  },
-
   [eventTypes.ORDER_COMPLETED]: {
     type: analyticsTrackTypes.TRACK,
     event: eventTypes.ORDER_COMPLETED,

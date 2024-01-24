@@ -213,19 +213,6 @@ const placeOrderStartedSchema = currencyRequiredSchema
   .concat(shippingSchema)
   .concat(taxSchema);
 
-const reviewCheckoutSchema = currencySchema
-  .concat(couponSchema)
-  .concat(totalSchema)
-  .concat(orderIdSchema)
-  .concat(affiliationSchema)
-  .concat(shippingSchema)
-  .concat(taxSchema)
-  .concat(deliveryTypeSchema)
-  .concat(packagingTypeSchema)
-  .concat(shippingTierSchema)
-  .concat(checkoutStepEditingSchema)
-  .concat(checkoutPaymentStepSchema);
-
 const shippingMethodAddedSchema = checkoutShippingStepSchema;
 const addressInfoAddedSchema = checkoutShippingStepSchema;
 
@@ -339,5 +326,4 @@ export default {
   [eventTypes.PRODUCT_UPDATED]: productUpdatedSchema,
   [eventTypes.INTERACT_CONTENT]: interactContentSchema,
   [eventTypes.SIGNUP_NEWSLETTER]: signupNewsletterSchema,
-  [eventTypes.REVIEW_CHECKOUT]: reviewCheckoutSchema,
 };
