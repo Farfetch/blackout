@@ -405,8 +405,14 @@ describe('GTM', () => {
         tax: 23,
         total: 1000,
         paymentType: 'paypal',
+        deliveryType: 'Standard/standard',
+        shippingTier: 'Next Day',
+        packagingType: 'dummy',
         value: 123123,
         orderId: 'OFH1213',
+        method: 'guest',
+        coupon: 'ACME2019',
+        currency: 'EUR',
         // product generic properties - Array of products
         products: [
           {

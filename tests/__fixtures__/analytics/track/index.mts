@@ -31,7 +31,6 @@ import productUpdatedTrackData from './productUpdatedTrackData.fixtures.mjs';
 import productUpdatedWishlistTrackData from './productUpdatedWishlistTrackData.fixtures.mjs';
 import productViewedTrackData from './productViewedTrackData.fixtures.mjs';
 import promocodeAppliedTrackData from './promocodeAppliedTrackData.fixtures.mjs';
-import reviewCheckoutTrackData from './reviewCheckoutTrackData.fixtures.mjs';
 import selectContentTrackData from './selectContentTrackData.fixtures.mjs';
 import shareTrackData from './shareTrackData.fixtures.mjs';
 import shippingInfoAddedTrackData from './shippingInfoAddedTrackData.fixtures.mjs';
@@ -76,7 +75,6 @@ const allFixtures: TrackFixtures = {
   [EventType.ProductUpdatedWishlist]: productUpdatedWishlistTrackData,
   [EventType.ProductViewed]: productViewedTrackData,
   [EventType.PromocodeApplied]: promocodeAppliedTrackData,
-  [EventType.ReviewCheckout]: reviewCheckoutTrackData,
   [EventType.SelectContent]: selectContentTrackData,
   [EventType.Share]: shareTrackData,
   [EventType.ShippingInfoAdded]: shippingInfoAddedTrackData,
