@@ -206,19 +206,6 @@ const checkoutAbandonedSchema = currencySchema
 const promocodeAppliedSchema =
   checkoutShippingStepSchema.concat(couponRequiredSchema);
 
-const reviewCheckoutSchema = currencySchema
-  .concat(couponSchema)
-  .concat(totalSchema)
-  .concat(orderIdSchema)
-  .concat(affiliationSchema)
-  .concat(shippingSchema)
-  .concat(taxSchema)
-  .concat(deliveryTypeSchema)
-  .concat(packagingTypeSchema)
-  .concat(shippingTierSchema)
-  .concat(checkoutStepEditingSchema)
-  .concat(checkoutPaymentStepSchema);
-
 const placeOrderStartedSchema = currencyRequiredSchema
   .concat(couponSchema)
   .concat(totalRequiredSchema)
@@ -345,7 +332,6 @@ const eventSchemas = {
   [EventType.ProductUpdated]: productUpdatedSchema,
   [EventType.InteractContent]: interactContentSchema,
   [EventType.SignupNewsletter]: signupNewsletterSchema,
-  [EventType.ReviewCheckout]: reviewCheckoutSchema,
 };
 
 export default eventSchemas;

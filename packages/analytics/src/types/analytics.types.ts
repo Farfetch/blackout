@@ -119,21 +119,21 @@ export type UseContextFn = () => CommonContextData & { event?: never } & Record<
   >;
 
 export type AnalyticsProduct = {
-  id?: string;
-  name?: string;
-  currency?: string;
-  category?: string;
+  affiliation?: string;
   brand?: string;
-  variant?: string;
+  category?: string;
+  coupon?: string;
+  currency?: string;
+  discountValue?: number;
+  id?: string;
+  list?: string;
+  listId?: string;
+  name?: string;
+  position?: number;
   price?: number;
   priceWithoutDiscount?: number;
   quantity?: number;
-  affiliation?: string;
-  position?: number;
-  discountValue?: number;
-  coupon?: string;
-  list?: string;
-  listId?: string;
   size?: string;
   unitSalePrice?: number;
+  variant?: string;
 } & Record<string, unknown>;

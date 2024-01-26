@@ -1,10 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GTM EventsMapper Should match the snapshot for the event: Billing Info Added 1`] = `
+Object {
+  "addressFinder": undefined,
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "orderId": "OFH1213",
+  "step": 1,
+  "value": 1000,
+}
+`;
+
 exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Started 1`] = `
 Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "deliveryType": "Standard/standard",
+  "method": "guest",
   "orderId": "OFH1213",
+  "packagingType": "dummy",
+  "paymentType": "paypal",
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -20,7 +39,10 @@ Object {
       "variant": "Black",
     },
   ],
-  "total": 1000,
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "step": 1,
+  "tax": 23,
   "value": 1000,
 }
 `;
@@ -36,6 +58,8 @@ exports[`GTM EventsMapper Should match the snapshot for the event: Checkout Step
 Object {
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -55,13 +79,85 @@ Object {
 }
 `;
 
+exports[`GTM EventsMapper Should match the snapshot for the event: Delivery Method Added 1`] = `
+Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "deliveryType": "Standard/standard",
+  "orderId": "OFH1213",
+  "packagingType": "dummy",
+  "products": Array [
+    Object {
+      "0": "category 1",
+      "1": "category 2",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "shippingTier": "Next Day",
+  "step": 1,
+  "value": 1000,
+}
+`;
+
 exports[`GTM EventsMapper Should match the snapshot for the event: Order Completed 1`] = `
 Object {
-  "coupon": undefined,
-  "currency": undefined,
+  "addressFinder": undefined,
+  "affiliation": undefined,
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "deliveryType": "Standard/standard",
+  "orderId": "OFH1213",
+  "packagingType": "dummy",
+  "paymentType": "paypal",
+  "products": Array [
+    Object {
+      "0": "category 1",
+      "1": "category 2",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "shipping": 10,
+  "shippingTier": "Next Day",
+  "step": 1,
+  "tax": 23,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Order Refunded 1`] = `
+Object {
+  "affiliation": undefined,
+  "coupon": "ACME2019",
+  "currency": "EUR",
   "orderId": "OFH1213",
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -79,15 +175,20 @@ Object {
   ],
   "shipping": 10,
   "tax": 23,
-  "total": 1000,
+  "value": 1000,
 }
 `;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: Order Refunded 1`] = `
+exports[`GTM EventsMapper Should match the snapshot for the event: Payment Info Added 1`] = `
 Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
   "orderId": "OFH1213",
+  "paymentType": "paypal",
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -103,22 +204,21 @@ Object {
       "variant": "Black",
     },
   ],
-}
-`;
-
-exports[`GTM EventsMapper Should match the snapshot for the event: Payment Info Added 1`] = `
-Object {
-  "paymentType": "paypal",
-  "total": 1000,
+  "step": 1,
   "value": 1000,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Place Order Started 1`] = `
 Object {
+  "affiliation": undefined,
+  "coupon": "ACME2019",
+  "currency": "EUR",
   "orderId": "OFH1213",
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -134,25 +234,37 @@ Object {
       "variant": "Black",
     },
   ],
-  "total": 1000,
+  "shipping": 10,
+  "step": 1,
+  "tax": 23,
   "value": 1000,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Cart 1`] = `
 Object {
+  "currency": "EUR",
+  "from": undefined,
+  "isMainWishlist": undefined,
+  "list": "product listing",
+  "listId": undefined,
+  "position": 1,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -175,6 +287,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -182,23 +295,36 @@ Object {
     "value": 123123,
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlist": undefined,
+  "wishlistId": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Added to Wishlist 1`] = `
 Object {
+  "currency": "EUR",
+  "from": undefined,
+  "isMainWishlist": undefined,
+  "list": "product listing",
+  "listId": undefined,
+  "position": 1,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -221,6 +347,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -228,23 +355,34 @@ Object {
     "value": 123123,
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlist": undefined,
+  "wishlistId": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Clicked 1`] = `
 Object {
+  "from": undefined,
+  "list": "product listing",
+  "listId": undefined,
+  "position": 1,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -267,6 +405,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -279,10 +418,16 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product List Viewed 1`] = `
 Object {
-  "currency": undefined,
+  "currency": "EUR",
+  "error": undefined,
+  "filters": undefined,
+  "from": undefined,
   "list": "product listing",
+  "listId": undefined,
   "products": Array [
     Object {
+      "0": "category 1",
+      "1": "category 2",
       "brand": "RALPH LAUREN",
       "category": Array [
         "category 1",
@@ -298,23 +443,34 @@ Object {
       "variant": "Black",
     },
   ],
+  "sortOption": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed From Wishlist 1`] = `
 Object {
+  "currency": "EUR",
+  "from": undefined,
+  "isMainWishlist": undefined,
+  "list": "product listing",
+  "listId": undefined,
+  "position": 1,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -337,6 +493,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -344,23 +501,36 @@ Object {
     "value": 123123,
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlist": undefined,
+  "wishlistId": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Removed from Cart 1`] = `
 Object {
+  "currency": "EUR",
+  "from": undefined,
+  "isMainWishlist": undefined,
+  "list": "product listing",
+  "listId": undefined,
+  "position": 1,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -383,6 +553,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -390,23 +561,30 @@ Object {
     "value": 123123,
     "variant": "Black",
   },
+  "value": 1000,
+  "wishlist": undefined,
+  "wishlistId": undefined,
 }
 `;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Updated In Wishlist 1`] = `
 Object {
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -429,6 +607,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -441,18 +620,25 @@ Object {
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Product Viewed 1`] = `
 Object {
+  "currency": "EUR",
+  "from": undefined,
+  "imageCount": undefined,
   "product": Object {
+    "0": "Clothing",
+    "1": "Tops",
+    "2": "T-shirts",
     "brand": "RALPH LAUREN",
-    "category": Array [
-      "Clothing",
-      "Tops",
-      "T-shirts",
-    ],
+    "category": "Clothing/Tops/T-shirts",
+    "coupon": "ACME2019",
+    "currency": "EUR",
+    "deliveryType": "Standard/standard",
     "id": "100",
     "list": "product listing",
+    "method": "guest",
     "name": "embroidered logo polo shirt",
     "option": "DHL",
     "orderId": "OFH1213",
+    "packagingType": "dummy",
     "paymentType": "paypal",
     "position": 1,
     "price": 19.5,
@@ -475,6 +661,7 @@ Object {
     ],
     "quantity": 1,
     "shipping": 10,
+    "shippingTier": "Next Day",
     "size": "M",
     "step": 1,
     "tax": 23,
@@ -482,12 +669,88 @@ Object {
     "value": 123123,
     "variant": "Black",
   },
+  "value": 1000,
 }
 `;
 
-exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Completed 1`] = `Object {}`;
+exports[`GTM EventsMapper Should match the snapshot for the event: Promocode Applied 1`] = `
+Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "orderId": "OFH1213",
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Select Content 1`] = `
+Object {
+  "contentType": undefined,
+  "id": "100",
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Share 1`] = `
+Object {
+  "contentType": undefined,
+  "id": "100",
+  "method": "guest",
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Shipping Info Added 1`] = `
+Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "deliveryType": "Standard/standard",
+  "orderId": "OFH1213",
+  "packagingType": "dummy",
+  "products": Array [
+    Object {
+      "0": "category 1",
+      "1": "category 2",
+      "brand": "RALPH LAUREN",
+      "category": Array [
+        "category 1",
+        "category 2",
+      ],
+      "id": "100",
+      "list": "product listing",
+      "name": "embroidered logo polo shirt",
+      "position": 1,
+      "price": 19.5,
+      "quantity": 1,
+      "size": "M",
+      "variant": "Black",
+    },
+  ],
+  "shippingTier": "Next Day",
+  "step": 1,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Shipping Method Added 1`] = `
+Object {
+  "coupon": "ACME2019",
+  "currency": "EUR",
+  "deliveryType": "Standard/standard",
+  "orderId": "OFH1213",
+  "packagingType": "dummy",
+  "shippingTier": "Next Day",
+  "step": 1,
+  "value": 1000,
+}
+`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Completed 1`] = `
+Object {
+  "method": "guest",
+}
+`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Form Viewed 1`] = `Object {}`;
+
+exports[`GTM EventsMapper Should match the snapshot for the event: Sign-up Newsletter 1`] = `Object {}`;
 
 exports[`GTM EventsMapper Should match the snapshot for the event: about 1`] = `Object {}`;
 
@@ -567,8 +830,11 @@ exports[`GTM Track Should track with unique id on track result 1`] = `
 Object {
   "__blackoutAnalyticsEventId": "4eabf689-96e3-4952-8176-248a848f1e1f",
   "event": "Product Clicked",
+  "from": undefined,
+  "list": undefined,
+  "listId": undefined,
+  "position": undefined,
   "product": Object {
-    "category": undefined,
     "id": 123123,
   },
   "type": "track",
