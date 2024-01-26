@@ -1,12 +1,14 @@
-import { get, isArray, isString } from 'lodash-es';
-import type {
-  AnalyticsProduct,
-  EventData,
-  EventProperties,
-  TrackTypesValues,
-  UserData,
-  UserTraits,
+import {
+  type AnalyticsProduct,
+  type EventData,
+  type EventProperties,
+  type TrackTypesValues,
+  type UserData,
+  type UserTraits,
+  utils,
 } from '@farfetch/blackout-analytics';
+import { get, isArray, isString } from 'lodash-es';
+import { MAX_PRODUCT_CATEGORIES } from '../GA4/constants.js';
 import type { GTMEventContext } from './types/index.js';
 import type { User } from '@farfetch/blackout-client';
 import type URLParse from 'url-parse';
@@ -75,15 +77,28 @@ export const getContextParameters = (
  * @returns The product categories.
  */
 export const getProductCategory = (
-  categories: AnalyticsProduct['category'],
-): Array<string> | void => {
+  categories: AnalyticsProduct['category'] | Array<string>,
+): Array<string> => {
+  let productCategories;
+
   if (isArray(categories)) {
-    return categories;
+    productCategories = categories;
+  } else if (isString(categories)) {
+    productCategories = categories.split('/');
   }
 
-  if (isString(categories)) {
-    return categories.split('/');
+  if (productCategories && productCategories.length > MAX_PRODUCT_CATEGORIES) {
+    productCategories = [
+      productCategories[0],
+      ...productCategories.slice(-MAX_PRODUCT_CATEGORIES + 1),
+    ];
+
+    utils.logger.warn(
+      `[GTM] - Product category hierarchy exceeded maximum of ${MAX_PRODUCT_CATEGORIES}. GTM only allows up to ${MAX_PRODUCT_CATEGORIES} levels.`,
+    );
   }
+
+  return productCategories as Array<string>;
 };
 
 /**
@@ -93,7 +108,9 @@ export const getProductCategory = (
  *
  * @returns The filtered product object.
  */
-export const getProductData = (product: AnalyticsProduct) => ({
+export const getProductData = (
+  product: AnalyticsProduct,
+): AnalyticsProduct => ({
   ...product,
-  category: getProductCategory(product.category),
+  ...getProductCategory(product.category),
 });
