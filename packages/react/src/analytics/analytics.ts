@@ -1,6 +1,5 @@
 import { get } from 'lodash-es';
 import Analytics, {
-  type ContextData,
   type EventContextData,
   type EventData,
   type EventProperties,
@@ -8,13 +7,9 @@ import Analytics, {
   PlatformType,
   TrackType,
   type TrackTypesValues,
-  utils,
 } from '@farfetch/blackout-analytics';
-import UniqueViewIdStorage from './uniqueViewIdStorage/UniqueViewIdStorage.js';
-import webContext, {
-  type ProcessedContextWeb,
-  type WebContext,
-} from './context.js';
+import webContext, { type WebContext } from './context.js';
+import WebContextStateManager from './WebContextStateManager.js';
 
 const {
   name: PACKAGE_NAME,
@@ -27,21 +22,16 @@ const {
  * documentation to know the inherited methods from Analytics.
  */
 class AnalyticsWeb extends Analytics {
+  // Instance variable that manages state that will be used
+  // to populate the context.web of all events so that
+  // integrations can use.
+  private webContextStateManager: WebContextStateManager;
   currentPageCallData: EventData<TrackTypesValues> | null = null;
-  uniqueViewIdStorage: UniqueViewIdStorage | null = null;
-  previousUniqueViewId: ProcessedContextWeb[typeof utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
-    null;
-  currentUniqueViewId: ProcessedContextWeb[typeof utils.ANALYTICS_UNIQUE_VIEW_ID] =
-    null;
-  lastFromParameter: ProcessedContextWeb[typeof utils.LAST_FROM_PARAMETER_KEY] =
-    null;
-  lastPageLocation: string | undefined;
 
   constructor() {
     super(PlatformType.Web);
 
-    this.lastPageLocation =
-      typeof document !== 'undefined' ? document.referrer : undefined;
+    this.webContextStateManager = new WebContextStateManager();
 
     // Add default contexts for the web platform
     this.useContext(webContext);
@@ -77,11 +67,11 @@ class AnalyticsWeb extends Analytics {
    *
    * @returns Value for the key in context or the whole context data if key is not specified.
    */
-  override context(): Promise<ContextData>;
+  override context(): Promise<WebContext>;
   override context(key: string): Promise<unknown>;
   override async context(key?: string) {
-    const context = await super.context();
-    const processedContext = this.processContext(context as WebContext);
+    const context = (await super.context()) as WebContext;
+    const processedContext = this.processContext(context);
 
     return key ? get(processedContext, key) : processedContext;
   }
@@ -98,20 +88,29 @@ class AnalyticsWeb extends Analytics {
         version: `${context.library.name}@${context.library.version};${PACKAGE_NAME}@${PACKAGE_VERSION};`,
       };
 
-      if (context.web) {
-        context.web[utils.ANALYTICS_UNIQUE_VIEW_ID] = this.currentUniqueViewId;
-        context.web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID] =
-          this.previousUniqueViewId;
-        context.web[utils.LAST_FROM_PARAMETER_KEY] = this.lastFromParameter;
+      const webContextStateSnapshot = this.webContextStateManager.getSnapshot();
 
-        // Since document.referrer stays the same on single page applications,
-        // we have this alternative that will hold the previous page location
-        // based on page track calls with `analyticsWeb.page()`.
-        context.web[utils.PAGE_LOCATION_REFERRER_KEY] = this.lastPageLocation;
-      }
+      this.decorateWebContext(context, webContextStateSnapshot);
     }
 
     return context;
+  }
+
+  /**
+   * Decorates a context with the passed-in state snapshot.
+   * The state is managed by this.webContextStateManager instance and
+   * a snapshot is retrieved via getSnapshot() method.
+   *
+   * @param context - Context to decorate.
+   * @param webContextState - Snapshot of the state used to decorate the context with.
+   */
+  private decorateWebContext(
+    context: WebContext,
+    webContextState: ReturnType<WebContextStateManager['getSnapshot']>,
+  ) {
+    if (context.web) {
+      Object.assign(context.web, webContextState);
+    }
   }
 
   /**
@@ -128,28 +127,43 @@ class AnalyticsWeb extends Analytics {
     properties?: EventProperties | undefined,
     eventContext?: EventContextData | undefined,
   ) {
-    // Always set the `lastFromParameter` with what comes from the current event (pageview or not),
-    // so if there's a pageview being tracked right after this one,
-    // it will send the correct `navigatedFrom` parameter.
-    // Here we always set the value even if it comes `undefined` or `null`,
-    // otherwise we could end up with a stale `lastFromParameter` if some events are tracked
-    // without the `from` parameter.
-    this.lastFromParameter = (properties?.from as string) || null;
+    this.webContextStateManager.updateStateFromTrackEvent(
+      event,
+      properties,
+      eventContext,
+    );
 
-    await super.track(event, properties, eventContext);
+    const currentWebStateSnapshot = this.webContextStateManager.getSnapshot();
 
-    this.updatePageReferrer();
+    const trackEventData = await this.getTrackEventData(
+      TrackType.Track,
+      event,
+      properties,
+      eventContext,
+    );
+
+    // Decorate the context.web with the state
+    // snapshot before dispatching the event.
+    // This will override some properties from
+    // the context.web object with the correct
+    // values for the event since `getTrackEventData`
+    // will call `context` method which might
+    // be updated by other page calls.
+    this.decorateWebContext(
+      trackEventData.context as WebContext,
+      currentWebStateSnapshot,
+    );
+
+    await super.trackInternal(trackEventData);
+
+    // Always update page location after dispatching the
+    // event so integrations will see the previous value
+    // instead of the newly set value from this page call.
+    // This is used by GA4 to properly track page views
+    // in an SPA application.
+    this.webContextStateManager.updateLastPageLocation();
 
     return this;
-  }
-
-  updatePageReferrer() {
-    const locationHref = window.location.href;
-
-    if (this.lastPageLocation !== locationHref) {
-      // The 'pageLocationReferrer' should not change on loadIntegration and onSetUser events.
-      this.lastPageLocation = locationHref;
-    }
   }
 
   /**
@@ -167,20 +181,13 @@ class AnalyticsWeb extends Analytics {
     properties?: EventProperties,
     eventContext?: EventContextData,
   ) {
-    // Store the previousUniqueViewId with the last current one.
-    this.previousUniqueViewId = this.currentUniqueViewId;
-
-    // Generates a new unique view ID for the new page track,
-    // so it can be used when the context of the current event is processed by `this.context()` (super overridden) method.
-    const newUniqueViewId = utils.getUniqueViewId({
+    this.webContextStateManager.updateStateFromPageEvent(
+      event,
       properties,
-    } as EventData<TrackTypesValues>);
+      eventContext,
+    );
 
-    // Sets the current unique view ID on the storage for the current URL
-    this.uniqueViewIdStorage?.set(window.location.href, newUniqueViewId);
-
-    // Saves the current unique view ID for the next events
-    this.currentUniqueViewId = newUniqueViewId;
+    const currentWebStateSnapshot = this.webContextStateManager.getSnapshot();
 
     // Override the last page call data with the current one
     const pageEventData = await this.getTrackEventData(
@@ -190,11 +197,28 @@ class AnalyticsWeb extends Analytics {
       eventContext,
     );
 
+    // Decorate the context.web with the state
+    // snapshot before dispatching the event.
+    // This will override some properties from
+    // the context.web object with the correct
+    // values for the event since `getTrackEventData`
+    // will call `context` method which might
+    // be updated by other page calls.
+    this.decorateWebContext(
+      pageEventData.context as WebContext,
+      currentWebStateSnapshot,
+    );
+
     this.currentPageCallData = pageEventData;
 
     await super.trackInternal(pageEventData);
 
-    this.updatePageReferrer();
+    // Always update page location after dispatching the
+    // event so integrations will see the previous value
+    // instead of the newly set value from this page call.
+    // This is used by GA4 to properly track page views
+    // in an SPA application.
+    this.webContextStateManager.updateLastPageLocation();
 
     return this;
   }
@@ -202,17 +226,12 @@ class AnalyticsWeb extends Analytics {
   /**
    * When webAnalytics is ready to start initializing the integrations, it means that
    * all conditions are met to access the document object.
-   * Initializes the uniqueViewId storage based on the referrer, in case the user
-   * opens a link of the website in a new tab.
-   * document.referrer will point to the original URL from the previous tab,
-   * so we try to grab a uniqueViewId based on that to keep the user journey correct in terms of tracking.
    *
    * @returns - Promise that will resolve with the instance that was used when calling this method to allow
    * chaining.
    */
   override async ready() {
-    this.uniqueViewIdStorage = new UniqueViewIdStorage();
-    this.currentUniqueViewId = this.uniqueViewIdStorage.get(document.referrer);
+    this.webContextStateManager.initialize();
 
     return await super.ready();
   }

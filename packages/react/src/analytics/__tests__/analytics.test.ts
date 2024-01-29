@@ -2,15 +2,30 @@ import analytics from '../analytics.js';
 import AnalyticsCore, {
   TrackType as analyticsTrackTypes,
   type ConsentData,
+  type EventData,
   FromParameterType,
   type IntegrationOptions,
   integrations,
   PageType,
+  type TrackTypesValues,
+  utils,
 } from '@farfetch/blackout-analytics';
 import TestStorage from 'test-storage';
+import WebContextStateManager from '../WebContextStateManager.js';
 import type { WebContext } from '../context.js';
 
 console.error = jest.fn();
+
+// Change window to allow modifications to href
+// that are needed by some tests.
+// eslint-disable-next-line no-global-assign
+window = Object.create(window);
+Object.defineProperty(window, 'location', {
+  value: {
+    href: 'http://localhost',
+  },
+  writable: true,
+});
 
 class LoadableIntegration extends integrations.Integration<IntegrationOptions> {
   static override shouldLoad() {
@@ -28,13 +43,15 @@ class MarketingIntegration extends integrations.Integration<IntegrationOptions> 
   override track = jest.fn();
 }
 
-const mockUrl = 'https://api.blackout.com/en-pt/shopping/woman/gucci';
 const mockEvent = 'myEvent';
 const mockEventProperties = {};
 const mockEventContext = { culture: 'pt-PT' };
 const mockAnalyticsContext = {
   library: { version: '1.0.0', name: '@farfech-package' },
 };
+
+// @ts-expect-error trackInternal is protected
+const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
 
 describe('analytics web', () => {
   beforeEach(async () => {
@@ -45,10 +62,8 @@ describe('analytics web', () => {
     // @ts-expect-error
     analytics.integrations.clear();
     analytics.currentPageCallData = null;
-    analytics.uniqueViewIdStorage = null;
-    analytics.currentUniqueViewId = null;
-    analytics.previousUniqueViewId = null;
-    analytics.lastFromParameter = null;
+    // @ts-expect-error Force reset of web context state
+    analytics.webContextStateManager = new WebContextStateManager();
 
     await analytics.setStorage(new TestStorage());
     await analytics.setUser(123);
@@ -158,32 +173,143 @@ describe('analytics web', () => {
   });
 
   describe('UniqueViewId and PreviousUniqueViewId', () => {
-    it('Should persist the newly generated uniqueViewId in storage', async () => {
-      Object.defineProperty(window, 'location', {
-        value: { href: mockUrl },
-      });
-
+    it('Should send the correct values for page views when not done consecutively', async () => {
       await analytics.ready();
 
-      const storage = analytics.uniqueViewIdStorage;
+      await analytics.page(mockEvent, mockEventProperties, mockEventContext);
+
+      const firstTrackData = (
+        coreTrackSpy.mock.calls[0] as EventData<TrackTypesValues>[]
+      )[0];
+
+      const firstTrackDataPreviousUniqueViewId = (
+        firstTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
+
+      const firstTrackDataUniqueViewId = (firstTrackData!.context as WebContext)
+        .web[utils.ANALYTICS_UNIQUE_VIEW_ID];
+
+      expect(firstTrackDataPreviousUniqueViewId).toBeNull();
+      expect(firstTrackDataUniqueViewId).toEqual(expect.any(String));
+
+      jest.clearAllMocks();
 
       await analytics.page(mockEvent, mockEventProperties, mockEventContext);
 
-      expect(analytics.currentUniqueViewId).not.toBeNull();
-      expect(storage?.get(mockUrl)).toBe(analytics.currentUniqueViewId);
+      const secondTrackData = (
+        coreTrackSpy.mock.calls[0] as EventData<TrackTypesValues>[]
+      )[0];
 
-      const previousUniqueViewId = analytics.currentUniqueViewId;
+      const secondTrackDataPreviousUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
 
-      const newPageUrl = `${mockUrl}/foo`;
+      const secondTrackDataUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_UNIQUE_VIEW_ID];
 
-      Object.defineProperty(window, 'location', {
-        value: { href: newPageUrl },
-      });
+      expect(secondTrackDataPreviousUniqueViewId).toBe(
+        firstTrackDataUniqueViewId,
+      );
+
+      expect(secondTrackDataUniqueViewId).toEqual(expect.any(String));
+
+      expect(secondTrackDataUniqueViewId).not.toBe(
+        secondTrackDataPreviousUniqueViewId,
+      );
+    });
+
+    it('Should send the correct values for each page view when they are done consecutively', async () => {
+      await analytics.ready();
+
+      const firstPagePromise = analytics.page(
+        mockEvent,
+        mockEventProperties,
+        mockEventContext,
+      );
+
+      const secondPagePromise = analytics.page(
+        mockEvent,
+        mockEventProperties,
+        mockEventContext,
+      );
+
+      await Promise.all([firstPagePromise, secondPagePromise]);
+
+      const firstTrackData = (
+        coreTrackSpy.mock.calls[0] as EventData<TrackTypesValues>[]
+      )[0];
+      const secondTrackData = (
+        coreTrackSpy.mock.calls[1] as EventData<TrackTypesValues>[]
+      )[0];
+
+      const firstTrackDataPreviousUniqueViewId = (
+        firstTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
+
+      const firstTrackDataUniqueViewId = (firstTrackData!.context as WebContext)
+        .web[utils.ANALYTICS_UNIQUE_VIEW_ID];
+
+      const secondTrackDataPreviousUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
+
+      const secondTrackDataUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_UNIQUE_VIEW_ID];
+
+      expect(firstTrackDataPreviousUniqueViewId).toBeNull();
+
+      expect(firstTrackDataUniqueViewId).toEqual(expect.any(String));
+
+      expect(secondTrackDataPreviousUniqueViewId).toBe(
+        firstTrackDataUniqueViewId,
+      );
+
+      expect(secondTrackDataUniqueViewId).toEqual(expect.any(String));
+
+      expect(secondTrackDataUniqueViewId).not.toBe(
+        secondTrackDataPreviousUniqueViewId,
+      );
+    });
+
+    it('Should send the correct values for tracks that are done after a page view', async () => {
+      await analytics.ready();
 
       await analytics.page(mockEvent, mockEventProperties, mockEventContext);
 
-      expect(analytics.previousUniqueViewId).toBe(previousUniqueViewId);
-      expect(analytics.currentUniqueViewId).not.toBe(previousUniqueViewId);
+      const firstTrackData = (
+        coreTrackSpy.mock.calls[0] as EventData<TrackTypesValues>[]
+      )[0];
+
+      const firstTrackDataPreviousUniqueViewId = (
+        firstTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
+
+      const firstTrackDataUniqueViewId = (firstTrackData!.context as WebContext)
+        .web[utils.ANALYTICS_UNIQUE_VIEW_ID];
+
+      jest.clearAllMocks();
+
+      await analytics.track(mockEvent, mockEventProperties, mockEventContext);
+
+      const secondTrackData = (
+        coreTrackSpy.mock.calls[0] as EventData<TrackTypesValues>[]
+      )[0];
+
+      const secondTrackDataPreviousUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID];
+
+      const secondTrackDataUniqueViewId = (
+        secondTrackData!.context as WebContext
+      ).web[utils.ANALYTICS_UNIQUE_VIEW_ID];
+
+      expect(secondTrackDataPreviousUniqueViewId).toBe(
+        firstTrackDataPreviousUniqueViewId,
+      );
+
+      expect(secondTrackDataUniqueViewId).toEqual(firstTrackDataUniqueViewId);
     });
   });
 
@@ -231,9 +357,9 @@ describe('analytics web', () => {
         expect.objectContaining({
           context: expect.objectContaining({
             web: expect.objectContaining({
-              __uniqueViewId: expect.any(String),
-              __previousUniqueViewId: expect.any(String),
-              __lastFromParameter: FromParameterType.Bag,
+              [utils.ANALYTICS_UNIQUE_VIEW_ID]: expect.any(String),
+              [utils.ANALYTICS_PREVIOUS_UNIQUE_VIEW_ID]: expect.any(String),
+              [utils.LAST_FROM_PARAMETER_KEY]: FromParameterType.Bag,
             }),
           }),
         }),
@@ -252,7 +378,7 @@ describe('analytics web', () => {
         expect.objectContaining({
           context: expect.objectContaining({
             web: expect.objectContaining({
-              __lastFromParameter: null,
+              [utils.LAST_FROM_PARAMETER_KEY]: null,
             }),
           }),
         }),
@@ -275,9 +401,6 @@ describe('analytics web', () => {
   });
 
   it('Should extend the `track() method for tracking of pages`', async () => {
-    // @ts-expect-error
-    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
-
     await analytics.page(mockEvent, mockEventProperties, mockEventContext);
 
     expect(coreTrackSpy).toHaveBeenCalledWith(
@@ -301,12 +424,6 @@ describe('analytics web', () => {
       new (analytics.constructor as {
         new (): typeof analytics;
       })();
-    // @ts-expect-error
-    const coreTrackSpy = jest.spyOn(AnalyticsCore.prototype, 'trackInternal');
-
-    beforeEach(() => {
-      coreTrackSpy.mockClear();
-    });
 
     it('Should retrieve pageLocationReferrer value from origin on first page view', async () => {
       const origin = 'www.example.com';
