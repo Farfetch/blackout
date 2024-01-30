@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.19.3...@farfetch/blackout-react@1.20.0) (2024-01-30)
+
+### Bug Fixes
+
+- fix tracking of uniqueViewId and previousUniqueViewId in analytics ([5873590](https://github.com/Farfetch/blackout/commit/5873590468b03d1c18cb441e0d34a36f98a93876))
+
+### Features
+
+- analytics referrer attribution spa on `main` ([e9b73a8](https://github.com/Farfetch/blackout/commit/e9b73a840e71a61ea276afb68f08509617e51399))
+- create useUserCredit hook ([5bb8b29](https://github.com/Farfetch/blackout/commit/5bb8b297b08ff976b4cb19a88a840187f00aba58))
+- join relatedCommercedata with editorial data ([6df0a30](https://github.com/Farfetch/blackout/commit/6df0a3064638ab92529f97b3847e4704adb828c7))
+
 ## [1.19.3](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.19.2...@farfetch/blackout-react@1.19.3) (2024-01-17)
 
 **Note:** Version bump only for package @farfetch/blackout-react

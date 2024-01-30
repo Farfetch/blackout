@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.20.1...@farfetch/blackout-redux@1.21.0) (2024-01-30)
+
+### Features
+
+- create useUserCredit hook ([5bb8b29](https://github.com/Farfetch/blackout/commit/5bb8b297b08ff976b4cb19a88a840187f00aba58))
+- join relatedCommercedata with editorial data ([6df0a30](https://github.com/Farfetch/blackout/commit/6df0a3064638ab92529f97b3847e4704adb828c7))
+
 ## [1.20.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.20.0...@farfetch/blackout-redux@1.20.1) (2024-01-17)
 
 ### Bug Fixes

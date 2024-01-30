@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.12.2...@farfetch/blackout-analytics@1.13.0) (2024-01-30)
+
+### Features
+
+- analytics referrer attribution spa on `main` ([e9b73a8](https://github.com/Farfetch/blackout/commit/e9b73a840e71a61ea276afb68f08509617e51399))
+
 ## [1.12.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.12.1...@farfetch/blackout-analytics@1.12.2) (2024-01-16)
 
 **Note:** Version bump only for package @farfetch/blackout-analytics
