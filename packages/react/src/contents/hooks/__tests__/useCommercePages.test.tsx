@@ -6,6 +6,7 @@ import {
   mockCommercePagesInitialState,
   mockCommercePagesLoadingState,
   mockCommercePagesState,
+  slug,
 } from 'tests/__fixtures__/contents/index.mjs';
 import { fetchCommercePages } from '@farfetch/blackout-redux';
 import { withStore } from '../../../../tests/helpers/index.js';
@@ -84,6 +85,7 @@ describe('useCommercePages', () => {
 
       expect(fetchCommercePages).toHaveBeenCalledWith(
         {
+          slug,
           brand: commercePageQuery.brand,
           category: commercePageQuery.category,
           contentTypeCode: commercePageQuery.contentTypeCode,
@@ -124,6 +126,7 @@ describe('useCommercePages', () => {
 
       expect(fetchCommercePages).toHaveBeenCalledWith(
         {
+          slug,
           brand: commercePageQuery.brand,
           category: commercePageQuery.category,
           contentTypeCode: commercePageQuery.contentTypeCode,

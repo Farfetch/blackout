@@ -24,14 +24,20 @@ const useContentPage = <T = [ComponentType]>(
 ) => {
   const store = useStore();
 
-  const { enableAutoFetch = true, fetchConfig } = options;
+  const {
+    enableAutoFetch = true,
+    fetchConfig,
+    isCommercePage = false,
+  } = options;
 
   const query = useMemo(
     () => ({
-      contentTypeCode: ContentTypeCode.ContentPage,
-      codes: fetchQuery.slug.split('?')[0] as string,
+      contentTypeCode: isCommercePage
+        ? ContentTypeCode.CommercePages
+        : ContentTypeCode.ContentPage,
+      codes: fetchQuery.slug,
     }),
-    [fetchQuery.slug],
+    [fetchQuery.slug, isCommercePage],
   );
 
   const fetchQueryWithoutSlug = useMemo(() => {

@@ -7,13 +7,13 @@ import {
   type CommercePages,
   type Config,
   type GetCommercePages,
-  type QueryCommercePages,
   toBlackoutError,
 } from '@farfetch/blackout-client';
 import {
   type CommercePagesRankingStrategy,
   ContentTypeCode,
   type FetchCommercePagesAction,
+  type QueryCommercePagesWithSlug,
 } from '../../types/index.js';
 import { contentEntries } from '../../../entities/schemas/content.js';
 import { normalize } from 'normalizr';
@@ -29,7 +29,7 @@ import type { Dispatch } from 'redux';
 const fetchCommercePagesFactory =
   (getCommercePages: GetCommercePages) =>
   (
-    query: QueryCommercePages,
+    query: QueryCommercePagesWithSlug,
     strategy?: CommercePagesRankingStrategy,
     config?: Config,
   ) =>
@@ -39,9 +39,11 @@ const fetchCommercePagesFactory =
     let hash: string | undefined;
 
     try {
+      const { slug, ...queryWithoutSlug } = query;
+
       hash = generateContentHash({
         contentTypeCode: ContentTypeCode.CommercePages,
-        ...query,
+        codes: slug,
       });
 
       dispatch({
@@ -49,7 +51,7 @@ const fetchCommercePagesFactory =
         type: actionTypes.FETCH_COMMERCE_PAGES_REQUEST,
       });
 
-      const result = await getCommercePages(query, config);
+      const result = await getCommercePages(queryWithoutSlug, config);
       const rankedResult = applyCommercePagesRankingStrategy(result, strategy);
 
       dispatch({

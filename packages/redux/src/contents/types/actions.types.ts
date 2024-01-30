@@ -4,6 +4,7 @@ import type {
   BlackoutError,
   Contents,
   ContentType,
+  QueryCommercePages,
   SEOMetadata,
 } from '@farfetch/blackout-client';
 import type { ContentEntity } from '../../entities/index.js';
@@ -21,6 +22,10 @@ export type ContentsPayload = NormalizedSchema<
   },
   ContentsNormalized
 > & { hash: Hash };
+
+export interface QueryCommercePagesWithSlug extends QueryCommercePages {
+  slug: string;
+}
 
 /**
  * Fetch Content Page Action

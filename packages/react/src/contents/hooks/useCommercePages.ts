@@ -29,7 +29,7 @@ const useCommercePages = <T = ComponentType[]>(
   const query = useMemo(
     () => ({
       contentTypeCode: ContentTypeCode.CommercePages,
-      ...fetchQuery,
+      codes: fetchQuery.slug,
     }),
     [fetchQuery],
   );

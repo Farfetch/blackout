@@ -1,7 +1,8 @@
 import * as actionTypes from '../../actionTypes.js';
 import * as normalizr from 'normalizr';
 import {
-  commercePagesQuery,
+  commercePageQuery,
+  commercePageQueryWithoutSlug,
   expectedCommercePagesNormalizedPayload,
   mockCommercePages,
 } from 'tests/__fixtures__/contents/index.mjs';
@@ -44,12 +45,12 @@ describe('fetchCommercePages() action creator', () => {
     (getCommercePages as jest.Mock).mockRejectedValueOnce(expectedError);
 
     await expect(
-      async () => await fetchCommercePages(commercePagesQuery)(store.dispatch),
+      async () => await fetchCommercePages(commercePageQuery)(store.dispatch),
     ).rejects.toThrow(expectedError);
 
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(
-      commercePagesQuery,
+      commercePageQueryWithoutSlug,
       expectedConfig,
     );
     expect(store.getActions()).toEqual([
@@ -72,7 +73,7 @@ describe('fetchCommercePages() action creator', () => {
   it('should create the correct actions for when the get commerce pages procedure is successful', async () => {
     (getCommercePages as jest.Mock).mockResolvedValueOnce(mockCommercePages);
 
-    await fetchCommercePages(commercePagesQuery)(store.dispatch).then(
+    await fetchCommercePages(commercePageQuery)(store.dispatch).then(
       clientResult => {
         expect(clientResult).toBe(mockCommercePages);
       },
@@ -83,7 +84,7 @@ describe('fetchCommercePages() action creator', () => {
     expect(normalizeSpy).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledTimes(1);
     expect(getCommercePages).toHaveBeenCalledWith(
-      commercePagesQuery,
+      commercePageQueryWithoutSlug,
       expectedConfig,
     );
     expect(actionResults).toMatchObject([
