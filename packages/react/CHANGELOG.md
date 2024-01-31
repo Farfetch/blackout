@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.69.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.68.0...@farfetch/blackout-react@0.69.0) (2024-01-31)
+
+
+### Features
+
+* analytics referrer attribution spa ([615ccf4](https://github.com/Farfetch/blackout/commit/615ccf45a8d59e61cbeb10f7120198e0a8263269))
+
+
+
+
+
 # [0.68.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.67.0...@farfetch/blackout-react@0.68.0) (2024-01-17)
 
 

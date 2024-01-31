@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.100.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.99.0...@farfetch/blackout-core@1.100.0) (2024-01-31)
+
+
+### Features
+
+* analytics referrer attribution spa ([615ccf4](https://github.com/Farfetch/blackout/commit/615ccf45a8d59e61cbeb10f7120198e0a8263269))
+* expose missing address endpoints in v1 ([6c98070](https://github.com/Farfetch/blackout/commit/6c980701b66b2cfb5f8dbc57b1fa2a339a52ef77))
+
+
+
+
+
 # [1.99.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-core@1.98.0...@farfetch/blackout-core@1.99.0) (2024-01-17)
 
 
