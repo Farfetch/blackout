@@ -23,13 +23,11 @@ describe('search did you mean redux reducer', () => {
 
   it('should handle unknown actions by returning the previous state', () => {
     const state = {
-      didYouMean: {
-        [mockSearchDidYouMeanHash]: {
-          error: null,
-          isLoading: true,
-          result: mockSearchDidYouMeanResponse,
-          query,
-        },
+      [mockSearchDidYouMeanHash]: {
+        error: null,
+        isLoading: true,
+        result: mockSearchDidYouMeanResponse,
+        query,
       },
     };
 
@@ -78,7 +76,7 @@ describe('search did you mean redux reducer', () => {
         },
       }),
     ).toEqual({
-      [hash]: { error: false, isLoading: false, query, result: expectedResult },
+      [hash]: { error: null, isLoading: false, query, result: expectedResult },
     });
   });
 });

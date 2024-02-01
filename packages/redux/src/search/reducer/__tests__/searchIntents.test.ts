@@ -23,13 +23,11 @@ describe('search intents redux reducer', () => {
 
   it('should handle unknown actions by returning the previous state', () => {
     const state = {
-      intents: {
-        [mockSearchIntentsHash]: {
-          error: null,
-          isLoading: true,
-          query,
-          result: mockSearchIntentsResponse,
-        },
+      [mockSearchIntentsHash]: {
+        error: null,
+        isLoading: true,
+        query,
+        result: mockSearchIntentsResponse,
       },
     };
 

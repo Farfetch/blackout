@@ -123,11 +123,12 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'tsdoc/syntax': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
   },
   overrides: [
     // Disable all tsdoc checking in test files
     {
-      files: ['*.test.*[t|j]s*', '*.fixtures.*[t|j]s*'],
+      files: ['*.test.*[t|j]s*', '*.fixtures.*[t|j]s*', 'tests/e2e/**/*.*'],
       rules: {
         'tsdoc/syntax': 'off',
         // We use const xxx = () => {} many times in tests.

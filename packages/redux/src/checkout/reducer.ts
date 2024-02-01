@@ -165,6 +165,8 @@ const convertCheckoutOrder = (
     ) {
       return srcValue;
     }
+
+    return undefined;
   };
 
   const tempMergedState = {};
