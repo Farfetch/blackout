@@ -249,7 +249,7 @@ describe('useUser', () => {
   describe('options', () => {
     it('should call `fetchUser` data if `enableAutoFetch` option is true and `useLegacyActions` is false', () => {
       renderHook(() => useUser({ enableAutoFetch: true }), {
-        wrapper: withStore(mockStore),
+        wrapper: withStore({ entities: {}, users: mockUserInitialState }),
       });
 
       expect(fetchUser).toHaveBeenCalled();
@@ -259,7 +259,7 @@ describe('useUser', () => {
       renderHook(
         () => useUser({ enableAutoFetch: true, useLegacyActions: true }),
         {
-          wrapper: withStore(mockStore),
+          wrapper: withStore({ entities: {}, users: mockUserInitialState }),
         },
       );
 
@@ -269,6 +269,17 @@ describe('useUser', () => {
     it('should not fetch data if `enableAutoFetch` option is false', () => {
       renderHook(() => useUser(), {
         wrapper: withStore(mockStore),
+      });
+
+      expect(fetchUser).not.toHaveBeenCalled();
+    });
+
+    it('should not fetch data if `enableAutoFetch` option is true but the user has already been fetched', () => {
+      renderHook(() => useUser(), {
+        wrapper: withStore({
+          entities: mockGuestUserEntities,
+          users: mockUserInitialState,
+        }),
       });
 
       expect(fetchUser).not.toHaveBeenCalled();
