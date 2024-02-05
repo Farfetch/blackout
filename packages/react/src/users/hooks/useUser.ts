@@ -136,9 +136,13 @@ function useUser(options: UseUserOptions = {}) {
   useEffect(() => {
     const updatedState = store.getState() as StoreState;
 
+    const updatedUser = getUser(updatedState);
+    const updatedError = getUserError(updatedState);
+    const updatedIsFetched =
+      (!!updatedUser && !!updatedUser.id) || updatedError;
     const updatedIsLoading = isUserLoadingSelector(updatedState);
 
-    if (enableAutoFetch && !updatedIsLoading && !userError) {
+    if (enableAutoFetch && !updatedIsFetched && !updatedIsLoading) {
       fetch(fetchConfig);
     }
   }, [
