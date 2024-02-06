@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.13.0...@farfetch/blackout-analytics@1.14.0) (2024-02-06)
+
+### Features
+
+- add parity between ga4 and gtm for main ([7359ea3](https://github.com/Farfetch/blackout/commit/7359ea3c1629eeaf434ed23f57bc789a1b4b8177))
+
 # [1.13.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-analytics@1.12.2...@farfetch/blackout-analytics@1.13.0) (2024-01-30)
 
 ### Features

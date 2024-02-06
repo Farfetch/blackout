@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.20.0...@farfetch/blackout-react@1.21.0) (2024-02-06)
+
+### Bug Fixes
+
+- fix useUser hook infinite loading ([bc7bc5d](https://github.com/Farfetch/blackout/commit/bc7bc5df4150955372327cac46627cabc35a4503))
+
+### Features
+
+- add parity between ga4 and gtm for main ([7359ea3](https://github.com/Farfetch/blackout/commit/7359ea3c1629eeaf434ed23f57bc789a1b4b8177))
+
 # [1.20.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.19.3...@farfetch/blackout-react@1.20.0) (2024-01-30)
 
 ### Bug Fixes
