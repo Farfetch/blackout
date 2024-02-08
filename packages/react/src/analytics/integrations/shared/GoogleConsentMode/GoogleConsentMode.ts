@@ -12,7 +12,7 @@ import { isEqual, omit } from 'lodash-es';
 export class GoogleConsentMode {
   private dataLayer!: string; // Stores different data layer names
   private config?: GoogleConsentModeConfig; // Stores default or customized consent category mappings
-  private configExcludingRegionsAndWaitForUpdate!: Record<
+  private configExcludingModeRegionsAndWaitForUpdate!: Record<
     string,
     GoogleConsentCategoryConfig
   >; // exclude not consent properties from config
@@ -30,9 +30,10 @@ export class GoogleConsentMode {
     this.config = config;
 
     // select only the Google Consent Elements
-    this.configExcludingRegionsAndWaitForUpdate = omit(this.config || {}, [
+    this.configExcludingModeRegionsAndWaitForUpdate = omit(this.config || {}, [
       'waitForUpdate',
       'regions',
+      'mode',
     ]);
 
     this.loadDefaults(initConsent);
@@ -52,13 +53,13 @@ export class GoogleConsentMode {
 
       // Obtain default google consent registry
       const consentRegistry = Object.keys(
-        this.configExcludingRegionsAndWaitForUpdate,
+        this.configExcludingModeRegionsAndWaitForUpdate,
       ).reduce(
         (result, consentKey) => ({
           ...result,
           [consentKey]:
-            this.configExcludingRegionsAndWaitForUpdate[consentKey]?.default ||
-            GoogleConsentType.Denied,
+            this.configExcludingModeRegionsAndWaitForUpdate[consentKey]
+              ?.default || GoogleConsentType.Denied,
         }),
         initialValue,
       );
@@ -87,10 +88,11 @@ export class GoogleConsentMode {
 
       // Fill consent value into consent element, using analytics consent categories
       const consentRegistry = Object.keys(
-        this.configExcludingRegionsAndWaitForUpdate,
+        this.configExcludingModeRegionsAndWaitForUpdate,
       ).reduce((result, consentKey) => {
         let consentValue = GoogleConsentType.Denied;
-        const consent = this.configExcludingRegionsAndWaitForUpdate[consentKey];
+        const consent =
+          this.configExcludingModeRegionsAndWaitForUpdate[consentKey];
 
         if (consent) {
           // has consent config key

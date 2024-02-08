@@ -184,6 +184,25 @@ class GA4 extends integrations.Integration<GA4IntegrationOptions> {
   }
 
   /**
+   * Method to check if the integration is ready to be loaded.
+   *
+   * @param consent - User consent data.
+   * @param options - Options passed for the GA4 integration.
+   *
+   * @returns If the integration is ready to be loaded.
+   */
+  static override shouldLoad(
+    consent: ConsentData,
+    options: GA4IntegrationOptions,
+  ) {
+    if (get(options, `${OPTION_GOOGLE_CONSENT_CONFIG}.mode`) === 'Advanced') {
+      return true;
+    }
+
+    return super.shouldLoad(consent, options);
+  }
+
+  /**
    * Send page events to GA4.
    *
    * @param data - Event data provided by analytics.

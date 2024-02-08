@@ -90,6 +90,10 @@ function getWindowGa4Spy() {
 }
 
 describe('GA4 Integration', () => {
+  const validOptions = {
+    measurementId: 'GA-123456-12',
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -99,20 +103,38 @@ describe('GA4 Integration', () => {
   });
 
   it('`shouldLoad` should return false if there is no user consent', () => {
-    expect(GA4.shouldLoad({ statistics: false }, {})).toBe(false);
-    expect(GA4.shouldLoad({}, {})).toBe(false);
+    expect(GA4.shouldLoad({ statistics: false }, { ...validOptions })).toBe(
+      false,
+    );
+    expect(GA4.shouldLoad({}, { ...validOptions })).toBe(false);
   });
 
   it('`shouldLoad` should return true if there is user consent', () => {
-    expect(GA4.shouldLoad({ statistics: true }, {})).toBe(true);
+    expect(GA4.shouldLoad({ statistics: true }, { ...validOptions })).toBe(
+      true,
+    );
+  });
+
+  it('`shouldLoad` should return true if google consent mode option was passed as `Advanced`', () => {
+    expect(
+      GA4.shouldLoad(
+        {},
+        {
+          ...validOptions,
+          googleConsentConfig: {
+            ad_personalization: {},
+            ad_storage: {},
+            ad_user_data: {},
+            analytics_storage: {},
+            mode: 'Advanced',
+          },
+        },
+      ),
+    ).toBe(true);
   });
 
   describe('GA4 instance', () => {
     let ga4Instance;
-
-    const validOptions = {
-      measurementId: 'GA-123456-12',
-    };
 
     const loadData: LoadIntegrationEventData = {
       ...loadIntegrationData,
