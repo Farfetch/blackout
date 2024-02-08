@@ -21,9 +21,10 @@ export class GoogleConsentMode {
     this.config = config;
 
     // select only the Google Consent Elements
-    this.configExcludingRegionsAndWaitForUpdate = omit(this.config || {}, [
+    this.configExcludingModeRegionsAndWaitForUpdate = omit(this.config || {}, [
       'waitForUpdate',
       'regions',
+      'mode',
     ]);
 
     this.loadDefaults(initConsent);
@@ -44,13 +45,13 @@ export class GoogleConsentMode {
 
       // Obtain default google consent registry
       const consentRegistry = Object.keys(
-        this.configExcludingRegionsAndWaitForUpdate,
+        this.configExcludingModeRegionsAndWaitForUpdate,
       ).reduce((result, consentKey) => {
         return {
           ...result,
           [consentKey]:
-            this.configExcludingRegionsAndWaitForUpdate[consentKey]?.default ||
-            googleConsentTypes.DENIED,
+            this.configExcludingModeRegionsAndWaitForUpdate[consentKey]
+              ?.default || googleConsentTypes.DENIED,
         };
       }, initialValue);
 
@@ -82,10 +83,11 @@ export class GoogleConsentMode {
 
       // Fill consent value into consent element, using analytics consent categories
       const consentRegistry = Object.keys(
-        this.configExcludingRegionsAndWaitForUpdate,
+        this.configExcludingModeRegionsAndWaitForUpdate,
       ).reduce((result, consentKey) => {
         let consentValue = googleConsentTypes.DENIED;
-        const consent = this.configExcludingRegionsAndWaitForUpdate[consentKey];
+        const consent =
+          this.configExcludingModeRegionsAndWaitForUpdate[consentKey];
 
         if (consent) {
           // has consent config key
