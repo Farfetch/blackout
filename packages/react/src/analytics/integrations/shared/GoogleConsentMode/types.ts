@@ -26,4 +26,5 @@ export type GoogleConsentModeConfig =
   GoogleConsentMappingsBase<GoogleConsentCategoryConfig> & {
     regions?: Array<GoogleConsentRegionConfig>;
     waitForUpdate?: number;
+    mode?: 'Basic' | 'Advanced';
   };
