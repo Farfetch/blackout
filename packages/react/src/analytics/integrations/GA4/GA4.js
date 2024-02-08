@@ -139,7 +139,7 @@ class GA4 extends integrations.Integration {
    * Sets the consent object.
    * This method is called by analytics whenever the consent changes, so there's no need to validate if it has changed or not.
    *
-   * @param {object} consent - Object to be written on the dataLayer.
+   * @param {object} consent - User consent data.
    *
    * @returns {GA4} This allows chaining of class methods.
    */
@@ -147,6 +147,22 @@ class GA4 extends integrations.Integration {
     this.googleConsentMode.updateConsent(consent);
 
     return this;
+  }
+
+  /**
+   * Method to check if the integration is ready to be loaded.
+   *
+   * @param {object} consent - User consent data.
+   * @param {object} options - Options passed for the GA4 integration.
+   *
+   * @returns {boolean} If the integration is ready to be loaded.
+   */
+  static shouldLoad(consent, options) {
+    if (get(options, `${OPTION_GOOGLE_CONSENT_CONFIG}.mode`) === 'Advanced') {
+      return true;
+    }
+
+    return super.shouldLoad(consent, options);
   }
 
   /**

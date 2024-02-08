@@ -73,6 +73,23 @@ describe('GA4 Integration', () => {
     expect(GA4.shouldLoad({ statistics: true })).toBe(true);
   });
 
+  it('`shouldLoad` should return true if google consent mode option was passed as `Advanced`', () => {
+    expect(
+      GA4.shouldLoad(
+        {},
+        {
+          googleConsentConfig: {
+            ad_personalization: {},
+            ad_storage: {},
+            ad_user_data: {},
+            analytics_storage: {},
+            mode: 'Advanced',
+          },
+        },
+      ),
+    ).toBe(true);
+  });
+
   describe('GA4 instance', () => {
     let ga4Instance;
 
