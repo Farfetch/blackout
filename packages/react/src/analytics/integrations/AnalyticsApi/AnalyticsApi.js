@@ -9,9 +9,6 @@ import isArray from 'lodash/isArray';
 import omit from 'lodash/omit';
 
 export default class AnalyticsAPI extends integrations.Integration {
-  static [utils.CONSENT_CATEGORIES_PROPERTY] =
-    utils.DefaultConsentKeys.MARKETING;
-
   /**
    * Creates an instance of Analytics Api integration.
    *
@@ -57,6 +54,15 @@ export default class AnalyticsAPI extends integrations.Integration {
           ...Object.values(eventTypes),
         ]
       : undefined;
+  }
+
+  /**
+   * Returns true due to being a required integration - No need to check for consent.
+   *
+   * @returns {boolean} A value indicating if the integration should load.
+   */
+  static shouldLoad() {
+    return true;
   }
 
   /**
