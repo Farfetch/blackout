@@ -1,5 +1,5 @@
 import type { Bag } from '../../bags/index.js';
-import type { Config } from '../../types/index.js';
+import type { Config, Metadata } from '../../types/index.js';
 import type { GetCheckoutOrderResponse, ShippingMode } from './index.js';
 import type { Product } from '../../products/types/index.js';
 
@@ -22,11 +22,13 @@ export type PostCheckoutOrderItem = {
 
 export type PostCheckoutOrderDataWithItems = PostCheckoutOrderData & {
   items: PostCheckoutOrderItem[];
+  metadata?: Metadata;
 };
 
 export type PostCheckoutOrderDataWithBag = PostCheckoutOrderData & {
   bagId: Bag['id'];
   removePurchasedItemsFromBag?: boolean;
+  metadata?: Metadata;
 };
 
 export type PostCheckoutOrderDataWithDraftOrder = {

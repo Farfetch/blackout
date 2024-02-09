@@ -428,6 +428,8 @@ export const mockResponse = {
     isGuestUser: true,
     shippingMode: ShippingMode.ByMerchant,
     status: CheckoutOrderStatus.Opened,
+    metadata: {},
+    customerId: 123,
   },
   deliveryBundles: mockDeliveryBundlesResponse,
   shippingOptions: [],
@@ -791,12 +793,6 @@ export const mockCheckoutDetailsEntity = {
   shippingOptions: [],
 };
 
-// export const checkoutOrderItemEntity = {
-//   id: checkoutOrderItemId,
-//   product: productId,
-//   tags: ['GIFT'],
-// };
-
 export const mockCheckoutOrderItemEntity = {
   // Since a lot of properties are ommited for the CheckoutOrderItemEntity type,
   // we didn't spread the properties from the original mockCheckoutOrderItem (...mockCheckoutOrderItem)
@@ -937,6 +933,8 @@ export const mockUpdateCheckoutResponse = {
       },
       orderStatus: OrderStatusError.NoError,
       id: 123,
+      customerId: 123,
+      metadata: {},
     },
   },
 };

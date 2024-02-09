@@ -2,6 +2,7 @@ import type {
   Brand,
   CheckoutOrderItemStatus,
   Color,
+  Metadata,
   OrderItemCreationChannelLegacy,
   Price,
   Product,
@@ -77,4 +78,5 @@ export type CheckoutOrderItem = {
     subTotalOriginalAmount: number;
   };
   selectedSaleIntent?: SaleIntent & string;
+  metadata?: Metadata;
 };

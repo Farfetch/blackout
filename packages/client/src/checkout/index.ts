@@ -20,6 +20,7 @@ export { default as getCheckoutSession } from './getCheckoutSession.js';
 export { default as getCheckoutSessionCharge } from './getCheckoutSessionCharge.js';
 export { default as getCheckoutSessionTags } from './getCheckoutSessionTags.js';
 export { default as getCollectPoints } from './getCollectPoints.js';
+export { default as getPackagingOptions } from './getPackagingOptions.js';
 export { default as patchCheckoutOrder } from './patchCheckoutOrder.js';
 export { default as patchCheckoutOrderDeliveryBundles } from './patchCheckoutOrderDeliveryBundles.js';
 export { default as patchCheckoutOrderDeliveryBundleUpgrades } from './patchCheckoutOrderDeliveryBundleUpgrades.js';

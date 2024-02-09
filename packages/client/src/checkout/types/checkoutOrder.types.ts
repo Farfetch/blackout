@@ -5,6 +5,7 @@ import type {
 import type { CheckoutOrderItem, CheckoutOrderMerchant } from './index.js';
 import type { CustomerTypeLegacy } from '../../orders/types/order.types.js';
 import type { MerchantLocation } from '../../merchantsLocations/types/merchantLocation.types.js';
+import type { Metadata } from '../../types/index.js';
 import type { PaymentIntent } from '../../payments/index.js';
 import type { PromotionEvaluationId } from '../../promotionEvaluations/index.js';
 
@@ -78,4 +79,6 @@ export type CheckoutOrder = {
   shippingMode: ShippingMode;
   paymentIntentId?: PaymentIntent['id'];
   promotionEvaluationId?: PromotionEvaluationId;
+  customerId: number;
+  metadata?: Metadata;
 };
