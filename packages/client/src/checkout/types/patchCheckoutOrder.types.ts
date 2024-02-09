@@ -1,4 +1,4 @@
-import type { CheckoutAddress, Config } from '../../types/index.js';
+import type { CheckoutAddress, Config, Metadata } from '../../types/index.js';
 import type {
   CheckoutOrder,
   CheckoutOrderShippingOption,
@@ -18,6 +18,7 @@ export type PatchCheckoutOrderData = {
   shippingOption?: CheckoutOrderShippingOption;
   deliveryBundleUpdate?: CheckoutOrderDeliveryBundleUpdate;
   email?: string;
+  metadata?: Metadata;
 };
 
 export type PatchCheckoutOrder = (
