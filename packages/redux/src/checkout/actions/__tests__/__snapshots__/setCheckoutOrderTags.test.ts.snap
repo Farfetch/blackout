@@ -293,6 +293,7 @@ Object {
             },
           ],
           "currency": "EUR",
+          "customerId": 123,
           "customerType": 0,
           "formattedGrandTotal": "102 €",
           "formattedSubTotalAmount": "100 €",
@@ -310,6 +311,7 @@ Object {
             30380051,
           ],
           "locale": "en-US",
+          "metadata": Object {},
           "orderId": "D7XM6Y",
           "paymentIntentId": "123",
           "shippingAddress": Object {

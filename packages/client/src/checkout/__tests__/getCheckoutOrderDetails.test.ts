@@ -350,6 +350,7 @@ describe('checkout client', () => {
           hadUnavailableItems: true,
           isGuestUser: true,
           shippingMode: ShippingMode.ByMerchant,
+          customerId: 123,
         },
         shippingOptions: [
           {

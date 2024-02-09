@@ -1139,6 +1139,7 @@ Object {
   "getOrderItemAvailableActivities": [Function],
   "getOrderReturnOptions": [Function],
   "getOrderShippingAddressChangeRequests": [Function],
+  "getPackagingOptions": [Function],
   "getPaymentIntent": [Function],
   "getPaymentIntentCharge": [Function],
   "getPaymentIntentInstrument": [Function],
