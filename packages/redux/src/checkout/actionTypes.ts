@@ -514,3 +514,19 @@ export const REMOVE_CHECKOUT_ORDER_CONTEXT_REQUEST =
  */
 export const REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS =
   '@farfetch/blackout-redux/REMOVE_CHECKOUT_ORDER_CONTEXT_SUCCESS';
+
+/**
+ * Action type dispatched when the packaging options request fails.
+ */
+export const FETCH_PACKAGING_OPTIONS_FAILURE =
+  '@farfetch/blackout-redux/FETCH_PACKAGING_OPTIONS_FAILURE';
+/**
+ * Action type dispatched when the packaging options request starts.
+ */
+export const FETCH_PACKAGING_OPTIONS_REQUEST =
+  '@farfetch/blackout-redux/FETCH_PACKAGING_OPTIONS_REQUEST';
+/**
+ * Action type dispatched when the fetch packaging options request succeeds.
+ */
+export const FETCH_PACKAGING_OPTIONS_SUCCESS =
+  '@farfetch/blackout-redux/FETCH_PACKAGING_OPTIONS_SUCCESS';

@@ -73,6 +73,7 @@ import type { LocaleState } from '../locale/types/index.js';
 import type { LoyaltyState } from '../loyalty/types/index.js';
 import type { MerchantsLocationsState } from '../merchantsLocations/types/index.js';
 import type { OrdersState } from '../orders/types/index.js';
+import type { PackagingOptionsState } from '../index.js';
 import type { PaymentsState } from '../payments/types/index.js';
 import type { ProductsState } from '../products/types/index.js';
 import type { PromotionEvaluationsState } from '../promotionEvaluations/types/index.js';
@@ -191,6 +192,7 @@ export type StoreState = Partial<{
     user: UserEntity;
     wishlistItems: Record<WishlistItemEntity['id'], WishlistItemEntity>;
     wishlistSets: Record<WishlistSetEntity['id'], WishlistSetEntity>;
+    // packagingOptions: PackagingOptionsEntity;
     // Keep adding/changing here as we migrate chunks
   }>;
   addresses: AddressesState;
@@ -220,5 +222,6 @@ export type StoreState = Partial<{
   themes: ThemeState;
   users: UsersState;
   wishlist: WishlistsState;
+  packagingOptions: PackagingOptionsState;
   // Keep adding here as we migrate chunks
 }>;

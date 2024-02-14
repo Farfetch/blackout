@@ -51,3 +51,4 @@ export * from './user.types.js';
 export * from './raffle.types.js';
 export * from './raffleParticipations.types.js';
 export * from './raffleEstimation.types.js';
+export * from './packagingOptions.types.js';

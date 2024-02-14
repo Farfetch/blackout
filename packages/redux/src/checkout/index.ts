@@ -2,6 +2,7 @@ export * as checkoutActionTypes from './actionTypes.js';
 
 export * from './actions/index.js';
 export * from './actions/factories/index.js';
+export * from './packaging/index.js';
 export * from './selectors.js';
 
 export {
