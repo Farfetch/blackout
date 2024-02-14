@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.21.1...@farfetch/blackout-redux@1.22.0) (2024-02-14)
+
+### Features
+
+- **client:** add packaging options client ([51658d6](https://github.com/Farfetch/blackout/commit/51658d6c4a6579942bc1aa1da13ae5c450e6b17d))
+
 ## [1.21.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.21.0...@farfetch/blackout-redux@1.21.1) (2024-02-06)
 
 **Note:** Version bump only for package @farfetch/blackout-redux

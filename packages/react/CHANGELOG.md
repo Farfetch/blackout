@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.21.0...@farfetch/blackout-react@1.22.0) (2024-02-14)
+
+### Features
+
+- add advanced mode gcm in ([30701e1](https://github.com/Farfetch/blackout/commit/30701e1ba5fa0c26ab96ea9565d6c15df1a3cad4))
+
 # [1.21.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.20.0...@farfetch/blackout-react@1.21.0) (2024-02-06)
 
 ### Bug Fixes
