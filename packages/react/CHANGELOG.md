@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.70.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.69.0...@farfetch/blackout-react@0.70.0) (2024-02-20)
+
+
+### Features
+
+* add advanced mode to gcm ([b39224d](https://github.com/Farfetch/blackout/commit/b39224d449b220089028f3b4b9f84f06459d500e))
+* add parity between ga4 and gtm for v1 ([0fc45f7](https://github.com/Farfetch/blackout/commit/0fc45f75c0cfa51c76a263b345a03ceb9d51b3ef))
+
+
+
+
+
 # [0.69.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.68.0...@farfetch/blackout-react@0.69.0) (2024-01-31)
 
 
