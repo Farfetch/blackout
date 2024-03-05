@@ -1,4 +1,7 @@
-import { name as PCKG_NAME, version as PCKG_VERSION } from '../../package.json';
+import {
+  PACKAGE_NAME as PCKG_NAME,
+  PACKAGE_NAME_VERSION as PCKG_VERSION,
+} from './constants';
 import Analytics, {
   trackTypes as analyticsTrackTypes,
   platformTypes,

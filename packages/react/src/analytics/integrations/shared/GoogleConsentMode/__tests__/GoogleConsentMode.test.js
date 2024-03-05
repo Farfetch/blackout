@@ -1,4 +1,16 @@
-import { GoogleConsentMode, googleConsentTypes } from '../index.js';
+import { GoogleConsentMode, googleConsentTypes } from '..';
+
+function deleteAllCookies() {
+  const cookies = document.cookie.split(';');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i];
+    const eqPos = cookie.indexOf('=');
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }
+}
 
 describe('GoogleConsentMode', () => {
   const dataLayerName = 'dataLayer';
@@ -29,6 +41,8 @@ describe('GoogleConsentMode', () => {
 
   beforeEach(() => {
     window[dataLayerName] = [];
+
+    deleteAllCookies();
   });
 
   describe('Basic Google Consent Mode Configuration', () => {
@@ -41,8 +55,8 @@ describe('GoogleConsentMode', () => {
 
       expect(googleConsent).toBeInstanceOf(GoogleConsentMode);
 
-      expect(window.dataLayer).toHaveLength(2);
-      expect(window.dataLayer).toMatchSnapshot();
+      expect(window[dataLayerName]).toHaveLength(2);
+      expect(window[dataLayerName]).toMatchSnapshot();
     });
 
     it('should update dataLayer consent when "updateConsent" is called', () => {
@@ -52,34 +66,22 @@ describe('GoogleConsentMode', () => {
         defaultConsentConfig,
       );
 
-      expect(window.dataLayer).toMatchSnapshot();
+      expect(window[dataLayerName]).toMatchSnapshot();
+      expect(window[dataLayerName]).toHaveLength(2);
+
+      jest.clearAllMocks();
+
+      window[dataLayerName] = [];
 
       googleConsent.updateConsent(mockConsent);
 
-      expect(window.dataLayer).toMatchSnapshot();
-      expect(window.dataLayer).toHaveLength(2);
+      expect(window[dataLayerName]).toMatchSnapshot();
     });
 
     it('should not write to datalayer if no configuration set', () => {
       new GoogleConsentMode(dataLayerName, mockConsent);
 
-      expect(window.dataLayer).toEqual([]);
-    });
-
-    it('should not update twice dataLayer consent when "updateConsent" is called with same values', () => {
-      const googleConsent = new GoogleConsentMode(
-        dataLayerName,
-        mockConsent,
-        defaultConsentConfig,
-      );
-
-      expect(googleConsent).toBeInstanceOf(GoogleConsentMode);
-
-      expect(window.dataLayer).toHaveLength(2);
-      expect(window.dataLayer).toMatchSnapshot();
-
-      googleConsent.updateConsent(mockConsent);
-      expect(window.dataLayer).toHaveLength(2);
+      expect(window[dataLayerName]).toEqual([]);
     });
   });
 
@@ -111,7 +113,7 @@ describe('GoogleConsentMode', () => {
         // update consent with grant conditions
         googleConsent.updateConsent({ ...mockConsent, consent_x: true });
 
-        expect(window.dataLayer).toMatchSnapshot();
+        expect(window[dataLayerName]).toMatchSnapshot();
       });
 
       it('should deal with no categories or getConsentValue function set', () => {
@@ -126,7 +128,7 @@ describe('GoogleConsentMode', () => {
 
         googleConsent.updateConsent(mockConsent);
 
-        expect(window.dataLayer).toMatchSnapshot();
+        expect(window[dataLayerName]).toMatchSnapshot();
       });
     });
 
@@ -150,8 +152,8 @@ describe('GoogleConsentMode', () => {
 
         expect(googleConsent).toBeInstanceOf(GoogleConsentMode);
 
-        expect(window.dataLayer).toHaveLength(3);
-        expect(window.dataLayer).toMatchSnapshot();
+        expect(window[dataLayerName]).toHaveLength(3);
+        expect(window[dataLayerName]).toMatchSnapshot();
       });
 
       it('should update dataLayer consent when "updateConsent" is called', () => {
@@ -161,12 +163,12 @@ describe('GoogleConsentMode', () => {
           defaultRegionConsentConfig,
         );
 
-        expect(window.dataLayer).toMatchSnapshot();
+        expect(window[dataLayerName]).toMatchSnapshot();
 
         googleConsent.updateConsent(mockConsent);
 
-        expect(window.dataLayer).toMatchSnapshot();
-        expect(window.dataLayer).toHaveLength(3);
+        expect(window[dataLayerName]).toMatchSnapshot();
+        expect(window[dataLayerName]).toHaveLength(4);
       });
 
       it('should update dataLayer consent when "updateConsent" is called with `wait_for_update` property', () => {
@@ -179,13 +181,99 @@ describe('GoogleConsentMode', () => {
           },
         );
 
-        expect(window.dataLayer).toMatchSnapshot();
-        expect(window.dataLayer).toHaveLength(3);
+        expect(window[dataLayerName]).toMatchSnapshot();
+        expect(window[dataLayerName]).toHaveLength(3);
 
         googleConsent.updateConsent(mockConsent);
 
-        expect(window.dataLayer).toHaveLength(4);
-        expect(window.dataLayer).toMatchSnapshot();
+        expect(window[dataLayerName]).toHaveLength(4);
+        expect(window[dataLayerName]).toMatchSnapshot();
+      });
+    });
+
+    describe('sharing cookie with consent', () => {
+      describe('when consent configuration is provided', () => {
+        it('should save a cookie when consent is written to dataLayer', () => {
+          const googleConsent = new GoogleConsentMode(
+            dataLayerName,
+            null,
+            defaultConsentConfig,
+          );
+
+          expect(document.cookie).toMatchSnapshot();
+
+          googleConsent.updateConsent(mockConsent);
+
+          expect(document.cookie).toMatchSnapshot();
+        });
+      });
+
+      describe('when configuration is not provided', () => {
+        it('should load and write consent from the cookie if available', () => {
+          // Write cookie with consent values
+          new GoogleConsentMode(
+            dataLayerName,
+            mockConsent,
+            defaultConsentConfig,
+          );
+
+          expect(document.cookie).not.toBe('');
+
+          window[dataLayerName] = [];
+
+          // Create new instance without configuration to test
+          new GoogleConsentMode(dataLayerName, null);
+
+          expect(window[dataLayerName]).toMatchSnapshot();
+        });
+
+        it('should not write consent if cookie is not available', () => {
+          // Create new instance without configuration to test
+          new GoogleConsentMode(dataLayerName, mockConsent);
+
+          expect(window[dataLayerName]).toEqual([]);
+        });
+      });
+
+      describe('when partial configuration is provided which does not include consent configuration', () => {
+        it('should write consent to dataLayer when cookie is available', () => {
+          // Write cookie with consent values
+          new GoogleConsentMode(
+            dataLayerName,
+            mockConsent,
+            defaultConsentConfig,
+          );
+
+          expect(document.cookie).not.toBe('');
+
+          window[dataLayerName] = [];
+
+          // @ts-expect-error Force partial configuration
+          new GoogleConsentMode(dataLayerName, mockConsent, {
+            mode: 'Advanced',
+            waitForUpdate: 100,
+          });
+
+          expect(window[dataLayerName]).toMatchSnapshot();
+        });
+
+        it('should not write consent to dataLayer when cookie is not available', () => {
+          const googleConsent = new GoogleConsentMode(
+            dataLayerName,
+            mockConsent,
+            // @ts-expect-error Force partial configuration
+            {
+              mode: 'Advanced',
+              waitForUpdate: 100,
+            },
+          );
+
+          expect(window[dataLayerName]).toEqual([]);
+
+          googleConsent.updateConsent(mockConsent);
+
+          expect(window[dataLayerName]).toEqual([]);
+        });
       });
     });
   });

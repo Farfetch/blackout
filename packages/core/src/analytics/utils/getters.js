@@ -66,6 +66,10 @@ export const getLocation = data => {
 };
 
 export const getCookie = name => {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
 
