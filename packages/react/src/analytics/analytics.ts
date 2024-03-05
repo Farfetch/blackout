@@ -1,4 +1,5 @@
 import { get } from 'lodash-es';
+import { PACKAGE_NAME, PACKAGE_NAME_VERSION } from './constants.js';
 import Analytics, {
   type EventContextData,
   type EventData,
@@ -10,12 +11,6 @@ import Analytics, {
 } from '@farfetch/blackout-analytics';
 import webContext, { type WebContext } from './context.js';
 import WebContextStateManager from './WebContextStateManager.js';
-
-const {
-  name: PACKAGE_NAME,
-  version: PACKAGE_VERSION,
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-} = require('../../package.json');
 
 /**
  * Analytics facade for web applications. Refer to \@farfetch/blackout-analytics
@@ -85,7 +80,7 @@ class AnalyticsWeb extends Analytics {
     if (context) {
       context.library = {
         name: PACKAGE_NAME,
-        version: `${context.library.name}@${context.library.version};${PACKAGE_NAME}@${PACKAGE_VERSION};`,
+        version: `${context.library.name}@${context.library.version};${PACKAGE_NAME_VERSION};`,
       };
 
       const webContextStateSnapshot = this.webContextStateManager.getSnapshot();

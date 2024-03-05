@@ -1,25 +1,28 @@
-import { type ConsentData } from '@farfetch/blackout-analytics';
+import { type ConsentData, utils } from '@farfetch/blackout-analytics';
+import { GCM_SHARED_COOKIE_NAME, setCookie } from './cookieUtils.js';
 import {
   type GoogleConsentCategoryConfig,
   type GoogleConsentModeConfig,
   GoogleConsentType,
 } from './types.js';
-import { isEqual, omit } from 'lodash-es';
+import { omit } from 'lodash-es';
 
 /**
  * GoogleConsentMode handles with Google Consent Mode v2.
  */
 export class GoogleConsentMode {
   private dataLayer!: string; // Stores different data layer names
-  private config?: GoogleConsentModeConfig; // Stores default or customized consent category mappings
-  private configExcludingModeRegionsAndWaitForUpdate!: Record<
-    string,
-    GoogleConsentCategoryConfig
-  >; // exclude not consent properties from config
-  private lastConsent?: Record<
-    string,
-    Array<string> | string | number | undefined
-  >;
+  private configWithConsentOnly!: Record<string, GoogleConsentCategoryConfig>; // exclude not consent properties from config
+  private consentDataLayerCommands: Array<
+    [
+      'consent',
+      'default' | 'update',
+      Record<string, Array<string> | string | number | undefined> | undefined,
+    ]
+  > = [];
+  private waitForUpdate?: number;
+  private regions?: GoogleConsentModeConfig['regions'];
+  private hasConfig: boolean;
 
   constructor(
     dataLayer: string,
@@ -27,96 +30,160 @@ export class GoogleConsentMode {
     config?: GoogleConsentModeConfig,
   ) {
     this.dataLayer = dataLayer;
-    this.config = config;
+
+    this.waitForUpdate = config?.waitForUpdate;
+    this.regions = config?.regions;
 
     // select only the Google Consent Elements
-    this.configExcludingModeRegionsAndWaitForUpdate = omit(this.config || {}, [
+    this.configWithConsentOnly = omit(config || {}, [
       'waitForUpdate',
       'regions',
       'mode',
     ]);
 
-    this.loadDefaults(initConsent);
+    this.hasConfig = Object.keys(this.configWithConsentOnly).length > 0;
+
+    this.initialize(initConsent);
   }
+
   /**
-   * Write google consent default values to dataLayer.
-   *
-   * @param initConsent - The init consent data to be set.
+   * Tries to load shared consent from cookies if available
+   * and writes it to the dataLayer.
+   * This method is only supposed to be called if no google
+   * consent config was passed.
    */
-  private loadDefaults(initConsent: ConsentData | null) {
-    if (this.config) {
-      const initialValue: Record<string, string | number> = {};
+  private loadSharedConsentFromCookies() {
+    const consentModeCookieValue = utils.getCookie(GCM_SHARED_COOKIE_NAME);
 
-      if (this.config.waitForUpdate) {
-        initialValue['wait_for_update'] = this.config.waitForUpdate;
+    if (consentModeCookieValue) {
+      try {
+        const values = JSON.parse(consentModeCookieValue);
+
+        if (Array.isArray(values)) {
+          values.forEach(value => {
+            const [consentCommand, command, consent] = value;
+
+            this.write(consentCommand, command, consent);
+          });
+        }
+      } catch {
+        // Do nothing...
       }
-
-      // Obtain default google consent registry
-      const consentRegistry = Object.keys(
-        this.configExcludingModeRegionsAndWaitForUpdate,
-      ).reduce(
-        (result, consentKey) => ({
-          ...result,
-          [consentKey]:
-            this.configExcludingModeRegionsAndWaitForUpdate[consentKey]
-              ?.default || GoogleConsentType.Denied,
-        }),
-        initialValue,
-      );
-
-      // Write default consent to data layer
-      this.write('consent', 'default', consentRegistry);
-
-      // write regions to data layer if they exists
-      this.config.regions?.forEach(region => {
-        this.write('consent', 'default', region);
-      });
-
-      this.updateConsent(initConsent);
     }
   }
 
   /**
-   * Update consent.
+   * Loads default values from the configuration and
+   * writes them in a cookie for sharing.
    *
-   * @param consentData - The consent data to be set.
+   * @param initConsent - The consent data available, which can be null if the user has not yet given consent.
+   */
+  private loadDefaultsFromConfig(initConsent: ConsentData | null) {
+    const initialValue: Record<string, string | number> = {};
+
+    if (this.waitForUpdate) {
+      initialValue['wait_for_update'] = this.waitForUpdate;
+    }
+
+    // Obtain default google consent registry
+    const consentRegistry = Object.keys(this.configWithConsentOnly).reduce(
+      (result, consentKey) => ({
+        ...result,
+        [consentKey]:
+          this.configWithConsentOnly[consentKey]?.default ||
+          GoogleConsentType.Denied,
+      }),
+      initialValue,
+    );
+
+    // Write default consent to data layer
+    this.write('consent', 'default', consentRegistry);
+
+    // write regions to data layer if they exist
+    const regions = this.regions;
+
+    if (regions) {
+      regions.forEach(region => {
+        this.write('consent', 'default', region);
+      });
+    }
+
+    this.updateConsent(initConsent);
+
+    this.saveConsent();
+  }
+
+  /**
+   * Try to set consent types with dataLayer. If a valid
+   * config was passed, default values for the consent
+   * types are used. Else, try to load the commands
+   * set from the cookie if it is available.
+   *
+   * @param initConsent - The consent data available, which can be null if the user has not yet given consent.
+   */
+  private initialize(initConsent: ConsentData | null) {
+    if (this.hasConfig) {
+      this.loadDefaultsFromConfig(initConsent);
+    } else {
+      this.loadSharedConsentFromCookies();
+    }
+  }
+
+  /**
+   * Writes consent updates to the dataLayer
+   * by applying the configuration (if any) to
+   * the passed consent data.
+   *
+   * @param consentData - Consent data obtained from the user or null if not available.
    */
   updateConsent(consentData: ConsentData | null) {
-    if (this.config) {
-      // Dealing with null or undefined consent values
-      const safeConsent = consentData || {};
-
+    if (this.hasConfig && consentData) {
       // Fill consent value into consent element, using analytics consent categories
-      const consentRegistry = Object.keys(
-        this.configExcludingModeRegionsAndWaitForUpdate,
-      ).reduce((result, consentKey) => {
-        let consentValue = GoogleConsentType.Denied;
-        const consent =
-          this.configExcludingModeRegionsAndWaitForUpdate[consentKey];
+      const consentRegistry = Object.keys(this.configWithConsentOnly).reduce(
+        (result, consentKey) => {
+          let consentValue = GoogleConsentType.Denied;
+          const consent = this.configWithConsentOnly[consentKey];
 
-        if (consent) {
-          // has consent config key
-
-          if (consent.getConsentValue) {
-            // give priority to custom function
-            consentValue = consent.getConsentValue(safeConsent);
-          } else if (
-            consent?.categories !== undefined &&
-            consent.categories.every(consent => safeConsent[consent])
-          ) {
-            // The second option to assign value is by categories list
-            consentValue = GoogleConsentType.Granted;
+          if (consent) {
+            // has consent config key
+            if (consent.getConsentValue) {
+              // give priority to custom function
+              consentValue = consent.getConsentValue(consentData);
+            } else if (
+              consent?.categories !== undefined &&
+              consent.categories.every(consent => consentData[consent])
+            ) {
+              // The second option to assign value is by categories list
+              consentValue = GoogleConsentType.Granted;
+            }
           }
-        }
 
-        return {
-          ...result,
-          [consentKey]: consentValue,
-        };
-      }, {});
+          return {
+            ...result,
+            [consentKey]: consentValue,
+          };
+        },
+        {},
+      );
 
       // Write consent to data layer
       this.write('consent', 'update', consentRegistry);
+
+      this.saveConsent();
+    }
+  }
+
+  /**
+   * Saves calculated google consent mode to a cookie
+   * for sharing consent between apps in same
+   * domain.
+   */
+  saveConsent() {
+    if (this.consentDataLayerCommands.length > 0) {
+      setCookie(
+        GCM_SHARED_COOKIE_NAME,
+        JSON.stringify(this.consentDataLayerCommands),
+      );
     }
   }
 
@@ -128,11 +195,8 @@ export class GoogleConsentMode {
    * @param consentParams - The consent arguments.
    */
   private write(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     consentCommand: 'consent',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     command: 'default' | 'update',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     consentParams:
       | Record<string, Array<string> | string | number | undefined>
       | undefined,
@@ -141,19 +205,19 @@ export class GoogleConsentMode {
     // that was written to the datalayer, so the parameters added to the function signature are only to
     // avoid mistakes when calling the function.
 
-    if (
-      this.config &&
-      typeof window !== 'undefined' &&
-      consentParams &&
-      !isEqual(this.lastConsent, consentParams)
-    ) {
+    if (typeof window !== 'undefined' && consentParams) {
       // @ts-ignore
       window[this.dataLayer] = window[this.dataLayer] || [];
 
       // @ts-ignore
       // eslint-disable-next-line prefer-rest-params
       window[this.dataLayer].push(arguments);
-      this.lastConsent = consentParams;
+
+      this.consentDataLayerCommands.push([
+        consentCommand,
+        command,
+        consentParams,
+      ]);
     }
   }
 }

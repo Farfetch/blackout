@@ -25,31 +25,6 @@ Array [
 ]
 `;
 
-exports[`GoogleConsentMode Basic Google Consent Mode Configuration should not update twice dataLayer consent when "updateConsent" is called with same values 1`] = `
-Array [
-  Arguments [
-    "consent",
-    "default",
-    Object {
-      "ad_personalization": "denied",
-      "ad_storage": "denied",
-      "ad_user_data": "denied",
-      "analytics_storage": "denied",
-    },
-  ],
-  Arguments [
-    "consent",
-    "update",
-    Object {
-      "ad_personalization": "granted",
-      "ad_storage": "granted",
-      "ad_user_data": "granted",
-      "analytics_storage": "granted",
-    },
-  ],
-]
-`;
-
 exports[`GoogleConsentMode Basic Google Consent Mode Configuration should update dataLayer consent when "updateConsent" is called 1`] = `
 Array [
   Arguments [
@@ -76,6 +51,50 @@ Array [
 `;
 
 exports[`GoogleConsentMode Basic Google Consent Mode Configuration should update dataLayer consent when "updateConsent" is called 2`] = `
+Array [
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration sharing cookie with consent when configuration is not provided should load and write consent from the cookie if available 1`] = `
+Array [
+  Arguments [
+    "consent",
+    "default",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "denied",
+      "ad_user_data": "denied",
+      "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+]
+`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration sharing cookie with consent when consent configuration is provided should save a cookie when consent is written to dataLayer 1`] = `"@farfetch/blackout-react__gcm_shared_consent_mode=[[\\"consent\\",\\"default\\",{\\"ad_storage\\":\\"denied\\",\\"ad_user_data\\":\\"denied\\",\\"ad_personalization\\":\\"denied\\",\\"analytics_storage\\":\\"denied\\"}]]"`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration sharing cookie with consent when consent configuration is provided should save a cookie when consent is written to dataLayer 2`] = `"@farfetch/blackout-react__gcm_shared_consent_mode=[[\\"consent\\",\\"default\\",{\\"ad_storage\\":\\"denied\\",\\"ad_user_data\\":\\"denied\\",\\"ad_personalization\\":\\"denied\\",\\"analytics_storage\\":\\"denied\\"}],[\\"consent\\",\\"update\\",{\\"ad_storage\\":\\"granted\\",\\"ad_user_data\\":\\"granted\\",\\"ad_personalization\\":\\"granted\\",\\"analytics_storage\\":\\"granted\\"}]]"`;
+
+exports[`GoogleConsentMode Extended Google Consent Mode Configuration sharing cookie with consent when partial configuration is provided which does not include consent configuration should write consent to dataLayer when cookie is available 1`] = `
 Array [
   Arguments [
     "consent",
@@ -205,6 +224,16 @@ Array [
       "analytics_storage": "granted",
     },
   ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "granted",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
 ]
 `;
 
@@ -318,6 +347,26 @@ Array [
     "consent",
     "update",
     Object {
+      "ad_personalization": "denied",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
       "ad_personalization": "granted",
       "ad_storage": "granted",
       "ad_user_data": "granted",
@@ -337,6 +386,16 @@ Array [
       "ad_storage": "denied",
       "ad_user_data": "denied",
       "analytics_storage": "denied",
+    },
+  ],
+  Arguments [
+    "consent",
+    "update",
+    Object {
+      "ad_personalization": "denied",
+      "ad_storage": "granted",
+      "ad_user_data": "granted",
+      "analytics_storage": "granted",
     },
   ],
   Arguments [

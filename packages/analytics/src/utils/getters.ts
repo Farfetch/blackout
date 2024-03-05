@@ -134,6 +134,10 @@ export const getLocation = (
  * @returns The cookie value.
  */
 export const getCookie = (name: string): string | void => {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
 
