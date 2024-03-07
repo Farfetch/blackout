@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.22.0...@farfetch/blackout-react@1.23.0) (2024-03-07)
+
+### Features
+
+- add support for sharing gcm ([2cd74da](https://github.com/Farfetch/blackout/commit/2cd74da53f0fd78ee5607ab2274a542ec2d41b67))
+
 # [1.22.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@1.21.0...@farfetch/blackout-react@1.22.0) (2024-02-14)
 
 ### Features
