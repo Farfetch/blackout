@@ -63,7 +63,7 @@ export class GoogleConsentMode {
             this.write(consentCommand, command, consent);
           });
         }
-      } catch {
+      } catch (_) {
         // Do nothing...
       }
     }
@@ -187,8 +187,7 @@ export class GoogleConsentMode {
   /**
    * Handles consent by updating the data layer with consent information.
    *
-   * @param {string} consent - The consent command "consent".
-   * @param consentCommand
+   * @param {string} consentCommand - The consent command "consent".
    * @param {string} command - The command "default" or "update".
    * @param {object} consentParams - The consent arguments.
    */
