@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.71.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.71.0...@farfetch/blackout-react@0.71.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* fix ssr ([6f37e8d](https://github.com/Farfetch/blackout/commit/6f37e8d798d0a2522c04b523ed1739049673fd9a))
+
+
+
+
+
 # [0.71.0](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-react@0.70.0...@farfetch/blackout-react@0.71.0) (2024-03-07)
 
 
