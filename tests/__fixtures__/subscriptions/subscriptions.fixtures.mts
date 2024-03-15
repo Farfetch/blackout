@@ -1,3 +1,8 @@
+import {
+  ChannelVNext,
+  type GetSubscriptionsQueryVNext,
+  type SubscriptionVNext,
+} from '@farfetch/blackout-client';
 import { mockSubscriptionPackageId } from './state.fixtures.mjs';
 
 export const mockDeleteSubscription = {
@@ -76,6 +81,49 @@ export const mockGetSubscriptions = {
       },
     ],
   },
+};
+
+export const mockGetSubscriptionsVNext: {
+  query: GetSubscriptionsQueryVNext;
+  response: SubscriptionVNext[];
+} = {
+  query: {
+    id: 'c3e39b1f-69a8-47e3-ab7f-743ddd1278bc',
+    userId: '123',
+    recipient:
+      '1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127',
+  },
+  response: [
+    {
+      id: '8c2b5c3e3acb4bdd9c26ba46',
+      tenantId: 19934,
+      topics: [
+        {
+          name: 'Any',
+          channels: [
+            {
+              chanel: ChannelVNext.None,
+              recipient:
+                '1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127',
+              source: 'My Account',
+            },
+            {
+              chanel: ChannelVNext.Email,
+              recipient: '3c2b5c3e3acb4bdd9c26ba46',
+              source: 'My Account',
+            },
+            {
+              chanel: ChannelVNext.Sms,
+              recipient: '1234567890',
+              source: 'My Account',
+            },
+          ],
+          specification: { type: 'Any' },
+        },
+      ],
+      metadata: { meta: 'data' },
+    },
+  ],
 };
 
 export const mockPutSubscriptions = {

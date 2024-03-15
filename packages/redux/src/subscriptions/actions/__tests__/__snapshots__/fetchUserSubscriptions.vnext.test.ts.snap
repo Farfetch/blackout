@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subscriptions redux actions fetchUserSubscriptionsVNext() action creator Should create the correct actions for when the get subscriptions is successful: Fetch subscriptions success payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "id": "8c2b5c3e3acb4bdd9c26ba46",
+      "metadata": Object {
+        "meta": "data",
+      },
+      "tenantId": 19934,
+      "topics": Array [
+        Object {
+          "channels": Array [
+            Object {
+              "chanel": "None",
+              "recipient": "1ca9c02be7e27f42bdfdca1afef2618003bbdc7d08fe2e9b54d2ac5af8b37127",
+              "source": "My Account",
+            },
+            Object {
+              "chanel": "Email",
+              "recipient": "3c2b5c3e3acb4bdd9c26ba46",
+              "source": "My Account",
+            },
+            Object {
+              "chanel": "Sms",
+              "recipient": "1234567890",
+              "source": "My Account",
+            },
+          ],
+          "name": "Any",
+          "specification": Object {
+            "type": "Any",
+          },
+        },
+      ],
+    },
+  ],
+  "type": "@farfetch/blackout-redux/FETCH_USER_SUBSCRIPTIONS_SUCCESS_VNEXT",
+}
+`;

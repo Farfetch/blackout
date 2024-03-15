@@ -1,10 +1,9 @@
 import { adaptError } from '../helpers/client/formatError.js';
 import client from '../helpers/client/index.js';
 import join from 'proper-url-join';
-import type { GetSubscriptions } from './types/index.js';
+import type { GetSubscriptionsVNext } from './types/index.js';
 
 /**
- * @deprecated Use `getSubscriptionsVNext` instead.
  * Method responsible for retrieving data from subscriptions endpoint on MKT API.
  *
  * @param query  - Query parameters to apply.
@@ -12,12 +11,12 @@ import type { GetSubscriptions } from './types/index.js';
  *
  * @returns Promise that will resolve when the call to the endpoint finishes.
  */
-const getSubscriptions: GetSubscriptions = (query, config) =>
+const getSubscriptionsVNext: GetSubscriptionsVNext = (query, config) =>
   client
-    .get(join('/marketing/v1/subscriptions', { query }), config)
-    .then(response => response.data)
+    .get(join('marketing/vNext/Subscriptions', { query }), config)
+    .then(({ data }) => data)
     .catch(error => {
       throw adaptError(error);
     });
 
-export default getSubscriptions;
+export default getSubscriptionsVNext;

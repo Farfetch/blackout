@@ -4,6 +4,7 @@ import type {
   BlackoutError,
   Subscription,
   SubscriptionPackage,
+  SubscriptionVNext,
 } from '@farfetch/blackout-client';
 import type { NormalizedSchema } from 'normalizr';
 import type { SubscriptionPackagesResultNormalized } from './state.types.js';
@@ -140,4 +141,26 @@ export interface ResetSubscriptionPackagesAction extends Action {
  */
 export interface ResetUserSubscriptionsAction extends Action {
   type: typeof actionTypes.RESET_USER_SUBSCRIPTIONS;
+}
+
+/**
+ * vNext - Actions dispatched when the fetch user subscriptions request is made.
+ */
+export type FetchUserSubscriptionsActionVNext =
+  | FetchUserSubscriptionsRequestActionVNext
+  | FetchUserSubscriptionsSuccessActionVNext
+  | FetchUserSubscriptionsFailureActionVNext;
+
+interface FetchUserSubscriptionsRequestActionVNext extends Action {
+  type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_REQUEST_VNEXT;
+}
+
+interface FetchUserSubscriptionsSuccessActionVNext extends Action {
+  type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_SUCCESS_VNEXT;
+  payload: SubscriptionVNext[];
+}
+
+interface FetchUserSubscriptionsFailureActionVNext extends Action {
+  type: typeof actionTypes.FETCH_USER_SUBSCRIPTIONS_FAILURE_VNEXT;
+  payload: { error: BlackoutError };
 }
