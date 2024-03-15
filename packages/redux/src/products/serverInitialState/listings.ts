@@ -37,8 +37,9 @@ const serverInitialState: ProductListingsServerInitialState = ({
   const hash = generateProductListingHash(builtSlug, query, {
     isSet,
   });
+  const referencedListing = get(model, 'relatedCommerceData.referencedListing');
 
-  if (get(model, 'relatedCommerceData.referencedListing')) {
+  if (referencedListing && referencedListing.length) {
     const {
       breadCrumbs,
       config,
