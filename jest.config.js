@@ -26,8 +26,10 @@ module.exports = {
   snapshotSerializers: ['./tests/axiosErrorSerializer.mts'],
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
+  // Patterns to ignore
+  testPathIgnorePatterns: ['/node_modules/', 'dist', 'e2e'],
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: ['.+\\.test.[jt]s(x?)$', '!dist'],
+  testRegex: ['.+\\.test.[jt]s(x?)$'],
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
   // An array of glob patterns indicating a set of files for which coverage information should be collected
@@ -48,6 +50,7 @@ module.exports = {
     'packages/react/src/analytics/integrations/Forter/loadForterScriptForSiteId.ts',
     'packages/redux/src/entities/schemas',
     '__fixtures__',
+    'e2e',
   ],
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {

@@ -2,3 +2,5 @@ packages/*/docs
 node_modules
 dist
 **/__tests__/*.node.test.ts
+playwright
+coverage

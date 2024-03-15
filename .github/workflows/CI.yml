@@ -1,7 +1,7 @@
 name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the main and next branches
+# events but only for the main, next and v1 branches
 on:
   push:
     branches:
@@ -17,34 +17,122 @@ on:
       - '**/docs/**'
       - '**.md'
 
-# Setup concurrency to the ref (branch / tag) that triggered the workflow
 concurrency: ci-${{ github.ref }}
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "CI"
-  CI:
-    # The type of runner that the job will run on
+  # This job will run the minimal checks: linting, unit tests and type checking.
+  BasicChecks:
+    name: Basic Checks
+
     runs-on: ubuntu-latest
     # Do not run if the pull request is a draft
     if: ${{ !github.event.pull_request.draft && !contains(github.event.commits[0].message, '[skip build]') }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          scope: '@farfetch'
+          cache: 'yarn'
+          always-auth: true
+
+      - name: Install dependencies
+        run: yarn install --ignore-engines --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Unit Tests
+        run: yarn test --ci
+
+      - name: Type checking
+        run: yarn ci:types
+
+  # This job will run integration tests, possibly only the critical ones if the branch is master or next
+  IntegrationTests:
+    name: Integration Tests
+
+    runs-on: ubuntu-latest
+
+    env: 
+      PROXY_TARGET: ${{ secrets.E2E_TESTS_PROXY_TARGET }}
+      TEST_ACCOUNT_USERNAME: ${{ secrets.E2E_TESTS_ACCOUNT_USERNAME }}
+      TEST_ACCOUNT_PASSWORD: ${{ secrets.E2E_TESTS_ACCOUNT_PASSWORD }}
+
+    # Do not run if the pull request is a draft
+    if: ${{ !github.event.pull_request.draft && !contains(github.event.commits[0].message, '[skip build]') }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          scope: '@farfetch'
+          cache: 'yarn'
+          always-auth: true
+
+      - name: Install dependencies
+        run: yarn install --ignore-engines --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Update version and build packages
+        run: yarn ci:release:no-publish && yarn build && yarn build:copy-package-json
+
+      - name: Build test application
+        run: yarn test:e2e:build
+
+      - name: Setup host alias
+        run: |
+          sudo echo "127.0.0.1 development.blackandwhite-ff.com" | sudo tee -a /etc/hosts
+
+      - name: Start server
+        run: yarn test:e2e:server &
+      
+      - name: Sleep to wait for server to start
+        run: sleep 5
+
+      - name: Run critical tests
+        if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/next' }}
+        run: yarn test:e2e:run:critical
+
+      - name: Run all tests
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/next' }}
+        run: yarn test:e2e:run
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: tests/e2e/report
+          retention-days: 30
+
+  # This will make a release after the dependant checks are finished and
+  # it is in a branch that allows publishing (master and next).
+  Release: 
+    runs-on: ubuntu-latest
+
+    # Do not run if the pull request is a draft
+    if: ${{ !github.event.pull_request.draft && !contains(github.event.commits[0].message, '[skip build]') }}
+
+    needs: [BasicChecks, IntegrationTests]
+    steps:
       # Use fetch-depth: 0 so that all tags and branches are fetched
       # Use persist-credentials: false so that the make release step uses another personal access
       # token which has admin access and can push the version commit without the restriction
       # of creating a pull-request.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: '20'
           scope: '@farfetch'
           cache: 'yarn'
           always-auth: true
@@ -76,15 +164,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --ignore-engines --frozen-lockfile
-
-      - name: Lint
-        run: yarn lint
-
-      - name: Test
-        run: yarn test --ci
-
-      - name: Type checking
-        run: yarn ci:types
 
       # Only make a release if it is a run of the 'main' or 'next' branches
       # or a pull request that contains a 'chore: make release' message

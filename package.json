@@ -20,18 +20,24 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=14",
+    "node": ">=16",
     "npm": ">=6.4.1"
   },
   "scripts": {
     "build": "lerna run --concurrency 1 --stream --scope \"@farfetch/*\" build",
     "build:watch": "lerna run --parallel --concurrency=9999 --scope \"@farfetch/*\" build:watch",
+    "build:copy-package-json": "lerna run --parallel --concurrency=9999 --scope \"@farfetch/*\" build:copy-package-json",
     "clean": "scripts/clean.sh && yarn clean:build",
     "clean:build": "lerna run --concurrency 4 --no-bail --parallel --scope \"@farfetch/*\" clean",
     "lint": "npx eslint . --ext .js,.ts,.jsx,.tsx,.mts,.mjs,.cjs",
     "postinstall": "patch-package",
     "format": "prettier --write '**/*.{js,ts,jsx,tsx,mts,mjs,cjs,json,md}'",
     "test": "rimraf coverage && yarn clean:build && jest",
+    "test:e2e:build": "cross-env TS_NODE_PROJECT=\"tests/e2e/tsconfig.json\" node --loader ts-node/esm node_modules/webpack-cli/bin/cli.js --config tests/e2e/webpack.config.ts",
+    "test:e2e:server": "tests/e2e/scripts/start-local-server.sh",
+    "test:e2e:run": "playwright test --config=tests/e2e/playwright.config.ts",
+    "test:e2e:run:critical": "playwright test --config=tests/e2e/playwright.config.ts --project=critical-tests",
+    "test:e2e:run:non-critical": "playwright test --config=tests/e2e/playwright.config.ts --project=non-critical-tests",
     "prepare": "husky install",
     "yalc:publish": "scripts/yalc-publish.sh",
     "yalc:push": "scripts/yalc-push.sh",
@@ -39,6 +45,7 @@
     "ci:types:runtime": "lerna run --concurrency 4 --no-bail --parallel --scope \"@farfetch/*\" ci:types",
     "ci:types:tests": "tsc -p tsconfig.ci.tests.json",
     "ci:release": "scripts/release.sh",
+    "ci:release:no-publish": "yarn ci:release --no-publish",
     "dev:link": "lerna run --concurrency 1 --stream --scope \"@farfetch/*\" dev:link",
     "dev:unlink": "lerna exec --concurrency 1 --stream --scope \"@farfetch/*\" 'cd dist && yarn unlink'",
     "release:git": "scripts/release-git.sh"
@@ -50,6 +57,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
+    "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^13.3.0",
     "@types/invariant": "^2.2.34",
@@ -57,15 +65,16 @@
     "@types/jquery": "^3.5.16",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "18.14.2",
-    "@types/react": "^18.0.10",
+    "@types/react": "^18.2.10",
     "@types/redux-mock-store": "^1.0.3",
     "@types/url-parse": "^1.4.3",
     "@types/uuid": "3.4.0",
-    "@typescript-eslint/eslint-plugin": "5.54.0",
-    "@typescript-eslint/parser": "5.53.0",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
+    "@typescript-eslint/parser": "6.21.0",
     "babel-eslint": "^10.1.0",
     "browserslist-config-google": "^2.0.0",
     "core-js": "^3.6.5",
+    "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
@@ -88,6 +97,8 @@
     "jest-watch-typeahead": "^1.1.0",
     "lerna": "^5.0.0",
     "lint-staged": "^12.4.2",
+    "local-web-server": "^5.3.0",
+    "lodash-es": "^4.17.21",
     "msw": "^1.1.0",
     "patch-package": "^6.5.1",
     "postinstall-postinstall": "^2.1.0",
@@ -95,12 +106,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
-    "typescript": "5.0.2"
+    "ts-node": "^10.9.2",
+    "typescript": "5.3.3",
+    "webpack-cli": "^5.1.4"
   },
   "resolutions": {
     "@babel/core": "7.16.0",
     "@babel/preset-env": "7.16.4",
-    "@typescript-eslint/eslint-plugin": "5.54.0",
+    "@typescript-eslint/eslint-plugin": "6.21.0",
     "color-string": "^1.6.0",
     "css-what": "^5.0.1",
     "dot-prop": "^6.0.1",
@@ -126,6 +139,7 @@
     "*.{js,ts}": "eslint --fix"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "tests/e2e"
   ]
 }

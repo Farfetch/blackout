@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "paths": {
+      "@farfetch/blackout-analytics": ["../../packages/analytics/dist"],
+      "@farfetch/blackout-client": ["../../packages/client/dist"],
+      "@farfetch/blackout-react": ["../../packages/react/dist"],
+      "@farfetch/blackout-react/*": ["../../packages/react/dist/*"],
+      "@farfetch/blackout-redux": ["../../../packages/redux/dist"]
+    }
+  }
+}

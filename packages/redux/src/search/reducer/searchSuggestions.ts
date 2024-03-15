@@ -1,11 +1,8 @@
 import * as actionTypes from '../actionTypes.js';
 import type { AnyAction } from 'redux';
-import type {
-  SearchHash as Hash,
-  SearchSuggestionsState,
-} from '../types/index.js';
+import type { SearchSuggestionsState } from '../types/index.js';
 
-export const INITIAL_STATE: Record<Hash, SearchSuggestionsState> = {};
+export const INITIAL_STATE: SearchSuggestionsState = {};
 
 const searchSuggestionsReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {

@@ -23,13 +23,11 @@ describe('search suggestions redux reducer', () => {
 
   it('should handle unknown actions by returning the previous state', () => {
     const state = {
-      suggestions: {
-        [mockSearchSuggestionsHash]: {
-          error: null,
-          isLoading: true,
-          result: mockSearchSuggestionsResponse,
-          query,
-        },
+      [mockSearchSuggestionsHash]: {
+        error: null,
+        isLoading: true,
+        result: mockSearchSuggestionsResponse,
+        query,
       },
     };
 
