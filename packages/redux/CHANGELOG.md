@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.2](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.22.1...@farfetch/blackout-redux@1.22.2) (2024-03-18)
+
+### Bug Fixes
+
+- referencedListing serverInitialState Validation ([2e8ddc3](https://github.com/Farfetch/blackout/commit/2e8ddc3127a3a03d205b8aef3b94ca5cdd5f91a4))
+
 ## [1.22.1](https://github.com/Farfetch/blackout/compare/@farfetch/blackout-redux@1.22.0...@farfetch/blackout-redux@1.22.1) (2024-03-07)
 
 **Note:** Version bump only for package @farfetch/blackout-redux
