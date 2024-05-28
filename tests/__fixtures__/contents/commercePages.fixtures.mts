@@ -264,6 +264,11 @@ export const mockCommercePagesInitialState = {
       isLoading: {},
       result: {},
     },
+    seoFiles: {
+      error: {},
+      isLoading: {},
+      result: {},
+    },
   },
 };
 

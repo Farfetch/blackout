@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`feachSEOFiles action create should create the correct actions for when the fetch SEO Files procedure is successful: Get SEO Files payload 1`] = `
+Object {
+  "payload": Object {
+    "hash": "siteSEOFiles!1234",
+    "result": Object {
+      "entries": Array [
+        Object {
+          "content": "string",
+          "hostId": 1234,
+          "name": "siteSEOFiles.txt",
+          "path": "siteSEOFiles.txt",
+          "subfolderStructure": "/en-US",
+          "type": "Pages",
+          "uploadDate": "2023-05-11T15:56:05.712Z",
+        },
+      ],
+      "number": 0,
+      "totalItems": 1,
+      "totalPages": 1,
+    },
+  },
+  "type": "@farfetch/blackout-redux/FETCH_SEO_FILES_SUCCESS",
+}
+`;

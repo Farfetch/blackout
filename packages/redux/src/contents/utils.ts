@@ -12,6 +12,7 @@ import type {
   CommercePagesContent,
   ComponentType,
   ContentMetadata,
+  GetSEOFilesQuery,
   QueryCommercePages,
   QuerySearchContents,
 } from '@farfetch/blackout-client';
@@ -379,4 +380,22 @@ export const generateSEOPathname = (
   }
 
   return `${query.path}`;
+};
+
+/**
+ * Build a hash with query object received to identify the SEO Files.
+ *
+ * @example
+ * ```
+ * const pathname = generateSEOFilesHash({ name: 'siteSEOFiles', hostID: 1234});
+ * Result of siteSEOFiles!1234;
+ * ```
+ *
+ *
+ * @param query - Object with query parameters applied to search for SEO Files.
+ *
+ * @returns - Hash built to identify the SEO Files for a specific name and hostId.
+ */
+export const generateSEOFilesHash = (query: GetSEOFilesQuery) => {
+  return `${query.name}!${query.hostId}`;
 };

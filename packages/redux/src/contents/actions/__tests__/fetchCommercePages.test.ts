@@ -14,6 +14,7 @@ import { mockStore } from '../../../../tests/index.js';
 jest.mock('../../utils', () => ({
   generateContentHash: () => 'commerce_pages!woman',
   generateSEOPathname: jest.fn(),
+  generateSEOFilesHash: jest.fn(),
   applyCommercePagesRankingStrategy: jest.fn(
     () => mockCommercePages.entries[0],
   ),

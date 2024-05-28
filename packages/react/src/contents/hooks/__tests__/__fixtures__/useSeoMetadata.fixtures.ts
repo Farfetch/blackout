@@ -6,7 +6,12 @@ export const mockInitialState = {
     metadata: {
       error: {},
       isLoading: {},
-      result: null,
+      result: undefined,
+    },
+    seoFiles: {
+      error: {},
+      isLoading: {},
+      result: undefined,
     },
     searchResults: {},
     contentTypes: {

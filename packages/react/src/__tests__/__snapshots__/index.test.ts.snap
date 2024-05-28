@@ -412,6 +412,7 @@ Object {
   "useSearchDidYouMean": [Function],
   "useSearchIntents": [Function],
   "useSearchSuggestions": [Function],
+  "useSeoFiles": [Function],
   "useSeoMetadata": [Function],
   "useSocialLogin": [Function],
   "useSubscriptionPackages": [Function],
