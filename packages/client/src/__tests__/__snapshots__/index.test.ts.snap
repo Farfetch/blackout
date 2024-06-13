@@ -64,6 +64,11 @@ Object {
     "PreOwned": "PreOwned",
     "SubBrand": "SubBrand",
   },
+  "ChannelVNext": Object {
+    "Email": "Email",
+    "None": "None",
+    "Sms": "Sms",
+  },
   "ChargeDeclineCode": Object {
     "Default": "Default",
     "Generic": "Generic",
@@ -393,6 +398,11 @@ Object {
     "ContentType": "Content-Type",
     "FFCountry": "FF-Country",
     "FFCurrency": "FF-Currency",
+  },
+  "InvalidationsVNext": Object {
+    "InvCountryCodeLib": "InvCountryCodeLib",
+    "InvCulturalCodeApi": "InvCulturalCodeApi",
+    "InvCulturalCodeLib": "InvCulturalCodeLib",
   },
   "MerchantLocationWeekday": Object {
     "0": "Sunday",
@@ -1189,6 +1199,7 @@ Object {
   "getStaffMember": [Function],
   "getSubscriptionPackages": [Function],
   "getSubscriptions": [Function],
+  "getSubscriptionsVNext": [Function],
   "getTheme": [Function],
   "getTopCategories": [Function],
   "getTranslations": [Function],
