@@ -1,11 +1,8 @@
 import * as actionTypes from '../actionTypes.js';
 import type { AnyAction } from 'redux';
-import type {
-  SearchHash as Hash,
-  SearchDidYouMeanState,
-} from '../types/index.js';
+import type { SearchDidYouMeanState } from '../types/index.js';
 
-export const INITIAL_STATE: Record<Hash, SearchDidYouMeanState> = {};
+export const INITIAL_STATE: SearchDidYouMeanState = {};
 
 const searchDidYouMeanReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
@@ -35,7 +32,7 @@ const searchDidYouMeanReducer = (state = INITIAL_STATE, action: AnyAction) => {
         [action.meta.hash]: {
           result: action.payload.result,
           isLoading: false,
-          error: false,
+          error: null,
           query: action.meta.query,
         },
       };

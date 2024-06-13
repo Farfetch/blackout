@@ -10,14 +10,14 @@ junit.xml
 coverage/
 node_modules/
 
-**/package-lock.json
-**/dist
-**/docs
-**/.cache
-!/docs/contributing
-
-**/types/**/build
+package-lock.json
+dist/
+.cache/
 
 .eslintcache
 
 *.tsbuildinfo
+
+build/
+playwright/
+report/

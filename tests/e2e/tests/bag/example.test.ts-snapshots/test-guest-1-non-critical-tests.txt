@@ -1,0 +1,38 @@
+{
+  "isLoading": false,
+  "error": null,
+  "isFetched": true,
+  "actions": {
+    "fetch": "Function: <anonymous>",
+    "reset": "Function: <anonymous>",
+    "addItem": "Function: <anonymous>",
+    "updateItem": "Function: <anonymous>",
+    "removeItem": "Function: <anonymous>"
+  },
+  "data": {
+    "bagSummary": {
+      "currency": "EUR",
+      "currencySymbol": "€",
+      "grandTotal": 0,
+      "subTotalAmount": 0,
+      "subTotalAmountExclTaxes": 0,
+      "totalDiscount": 0,
+      "totalShippingFee": 0,
+      "totalTaxes": 0,
+      "totalProductPromotionDiscount": 0,
+      "formattedGrandTotal": "0,00 €",
+      "formattedSubTotalAmount": "0,00 €",
+      "formattedSubTotalAmountExclTaxes": "0,00 €",
+      "formattedTotalDiscount": "0,00 €",
+      "formattedTotalShippingFee": "FREE",
+      "formattedTotalTaxes": "0,00 €",
+      "formattedTotalProductPromotionDiscount": "0,00 €",
+      "taxType": "NONE"
+    },
+    "count": 0,
+    "items": {},
+    "promotionEvaluationId": null,
+    "promocodes": {},
+    "isEmpty": true
+  }
+}

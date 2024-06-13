@@ -27,6 +27,7 @@
     "@types/proper-url-join": "2.1.1",
     "dompurify": "^2.3.8",
     "proper-url-join": "^2.1.1",
+    "react": "^18.2.0",
     "react-player": "^2.10.1",
     "schema-dts": "^0.8.3",
     "url-parse": "^1.4.4",
@@ -39,7 +40,7 @@
     "@types/dompurify": "^2.3.3",
     "axios": "1.6.8",
     "lodash": "^4.17.21",
-    "react": "^18.0",
+    "react": "^18.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.1.0"
   },
